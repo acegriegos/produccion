@@ -17,8 +17,8 @@
 
 <div class="bdy pequeño">
 <div class="center head1 padding1"><h5>Usuarios</h5></div>
-    <div class="row">
-        <div class="col s12">
+    <div class="row" style="margin: 0px;">
+        <div class="col s12" style="padding: 0px">
             <ul class="tabs head2">
             <li class="tab menu2" id="m1"><a class="white-text" href="#">Mantenimiento</a></li>
             <li class="tab menu2" id="m2"><a class="white-text {if $smarty.session.BUSS eq 1} hide {/if}" href="#">Permisos</a></li>
@@ -27,7 +27,7 @@
             </ul>
         </div>
     </div>
-<div class="card card-content z-depth-5" id="cuerpo">
+<div class="card card-content z-depth-5" id="cuerpo" style="margin: 0px;">
 
 </div>
 

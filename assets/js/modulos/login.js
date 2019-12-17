@@ -126,7 +126,7 @@ function getIn(){
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
 
-    switch(p.length == 0){
+    switch(p[0].length){
         case 2:
             Materialize.toast(p[0][0], 4000, 'red');
             $('#pass').select();

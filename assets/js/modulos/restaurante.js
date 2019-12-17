@@ -2,10 +2,13 @@ var param = 6;
 var mesa;
 var ipbebidas = '';
 var ipcomidas = '';
+var tipo_cmd;
 
 $(function(){
     $("#ffacturas .zelda").data()['idmesa'] = 0;
     $("#ffacturas .zelda").data()['idbarra'] = 0;
+
+    tipo_cmd = getDatos('valor',809,'descr="PER_CMD"')[0][0][0];
 
     var impresoras = getDatos('ip,port,cola,tipo',288,'idsucursal = @@impresa',0,0,0);
     if(impresoras[0].length){
@@ -131,6 +134,7 @@ $(function(){
     });
 
     $(".mesa").click(function(){
+        
         var estado = parseInt($(this).attr('estado'));
         var id = $(this).attr('id').substr(1);
         $("#saveOrder").removeClass('add');

@@ -85,7 +85,7 @@ $(document).ready(function(){
 $(document).on("click",".mh",function(){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
-    $.post('login',{arreglo:{accion:14,id:vid,sucname:}})
+    $.post('login',{arreglo:{accion:14,id:vid,sucname:0}})
     .done(function(data){
         console.log(data)
     })

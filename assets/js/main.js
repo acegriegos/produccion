@@ -79,10 +79,29 @@ $(function(){
                 $("#modal-system").data('akey',datos[0][0]);
                 $("#modal-system").modal('open');
                 break;
+            case 5:
+                $("#modal-flujo").modal('open');
+                $("#gvalor").val('0.00');
+                $("#gcomentario").val('');
+                $("#tiporubro").prop('checked',false).change();
+                break; 
             default:
+            console.log('opcion no valida');
                 break
         }
     });
+
+    $("#tiporubro").change(function(){
+        var opciones = '';
+
+        if(!$(this).is(':checked')){
+            opciones = '<option value="1">Pago Proveedor</option> <option value="2">Depósito Banco</option> <option value="3">Vales</option>';
+        }else{
+            opciones = '<option value="4">Reintegro</option>';
+        }   
+
+        $("#listrubros").html(opciones);
+    })
 
     $("#numtrans").keyup(function(e){ //accesos
         var code = e.which || e.keyCode;
@@ -92,6 +111,13 @@ $(function(){
             window.open(ruta,'_self');
         }
     });
+
+    var moneda = getDatos('nombre,id',54,'id > 0',0,0);
+    var ht = '';
+    for (var i = 0; i < moneda[0].length; i++) {
+        ht += '<option value="'+moneda[0][i][1]+'">'+moneda[0][i][0]+'</option>';
+    }
+    $("#monrubros").html(ht)
 
     permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr,@@impresa'},1);

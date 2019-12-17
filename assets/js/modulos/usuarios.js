@@ -76,6 +76,22 @@ $(function(){
 				bLengthChange : false
 			});
 			$("select").material_select('update');
+			$("#agUsr").click(function(){
+				$("#titusr").html('Agregar Usuario')
+				$("#modal-usuarios").modal('open');
+				$("#aguser").removeClass('edit').addClass('add');
+				$("[type=text]").val('');
+				$("[type=time]").val('');
+				$("#vidTipoUsuario").val(0).material_select('update')
+				$("#vidsuc").val("").material_select('update')
+				Materialize.updateTextFields();
+			});
+
+			$(document).on('click','.load',function(){
+				$("#titusr").html('Editar Usuario')
+				$("#modal-usuarios").modal('open');
+				$("#aguser").removeClass('add').addClass('edit');
+			})
 		}else if (id == 2) {
 			// $("#data-table-usuariosPermisos").dataTable({
 			// 	bFilter :  false,

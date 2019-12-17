@@ -20,25 +20,10 @@
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
         <div class="row">
 
-          <div class="col s4" style="padding: 2px 2px; text-align: left;">
-            <font size="2.5">
-              <?php
-                if (trim($miscelaneos[2]) != ''){
-                  echo '<b>'.$miscelaneos[2].'</b><br>'.$miscelaneos[0].'<br>';
-                }else
-                  echo '<b>'.$miscelaneos[0].'</b>';
-              ?>
-              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
-              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
-              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
-              <b>Dirección:</b><br> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
-            </font>
-          </div>
-
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
 
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="50%">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="70%">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -47,8 +32,29 @@
             }?>
             
           </div>
+
+          <div class="col s4" style="padding:0px; text-align: left;">
+            <font size="2.5">
+              <?php
+                if (trim($miscelaneos[2]) != ''){
+                  echo '<b>'.$miscelaneos[2].'</b><br>'.$miscelaneos[0].'<br>';
+                }else
+                  echo '<b>'.$miscelaneos[0].'</b><br>';
+              ?>
+              <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
+              <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
+              <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
+              <table><tr><td style="padding: 0"><b>Provincia:</b> <?php echo $miscelaneos[12] ?></td> <td style="padding: 0"><b>Cantón:</b> <?php echo $miscelaneos[13] ?></td></tr> <tr> <td style="padding: 0"><b>Distrito:</b> <?php echo $miscelaneos[14]; ?></td> 
+              <?php if( $miscelaneos[15] != 'N/A'){ ?>
+              <td style="padding: 0"><b>Barrio:</b> <?php echo $miscelaneos[12]; ?></td>
+            <?php } ?>
+          </tr></table>
+              <b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[23]; ?></span><br>
+            </font>
+          </div>
+
           <div class="col s4">
-            <div style="float: right;">
+            <div style="float: right;" class="<?php if ($transaccion[0][32] == '') echo 'hide';  ?>">
             <?php 
                 $svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
                 echo $svg;        
@@ -70,7 +76,7 @@
                   <span id="clave" class="fe"><?php echo $transaccion[0][32]; ?></span><br>
                 <?php } ?>
                 
-                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> de <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+                <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <?php if($datos[1]) echo 'de '.$datos[1].$datos[31] ?> N°:</b>
                 <span id="numfact" class="fe"> <?php echo $datos[0]; ?> </span>
               </div>
 
@@ -100,7 +106,7 @@
           <div class="col s8 right">
             <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
               <div class=" card-content white-text imprimirSINBOR" style="padding: 2px 2px">
-                <p><b>Fecha:</b>
+                <p><b>Fecha y Hora:</b><br>
                   <span id="ffecha"><?php echo $datos[3].' '.$datos[37]; ?> </p></span>
               </div>
             </div>
@@ -134,7 +140,7 @@
               <th class="center-align sinborde" style="border-radius: 0px !important;">Código</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;">Descripción</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;">P.Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important;">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important;">Unidad</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;">Descuento</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;">IVA%</th>
               <th class="center-align sinborde" style="border-radius: 0px !important;">EXO%</th>
@@ -260,7 +266,7 @@
                 <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
               </footer>
 
-              <div class="center" style="width: 100%;">
+              <div class="center <?php if ($transaccion[0][32] == '') echo 'hide';  ?>" style="width: 100%;">
                <?php 
                   $svg = $generator->render_svg('ean-128', $transaccion[0][32],'');
                   echo $svg . '<br>';

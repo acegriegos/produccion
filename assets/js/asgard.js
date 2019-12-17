@@ -241,11 +241,9 @@ $(document).on("click",".detallefactura",function(){
             $("#btn-div").click(function(){
                 var vi = $(".divabono").attr('visible');
                 if (parseInt(vi) == 0) {
-                    alert(1)
                     $(".divabono").show();
                     $(".divabono").attr('visible',1);
                 }else{
-                    alert(2)
                     $(".divabono").hide();
                     $(".divabono").attr('visible',0);
                 }

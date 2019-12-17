@@ -246,7 +246,7 @@ $(document).on("click",".dettran",function(){
 	refbtn = '';
 	if(parseFloat(dtran[0][7]) != 0)
 		refbtn = '<a class="btn button-collapse detextra truncate white-text col s4" data-activates="extra" fila="'+dtran[0][7]+'" tabla="'+dtran[0][10]+'" style="max-width:30%; margin-left:1%;">VER RECIBO</a>';
-	$("#dtranD").html(dtran[0][2]+' <section>'+refbtn+' <a class="btn col s4" style="max-width:30%; margin-left:1%;">EDITAR</a> <a class="btn col s4" style="max-width:30%; margin-left:1%;">SALIR</a></section>');
+	$("#dtranD").html(dtran[0][2]+' <section>'+refbtn+' <a class="btn col s4 easiento" style="max-width:30%; margin-left:1%;">EDITAR</a> <a class="btn col s4 eout" style="max-width:30%; margin-left:1%;">SALIR</a></section>');
 	$("#dtranE").html(' '+dtran[0][9]);
 	$("#dtranU").html(' '+dtran[0][8]);
 
@@ -275,6 +275,14 @@ $(document).on("click",".dettran",function(){
         }
     );
     $(this).sideNav('show');
+});
+
+$(document).on("click",".eout",function(){
+	$("#transacciones").sideNav('hide')
+});
+
+$(document).on("click",".ecuenta",function(){
+	
 });
 
 $(document).on("click",".detextra",function(){

@@ -1,7 +1,14 @@
 <div class="panel-body pequeño" >
 
+  <div class="modal modal-fixed-footer grandemodal" id="modal-usuarios" style="height: 100%; width: 75%">
+  <div class="modal-header">
+    <ul class="tabs tabs-fixed-width head3 center">
+    <h5 class="center" id="titusr"></h5>
+  </ul>
+  </div>
+  <div class="modal-content " style="padding: 0px;">
   <form id="fusuarios">
-    <div class="row">
+    <div class="row" style="margin: 0px">
       <div class="input-field col s12  m6 l4" style="margin-bottom: 0 !important">
         <input id="vuser" type="text" class="validate">
         <input type="hidden" id="vid" value="0">
@@ -64,31 +71,36 @@
         <label for="clave">Repetir Contraseña</label>
       </div>
 
-      <div class="input-field col s12 m6 l2 pequeño <?php if ($_SESSION['BUSS'] == 1) echo 'hide'; ?>" style="margin-bottom: 20px;">
+      <div class="col s12 m6 l2 pequeño <?php if ($_SESSION['BUSS'] == 1) echo 'hide'; ?>" style="margin-bottom: 20px;">
         <label for="vlimite">Hora de Entrada</label>
-        <input id="vlimite" type="text" class="timepicker">
+        <input id="vlimite" type="time" class="">
       </div>
-      <div class="input-field col s12 m6 l2 pequeño <?php if ($_SESSION['BUSS'] == 1) echo 'hide'; ?>" style="margin-bottom: 20px;">
+      <div class=" col s12 m6 l2 pequeño <?php if ($_SESSION['BUSS'] == 1) echo 'hide'; ?>" style="margin-bottom: 20px;">
         <label for="vlimite2">Hora de Salida</label>
-        <input id="vlimite2" type="text" class="timepicker">
+        <input id="vlimite2" type="time" class="">
       </div>
     </div>
-
-
-    <a class="btn-floating waves-effect waves-green btn2 right add z-depth-3 <?php if($_SESSION['BUSS'] == 1) echo 'hide'; ?>" id="userSubmit" title="Agregar Usuario" modulo="usuario"><i class="mdi mdi-plus mdi-24px"></i></a>
 
     <br>
     <input type="hidden" id="vbcambioPSSW" value="0">
     <input type="hidden" id="vcodigo" value="">
   </form>
-
+</div>
+  <div class="modal-footer">
+    <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+    <button type="button" class="waves-effect waves-green btn-flat add" modulo="usuario" id="aguser">Guardar</button>
+  </div>
+</div>
 
 
 </div>
 <div class="row pequeño" >
   <div class="col s12 m12 l12 pequeño">
     <br>
+    <a class="btn-floating waves-effect waves-green btn2 right z-depth-3 <?php if($_SESSION['BUSS'] == 1) echo 'hide'; ?>" title="Agregar Usuario" id="agUsr" ><i class="mdi mdi-plus mdi-24px"></i></a>
+    <br>
     <div class="table-responsive pequeño">
+
       <table class="table bordered highlight pequeño responsive-table striped centered" id="data-table-usuarios" cellspacing="0" width="100%">
         <thead class="tab1">
           <th style="border: 0; border-radius: 0px !important;">Usuario</th>

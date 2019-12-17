@@ -127,16 +127,16 @@ if ($datos[0][32] != '') {
 
 $html .= '</head>'.
 '<body style="width: 100%"; > <center>'.
-'<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">'.
+'<table align="center" border="0" cellpadding="5" cellspacing="0" height="100%" width="100%">'.
 '<tr>'.
-'<td align="left" valign="top">';
+'<td align="left" valign="top" style="width:20%">';
 if ($miscelaneos[3]) {
   $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
-  $html .= '<img src="'.$logo.'" width="264" style="max-width:339px;" class="mcnImage">';
+  $html .= '<img src="'.$logo.'" style="max-width:339px;" >';
 }
 
 $html .= '</td>'.
-'<td valign="top"  style="font-size: 13px;font-family: Helvetica;text-align: left; color: #494949;">';
+'<td valign="top"  style="font-size: 13px;font-family: Helvetica;text-align: left; color: #494949; width:60%;margin-left:50px;" >';
 $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
    if ($miscelaneos[2] != ''){
       $html .= '<strong>'.$miscelaneos[2].'</strong><br>'.$miscelaneos[0].'<br>';
@@ -151,7 +151,20 @@ $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
   if( $miscelaneos[15] != 'N/A')
     $html .= '<td><b>Barrio:</b> '.$miscelaneos[12].'</td>';
   $html .= '</tr> </table> <br><strong>Dirección:</strong>'.
-$miscelaneos[23].'</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%"> <tr> ';
+$miscelaneos[23].'</td> <td style="width:20%">';
+$style = array(
+    'border' => false,
+    'vpadding' => 'auto',
+    'hpadding' => 'auto',
+    'fgcolor' => array(0,0,0),
+    'bgcolor' => false, //array(255,255,255)
+    'module_width' => 1, // width of a single module in points
+    'module_height' => 1 // height of a single module in points
+);
+$pdf->write2DBarcode($transaccion[0][32], 'QRCODE,L', 20, 30, 50, 50, $style, 'N');
+
+$html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+<tr><br>';
 
 
 if ($datos[0][32] != '') {
@@ -190,7 +203,7 @@ if($datos[0][53]){
   $dir = '<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;"> <tr><td>'.$prov.'</td> <td>'.$cant.'</td></tr> <tr> <td>'.$dist.'</td> <td>'.$barrio.'</td></tr> </table>';
 }
 
-  $cliente = '<b>'.$datos[0][30].':</b> <span>'.$datos[0][4].'</span>  <br><b>Cédula:</b> '.$datos[0][34].' <br> '.$dir;
+  $cliente = '<b>'.$datos[0][30].':</b> <span>'.$datos[0][4].'</span>  <br><b>Cédula:</b> '.$datos[0][34].' <br><b>Correo:</b> '.$datos[0][41].' <br>'.$dir;
 
   if($datos[0][54])
     $cliente .= '<b>Dirección:</b> '.$datos[0][54].' <br>';
@@ -210,14 +223,16 @@ $comentario = '<strong>Comentario:</strong><br>'.$datos[0][12].'<br>';
 }
 
 $plazo = '<div style="text-align: center; background-color:#3960A7;color:white;">'.
-'<strong>Fecha y Hora:</strong>&nbsp;<br>'.$datos[0][3].'<br></div><br><div style="text-align: center; background-color:#3960A7;color:white;">';
+'<strong>Fecha y Hora:</strong>&nbsp;<br>'.$datos[0][3].'<br></div>';
 if ($datos[0][32] != '') {
-if ($datos[0][2] === 'N/A') 
-    $plazo .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
-else
-     $plazo .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
+  $plazo .= '<br><div style="text-align: center; background-color:#3960A7;color:white;">';
+  if ($datos[0][2] === 'N/A') 
+      $plazo .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
+  else
+       $plazo .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
+
+     $plazo .= '</div>';
  }
-$plazo .= '</div>';
 
 $exon = '';
 if(strlen($datos[0][33])){
@@ -228,37 +243,37 @@ if(strlen($datos[0][33])){
   $exon .= '<span style="font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;"><br>Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',con fecha '.$fexo.'</span><br><br>';
 } 
 
-$html .= '<tr> <td width="70%">'.$clave.$tipo.$cliente.$orden.$comentario.$exon.'</td> <td width="10%"></td> <td width="20%">'.$plazo.'</td> </tr> </html>';
+$html .= '<tr> <td width="70%">'.$clave.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="10%"></td> <td width="20%">'.$plazo.'</td> </tr> </html>';
 
 
-$html .= '* Producto Exento <br>** I.V.I<br>'.
+$html .= '* Línea Exenta<br>'.
 '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%;">'.
 '<tr style="background-color:#3960A7;">'.
-'<td valign="top" style="font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="9%">'.
+'<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>Cantidad</strong>'.
 '</td>'.
-'<td valign="top" style="font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="10%">'.
+'<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="10%">'.
 '<strong>Código</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="26%">'.
+'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="26%">'.
 '<strong>Descripción</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="15%">'.
+'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>P. Unitario</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="5%">'.
-'<strong>Tipo</strong>'.
+'<td valign="top" style="<font-size: 12px;text-align: center;color: white;font-family: Helvetica;" align="center" width="6%">'.
+'<strong>Unidad</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="10%">'.
+'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>Descuento</strong>'.
 '</td>'.
-'<td valign="top"  style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="5%">'.
+'<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="5%">'.
 '<strong>IVA</strong>'.
 '</td>'.
-'<td valign="top"  style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="5%">'.
+'<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="5%">'.
 '<strong>EXO</strong>'.
 '</td>'.
-'<td valign="top"  style="<font-size: 12px;text-align: center; padding: 1%;color: white;font-family: Helvetica;" align="center" width="15%">'.
+'<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="15%">'.
 '<strong>Importe</strong>'.
 '</td>'.
 '</tr>'.
@@ -277,32 +292,32 @@ foreach ($datos as $obj) {
   else
     $exento += str_replace(',', '', $obj[22]);
   
-  $html .= '<tr><td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="9%">'.
+  $html .= '<tr><td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="9%">'.
 $obj[29].$obj[18].
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="10%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="10%">'.
 $obj[36].
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="26%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="26%">'.
 $obj[19].
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="15%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="15%">'.
 $obj[20].
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="6%">'.
 $obj[23].
 '</td>'.
 
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="10%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="9%">'.
 $obj[21].
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
 number_format($obj[47],0,'','').
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
 $obj[46].
 '</td>'.
-'<td valign="top"  style="padding: 0px 18px 9px;color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="14%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="14%">'.
 $obj[22].
 '</td>'.
 '</tr>';
