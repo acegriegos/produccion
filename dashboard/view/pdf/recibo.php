@@ -161,7 +161,7 @@ $style = array(
     'module_width' => 1, // width of a single module in points
     'module_height' => 1 // height of a single module in points
 );
-$pdf->write2DBarcode($transaccion[0][32], 'QRCODE,L', 20, 30, 50, 50, $style, 'N');
+//$pdf->write2DBarcode($transaccion[0][32], 'QRCODE,L', 20, 30, 50, 50, $style, 'N');
 
 $html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
 <tr><br>';
