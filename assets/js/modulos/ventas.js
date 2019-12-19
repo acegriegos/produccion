@@ -494,6 +494,8 @@ $(function(){
         case 104: //COMPRAS MANUALES
             if(config[21] == "1")
                 $("#cauto").prop('checked',false).change();
+            else
+                $("#ingclie").removeClass('hide');
             break;
         case 3: //ORDEN COMPRA
         case 4: //PROFORMA

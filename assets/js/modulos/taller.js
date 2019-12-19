@@ -12,6 +12,8 @@ $(function(){
         info: false
     });
 
+    cargarElementos();
+
     $("#ingBol").click(function(){
         $("#tit").html('INGRESAR BOLETA');;
         var cons = getDatos('lpad(consecutivo102+1,7,0)',252,'idsucursal=@@impresa');
@@ -29,6 +31,14 @@ $(function(){
         $("#listext").html('');
         $("#bext").data('index',0);
     });
+
+    $("#agElem").click(function(){
+        if(!validarTexto($("#addelem"),'Nombre Elemento',100))
+            return false;
+        insertar(509,'','null,"'+$("#addelem").val()+'"');
+        $("#modal-addElem").modal('close')
+        cargarElementos();
+    })
 
     $("#belem").change(function(){
         var index = parseInt($("#belem").data('index'))+1;
@@ -68,13 +78,37 @@ $(function(){
         }
 
         var comodin = parseInt($("#vidcliente").val()) == 0 ? $("._bcliente").val() : '';
-        var idbol = getDatos('',507,'1,0,@@usr,@@impresa,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'",""');
+        var idbol = getDatos('',507,'1,0,@@usr,@@impresa,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'",null');
         
         if(idbol['succed'] == 1){
-            Materialize.toast('Registro Ingresado Correctamente',4000,'green');
-            window.open('taller?accion=4&pv=1&id='+idbol[0][0][0]);
 
-            //arr('login','',506,'@@idsucursal,@@usr',0,1,'')
+            $.each($('.elemento'),function(ind,val){
+                insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid'));
+                insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid')+',"'+$(this).data('descr')+'"');
+                var iddet = getDatos('id',502,'idboleta='+idbol[0][0][0]+' and idelemento='+$(this).attr('vid'))[0][0][0];
+                if($(this).data('rep') != ''){
+                    $.each($(this).data('rep'),function(ind,val){
+                        insertar(503,'',iddet+','+ind+',"'+val+'"');
+                    });
+                }
+
+                if($(this).data('rot') != ''){
+                    $.each($(this).data('rot'),function(ind,val){
+                        insertar(504,'',iddet+','+ind+',"'+val+'"');
+                    });
+                }
+
+                if($(this).data('rub') != ''){
+                    $.each($(this).data('rub'),function(ind,val){
+                        console.log(val)
+                        //insertar(504,'',iddet+','+ind+',"'+val+'"');
+                    });
+                }
+            });
+
+            Materialize.toast('Registro Ingresado Correctamente',4000,'green');
+            window.open('taller?accion=4&pv=0&id='+idbol[0][0][0]);
+            $("#modal-boleta").modal('close');
         }else{
             Materialize.toast(idbol[0]['ERROR'],4000,'red');
         }
@@ -145,7 +179,7 @@ $(function(){
         var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) = "'+$(this).val()+'" and id > 0 and !bisproveedor and idsucursal = @@impresa',0,0,0);
         
         if (id[0].length){
-            $("#vidcliente").val(id[0]);
+            $("#vidcliente").val(id[0][0][0]);
             $("._bcliente").css('border-bottom','1px solid green');
         }
         else{
@@ -250,4 +284,16 @@ $(document).on('click','.elemento',function(){
     
     $("#listrub").html('');
     $("#brub").data('index',0);
-})
+});
+
+function cargarElementos(){
+    var elems = getDatos('id,upper(nombre)',509,'id > 0');
+    var opts = '<option value="0" disabled selected>SELECCIONE UNA OPCION</option>';
+
+    for (var i = 0; i < elems[0].length; i++) {
+        opts += '<option value="'+elems[0][i][0]+'">'+elems[0][i][1]+'</option>';
+    }
+
+    $("#belem").html(opts);
+    $("#belem").val(0)
+}

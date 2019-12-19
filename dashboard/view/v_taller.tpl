@@ -98,8 +98,7 @@
                               <div class="col s3 center" style="position: relative;">
                                 <a class="mdi mdi-16px mdi-plus text-green pbtn" id="ingElem" style="position: absolute;top:0px;right: 0px;border-radius: 100%;outline: none;padding-right: 15px; z-index: 180;cursor: pointer;max-width: 0px;" title="Agregar Elemento"></a>
                                 <select id="belem" class="browser-default">
-                                  <option value="0" disabled selected>SELECCIONE UNA OPCION</option>
-                                  <option value="1">BICICLETA</option>
+                                  
                                 </select>
                                 <ul id="listelm">
                                   
@@ -219,7 +218,7 @@
   </div>
 </div>
 
-      <div class="modal modal-fixed-footer" id="modal-addElem">
+      <div class="modal modal-fixed-footer" id="modal-addElem" style="height: 50%;">
           <div class="modal-header">
             <ul class="tabs tabs-fixed-width head3 center">
               <h5 class="center">Agregar Elemento</h5>

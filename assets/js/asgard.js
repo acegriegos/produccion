@@ -15,7 +15,7 @@ $(window).keydown(function(e){
     switch(code){
         case 113: //ABRIR MENU
             $(".menu-btn").click();
-            $("#numtrans").focus();
+            //$("#numtrans").focus();
             break;
         case 107: //CLICK EN AGREGAR
             $(".pluskey").click();
@@ -26,9 +26,24 @@ $(window).keydown(function(e){
         default:
             break;
     }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 73)// Prevent Ctrl+Shift+I .. +J(74)
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73)// Prevent Ctrl+Shift+I
+        return false; 
+
+    if (e.ctrlKey && e.keyCode == 83){// Prevent Ctrl+S
+        abrirFlujo();
         return false;        
-        
+    }
+
+    if (e.ctrlKey && e.keyCode == 73){// Prevent Ctrl+I
+        console.log('CTR I')
+        $("#iva").click()
+        return false;        
+    }
+
+    if (e.ctrlKey && e.keyCode == 79){// Prevent Ctrl+O
+        $("#lproductos").click()
+        return false;        
+    }
 });
 
 $(document).on('click','.alv',function(){
@@ -2305,6 +2320,51 @@ function getCookie(cname) {
   return "";
 }
 
+function validarNumero(elem,msj='Valor',zero=1,dec=2,min=0,max=0){
+    var valor = elem.val().replace(/,/g,'').trim(); 
+
+    if(isNaN(valor))
+        elem.val('0.00')
+
+    switch (zero) {
+        case 1: // x > 0
+            if(parseFloat(valor) <= 0){
+                elem.focus().select();
+                Materialize.toast(msj+' Debe ser Mayor a Cero',4000,'red');
+                return false;
+            }
+            break;
+        default:
+            break;
+    }
+
+    return true;
+}
+
+function validarTexto(elem,msj='Valor',mxln=0,mnln=0){
+    var valor = elem.val().trim(); 
+
+    if(!valor.length){
+        elem.focus().select();
+        Materialize.toast(msj+' Requerido',4000,'red');
+        return false;
+    }
+
+    if(mxln && valor.length > mxln){
+        elem.focus().select();
+        Materialize.toast(msj+' Superior a '+mxln+' Caractéres',4000,'red');
+        return false;
+    }
+
+    if(mnln && valor.length < mnln){
+        elem.focus().select();
+        Materialize.toast(msj+' Inferior a '+mxln+' Caractéres',4000,'red');
+        return false;
+    }
+
+    return true;
+}
+
 // addgeneral
 
 // autocomplete
@@ -2319,4 +2379,4 @@ function getCookie(cname) {
 //     }
 // }
 
-// Login Technologies S.A.
+// APSY CR

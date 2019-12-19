@@ -239,10 +239,9 @@ $(document).on("click","#docierre",function(){
 	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
 	// var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
-
 	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
 
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();

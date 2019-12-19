@@ -44,8 +44,9 @@
 	   			$smarty->display('ajax/taller/vehiculos.tpl');
 	   			break;
 	   		case 4:
+	   			$pagina = 1;
 	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
-	   			$transaccion = $kakaroto->kamehameha('',508,$_REQUEST['id']);
+	   			$transaccion = $kakaroto->kamehameha('',506,$_REQUEST['id']);
 	   			if($_REQUEST['pv'] == 0)
 	   				require_once 'view/ajax/taller/boleta.php';
 	   			else

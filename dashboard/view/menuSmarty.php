@@ -301,9 +301,10 @@
     </div>
   </div>
 
-  <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 50%; width: 50%">
+  <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 75%; width: 50%">
     <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo</div>
-    <div class="modal-content row">
+    <div class="modal-content">
+      <div class="row">
 
         <div class="col s6">
           <div class="switch" align="center">
@@ -323,6 +324,10 @@
           </select>
         </div>
 
+        </div>
+
+        <div class="row">
+
         <div class="col s6 input-field">
           <input type="text" id="gvalor" class="eder numeric" value="0.00">
           <label for="gvalor">Monto</label>  
@@ -334,14 +339,37 @@
           </select>
         </div>
 
+        </div>
+
+        <div class="row">
+
+        <div class="col s12 input-field hide gres po" tr="1">
+          <input type="text" id="gproveedor" value="">
+          <label for="gproveedor">Proveedor</label>  
+        </div>
+
+        <div class="col s12 input-field hide gres us" tr="2">
+          <input type="text" id="guser" value="">
+          <label for="guser">Usuario</label>  
+        </div>
+
+        <div class="col s12 input-field hide gres vo" tr="3">
+          <input type="text" id="gvoucher" value="">
+          <label for="gvoucher">Voucher</label>  
+        </div>
+
         <div class="col s12 input-field">
           <input type="text" id="gcomentario" value="">
           <label for="gcomentario">Comentario</label>  
         </div>
+
+        </div>
+
     </div>
     <div class="modal-footer">
+        <i class="mdi mdi-eye button-collapse pbtn" data-activates="gextra" title="Ver Entradas y Salidas" id="shflujo"></i>
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-        <a class="modal-action doflujo waves-effect waves-green btn-flat">Aceptar</a>
+        <a class="modal-action waves-effect waves-green btn-flat" id="doflujo">Aceptar</a>
     </div>
   </div>
 
@@ -354,3 +382,22 @@
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acptmsj">Aceptar</a>
   </div>
 </div>
+
+<ul id="gextra" class="side-nav side-nav-flujo" style="z-index: 2500 !important;">
+  <div class="card-header blue white-text center">
+    <h5 style="margin: 0px;">Lista Entradas y Salidas</h5>
+  </div>
+
+  <div class="row" style="margin: 0px;margin-top: 2%;">
+    <div class="col s4 input-field">
+      <label for="gldesde" class="active">Desde</label>
+      <input type="date" id="gldesde" class="browser-default" style="border: 0;">
+    </div>
+
+    <div class="col s4 input-field">
+      <label for="glhasta" class="active">Hasta</label>
+      <input type="date" id="glhasta" class="browser-default" style="border: 0;">
+    </div>
+  </div>
+
+</ul>
