@@ -1,7 +1,6 @@
 $(function(){
 
     /*CARGAR REFERENTE A TALLER.AJUSTES EL TIPO DE TALLER 1-CICLO, 2-CARROS, 3-COMPUTADORAS*/
-
     $("#data-table-boletas").dataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -12,6 +11,7 @@ $(function(){
         info: false
     });
 
+    cargarLista()
     cargarElementos();
 
     $("#ingBol").click(function(){
@@ -296,4 +296,20 @@ function cargarElementos(){
 
     $("#belem").html(opts);
     $("#belem").val(0)
+}
+
+function cargarLista(){
+
+    var tabla = $("#data-table-boletas").DataTable();
+    tabla.destroy();
+    arr('login',6,'',508,'@@impresa',0,1,$('#listaboletas'))
+    $("#data-table-boletas").DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
 }
