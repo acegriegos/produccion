@@ -350,6 +350,6 @@
 <div id="mreportes"></div>
 </div>
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.46"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.47"></script>
 </body>
 </html>
