@@ -10,7 +10,8 @@
 	   	$pg = $smarty->fetch('../view/menuSmarty.php');
 	    $sty = $smarty->fetch('../view/styles.php');
 		$scr = $smarty->fetch('../view/scripts.php');
-	
+		
+		$_REQUEST['is'] = isset($_REQUEST['is']) ? $_REQUEST['is'] : 0;
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));

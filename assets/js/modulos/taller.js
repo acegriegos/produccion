@@ -38,6 +38,18 @@ $(function(){
         insertar(509,'','null,"'+$("#addelem").val()+'"');
         $("#modal-addElem").modal('close')
         cargarElementos();
+    });
+
+    $("#brub").focus(function(){
+        if($(".elemento.active").length){
+            $("#modal-gprod").modal('open');
+            $("#gdescp").val('').attr('vid',0).attr('prec',0).focus();
+            $("#gcant").val(1)
+            $("#gprec").val('0.00')
+            $("#gtot").val('0.00')
+        }else {
+            $(this).blur();
+        }
     })
 
     $("#belem").change(function(){
@@ -100,7 +112,12 @@ $(function(){
 
                 if($(this).data('rub') != ''){
                     $.each($(this).data('rub'),function(ind,val){
-                        console.log(val)
+                        var idprod = val.id;
+                        var idserv = 0;
+                        if(parseInt(idprod) < 0){
+                            idserv = idprod;
+                            idprod = 0;
+                        }
                         //insertar(504,'',iddet+','+ind+',"'+val+'"');
                     });
                 }
@@ -154,6 +171,95 @@ $(function(){
         $("#modal-clientes").modal('open');
         $("#c-ced").focus();
         
+    });
+
+    $("#gdescp").on("keydown",function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var elm = $(this)
+
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            elm.autocomplete({
+                limit: 10,
+                data: arr('login',4,'',6,'"'+$(this).val()+'",1,@@impresa',0,0,0,1),
+                onAutocomplete: function(val){
+                    var e = jQuery.Event("keyup");
+                    e.which = 13;
+                    elm.trigger(e);
+                }
+            });
+            elm.siblings($(".autocomplete-content")).css('width','25%');
+        }
+    });
+
+    $("#gdescp").on("keyup",function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            $(this).blur()
+        }
+    });
+
+    $("#gdescp").blur(function(){
+        var cod = getDatos('',43,'"'+ $(this).val().replace(/"/g,"\\\"") +'",@@impresa,0,1,6');
+        
+        if(cod[0].length){
+            $(this).attr('vid',cod[0][0][0]);
+            $(this).attr('prec',cod[0][0][3]);
+            $("#gprec").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','))
+            $("#gtot").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','));
+
+            $("#gcant").focus().select();
+        }else{
+            $(this).attr('vid',0)
+            Materialize.toast('Producto no Existente',4000,'red');
+        }
+    });
+
+    $("#gcant").change(function(){
+        if(isNaN($(this).val()))
+            $(this).val(1)
+        var cnt = parseFloat($(this).val());
+        if(cnt < 0)
+            cnt = 1;
+
+        var valor = isNaN($("#gprec").val()) ? parseFloat($("#gdescp").attr('prec')) : parseFloat($("#gprec").val().replace(/,/g,''));
+        $("#gtot").val((valor*cnt).formatMoney('2','.',','));
+    });
+
+    $("#gcant").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            $("#gprec").focus().select();
+        }
+    });
+
+    $("#gprec").change(function(){
+        if(isNaN($(this).val()))
+            $(this).val($("#gdescp").attr('prec'))
+        var cnt = parseFloat($("#gcant").val());
+        var valor = parseFloat($(this).val())
+        $("#gtot").val((valor*cnt).formatMoney('2','.',','));
+    });
+
+    $("#gprec").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            $("#agbProd").click();
+        }
+    })
+
+    $("#agbProd").click(function(){
+
+        var index = parseInt($("#brub").data('index'))+1;
+        var ht = '<li id="p'+index+'" style="border-bottom: 1px solid black;">  <span> '+$("#gdescp").val()+' <-> x'+$("#gcant").val()+' ¢'+$("#gtot").val()+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+        $("#listrub").append(ht);
+        $("#brub").data('index',index);
+
+        $(".elemento.active").data('rub')[index] = {id:$("#gdescp").attr('vid'),nom:$("#gdescp").val(),prec:$("#gprec").val().replace(/,/g,''),cant:$("#gcant").val(),tot:$("#gtot").val()};
+
+        $("#modal-gprod").modal('close');
     });
 
     $("._bcliente").on("keydown",function(e){

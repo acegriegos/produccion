@@ -12,6 +12,7 @@
     <td>
         <i class="mdi mdi-pencil pbtn" title="Editar Boleta"></i>
         <i class="mdi mdi-settings pbtn" title="Procesar Boleta"></i>
+        <i class="mdi mdi-close pbtn red-text" title="Eliminar Boleta"></i>
     </td>
 
 </tr>

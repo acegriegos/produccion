@@ -17,9 +17,6 @@ $(window).keydown(function(e){
             $(".menu-btn").click();
             //$("#numtrans").focus();
             break;
-        case 107: //CLICK EN AGREGAR
-            $(".pluskey").click();
-            break;
         case 123: //F12
             return false;
             break;

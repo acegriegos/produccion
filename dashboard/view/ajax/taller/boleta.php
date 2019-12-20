@@ -7,11 +7,23 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.47">
     <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.47">
     <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.47">
+    <style type="text/css">
+        @media print {
+            *{
+                size: 9px;
+            }
+            #impresor{
+                height: auto !important;
+                width: 100% !important;
+                border: 0px !important;
+            }
 
+        }
+    </style>
 </head>
 <body style="font-size: 1.1em;">
   <div class="row white">
-    <div class="col s2 center">
+    <div class="col s2 center hideonprint">
         <button class="print" style="cursor: pointer;padding: 10px;
         font-weight: 600;
         font-size: 20px;
@@ -20,7 +32,7 @@
         border-radius: 6px;
         border: 2px solid #0016b0">Imprimir</button>   
     </div>
-    <div class="col s8 row" style="border: 1px solid #e2e2e2; height: 100vh">
+    <div class="col s8 row" style="border: 1px solid #e2e2e2; height: 100vh" id="impresor">
       <div class="col s4">
           <?php if ($miscelaneos[3]) {
               echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="70%">';
@@ -126,8 +138,8 @@
 
       </div>
     </div>
-    <div class="col s2">
-        <section class="hideonprint">
+    <div class="col s2 hideonprint">
+        <section>
             <div>
               <br>
               <div id="correosclie">
@@ -157,5 +169,10 @@
 <script src="../assets/js/jquery.js?v=10.2.0.47"></script>
 <script src="../assets/js/materialize.js?v=10.2.0.47"></script>
 <script src="../assets/js/asgard.js?v=10.2.0.47"></script>
+<script type="text/javascript">
+    $(".print").click(function(){
+        window.print();
+    });
+</script>
 </body>
 </html>

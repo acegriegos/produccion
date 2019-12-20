@@ -31,7 +31,7 @@
                      
                     </div>
                     <div class="col s2 m6 ">
-                      <a id="ingBol" class="der btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Boleta de Ingreso" href="#modal-boleta"><i class="mdi mdi-plus mdi-24px "></i></a>
+                      <a id="ingBol" class="der btn-floating btn2 tooltipped modal-trigger z-depth-2 pluskey" data-position="left" data-tooltip="Boleta de Ingreso" href="#modal-boleta"><i class="mdi mdi-plus mdi-24px "></i></a>
                     </div>
                   </div>
                 
@@ -42,7 +42,7 @@
                   <th class="sinborde white-text tab1">Cliente</th>
                   <th class="sinborde white-text tab1">Teléfonos</th>
                   <th class="sinborde white-text tab1">Fecha</th>
-                  <th class="sinborde white-text tab1">Duración</th>
+                  <th class="sinborde white-text tab1">Duración Días</th>
                   <th class="sinborde white-text tab1">Acciones</th>
                 </tr>
               </thead>
@@ -235,6 +235,40 @@
                 <button type="button" class="waves-effect waves-green btn-flat" id="agElem" >Guardar</button>
             </div>
         </div>
+
+        <div class="modal modal-fixed-footer" id="modal-gprod" style="height: 80%;">
+          <div class="modal-header">
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center">Agregar Producto o Servicio</h5>
+            </ul>
+            </div>
+            <div class="modal-content row" style="padding: 0px;margin:0px;">
+                <div class="input-field col s5">
+                  <input type="text" id="gdescp" vid="0" placeholder="Código o Artículo" autocomplete="new-password" class="autocomplete">
+                  <label for="gdescp" style="font-size: 20px" class="active center"><b>Artículo</b></label>
+                </div>
+
+                <div class="input-field col s1">
+                  <input type="number" id="gcant" class="eder" value="1">
+                  <label for="gcant" style="font-size: 20px" class="active center"><b>Cant.</b></label>
+                </div>
+
+                <div class="input-field col s3">
+                  <input type="text" id="gprec" value="0.00" class="eder numeric">
+                  <label for="gprec" style="font-size: 20px" class="active center"><b>Precio</b></label>
+                </div>
+
+                <div class="input-field col s3">
+                  <input type="text" id="gtot" value="0.00" class="eder" readonly>
+                  <label for="gtot" style="font-size: 20px" class="active center"><b>Total</b></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+                <button type="button" class="waves-effect waves-green btn-flat" id="agbProd" >Guardar</button>
+            </div>
+        </div>
+
         {$SCR}
         <script src="../assets/js/modulos/taller.js?v=10.2.0.47-1"></script>
     </body>

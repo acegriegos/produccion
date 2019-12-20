@@ -1143,7 +1143,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         var comision = $("#valores").data('elemento')['comision'];
         var tmpidmoneda = $("#valores").data('elemento')['moneda'];
         var tmpdivisa = $("#valores").data('elemento')['divisa'];
-        var vtimv = $("#valores").data('elemento')['timv'];
+        var vtimv = $("#vimpiva option:selected").val() != undefined ? $("#vimpiva option:selected").val() : $("#valores").data('elemento')['timv'];
     }else{
         var rpago = 'retpago=10';
         var inventariado = 0;
@@ -1926,7 +1926,7 @@ function endDetail(vid,vacc,vmodulo) {
                             else
                                 insertar(105,'','null,1,'+idp+','+matriz[i][3]+','+matriz[i][2]+',0,'+matriz[i][0]);
                        }else{ //PRECIO PUBLICO 
-                            actualizar(11,'costo = '+$(this).data('triforce')['vprecio']+',ganancia = '+matriz[0][2]+',venta = '+matriz[0][0],'id = '+idp);
+                            actualizar(11,'costo = '+$(this).data('triforce')['vprecio']+',ganancia = '+matriz[0][2]+',venta = '+matriz[0][0]+',exoneracion='+$(this).data('triforce')['exoneracion']+',timv='+$(this).data('triforce')['timv'],'id = '+idp);
                        }
                    }
                 });
