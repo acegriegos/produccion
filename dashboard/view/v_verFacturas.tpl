@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.2.0.48">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.2.0.49">
   </head>
   <body>
   
@@ -156,6 +156,6 @@
 
     {$SCR}
     
-    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.48"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.49"></script>
   </body>
 </html>
