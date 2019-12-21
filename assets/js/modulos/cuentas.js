@@ -21,6 +21,8 @@ $(function(){
 			gtipo = 1;
 			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
 			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
+			console.log(arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx")))
+			console.log(1+',0,0,0,2,@@impresa')
 			$("#gtit").html("Cuentas por Cobrar");
 			$("#shabonos").attr('href','vistanotaspagos');
 			break;

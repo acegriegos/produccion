@@ -78,24 +78,26 @@
       Abonos Clientes: <span style="float: right;"><?php echo $cierre[4]; ?> </span> <br>
       Notas Crédito Cliente:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
       Notas Débito Cliente:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
+      Abonos Proveedores: <span style="float: right;"><?php echo $cierre[27]; ?> </span> <br>
     </div>
     <hr>
     <div>
-      Ventas en Efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
+      <b>Ventas en Efectivo:</b> <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
       Ventas con Tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
       Ventas en Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br>
       Ventas con Depósito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br>
       Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
       IVA:<span style="float: right;"><?php echo $cierre[23]; ?></span><br>
-      <b>Ventas Totales:</b> <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
+      Ventas Totales: <span style="float: right;"><?php echo $cierre[21]; ?></span><br>
       <br>
-      <b>Entradas de Efectivo: </b> <span style="float: right;"><?php echo 0; ?></span><br>
-      <b>Salidas de Efectivo: </b> <span style="float: right;"><?php echo 0; ?></span><br>
-      <b>Abonos Proveedores: </b> <span style="float: right;"><?php echo 0; ?></span><br>
+      <b>Entradas de Efectivo: </b> <span style="float: right;"><?php echo $cierre[25]; ?></span><br>
+      <b>Salidas de Efectivo: </b> <span style="float: right;"><?php echo $cierre[26]; ?></span><br>
+      <b>Abonos Liquidos Cliente: </b> <span style="float: right;"><?php echo $cierre[28]; ?></span><br>
+      <b>Abonos Liquidos Proveedores: </b> <span style="float: right;"><?php echo $cierre[29]; ?></span><br>
       <br>
       Caja Inicial:<span style="float: right;"><?php echo $cierre[20]; ?></span><br>
       Caja Reportada: <span style="float: right;"><?php echo $cierre[18]; ?></span><br>
-      Caja del Sistema: <span style="float: right;"><?php echo 0; ?></span><br>
+      Caja del Sistema: <span style="float: right;"><?php echo number_format(str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[28])+str_replace(',', '', $cierre[25])-str_replace(',', '', $cierre[26])-str_replace(',', '', $cierre[29]),2); ?></span><br>
     </div>
       <div class="col s6 m6 l4"  style="padding: 0;display: none">
           <div class="col s12 m12"  style="padding: 0">

@@ -18,7 +18,7 @@ $(function(){
         $("#tit").html('INGRESAR BOLETA');;
         var cons = getDatos('lpad(consecutivo102+1,7,0)',252,'idsucursal=@@impresa');
         $("#cons").html(cons[0][0][0]);
-        $("._bcliente").val('').focus();
+        $("._bcliente").val('').attr('readonly',false).focus();
         $("#vidcliente").val(0);
         $("#vcomentario").val('');
 
@@ -118,13 +118,14 @@ $(function(){
                             idserv = idprod;
                             idprod = 0;
                         }
-                        //insertar(504,'',iddet+','+ind+',"'+val+'"');
+                        insertar(505,'',iddet+','+idprod+','+idserv+','+val.cant+','+val.prec.replace(/,/g,'')+','+ind);
                     });
                 }
             });
 
             Materialize.toast('Registro Ingresado Correctamente',4000,'green');
             window.open('taller?accion=4&pv=0&id='+idbol[0][0][0]);
+            cargarLista();
             $("#modal-boleta").modal('close');
         }else{
             Materialize.toast(idbol[0]['ERROR'],4000,'red');
@@ -202,18 +203,20 @@ $(function(){
     });
 
     $("#gdescp").blur(function(){
-        var cod = getDatos('',43,'"'+ $(this).val().replace(/"/g,"\\\"") +'",@@impresa,0,1,6');
-        
-        if(cod[0].length){
-            $(this).attr('vid',cod[0][0][0]);
-            $(this).attr('prec',cod[0][0][3]);
-            $("#gprec").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','))
-            $("#gtot").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','));
+        if($(this).val().trim().length){
+            var cod = getDatos('',43,'"'+ $(this).val().replace(/"/g,"\\\"") +'",@@impresa,0,1,6');
+            
+            if(cod[0].length){
+                $(this).attr('vid',cod[0][0][0]);
+                $(this).attr('prec',cod[0][0][3]);
+                $("#gprec").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','))
+                $("#gtot").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','));
 
-            $("#gcant").focus().select();
-        }else{
-            $(this).attr('vid',0)
-            Materialize.toast('Producto no Existente',4000,'red');
+                $("#gcant").focus().select();
+            }else{
+                $(this).attr('vid',0)
+                Materialize.toast('Producto no Existente',4000,'red');
+            }
         }
     });
 
@@ -362,6 +365,44 @@ $(document).on('click','.delrep',function(){
     $(this).parent().remove();
 });
 
+$(document).on('click','.eboleta',function(){
+    var boleta = getDatos('id,lpad(consecutivo,7,0),(select nombre from clientes where id =  taller.boletas.idcliente),observacion,idcliente',501,'id = '+$(this).attr('vid'));
+    
+    $("#cons").html(boleta[0][0][1]);
+    $("._bcliente").val(boleta[0][0][2]).attr('readonly',false).focus();
+    $("[for=_bcliente]").addClass('active');
+    $("#vidcliente").val(boleta[0][0][4]);
+    $("#vcomentario").val(boleta[0][0][3]);
+
+    $("#listelm").html('');
+    var lelemtos = getDatos('id,idelemento,(select nombre from taller.elementos where id = idelemento),descripcion',502,'idboleta='+boleta[0][0][0]);
+        
+    for (var i = 0; i < lelemtos[0].length; i++) {
+         var ht = '<li id="l'+i+'">  <a href="#" vid="'+lelemtos[0][0][1]+'" class="truncate elemento col s9" style="text-align: left;padding:0px;">'+lelemtos[0][0][2]+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
+        $("#listelm").append(ht);
+        $("#l"+i+" .elemento").data('descr',lelemtos[0][0][3]);
+        $("#l"+i+" .elemento").data('rep',{});
+        $("#l"+i+" .elemento").data('rot',{});
+        $("#l"+i+" .elemento").data('rub',{});
+
+        var lrepa = getDatos('indice,valor',503,'idboleta = '+boleta[0][0][0]);
+        $.each(lrepa,function(ind,val){
+            var ht = '<li id="r'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listrep").append(ht);
+            $("#brep").data('index',ind);
+        })
+    }
+    $("#belem").data('index',i);
+
+    $("#listrep").html('');
+    $("#brep").data('index',0);
+    $("#listrub").html('');
+    $("#brub").data('index',0);
+    $("#listext").html('');
+    $("#bext").data('index',0);
+    $("#modal-boleta").modal('open');
+});
+
 $(document).on('click','.elemento',function(){
     $(".elemento").removeClass('active');
     $(this).addClass('active');
@@ -418,4 +459,10 @@ function cargarLista(){
         bPaginate: false,
         info: false
     });
+}
+
+
+function deleterow(elm){
+    console.log(getDatos('',507,'3,'+elm.attr('id').substr(1)+',0,0,0,"","",null'));
+    elm.parent().parent().remove();
 }

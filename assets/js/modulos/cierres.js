@@ -124,7 +124,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = '+guser+'',0,0)[0];
+		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = '+guser+' order by id desc',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {

@@ -17,6 +17,10 @@
                 width: 100% !important;
                 border: 0px !important;
             }
+            .row{
+                margin: 0px;
+                padding: 0px;
+            }
 
         }
     </style>
@@ -63,7 +67,7 @@
             </font>
 
       </div>
-      <div class="col s4">
+      <div class="col s4" style="margin: 0px">
         <span style="float: right;"><b>Boleta de Ingreso #</b><span class="red-text"><?php echo $transaccion[0][0]; ?></span> <br> Fecha de Ingreso <span><?php echo $transaccion[0][5]; ?></span> </span>
       </div>
 
@@ -72,15 +76,15 @@
           <label><b>Datos Cliente</b></label>
           <div class="row">
               <div class="col s6">
-                  Nombre: <?php echo $transaccion[0][1]; ?>
+                  Nombre:<br> <?php echo $transaccion[0][1]; ?>
               </div>
 
               <div class="col s3">
-                  Tel.: <?php echo $transaccion[0][2]; ?>
+                  Tel.:<br> <?php echo $transaccion[0][2]; ?>
               </div>
 
               <div class="col s3">
-                  Email: <?php echo $transaccion[0][3]; ?>
+                  Email:<br> <?php echo $transaccion[0][3]; ?>
               </div>
           </div>
 

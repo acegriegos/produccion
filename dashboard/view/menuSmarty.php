@@ -368,7 +368,7 @@
 
     </div>
     <div class="modal-footer">
-        <i class="mdi mdi-eye button-collapse pbtn" data-activates="gextra" title="Ver Entradas y Salidas" id="shflujo"></i>
+        <i class="mdi mdi-eye button-collapse pbtn hide" data-activates="gextra" title="Ver Entradas y Salidas" id="shflujo"></i>
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
         <a class="modal-action waves-effect waves-green btn-flat" id="doflujo">Aceptar</a>
     </div>

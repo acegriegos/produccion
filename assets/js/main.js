@@ -154,7 +154,8 @@ $(function(){
 
         var tp = $("#tiporubro").is(":checked") ? 1 : 0;
         var id = getDatos('',317,'1,0,@@usr,@@impresa,'+idfila+','+idtabla+',"'+comodin+'",'+tp+','+$("#listrubros option:selected").val()+','+$("#gvalor").val().replace(/,/g,'')+',"'+$("#gcomentario").val()+'",'+$('#monrubros option:selected').val()+','+$('#monrubros option:selected').attr('rv'));
-        console.log(id)
+        Materialize.toast('Registro Ingresado Correctamente',4000,'green');
+        $("#modal-flujo").modal('close')
 
     });
 

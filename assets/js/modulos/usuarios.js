@@ -508,7 +508,6 @@ pg += '/>'+
 				
 				break;
 			default:
-				alert(1)
 				break;
 		}
 	}
