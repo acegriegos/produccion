@@ -413,7 +413,7 @@ function cargarCompras(){
         var code = e.which || e.keyCode;
         if (code == 13){
             $("#totp").val((parseFloat($("#precp").val().replace(/,/g,''))*(1-(parseFloat($(this).val())/100))*parseFloat($("#cantp").val())).formatMoney(2,'.',','))
-            if($(".ven2").length){
+            if($(".ven2:visible").length){
                 cargarUtilidad();
                 $(".ven2:first").focus();    
             }else{
