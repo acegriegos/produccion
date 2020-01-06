@@ -4,9 +4,9 @@
     <title>Boleta de Ingreso</title>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.49">
-    <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.49">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.49">
+    <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.50">
+    <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.50">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.50">
     <style type="text/css">
         @media print {
             *{
@@ -170,9 +170,9 @@
     </div>
   </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.49"></script>
-<script src="../assets/js/materialize.js?v=10.2.0.49"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.49"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.50"></script>
+<script src="../assets/js/materialize.js?v=10.2.0.50"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.50"></script>
 <script type="text/javascript">
     $(".print").click(function(){
         window.print();
