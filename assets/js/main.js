@@ -79,8 +79,126 @@ $(function(){
                 $("#modal-system").data('akey',datos[0][0]);
                 $("#modal-system").modal('open');
                 break;
+            case 5:
+                abrirFlujo()
+                break; 
             default:
+            console.log('opcion no valida');
                 break
+        }
+    });
+
+    $("#gproveedor").on("keydown",function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var elm = $(this)
+
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+            elm.autocomplete({
+                limit: 10,
+                data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 and bisproveedor=1 and concat(nombre," ",cedula) like \"%'+elm.val()+'%\" and idsucursal = @@impresa limit 10',0,0,0,1),
+                onAutocomplete: function(val){
+                    $("#gproveedor").blur();
+                }
+            });
+            elm.siblings($(".autocomplete-content")).css('width','25%').css('margin-top','5px');
+        }
+    });
+
+    $("#gproveedor").blur(function(){
+        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) = "'+$(this).val()+'" and id > 0 and bisproveedor=1 and idsucursal = @@impresa',0,0,0);
+        
+        if (id[0].length){
+            $("#gproveedor").data('id',id[0][0][0]);
+            $("#gproveedor").css('border-bottom','1px solid green');
+        }
+        else{
+            $("#gproveedor").data('id',0);
+            $("#gproveedor").css('border-bottom','1px solid red');
+        }
+    });
+
+    $("#doflujo").click(function(){
+        var idfila = 0;
+        var idtabla = 0;
+        var comodin = '';
+
+        if(!validarNumero($("#gvalor")))
+            return false;
+        if($(".gres:visible").length){
+            switch (parseFloat($(".gres:visible").attr('tr'))) {
+                case 1:
+                    if(parseFloat($("#gproveedor").data('id')) == 0){
+                        Materialize.toast('Proveedor Requerido',4000,'red');
+                        $("#gproveedor").focus().select();
+                        return false;
+                    }
+                    break;
+                case 2:
+                    if(!validarTexto($("#guser"))){
+                        return false;
+                    }
+                    break;
+                case 3:
+                    if(!validarTexto($("#gvoucher"))){
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        if(!validarTexto($("#gcomentario"),'Comentario',100))
+            return false;
+
+        var tp = $("#tiporubro").is(":checked") ? 1 : 0;
+        var id = getDatos('',317,'1,0,@@usr,@@impresa,'+idfila+','+idtabla+',"'+comodin+'",'+tp+','+$("#listrubros option:selected").val()+','+$("#gvalor").val().replace(/,/g,'')+',"'+$("#gcomentario").val()+'",'+$('#monrubros option:selected').val()+','+$('#monrubros option:selected').attr('rv'));
+        Materialize.toast('Registro Ingresado Correctamente',4000,'green');
+        $("#modal-flujo").modal('close')
+
+    });
+
+    $(document).on("click","#shflujo",function(){
+        $(this).sideNav({
+                menuWidth: 700,
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+            }
+        );
+        //$("#gextra").html(123)
+        $(this).sideNav('show');
+    })
+
+    $("#tiporubro").change(function(){
+        var opciones = '';
+        $(".gres").addClass('hide');
+
+        if(!$(this).is(':checked')){
+            opciones = '<option value="1" selected="">Pago Proveedor</option> <option value="2">Depósito Banco</option> <option value="3">Vales</option> <option value="5">Otros</option>';
+        }else{
+            opciones = '<option value="4">Reintegro</option>';
+        }   
+
+        $("#listrubros").html(opciones).change();
+        $("#gvalor").focus().select();
+    })
+
+    $("#listrubros").change(function(){
+        $(".gres").addClass('hide');
+        
+        switch (parseInt($(this).val())) {
+            case 1:
+                $(".po").removeClass('hide');
+                break;
+            case 2:
+                $(".vo").removeClass('hide');
+                break;
+            case 3:
+                $(".us").removeClass('hide');
+                break;
+            default:
+                break;
         }
     });
 
@@ -92,6 +210,13 @@ $(function(){
             window.open(ruta,'_self');
         }
     });
+
+    var moneda = getDatos('nombre,id,valor+suma',54,'id > 0',0,0);
+    var ht = '';
+    for (var i = 0; i < moneda[0].length; i++) {
+        ht += '<option value="'+moneda[0][i][1]+'" rv="'+moneda[0][i][2]+'">'+moneda[0][i][0]+'</option>';
+    }
+    $("#monrubros").html(ht)
 
     permisos(1,50);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr,@@impresa'},1);
@@ -221,4 +346,16 @@ function generarSSuc(){
     $(".ssuc").append(sucursales);
     $(".ssuc").val(valor);
     $(".ssuc").material_select();
+}
+
+
+function abrirFlujo(){
+    $("#modal-flujo").modal('open');
+    $("#gvalor").val('0.00').focus().select();
+    $("#gcomentario").val('');
+    $("#gproveedor").val('');
+    $("#gproveedor").data('id',0);
+    $("#guser").val('');
+    $("#gvoucher").val('')
+    $("#tiporubro").prop('checked',false).change();
 }

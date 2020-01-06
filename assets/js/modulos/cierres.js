@@ -124,7 +124,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = '+guser+'',0,0)[0];
+		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = '+guser+' order by id desc',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {
@@ -239,10 +239,9 @@ $(document).on("click","#docierre",function(){
 	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
 	// var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
-
 	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
 
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();

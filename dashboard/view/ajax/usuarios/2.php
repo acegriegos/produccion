@@ -1,5 +1,5 @@
 <div class="card pequeño">
-   <div class="row  pequeño">
+   <div class="row  pequeño" style="margin-bottom: 0px">
     <div class="col s12 m6 l6 pequeño">
         <label for="selectUser" >Elegir Usuario a Desplegar</label>
         
@@ -23,7 +23,6 @@
     </div>
 
 </div>
-<br>
 <div class="row pequeño ">
     <div class="col s12 m12 l12 pequeño ">
       <table class="display table pequeño bordered highlight responsive-table striped centered" id="data-table-usuariosPermisos">

@@ -1,488 +1,547 @@
-$(document).ready(function(){
-    $("#t1").click();
-    $('.modal').modal();
-    $("input#descfalla, textarea#danos, textarea#accesorios").characterCounter();
-});
+$(function(){
 
-$(document).on("click",".menu",function(){
-    var id = $(this).attr('id').substr(1);
-    $(".menu").removeClass('active');
-    $(this).addClass('active');
-    switch(parseInt(id)) {
-        case 1:
-            var p = mantenimiento('taller',1,'');
-            $("#mtaller").html(p);
-            $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vdanos : '',vaccesorios : '',vkm : 0,vgasolina : 0,vobservaciones : 0,vidmecanico : 0,vidusuario : 0,vidsucursal : ''});
-            $("select").material_select();
-            break;
-        case 2:
-            var p = mantenimiento('taller',2,'');
-            $("#mtaller").html(p);
-            $("#data-table-boletas").DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
+    /*CARGAR REFERENTE A TALLER.AJUSTES EL TIPO DE TALLER 1-CICLO, 2-CARROS, 3-COMPUTADORAS*/
+    $("#data-table-boletas").dataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
+
+    cargarLista()
+    cargarElementos();
+
+    $("#ingBol").click(function(){
+        $("#tit").html('INGRESAR BOLETA');;
+        var cons = getDatos('lpad(consecutivo102+1,7,0)',252,'idsucursal=@@impresa');
+        $("#cons").html(cons[0][0][0]);
+        $("._bcliente").val('').attr('readonly',false).focus();
+        $("#vidcliente").val(0);
+        $("#vcomentario").val('');
+
+        $("#listelm").html('')
+        $("#belem").data('index',0);
+        $("#listrep").html('');
+        $("#brep").data('index',0);
+        $("#listrub").html('');
+        $("#brub").data('index',0);
+        $("#listext").html('');
+        $("#bext").data('index',0);
+
+        $("#addBol").attr('vid',0)
+        $("#addBol").attr('accion','1')
+    });
+
+    $("#agElem").click(function(){
+        if(!validarTexto($("#addelem"),'Nombre Elemento',100))
+            return false;
+        insertar(509,'','null,"'+$("#addelem").val()+'"');
+        $("#modal-addElem").modal('close')
+        cargarElementos();
+    });
+
+    $("#brub").focus(function(){
+        if($(".elemento.active").length){
+            $("#modal-gprod").modal('open');
+            $("#gdescp").val('').attr('vid',0).attr('prec',0).focus();
+            $("#gcant").val(1)
+            $("#gprec").val('0.00')
+            $("#gtot").val('0.00')
+        }else {
+            $(this).blur();
+        }
+    })
+
+    $("#belem").change(function(){
+        var index = parseInt($("#belem").data('index'))+1;
+        var ht = '<li id="l'+index+'">  <a href="#" vid="'+$('option:selected',this).val()+'" accion="1" class="truncate elemento col s9" style="text-align: left;padding:0px;">'+$('option:selected',this).html()+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
+        $("#listelm").append(ht);
+        $(this).val(0)
+        $("#belem").data('index',index);
+        $("#l"+index+" .elemento").data('rep',{});
+        $("#l"+index+" .elemento").data('rot',{});
+        $("#l"+index+" .elemento").data('rub',{});
+        $("#l"+index+" .infoelem").click();
+        $("#listrep").html('');
+        $("#brep").data('index',0);
+        $("#listrub").html('');
+        $("#brub").data('index',0);
+        $("#listext").html('');
+        $("#bext").data('index',0);
+    });
+
+    $("#addDescr").click(function(){
+        $(".elemento.active").data('descr',$("#descrip").val());
+        $("#modal-descr").modal('close');
+        $("#brep").focus()
+    });
+
+    $("#addBol").click(function(){
+        if(!$("._bcliente").val().trim().length){
+            Materialize.toast('Cliente Requerido',4000,'red');
+            $("._bcliente").focus();
+            return false;
+        }
+
+        if(!$(".elemento").length){
+            Materialize.toast('Elemento Requerido',4000,'red');
+            $("#belem").focus();
+            return false;
+        }
+
+        var comodin = parseInt($("#vidcliente").val()) == 0 ? $("._bcliente").val() : '';
+        var treg = 'Ingresado';
+        switch (parseInt($("#addBol").attr('accion'))) {
+            case 1:
+                 var idbol = getDatos('',507,'1,0,@@usr,@@impresa,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'","'+$("#vffin").val()+'"');
+                break;
+            default:
+                 var idbol = getDatos('',507,'2,'+$("#addBol").attr('vid')+',0,0,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'","'+$("#vffin").val()+'"');
+                 treg = 'Actualizado';
+                break;
+        }
+        
+        if(idbol['succed'] == 1){
+
+            $.each($('.elemento'),function(ind,val){
+                if(parseInt($(this).attr('accion')) == 1)
+                    insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid')+',"'+$(this).data('descr')+'"');
+                else
+                    actualizar(502,'descripcion="'+$(this).data('descr')+'"','idboleta='+idbol[0][0][0]+' and idelemento='+$(this).attr('vid'));
+
+                var iddet = getDatos('id',502,'idboleta='+idbol[0][0][0]+' and idelemento='+$(this).attr('vid'))[0][0][0];
+                if($(this).data('rep') != ''){
+                    $.each($(this).data('rep'),function(ind,val){
+                        switch (parseInt(val.accion)) {
+                            case 1:
+                                insertar(503,'',iddet+','+ind+',"'+val.valor+'"');
+                                break;
+                            case 2:
+                                actualizar(503,'valor = "'+val.valor+'"','indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                            default:
+                                eliminar(503,'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                        }
+                        
+                    });
+                }
+
+                if($(this).data('rot') != ''){
+                    $.each($(this).data('rot'),function(ind,val){
+                        switch (parseInt(val.accion)) {
+                            case 1:
+                                insertar(504,'',iddet+','+ind+',"'+val.valor+'"');
+                                break;
+                            case 2:
+                                actualizar(504,'valor = "'+val.valor+'"','indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                            default:
+                                eliminar(504,'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                        }
+                    });
+                }
+
+                if($(this).data('rub') != ''){
+                    $.each($(this).data('rub'),function(ind,val){
+                        var idprod = val.id;
+                        var idserv = 0;
+                        if(parseInt(idprod) < 0){
+                            idserv = idprod;
+                            idprod = 0;
+                        }
+
+                        switch (parseInt(val.accion)) {
+                            case 1:
+                                insertar(505,'',iddet+','+idprod+','+idserv+','+val.cant+','+val.prec.replace(/,/g,'')+','+ind);
+                                break;
+                            case 2:
+                                actualizar(505,'idproducto = '+idprod+',idservicio = '+idserv+', cantidad = '+val.cant+',precio = '+val.prec.replace(/,/g,''),'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                            default:
+                                eliminar(505,'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                        }
+                    });
+                }
             });
-            break;
-        case 3:
-            var p = mantenimiento('taller',3,'');
-            $("#mtaller").html(p);
-            $("#data-table-vehiculos").DataTable({
-                bFilter: false,
-                bScrollInfinite: true,
-                bSort: false,
-                bLengthChange: false,
-                order: [],
-                bPaginate: false,
-                info: false
-            });
-            break;
-    }
-});
 
-$(document).on("keyup","#mecanico",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        $("#serv").focus();
-    }
-});
-
-$(document).on("blur","#mecanico",function(){
-    var nombre = $(this).val();
-    var idmecanico = arr('login',4,'id',1,'nombre = "'+nombre+'" or user = "'+nombre+'"',0,0,0)[0][0];
-    if (idmecanico != undefined) {
-        $("#vidmecanico").val(idmecanico[0]);
-        $(".zelda").data('triforce')['vidmecanico'] = idmecanico[0];
-    }else{
-        $("#vidmecanico").val(0);
-    }
-});
-
-$(document).on("focus","#cant",function(){
-    var precio = arr('login',4,'truncate(venta,2)',11,'nombre = "'+$("#prod").val()+'"',0,0,0)[0][0];
-    $("#htot").val(precio);
-    $("#tot").val(precio);
-    Materialize.updateTextFields();
-});
-
-$(document).on("keyup","#cant",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        addprod();
-        $("#tot").focus();
-    }else if (code == 8) {
-        $("#tot").val(0)
-    }else{
-        var cant = $(this).val();
-        var precio = $("#htot").val();
-        var total = parseFloat(cant * precio);
-        $("#tot").val(total.toFixed(2));
-    }
-});
-
-$(document).on("keyup","#prod",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        $("#cant").val(1);
-        $("#cant").select();
-    }
-});
-
-$(document).on("click","#addserv",function(){
-    var nombre = $("#serv").val();
-    addserv(nombre);
-});
-
-$(document).on("click",".delserv",function(){
-    var id = $(this).attr('id').substr(3);
-    $("#dsrv"+id).remove();
-});
-
-$(document).on("click",".delprod",function(){
-    var id = $(this).attr('id').substr(3);
-    $("#prdct"+id).remove();
-});
-
-$(document).on("click",".editprod",function(){
-    var id = $(this).attr('id').substr(2);
-    $("#cant"+id).removeAttr('readonly');
-    $("#cant"+id).select();
-});
-
-$(document).on("keyup","#serv",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        var nombre = $(this).val();
-        addserv(nombre);
-    }
-});
-
-$(document).on("keyup","#vreferencia",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        $("#mecanico").focus();
-    }
-});
-
-$(document).on("blur","#vreferencia",function(){
-    $(".zelda").data('triforce')['vreferencia'] = $(this).val();
-});
-
-$(document).on("keyup","#vkm",function(e){
-    var code = e.which || e.keyCode;
-    $(".zelda").data('triforce')['vkm'] = $(this).val();
-    if (code == 13) {
-        $("#vreferencia").focus();
-    }
-});
-
-$(document).on("change","#gasolina",function(){
-    $(".zelda").data('triforce')['vgasolina'] = $(this).val();
-});
-
-$(document).on("keyup","#descfalla",function(){
-    $(".zelda").data('triforce')['vobservaciones'] = $(this).val();
-});
-
-$(document).on("change","#idmecanico",function(){
-   $(".zelda").data('triforce')['vidmecanico'] = $(this).val(); 
-});
-// $(document).on("blur","#vkm",function(){
-//     $(".zelda").data('triforce')['vkm'] = $(this).val();
-// });
-
-$(document).on("click","#infoVehiculo",function(){
-    var idcliente = $("#iclie").val();
-    var placa = '';
-    if ($("#placa").attr('sel') == undefined) {
-        if ($("#placa").val() != '') {
-            placa = $("#placa").val();
+            Materialize.toast('Registro '+treg+' Correctamente',4000,'green');
+            if (parseInt($("#addBol").attr('accion')) == 1) 
+                window.open('taller?accion=4&pv=0&id='+idbol[0][0][0]);
+            cargarLista();
+            $("#modal-boleta").modal('close');
         }else{
-            Materialize.toast('Debe seleccionar una placa', 4000, 'red');
+            Materialize.toast(idbol[0]['ERROR'],4000,'red');
         }
-    }else{
-        if ($("#placa").val() != 0)
-            placa = $("#placa option:selected").text();
-        else
-            Materialize.toast('Debe seleccionar una placa', 4000, 'red');
-    }
-    
-    var carinfo = arr('login',4,'',504,idcliente+',"'+placa+'"',0,0,0)[0];
-    $("#i1").val(carinfo[0][0]);
-    $("#i2").val(carinfo[0][1]);
-    $("#i3").val(carinfo[0][2]);
-    $("#i4").val(carinfo[0][3]);
-    $("#i5").val(carinfo[0][4]);
-    $("#i6").val(carinfo[0][5]);
-    $("#i7").val(carinfo[0][6]);
-    $("#i8").val(carinfo[0][7]);
-    Materialize.updateTextFields();
-});
+    });
 
-$(document).on("blur","#nclie",function(){
-    var nom = $(this).val().substr(0,$(this).val().indexOf('*')-1);
-    var id = arr('login',4,'id',2,'id > 0 and concat(nombre," ",apellido1," ",apellido2) = "'+nom+'"',0,0,0)[0][0];
-    if (id != undefined) {
-        $("#iclie").val(id);
-    }else{
-        if ($("#placa").attr('sel') != undefined) {
-            $(this).parent().siblings().html('');
-            $(this).parent().siblings().append('<input type="text" id="placa" class="validate"><label for="placa">Placa o VIN del vehículo</label>');
-            $("#placa").focus();
+    $("#brep").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if(code == 13 && $(this).val().length && $(".elemento.active").length){
+            var index = parseInt($(this).data('index'))+1;
+            var ht = '<li id="r'+index+'" style="border-bottom: 1px solid black;">  <span>'+$(this).val()+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listrep").append(ht);
+            $(this).data('index',index);
+
+            $(".elemento.active").data('rep')[index] = {valor:$(this).val(),accion:1};
+            $(this).val('');
         }
 
-        $("#iclie").val(0);
-    }
-});
+    });
 
-$(document).on("change","#placa",function(){
-    if ($(this).attr('sel') != undefined) {
-        if ($(this).val() != 0) {
-            $("#vidvehiculo").val($(this).val());
-            $("#infoVehiculo").addClass('modal-trigger');
-            $(".zelda").data('triforce')['vidvehiculo'] = $(this).val();
-            setTimeout(function(){$("#danos").focus()},200);
-        }else
-            $("#infoVehiculo").removeClass('modal-trigger');
-    }
-});
+    $("#bext").keyup(function(e){
+        var code = e.which || e.keyCode;
+        if(code == 13 && $(this).val().length && $(".elemento.active").length){
+            var index = parseInt($(this).data('index'))+1;
+            var ht = '<li id="o'+index+'" style="border-bottom: 1px solid black;">  <span>'+$(this).val()+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listext").append(ht);
+            $(this).data('index',index);
 
-$(document).on("keyup","#placa",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        if ($(this).attr('sel') == undefined) {
-            var cliente = arr('login',4,'',504,'0,"'+$(this).val()+'"',0,0,0)[0][0];
-            if (cliente != undefined) {
-                $("#nclie").val(cliente[0]);
-                $("#iclie").val(cliente[8]);
-                $("#vkm").focus();
-                $("#infoVehiculo").addClass('modal-trigger');
-                $(".zelda").data('triforce')['vidvehiculo'] = cliente[9];
-                Materialize.updateTextFields();
+            $(".elemento.active").data('rot')[index] = {valor:$(this).val(),accion:1};
+            $(this).val('');
+        }
+
+    });
+
+    $("#ingElem").click(function(){
+        $("#modal-addElem").modal('open');
+        $("#addelem").focus();
+    });
+
+    var mhtml = '<label for="_bcliente">Cliente</label><input type="text" class="autocomplete _bcliente" style="margin: 0px" autocomplete="off"><input type="hidden" id="vidcliente" value="0" /> <a class="mdi mdi-16px mdi-plus text-green pbtn" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180;cursor: pointer;max-width: 0px;" title="Agregar Cliente"></a>';
+    $(".bcliente").html(mhtml);
+
+    $("#ingclie").click(function(){
+        $("#modal-clientes").modal('open');
+        $("#c-ced").focus();
+        
+    });
+
+    $("#gdescp").on("keydown",function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var elm = $(this)
+
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+
+            elm.autocomplete({
+                limit: 10,
+                data: arr('login',4,'',6,'"'+$(this).val()+'",1,@@impresa',0,0,0,1),
+                onAutocomplete: function(val){
+                    var e = jQuery.Event("keyup");
+                    e.which = 13;
+                    elm.trigger(e);
+                }
+            });
+            elm.siblings($(".autocomplete-content")).css('width','25%');
+        }
+    });
+
+    $("#gdescp").on("keyup",function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            $(this).blur()
+        }
+    });
+
+    $("#gdescp").blur(function(){
+        if($(this).val().trim().length){
+            var cod = getDatos('',43,'"'+ $(this).val().replace(/"/g,"\\\"") +'",@@impresa,0,1,6');
+            
+            if(cod[0].length){
+                $(this).attr('vid',cod[0][0][0]);
+                $(this).attr('prec',cod[0][0][3]);
+                $("#gprec").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','))
+                $("#gtot").val(parseFloat(cod[0][0][3]).formatMoney('2','.',','));
+
+                $("#gcant").focus().select();
             }else{
-                $("#nclie").val('');
-                $("#iclie").val(0);
-                $("#infoVehiculo").removeClass('modal-trigger');
-                $(this).select();
+                $(this).attr('vid',0)
+                Materialize.toast('Producto no Existente',4000,'red');
             }
         }
-    }
+    });
+
+    $("#gcant").change(function(){
+        if(isNaN($(this).val()))
+            $(this).val(1)
+        var cnt = parseFloat($(this).val());
+        if(cnt < 0)
+            cnt = 1;
+
+        var valor = isNaN($("#gprec").val()) ? parseFloat($("#gdescp").attr('prec')) : parseFloat($("#gprec").val().replace(/,/g,''));
+        $("#gtot").val((valor*cnt).formatMoney('2','.',','));
+    });
+
+    $("#gcant").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            $("#gprec").focus().select();
+        }
+    });
+
+    $("#gprec").change(function(){
+        if(isNaN($(this).val()))
+            $(this).val($("#gdescp").attr('prec'))
+        var cnt = parseFloat($("#gcant").val());
+        var valor = parseFloat($(this).val())
+        $("#gtot").val((valor*cnt).formatMoney('2','.',','));
+    });
+
+    $("#gprec").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            $("#agbProd").click();
+        }
+    })
+
+    $("#agbProd").click(function(){
+
+        var index = parseInt($("#brub").data('index'))+1;
+        var ht = '<li id="p'+index+'" style="border-bottom: 1px solid black;">  <span> '+$("#gdescp").val()+' <-> x'+$("#gcant").val()+' ¢'+$("#gtot").val()+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+        $("#listrub").append(ht);
+        $("#brub").data('index',index);
+
+        $(".elemento.active").data('rub')[index] = {id:$("#gdescp").attr('vid'),nom:$("#gdescp").val(),prec:$("#gprec").val().replace(/,/g,''),cant:$("#gcant").val(),tot:$("#gtot").val(),accion:1};
+
+        $("#modal-gprod").modal('close');
+    });
+
+    $("._bcliente").on("keydown",function(e){
+        var charCode = e.which || e.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var prov = $(this).attr('bisprov') == undefined ? '': 'and bisproveedor=1';
+        var elm = $(this)
+
+        if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+            $(".autocomplete-content").remove();
+            elm.autocomplete({
+                limit: 10,
+                data: arr('login',4,'concat(nombre," ",apellido1," ",apellido2,", ",cedula),null',2,'id > 0 '+prov+' and concat(nombre," ",cedula) like \"%'+elm.val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
+                onAutocomplete: function(val){
+                    $(".bcliente").blur();
+                }
+            });
+            elm.siblings($(".autocomplete-content")).css('width','25%').css('margin-top','5px');
+        }
+    });
+
+    $("._bcliente").blur(function(){
+        var id = arr('login',4,'id',2,'concat(nombre," ",apellido1," ",apellido2,", ",cedula) = "'+$(this).val()+'" and id > 0 and !bisproveedor and idsucursal = @@impresa',0,0,0);
+        
+        if (id[0].length){
+            $("#vidcliente").val(id[0][0][0]);
+            $("._bcliente").css('border-bottom','1px solid green');
+        }
+        else{
+            $("#vidcliente").val(0);
+            $("._bcliente").css('border-bottom','1px solid red');
+        }
+    });
+
+    $("#addclie").click(function(){
+        if($("#slideCorreo").data('fila1') == undefined){
+            Materialize.toast('Correo sin Asignar',4000,'red');
+            $("#slideCorreo").click();
+            return false;
+        }
+
+        if(isNaN($("#c-dias").val())){
+            Materialize.toast('Valor no Numérico',4000,'red');
+            $("#c-dias").focus().select();
+            return false;
+        }
+        if(isNaN($("#c-max").val())){
+            Materialize.toast('Valor no Numérico',4000,'red');
+            $("#c-max").focus().select();
+            return false;
+        }
+        if(parseInt($("#c-dias").val()) <= 0 && $("#c-dias").is(":visible")){
+            Materialize.toast('Valor Debe ser Mayor a Cero(0)',4000,'red');
+            $("#c-dias").focus().select();
+            return false;
+        }
+
+        var isprov = 0;
+
+        var pr = getDatos('',172,'1,0,"","","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,'+$("#c-max").val()+','+$("#c-dias").val()+',0,1,"",@@usr,0,"",0,@@impresa,@id,1,0,0,""',0,0,0);
+
+        if(guardarSlide(1,pr,2)){
+            Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
+            $("._bcliente").val($("#c-nom").val()+', '+$("#c-ced").val());
+            $("#slideDireccion").data('idbarrio',0);
+            $("#slideDireccion").data('direccion','');
+            $(".c-st").addClass('hide');
+            $("#c-ced").val('');
+            ind_2 = 0;
+            ind_1 = 0;
+            $("#modal-clientes").modal('close');
+            $("._bcliente").focus();
+            var e = jQuery.Event("keyup");
+            e.which = 13;
+            $("._bcliente").trigger(e);
+        }
+        
+    });
 });
 
-$(document).on("blur","input#placa",function(){
-    var car = arr('login',4,'',504,'0,"'+$(this).val()+'"',0,0,0)[0][0];
-    if (car != undefined) {
-        $(".zelda").data('triforce')['vidvehiculo'] = car[9];
+$(document).on('click','.infoelem',function(){
+    $("#modal-descr").modal('open');
+    var elm = $(this).parent().find('.elemento');
+
+    if(elm.data('descr') != undefined)
+        $("#descrip").val(elm.data('descr'))
+    else
+        $("#descrip").val('')
+
+    $(".elemento").removeClass('active');
+    elm.addClass('active');
+    $("#descrip").focus().select()
+});
+
+$(document).on('click','.delelem',function(){
+    $(this).parent().addClass('hide');
+});
+
+$(document).on('click','.delrep',function(){
+    $(this).parent().addClass('hide');
+});
+
+$(document).on('click','.eboleta',function(){
+    var boleta = getDatos('id,lpad(consecutivo,7,0),if(idcliente,(select nombre from clientes where id = taller.boletas.idcliente),comodin) ,observacion,idcliente,date_format(fechafin,"%Y-%m-%d")',501,'id = '+$(this).attr('vid'));
+    
+    $("#cons").html(boleta[0][0][1]);
+    $("._bcliente").val(boleta[0][0][2]).attr('readonly',false).focus();
+    $("[for=_bcliente]").addClass('active');
+    $("#vidcliente").val(boleta[0][0][4]);
+    $("#vcomentario").val(boleta[0][0][3]);
+    if (boleta[0][0][3])
+        $("[for=vcomentario]").addClass('active');
+    else
+        $("[for=vcomentario]").removeClass('active');
+
+    $("#listelm").html('');
+    var lelemtos = getDatos('id,idelemento,(select nombre from taller.elementos where id = idelemento),descripcion',502,'idboleta='+boleta[0][0][0]);
+        
+    for (var i = 0; i < lelemtos[0].length; i++) {
+         var ht = '<li id="l'+i+'">  <a href="#" vid="'+lelemtos[0][0][1]+'" accion="2" class="truncate elemento col s9 active" style="text-align: left;padding:0px;">'+lelemtos[0][0][2]+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
+        $("#listelm").append(ht);
+        $("#l"+i+" .elemento").data('descr',lelemtos[0][0][3]);
+        $("#l"+i+" .elemento").data('rep',{});
+        $("#l"+i+" .elemento").data('rot',{});
+        $("#l"+i+" .elemento").data('rub',{});
+
+        var lrepa = getDatos('indice,valor',503,'iddetalle = '+lelemtos[0][0][0]);
+        var indx = 0;
+        $("#listrep").html('');
+        $.each(lrepa[0],function(indj,val){
+            ht = '<li id="r'+lrepa[0][indj][0]+'" style="border-bottom: 1px solid black;">  <span>'+lrepa[0][indj][1]+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listrep").append(ht);
+            indx = lrepa[0][indj][0];
+            $("#l"+i+" .elemento").data('rep')[lrepa[0][indj][0]] = {valor:lrepa[0][indj][1],accion:2};
+        });
+
+        $("#brep").data('index',indx);
+
+        lrepa = getDatos('indice,valor',504,'iddetalle = '+lelemtos[0][0][0]);
+        indx = 0;
+        $("#listext").html('');
+        $.each(lrepa[0],function(indj,val){
+            ht = '<li id="o'+lrepa[0][indj][0]+'" style="border-bottom: 1px solid black;">  <span>'+lrepa[0][indj][1]+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listext").append(ht);
+            indx = lrepa[0][indj][0];
+            $("#l"+i+" .elemento").data('rot')[lrepa[0][indj][0]] = {valor:lrepa[0][indj][1],accion:2};
+        });
+
+        $("#bext").data('index',indx);
+
+        lrepa = getDatos('indice,if(idproducto,idproducto,idservicio*-1),truncate(cantidad,0),format(precio,2),if(idproducto,(select nombre from productos where id = idproducto),(select nombre from servicios where id = idservicio)),precio',505,'iddetalle = '+lelemtos[0][0][0]);
+        indx = 0;
+        $("#listrub").html('');
+        $.each(lrepa[0],function(indj,val){
+             var ht = '<li id="p'+lrepa[0][indj][0]+'" style="border-bottom: 1px solid black;">  <span> '+lrepa[0][indj][4]+' <-> x'+lrepa[0][indj][2]+' ¢'+lrepa[0][indj][3]+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listrub").append(ht);
+            indx = lrepa[0][indj][0];
+            $("#l"+i+" .elemento").data('rub')[lrepa[0][indj][0]] = {id:lrepa[0][indj][1],nom:lrepa[0][indj][4],prec:lrepa[0][indj][5],cant:lrepa[0][indj][2],tot:lrepa[0][indj][3],accion:2};
+        });
+
+        $("#brub").data('index',indx);
+    }
+    $("#belem").data('index',i);
+    
+    $("#addBol").attr('accion','2');
+    $("#addBol").attr('vid',boleta[0][0][0])
+    console.log(boleta)
+    $("#vffin").val(boleta[0][0][5])
+    $("#modal-boleta").modal('open');
+});
+
+$(document).on('click','.elemento',function(){
+    $(".elemento").removeClass('active');
+    $(this).addClass('active');
+
+    $("#listrep").html('');
+    if($(this).data('rep') != ''){
+        $.each($(this).data('rep'),function(ind,val){
+            var ht = '<li id="r'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val.valor+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listrep").append(ht);
+            $("#brep").data('index',ind);
+        });
+    }else{
+        $("#brep").data('index',0);
+    }
+
+    $("#listext").html('');
+    if($(this).data('rot') != ''){
+        $.each($(this).data('rot'),function(ind,val){
+            var ht = '<li id="o'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val.valor+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listext").append(ht);
+            $("#bext").data('index',ind);
+        });
+    }else{
+        $("#bext").data('index',0);
     }
     
+    $("#listrub").html('');
+    $("#brub").data('index',0);
 });
 
-$(document).on("keyup","#nclie",function(e){
-    var code = e.which || e.keyCode;
-    if (code == 13) {
-        var nom = $("#nclie").val().substr(0,$(this).val().indexOf('*')-1);
-        var id = arr('login',4,'id',2,'id > 0 and concat(nombre," ",apellido1," ",apellido2) = "'+nom+'"',0,0,0)[0][0];
-        if (id != undefined) {
-            var placa = arr('login',4,'id,placa',503,'idcliente = '+id,0,0,0)[0];
-            if (placa.length > 1) {
-                $("#placa").remove();
-                $("label[for=placa]").remove();
-                $(this).parent().siblings().append('<select type="select" id="placa" sel></select>');
-                $(this).parent().siblings().children().append('<option value="0">Seleccione una placa</option>');
-                for (var i = 0, len = placa.length; i < len; i++) {
-                    $("#placa").append('<option value="'+placa[i][0]+'">'+placa[i][1]+'</option>');
-                }
-                $("#placa").material_select();
-                $("#placa").prevAll('input.select-dropdown').trigger('open').focus();
-            }else{
-                if (placa[0] != undefined) {
-                    $("#vidvehiculo").val(placa[0][0]);
-                    $("#placa").val(placa[0][1]);
-                    $("#vkm").focus();
-                    $("#infoVehiculo").addClass('modal-trigger');
-                }else{
-                    Materialize.toast('Cliente no posee vehiculos,&nbsp&nbsp<a class="waves-effect waves-light white green-text btn modal-trigger" href="#modal-addcar">Agregar<a>', 5000, 'green');
-                    $(this).select();
-                }
-            }
-            Materialize.updateTextFields();
-        }
-    }else if (code == 8) {
-        if ($(this).val() == '') {
-            $(this).parent().next().html('');
-            $(this).parent().siblings().first().append('<input type="text" id="placa" class="validate"><input type="hidden" id="vidvehiculo" value=""><label for="placa">Placa o VIN del vehículo</label>');
-            $("#infoVehiculo").removeClass('modal-trigger');
-            Materialize.updateTextFields();
-        }
+function cargarElementos(){
+    var elems = getDatos('id,upper(nombre)',509,'id > 0');
+    var opts = '<option value="0" disabled selected>SELECCIONE UNA OPCION</option>';
+
+    for (var i = 0; i < elems[0].length; i++) {
+        opts += '<option value="'+elems[0][i][0]+'">'+elems[0][i][1]+'</option>';
     }
-});
 
-$(document).on("keydown","#nclie",function(e){
-	var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        $(".autocomplete-content").remove();
-            $("#nclie").autocomplete({
-                limit: 10,
-                data: arr('login',4,'trim(concat(nombre," ",apellido1," ",apellido2," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'!bisproveedor and id > 0 having nom like "%'+$(this).val()+'%" limit 10',0,0,0,1)
-            });
-        $("#nclie").siblings($(".autocomplete-content")).css('width','25%');
-    } 
-});
-
-$(document).on("keyup","#danos",function() {
-    $(".zelda").data('triforce')['vdanos'] = $(this).val()
-});
-
-$(document).on("keyup","#accesorios",function() {
-    $(".zelda").data('triforce')['vaccesorios'] = $(this).val()
-});
-
-
-
-$(document).on("keydown",".servs",function(e){
-    var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        $(".autocomplete-content").remove();
-            $(".servs").autocomplete({
-                limit: 10,
-                data: arr('login',4,'',505,'0,""',0,0,0,1)
-            });
-        $(".servs").siblings($(".autocomplete-content")).css('width','25%');
-    } 
-});
-
-$(document).on("keydown",".prods",function(e){
-    var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        $(".autocomplete-content").remove();
-            $(".prods").autocomplete({
-                limit: 10,
-                data: arr('login',4,'nombre,null',11,'id > 0 and nombre like "%'+$(this).val()+'%" limit 10',0,0,0,1)
-            });
-        $(".prods").siblings($(".autocomplete-content")).css('width','25%');
-    } 
-});
-
-// autocomplete
-$(document).on("keydown","#mecanico",function(e){
-    var charCode = e.which || e.keyCode;
-    var charStr = String.fromCharCode(charCode);
-    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-        $(".autocomplete-content").remove();
-            $("#mecanico").autocomplete({
-                limit: 10,
-                data: arr('login',4,'',506,'"'+$(this).val()+'",1',0,0,0,1)
-            });
-        $("#mecanico").siblings($(".autocomplete-content")).css('width','25%');
-    } 
-});
-
-$(document).on("keyup",".cant",function(e) {
-    var code = e.which || e.keyCode;
-    var id = $(this).attr('id').substr(4);
-    if (code == 13) {
-        $("#prod").focus();
-    }else if (code == 8) {
-        $("#tot"+id).val(0);
-    }
-});
-
-$(document).on("blur",".cant",function(e){
-    var id = $(this).attr('id').substr(4);
-    var cant = $(this).val();
-    var prec = $("#htot"+id).val();
-    var tot = parseFloat(cant * prec);
-    $("#tot"+id).val(tot);
-});
-
-function addprod() {
-    var count = $(".ciclos").length;
-    var nombre = $("#prod").val();
-    var cant = $("#cant").val();
-    var total = $("#tot").val();
-    var prod = arr('login',4,'id',11,'nombre = "'+nombre+'"',0,0,0)[0][0];
-    if (prod != undefined) {
-        count++
-        $("#productos").append('<div class="row marginzero ciclos" id="db'+count+'"><div class="input-field col s5 m5 l5" style="width: 38%"><input type="text" id="prod'+count+'" class="autocomplete prods" value="'+nombre+'" readonly><label for="prod'+count+'">Producto</label></div><div class="input-field col s2 m2 l2" style="width: 13%"><input type="text" id="cant'+count+'" class="cant autocomplete" value="'+cant+'" readonly><label for="cant'+count+'">Cantidad</label></div><div class="input-field col s3 m3 l3"><input type="text" id="tot'+count+'" class="autocomplete" value="'+total+'" readonly><input type="hidden" id="htot'+count+'" value="'+total+'"><label for="tot'+count+'">Total</label><i class="mdi mdi-pencil prefix pbtn blueh editprod" id="ep'+count+'"></i><i class="mdi mdi-close prefix pbtn cdel delprod" id="prd'+count+'" style="margin-left:30px"></i></div></div>');
-        $("#db"+count).data('triforce',{vid : 0,vidboleta : '?',vidservicio : 0,vidproducto : prod[0],vcantidad : cant,vsubtotal : total});
-        Materialize.updateTextFields();
-        // $(".zelda").dat('triforce')['vsubtotal'] = $("#htot").val();
-        $("#prod").val('');
-        $("#cant").val('');
-        $("#tot").val('');
-        setTimeout(function(){$("#prod").focus();},200);
-    }else{
-        Materialize.toast('Producto no existente', 4000, 'red');
-        $("#cant").val('');
-        setTimeout(function(){$("#prod").val('');$("#prod").focus();},100);
-    }
+    $("#belem").html(opts);
+    $("#belem").val(0)
 }
 
-function addserv(nom) {
-    var count = $(".ciclos").length;
-    var serv = arr('login',4,'id,precio',16,'if(locate("%",nombre),substr(nombre,1,locate("%",nombre)-2),nombre) = "'+nom+'"',0,0,0)[0][0];
-    if (serv != undefined) {
-        count++
-        $("#servicios").append('<div class="input-field ciclos" id="db'+count+'"></i><input type="text" id="serv'+count+'" class="validate autocomplete servs" value="'+nom+'"><label for="serv'+count+'">Servicio</label><i class="mdi mdi-close prefix pbtn cdel delserv" id="dlt'+count+'"></div>');
-        $("#db"+count).data('triforce',{vid : 0,vidboleta : '?',vidservicio : serv[0][0],vidproducto : 0,vcantidad : 0,vsubtotal : serv[0][1]});
-        Materialize.updateTextFields();
-        $("#serv").val('');
-    }else{
-        Materialize.toast('Servicio no existente', 4000, 'red');
-        $("#serv").select();
-    }
+function cargarLista(){
+
+    var tabla = $("#data-table-boletas").DataTable();
+    tabla.destroy();
+    arr('login',6,'',508,'@@impresa',0,1,$('#listaboletas'))
+    $("#data-table-boletas").DataTable({
+        bFilter: false,
+        bScrollInfinite: true,
+        bSort: false,
+        bLengthChange: false,
+        order: [],
+        bPaginate: false,
+        info: false
+    });
 }
 
-function validar (varreglo,vmodulo) {
-    
-    var salida = {}
-    /*VALIDACION FRONT END*/
-    switch(vmodulo['modulo']) {
-        case 'taller-boleta':
-            if (vmodulo['tip'] == '') {
-                err = validarboleta();
-                if ( err ) {
-                    return err;
-                }
-            }
-            break; 
-        default:
-            return 'Módulo no Existente';
-            break;
-    }
 
-    salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-    return salida;
-
-}
-
-function validarboleta() {
-    if ($(".zelda").data('triforce')['vidvehiculo'] == 0) {
-        $("#nclie").focus();
-        return "Placa del cliente requerido";
-    }
-
-    // if ($(".zelda").data('triforce')['vidmecanico'] == 0) {
-    //     $("#mecanico").focus();
-    //     return "Nombre del mecánico requerido";
-    // }
-    return false;
-}
-
-function cargar(vmodulo,vid) {
-    switch(vmodulo['modulo']) {
-        case 'mecanico':
-            vmodulo['sel'] = '';
-            vmodulo['tbl'] = 31;
-            vmodulo['where'] = '';
-            break;
-        default:
-            return 'Módulo no Existente';
-            break;
-    }
-
-    return vmodulo;
-}
-
-function cargarSintax(modulo){
-    var arr = {}
-    switch(modulo) {
-        case 'mecanicos':
-            arr['sel'] = '';
-            arr['tbl'] = 29;
-            arr['where'] = '';
-            break;
-    }
-    return arr;
-}
-
-function endDetail(vid,vacc,vmodulo) {
-    switch(vmodulo) {
-        case 'taller-boleta':
-            if (vacc == 1) {
-                deadclear(vmodulo);
-                $("#nclie").parent().next().html('');
-                $("#nclie").parent().next().html('<input type="text" id="placa" class="validate"><label for="placa">Placa o VIN del vehículo</label>');
-                $("#nclie").parent().next().next().html('');
-                $("#nclie").parent().next().next().html('<a class="waves-effect waves-light green btn right" href="#modal-infoVehiculo" id="infoVehiculo">Información</a>');
-                $("#infoVehiculo").removeClass('modal-trigger');
-                $("select").material_select();
-                $("#danos").val('');
-                $("#accesorios").val('');
-                Materialize.updateTextFields();
-                $(".validate").css('border-bottom', '1px solid #9e9e9e');
-                $(".validate").css('box-shadow', 'none');
-                $("#nclie").focus();
-                // window.open('taller?accion=4&id='+vid);
-                $(".zelda").data('triforce',{vid : 0,vidvehiculo : 0,vdanos : '',vaccesorios : '',vkm : 0,vgasolina : 0,vobservaciones : 0,vidmecanico : 0,vidusuario : 0,vidsucursal : ''});
-            }
-            break;
-    }
+function deleterow(elm){
+    console.log(getDatos('',507,'3,'+elm.attr('id').substr(1)+',0,0,0,"","",null'));
+    elm.parent().parent().remove();
 }

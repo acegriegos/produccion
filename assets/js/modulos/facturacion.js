@@ -205,7 +205,8 @@ function cargarCompras(){
             $("#monedas").prop('disabled',false).material_select('update');
             $("#vcomentario").prop('readonly',false);
 
-            $("#vreferencia").removeClass(".fcompra");
+            $("#vreferencia").removeClass("fcompra");
+            $("#vreferencia").attr('placeholder','Número de Referencia');
             $("#vreferencia").val('')
             $("#addliner").removeClass('hide');
             $("#ingclie").removeClass('hide');
@@ -228,8 +229,9 @@ function cargarCompras(){
             $("#monedas").prop('disabled',true).material_select('update');
             $("#vcomentario").val('').prop('readonly',true);
 
-            $("#vreferencia").addClass(".fcompra");
+            $("#vreferencia").addClass("fcompra");
             $("#vreferencia").val('').focus();
+            $("#vreferencia").attr('placeholder','Buscar Compra');
             $("#addliner").addClass('hide');
             $("#ingclie").addClass('hide');
 
@@ -275,9 +277,9 @@ function cargarCompras(){
     });
 
     $(document).on("keydown",".fcompra",function(e){
-         var charCode = e.which || e.keyCode;
+        var charCode = e.which || e.keyCode;
         var charStr = keysight(e)
-       console.log(1)
+
         if (/[a-zA-Z0-9-_.&," ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : charStr == -1 ? $(this).val() : $(this).val()+charStr;
             var tipo = getParameterByName('tf');
@@ -286,22 +288,24 @@ function cargarCompras(){
 
             $(this).autocomplete({
                 limit: 20,
-                data: arr('login',4,'',6,'"'+busqueda+'",1,@@impresa',0,0,0,1),
+                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where idfactura = facturas.id and !compraprocesada) having nombre like "%'+busqueda+'%"',0,0,0,1),
                 onAutocomplete: function(val){
                     
-                    var vidfact = $('option:selected',this).val();
-                    var ref = $('option:selected',this).attr('ref');
-                    var client = $('option:selected',this).attr('title');
-                    $("#vreferencia").val(ref);
-                    $("#ncli").val(client);
+                    var ref = val.substr(0,val.indexOf('-'));
+                    var client = val.substr(val.indexOf('-')+1);
 
-                    $("#ffacturas .zelda").data('triforce')['vidcliente'] = $('option:selected',this).attr('idc');
+                    $("#ncli").val(client);
+                    $("#vreferencia").val(ref);
+
+                    var datos = getDatos('id,idcliente,truncate(substring(referencia,32,10),0) as ref,(select nombre from clientes where id = facturas.idcliente) as client',64,'truncate(substring(referencia,32,10),0) = '+ref+' having client = "'+client+'"');
+                    var vidfact = datos[0][0][0];
+                    $("#ffacturas .zelda").data('triforce')['vidcliente'] = datos[0][0][1];
                     $("#fdetallefacturas").html(mantenimiento('facturacion',11,{idfact:vidfact,idtp:1}));
                     $(".autocomplete").autocomplete();
                 }
             })
 
-            $(".autocomplete-content").css('max-width','250px').css('margin-top','5%');
+            $(".autocomplete-content").css('min-width','700px').css('margin-top','5%');
         }
     });
 

@@ -2,3 +2,14 @@
     min-height: 100vh !important; 
     width: 90% !important;
 }
+
+@media only screen and (max-width:769px){
+    .comanda{
+        width: 100% !important;
+    }
+
+    #fdetallefacturas{
+        min-height: 30vh;
+        max-height: 30vh;
+    }
+}

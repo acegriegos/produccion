@@ -41,6 +41,7 @@
               <ul class="head2">
                 <li><a href="#!" value="2" class="otpmenu white-text hide" id="x2">Notificaciones</a></li>
                 <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true"></i> Usuario</a></li>
+                <li><a href="#!" value="5" class="otpmenu white-text" id="x5"><i class="mdi mdi-repeat mdi-24px right white-text" aria-hidden="true"></i>Flujo de Efectivo</a></li>
                 <li><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
                 <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true"></i>Info Sistema</a></li>
@@ -84,6 +85,7 @@
     <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 {php} break; case 3: {/php}
   <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
+  <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
   <li class="gtext">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
       <ul id='dropfact' class='dropdown-content'>
@@ -113,7 +115,7 @@
     </li>
     <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
     <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
-    <li class="gtext"><a href="contabilidad"><i class="mdi mdi-rename-box mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Contabilidad</span></a></li>
+    <li class="gtext per"><a href="contabilidad"><i class="mdi mdi-rename-box mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Contabilidad</span></a></li>
     <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
     {literal}
       <script type="text/javascript">
@@ -300,29 +302,75 @@
     </div>
   </div>
 
-  <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 50%; width: 50%">
-    <div class="modal-header head3 center" style="font-size: 22px;">Gastos</div>
-    <div class="modal-content row">
+  <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 75%; width: 50%">
+    <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo</div>
+    <div class="modal-content">
+      <div class="row">
 
         <div class="col s6">
+          <div class="switch" align="center">
+            <label>
+              Salida
+              <input type="checkbox" id="tiporubro">
+              <span class="lever"></span>
+              Entrada
+            </label>
+          </div>
+
+        </div>
+
+        <div class="col s6">
+          <label for="listrubros" class="active">Rubro</label>
           <select id="listrubros" class="browser-default">
-            <option>gg</option>
           </select>
         </div>
 
+        </div>
+
+        <div class="row">
+
         <div class="col s6 input-field">
-          <input type="text" id="gvalor" class="eder" value="0">
+          <input type="text" id="gvalor" class="eder numeric" value="0.00">
           <label for="gvalor">Monto</label>  
+        </div>
+
+         <div class="col s6">
+          <label for="monrubros" class="active">Moneda</label>
+          <select id="monrubros" class="browser-default">
+          </select>
+        </div>
+
+        </div>
+
+        <div class="row">
+
+        <div class="col s12 input-field hide gres po" tr="1">
+          <input type="text" id="gproveedor" value="">
+          <label for="gproveedor">Proveedor</label>  
+        </div>
+
+        <div class="col s12 input-field hide gres us" tr="2">
+          <input type="text" id="guser" value="">
+          <label for="guser">Usuario</label>  
+        </div>
+
+        <div class="col s12 input-field hide gres vo" tr="3">
+          <input type="text" id="gvoucher" value="">
+          <label for="gvoucher">Voucher</label>  
         </div>
 
         <div class="col s12 input-field">
           <input type="text" id="gcomentario" value="">
           <label for="gcomentario">Comentario</label>  
         </div>
+
+        </div>
+
     </div>
     <div class="modal-footer">
+        <i class="mdi mdi-eye button-collapse pbtn hide" data-activates="gextra" title="Ver Entradas y Salidas" id="shflujo"></i>
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-        <a class="modal-action doflujo waves-effect waves-green btn-flat">Aceptar</a>
+        <a class="modal-action waves-effect waves-green btn-flat" id="doflujo">Aceptar</a>
     </div>
   </div>
 
@@ -335,3 +383,22 @@
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acptmsj">Aceptar</a>
   </div>
 </div>
+
+<ul id="gextra" class="side-nav side-nav-flujo" style="z-index: 2500 !important;">
+  <div class="card-header blue white-text center">
+    <h5 style="margin: 0px;">Lista Entradas y Salidas</h5>
+  </div>
+
+  <div class="row" style="margin: 0px;margin-top: 2%;">
+    <div class="col s4 input-field">
+      <label for="gldesde" class="active">Desde</label>
+      <input type="date" id="gldesde" class="browser-default" style="border: 0;">
+    </div>
+
+    <div class="col s4 input-field">
+      <label for="glhasta" class="active">Hasta</label>
+      <input type="date" id="glhasta" class="browser-default" style="border: 0;">
+    </div>
+  </div>
+
+</ul>

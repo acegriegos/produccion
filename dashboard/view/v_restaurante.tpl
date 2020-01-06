@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.45">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.50">
   </head>
   <body>
     {$NAV}
@@ -133,7 +133,7 @@
       <div class="modal-content" style="padding: 0px" id="ffacturas">
         <input type="hidden" class="zelda">
           <div class="row">
-            <div class="col l3 hide-on-small-only" style="overflow: auto;" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" >
+            <div class="col s12 l3" style="overflow-y: auto;" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" >
               <section id="lentradas"></section>
               <section id="lpfuertes"></section>
               <section id="lpostres"></section>
@@ -161,21 +161,48 @@
         </div>
 
       </div>
-    
+      </div>
       <div class="modal-footer row" style="z-index: 1014;margin: 0px">
         <section style="float: left;font-size: 16px;padding-top: 2px;" class="col l3"><span style="float: left;"><b>TOTAL:</b></span> <span id="total_mesa">0.00</span> CRC <br> <span id="total_mesa_d">0.00</span> USD </section>
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left"></a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left;padding: 0%;"></a>
         
-        <i data-activates="shcomanda" class="mdi mdi-eye mdi-24px pbtn button-collapses-com hide" title="Ver Comanda" id="mcomanda" style="padding-right: 2%"></i>
-
+        <i data-activates="shcomanda" class="mdi mdi-eye mdi-24px pbtn button-collapses-com hide" title="Ver Comanda" id="mcomanda" style="padding-right: 0%"></i>
+        <span class="hide-on-med-and-down">
         Cocina General <i class="mdi mdi-flag-variant pbtn"></i> Entrada <i class="mdi mdi-flag-variant green-text"></i> Plato Fuerte <i class="mdi mdi-flag-variant" style="color: #C32B1B"></i> Postre <i class="mdi mdi-flag-variant blue-text"></i>
-
-        <a href="#!" class="modal-action waves-effect waves-green btn-flat add mdi mdi-table-edit mdi-24px" id="saveOrder" modulo="factura" varias="1" title="Guardar Orden"></a>
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat mdi mdi-24px mdi-exit-to-app" title="Salir" id="orderout"></a>
+        </span>
+        <a href="#!" class="modal-action waves-effect waves-green btn-flat add mdi mdi-table-edit mdi-24px" id="saveOrder" modulo="factura" varias="1" title="Guardar Orden" style="padding: 0%;"></a>
+        <a h%ref="#!" class="modal-action modal-close waves-effect waves-green btn-flat mdi mdi-24px mdi-exit-to-app" title="Salir" id="orderout" style="padding: 0;"></a>
       </div>
     </div>
 
+            <div class="modal modal-fixed-footer" id="modal-inicmesa">
+              <div class="modal-header">
+                <ul class="tabs tabs-fixed-width head3 center">
+                  <h5 class="center">Autenticar Usuario</h5>
+                </ul>
+                </div>
+                <div class="modal-content row" style="padding: 0px;margin:0px;">
+                    <div class="col s12 input-field">
+                      <label for="restauth">Codigo de Usuario</label>
+                      <input type="password" id="restauth">
+                    </div>
+
+                    <div class="col s6">
+                      <label class="center active" for="children">Cantidad de Niños</label>
+                      <input type="number" id="children">
+                    </div>
+
+                    <div class="col s6">
+                      <label class="center active" for="older">Cantidad de Adultos</label>
+                      <input type="number" id="older">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="waves-effect waves-green btn-flat" id="autentico" >Aceptar</button>
+                </div>
+            </div>
+
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.45"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.50"></script>
   </body>
 </html>

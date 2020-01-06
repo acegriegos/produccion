@@ -1316,8 +1316,7 @@ $(document).on("blur",".calcvv",function(){
 		$(".gan").each(function(){
 			costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
 			var padre = $(this).parent().parent();
-
-			if (padre.attr('dimension') != undefined){ //&& $(":visible",this).length
+			if (padre.attr('dimension') != undefined ){ //&& $(":visible",this).length
 				costo = costo/parseFloat($("#vldimension1").val())
 				costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 			}
@@ -2308,7 +2307,6 @@ function postload(vmodulo){
 		    		$(this).attr('idu',0);
 		    	}
 		    });
-
 		    $("#vimpiva").val($("#fproductos .zelda").data('triforce')['vtimv']).material_select('update')
 		    Materialize.updateTextFields();
 			break;

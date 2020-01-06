@@ -1,5 +1,5 @@
 <?php 
-	$mod = 'main';
+	$mod = 'facturacion';
 	
 	switch ($modulo) {
 		case 'login';

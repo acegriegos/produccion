@@ -39,7 +39,7 @@
               $_SESSION['CRR']     = $user[0][8];
               $_SESSION['BUSS']    = $user[0][12] == 2 ? 3 : $user[0][12];
               $_SESSION['EXPR']    = $user[0][13];
-              $mod = 'main';
+              $mod = 'facturacion';
 
               switch ($user[0][12]) {
                 case 0:
