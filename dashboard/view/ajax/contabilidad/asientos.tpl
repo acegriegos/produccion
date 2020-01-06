@@ -62,7 +62,6 @@
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descripción</th>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Debe</th>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Haber</th>
-            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">ODT</th>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Comentario</th>
         </tr>
     </thead>
@@ -71,12 +70,17 @@
     </tbody>
     <tfoot>
         <tr>
+          <td colspan="5">
+            <a class="btn-floating" title="Agregar Linea" id="addnline"><i class="mdi mdi-plus"></i></a>
+          </td>
+        </tr>
+        <tr>
             <td colspan="2" align="center">
                 <b>TOTAL</b>
             </td>
             <td id="totDebe" align="right">0.00</td>
             <td id="totHber" align="right">0.00</td>
-            <td colspan="2"></td>
+            <td colspan="1"></td>
         </tr>
         <tr>
             <td colspan="6">

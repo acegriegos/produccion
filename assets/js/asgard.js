@@ -240,7 +240,7 @@ $(document).on("click",".detallefactura",function(){
             
             $("#btn-div").click(function(){
                 var vi = $(".divabono").attr('visible');
-                if (vi == 0) {
+                if (parseInt(vi) == 0) {
                     $(".divabono").show();
                     $(".divabono").attr('visible',1);
                 }else{
@@ -310,6 +310,20 @@ $(document).on("click",".delete",function(){
         acc = 3;
         $(this).removeAttr('cnt');
         doGlobal(3,modulo,id,0);
+    }
+});
+
+$(document).on("click",".delete-row",function(){
+    if ($(this).attr('cnt') == undefined) {
+        if(!$("#_DEL").length){
+            var id = $(this).attr('id');
+            $(this).attr('mbg',$(this).parent().parent().css('background-color'));
+            var $toastContent = $('<span id="_DEL" >Desea Eliminar Este Registro? </span>').add($('<a class="btn red" style="margin:2px" id="deldef" inid="'+id+'">Elminar</a> <a class="btn btn-default" id="delcan" inid="'+id+'">Cancelar</a>'));
+            Materialize.toast($toastContent,10000,'',function(){if($("#"+id) != undefined) $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'))});
+            $(this).parent().parent().css('background-color','#ed5249');
+        }
+    }else{
+        deleterow($(this))
     }
 });
 
@@ -1318,6 +1332,8 @@ function rreport(){
     var conteo = $(".excel").data('parametros')['conteo'] == undefined ? '' : $(".excel").data('parametros')['conteo'];
     var suma = $(".excel").data('parametros')['suma'] == undefined ? '' : $(".excel").data('parametros')['suma'];
     var original = $(".excel").data('parametros')['original'] == undefined ? 0 : 1;
+    var chg = $(".principal .filtros").attr('chg') == undefined ? 0 : $(".principal .filtros").attr('chg');
+    
     if(original)
         var otros = '';
     else
@@ -1348,7 +1364,7 @@ function rreport(){
     });  
     atributos = atributos.substr(0,atributos.length-1).replace(/&/g,',');
 
-    return {vtbl:tbl,vattr:atributos,votros:otros};
+    return {vtbl:tbl,vattr:atributos,votros:otros,vchg:chg};
 }
 
 
@@ -1362,8 +1378,10 @@ function doreport() {
     }
     arr('login',6,'',resultado['vtbl'],resultado['vattr'],0,1,$(".detrep"),0,resultado['votros']);
 
-    if(rxlxs != undefined)
+    try {
         rxlxs(cabeza);
+    } catch(e) {
+    }
 
 }
 

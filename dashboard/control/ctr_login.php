@@ -284,7 +284,7 @@
           print_r($transaccion);
         
       }else{
-        
+        $transaccion = isset($transaccion) ? $transaccion : '';
   	   	if (is_array($transaccion)){
   			  $marcas = $transaccion;
           if ($tabla == 234) {

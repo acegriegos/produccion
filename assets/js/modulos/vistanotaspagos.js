@@ -114,7 +114,6 @@ function sendVMail(idfact,idnota,cnota){
 
 function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
     var archivos = '';
-    console.log(vidnota)
     mantenimiento_async('login',8,{arch:'recibo-notas-pagos',id:vidnota*-1,mic:1,tit:vestado,sel:'',tbl:186,where:vidnota*-1},1);
 
     archivos = {0:'xml/'+vestado+' No'+vnota+', '+vsucursal+'.xml',1:'pdf/'+vestado+' No'+vnota+', '+vsucursal+'.pdf'}

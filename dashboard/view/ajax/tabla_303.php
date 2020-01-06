@@ -74,6 +74,15 @@
 												<label for="tipoimpresion" style="color: white !important">Punto Venta</label>
 											</p>
 										</div>
+
+										<div class="col s12 m6">
+											<?php $monedas = $log->kamehameha('id,nombre,valor+suma,simbolo',54,'id>0');?>
+											<select id="monedas">
+												<?php foreach ($monedas as $indx => $mnj) { ?>
+									            <option value="<?php echo $mnj[0]; ?>" dv="<?php echo $mnj[2]; ?>"><?php echo $mnj[1]; ?> <?php if($indx != 0) echo $mnj[3].' '.$mnj[2]; ?></option>
+									        	<?php } ?>
+									        </select>
+										</div>
 									</div>
 									<div class="row">
 										<div class="col s12 offset-m2 ">

@@ -501,6 +501,7 @@ $(function(){
         case 5: //PEDIDO
         case 6: //SPECIAL
         case 7: //TIQUETE
+        case 9: //COMPRA ELETRONICA
             break;
         case 10:
             $(".export").removeClass('hide');
@@ -816,17 +817,15 @@ $(document).on("change","#uni",function(){
         $("#cantp").focus().select();
         $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
      }else{
-
         if($(this).attr('old') != undefined){
             var pfinal = getDatos('(select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old')+')',0,'',0,0,0)[0][0][0];
             $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
             $("#valores").data('elemento')['hprec'] = pfinal;
             $("#cantp").focus().select();
             $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','));
-            console.log(pfinal+' select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old'))
         }
         $(this).attr('old',$(this).val())
-     }  
+     }      
 });
 
 $(document).on("blur",".fventa",function(){
@@ -2283,6 +2282,7 @@ function sendVMail(factura,clave,vid){
         switch(param){
             case 104:
                 setTimeout(function(){window.close();},2000);
+                str_correos = '';
                 break;
             default:
                 var con_con = 0;

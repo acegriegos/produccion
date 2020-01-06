@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Contabilidad</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad.css?v=10.2.0.43">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-contabilidad.css?v=10.2.0.45">
   </head>
   <body>
       
@@ -19,7 +19,7 @@
   
             <ul class="tabs tabs-transparent tabs-fixed-width">
               <li class="tab col s6 menu3 per3001" id="m1"><a class="active tamLetra">Cuentas</a></li>
-              <li class="tab col s6 menu3 per3002" id="m2"><a class="tamLetra">Transacciones</a></li>
+              <li class="tab col s6 menu3 per3002" id="m2"><a class="tamLetra">Asientos</a></li>
               
           </ul>
       </div>
@@ -34,6 +34,6 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/contabilidad.js?v=10.2.0.43"></script>
+<script src="../assets/js/modulos/contabilidad.js?v=10.2.0.45"></script>
 </body>
 </html>

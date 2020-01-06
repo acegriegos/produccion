@@ -77,7 +77,7 @@ $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
    }
    else
       $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
-
+$filtros = isset($datos[0][14]) ? 'Fecha Vencimiento '.$datos[0][14] : '';
 $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Teléfono:</strong> '.$miscelaneos[5].'<br>'.
 '<strong>Correo:</strong> '.$miscelaneos[4].'<br>'.

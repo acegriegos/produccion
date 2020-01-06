@@ -59,6 +59,7 @@ $(document).on('change','#continuo',function(){
 $(document).on("click",".view-cuenta",function(){
 	var id = $(this).attr('id').substr(1);
 	arr('login',6,'',71,op1+","+id+","+op2+',"'+vdate1+'","'+vdate2+'"',71,1,$(".colDetalle"));
+	
 	var titulo = "Movimiento ";
 	switch(op2){
 		case 1:
@@ -122,15 +123,12 @@ $(document).on("keyup","#vdescripcion",function(e){
 	}
 });
 
-$(document).on("keyup","[id^=f]",function(e){
-	var code = e.which || e.keyCode;
-	if(code == 46){
-		$(this).remove();
-		var id = parseInt($('#fdetalletransacciones tr').last().attr('id').substr(1))+1
-		$('#fdetalletransacciones').append(getFila(id));
+$(document).on("click","#addnline",function(e){
+	var id = parseInt($('#fdetalletransacciones tr').last().attr('id').substr(1))+1;
 
-		$("#f"+id).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
-	}
+	$('#fdetalletransacciones').append(getFila(id));
+
+	$("#f"+id).data('triforce',{vaccion:0,vid:0, vidtransaccion:'?',vdebe:0, vhaber:0, vfila:0, vtabla:0,vidcuenta : 0});
 });
 
 $(document).on("keyup",".tdtext",function(e){
@@ -139,15 +137,7 @@ $(document).on("keyup",".tdtext",function(e){
 	if(code == 13){
 		if(!$(this).val().length && $(this).attr('id').substr(0,1) == 'c')
 			$("#d"+$(this).attr('id').substr(1)).focus();
-		$(this).blur();
-	}        
-});
-
-$(document).on("blur",".tdtext",function(){
-	if(!$(this).val().length)
-		return false;
-	
-	var id = parseInt($(this).attr('id').substr(1));
+		var id = parseInt($(this).attr('id').substr(1));
 		var spec = $(this).attr('id').substring(0,3);
 		
 		switch(spec){
@@ -180,42 +170,41 @@ $(document).on("blur",".tdtext",function(){
 			totalizar();
 			break;
 			default:
-			var rs = arr('login',4,'',53,"'"+$(this).val()+"',1",'',0,'')[0][0];
+				var rs = arr('login',4,'',53,'"'+$(this).val()+'",1','',0,'')
 
-			if(rs != undefined && $(this).val() != ''){
-				var repetido = 0;
+				rs = rs[0][0];
+				if(rs != undefined && $(this).val() != ''){
+					var repetido = 0;
 
-				$("#f"+$(this).attr('id').substr(1)).data('triforce')['vidcuenta'] = rs[3]
-				$('#fdetalletransacciones tr').each(function(){
-					if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
-						repetido = 1;
-				});
+					$("#f"+$(this).attr('id').substr(1)).data('triforce')['vidcuenta'] = rs[3]
+					$('#fdetalletransacciones tr').each(function(){
+						if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
+							repetido = 1;
+					});
 
-				if(!repetido){
-					$('#c'+id).val(rs[0])
-					$('#d'+id).val(rs[1])
-					$('#vsdebe'+id).val('0.00');
-					$('#vsdebe'+id).select();
-					$('#vsdebe'+id).focus();
-					$('#f'+id).attr('st',1)
+					if(!repetido){
+						$('#c'+id).val(rs[0])
+						$('#d'+id).val(rs[1])
+						if(!$('#vsdebe'+id).val().length)
+							$('#vsdebe'+id).val('0.00');
+						$('#f'+id).attr('st',1)
+					}
+
+					$('#vsdebe'+id).select().focus();
 				}else{
-					$(this).focus();
-					$(this).select();
+					$(this).focus().select();
 					$('#vsdebe'+id).val('');
 					$('#vshaber'+id).val('');
 					$('#f'+id).attr('st',0)
+					$('#vidcuenta'+id).val(0)
+					Materialize.toast('Cuenta no Válida',4000,'red');
 				}
-			}else{
-				$(this).focus();
-				$(this).select();
-				$('#vsdebe'+id).val('');
-				$('#vshaber'+id).val('');
-				$('#f'+id).attr('st',0)
-				$('#vidcuenta'+id).val('')
-			}
 			break;
 		}
+	}        
 });
+
+
 
 $(document).on("click",".func",function(){
 	var id = parseInt($(this).attr('fn').substr(1))
@@ -254,7 +243,10 @@ $(document).on("click",".dettran",function(){
 	var dtran = arr('login',4,'',207,num,0,0,0)[0];
 	$("#dtranN").html(' '+dtran[0][0]);
 	$("#dtranF").html(' '+dtran[0][1]);
-	$("#dtranD").html('<a href="#" class="button-collapse detextra truncate" data-activates="extra"><h6 style="font" class="white-text'+dtran[0][2]+"</h6></a>");
+	refbtn = '';
+	if(parseFloat(dtran[0][7]) != 0)
+		refbtn = '<a class="btn button-collapse detextra truncate white-text col s4" data-activates="extra" fila="'+dtran[0][7]+'" tabla="'+dtran[0][10]+'" style="max-width:30%; margin-left:1%;">VER RECIBO</a>';
+	$("#dtranD").html(dtran[0][2]+' <section>'+refbtn+' <a class="btn col s4" style="max-width:30%; margin-left:1%;">EDITAR</a> <a class="btn col s4" style="max-width:30%; margin-left:1%;">SALIR</a></section>');
 	$("#dtranE").html(' '+dtran[0][9]);
 	$("#dtranU").html(' '+dtran[0][8]);
 
@@ -263,7 +255,7 @@ $(document).on("click",".dettran",function(){
 	$.each(dtran,function(e,val){
 		debe = parseFloat(val[5]);
 		haber = parseFloat(val[6]);
-		$("#dtranDet").append('<div class="row"><div class="col s2 m3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0; height: 1.9em;">'+val[3]+'</div><div class="col s4 m3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0; height: 1.9em;">'+val[4]+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0; height: 1.9em;">'+debe.formatMoney(2,'.',',')+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0;  height: 1.9em;">'+haber.formatMoney(2,'.',',')+'</div></div>');
+		$("#dtranDet").append('<div class="row"><div class="col s2 m3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0; height: 1.9em;text-align: left;" title="'+val[3]+'">'+val[3]+'</div><div class="col s4 m3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0; height: 1.9em;text-align: right">'+val[4]+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE; font-size: 1em; margin: 0; height: 1.9em; text-align: right">'+debe.formatMoney(2,'.',',')+'</div><div class="col s3 truncate" align="center" style="border-bottom: 1px solid #DEDEDE;text-align: right; font-size: 1em; margin: 0;  height: 1.9em;">'+haber.formatMoney(2,'.',',')+'</div></div>');
 		tdebe += debe;
 		thaber += haber;
 	});
@@ -277,8 +269,9 @@ $(document).on("click",".dettran",function(){
 		$(".tdettran").css('color','red');
 
 	$(this).sideNav({
+			menuWidth: 500,
             edge: 'left', // Choose the horizontal origin
-            closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+            closeOnClick: false// Closes side-nav on <a> clicks, useful for Angular/Meteor
         }
     );
     $(this).sideNav('show');
@@ -286,10 +279,12 @@ $(document).on("click",".dettran",function(){
 
 $(document).on("click",".detextra",function(){
     $(this).sideNav({
+    		menuWidth: 700,
             edge: 'right', // Choose the horizontal origin
             closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
         }
     );
+    $("#extra-i").attr('src','login?accion=8&arreglo[arch]=recibo&arreglo[sel]=&arreglo[tbl]=72&arreglo[where]='+$(this).attr('fila')+'&arreglo[mic]=1&arreglo[tit]=Vista del Recibo&arreglo[show]=1')
     $(this).sideNav('show');
 })
 
@@ -312,13 +307,21 @@ function cargarTransacciones(){
 	 $(document).on('keydown','.autocomplete',function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);
-        
+        var obj = $(this);
+
         if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
             $(".autocomplete-content").remove();
 
             $(this).autocomplete({
                 limit: 20,
-                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1)
+                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1),
+                onAutocomplete:function(val){
+            		// var e = jQuery.Event("keyup");
+            		// e.which = 13;
+            		// obj.trigger(e);
+            		alert(1)
+            		$('#vsdebe'+obj.attr('id').substr(1)).select().focus();
+                }
             });
 
             $(".autocomplete-content").css('width','30%');
@@ -441,6 +444,11 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <select type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" id="vcomentario'+i+'"> </td></tr>';
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'" value="0.00"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'" value="0.00"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;" class="hide"> <select type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" style="width:90%;" id="vcomentario'+i+'"> <i class="mdi mdi-close red-text delete-row" id="r'+i+'" style="float:right;cursor:pointer;" title="Eliminar Fila"></i> </td></tr>';
 
+}
+
+function deleterow(elem){
+	elem.parent().parent().remove();
+	totalizar();
 }

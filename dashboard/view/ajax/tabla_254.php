@@ -94,10 +94,15 @@
         var code = e.wich || e.keyCode;
         if(code == 13){
             var tr = $(this).parent().parent();
+            var costo = parseFloat(tr.find('.focus1').val());
+            var ln = parseFloat(tr.find('.focus2').val()) 
             var ml = $(this).val();
             var mid = getDatos('id',283,'codigo = 1 and idproducto = '+tr.attr('id'),0,0,0)
-            if(mid[0].length)
-                console.log(actualizar(283,'valor = '+ml,'codigo = 1 and idproducto = '+tr.attr('id')));
+            if(mid[0].length){
+                actualizar(283,'valor = '+ml,'codigo = 1 and idproducto = '+tr.attr('id'));
+                ml = ((costo/ln)*parseFloat(tr.find('.focus4').val())/100)
+                console.log(actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id')));
+            }
             else
                 console.log(insertar(283,'','null,'+tr.attr('id')+',8,"",1,'+ml));
             $(this).next('.focus2').focus().select();
@@ -125,7 +130,7 @@
             var ln = parseFloat(tr.find('.focus2').val()) 
             var ml = ((costo/ln)*(parseInt($(this).val())/100));
             var mid = getDatos('id',105,'idtipoentrada =2 and identrada = '+tr.attr('id'),0,0,0)
-            console.log(mid)
+
             if(mid[0].length)
                 console.log(actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id')));
             else

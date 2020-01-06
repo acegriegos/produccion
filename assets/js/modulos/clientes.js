@@ -77,7 +77,7 @@ $(function(){
 
 		                 validares = function(){
 		                	var salida = true;
-		                	if($("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
+		                	if(parseFloat($("#vporcompra").val()) > 0 || $("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
 
 		                		if(!$("#vtipodoc").val()){
 		                			Materialize.toast('Tipo Documento Requerido',4000,'red')

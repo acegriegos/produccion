@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.43">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.43">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.43">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.45">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.45">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.45">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -165,7 +165,7 @@
               $time = strtotime($exoneracion[3]);
               $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-              echo "<span style='text-align:justify;'>Factura exenta del pago del impuestos. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo."</span><br><br>";
+              echo "<span style='text-align:justify;'>Factura exenta del pago del impuesto. Exoneracion emitida por ".$exoneracion[2]." mediante el documento ".$exoneracion[1].", con fecha ".$fexo."</span><br><br>";
             } ?>
             * Producto Exento
             <tfoot>
@@ -302,10 +302,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.2.0.43"></script>
-     <script src="../assets/js/materialize.js?v=10.2.0.43"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.43"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.43"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.45"></script>
+     <script src="../assets/js/materialize.js?v=10.2.0.45"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.45"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.45"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
