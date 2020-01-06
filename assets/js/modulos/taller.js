@@ -30,6 +30,9 @@ $(function(){
         $("#brub").data('index',0);
         $("#listext").html('');
         $("#bext").data('index',0);
+
+        $("#addBol").attr('vid',0)
+        $("#addBol").attr('accion','1')
     });
 
     $("#agElem").click(function(){
@@ -54,7 +57,7 @@ $(function(){
 
     $("#belem").change(function(){
         var index = parseInt($("#belem").data('index'))+1;
-        var ht = '<li id="l'+index+'">  <a href="#" vid="'+$('option:selected',this).val()+'" class="truncate elemento col s9" style="text-align: left;padding:0px;">'+$('option:selected',this).html()+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
+        var ht = '<li id="l'+index+'">  <a href="#" vid="'+$('option:selected',this).val()+'" accion="1" class="truncate elemento col s9" style="text-align: left;padding:0px;">'+$('option:selected',this).html()+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
         $("#listelm").append(ht);
         $(this).val(0)
         $("#belem").data('index',index);
@@ -90,23 +93,56 @@ $(function(){
         }
 
         var comodin = parseInt($("#vidcliente").val()) == 0 ? $("._bcliente").val() : '';
-        var idbol = getDatos('',507,'1,0,@@usr,@@impresa,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'",null');
+        var treg = 'Ingresado';
+        switch (parseInt($("#addBol").attr('accion'))) {
+            case 1:
+                 var idbol = getDatos('',507,'1,0,@@usr,@@impresa,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'","'+$("#vffin").val()+'"');
+                break;
+            default:
+                 var idbol = getDatos('',507,'2,'+$("#addBol").attr('vid')+',0,0,'+$("#vidcliente").val()+',"'+comodin+'","'+$("#vcomentario").val()+'","'+$("#vffin").val()+'"');
+                 treg = 'Actualizado';
+                break;
+        }
         
         if(idbol['succed'] == 1){
 
             $.each($('.elemento'),function(ind,val){
-                insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid'));
-                insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid')+',"'+$(this).data('descr')+'"');
+                if(parseInt($(this).attr('accion')) == 1)
+                    insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid')+',"'+$(this).data('descr')+'"');
+                else
+                    actualizar(502,'descripcion="'+$(this).data('descr')+'"','idboleta='+idbol[0][0][0]+' and idelemento='+$(this).attr('vid'));
+
                 var iddet = getDatos('id',502,'idboleta='+idbol[0][0][0]+' and idelemento='+$(this).attr('vid'))[0][0][0];
                 if($(this).data('rep') != ''){
                     $.each($(this).data('rep'),function(ind,val){
-                        insertar(503,'',iddet+','+ind+',"'+val+'"');
+                        switch (parseInt(val.accion)) {
+                            case 1:
+                                insertar(503,'',iddet+','+ind+',"'+val.valor+'"');
+                                break;
+                            case 2:
+                                actualizar(503,'valor = "'+val.valor+'"','indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                            default:
+                                eliminar(503,'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                        }
+                        
                     });
                 }
 
                 if($(this).data('rot') != ''){
                     $.each($(this).data('rot'),function(ind,val){
-                        insertar(504,'',iddet+','+ind+',"'+val+'"');
+                        switch (parseInt(val.accion)) {
+                            case 1:
+                                insertar(504,'',iddet+','+ind+',"'+val.valor+'"');
+                                break;
+                            case 2:
+                                actualizar(504,'valor = "'+val.valor+'"','indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                            default:
+                                eliminar(504,'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                        }
                     });
                 }
 
@@ -118,13 +154,25 @@ $(function(){
                             idserv = idprod;
                             idprod = 0;
                         }
-                        insertar(505,'',iddet+','+idprod+','+idserv+','+val.cant+','+val.prec.replace(/,/g,'')+','+ind);
+
+                        switch (parseInt(val.accion)) {
+                            case 1:
+                                insertar(505,'',iddet+','+idprod+','+idserv+','+val.cant+','+val.prec.replace(/,/g,'')+','+ind);
+                                break;
+                            case 2:
+                                actualizar(505,'idproducto = '+idprod+',idservicio = '+idserv+', cantidad = '+val.cant+',precio = '+val.prec.replace(/,/g,''),'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                            default:
+                                eliminar(505,'indice = '+ind+' and iddetalle = '+iddet);
+                                break;
+                        }
                     });
                 }
             });
 
-            Materialize.toast('Registro Ingresado Correctamente',4000,'green');
-            window.open('taller?accion=4&pv=0&id='+idbol[0][0][0]);
+            Materialize.toast('Registro '+treg+' Correctamente',4000,'green');
+            if (parseInt($("#addBol").attr('accion')) == 1) 
+                window.open('taller?accion=4&pv=0&id='+idbol[0][0][0]);
             cargarLista();
             $("#modal-boleta").modal('close');
         }else{
@@ -140,7 +188,7 @@ $(function(){
             $("#listrep").append(ht);
             $(this).data('index',index);
 
-            $(".elemento.active").data('rep')[index] = $(this).val();
+            $(".elemento.active").data('rep')[index] = {valor:$(this).val(),accion:1};
             $(this).val('');
         }
 
@@ -150,11 +198,11 @@ $(function(){
         var code = e.which || e.keyCode;
         if(code == 13 && $(this).val().length && $(".elemento.active").length){
             var index = parseInt($(this).data('index'))+1;
-            var ht = '<li id="u'+index+'" style="border-bottom: 1px solid black;">  <span>'+$(this).val()+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            var ht = '<li id="o'+index+'" style="border-bottom: 1px solid black;">  <span>'+$(this).val()+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
             $("#listext").append(ht);
             $(this).data('index',index);
 
-            $(".elemento.active").data('rot')[index] = $(this).val();
+            $(".elemento.active").data('rot')[index] = {valor:$(this).val(),accion:1};
             $(this).val('');
         }
 
@@ -260,7 +308,7 @@ $(function(){
         $("#listrub").append(ht);
         $("#brub").data('index',index);
 
-        $(".elemento.active").data('rub')[index] = {id:$("#gdescp").attr('vid'),nom:$("#gdescp").val(),prec:$("#gprec").val().replace(/,/g,''),cant:$("#gcant").val(),tot:$("#gtot").val()};
+        $(".elemento.active").data('rub')[index] = {id:$("#gdescp").attr('vid'),nom:$("#gdescp").val(),prec:$("#gprec").val().replace(/,/g,''),cant:$("#gcant").val(),tot:$("#gtot").val(),accion:1};
 
         $("#modal-gprod").modal('close');
     });
@@ -358,48 +406,79 @@ $(document).on('click','.infoelem',function(){
 });
 
 $(document).on('click','.delelem',function(){
-    $(this).parent().remove();
+    $(this).parent().addClass('hide');
 });
 
 $(document).on('click','.delrep',function(){
-    $(this).parent().remove();
+    $(this).parent().addClass('hide');
 });
 
 $(document).on('click','.eboleta',function(){
-    var boleta = getDatos('id,lpad(consecutivo,7,0),(select nombre from clientes where id =  taller.boletas.idcliente),observacion,idcliente',501,'id = '+$(this).attr('vid'));
+    var boleta = getDatos('id,lpad(consecutivo,7,0),if(idcliente,(select nombre from clientes where id = taller.boletas.idcliente),comodin) ,observacion,idcliente,date_format(fechafin,"%Y-%m-%d")',501,'id = '+$(this).attr('vid'));
     
     $("#cons").html(boleta[0][0][1]);
     $("._bcliente").val(boleta[0][0][2]).attr('readonly',false).focus();
     $("[for=_bcliente]").addClass('active');
     $("#vidcliente").val(boleta[0][0][4]);
     $("#vcomentario").val(boleta[0][0][3]);
+    if (boleta[0][0][3])
+        $("[for=vcomentario]").addClass('active');
+    else
+        $("[for=vcomentario]").removeClass('active');
 
     $("#listelm").html('');
     var lelemtos = getDatos('id,idelemento,(select nombre from taller.elementos where id = idelemento),descripcion',502,'idboleta='+boleta[0][0][0]);
         
     for (var i = 0; i < lelemtos[0].length; i++) {
-         var ht = '<li id="l'+i+'">  <a href="#" vid="'+lelemtos[0][0][1]+'" class="truncate elemento col s9" style="text-align: left;padding:0px;">'+lelemtos[0][0][2]+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
+         var ht = '<li id="l'+i+'">  <a href="#" vid="'+lelemtos[0][0][1]+'" accion="2" class="truncate elemento col s9 active" style="text-align: left;padding:0px;">'+lelemtos[0][0][2]+' </a>  <i class="mdi mdi-close red-text delelem pbtn" title="Eliminar Elemento" style="float:right;padding:0px;"></i>  <i class="mdi mdi-information infoelem pbtn" style="float:right;padding:0px;" title="Editar Descripcion"></i> </li>';
         $("#listelm").append(ht);
         $("#l"+i+" .elemento").data('descr',lelemtos[0][0][3]);
         $("#l"+i+" .elemento").data('rep',{});
         $("#l"+i+" .elemento").data('rot',{});
         $("#l"+i+" .elemento").data('rub',{});
 
-        var lrepa = getDatos('indice,valor',503,'idboleta = '+boleta[0][0][0]);
-        $.each(lrepa,function(ind,val){
-            var ht = '<li id="r'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+        var lrepa = getDatos('indice,valor',503,'iddetalle = '+lelemtos[0][0][0]);
+        var indx = 0;
+        $("#listrep").html('');
+        $.each(lrepa[0],function(indj,val){
+            ht = '<li id="r'+lrepa[0][indj][0]+'" style="border-bottom: 1px solid black;">  <span>'+lrepa[0][indj][1]+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
             $("#listrep").append(ht);
-            $("#brep").data('index',ind);
-        })
+            indx = lrepa[0][indj][0];
+            $("#l"+i+" .elemento").data('rep')[lrepa[0][indj][0]] = {valor:lrepa[0][indj][1],accion:2};
+        });
+
+        $("#brep").data('index',indx);
+
+        lrepa = getDatos('indice,valor',504,'iddetalle = '+lelemtos[0][0][0]);
+        indx = 0;
+        $("#listext").html('');
+        $.each(lrepa[0],function(indj,val){
+            ht = '<li id="o'+lrepa[0][indj][0]+'" style="border-bottom: 1px solid black;">  <span>'+lrepa[0][indj][1]+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listext").append(ht);
+            indx = lrepa[0][indj][0];
+            $("#l"+i+" .elemento").data('rot')[lrepa[0][indj][0]] = {valor:lrepa[0][indj][1],accion:2};
+        });
+
+        $("#bext").data('index',indx);
+
+        lrepa = getDatos('indice,if(idproducto,idproducto,idservicio*-1),truncate(cantidad,0),format(precio,2),if(idproducto,(select nombre from productos where id = idproducto),(select nombre from servicios where id = idservicio)),precio',505,'iddetalle = '+lelemtos[0][0][0]);
+        indx = 0;
+        $("#listrub").html('');
+        $.each(lrepa[0],function(indj,val){
+             var ht = '<li id="p'+lrepa[0][indj][0]+'" style="border-bottom: 1px solid black;">  <span> '+lrepa[0][indj][4]+' <-> x'+lrepa[0][indj][2]+' ¢'+lrepa[0][indj][3]+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            $("#listrub").append(ht);
+            indx = lrepa[0][indj][0];
+            $("#l"+i+" .elemento").data('rub')[lrepa[0][indj][0]] = {id:lrepa[0][indj][1],nom:lrepa[0][indj][4],prec:lrepa[0][indj][5],cant:lrepa[0][indj][2],tot:lrepa[0][indj][3],accion:2};
+        });
+
+        $("#brub").data('index',indx);
     }
     $("#belem").data('index',i);
-
-    $("#listrep").html('');
-    $("#brep").data('index',0);
-    $("#listrub").html('');
-    $("#brub").data('index',0);
-    $("#listext").html('');
-    $("#bext").data('index',0);
+    
+    $("#addBol").attr('accion','2');
+    $("#addBol").attr('vid',boleta[0][0][0])
+    console.log(boleta)
+    $("#vffin").val(boleta[0][0][5])
     $("#modal-boleta").modal('open');
 });
 
@@ -410,7 +489,7 @@ $(document).on('click','.elemento',function(){
     $("#listrep").html('');
     if($(this).data('rep') != ''){
         $.each($(this).data('rep'),function(ind,val){
-            var ht = '<li id="r'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            var ht = '<li id="r'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val.valor+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
             $("#listrep").append(ht);
             $("#brep").data('index',ind);
         });
@@ -421,7 +500,7 @@ $(document).on('click','.elemento',function(){
     $("#listext").html('');
     if($(this).data('rot') != ''){
         $.each($(this).data('rot'),function(ind,val){
-            var ht = '<li id="r'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
+            var ht = '<li id="o'+ind+'" style="border-bottom: 1px solid black;">  <span>'+val.valor+'</span>  <i class="mdi mdi-close red-text delrep pbtn" style="float:right;padding:0px;" title="Eliminar"></i>  <i class="mdi mdi-pencil editrep pbtn" style="float:right;padding:0px;" title="Editar"></i> </li>';
             $("#listext").append(ht);
             $("#bext").data('index',ind);
         });

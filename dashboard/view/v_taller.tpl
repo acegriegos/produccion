@@ -64,12 +64,19 @@
                                 <div class="col s4 bcliente input-field" style="position: relative;">
                                 </div>
 
-                                <div class="col s4 input-field">
+                                <div class="col s6 row" style="margin: 0;">
+                                  <div class="col s6 input-field">
                                     <label for="vcomentario">Observaciones</label>
-                                    <input type="text" id="vcomentario" maxlength="150">
+                                    <input type="text" id="vcomentario" maxlength="150" autocomplete="off">
+                                  </div>
+
+                                  <div class="col s6 input-field">
+                                    <label for="vffin" class="active">Fecha Entrega</label>
+                                    <input type="date" id="vffin" class="browser-default" style="border: 0;">
+                                  </div>
                                 </div>
 
-                                <div class="col s4 eder">
+                                <div class="col s2 eder">
                                     <b>BOLETA #</b><span style="color: red" id="cons"></span>
                                 </div>
                             </div>
@@ -129,7 +136,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
-                            <button type="button" class="waves-effect waves-green btn-flat" id="addBol">Guardar</button>
+                            <button type="button" class="waves-effect waves-green btn-flat" accion="1" id="addBol">Guardar</button>
                         </div>
                     </div>
 

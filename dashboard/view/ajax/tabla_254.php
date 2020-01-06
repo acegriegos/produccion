@@ -9,6 +9,7 @@
         <td class="white-text blue sinborde " style="text-align: center"><b>Factor</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>UTIL1</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>UTIL2</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Notas</b></td>
       </tr>
     </thead>
     <tbody>
@@ -24,10 +25,11 @@
         <td style=" padding: 1px;text-align: left;"><?php echo $obj[2] ?></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus" style="border: 0px" value="<?php echo number_format($obj[6],2,'.','') ?>" rval="<?php echo $obj[6] ?>"></td> 
         <td style=" padding: 1px;"><select class="browser-default um" style="border: 0px;"> <option value="1" selected>UN</option> <option value="2">M</option> </select></td> 
-        <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[12],2) ?></td>
-         <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[14],0) ?></td>
-          <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[16],0) ?></td>
-           <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[17],0) ?></td>
+        <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus1" style="border: 0px" value="<?php echo number_format($obj[12],2,'.','') ?>"/></td>
+         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus2" style="border: 0px" value="<?php echo number_format($obj[14],2,'.','') ?>"/></td>
+          <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus3" style="border: 0px" value="<?php echo number_format($obj[16],2,'.','') ?>"/></td>
+           <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus4" style="border: 0px" value="<?php echo number_format($obj[17],2,'.','') ?>"/></td>
+            <td style=" padding: 1px;text-align: right;"><input type="text" class="eder browser-default focus5" style="border: 0px" value="<?php echo $obj[18]; ?>"/></td>
        
     </tr>
 
@@ -72,10 +74,83 @@
             }
             else
                 cactual = ml;*/
-            
             $(this).next('.focus').focus().select();
+            Materialize.toast('Cantidad Cambiada Correctamente',4000,'green');
         }
     });
+
+     $(".focus1").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var ml = $(this).val();
+            actualizar(11,'costo = '+ml,'id = '+tr.attr('id'));
+            $(this).next('.focus1').focus().select();
+            Materialize.toast('Costo Cambiado Correctamente',4000,'green');
+        }
+    });
+
+     $(".focus2").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var costo = parseFloat(tr.find('.focus1').val());
+            var ln = parseFloat(tr.find('.focus2').val()) 
+            var ml = $(this).val();
+            var mid = getDatos('id',283,'codigo = 1 and idproducto = '+tr.attr('id'),0,0,0)
+            if(mid[0].length){
+                actualizar(283,'valor = '+ml,'codigo = 1 and idproducto = '+tr.attr('id'));
+                ml = ((costo/ln)*parseFloat(tr.find('.focus4').val())/100)
+                console.log(actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id')));
+            }
+            else
+                console.log(insertar(283,'','null,'+tr.attr('id')+',8,"",1,'+ml));
+            $(this).next('.focus2').focus().select();
+            Materialize.toast('Factor Longitud Cambiado Correctamente',4000,'green');
+        }
+    });
+
+    $(".focus3").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var costo = parseFloat(tr.find('.focus1').val()); 
+            var ml = (costo*(parseFloat($(this).val())/100));
+            console.log(actualizar(11,'ganancia = '+ml+', venta='+(costo+ml)*1.13,'id = '+tr.attr('id')));
+            $(this).next('.focus3').focus().select();
+            Materialize.toast('Utilidad Unitaria Cambiada Correctamente',4000,'green');
+        }
+    });
+
+    $(".focus4").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var costo = parseFloat(tr.find('.focus1').val());
+            var ln = parseFloat(tr.find('.focus2').val()) 
+            var ml = ((costo/ln)*(parseInt($(this).val())/100));
+            var mid = getDatos('id',105,'idtipoentrada =2 and identrada = '+tr.attr('id'),0,0,0)
+
+            if(mid[0].length)
+                console.log(actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id')));
+            else
+                console.log(insertar(105,'','null,2,'+tr.attr('id')+',8,'+ml+',13,'+(costo/ln+ml)*1.13));
+            $(this).next('.focus4').focus().select();
+            Materialize.toast('Utilidad en Metros Cambiada Correctamente',4000,'green');
+        }
+    });
+
+    $(".focus5").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var ml = $(this).val();
+            console.log(actualizar(11,'codigointerno = "'+ml+'"','id = '+tr.attr('id')));
+            $(this).next('.focus5').focus().select();
+            Materialize.toast('Nota Cambiada Correctamente',4000,'green');
+        }
+    });
+
 
     $(".um").change(function(){
         var tr = $(this).parent().parent();
@@ -83,6 +158,10 @@
         var ln = tr.attr('metrica');
         var nval = $('option:selected',this).val() == 2 ? parseFloat(mobj.attr('rval'))*parseFloat(ln) : parseFloat(mobj.val())/parseFloat(ln);
         mobj.val(parseFloat(nval).formatMoney(2,'.',''))
-        mobj.fous().select();
+        mobj.focus().select();
+    });
+
+    $(function(){
+        $(".principal").css('margin-left','0px').css('margin-right','0px');
     });
 </script>

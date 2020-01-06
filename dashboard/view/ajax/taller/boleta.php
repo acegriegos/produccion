@@ -68,7 +68,7 @@
 
       </div>
       <div class="col s4" style="margin: 0px">
-        <span style="float: right;"><b>Boleta de Ingreso #</b><span class="red-text"><?php echo $transaccion[0][0]; ?></span> <br> Fecha de Ingreso <span><?php echo $transaccion[0][5]; ?></span> </span>
+        <span style="float: right;"><b>Boleta de Ingreso #</b><span class="red-text"><?php echo $transaccion[0][0]; ?></span> <br> Fecha de Ingreso: <span><?php echo $transaccion[0][5]; ?> <br> <?php echo $transaccion[0][13] ? 'Fecha Entrega: '.$transaccion[0][13] : '' ; ?> </span> </span>
       </div>
 
       <div class="col s12">
