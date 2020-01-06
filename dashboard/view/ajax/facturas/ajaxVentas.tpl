@@ -362,7 +362,7 @@
           </div>
 
           <div class="input-field col s12 m1">
-            <input type="text" class="f center" id="descup" min="0" value="0" data-mask="999999999.99" placeholder="Descuento" value="0.00" autocomplete="new-password">
+            <input type="text" class="f center" id="descup" min="0" value="0" placeholder="Descuento" value="0.00" autocomplete="new-password">
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -1129,4 +1129,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.50"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.50-1"></script>
