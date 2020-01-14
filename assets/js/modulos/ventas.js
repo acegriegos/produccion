@@ -1903,6 +1903,10 @@ function endDetail(vid,vacc,vmodulo) {
             factura = factura[0];
             var clave = vid[0][0];
 
+            if($(".per15:visible").length){
+                getDatos('',321,vid[0][0]+',1'); 
+            }
+
             switch(parseInt(param )) {
                 case 104:
                 $("#ffacturas .ciclos").each(function(){
