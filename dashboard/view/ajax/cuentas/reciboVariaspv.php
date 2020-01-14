@@ -118,7 +118,7 @@ echo '<tr>
 <br>
 <table style="width: 100% !important;">
   <tr >
-    <td colspan="2">CLIENTE:</td>
+    <td colspan="2">'.$transaccion[0][12].':</td>
   </tr>
   <tr>
     <td align="center" colspan="2">'.$transaccion[0][2].'</td>
@@ -162,7 +162,7 @@ echo '<tr>
   echo '
 </table>';
 
-echo '<hr><b>SALDO CLIENTE:</b> '.$obj[6].$obj[11].'
+echo '<hr><b>SALDO '.$transaccion[0][12].':</b> '.$obj[6].$obj[11].'
 <br><br><br>
 <hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>

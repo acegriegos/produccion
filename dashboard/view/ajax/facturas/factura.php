@@ -46,7 +46,7 @@
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
               <table><tr><td style="padding: 0"><b>Provincia:</b> <?php echo $miscelaneos[12] ?></td> <td style="padding: 0"><b>Cantón:</b> <?php echo $miscelaneos[13] ?></td></tr> <tr> <td style="padding: 0"><b>Distrito:</b> <?php echo $miscelaneos[14]; ?></td> 
               <?php if( $miscelaneos[15] != 'N/A'){ ?>
-              <td style="padding: 0"><b>Barrio:</b> <?php echo $miscelaneos[12]; ?></td>
+              <td style="padding: 0"><b>Barrio:</b> <?php echo $miscelaneos[15]; ?></td>
             <?php } ?>
           </tr></table>
               <b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[23]; ?></span><br>
@@ -116,9 +116,10 @@
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
                 <div class="card-content" style="padding: 2%;">
-                  <?php if ($datos[2] === 'N/A'){ ?>
+                  <?php if ($datos[2] === ''){ ?>
                   <p><b class="ftipofact">Plazo en Días: </b>
-                    <span class="ftipofa"><?php echo $datos[11]; ?></span>
+                    <span class="ftipofa"><?php echo $datos[11]; ?></span> <br>
+                    <b>Fecha Vencimiento:</b> <span> <?php echo $datos[55]; ?></span>
                   </p>
                   <?php }else{ ?>
                     <p><b class="ftipofact">Tipo de Pago: </b>

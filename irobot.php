@@ -13,7 +13,7 @@
 
     $fe = new facturaElectronica(0);
     $db = new DBClass();
-    set_time_limit(0);
+
     if (isset($_REQUEST['succ'])) {
         $valores = $db->ejecutar('select botmail,botpswd from ajustessucursales where idsucursal = '.$_REQUEST['succ'])->fetch_all()[0];
         $username = $valores[0];
@@ -67,7 +67,10 @@
         $structure = imap_fetchstructure($inbox,$email_number);
 
         $attachments = array();
-        if(isset($structure->parts) && count($structure->parts)) 
+        if (!isset($structure->parts)) {
+            continue;
+        }
+        if(count($structure->parts)) 
         {
             for($i = 0; $i < count($structure->parts); $i++) 
          
@@ -80,8 +83,8 @@
                     {   
                         if(is_array($object)){
                         $spart++;    
-                        foreach($object as $i=>$nobject){
-
+                        foreach($object as $j=>$nobject){
+                            $i++;
                             $attachments[$i] = array(
                                 'is_attachment' => false,
                                 'filename' => '',

@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.50">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.46">
   </head>
   <body>
     {$NAV}
@@ -37,7 +37,7 @@
         <!-- <div class="col s12 m6" >
           {$BARRAS[LE][1]}
         </div> -->
-        <div class="col s12 m6 center barra" style="cursor:pointer;height: 135px;background: url('../assets/img/barra.png');background-repeat: no-repeat;" id="r{$BARRAS[LE][0]}">
+        <div class="col s12 m6 center barra" style="cursor:pointer;height: 135px;background: url('../assets/img/mesa2.jpg');background-repeat: no-repeat;" id="r{$BARRAS[LE][0]}">
           <strong style="font-style: italic;"><b>{$BARRAS[LE][1]}</b></strong>
         </div>
         
@@ -89,7 +89,6 @@
         </ul>
       </div>
     </div>
-
      <div id="modal-comentario" class="modal modal-fixed-footer" style="z-index: 1600 !important">
           <div class="modal-content">
             <h4 id="pname"></h4>
@@ -105,15 +104,15 @@
 
       <div class="modal-content" style="padding: 0px">
         <div class="row">
-          <div class="col s4 input-field">
+          <div class="col s5 input-field">
             <i class="mdi mdi-24px mdi-magnify prefix"></i>
             <input type="text" id="sbarra">
             <label for="sbarra">Buscar Cliente</label>
           </div>
 
-          <div class="col s4"></div>
+          <div class="col s2"></div>
 
-          <div class="col s4 input-field">
+          <div class="col s5 input-field">
             <a class="btn-floating blue prefix" id="addclient"><i class="mdi mdi-24px mdi-plus"></i></a>
             <input type="text" id="abarra" maxlength="40"> 
             <label for="abarra">Agregar Cliente</label>
@@ -126,43 +125,42 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
       </div>
     </div>
-
     <div id="modal-mesa" class="modal modal-fixed-footer comanda">
       <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section> <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
 
-      <div class="modal-content" style="padding: 0px" id="ffacturas">
+      <div class="modal-content" style="padding: 0px; overflow: hidden;" id="ffacturas">
         <input type="hidden" class="zelda">
           <div class="row">
-            <div class="col s12 l3" style="overflow-y: auto;" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" >
+            <div class="col s12 l3" style="overflow-y: auto;max-height: 90vh;padding-bottom: 5%;" vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" >
               <section id="lentradas"></section>
               <section id="lpfuertes"></section>
               <section id="lpostres"></section>
               <section id="lgeneral"></section>
               <section id="lbebidas"></section>
             </div>
-          <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;">
+          <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;" id="listgeneral">
             <div class="row col s12" style="margin: 0px;">
               <select class="browser-default col s4" id="lfam"> 
                 {section name=LE loop=$FAM}
                   <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
                 {/section}
               </select>
-              <input type="text" placeholder="Buscar Producto" class="der" style="width: 30%" id="sprod">
+              <input type="text" placeholder="Buscar Producto" class="der col s8" style="width: 50%" id="sprod" autocomplete="off">
             </div>
             
-            <ul>
+            <!-- <ul>
               {section name=LE loop=$FAM}
               <li class="tab col s1"><a href="#test1">{$FAM[0][LE][1]}</a></li>
               {/section}
-            </ul>
-          <div id="test1" class="col s12" style="max-height: -webkit-fill-available;overflow-y: auto;margin-bottom: 10%">
+            </ul> -->
+          <div id="test1" class="col s12" style="max-height: -webkit-fill-available;overflow-y: auto;">
 
           </div>
         </div>
 
       </div>
       </div>
-      <div class="modal-footer row" style="z-index: 1014;margin: 0px">
+      <div class="modal-footer row" style="z-index: 1014;margin: 0px" id="forder">
         <section style="float: left;font-size: 16px;padding-top: 2px;" class="col l3"><span style="float: left;"><b>TOTAL:</b></span> <span id="total_mesa">0.00</span> CRC <br> <span id="total_mesa_d">0.00</span> USD </section>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hide mdi mdi-table-row-remove mdi-24px"  title="Cancelar Orden" id="cancOrder" style="float: left;padding: 0%;"></a>
         
@@ -203,6 +201,6 @@
             </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.50"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.46-2"></script>
   </body>
 </html>

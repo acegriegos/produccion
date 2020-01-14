@@ -107,6 +107,33 @@
 			$this->user = $id;
 			$this->pass = $pss;
 		}
+
+		function getCURL($url,$param,$post=true){
+			$curl = curl_init($url);
+	        curl_setopt($curl, CURLOPT_HEADER, true);
+	        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	        curl_setopt($curl, CURLOPT_POST, $post);
+	        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+	        $postData = "";
+
+	        foreach($param as $k => $v)
+	        {
+	           $postData .= $k . '='.urlencode($v).'&';
+	        }
+
+	        $postData = rtrim($postData, '&');
+
+	        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+	        $json_response = curl_exec($curl);
+	        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	        $error = curl_error($curl);
+
+	        curl_close($curl);
+
+	        return array('rs' => $json_response, 'status' => $status,'error' => $error);
+		}
 	}
 			
 ?>

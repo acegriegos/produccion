@@ -58,6 +58,63 @@
       </div>
     </div>
 
+     <div id="modal2" class="modal grandemodal">
+      <div class="modal-content center">
+        <div class="row">
+        <div class="col s12 input-field">
+          <input type="text" id="n_rzocial" readonly>
+          <label for="n_rzocial">Razón Social</label>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col s6 input-field">
+          <input type="text" id="n_ced" readonly>
+          <label for="n_ced">Cédula</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="n_fant">
+          <label for="n_fant">N. Fantasía</label>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col s6 input-field">
+          <input type="text" id="n_mail">
+          <label for="n_mail">Correo</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="n_phone">
+          <label for="n_phone">Teléfono</label>
+        </div>
+        </div>
+
+        <div class="row">
+        <select id="n_tipo" class="browser-default col s4">
+          <option value="0" selected>Seleccione un Plan</option>
+          <option value="1">Básico</option>
+          <option value="2">Gold</option>
+        </select>
+
+        <div class="col s4 input-field">
+          <input type="text" id="n_valor" readonly value="0.00" class="eder">
+          <label for="n_valor">Valor Mensualidad +IVA</label>
+        </div>
+
+        <div class="col s4 input-field">
+          <input type="date" id="n_date" readonly class="browser-default">
+          <label for="n_date" class="active">Fecha de Corte</label>
+        </div>
+
+        </div>
+
+        <a href="#" id="n_acept" class="btn der">Aceptar</a>
+
+      </div>
+    </div>
+
   </div>
 </div>
 <script src="../assets/js/jquery.js?v=10.2.0.50"></script>
