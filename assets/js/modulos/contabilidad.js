@@ -327,7 +327,6 @@ function cargarTransacciones(){
             		// var e = jQuery.Event("keyup");
             		// e.which = 13;
             		// obj.trigger(e);
-            		alert(1)
             		$('#vsdebe'+obj.attr('id').substr(1)).select().focus();
                 }
             });

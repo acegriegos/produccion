@@ -29,6 +29,7 @@
 				$smarty->assign('STY',$sty);
 				$smarty->assign('SCR',$scr);
 				$smarty->assign('MIS',$kakaroto->kamehameha('',50,'@@impresa')[0]);
+				$smarty->assign('VAR',isset($_GET['tf']) ? $_GET['tf'] : '');
 	            $smarty->display('reportes/'.$_REQUEST['rep'].'.tpl');
 	   			break;
 	   		case 2:

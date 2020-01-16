@@ -241,7 +241,7 @@ $(document).on("click","#docierre",function(){
 
 	if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0];
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0][0];
 
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();

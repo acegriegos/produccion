@@ -1904,7 +1904,7 @@ function endDetail(vid,vacc,vmodulo) {
             var clave = vid[0][0];
 
             if($(".per15:visible").length){
-                getDatos('',321,vid[0][0]+',1'); 
+                console.log(getDatos('',321,vid[0][0]+',1')); 
             }
 
             switch(parseInt(param )) {
