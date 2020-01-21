@@ -2,7 +2,7 @@
     <div class="row">
         <br>
         <div class="row">
-            <div class="col s10 offset-s2 m4 l3" style="margin-top:2%; ">
+            <div class="col s10 offset-s2 m4 l3 hide" style="margin-top:2%; ">
               <li class="btn waves-effect waves-light func z-depth-5" fn="f1" id="fn1">Realizar Asiento</li>
 
           </div>

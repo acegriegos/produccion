@@ -127,14 +127,13 @@ function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
 
 function postExcecute(vid,p){
 
+    return false;
+}
+
+function postSendmail() {
     switch(parseInt(vid)){
         default:
             Materialize.toast('Correo Enviado',4000,'green')
             break;
     }
-    return false;
-}
-
-function postSendmail() {
-    setTimeout(function(){$(".toast").remove();},3000);
 }

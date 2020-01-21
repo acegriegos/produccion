@@ -1345,7 +1345,7 @@ function totalizar(){
                     precio = precio - cexov;
                 }
 
-                if(parseInt(eimv) == 0 && $("#fd"+vidlinea+":visible").length) { 
+                if(parseInt(eimv) == 0 && $("#fd"+vidlinea+":visible").length || param == 8) { 
                     //PRODUCTOS O CLIENTES EXENTOS
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
                     $("#fastVenta"+vidlinea).val(tmpdesc);
@@ -1904,7 +1904,7 @@ function endDetail(vid,vacc,vmodulo) {
             var clave = vid[0][0];
 
             if($(".per15:visible").length){
-                console.log(getDatos('',321,vid[0][0]+',1')); 
+                getDatos('',321,vid[0][0]+',1'); 
             }
 
             switch(parseInt(param )) {
@@ -1937,6 +1937,7 @@ function endDetail(vid,vacc,vmodulo) {
                     break;
                 case 1:
                 case 7:
+                case 8:
                     var ms = 0
                     var set = '';
 
@@ -1954,7 +1955,6 @@ function endDetail(vid,vacc,vmodulo) {
                     }
 
                     if(ms){
-                        console.log(set);
                         set = set.substr(0,set.length-1);
                         insertar(291,'idfactura',vid[0][0]);
                         actualizar(291,set,'idfactura = '+vid[0][0]);
@@ -1968,12 +1968,13 @@ function endDetail(vid,vacc,vmodulo) {
                 getDatos('',259,'0,'+idext+',0',0,0,0);
             } 
 
-            if (config[0] == 1 && (param == 1 || param == 7 || param == 9 || param == 10)) {
+            if (config[0] == 1 && param.toString().match(new RegExp(/\b1\b|\b7\b|\b10\b/g))) {
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                 Materialize.toast($toastContent,5000);
                 sendFE(clave);
-            }else
+            }else{
                 sendVMail(factura,clave,vid[0][0]);
+            }
             break;
         case 'producto':
 
@@ -2300,11 +2301,10 @@ function sendVMail(factura,clave,vid){
             break;
     }
     if (str_correos != '') {
-        console.log(4)
         var vbody = getDatos('',73,vid,0,0)[0][0];
         var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
-        archivos = makeArchivos(factura,clave,vid,vbody[1],ntipo);
-        enviarCorreo(3,str_correos,ntipo+" No"+factura,vbody[0],archivos,con_con,vid,64);
+        archivos = makeArchivos(vbody[2],clave,vid,vbody[1],ntipo);
+        enviarCorreo(3,str_correos,ntipo+" No"+vbody[2],vbody[0],archivos,con_con,vid,64);
     }else{
         if(parseInt($("[name=tipopago]:checked").val()) != 5){ //MIXTO
             if (parseInt(idext) > 0) {
@@ -2346,7 +2346,7 @@ function postExcecute(vid,p){
 
 function postSendmail() {
 
-   if(parseInt($("[name=tipopago]:checked").val()) != 5){
+   /*if(parseInt($("[name=tipopago]:checked").val()) != 5){
         if (parseInt(idext) > 0) {
             setTimeout(function(){window.close();},2000);
         }else{
@@ -2357,7 +2357,7 @@ function postSendmail() {
         }
     }else
         if(parseFloat($("#mxtot").val()) < 5)
-            setTimeout(function(){window.close();},2000);
+            setTimeout(function(){window.close();},2000);*/
 }
 
 function validarGeneral(velemento) {

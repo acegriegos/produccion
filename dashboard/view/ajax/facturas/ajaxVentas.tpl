@@ -196,16 +196,16 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down" style="margin: 0px">
-  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b>
+  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%;position: relative;"><b>DETALLE DE FACTURA</b>
 
-    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
+    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" style="position: absolute;top: 0;right: 0;"></a>
     
     {if $smarty.session.BUSS eq 0 or $smarty.session.BUSS eq 3}
-    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="position: absolute;top: 0;right: 0;margin-right: 36px"></a>
 
     <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
 
-    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der" data-tooltip="Factura Especial" data-position="bottom" id="special" ></a>
+    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
     {/if}
 
  </div>

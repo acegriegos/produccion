@@ -41,13 +41,32 @@
 	   			break;
 	   		case 3:
 	   			$pagina = 1;
-	   			require_once '../_config/mySmarty.php';
+	   			// require_once '../_config/mySmarty.php';
 	   				
-	   			$smarty  = new mySmarty();
-	   			$smarty->setModule('dashboard');
+	   			// $smarty  = new mySmarty();
+	   			// $smarty->setModule('dashboard');
 
-	   			$smarty->assign('SUC',$kakaroto->kamehameha('id,nombre,simbolo',54,'1 > 0 order by principal desc, nombre'));
-	   			$smarty->display('ajax/contabilidad/asientos.tpl');
+	   			// $smarty->assign('SUC',$kakaroto->kamehameha('id,nombre,simbolo',54,'1 > 0 order by principal desc, nombre'));
+	   			// $smarty->display('ajax/contabilidad/asientos.tpl');
+
+	   			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
+ 	
+	   			$transaccion = $kakaroto->kamehameha('',85,$_REQUEST['id']);
+	   			$datos = $transaccion[0];
+	   			$ocultar = '';
+	   			$oc = '';
+	   			$repetir = 0;//isset($_REQUEST['x']) ? 1 : 0;
+
+	   			if($_REQUEST['tp'] == 'true')
+	   				require_once 'view/ajax/contabilidad/transaccpv.php';
+	   			else{
+	   				/*$medio = $kakaroto->kamehameha('tfact',40,'idsucursal = @@impresa')[0][0];
+	   				if ($medio) {
+	   					require_once 'view/ajax/contabilidad/facturamedia.php';
+	   				}else*/
+	   					require_once 'view/ajax/contabilidad/transacc.php';
+   					
+	   			}
 	   			break;
 	   		case 4:
 	   			

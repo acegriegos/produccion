@@ -135,6 +135,7 @@ $(document).on("keyup",".tdtext",function(e){
 	var code = e.which || e.keyCode;
 
 	if(code == 13){
+		
 		if(!$(this).val().length && $(this).attr('id').substr(0,1) == 'c')
 			$("#d"+$(this).attr('id').substr(1)).focus();
 		var id = parseInt($(this).attr('id').substr(1));
@@ -176,9 +177,9 @@ $(document).on("keyup",".tdtext",function(e){
 				if(rs != undefined && $(this).val() != ''){
 					var repetido = 0;
 
-					$("#f"+$(this).attr('id').substr(1)).data('triforce')['vidcuenta'] = rs[3]
+					$("#f"+id).data('triforce')['vidcuenta'] = rs[3]
 					$('#fdetalletransacciones tr').each(function(){
-						if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
+						if($(this).attr('st') == 1 && rs[0] == $('#c'+id).val())
 							repetido = 1;
 					});
 
@@ -190,7 +191,7 @@ $(document).on("keyup",".tdtext",function(e){
 						$('#f'+id).attr('st',1)
 					}
 
-					$('#vsdebe'+id).select().focus();
+					$('#vsdebe'+id).focus().select();
 				}else{
 					$(this).focus().select();
 					$('#vsdebe'+id).val('');
@@ -322,13 +323,13 @@ function cargarTransacciones(){
 
             $(this).autocomplete({
                 limit: 20,
-                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1),
+                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1)/*,
                 onAutocomplete:function(val){
-            		// var e = jQuery.Event("keyup");
-            		// e.which = 13;
-            		// obj.trigger(e);
-            		$('#vsdebe'+obj.attr('id').substr(1)).select().focus();
-                }
+            		var e = jQuery.Event("keyup");
+            		e.which = 13;
+            		obj.trigger(e);
+            		//$('#vsdebe'+obj.attr('id').substr(1)).select().focus();
+                }*/
             });
 
             $(".autocomplete-content").css('width','30%');
@@ -383,12 +384,12 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	console.log(salida);
 	return salida;
 
 }
 
-function endDetail(vid) {
+function endDetail(vid,acc,mod) {
+	window.open('contabilidad?accion=3&tp=0&id='+vid[0][0]);
 	setTimeout(function(){ $('#fn1').click(); }, 2000);
 	return false;
 }

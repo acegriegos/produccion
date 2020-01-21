@@ -95,141 +95,57 @@ $(function(){
     paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0,0');
 });
 
+$(document).on("change",".tcompra",function(){
+    var id = parseInt($('option:selected',this).val());
+    var padre = $(this).parent().parent();
+    var gs = padre.attr('gs');
+    var iva = padre.attr('imv');
+    var tot = padre.attr('tot');
+    switch (id) {
+        case 2:
+        case 4:
+            iva =0;
+            gs = tot;
+            break;
+        case 3:
+            iva = 0;
+            gs = 0;
+            break;
+        default:
+            break;
+    }
+
+    padre.find('.gs').html(parseFloat(gs).formatMoney(2,'.',','))
+    padre.find('.imv').html(parseFloat(iva).formatMoney(2,'.',','))
+});
+
 $(document).on("click",".msjh",function(){
     var tstado = $(this).attr('tipo');
-
-    if(parseInt($("#continuar").val()) == 0){
-        var motiv = '';
-        $("#msjreceptor").val('');
-        $("#credito").val(0);
-        $("#gasto").val(0);
-        $("#tipo").val(1);
-
-        var _gasto = _credito  = tcgeneral =  0;
-
-        if ($(this).attr('xml') == undefined) {
-            var idcomp = $(this).parent().parent().attr('id').substr(2);
-            var mdatos = getDatos('',289,'@@impresa,'+idcomp+',1',0,0,0);
-            tcgeneral = parseInt($(".tcompra option:selected").val());
-            /*1=>COMPRA 100%
-              2=>COMPRA PARCIAL
-              3=>BIEN DE CAPITAL
-              4=>GASTO
-              5=>PROPORCIONALIDAD*/
-            switch (tcgeneral) {
-                case 1:
-                    if(parseFloat($("#credito").val()) != parseFloat($("#gasto").val()))
-                        tcgeneral = 2;
-                    break;
-                case 2:
-                    mdatos[0][0][0] = 0;
-                    mdatos[0][0][1] = mdatos[0][0][2];
-                    tcgeneral = 4;
-                    break;
-                case 3:
-                    mdatos[0][0][0] = 0;
-                    mdatos[0][0][1] = 0;
-                    tcgeneral = 4;
-                    break;
-                case 4:
-                    tcgeneral = 3;
-                    break;
-                case 5:
-                    mdatos[0][0][0] = 0;
-                    mdatos[0][0][1] = 0;
-                    break;
-                default:
-                    break;
-            }
-        
-            _credito = parseFloat(mdatos[0][0][0]);
-            _gasto = parseFloat(mdatos[0][0][1]);
-
-        }else{
-            var idcomp = $(this).parent().attr('idcompra')
-            var mdatos = getDatos('',289,'@@impresa,'+idcomp+',2',0,0,0);
-
-            if($(".tcompramg:visible").length){//VIENDO LISTA
-                tcgeneral = parseInt($(".tcompramg option:selected").val());
-            }
-            else
-                tcgeneral = parseInt($(".tcompramg option:selected").val());
-            /*1=>COMPRA 100%
-              2=>COMPRA PARCIAL
-              3=>BIEN DE CAPITAL
-              4=>GASTO
-              5=>PROPORCIONALIDAD*/
-            switch (tcgeneral) {
-                case 1:
-                    if(parseFloat($("#credito").val()) != parseFloat($("#gasto").val()))
-                        tcgeneral = 2;
-                    break;
-                case 2:
-                    mdatos[0][0][0] = 0;
-                    mdatos[0][0][1] = mdatos[0][0][2];
-                    tcgeneral = 4;
-                    break;
-                case 3:
-                    mdatos[0][0][0] = 0;
-                    mdatos[0][0][1] = 0;
-                    tcgeneral = 4;
-                    break;
-                case 4:
-                    tcgeneral = 3;
-                    break;
-                case 5:
-                    mdatos[0][0][0] = 0;
-                    mdatos[0][0][1] = 0;
-                    break;
-                default:
-                    break;
-            }
-        
-            _credito = parseFloat(mdatos[0][0][0]);
-            _gasto = parseFloat(mdatos[0][0][1]);
-        }
-
-        $("#gasto").val(_gasto);
-        $("#credito").val(_credito);
-        $("#tipo").val(tcgeneral);
-
-        if(parseInt(tstado) != 5)
-            motiv = 'Motivo:<br><input type="text" id="motivoa" maxlength="160"/><br>';
-
-        if(!$("#mensaje:visible").length){
-            var $toastContent = $('<span id="mensaje" >'+motiv+'<small>Crédito IVA Aplicar: '+parseFloat($("#credito").val()).formatMoney(2,'.',',')+'</small> <br> <small>Gasto Aplicar: '+parseFloat($("#gasto").val()).formatMoney(2,'.',',')+'</small> <br> <a class="btn green" id="arecep">Aceptar</a> <a class="btn red" id="erecep">Cancelar</a></span> </span>');
-            Materialize.toast($toastContent);
-        }
-        if(motiv != '')
-            $("#motivoa").focus()
-        $(this).attr('este',1);
-
-        $("#arecep").click(function(){
-            $("#continuar").val(1);
-            $("#msjreceptor").val($("#motivoa").val());
-            $("#mensaje").parent().remove();
-            $('[este=1]').click();
-            $('[este=1]').removeAttr('este');
-        });
-
-        $("#erecep").click(function(){
-            $("#continuar").val(0);
-            $("#mensaje").parent().remove();
-            $('[este=1]').removeAttr('este');
-        });
-        return false;
-    }
-    $("#continuar").val(0);
+    /*1=>COMPRA 100%
+      2=>COMPRA PARCIAL
+      3=>BIEN DE CAPITAL
+      4=>GASTO
+      5=>PROPORCIONALIDAD*/
+    var msjreceptor = $("#msjreceptor").val();
+    var tipo = credito = gasto = 0;
 
     if ($(this).attr('xml') == undefined) {
-        var idcomp = $(this).parent().parent().attr('id').substr(2);
+        var padre = $(this).parent().parent();
+        var idcomp = padre.attr('id').substr(2);
+        tipo = padre.find('.tcompra').val();
+        gasto = padre.find('.gs').html().replace(/,/g,'');
+        credito = padre.find('.imv').html().replace(/,/g,'');
+
     }else{
        var idcomp = getDatos('',278,$(this).parent().attr('idcompra'),0,0,0)
        idcomp = idcomp[0][0][0];
+       tipo = $("#tipo").val();
+       credito = $("#credito").val();
+       gasto = $("#gasto").val();
     }
-
-    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val(),0,0,0);
-    console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+$("#msjreceptor").val()+'",'+$("#tipo").val()+','+$("#credito").val()+','+$("#gasto").val())
+    console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto)
+    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto,0,0,0);
+    
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';
@@ -240,7 +156,7 @@ $(document).on("click",".msjh",function(){
         $(this).parent().parent().remove();
     }else{
 
-        var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento Electrónico:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent,2000);
         var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+idfact[0][0][0],0,0)[0][0];
         var tlimit = parseInt(factura[1]);
@@ -268,32 +184,10 @@ $(document).on("click",".msjh",function(){
             $("[xml=4]").removeClass('hide');
             Dropzone.forElement("#registro-upload").removeAllFiles(true);
             Dropzone.forElement("#hacienda-upload").removeAllFiles(true);
-        }
-
-        // if(parseInt(config[21])){ //INVENTARIO AUTOMATICO
-        //     switch(parseInt(tstado)){
-        //         case 5:
-        //             var dtcompra = getDatos('comodin,format(cantidad,2),format(precio,2),format(precio*cantidad+imv-descuento,2)',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
-        //             $("#modal-shcompra").modal('open');
-        //             $("#bdtompras").html();
-        //             var str = '';
-        //             for (var i = 0; i < dtcompra[0].length; i++) {
-        //                 str += '<tr><td></td></tr>';
-        //             }
-        //             $("#bdtompras").html(str);
-        //             break;
-        //         default:
-        //             break;
-        //     }    
-        // }
-        
+        }        
     }
 
 });
-
-function msjh(){
-
-}
 
 $(document).on("click",".status",function(){
     if ($(this).is("[disabled]")) {

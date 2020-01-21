@@ -664,7 +664,6 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
             catch(err){
                 p = data;
             }
-
             postExcecute(vid,p);
         });
     }
@@ -732,10 +731,7 @@ function validarCorreo(valor) {
 }
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
-    // if(!$("#smail").is(':visible')){
-    //     var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
-    //     Materialize.toast($toastContent);
-    // }
+
    $.ajax({
         url: '../_config/correoAjax.php',
         type: 'POST',

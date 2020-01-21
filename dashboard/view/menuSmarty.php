@@ -92,7 +92,7 @@
         <li class="per1100"><a href="facturacion?tf=1">Ventas</a></li>
         <li class="per1600"><a href="facturacion?tf=4">Proformas</a></li>
         <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
-        <li class="hide"><a href="facturacion?tf=3">Orden de Compra</a></li>
+        <li class="per2200"><a href="facturacion?tf=3">Orden de Compra</a></li>
         <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
       </ul>
 

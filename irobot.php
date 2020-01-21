@@ -13,7 +13,7 @@
 
     $fe = new facturaElectronica(0);
     $db = new DBClass();
-
+    set_time_limit(0);
     if (isset($_REQUEST['succ'])) {
         $valores = $db->ejecutar('select botmail,botpswd from ajustessucursales where idsucursal = '.$_REQUEST['succ'])->fetch_all()[0];
         $username = $valores[0];
@@ -58,18 +58,18 @@
     if($emails) {
         $emails = array_reverse($emails);
         foreach($emails as $index => $email_number) {
-        // if ($index+1 >= 20) {
-        //    break;
-        // }
+        /*if ($index+1 >= 20) {
+            break;
+        }*/
 
+        $_index = 0;
         $overview = imap_fetch_overview($inbox,$email_number,0);
         $message = imap_fetchbody($inbox,$email_number, 1);
         $structure = imap_fetchstructure($inbox,$email_number);
 
         $attachments = array();
-        if (!isset($structure->parts)) {
+        if(!isset($structure->parts))
             continue;
-        }
         if(count($structure->parts)) 
         {
             for($i = 0; $i < count($structure->parts); $i++) 
@@ -78,14 +78,17 @@
 
                 if($structure->parts[$i]->subtype == 'MIXED') 
                 {
+
                    $spart = 0;
                    foreach($structure->parts[$i] as $object) 
                     {   
+
                         if(is_array($object)){
+            
                         $spart++;    
                         foreach($object as $j=>$nobject){
-                            $i++;
-                            $attachments[$i] = array(
+                            
+                            $attachments[$_index] = array(
                                 'is_attachment' => false,
                                 'filename' => '',
                                 'name' => '',
@@ -101,8 +104,8 @@
                                     if(strtolower($_object->attribute) == 'filename') 
                                     {   
                                         
-                                        $attachments[$i]['is_attachment'] = true;
-                                        $attachments[$i]['filename'] = $_object->value;
+                                        $attachments[$_index]['is_attachment'] = true;
+                                        $attachments[$_index]['filename'] = $_object->value;
                                     }
                                 }
                             }
@@ -118,17 +121,18 @@
                                     if(strtolower($__object->attribute) == 'name') 
                                     {
                                         
-                                        $attachments[$i]['is_attachment'] = true;
-                                        $attachments[$i]['name'] = $__object->value;
+                                        $attachments[$_index]['is_attachment'] = true;
+                                        $attachments[$_index]['name'] = $__object->value;
                                     }
                                 }
                             }
                             }
 
-                            if($attachments[$i]['is_attachment']) 
+                            if($attachments[$_index]['is_attachment']) 
                         {
-                            $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $spart.'.'.($i+1));
-                                $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
+                                $attachments[$_index]['attachment'] = imap_fetchbody($inbox, $email_number, $spart.'.'.($j+1));
+                                $attachments[$_index]['attachment'] = base64_decode($attachments[$_index]['attachment']);
+                                $_index++;
                         }
                         }
 
@@ -137,7 +141,7 @@
 
                 }else{
 
-                        $attachments[$i] = array(
+                        $attachments[$_index] = array(
                             'is_attachment' => false,
                             'filename' => '',
                             'name' => '',
@@ -150,8 +154,8 @@
                             {
                                 if(strtolower($object->attribute) == 'filename') 
                                 {   
-                                    $attachments[$i]['is_attachment'] = true;
-                                    $attachments[$i]['filename'] = $object->value;
+                                    $attachments[$_index]['is_attachment'] = true;
+                                    $attachments[$_index]['filename'] = $object->value;
                                 }
                             }
                         }
@@ -162,31 +166,34 @@
                             {
                                 if(strtolower($object->attribute) == 'name') 
                                 {
-                                    $attachments[$i]['is_attachment'] = true;
-                                    $attachments[$i]['name'] = $object->value;
+                                    $attachments[$_index]['is_attachment'] = true;
+                                    $attachments[$_index]['name'] = $object->value;
                                 }
                             }
                         }
 
-                        if($attachments[$i]['is_attachment']) 
+                        if($attachments[$_index]['is_attachment']) 
                         {
-                            $attachments[$i]['attachment'] = imap_fetchbody($inbox, $email_number, $i+1);
+                            $attachments[$_index]['attachment'] = imap_fetchbody($inbox, $email_number, $i+1);
                             if($structure->parts[$i]->encoding == 3) 
                             { 
-                                $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
+                                $attachments[$_index]['attachment'] = base64_decode($attachments[$_index]['attachment']);
                             }
                             elseif($structure->parts[$i]->encoding == 4) 
                             { 
-                                $attachments[$i]['attachment'] = quoted_printable_decode($attachments[$i]['attachment']);
+                                $attachments[$_index]['attachment'] = quoted_printable_decode($attachments[$_index]['attachment']);
                             }
                             elseif($structure->parts[$i]->encoding == 0)
                             {
-                                 $attachments[$i]['attachment'] = base64_decode($attachments[$i]['attachment']);
+                                 $attachments[$_index]['attachment'] = base64_decode($attachments[$_index]['attachment']);
 
                             }
+
+                            $_index++;
                         }
                 }
             }
+
         }
 
         foreach($attachments as $attachment)
@@ -208,8 +215,8 @@
         $date = $overview[0]->date;
   }
  }
- imap_close($inbox);  
+ imap_close($inbox); 
 ?>
 
 </body>
-</html>
+</html> 

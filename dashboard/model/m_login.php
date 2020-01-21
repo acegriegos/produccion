@@ -35,7 +35,7 @@
 				$posicion = strpos($arreglo['modulo'], '-');
 				$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
 				$modulo = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
-				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$schema.$modulo.'s"')[0][0];
+				$id_tabla = $this->kamehameha('id',70,'nombre = "'.$schema.$modulo.'s"')[0][0];
 				$rollback = '';
 				$roll_tbl = 0;
 				
