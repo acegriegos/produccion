@@ -108,22 +108,23 @@
    			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
    			$transaccion = $log->autenticar();
 
-        if($transaccion[0][7] == 1){
-          cambioDia($log,$transaccion[0][5]);
-        }
-
-        /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
-        $sysmod = $log->kamehameha('sysmod',39,'id='.$transaccion[0][5])[0][0];
-        if($tserv == 0){
-          if($sysmod == ''){
-            $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
-          }else{
-            $rsvr = (array) json_decode(verificar($log,$transaccion[0][9],$sysmod));
-            if($rsvr['error']){
-              $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
+        if(isset($transaccion[0][7])){
+          if ($transaccion[0][7] == 1)
+            cambioDia($log,$transaccion[0][5]);
+        
+          /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
+          $sysmod = $log->kamehameha('sysmod',39,'id='.$transaccion[0][5])[0][0];
+          if($tserv == 0){
+            if($sysmod == ''){
+              $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
+            }else{
+              $rsvr = (array) json_decode(verificar($log,$transaccion[0][9],$sysmod));
+              if($rsvr['error']){
+                $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
+              }
             }
-          }
-        }*/
+          }*/
+        }
    			break;
    		case 4:
    			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);

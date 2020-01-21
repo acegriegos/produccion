@@ -131,6 +131,7 @@ function getIn(){
             Materialize.toast(p[0][0], 4000, 'red');
             $('#pass').select();
             salida = false;
+            break;
         case 3:
             Materialize.toast(p[0][0], 4000, 'red');
             var dsucursal = getDatos('',50,p[0][2])[0][0]
