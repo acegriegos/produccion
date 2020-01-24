@@ -154,6 +154,8 @@ $(document).on("keyup",".tdtext",function(e){
 				$("#f"+id).data('triforce')['vdebe'] = $(this).val().replace(/,/g,'')
 			}
 			totalizar();
+			if($(".tdtext").length/4 == parseInt(id))
+				$("#addnline").click()
 			break;
 			case 'vsh':
 			id = parseInt($(this).attr('id').substr(7));
@@ -169,6 +171,8 @@ $(document).on("keyup",".tdtext",function(e){
 				$("#f"+id).data('triforce')['vhaber'] = $(this).val().replace(/,/g,'')
 			}
 			totalizar();
+			if($(".tdtext").length/4 == parseInt(id))
+				$("#addnline").click()
 			break;
 			default:
 				var rs = arr('login',4,'',53,'"'+$(this).val()+'",1','',0,'')
