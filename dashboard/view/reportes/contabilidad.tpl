@@ -37,7 +37,7 @@
         <input type="hidden" class="zelda">
 
         <input type="hidden" id="vtrep">
-        <input type="hidden" id="vidtipo1" value="0">
+        <input type="hidden" id="vidtipo2" value="0">
         <input type="hidden" id="vidmoneda" value="1">
 
       </div>

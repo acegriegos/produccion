@@ -511,6 +511,18 @@ $(function(){
             console.error('XTR-00'+param)
             break;
     }
+
+    $(".chg_tipo[val="+config[20]+"]").click();
+
+    $("#sg-limit").click(function(e){
+        $(this).prop('disabled',true);
+        $("#modal-limitcre").data('cont',1);
+        $("#facturar").click();
+    });
+
+    $("#lmgo").click(function(){
+        window.open('cuentas?tf=0&idclie='+$("#ffacturas .zelda").data('triforce')['vidcliente'])
+    })
     
 })//READY
 
@@ -1613,23 +1625,54 @@ function validarFactura() {
             break;
     }
 
-
     switch(parseInt( $("#ffacturas .zelda").data('triforce')['vidtipo'])) {
         case 2:
             if(isNaN($("#vplazo").val())){
                 $("#vplazo").focus()
-                return 'Plazo Crédito no Válido';
+                return 'Plazo del Crédito no Válido';
             }
 
             if(parseInt($("#vplazo").val()) <= 0){
                 $("#vplazo").focus()
-                return 'Plazo Crédito Debe ser Mayor a 0';
+                return 'Plazo del Crédito Debe ser Mayor a 0';
             }
 
-            // var p = arr('login',4,'',205,$("#ffacturas .zelda").data('triforce')['vidcliente'],0,0,0);
-            // if(p['succed'] == 0){
-            //     return p[0]['ERROR'] 
-            // }
+            var p = arr('login',4,'',205,$("#ffacturas .zelda").data('triforce')['vidcliente']+',1,'+$("#tot").html().replace(/,/g,''),0,0,0);
+            var clr = 'black';
+            p[0][0][0] = $("#modal-limitcre").data('cont') == undefined ? p[0][0][0] : 0;
+            switch(p[0][0][0]){
+                case '1':
+                case '2':
+                    var num = parseInt(p[0][0][0]);
+                    $("#tit-creli").html($('#ncli').val());
+                    var head = getDatos('format(getSaldoCliente('+$("#ffacturas .zelda").data('triforce')['vidcliente']+',0),2) as cre,format(getSaldoCliente('+$("#ffacturas .zelda").data('triforce')['vidcliente']+',1),2) as ven,plazo,format(credito,2)',2,'id='+$("#ffacturas .zelda").data('triforce')['vidcliente'])[0][0];
+                    var cuerpo = getDatos('',255,$("#ffacturas .zelda").data('triforce')['vidcliente']+',1');
+                    var ctot = cuerpo[0].length;
+                   
+                    if(ctot){
+                        var appd = '';
+                        for (var i = 0; i < cuerpo[0].length; i++) {
+                            appd += '<tr> <td>'+cuerpo[0][i][0]+'</td> <td>'+cuerpo[0][i][1]+'</td> <td>'+cuerpo[0][i][2]+'</td> <td>'+cuerpo[0][i][3]+'</td> <td>'+parseFloat(cuerpo[0][i][4]).formatMoney(2,'.',',')+'</td> <td>'+cuerpo[0][i][5]+'</td> </tr>';
+                        }
+                        $("#listvencidas").html(appd)
+                    }else {
+                        $("#listvencidas").html('<tr> <td colspan="6" style="text-align=center;" >No Hay Facturas Vencidas</td> </tr>')
+                    }
+                    var tmventa = (parseFloat(head[0].replace(/,/g,''))+parseFloat($("#tot").html().replace(/,/g,''))).formatMoney(2,'.',',')
+                    $("#lmtot").val(head[0]).css('color',num == 2 && parseFloat(head[0].replace(/,/g,'')) > parseFloat(head[3].replace(/,/g,'')) ? 'red' : clr);
+                    $("#lmmon").val(head[1]).css('color',clr);
+                    $("#lmday").val(head[2]).css('color',clr);
+                    $("#lmcre").val(head[3]).css('color',num == 2  ? 'red' : clr );
+                    $("#lmven").val(ctot);
+                    $("#lmrtot").val(tmventa).css('color',num == 2 && parseFloat(tmventa.replace(/,/g,'')) > parseFloat(head[3].replace(/,/g,'')) ? 'red' : clr );
+                    Materialize.updateTextFields();
+
+                    $("#modal-limitcre").modal('open');
+                    return 'Venta Excede el Límite de Crédito';
+                    break;
+                default:
+                    break;
+            }
 
             break;
         default:
@@ -2003,10 +2046,10 @@ function verfacturas() {
 
 function searchClient(vvariable,visprv){
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv+',@@impresa','',0,'');
-
+    console.log(clie)
     $(".clieBTN").addClass('hide');
 
-    if (clie[0][0][0] != 0) {
+    if (clie[0][0][0] != "0") {
         var vclie = clie[0][0];
         $("#ffacturas .zelda").data('triforce')['vidcliente'] = vclie[0];
         $("#ncli").val(vclie[1]+' '+vclie[2]);
@@ -2023,7 +2066,7 @@ function searchClient(vvariable,visprv){
 
         if ((vclie[3] > 0 || param==2) && $(".concre:visible").length) {
             $(".chg_tipo[val=2]").removeAttr('disabled');
-            $(".chg_tipo[val="+config[20]+"]").click();
+            $(".chg_tipo[val=2]").click();
         }
         // else{
         //     $(".chg_tipo[val=2]").attr('disabled','true')

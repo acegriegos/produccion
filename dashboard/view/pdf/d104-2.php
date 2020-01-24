@@ -76,7 +76,7 @@ else
 
 $html .= $miscelaneos[1].'<br></div></td> <td></td> </tr></table> <h4 align="center">Declaración Informativa D104-2 Período '.$datos[0][0].'</h4> <br> ACTIVIDAD: '.$datos[0][10].'-'.$datos[0][11].' ('.number_format($datos[0][12],0).'%) <hr> <table><tr><td></td></tr></table> VENTAS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td> <td align="center">Proporción</td><td align="center">IVA Deducible</td></tr>';
 
-$tprop = $tivad = $tsubt = $tivat = 0;
+$tprop = $tivad = $tsubt = $tivat = $totcompra = $totgastos = $tsubtc = $tivatc = $totc = $tgastos = $tivac = $tsubtg = $tivatg = $totg = 0;
 $listav = $listac = $listag = $totcompra = $totgastos = '';
 
 foreach ($datos as $index=>$obj) {
@@ -94,7 +94,7 @@ foreach ($datos as $index=>$obj) {
   }else{
     if(isset($datos[$index+1][0])){
       if($datos[$index+1][6] == 2){
-        $tp = '+ Gravada al';
+        $tp = '+ '.$obj[13].' al';
         $factor = 0;
         $ants = $obj[4];
         $antiva = $obj[5];
@@ -135,10 +135,10 @@ foreach ($datos as $index=>$obj) {
   }
 }
 
-$html .= $listav.'<tr> <td colspan="6"></td> </tr> <tr> <td><b>TOTAL (CRC)</b></td> <td align="right">'.number_format($tsubt,2).'</td> <td align="right">'.number_format($tivat,2).'</td>  <td align="right">'.number_format($datos[0][1],2).'</td> <td align="right">'.number_format($tprop,2).'%</td> <td align="right"><b>'.number_format($tivad,2).'</b>%</td> </tr>';
+$html .= $listav.'<tr> <td colspan="6"></td> </tr> <tr> <td><b>TOTAL (CRC)</b></td> <td align="right">'.number_format($tsubt,2).'</td> <td align="right">'.number_format($tivat,2).'</td>  <td align="right">'.number_format($datos[0][1],2).'</td> <td align="right">'.number_format($tprop,2).'%</td> <td align="right"><b>'.number_format($tivad,2).'</b>%</td> </tr> ';
 
 
-$html .= '<br> COMPRAS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td> <td align="center">Gasto Aplicable</td><td align="center">IVA Acreditable</td></tr>'.$listac.$totcompra.'</table> <table><tr><td></td></tr></table> GASTOS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td></tr>'.$listag.$totgastos.'</table>';
+$html .= '<br> COMPRAS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td> <td align="center">Gasto Aplicable</td><td align="center">IVA Acreditable</td></tr>'.$listac.$totcompra.'<tr> <td colspan="6"></td> </tr> <tr> <td><b>TOTAL (CRC)</b></td> <td align="right">'.number_format($tsubtc,2).'</td> <td align="right">'.number_format($tivatc,2).'</td>  <td align="right">'.number_format($totc,2).'</td> <td align="right">'.number_format($tgastos,2).'</td> <td align="right">'.number_format($tivac,2).'</td> </tr></table> <table><tr><td></td></tr></table> GASTOS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td></tr>'.$listag.$totgastos.' <tr> <td colspan="6"></td> </tr> <tr> <td><b>TOTAL (CRC)</b></td> <td align="right">'.number_format($tsubtg,2).'</td> <td align="right">'.number_format($tivatg,2).'</td>  <td align="right">'.number_format($totg,2).'</td> </tr> </table>';
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
 $pdf->writeHTML($html, true, false, true, false, '');
 

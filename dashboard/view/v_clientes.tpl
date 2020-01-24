@@ -269,10 +269,30 @@
 
           </div>
 
-          <div class="subclie row" id="exoneracion">
-            <div class="col s12 input-field">
+          <div class="subclie" id="exoneracion">
+            <i class="mdi mdi-plus der pbtn" id="addnexo" title="Agregar Exoneración" ></i> <br>
+            <ul class="collection" id="exolist">
+            </ul>
+          </div>
+
+          <div class="subclie row" id="contactos">
+          </div>
+
+          <a class="btn btn-default" id="eslidec" style="bottom:0px;position:absolute;margin:0px;margin-bottom: 50px;">Salir</a></li></ul>
+</section>
+</div>
+</div>
+
+        <div class="modal modal-fixed-footer grandemodal" id="modal-addexo" style="z-index: 2000 !important;">
+          <div class="modal-header">
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center">Exoneración</h5>
+            </ul>
+            </div>
+            <div class="modal-content row" style="margin:0px;">
+                <div class="col s6 input-field">
                   <input type="hidden" id="videxoneracion" value="0">
-                  <select id="vtipodoc" class="validate tooltiped" type="select">
+                  <select id="vtipodoc" class="validate tooltiped" type="select" disabled>
                     <option value="0" class="disabled">Tipo de Documento</option>
                     {section name=LE loop=$EXOS}
                     <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
@@ -280,46 +300,43 @@
                   </select>
                 </div>
 
-                <div class="col s12 input-field">
+                <div class="col s6 input-field">
                   <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
                   <label for="vnumdoc">Número de Documento</label>
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
+                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off" readonly>
                   <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
                 </div>
 
                   <label class="col s12">Fecha y Hora de Emisión</label>
 
-                  <div class="col s8">
-                    <input type="date" id="vfechaDoc" class="validate tooltiped">
+                  <div class="col s6">
+                    <input type="date" id="vfechaDoc" class="validate tooltiped" readonly>
                   </div>
 
-                  <div class="col s4 input-field">
-                    <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
+                  <div class="col s6 input-field">
+                    <input type="time" id="vtimeDoc" class="validate tooltiped" step="1" readonly>
                   </div>
 
-                <div class="col s12 input-field">
+                <div class="col s6 input-field">
                   <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
                   <label for="vporcompra">Porcentaje de Exoneración</label>
+                </div>                
+
+                <div class="col s6 input-field">
+                  <label for="vfechafin" class="active">Fecha Fin</label>
+                  <input type="date" id="vfechafin" class="validate tooltiped">
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+                <button type="button" class="waves-effect waves-green btn-flat" id="addexo">Guardar</button>
+            </div>
+        </div>
 
-                <label class="col s12">Fecha Fin</label>
 
-                  <div class="col s8">
-                    <input type="date" id="vfechafin" class="validate tooltiped">
-                  </div>
-
-          </div>
-
-          <div class="subclie row" id="contactos">
-          </div>
-
-          <a class="btn btn-default" id="eslidec" style="bottom:42px;position:absolute;">Salir</a></li></ul>
-</section>
-</div>
-</div>
 <div id="modal-addvehiculos" class="modal modal-fixed-footer">
 <div class="modal-header">
   <ul class="tabs white-text bgcardhead">

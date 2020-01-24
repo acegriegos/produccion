@@ -6,11 +6,13 @@ $(function(){
 	param = parseInt(getParameterByName('tf'));
 	paramTemp = param;
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
+	var idclie = parseInt(getParameterByName('idclie'));
+	idclie = isNaN(idclie) ? 0 : idclie;
+	arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
 
 	switch(param){
 		case 2:
-			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,2+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
+			arr('login',6,'',214,2+',0,'+idclie+',0,2,@@impresa',0,1,$("#listaCuentasx"));
 			gtipo = 2;
 			$("#gtit").html("Cuentas por Pagar");
 			$("#shabonos").attr('href','vistanotaspagos?tp=1');
@@ -19,10 +21,7 @@ $(function(){
 		default:
 			param = 1;
 			gtipo = 1;
-			arr("cuentas",1,'1',-1,'',0,1,$("#bdymantCuentas"));
-			arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
-			console.log(arr('login',6,'',214,1+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx")))
-			console.log(1+',0,0,0,2,@@impresa')
+			arr('login',6,'',214,1+',0,'+idclie+',0,2,@@impresa',0,1,$("#listaCuentasx"));
 			$("#gtit").html("Cuentas por Cobrar");
 			$("#shabonos").attr('href','vistanotaspagos');
 			break;

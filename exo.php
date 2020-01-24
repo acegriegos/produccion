@@ -1,6 +1,5 @@
 <?php 
-    $consulta = str_replace('-', '', str_replace(' ', '', $_REQUEST['ced']));
-    $source = "https://api.hacienda.go.cr/fe/ae?identificacion=".$consulta;
+    $source = "https://api.hacienda.go.cr/fe/ex?autorizacion=".$_REQUEST['exo'];
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -13,15 +12,16 @@
     
     $data = (array)json_decode($data);
     
-    if (isset($data['nombre'])) {
-        $salida['ap1'] = "";
-        $salida['ap2'] = "";
-        $salida['nom'] = $data['nombre'];
-        $salida['ced'] = substr($consulta, 0,10);
-        $salida['tip'] = $data['tipoIdentificacion'];
-        $salida['succed'] = 1;
+    if (isset($data['numeroDocumento'])) {
+        if($data['identificacion'] == $_REQUEST['ced']){
+            $salida = $data;
+            $salida['succed'] = 1;
+        }else{
+            $salida['error'] = 'Exoneración no Enlazada';
+            $salida['succed'] = 0;
+        }
     }else{
-        $salida['error'] = 'Cédula no Existente';
+        $salida['error'] = 'Exoneración no Existente';
         $salida['succed'] = 0;
     }
     

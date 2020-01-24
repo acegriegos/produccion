@@ -1095,6 +1095,73 @@
   </div>
 </div>
 
+        <div class="modal modal-fixed-footer grandemodal" id="modal-limitcre">
+          <div class="modal-header">
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center" id="tit-creli"></h5>
+            </ul>
+            </div>
+            <div class="modal-content" style="padding:0;padding-top: 24px;">
+                <div class="row">
+                  <div class="col s6 input-field">
+                    <input type="text" id="lmcre" readonly class="eder">
+                    <label for="lmcre" class="active">Límite de Crédito</label>
+                  </div>
+
+                  <div class="col s6 input-field">
+                    <input type="text" id="lmday" readonly class="eder">
+                    <label for="lmday" class="active">Plazo Días</label>
+                  </div>
+
+                  <div class="col s4 input-field">
+                    <input type="text" id="lmven" readonly class="eder">
+                    <label for="lmven">Facturas Vencidas</label>
+                  </div>
+
+                  <div class="col s4 input-field">
+                    <input type="text" id="lmmon" readonly class="eder">
+                    <label for="lmmon" class="active">Monto Vencidos</label>
+                  </div>
+
+                  <div class="col s4 input-field">
+                    <input type="text" id="lmtot" readonly class="eder">
+                    <label for="lmtot" class="active">Total Crédito</label>
+                  </div>
+
+                  <div class="col s4" style="margin: 0px;"></div>
+                  <div class="col s4" style="margin: 0px;"></div>
+                  <div class="col s4 input-field" style="margin: 0px;">
+                    <input type="text" id="lmrtot" readonly class="eder">
+                    <label for="lmrtot" class="active">Total Crédito + Venta</label>
+                  </div>
+
+                </div>
+
+
+                  <span><b> Lista Facturas Vencidas</b></span>
+
+                  <table class="table striped pequeño  bordered highlight centered responsive-table z-depth-3" cellspacing="0" width="100%" style="padding-right: 1%;padding-left: 1%">
+                      <thead>
+                         <tr>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Factura</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Fecha</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Vencimiento</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Días</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Valor</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Moneda</b></td>
+                        </tr>
+                      </thead>
+                      <tbody id="listvencidas">
+                      </tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <a class="btn" id="lmgo">Ir a Cobros</a>
+                <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+                <button type="button" class="waves-effect waves-green btn-flat" id="sg-limit">Continuar</button>
+            </div>
+        </div>
+
 <ul id="slide-factura" class="side-nav" style="z-index:1500;width: 50%">
   <li class="hide">
     <div class="user-view center">

@@ -45,6 +45,24 @@ $(function(){
 		}
 	})
 
+	$("#vnumdoc").keyup(function(e){
+		var code = e.wich || e.keyCode;
+		if(code == 13){
+			$("#vnumdoc").prop('readonly',true)
+			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
+        	.done(function(data){
+        		var p = JSON.parse(data);
+            	if (p['succed']) {
+            		console.log(p)
+            	}else{
+            		 Materialize.toast(p['error'],4000,'red');
+            	}
+
+            	$("#vnumdoc").prop('readonly',false)
+        	})
+		}
+	})
+
 	$(document).on("click",".s-cliente",function(){   
 
 		if ($("#slide-tc").length == 1)
@@ -72,75 +90,15 @@ $(function(){
 		                break;
 		            case 2: 
 		                titulo = 'Exoneraciones';
-		                $("#exoneracion").removeClass('hide');
 		                $(".exoneracion .select-wrapper").css('border','0px');
-
-		                 validares = function(){
-		                	var salida = true;
-		                	if(parseFloat($("#vporcompra").val()) > 0 || $("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
-
-		                		if(!$("#vtipodoc").val()){
-		                			Materialize.toast('Tipo Documento Requerido',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#vnumdoc").val().trim().length){
-		                			$("#vnumdoc").focus();
-		                			Materialize.toast('Número de Documento Requerido',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#ventidad").val().trim().length){
-		                			$("#ventidad").focus();
-		                			Materialize.toast('Entidad Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#vfechaDoc").val().trim().length){
-		                			$("#vfechaDoc").focus();
-		                			Materialize.toast('Fecha Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#vtimeDoc").val().trim().length){
-		                			$("#vtimeDoc").focus();
-		                			Materialize.toast('Hora Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#ventidad").val().trim().length){
-		                			$("#ventidad").focus();
-		                			Materialize.toast('Entidad Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(isNaN($("#vporcompra").val())){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Monto Debe ser Numerico',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(parseInt($("#vporcompra").val()) < 0 || parseInt($("#vporcompra").val()) > 100){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Valor no Aceptado debe ser entre 0 a 100',4000,'red')
-		                			return false;
-		                		}
-
-		                		if($("#vporcompra").val().indexOf('.') > -1 || $("#vporcompra").val().indexOf(',') > -1){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Valor no Aceptado debe ser Entero no Decimal',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(parseInt($("#vporcompra").val()) < 0 || parseInt($("#vporcompra").val()) > 100){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Valor no Aceptado debe ser entre 0 a 100',4000,'red')
-		                			return false;
-		                		}
-
+		                $("#exolist").html('')
+		                var exos = getDatos('id,lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ifnull(ffin,"N/A")',285,'idcliente = '+$("#vid").val())
+		                if(exos[0].length){
+		                	for (var i = 0; i < exos[0].length; i++) {
+		                		$("#exolist").append('<li class="collection-item lstexo" style="cursor: pointer;">'+exos[0][i][2]+', Exo: '+exos[0][i][6]+'%, Fin: '+exos[0][i][7]+'</li>')
 		                	}
-		                	return salida;
 		                }
+		                $("#exoneracion").removeClass('hide');
 		                break;
 		            case 3: 
 		                titulo = 'XML Otros';
@@ -164,9 +122,16 @@ $(function(){
 
 		});
 
+	$("#addnexo").click(function(){
+		$("#modal-addexo").modal('open').css('z-index',2000);
+		$("#vnumdoc").focus()
+	})
+
     $("#eslidec").click(function(e){
     	e.preventDefault();
-    	return validares()
+    	if(validares()){
+    		$("#slide-cliente").sideNav('hide');
+    	}
     });
 
 	$("#ingClie").click(function(){
@@ -244,6 +209,21 @@ $(function(){
 });
 
 function validares(){ return false };
+
+$(document).on("click",".lstexo",function(){
+	/*$("#videxoneracion").val(exoneraciones[0][0][7])
+	$("#vtipodoc").val(exoneraciones[0][0][0])
+	$("#vtipodoc").material_select('update');
+	$("#vnumdoc").val(exoneraciones[0][0][1]);
+	$("#ventidad").val(exoneraciones[0][0][2]);
+	$("#vfechaDoc").val(exoneraciones[0][0][3]);
+	$("#vtimeDoc").val(exoneraciones[0][0][4]);
+	$("#vporcompra").val(exoneraciones[0][0][5]);
+	$("#vfechafin").val(exoneraciones[0][0][6]);*/
+	$("#modal-addexo").modal('open').css('z-index',2000);
+	$("#vnumdoc").focus()
+	return false;
+})
 
 $(document).on("blur",".onblur",function(){
 	var id = $(this).attr('id');
@@ -556,19 +536,7 @@ function postload(modulo) {
 				$("#slideCorreo").removeData('fila'+num);
 			 num++;
             }
-
-            var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ffin,id',285,'idcliente = '+$("#vid").val(),0,0,0);
-            if(exoneraciones[0].length){
-            	$("#videxoneracion").val(exoneraciones[0][0][7])
-            	$("#vtipodoc").val(exoneraciones[0][0][0])
-            	$("#vtipodoc").material_select('update');
-            	$("#vnumdoc").val(exoneraciones[0][0][1]);
-            	$("#ventidad").val(exoneraciones[0][0][2]);
-            	$("#vfechaDoc").val(exoneraciones[0][0][3]);
-            	$("#vtimeDoc").val(exoneraciones[0][0][4]);
-            	$("#vporcompra").val(exoneraciones[0][0][5]);
-            	$("#vfechafin").val(exoneraciones[0][0][6]);
-            }
+            
 		break;
 	}
 }
