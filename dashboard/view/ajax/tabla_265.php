@@ -1,4 +1,5 @@
 <?php 
+
     $lista = '<option value="1">Compra</option> <option value="2">Gasto</option> <option value="3">Gasto No Diferido</option> <option value="4">Bien de Capital</option> <option value="5">Proporcionalidad</option>';
     $color = $titulo = '';
     foreach ($transaccion as $obj) {

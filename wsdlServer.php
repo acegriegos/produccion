@@ -141,6 +141,7 @@ if (isset($_POST['respuestaXml'])) {
             $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
 
             if (file_exists($target_path)) {
+              unlink($target_path);
               $salida['msj'] = 'LLAVE CRIPTOGRAFICA YA EXISTENTE';
               $salida['error'] = 11;
               break;
@@ -148,7 +149,7 @@ if (isset($_POST['respuestaXml'])) {
     
             move_uploaded_file($temp, $target_path);
             if(!openssl_pkcs12_read(file_get_contents($target_path), $certs, $pin)){
-                unset($target_path);
+                unlink($target_path);
                 $salida['msj'] = 'PIN O LLAVE CRIPTOGRAFICA INVALIDAS';
                 $salida['error'] = 12;
             }else{

@@ -11,7 +11,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57" tipos="Tipo Factura,Tipo Pago,Tipo Documento" tfiltar="0,0,2&9" elem='0,"2&9"' sp="167" modulo="reporteFactura" types="1,1,1" bisprov="1"></div>
+           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57" tipos="Tipo Factura,Tipo Pago,Tipo Documento" tfiltar="0,0,2&105&9" elem='0,"2&9"' sp="167" modulo="reporteFactura" types="1,1,1" bisprov="1"></div>
 
       <!-- HEADER -->
     <input type="hidden" id="vdetalle" value="1" change="2">

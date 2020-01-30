@@ -16,10 +16,13 @@
 <body>
 <div class="bdy pequeño"  style="font-size: 1.2em !important" >
 <div class="card pequeño z-depth-5">
+
 <div class="card-header center head1">
 <p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
 </div>
+
 <div class="card-content">
+
 <div class="row hide">
 <div class="input-field col s12 m6 l5">
 <a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
@@ -27,317 +30,152 @@
 <label class="truncate" for="search_clientes">Buscar Reporte por Nombre</label>
 </div>
 </div>
+
+Área Comercial y de Operaciones <hr>
+
 <div class="row">
-{if $TR eq 1 or $TR eq 0}
+
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="clientes"><i class="mdi mdi-account-multiple  mdi-48px"></i></a>
 <p>Clientes</p>
 </div>
-{/if}
-{if $TR eq 1 or $TR eq 0}
+
 <div class="col s6 m3 l2 center-align ">
-<a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i>
-</a>
+<a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i></a>
 <p>Ventas</p>
 </div>
-{/if}
-{if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
+
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn" rep="gananciasdtf"><i class="mdi mdi-chart-line  mdi-48px"></i></a>
-<div class="row">
-<div class="col s12">
-<p>Ganancias Detallada Por Facturas </p>
+<p>Ganancias Detallada Por Facturas</p>
 </div>
-</div>
-</div>
-{/if}
-{if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
+
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn" rep="gananciaspf"><i class="mdi mdi-google-analytics  mdi-48px"></i></a>
-<div class="row">
-<div class="col s12">
 <p>Ganancias Por Facturas </p>
 </div>
-</div>
-</div>
-{/if}
-{if $TR eq 1}
-<div class="col s6 m3 l2 center-align">
+
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn" rep="gananciasdxp"><i class="mdi mdi-elevator  mdi-48px"></i></a>
-<div class="row">
-<div class="col s12">
 <p>Ganancias Por Productos </p>
 </div>
-</div>
-</div>
-{/if}
-{if $TR eq 1}
+
 <div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="cotizaciones"><i class="mdi-clipboard-outline mdi-48px mdi"></i>
-</a>
-<div class="row">
-<div class="col s12">
+<a class="report pbtn" rep="cotizaciones"><i class="mdi-clipboard-outline mdi-48px mdi"></i></a>
 <p>Cotizaciones</p>
 </div>
-</div>
-</div>
-{/if}
-{if $TR eq 1}
+
 <div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="pedidos"><i class="mdi-48px mdi mdi-cube-send"></i>
-</a>
-<div class="row">
-<div class="col s12">
+<a class="report pbtn" rep="pedidos"><i class="mdi-48px mdi mdi-cube-send"></i></a>
 <p>Pedidos</p>
 </div>
-</div>
-</div>
-{/if}
-{if $TR eq 1}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-truck-fast"></i>
-</a>
-<div class="row hide">
-<div class="col s12">
-<p>Rutas</p>
-</div>
-</div>
-</div>
-{/if}
-{if $TR eq 2 or $TR eq 0}
+
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i>
-</a>
-<p>Compras</p>
-</div>
-{/if}
-{if $TR eq 2}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-cart-plus"></i>
-</a>
-<p>Ordenes de Compras</p>
-</div>
-{/if}
-{if $TR eq 2 or $smarty.session.BUSS eq 3}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i>
-</a>
-<p>Proveedores</p>
-</div>
-{/if}
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="asientos"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<p>Asientos Contables</p>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="estadoresultados"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<p>Estado Resultados</p>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="balancegeneral"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<p>Balance General</p>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="balancecomprobacion"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<p>Balance de Comprobación de Saldos</p>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="balancegeneral"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Balance General</p>
-</div>
-</div>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="catalogo"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Catalogo de Cuentas</p>
-</div>
-</div>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="contabilidad" tf="balancecomprobacion"><i class="mdi-48px mdi mdi-chart-bar"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Balance Comprobacion de Saldos</p>
-</div>
-</div>
-</div>
-{/if}
-
-{if $TR eq 3}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-briefcase-download"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Devoluciones</p>
-</div>
-</div>
-</div>
-{/if}
-{if $TR eq 3}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-library-books"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Notas</p>
-</div>
-</div>
-</div>
-{/if}
-{if $TR eq 3}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-chart-gantt"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Presupuesto</p>
-</div>
-</div>
-</div>
-{/if}
-{if $TR eq 3}
-<div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn hide"><i class="mdi-48px mdi mdi-gift"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Regalías</p>
-</div>
-</div>
-</div>
-{/if}
-
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="d151"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i>
-</a>
-<p>Declaraciones Informativas</p>
-</div>
-{/if}
-
-
-{if $TR eq 3 or $TR eq 0 }
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account-location"></i>
-</a>
+<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account-location"></i></a>
 <p>Cuentas por Cobrar</p>
 </div>
-{/if}
 
-{if $TR eq 3 or $smarty.session.BUSS eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-clipboard-account"></i>
-</a>
+<a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-history"></i></a>
+<p>Histórico CxC</p>
+</div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i></a>
+<p>Proveedores</p>
+</div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i></a>
+<p>Compras</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn"><i class="mdi-48px mdi mdi-cart-plus"></i></a>
+<p>Ordenes de Compras</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-clipboard-account"></i></a>
 <p>Cuentas por Pagar</p>
 </div>
-{/if}
 
-{if $TR eq 3 or $TR eq 0}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-history"></i>
-</a>
-<p>Histórico Cuentas por Cobrar</p>
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-clock"></i></a>
+<p>Histórico CxP</p>
 </div>
-{/if}
 
-{if $TR eq 3 or $smarty.session.BUSS eq 3}
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-clock"></i>
-</a>
-<p>Histórico Cuentas por Pagar</p>
-</div>
-{/if}
-
-{if $TR eq 3 or $smarty.session.BUSS eq 3}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i>
-</a>
+<a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
-{/if}
+ 
+</div>
 
-{if $TR eq 4 or $smarty.session.BUSS eq 3}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-file-document-box"></i>
-</a>
+Inventario <hr>
+
+<div class="row">
+    <div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
 <p>Inventarios General</p>
 </div>
-{/if}
 
-{if $TR eq 4}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="costoinv"><i class="mdi-48px mdi mdi-file-document-box"></i>
-</a>
-<div class="row">
-<div class="col s12">
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="costoinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
 <p>Costo Inventario</p>
 </div>
-</div>
-</div>
-{/if}
 
-{if $TR eq 4}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="mventa"><i class="mdi-48px mdi mdi-file-document-box"></i>
-</a>
-<div class="row">
-<div class="col s12">
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="mventa"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
 <p>Más Vendido</p>
 </div>
-</div>
-</div>
-{/if}
 
-{if $TR eq 4 or $smarty.session.BUSS eq 3}
-<div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i>
-</a>
-<div class="row">
-<div class="col s12">
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
 <p>Movimientos Inventario</p>
 </div>
 </div>
+
+<div class="row" id="conta">
+Contabilidad <hr>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="d151"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i></a>
+<p>Declaraciones Informativas</p>
 </div>
-{/if}
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="contabilidad" tf="catalogo"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Catalogo de Cuentas</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="contabilidad" tf="balancecomprobacion"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Balance de Comprobación de Saldos</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="contabilidad" tf="asientos"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Asientos Contables</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="contabilidad" tf="estadoresultados"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Estado Resultados</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="contabilidad" tf="balancegeneral"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Balance General</p>
+</div>
 
 
 </div>
+
 </div>
 </div>
-<br>
-<div id="mreportes"></div>
 </div>
+
 {$SCR}
 <script src="../assets/js/modulos/reportes.js?v=10.2.0.54"></script>
 </body>

@@ -9,6 +9,8 @@
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
     $data = curl_exec($ch);
     $error = curl_error($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
     curl_close ($ch);
     
     $data = (array)json_decode($data);

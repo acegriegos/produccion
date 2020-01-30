@@ -904,22 +904,40 @@
 </section>
 <!--  -->
 <section id="m-mixto" class="modal-tpago">
+  <hr>
+  <div class="row" style="margin:0px; padding: 0px;">
+    <div class="col s4 center" style="cursor: pointer;">
+      <input type="radio" name="mxt_tp" val="1" id="mxt_seg">
+      <label for="mxt_seg" title="Parte Efectivo y Parte con Tarjeta">Segmentado</label>
+    </div>
+    <div class="col s4 center" style="cursor: pointer;">
+      <input type="radio" name="mxt_tp" val="2" id="mxt_div" >
+      <label for="mxt_div" title="Una Porte del Total">Dividio</label>
+    </div>
+    <div class="col s4 center" style="cursor: pointer;">
+      <input type="radio" name="mxt_tp" val="3" id="mxt_det" >
+      <label for="mxt_det" title="Por Líneas de la Factura">Desgloce</label>
+    </div>
+  </div>
+   
   <div class="modal-content row">
+
     <div class="col s4 row">
+      
       <H5>FORMA DE PAGO</H5>
       
       <div class="col s12 input-field">
-          <input type="text" id="montoefect" value="0.00" class="eder" readonly>
+          <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1">
           <label for="montoefect">Efectivo</label>
       </div>
 
        <div class="col s12 input-field">
-            <input type="text" id="montotar" value="0.00" class="eder">
+            <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2">
             <label for="montotar">Tarjeta</label>
       </div>
 
        <div class="col s12 input-field">
-        <input type="text" id="ntarjmixto" maxlength="4">
+        <input type="text" id="ntarjmixto" maxlength="4" class="eder">
         <label for="ntarjmixto">Número de Tarjeta</label>
       </div>
 
@@ -959,7 +977,7 @@
     </div>
 
     <div class="col s4 lmp">
-      <div class="collection" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
+      <div class="collection hide" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
         <input type="text" id="mxtot" readonly class="eder">
@@ -968,7 +986,7 @@
     </div>
 
 
-    <div class="col s4 lmp">
+    <div class="col s4 lmp hide" id="scnl">
       <div class="collection" id="lpc" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">

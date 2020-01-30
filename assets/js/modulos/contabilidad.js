@@ -427,6 +427,8 @@ function validartransacciones() {
 	else if(parseFloat($('#totDebe').html().replace(/,/g,'')) !=  parseFloat($('#totHber').html().replace(/,/g,'')))
 		return 'Asientos no Cierran Adecuadamente';
 
+	$('#ftransacciones .zelda').data('triforce')['vdivisa'] = $("#vidmoneda option:selected").attr('tp');
+
 	return false;
 }
 
@@ -456,7 +458,7 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'" value="0.00"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'" value="0.00"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;" class="hide"> <select type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" style="width:90%;" id="vcomentario'+i+'"> <i class="mdi mdi-close red-text delete-row" id="r'+i+'" style="float:right;cursor:pointer;" title="Eliminar Fila"></i> </td></tr>';
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'" autocomplete="off" style="margin:0px"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'" style="margin:0px"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right;margin:0px;" class="tdtext numeric" id="vsdebe'+i+'" value="0.00"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right;margin:0px" class="tdtext numeric" id="vshaber'+i+'" value="0.00"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;" class="hide"> <select type="select" id="vidodt'+i+'" style="margin:0px">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" style="width:90%;margin:0px" id="vcomentario'+i+'"> <i class="mdi mdi-close red-text delete-row" id="r'+i+'" style="float:right;cursor:pointer;" title="Eliminar Fila"></i> </td></tr>';
 
 }
 

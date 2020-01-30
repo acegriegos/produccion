@@ -332,7 +332,7 @@ $(function(){
 
     $("[name=tipopago]").change(function(){
         switch(parseInt($('[name=tipopago]:checked').attr('bancos'))){
-            case 5:
+            case 5: //MIXTO
                 var str = '';
                 var id = 0;
                 $("#fdetallefacturas .ciclos").each(function(){
@@ -344,6 +344,7 @@ $(function(){
                 Materialize.updateTextFields();
                 $(".modal-tpago").addClass('hide');
                 $("#m-mixto").removeClass('hide');
+                $("#mxt_seg").click().change();
             break;
 
             case 4:
@@ -522,7 +523,30 @@ $(function(){
 
     $("#lmgo").click(function(){
         window.open('cuentas?tf=0&idclie='+$("#ffacturas .zelda").data('triforce')['vidcliente'])
-    })
+    });
+
+    $("[name=mxt_tp]").change(function(){
+        switch(parseInt($(this).attr('val'))){
+            case 1: //MIXTO SEGMENTADO
+                $("#montoefect").val($("#mxtot").val());
+
+                $(".mxt_val_tot").unbind();
+                $(".mxt_val_tot").keyup(function(e){
+                    if(isNaN($(this).val())){
+                        $("#montoefect").val($("#mxtot").val());
+                        return false;
+                    }
+                    if($(this).attr('tp') == '1'){
+                        $("#montoefect").val($("#mxtot").val());
+                    }else{
+
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    });
     
 })//READY
 
