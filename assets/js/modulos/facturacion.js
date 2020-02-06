@@ -279,9 +279,11 @@ function cargarCompras(){
             $("#docompra").html('Facturar').attr('id','facturar');
 
             $("[for=cauto]").addClass('hide')
+            $("[name=tcompra]").parent().removeClass('hide');
 
         }else{
             $("[for=cauto]").removeClass('hide')
+            $("[name=tcompra]").parent().addClass('hide');
         }
     });
 

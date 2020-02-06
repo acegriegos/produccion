@@ -15,40 +15,6 @@ $(function(){
         draggable: true // Choose whether you can drag to open on touch screens
     });
 
-    if(parseInt($("#cpu").attr('xyz')) == 5){   
-
-
-            // $("#grubro").blur(function(){
-            //     var isproveedor = 0;
-            //     var idrubro = getDatos('vid',281,'vid > 0 and nombre = "'+$(this).val()+'"',0,0,0);
-
-            //     if(idrubro[0].length){
-            //         $(this).attr('idrubro',idrubro[0][0][0]);
-            //         $("#gvalor").focus().select();
-            //     }else {
-            //         if($(this).val().trim().length){
-            //         var $toastContent = $('<span>Rubro no Existente</span>').add($('<button class="btn-flat toast-action green white-text addRubro">Agregarlo</button>'));
-            //             Materialize.toast($toastContent, 5000);
-
-            //         $(".addRubro").focus();
-            //         }
-            //     }
-            // });
-
-        $("#flujo").click(function(){
-            $("#modal-flujo").modal('open');
-            $("#grubro").val('').focus()      
-        });
-
-        var rubros = getDatos('vid,nombre',281,'vid > 0 and idsucursal in(-1,@@impresa) and !idtiporubro order by nombre',0,0,0)[0]
-        var strboletas = '<option value="0" selected disabled>Rubro</option>';
-        for (var i = 0; i < rubros.length; i++) {
-            strboletas += '<option value="'+rubros[i][0]+'">'+rubros[i][1]+'</option>';
-        }
-
-        $("#listrubros").html(strboletas); 
-    }
-
     $(".otpmenu").click(function(){
         var opt = parseInt($(this).attr('value'));
         switch(opt){
