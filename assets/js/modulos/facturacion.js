@@ -465,19 +465,20 @@ function cargarCompras(){
                 cant = parseFloat($(this).data('triforce')['vcantidad']);
 
                 ppro = getDatos('id',104,'idproveedor = '+$("#ffacturas .zelda").data('triforce')['vidcliente']+' and idproducto = '+$(this).data('triforce')['videntrada'],0,0,0);
-                console.log(ppro)
+
                 if(ppro[0].length){
                     actualizar(104,'venta = '+$(this).data('triforce')['vprecio']+', ultimafecha = now()','id = '+ppro[0][0][0]);
                 }else{
                     var cpp = $(this).data('triforce')['vcodigo'].length ? $(this).data('triforce')['vcodigo'] : $("#desc"+$(this).attr('id').substr(2)).html();
 
-                    console.log(insertar(104,'','null,'+$(this).data('triforce')['videntrada']+','+$("#ffacturas .zelda").data('triforce')['vidcliente']+',"'+cpp+'",'+$(this).data('triforce')['vprecio']+',0,now(),1,0'));
+                    insertar(104,'','null,'+$(this).data('triforce')['videntrada']+','+$("#ffacturas .zelda").data('triforce')['vidcliente']+',"'+cpp+'",'+$(this).data('triforce')['vprecio']+',0,now(),1,0');
                 }
-                var cante = getDatos('cantidad',97,'idproducto =  '+$(this).data('triforce')['videntrada'],0,0,0);
+
                 actualizar(97,'cantidad = cantidad+'+
                     $(this).data('triforce')['vcantidad'],'idproducto = '+$(this).data('triforce')['videntrada']);
+                var cante = getDatos('cantidad',97,'idproducto =  '+$(this).data('triforce')['videntrada'],0,0,0);
 
-                insertar(298,'','null,1,'+(parseFloat(cante[0][0][0])+parseFloat($(this).data('triforce')['vcantidad']))+',now(),'+$(this).data('triforce')['videntrada']+',"",@@impresa,@@usr,'+cante);
+                insertar(298,'','null,1,'+parseFloat($(this).data('triforce')['vcantidad'])+',now(),'+$(this).data('triforce')['videntrada']+',"",@@impresa,@@usr,'+cante[0][0][0]);
 
                 var matriz = $(this).data('matriz');
                 var indice = 0;

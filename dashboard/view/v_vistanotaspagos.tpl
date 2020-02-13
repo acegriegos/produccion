@@ -88,6 +88,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.2.0.50"></script>
+    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.2.0.50-1"></script>
   </body>
 </html>

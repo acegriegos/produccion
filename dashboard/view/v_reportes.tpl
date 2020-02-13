@@ -279,7 +279,7 @@
 </div>
 {/if}
 
-{if $TR eq 3 or $TR eq 0}
+{if $TR eq 3 or $smarty.session.BUSS eq 3}
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i>
 </a>
@@ -319,7 +319,7 @@
 </div>
 {/if}
 
-{if $TR eq 4}
+{if $TR eq 4 or $smarty.session.BUSS eq 3}
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i>
 </a>
@@ -331,17 +331,6 @@
 </div>
 {/if}
 
-{if $smarty.session.BUSS eq 1}
-<div class="col s6 m3 l2 center-align">
-<a class="reporte pbtn" href="inventarios"><i class="mdi-48px mdi mdi-file-document-box"></i>
-</a>
-<div class="row">
-<div class="col s12">
-<p>Inventarios General</p>
-</div>
-</div>
-</div>
-{/if}
 
 </div>
 </div>

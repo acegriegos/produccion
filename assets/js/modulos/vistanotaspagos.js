@@ -5,12 +5,16 @@ $(function(){
     var tf  = getParameterByName('tf');
     tf = !tf ? 3 : tf;
     param = getParameterByName('tp');
+    param = param ? param : 0;
+
     $('#tf'+tf).prop('checked',true);
     
     if(param == 0){
         $("#titg").html('Movimientos Cuentas por Cobrar');
     }else{
         $("#titg").html('Movimientos Cuentas por Pagar');
+        $("#tf7").attr('id','tf8');
+        $("[for=tf7]").attr('for','tf8')
     }
 
 
@@ -42,6 +46,7 @@ $(document).on("change","input[name=tventa]",function(){
     var tabla = $("#data-table-facturas").DataTable();
     tabla.destroy();
     arr('login',6,'',187,'0,0,"'+id+'|'+param+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"'+id+'|'+param+'|@@impresa","0,10"')
     $("#data-table-facturas").dataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -61,7 +66,7 @@ $(document).on("click",".print",function(){
     var id = $(this).attr('id').substr(1);
     var tp = $("#tps").is(":checked") ? 0 : 1;
     var tf = $("[name=tventa]:checked").attr('id').substr(2);
-    if (tf == '7')
+    if (tf == '7' || tf == '8')
         window.open('cuentas?accion=5&id='+id+'&tp='+tp);
     else
         window.open('cuentas?accion=4&id='+id+'&tp='+tp);

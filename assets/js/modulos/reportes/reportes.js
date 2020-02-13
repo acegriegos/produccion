@@ -55,7 +55,16 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#productos").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1)
+                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
+                     onAutocomplete: function(val){
+                        var id = arr('login',4,'id',11,'nombre = "'+$("#productos").val().replace(/"/g,'\\"')+'" and id > 0  and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+                            if (id != undefined){
+                                $("#vidproducto").val(id[0]);
+                                doreport();
+                            }
+                            else
+                                $("#vidproducto").val(0);
+                    }
                 });
                 $("#productos").siblings($(".autocomplete-content")).css('width','25%');
             }
@@ -307,13 +316,13 @@ $(document).on("click",".sendrep",function(){
      });
 });
 
-$(document).on("blur","#productos",function(){
+/*$(document).on("blur","#productos",function(){
     var id = arr('login',4,'id',11,'nombre = "'+$(this).val()+'" and id > 0 and idsucursal = @@impresa',0,0,0)[0][0];
     if (id != undefined)
         $("#vidproducto").val(id);
     else
         $("#vidproducto").val(0);
-});
+});*/
 
 $(document).on("click",".detail",function(){
     var id = $(this).attr('id').substr(2);
