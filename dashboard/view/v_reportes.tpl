@@ -136,7 +136,7 @@ Inventario <hr>
 </div>
 </div>
 
-<div class="row" id="conta">
+<div class="row">
 Contabilidad <hr>
 
 <div class="col s6 m3 l2 center-align">
@@ -144,31 +144,34 @@ Contabilidad <hr>
 <p>Declaraciones Informativas</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div id="conta">
+
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="catalogo"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
 <p>Catalogo de Cuentas</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="balancecomprobacion"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
 <p>Balance de Comprobación de Saldos</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="asientos"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
 <p>Asientos Contables</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="estadoresultados"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
 <p>Estado Resultados</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="balancegeneral"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
 <p>Balance General</p>
 </div>
 
+</div>
 
 </div>
 

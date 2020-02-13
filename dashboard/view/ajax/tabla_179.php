@@ -6,7 +6,7 @@
 <tr>
 <td style="width: 10%"><?php echo $obj[1]; ?></td>
 <td style="width: 10%"><?php echo $obj[2]; ?></td>
-<td style="width: 10%"><?php echo $obj[3]; ?></td>
+<td style="width: 10%" title="<?php echo $obj[3]; ?>"><?php echo substr($obj[3], 0,20); ?>...</td>
 <td style="width: 10%"><?php echo $obj[4]; ?></td>
 <td style="width: 10%"><?php echo $obj[5]; ?></td>
 <td style="width: 10%">

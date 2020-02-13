@@ -211,6 +211,9 @@
         break;
       case 11:
         $pagina = 1;
+        if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
+          $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
+        }
         $arch = $_REQUEST['arreglo']['archivo'];
         $save = $_REQUEST['arreglo']['save'];
         $tit = $_REQUEST['arreglo']['tit'];
@@ -469,9 +472,9 @@
     }
 
     function verificar($log,$ced,$sysmod){
-
+      #VERIFICAR CLIENTE EXISTE
       $params = array('cmd' => 8,'cedula' => '123456789111');
-      $result = $log->getCurl('http://localhost/dev/wsdlServer.php',$params);
+      $result = $log->getCurl('http://localhost/wsdlServer.php',$params);
       return $result['error'] != '' ? $result['error'] : $result['rs'];
 
     }

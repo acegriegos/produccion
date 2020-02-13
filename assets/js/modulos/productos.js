@@ -2171,11 +2171,12 @@ function endDetail(id, acc, modulo) {
 
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
 				var cnt = $("#unidimension1").val() == '0' ? $("#vcantidad").val() : parseFloat($("#vcantidad").val())*parseFloat($("#unidimension1").val());
-				var cante = getDatos('cantidad',97,'idproducto =  '+id[0][0],0,0,0);
+				var cante = getDatos('cantidad',97,'idproducto =  '+id[0][0],0,0,0)[0][0][0];
 				actualizar(97,'cantidad='+cnt,'idinventario = 6 and idproducto='+id[0][0]);
 				var resta = parseFloat(cnt)-parseFloat(cante); 
-				if(resta)
-					insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt);
+				if(resta){
+					console.log(insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt));
+				}
 			}
 
 			if ($("#cdivisa").is(":checked")) {

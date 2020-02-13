@@ -3,6 +3,7 @@
     $tsuma = [];
     $vista = $_REQUEST['arreglo']['orden'];
     $suma = $_REQUEST['arreglo']['suma'];
+    $align = isset($_REQUEST['arreglo']['align']) ? $_REQUEST['arreglo']['align'] : '' ;
     $varray = explode(',', $vista);
 
     echo '<table class="table responsive-table striped highlight bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;"><thead><tr>';
@@ -27,13 +28,29 @@
               if(is_numeric($rvalor))
                 $tsuma[$indexj]['valor'] += $rvalor;
             }
-            
-            $align = '';
+               
+            $salign = '';
+            $pr = '';
             if(is_numeric($rvalor)){
-                $align = 'style="text-align:right;"';
+                $salign = 'right';
                 $rvalor = number_format($rvalor,2,'.',',');
+            }else{
+                if(is_numeric(strpos($align, ",".$data."-"))){
+                  $pr = substr($align, strpos($align, ",".$data."-")+2+strlen($data),1);
+                  switch ($pr) {
+                      case 'R':
+                          $salign = 'right';
+                          break;
+                      case 'L':
+                          $salign = 'left';
+                          break;
+                      default:
+                          $salign = 'center';
+                          break;
+                  }
+                }
             }
-            echo '<td '.$align.'>'.strtoupper($rvalor).'</td>';
+            echo '<td style="text-align: '.$salign.'" >'.strtoupper($rvalor).'</td>';
 
             if($indexk == $lastrow && sizeof($tsuma)){
                 if($indexj == 0)

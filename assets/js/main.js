@@ -252,6 +252,11 @@ function sse_response(vid,p) {
                 $.post('../_config/autofacturas.php')
                     .done(function(data){ });
             }
+
+            if(parseInt(p[0][0][5])){ //ENVIO AL CONTADOR
+                $.post('../_config/sendcontador.php')
+                    .done(function(data){ console.log(data)});
+            }
             break;
         case 2:
             $(".asig").addClass('hide');

@@ -473,13 +473,7 @@ $(function(){
         $("#codact").material_select('update')
     }
 
-    if($(".per11:visible").length){//RESTAURANTES
-        $(".rest").removeClass('hide')
-        $("#impm").change()
-        var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-    }
-
-    if(config[21] == '0' && param == 104){//COMPRAS AUTO
+    if($(".per11:visible").length && param.toString().match(new RegExp(/\b1\b|\b7\b|\b8\b/g))){//RESTAURANTES
         $(".rest").removeClass('hide')
         $("#impm").change()
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
@@ -1797,8 +1791,8 @@ function cargarProducto(kbrota,elemento) {
     else
         $("#iva").prop('checked',false)
 
-    var cod = arr('login',4,'',43,'"'+ kbrota.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+$("#ffacturas .zelda").data('triforce')['vidtipoventa']+','+$("#invgeneral").val(),0,0,0);
-
+    var cod = arr('login',4,'',43,'"'+ kbrota.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+param+','+$("#invgeneral").val(),0,0,0);
+   
     if (cod[0][0] != undefined) {
 
         cod = cod[0][0];
@@ -1806,7 +1800,7 @@ function cargarProducto(kbrota,elemento) {
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
 
-        if(!$("#iva").is(":checked") && $("#iva:visible").length && parseInt(param) != 2)
+        if(!$("#iva").is(":checked") && $("#iva:visible").length && !param.toString().match(new RegExp(/\b9\b|\b104\b/g)) )
                 cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25],timv:cod[26]}) //,imp: cod[6]
@@ -1974,7 +1968,7 @@ function endDetail(vid,vacc,vmodulo) {
                 getDatos('',321,vid[0][0]+',1'); 
             }
 
-            switch(parseInt(param )) {
+            switch(parseInt(param)) {
                 case 104:
                 $("#ffacturas .ciclos").each(function(){
                    var idp =  $(this).data('triforce')['videntrada'];

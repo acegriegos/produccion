@@ -1,4 +1,5 @@
 <?php 
+
     error_reporting(E_ALL);
     ini_set('display_errors', TRUE);
     ini_set('display_startup_errors', TRUE);
@@ -124,8 +125,12 @@
                        ->getStyle('A'.$ftotal)->applyFromArray($styleArray);
 
                 foreach ($tsuma as $aindex => $areglo) {
-                    $objPHPExcel->setActiveSheetIndex(0)
+                    if($areglo['valor'] == 0){
+                      $objPHPExcel->removeColumn($areglo['columna']);
+                    }else{
+                      $objPHPExcel->setActiveSheetIndex(0)  
                           ->setCellValue($areglo['columna'].$ftotal, strtoupper(number_format($areglo['valor'],2,".","")));
+                    }
                 }
               }
                 
