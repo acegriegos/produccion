@@ -145,7 +145,7 @@ $(document).on("click",".msjh",function(){
     }
     console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto)
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto,0,0,0);
-    
+    console.log(idfact);
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';

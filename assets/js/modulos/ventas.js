@@ -507,7 +507,7 @@ $(function(){
             break;
     }
 
-    $(".chg_tipo[val="+config[20]+"]").click();
+    //$(".chg_tipo[val="+config[20]+"]").click();
 
     $("#sg-limit").click(function(e){
         $(this).prop('disabled',true);

@@ -124,9 +124,10 @@
                        ->setCellValue('A'.$ftotal,'TOTAL(CRC)')
                        ->getStyle('A'.$ftotal)->applyFromArray($styleArray);
 
+                $tsuma =  array_reverse($tsuma); 
                 foreach ($tsuma as $aindex => $areglo) {
                     if($areglo['valor'] == 0){
-                      $objPHPExcel->removeColumn($areglo['columna']);
+                      $objPHPExcel->getActiveSheet()->removeColumn($areglo['columna']);
                     }else{
                       $objPHPExcel->setActiveSheetIndex(0)  
                           ->setCellValue($areglo['columna'].$ftotal, strtoupper(number_format($areglo['valor'],2,".","")));
