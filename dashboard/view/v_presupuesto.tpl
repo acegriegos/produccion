@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Presupuesto</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-presupuesto.css?v=10.2.0.55">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-presupuesto.css?v=10.2.0.56">
 
   </head>
   <body>
@@ -36,6 +36,6 @@
     </div> <!-- END BDY -->
     </div>
     {$SRC}
-    <script src="../assets/js/modulos/presupuesto.js?v=10.2.0.55"></script>
+    <script src="../assets/js/modulos/presupuesto.js?v=10.2.0.56"></script>
   </body>
 </html>
