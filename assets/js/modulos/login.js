@@ -125,11 +125,38 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
-
+    
     switch(p[0].length){
         case 2:
             Materialize.toast(p[0][0], 4000, 'red');
             $('#pass').select();
+            salida = false;
+            break;
+        case 3:
+            Materialize.toast(p[0][0], 4000, 'red');
+            var dsucursal = getDatos('',50,p[0][2])[0][0]
+            $("#n_rzocial").val(dsucursal[0])
+            $("#n_ced").val(dsucursal[1])
+            $("#n_fant").val(dsucursal[2])
+            dsucursal[4] = dsucursal[4].indexOf('/') >= 0 ? dsucursal[4].substring(0,dsucursal[4].indexOf('/')) : dsucursal[4];
+            $("#n_mail").val(dsucursal[4])
+            dsucursal[5] = dsucursal[5].indexOf('/') >= 0 ? dsucursal[5].substring(0,dsucursal[5].indexOf('/')) : dsucursal[5];
+            $("#n_phone").val(dsucursal[5]);
+
+            var fecha = new Date();
+            var dia = fecha.getDate();
+            var mes = parseInt(fecha.getMonth()+1);
+            if(parseInt(dia) > 15){
+                mes = mes+1;
+                dia = 1;
+            }else{
+                dia = 15;
+            }
+            
+            $("#n_date").val(fecha.getFullYear()+'-'+("0"+mes).slice(-2)+'-'+("0"+dia).slice(-2));
+            
+            Materialize.updateTextFields();
+            $('#modal2').modal('open');
             salida = false;
             break;
         default:

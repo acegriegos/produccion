@@ -149,7 +149,7 @@ $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Correo:</strong> '.$miscelaneos[4].'<br>'.
 '<table><tr><td><b>Provincia:</b> '.$miscelaneos[12].'</td> <td><b>Cantón:</b> '.$miscelaneos[13].'</td></tr> <tr> <td><b>Distrito:</b> '.$miscelaneos[14].'</td>'; 
   if( $miscelaneos[15] != 'N/A')
-    $html .= '<td><b>Barrio:</b> '.$miscelaneos[12].'</td>';
+    $html .= '<td><b>Barrio:</b> '.$miscelaneos[15].'</td>';
   $html .= '</tr> </table> <br><strong>Dirección:</strong>'.
 $miscelaneos[23].'</td> <td style="width:20%">';
 $style = array(
@@ -223,11 +223,12 @@ $comentario = '<strong>Comentario:</strong><br>'.$datos[0][12].'<br>';
 }
 
 $plazo = '<div style="text-align: center; background-color:#3960A7;color:white;">'.
-'<strong>Fecha y Hora:</strong>&nbsp;<br>'.$datos[0][3].'<br></div>';
+'<strong>Fecha y Hora:</strong>&nbsp;<br>'.$datos[0][3].' '.$datos[0][37].'<br></div>';
 if ($datos[0][32] != '') {
   $plazo .= '<br><div style="text-align: center; background-color:#3960A7;color:white;">';
-  if ($datos[0][2] === 'N/A') 
-      $plazo .= '<strong>Plazo en Días: </strong><br>'.$datos[0][11].'<br>';
+  if ($datos[0][2] === ''){ 
+      $plazo .= '<strong>Plazo en Días: </strong>'.$datos[0][11].'<br> <strong>Fecha Vencimiento: </strong>'.$datos[0][55].'<br>';
+    }
   else
        $plazo .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
 
@@ -243,7 +244,7 @@ if(strlen($datos[0][33])){
   $exon .= '<span style="font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;"><br>Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',con fecha '.$fexo.'</span><br><br>';
 } 
 
-$html .= '<tr> <td width="70%">'.$clave.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="10%"></td> <td width="20%">'.$plazo.'</td> </tr> </html>';
+$html .= '<tr> <td width="65%">'.$clave.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="5%"></td> <td width="30%">'.$plazo.'</td> </tr> </html>';
 
 
 $html .= '* Línea Exenta<br>'.

@@ -135,6 +135,7 @@ $(document).on("keyup",".tdtext",function(e){
 	var code = e.which || e.keyCode;
 
 	if(code == 13){
+		
 		if(!$(this).val().length && $(this).attr('id').substr(0,1) == 'c')
 			$("#d"+$(this).attr('id').substr(1)).focus();
 		var id = parseInt($(this).attr('id').substr(1));
@@ -153,6 +154,8 @@ $(document).on("keyup",".tdtext",function(e){
 				$("#f"+id).data('triforce')['vdebe'] = $(this).val().replace(/,/g,'')
 			}
 			totalizar();
+			if($(".tdtext").length/4 == parseInt(id))
+				$("#addnline").click()
 			break;
 			case 'vsh':
 			id = parseInt($(this).attr('id').substr(7));
@@ -168,6 +171,8 @@ $(document).on("keyup",".tdtext",function(e){
 				$("#f"+id).data('triforce')['vhaber'] = $(this).val().replace(/,/g,'')
 			}
 			totalizar();
+			if($(".tdtext").length/4 == parseInt(id))
+				$("#addnline").click()
 			break;
 			default:
 				var rs = arr('login',4,'',53,'"'+$(this).val()+'",1','',0,'')
@@ -176,9 +181,9 @@ $(document).on("keyup",".tdtext",function(e){
 				if(rs != undefined && $(this).val() != ''){
 					var repetido = 0;
 
-					$("#f"+$(this).attr('id').substr(1)).data('triforce')['vidcuenta'] = rs[3]
+					$("#f"+id).data('triforce')['vidcuenta'] = rs[3]
 					$('#fdetalletransacciones tr').each(function(){
-						if($(this).attr('st') == 1 && rs[0] == $('#c'+$(this).attr('id').substr(1)).val())
+						if($(this).attr('st') == 1 && rs[0] == $('#c'+id).val())
 							repetido = 1;
 					});
 
@@ -190,7 +195,7 @@ $(document).on("keyup",".tdtext",function(e){
 						$('#f'+id).attr('st',1)
 					}
 
-					$('#vsdebe'+id).select().focus();
+					$('#vsdebe'+id).focus().select();
 				}else{
 					$(this).focus().select();
 					$('#vsdebe'+id).val('');
@@ -322,14 +327,13 @@ function cargarTransacciones(){
 
             $(this).autocomplete({
                 limit: 20,
-                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1),
+                data: getDatos('nombre,null',36,'id > 0 and !ispadre having nombre like "%'+$(this).val()+'%" limit 10',0,0,1)/*,
                 onAutocomplete:function(val){
-            		// var e = jQuery.Event("keyup");
-            		// e.which = 13;
-            		// obj.trigger(e);
-            		alert(1)
-            		$('#vsdebe'+obj.attr('id').substr(1)).select().focus();
-                }
+            		var e = jQuery.Event("keyup");
+            		e.which = 13;
+            		obj.trigger(e);
+            		//$('#vsdebe'+obj.attr('id').substr(1)).select().focus();
+                }*/
             });
 
             $(".autocomplete-content").css('width','30%');
@@ -384,12 +388,12 @@ function validar (varreglo,vmodulo) {
 	}
 
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
-	console.log(salida);
 	return salida;
 
 }
 
-function endDetail(vid) {
+function endDetail(vid,acc,mod) {
+	window.open('contabilidad?accion=3&tp=0&id='+vid[0][0]);
 	setTimeout(function(){ $('#fn1').click(); }, 2000);
 	return false;
 }
@@ -423,6 +427,8 @@ function validartransacciones() {
 	else if(parseFloat($('#totDebe').html().replace(/,/g,'')) !=  parseFloat($('#totHber').html().replace(/,/g,'')))
 		return 'Asientos no Cierran Adecuadamente';
 
+	$('#ftransacciones .zelda').data('triforce')['vdivisa'] = $("#vidmoneda option:selected").attr('tp');
+
 	return false;
 }
 
@@ -452,7 +458,7 @@ function cargarSintax(vtabla){
 
 function getFila(i) {
 
-	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vsdebe'+i+'" value="0.00"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right" class="tdtext numeric" id="vshaber'+i+'" value="0.00"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;" class="hide"> <select type="select" id="vidodt'+i+'">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" style="width:90%;" id="vcomentario'+i+'"> <i class="mdi mdi-close red-text delete-row" id="r'+i+'" style="float:right;cursor:pointer;" title="Eliminar Fila"></i> </td></tr>';
+	return '<tr id="f'+i+'" st="0"><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" class="tdtext" id="c'+i+'" autocomplete="off" style="margin:0px"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" class="tdtext autocomplete" id="d'+i+'" style="margin:0px"></td>  <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right;margin:0px;" class="tdtext numeric" id="vsdebe'+i+'" value="0.00"></td><td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"><input type="text" autocomplete="off" style="text-align:right;margin:0px" class="tdtext numeric" id="vshaber'+i+'" value="0.00"></td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;" class="hide"> <select type="select" id="vidodt'+i+'" style="margin:0px">'+gop+'</select> </td> <td style="padding-bottom: 0px;padding-top: 0px;padding-right: 2px;padding-left: 2px;"> <input type="text" style="width:90%;margin:0px" id="vcomentario'+i+'"> <i class="mdi mdi-close red-text delete-row" id="r'+i+'" style="float:right;cursor:pointer;" title="Eliminar Fila"></i> </td></tr>';
 
 }
 

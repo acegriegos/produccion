@@ -19,6 +19,17 @@ div > .modal {
   height: 100%;
 }
 
+.forprint{
+  margin: 0 auto;
+  max-width: 75%;
+  border: 1px solid #e2e2e2;
+}
+
+.hojaprint{
+  background-color: white;
+  height: 100vh;
+}
+
 @font-face {
   font-family: "logintech";
   src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
@@ -317,7 +328,7 @@ label{
     padding: 0;
   }
   
-  #pageFooter:beorfe {
+  #pageFooter:before {
     counter-increment: hoja;
     counter-reset: hoja (+1);
     position: fixed;
@@ -338,4 +349,9 @@ label{
 
 ..autocomplete-content li>span{
   color: black !important;
+}
+
+.forprint{
+  margin: 0;
+  border: 0px;
 }

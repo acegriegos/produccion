@@ -5,9 +5,6 @@ $(function(){
     var tf  = getParameterByName('tf');
     tf = !tf ? 3 : tf;
     param = getParameterByName('tp');
-    param = param ? param : 0;
-
-    $('#tf'+tf).prop('checked',true);
     
     if(param == 0){
         $("#titg").html('Movimientos Cuentas por Cobrar');
@@ -17,6 +14,7 @@ $(function(){
         $("[for=tf7]").attr('for','tf8')
     }
 
+    $('#tf'+tf).prop('checked',true);
 
     config = getDatos('',42,'@@impresa',0,0)[0][0];
     arr('login',6,'',187,'0,0,"'+tf+'|'+param+'|@@impresa|||","0,10"',0,1,$("#listafacturas"));
@@ -129,14 +127,13 @@ function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
 
 function postExcecute(vid,p){
 
+    return false;
+}
+
+function postSendmail() {
     switch(parseInt(vid)){
         default:
             Materialize.toast('Correo Enviado',4000,'green')
             break;
     }
-    return false;
-}
-
-function postSendmail() {
-    setTimeout(function(){$(".toast").remove();},3000);
 }

@@ -1,6 +1,7 @@
 var acc = 1;
 var ind_1 = ind_2 = 1;
 var numero = 0;
+var delayTimer;
 $(function(){
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50,duration:1000});
@@ -445,18 +446,22 @@ $(document).on("blur",".buscarNombre",function(e){
 $(document).on("keyup","[id^=search_]",function(e){
     // var code = e.which || e.keyCode
     // if (code == 13) {
-        var a = $(this).val().replace(/"/g,'\\\"');
-        var b = $(this).prop('id').substr(7);
-        var c = $(this).attr('num').substr(1);
-        var e = $(this).attr('var');
-        var g = $(this).attr('cambio') != undefined ? $(this).attr('cambio') : 0;
-        var j = $(this).attr('filtro') == undefined ? 1 : $(this).attr('filtro');
-        var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
-        var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
-        
-        filltable(h,b,c,g);
-        $(".pagination").html('');
-        paginate(c,i)
+        clearTimeout(delayTimer);
+        var elem = $(this);
+        delayTimer = setTimeout(function() {    
+            var a = elem.val().replace(/"/g,'\\\"');
+            var b = elem.prop('id').substr(7);
+            var c = elem.attr('num').substr(1);
+            var e = elem.attr('var');
+            var g = elem.attr('cambio') != undefined ? elem.attr('cambio') : 0;
+            var j = elem.attr('filtro') == undefined ? 1 : elem.attr('filtro');
+            var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
+            var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
+            
+            filltable(h,b,c,g);
+            $(".pagination").html('');
+            paginate(c,i)
+        }, 500);
     //}
 });
 
@@ -664,7 +669,6 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
             catch(err){
                 p = data;
             }
-
             postExcecute(vid,p);
         });
     }
@@ -732,10 +736,7 @@ function validarCorreo(valor) {
 }
 
 function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
-    // if(!$("#smail").is(':visible')){
-    //     var $toastContent = $('<span style="width: 500px">Generando Correo Electronico:</span>').add($('<div class="progress expect_mail"><div class="indeterminate"></div></div>'));
-    //     Materialize.toast($toastContent);
-    // }
+
    $.ajax({
         url: '../_config/correoAjax.php',
         type: 'POST',

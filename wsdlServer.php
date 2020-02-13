@@ -22,6 +22,7 @@ if (isset($_POST['respuestaXml'])) {
 }else{
     $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
     $salida = [];
+    $salida['error'] = 0;
     switch ($cmd) {
         case 1: //CARGA DE PERMISOS POR CLIENTE
             require_once '_config/mysqlDB.php';
@@ -140,6 +141,7 @@ if (isset($_POST['respuestaXml'])) {
             $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
 
             if (file_exists($target_path)) {
+              unlink($target_path);
               $salida['msj'] = 'LLAVE CRIPTOGRAFICA YA EXISTENTE';
               $salida['error'] = 11;
               break;
@@ -147,7 +149,7 @@ if (isset($_POST['respuestaXml'])) {
     
             move_uploaded_file($temp, $target_path);
             if(!openssl_pkcs12_read(file_get_contents($target_path), $certs, $pin)){
-                unset($target_path);
+                unlink($target_path);
                 $salida['msj'] = 'PIN O LLAVE CRIPTOGRAFICA INVALIDAS';
                 $salida['error'] = 12;
             }else{
@@ -309,12 +311,42 @@ if (isset($_POST['respuestaXml'])) {
               $salida['error'] = $rs;
             
           break;
+        case 7: //FE INTEGRACION EN LINEA
+
+          break;
+        case 8: // REVICION DE USUARIOS
+          if (!isset($_POST['cedula'])) {
+            $salida = getError('CEDULA REQUERIDA');
+            break;
+          }
+
+          require_once '_config/mysqlDB.php';
+          $base = new DBClass();
+
+          $rs = $base->ejecutar('call krattos("id",2,"!bisproveedor and trim(replace(cedula,\"-\",\"\")) = trim(\"'.$_POST['cedula'].'\") and id > 0")');
+          if(!isset($rs->num_rows)){
+            $salida = getError($rs);
+            break;
+          }
+          $rs=$rs->fetch_all();
+          if(!sizeof($rs)){
+            $salida = getError('CLIENTE NO REGISTRADO');
+            break;
+          }
+
+          $salida['rs'] = $rs;
+
+          break;
         default:
-           $salida['msj'] = 'WSDL LOGINTECH';
+           $salida['msj'] = 'WSDL APSY SEND A REQUEST';
            $salida['error'] = 1;
             break;
     }
 
     echo json_encode($salida);
+}
+
+function getError($msj){
+  return  array('msj' => $msj, 'error' => 1);
 }
 ?>

@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <?php 
-    	if(sizeof($transaccion)){
+        if(sizeof($transaccion)){
         foreach ($transaccion as $obj) {
     ?>
 
@@ -21,21 +21,21 @@
         <td style=" padding: 1px;"><?php echo $obj[1] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td> 
         <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[6],2) ?></td> 
-       	<td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[3],2) ?></td>
-       	<td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[5],2) ?></td> 
-       	<td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo $obj[4] ?></td> 
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[3],2) ?></td>
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[5],2) ?></td> 
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo $obj[4] ?></td> 
     </tr>
 
     <?php }
-		}else{
-	?>
-	<tr>
+        }else{
+    ?>
+    <tr>
         <td style=" padding: 1px;" colspan="6">No Hay Datos</td>
        
     </tr>
-	<?php 
-	
-		}
+    <?php 
+    
+        }
     ?>
 </tbody>
 </table>

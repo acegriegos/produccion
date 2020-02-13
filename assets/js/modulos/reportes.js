@@ -1,7 +1,10 @@
 $(function(){
 
-    if ($(".per15.hide").length == 0)
-        $("[rep='contabilidad']").parent().removeClass('hide')
+    if (!$(".per2000").length)
+        $(".basic").addClass('hide')
+
+    /*if ($(".per15.hide").length)
+        $("#conta").parent().addClass('hide')*/
 
 	$(".report").click(function(){
         var tf = $(this).attr('tf') == undefined ? '' : '&tf='+$(this).attr('tf')

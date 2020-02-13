@@ -60,37 +60,52 @@ $(function(){
         case 2:
             inicial = $("#vreferencia");
             cargarCompras(); 
+            $(document).attr("title", "Facturacion-Compra");
+            $("#special").removeClass('per1110')
             break;
         case 3:
             cargarOCompras();
+            $(document).attr("title", "Facturacion-Orden Compra");
+            $("#special").removeClass('per1110')
             break;
         case 4:
             cargarVentas();
             cargarResembled('PROFORMAS');
             $("#facturar").html('Generar');
             $("#crrclie").removeClass('hide').removeClass('clieBTN');
+            $(document).attr("title", "Facturacion-Proformas");
+            $("#special").removeClass('per1110')
             break;
         case 5:
             cargarVentas();
             cargarResembled('PEDIDOS');
+            $(document).attr("title", "Facturacion-Pedidos");
+            $("#special").removeClass('per1110')
             break;
         case 6:
             cargarVentas();
+            $(document).attr("title", "Facturacion-Pre-Ventas");
             cargarResembled('PRE-VENTA');
+            $("#special").removeClass('per1110')
             break;
         case 9:
             //cargarFECompra();
             cargarResembled('COMPRA ELECTRONICA');
+            $("#special").removeClass('per1110')
             break;
         case 10:
             cargarVentas();
+            $(document).attr("title", "Facturacion-Exportaciones");
             cargarResembled('EXPORTACION');
+            $("#special").removeClass('per1110')
             break;
         case 100:
+            $(document).attr("title", "Facturacion-Pago Sobre Adelanto");
             cargarVentas();
             cargarResembled('PAGO SOBRE ADELANTO');
             break;
         default:
+            $(document).attr("title", "Facturacion-Ventas");
             cargarVentas();
             break;
     }

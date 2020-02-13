@@ -5,7 +5,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.css?v=10.2.0.50">
+<link href="../assets/css/materialize.css?v=10.2.0.55">
 <style>
   @media print {
     .print{
@@ -52,8 +52,8 @@
       <span id="numfact" > <?php echo $cierre[0]; ?> </span><br>
       <b>Usuario: </b>
       <span > <?php echo $cierre[17]; ?> </span><br>
-      <b>Fecha: </b>
-      <span > <?php echo $cierre[1]; ?> </span>
+      <b>Fecha y Hora: </b>
+      <span > <?php echo $cierreg[1]; ?> </span>
     </div>
     <div>
         <b><?php echo $miscelaneos[0]; ?></b><br>
@@ -166,7 +166,7 @@
             <th align="right">Valor</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody >Notas y
           <?php foreach ($estados as $obj) {?>
           <tr class="tr" >
             <td ><span id="con"><?php echo $obj[0]; ?></span></td>
@@ -203,7 +203,38 @@
         </tbody>
       </table>
       <br>
-      <?php default:
+      <?php 
+      break;
+      case 3:
+        ?>
+        <br>
+        <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
+        <!-- <thead>
+          <tr>
+            <th colspan="3" align="center">Familias</th>
+          </tr>
+        </thead> -->
+        <thead>
+          <tr>
+            <th>Cantidad</th>
+            <th>Familia</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody >
+          <?php foreach ($cierreg as $obj) {?>
+          <tr class="tr" >
+            <td align="left"><?php echo $obj[31]; ?></td>
+            <td ><span><?php echo $obj[30]; ?></span></td>
+            <td align="right"><span><?php echo number_format($obj[32],2); ?></span></td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+
+      <?php
+        break;
+      default:
             break;
             } ?>
       <br>
@@ -263,8 +294,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.2.0.50"></script>
-    <script src="../assets/js/materialize.js?v=10.2.0.50"></script>
+    <script src="../assets/js/jquery.js?v=10.2.0.55"></script>
+    <script src="../assets/js/materialize.js?v=10.2.0.55"></script>
 
      <script type="text/javascript">
    $(function(){

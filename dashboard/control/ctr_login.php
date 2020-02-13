@@ -24,9 +24,6 @@
             header("Location: ../dashboard/cambioPasswd.php?sr=".base64_encode($user[0][1])."&cr=".base64_encode($user[0][8])."&tr=".base64_encode($user[0][2]) );
             return false;
           }
-
-            if ($user[0][7] == 1)
-              cambioDia($log);
      
               $_SESSION['USR']     = base64_encode($user[0][0]);
               $_SESSION['NUM']     = base64_encode($user[0][1]);
@@ -74,7 +71,7 @@
               header("Location: ../dashboard/$vdir");
            }
     	}else{
-        $mod = 'main';
+        $mod = 'facturacion';
         
     		if (isset($_SESSION['USR'])) {
             if ($_SESSION['BUSS'] == 1) {
@@ -110,6 +107,24 @@
    		case 3:
    			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
    			$transaccion = $log->autenticar();
+
+        if(isset($transaccion[0][7])){
+          if ($transaccion[0][7] == 1)
+            cambioDia($log,$transaccion[0][5]);
+        
+          /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
+          $sysmod = $log->kamehameha('sysmod',39,'id='.$transaccion[0][5])[0][0];
+          if($tserv == 0){
+            if($sysmod == ''){
+              $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
+            }else{
+              $rsvr = (array) json_decode(verificar($log,$transaccion[0][9],$sysmod));
+              if($rsvr['error']){
+                $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
+              }
+            }
+          }*/
+        }
    			break;
    		case 4:
    			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
@@ -262,9 +277,17 @@
           echo json_encode(['succed'=>1,'rs'=>$xml]);
         }
         break;
-      case 1: //REMOVE FILES
+      case 17: //INIDACADORES ECONOMICOS
         $pagina = 1;
-        unlink($_REQUEST['arreglo']['file']);
+        ob_end_clean();
+        ignore_user_abort();
+        ob_start();
+        header("Connection: close");
+        echo json_encode('LOAD INDICACORES...');
+        header("Content-Length: " . ob_get_length());
+        ob_end_flush();
+        flush();
+        indicadores($log);
         break;
       default:
         break;
@@ -313,38 +336,77 @@
   	 }
    }
 
-    function cambioDia($log)
+    function cambioDia($log,$empresa)
      {  
-        indicadores($log);
-        $log->kamehameha('',146,'@@impresa');
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $actual_link = str_replace('ctr_login.php','/dashboard/login', $actual_link);
+
+        $curl = curl_init($actual_link);
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+        $params = array(
+          "accion" => 17
+        );
+
+        $postData = "";
+
+        foreach($params as $k => $v)
+        {
+           $postData .= $k . '='.urlencode($v).'&';
+        }
+
+        $postData = rtrim($postData, '&');
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        curl_close($curl);
+
+        $log->kamehameha('',146,$empresa);
      } 
 
      function indicadores($log){
-        require_once '../assets/libs/nusoapLT/nusoap.php';
 
-        $wsdls = $log->kamehameha('',102,'');
-        $tipoCambio = "";
-        foreach ($wsdls as $obj) {
+        $param_salida = array();
+        $param_salida['Indicador'] = 318;
+        $param_salida['FechaInicio'] = date('d/m/Y');
+        $param_salida['FechaFinal'] = date('d/m/Y');
+        $param_salida['Nombre'] = 'apsy';
+        $param_salida['SubNiveles'] = 'N';
+        $param_salida['CorreoElectronico'] = 'info@apsycr.com';
+        $param_salida['Token'] = '5PSCRPNR0F';
 
-          $parametros = $log->kamehameha('',103,$obj[4]);
-          $param_salida = array();
-          foreach ($parametros as $obj1) {
-            $param_salida[$obj1[1]] = $obj1[2];
-          };
+        $curl = curl_init('https://gee.bccr.fi.cr/Indicadores/Suscripciones/WS/wsindicadoreseconomicos.asmx/ObtenerIndicadoresEconomicos');
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
-          $oSoapClient = new nusoap_client($obj[1],true);
-          $aRespuesta = $oSoapClient->call($obj[2], $param_salida);
-          $xml = (array) simplexml_load_string($aRespuesta[$obj[3]]);
+        $postData = "";
 
-          while (strpos($obj[5], ',')) {
-            $valor = substr($obj[5], 0,strpos($obj[5], ','));
-            $obj[5] = substr($obj[5], strpos($obj[5], ',')+1);
-            $xml = (array) $xml[$valor];
-          }          
-    
-          $tipoCambio = (string) $xml[$obj[5]];
-          $log->genkidama(2,54,'valor='.number_format($tipoCambio,2),'id='.$obj[0]);
-        };
+        foreach($param_salida as $k => $v)
+        {
+           $postData .= $k . '='.urlencode($v).'&';
+        }
+
+        $postData = rtrim($postData, '&');
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        curl_close($curl);
+        $uno = strpos($json_response, '<NUM_VALOR>');
+        $dos = strpos($json_response, '</NUM_VALOR>');
+        $json_response = str_replace('<NUM_VALOR>', '', substr($json_response,$uno,$dos-$uno));
+
+        $log->genkidama(2,54,'valor='.number_format($json_response,2),'codigo="USD"');
      }	
 
     function getCompras($url,$ced,$isp,&$log){
@@ -404,6 +466,14 @@
               // echo json_encode(['rs'=>$rs,'sql'=>'null,"'.$compra.'","'.$obj[31].'",'.$obj[52].','.$obj[51].',"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.str_replace('"', '\"', $obj[30]).'","'.$obj[36].'","'.$obj[50].'","",0']);
           }
       }
+    }
+
+    function verificar($log,$ced,$sysmod){
+
+      $params = array('cmd' => 8,'cedula' => '123456789111');
+      $result = $log->getCurl('http://localhost/dev/wsdlServer.php',$params);
+      return $result['error'] != '' ? $result['error'] : $result['rs'];
+
     }
 			   
 ?>

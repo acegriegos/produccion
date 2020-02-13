@@ -47,10 +47,17 @@
          <h3 class="center-align">Cuentas por Procesos del Sistema</h3>
 
          <div class="row">
-            <a href="#subpro" id="pventas" class="btn btn-success col s2 mp" mp=1 style="margin-left: 1%;">Ventas</a>
-            <a href="#subpro" id="pcobro" class="btn btn-success col s2 mp" mp=3 style="margin-left: 1%;">Cobros</a>
-            <a href="#subpro" id="pcompras" class="btn btn-success col s2 mp" mp=2 style="margin-left: 1%;">Compras</a>
-            <a href="#subpro" id="ppagos" class="btn btn-success col s2 mp" mp=4 style="margin-left: 1%;">Pagos</a>
+            <a href="#subpro" id="pventas"  class="btn btn-success col s2 mp" mp=1  style="margin-left: 1%;margin-top: 1%;">Ventas</a>
+            <a href="#subpro" id="pcobro"   class="btn btn-success col s2 mp" mp=3  style="margin-left: 1%;margin-top: 1%;">Cobros</a>
+            <a href="#subpro" id="pcompras" class="btn btn-success col s2 mp" mp=2  style="margin-left: 1%;margin-top: 1%;">Compras</a>
+            <a href="#subpro" id="ppagos"   class="btn btn-success col s2 mp" mp=4  style="margin-left: 1%;margin-top: 1%;">Pagos</a>
+            <a href="#subpro" id="pdevo"    class="btn btn-success col s2 mp" mp=5  style="margin-left: 1%;margin-top: 1%;">Devoluciones</a>
+            <a href="#subpro" id="pncre"    class="btn btn-success col s2 mp" mp=6  style="margin-left: 1%;margin-top: 1%;">Nota Crédito</a>
+            <a href="#subpro" id="pndeb"    class="btn btn-success col s2 mp" mp=7  style="margin-left: 1%;margin-top: 1%;">Nota Débito</a>
+            <a href="#subpro" id="pinve"    class="btn btn-success col s2 mp" mp=8  style="margin-left: 1%;margin-top: 1%;">Entrada Inventario</a>
+            <a href="#subpro" id="pinvs"    class="btn btn-success col s2 mp" mp=9  style="margin-left: 1%;margin-top: 1%;">Salida Inventario</a>
+            <a href="#subpro" id="pefecte"  class="btn btn-success col s2 mp" mp=10 style="margin-left: 1%;margin-top: 1%;">Entrada Efectivo</a>
+            <a href="#subpro" id="pefects"  class="btn btn-success col s2 mp" mp=11 style="margin-left: 1%;margin-top: 1%;">Salida Efectivo</a>
          </div>
          
          <section id="subpro" class="row" style="padding-top: 1%;"></section>
@@ -59,8 +66,8 @@
            <table style="width: 50%;margin: 0px auto;" id="tbl1" class="hide atbl">
              <tr>
                <td></td>
-               <td style="border-bottom: 1px solid black; border-right: 1px solid black; text-align: center"><b>DEBE</b></td>
-               <td style="border-bottom: 1px solid black; text-align: center"><b>HABER</b></td>
+               <td style="border-bottom: 1px solid black; border-right: 1px solid black; text-align: center"><b>DÉBITO</b></td>
+               <td style="border-bottom: 1px solid black; text-align: center"><b>CRÉDITO</b></td>
                <td></td>
              </tr>
              <tbody id="cuerpoc">

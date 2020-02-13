@@ -2,7 +2,7 @@
     <div class="row">
         <br>
         <div class="row">
-            <div class="col s10 offset-s2 m4 l3" style="margin-top:2%; ">
+            <div class="col s10 offset-s2 m4 l3 hide" style="margin-top:2%; ">
               <li class="btn waves-effect waves-light func z-depth-5" fn="f1" id="fn1">Realizar Asiento</li>
 
           </div>
@@ -12,7 +12,7 @@
       </div>
 
 
-      <div class="row">
+      <div class="row" style="margin: 0px">
 
       <div class="col s12 " id="show_transac" >
 
@@ -21,7 +21,7 @@
         <div>  
             <div  class="sub-tran" id="t1">
                 <input type="hidden" class="zelda">
-                <div class="row">
+                <div class="row" style="margin: 0px">
                    <div class="input-field col s12 m6 l4">
                   <input  id="vdescripcion" type="text" class="validate" autocomplete="off">
                   <label for="descripcion">Descripcion del Asiento</label>
@@ -36,7 +36,7 @@
             <select id="vidmoneda" type="select">
               <option value="" disabled>Monedas</option>
               {section name=LE loop=$MON}
-            <option value="{$MON[LE][0]}" {if $smarty.section.LE.index eq 0}selected{/if}>{$MON[LE][1]} {$MON[LE][2]}</option>
+            <option value="{$MON[LE][0]}" tp="{$MON[LE][3]}" {if $smarty.section.LE.index eq 0}selected{/if}>{$MON[LE][1]} {$MON[LE][2]}</option>
             {/section}
           </select>
           <label>Seleccione la Monedas</label>
@@ -60,8 +60,8 @@
         <tr>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Cuenta</th>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Descripción</th>
-            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Debe</th>
-            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Haber</th>
+            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Debitos</th>
+            <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Creditos</th>
             <th class="white-text blue" style="border: 0; border-radius: 0px !important;">Comentario</th>
         </tr>
     </thead>

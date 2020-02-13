@@ -18,7 +18,7 @@ $(function(){
             else
                 ipbebidas = {ip:impresoras[0][i][0],port:impresoras[0][i][1],cola:impresoras[0][i][2]};
         }
-        
+
     }
 
     var dolar = getDatos('valor',54,'id = 2',0,0,0)[0][0][0];
@@ -57,10 +57,10 @@ $(function(){
             });
 
             vdata = generarComanda(id);
-
+            console.log(vdata)
             if(vdata['cocina'] != ''){
                 mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
-                mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
+              //  mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
             }
             
             if(vdata['refresco'] != '')    
@@ -78,10 +78,11 @@ $(function(){
        $("#btit").html($("strong b",this).html());
        var idbarra = $(this).attr('id').substr(1);
        var clientes = getDatos('',805,'2,'+idbarra+',""',0,0,0)[0];
+
        var str = '';
        $("#listaclientes").html('');
        for (var i = 0; i < clientes.length; i++) {
-           str += '<div class="card-panel teal lighten-2 truncate col s2 center row" style="margin-right: 1%;margin-left:1%; padding:0px"><span class="cdb col s10" style="cursor:pointer" id="c'+clientes[i][0]+'">'+clientes[i][1]+'</span> <i class="mdi mdi-close delb col s2" style="cursor:pointer;float:right"></i> </div>';
+           str += '<div class="card-panel teal lighten-2 truncate col s2 center row" style="margin-right: 1%;margin-left:1%; padding:0px;position:relative;"><span class="cdb col s10" style="cursor:pointer" id="c'+clientes[i][0]+'">'+clientes[i][1]+'</span> <i class="mdi mdi-close delb col s2" style="cursor:pointer;float:right;position:absolute;right:0;"></i> </div>';
        }
 
        $("#modal-barra").attr('bnumber',idbarra);
@@ -126,7 +127,7 @@ $(function(){
              var idbarra = $("#modal-barra").attr('bnumber');
             var clientes = getDatos('',805,'1,'+idbarra+',"'+$("#abarra").val()+'"',0,0,0)[0];
 
-            var str = '<div class="row col s2"><div class="card-panel teal lighten-2 truncate col s10 center cdb" style="margin-right: 1%;margin-left:1%;cursor:pointer" id="c'+clientes[0][0]+'">'+$("#abarra").val()+' </div><i class="mdi mdi-close delb s2" style="cursor:pointer"><i>';
+            var str = '<div class="card-panel teal lighten-2 truncate col s2 center row" style="margin-right: 1%;margin-left:1%; padding:0px;position:relative;"><span class="cdb col s10" style="cursor:pointer" id="c'+clientes[0][0]+'">'+$("#abarra").val().trim()+'</span> <i class="mdi mdi-close delb col s2" style="cursor:pointer;float:right;position:absolute;right:0;"></i> </div>';
             $("#listaclientes").append(str);
             $("#abarra").val('')
         }
@@ -190,10 +191,10 @@ $(function(){
                     var hinv = detalle[0][i][5];
                     var cimp = parseFloat(detalle[0][i][4])
                     var total = parseFloat((precio+cimp)*cantidad);
-                    var flag = '';
+                    var flag  = '<i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i>';
                     t_mesa += total;
 
-                    mstr = '<section strid="'+idproducto+'" strcol="0" old="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+                    mstr = '<section strid="'+idproducto+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
@@ -288,11 +289,13 @@ $(function(){
     });
 
     $("#sprod").keyup(function(e){
-        $(".comida").addClass('hide');
+        /*$(".comida").addClass('hide');
         var comidas = $(".comida").filter(function(){
             return $(this).find('.nprod').html().toLowerCase().match($("#sprod").val().toLowerCase());
         })
-        comidas.removeClass('hide');
+        comidas.removeClass('hide');*/
+
+        cargarProdList();
     });
 
     $("#agcliente").click(function(){
@@ -318,25 +321,7 @@ $(function(){
     });
 
     $("#lfam").change(function(){
-        var productos = getDatos('',807,'@@impresa',0,0,0);
-        var epp = '';
-        var str = '';
-        var isbebida = 1;
-        var btns = '';
-
-        for(var i = 0; i < productos[0].length; i++){
-            if(parseInt(productos[0][i][4]) != 4){
-                isbebida  = 0;
-                btns = '<div class="chover hide" style="position: absolute;right: 0;padding-top: 20%">                <i class="mdi mdi-circle tlista" trcol="1" style="color: green;z-index: 998" title="ENTRADA"></i> <br>                <i class="mdi mdi-circle tlista" trcol="2" style="color: #C32B1B;z-index: 998" title="PLATO FUERTE"></i> <br>                <i class="mdi mdi-circle tlista" trcol="3" style="color: blue;z-index: 998" title="POSTRE"></i>               </div>';
-            }else{
-                isbebida = 1;
-                btns = '';
-            }
-
-            str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
-        }
-
-        $("#test1").html(str)
+        cargarProdList()
     });
 
     $('.collapsible').collapsible();
@@ -352,7 +337,7 @@ $(function(){
     function addline(tfila,tcolor){
 
         var elem = $("[strid="+tfila+"][strcol="+tcolor+"]");
-
+        console.log(tcolor)
         if(elem.length){
             var cactual = parseFloat(elem.find('.clinea').val());
             elem.find('.clinea').val(cactual+1)
@@ -463,6 +448,8 @@ $(document).on("click",".cdb",function(){
     var detalle = getDatos('',803,id*-1+','+idcliente,0,0,0);
 
     $("#total_mesa").html('0.00')
+    $("#total_mesa_d").html('0.00')
+    $("#lfam").change()
     if(detalle[0].length){
         var mstr = '';
         $("#fdetallefacturas .ciclos").remove();
@@ -479,11 +466,10 @@ $(document).on("click",".cdb",function(){
             var total = parseFloat((precio+cimp)*cantidad);
             t_mesa += total;
 
-            mstr = '<li><div class="collapsible-header ciclos black-text" nuevo="0" id="fd'+idproducto+'" style="padding: 0px;margin:0px"><span class="row" style="margin:0;width:100%"><span id="fnom" style="font: bold;padding-left:1%;padding-right:0;" class="col s12">'+detalle[0][i][0]+'</span> <small class="hide">Uni:<span id="funit">'+(precio).formatMoney(2,'.',',')+'</span></small> <small class="col s3" style="padding-left:1%;padding-right:0;">Cant: <span id="fcant">'+cantidad+'</span></small> <small class="col s9" style="padding-left:1%;padding-right:0;">Total: <span id="ftot">'+(total).formatMoney(2,'.',',')+'</span></small><span></div> <div class="collapsible-body" style="padding:0px;npadding-left:1%;margin:0px"><b>Comentario</b> <textarea type="textarea" class="materialize-textarea" id="cmt'+idproducto+'"></textarea </div></li>';
-
+            mstr = '<section strid="'+idproducto+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
             $("#fdetallefacturas").prepend(mstr);
-            
-            $("#fd"+idproducto).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : precio.formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][0],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,videxoneracion:''});
+                    
+            $("[strid="+idproducto+"][strcol=0]").data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][11],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0,videxoneracion:'',idtipo:1});
 
         };
 
@@ -575,10 +561,10 @@ function validarDetalleFactura(){
 function endDetail(vid,vacc,vmodulo) {
    
     vdata = generarComanda(vid[0][0][0]);
-    console.log(vdata)
+
     if(vdata['cocina'] != ''){
         mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
-        mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
+        //mantenimiento('login',12,{data:vdata['cocina'],ip:ipcomidas['ip'],port:ipcomidas['port'],cola:ipcomidas['cola']},1);
     }
     
     if(vdata['refresco'] != '')    
@@ -711,6 +697,8 @@ function generarComanda(idfactura){
     });
     var tit = '';
 
+    listacocina = listacocina.sort();
+
     listacocina.forEach(function(element){
          if(tit != element['nombre']){
             vcocina += '\n\n---'+element['nombre']+'---';    
@@ -729,5 +717,29 @@ function generarComanda(idfactura){
     vrefresco += '\n\n\n\n\n\n\n\n\n--------';
     vcocina = listacocina.length ? vcocina : '';
     vrefresco = listarefresco.length ? vrefresco : '';
+    console.log({cocina:vcocina,refresco:vrefresco})
     return {cocina:vcocina,refresco:vrefresco}
+}
+
+function cargarProdList(){
+    var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'"',0,0,0);
+
+    var epp = '';
+    var str = '';
+    var isbebida = 1;
+    var btns = '';
+
+    for(var i = 0; i < productos[0].length; i++){
+        if(parseInt(productos[0][i][4]) != 4){
+            isbebida  = 0;
+            btns = '<div class="chover hide" style="position: absolute;right: 0;padding-top: 20%">                <i class="mdi mdi-circle tlista" trcol="1" style="color: green;z-index: 998" title="ENTRADA"></i> <br>                <i class="mdi mdi-circle tlista" trcol="2" style="color: #C32B1B;z-index: 998" title="PLATO FUERTE"></i> <br>                <i class="mdi mdi-circle tlista" trcol="3" style="color: blue;z-index: 998" title="POSTRE"></i>               </div>';
+        }else{
+            isbebida = 1;
+            btns = '';
+        }
+
+        str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
+    }
+
+    $("#test1").html(str)
 }

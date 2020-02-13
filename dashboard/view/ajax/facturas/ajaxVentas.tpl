@@ -196,16 +196,16 @@
 
 <!-- DETALLE FACTURA -->
   <div class="card z-depth-3 p2 ps hide-on-med-and-down" style="margin: 0px">
-  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%"><b>DETALLE DE FACTURA</b>
+  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%;position: relative;"><b>DETALLE DE FACTURA</b>
 
-    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" ></a>
+    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" style="position: absolute;top: 0;right: 0;"></a>
     
     {if $smarty.session.BUSS eq 0 or $smarty.session.BUSS eq 3}
-    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="margin-right: 10px"></a>
+    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="position: absolute;top: 0;right: 0;margin-right: 36px"></a>
 
     <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
 
-    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der" data-tooltip="Factura Especial" data-position="bottom" id="special" ></a>
+    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
     {/if}
 
  </div>
@@ -904,22 +904,40 @@
 </section>
 <!--  -->
 <section id="m-mixto" class="modal-tpago">
+  <hr>
+  <div class="row" style="margin:0px; padding: 0px;">
+    <div class="col s4 center" style="cursor: pointer;">
+      <input type="radio" name="mxt_tp" val="1" id="mxt_seg">
+      <label for="mxt_seg" title="Parte Efectivo y Parte con Tarjeta">Segmentado</label>
+    </div>
+    <div class="col s4 center" style="cursor: pointer;">
+      <input type="radio" name="mxt_tp" val="2" id="mxt_div" >
+      <label for="mxt_div" title="Una Porte del Total">Dividio</label>
+    </div>
+    <div class="col s4 center" style="cursor: pointer;">
+      <input type="radio" name="mxt_tp" val="3" id="mxt_det" >
+      <label for="mxt_det" title="Por Líneas de la Factura">Desgloce</label>
+    </div>
+  </div>
+   
   <div class="modal-content row">
+
     <div class="col s4 row">
+      
       <H5>FORMA DE PAGO</H5>
       
       <div class="col s12 input-field">
-          <input type="text" id="montoefect" value="0.00" class="eder" readonly>
+          <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1">
           <label for="montoefect">Efectivo</label>
       </div>
 
        <div class="col s12 input-field">
-            <input type="text" id="montotar" value="0.00" class="eder">
+            <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2">
             <label for="montotar">Tarjeta</label>
       </div>
 
        <div class="col s12 input-field">
-        <input type="text" id="ntarjmixto" maxlength="4">
+        <input type="text" id="ntarjmixto" maxlength="4" class="eder">
         <label for="ntarjmixto">Número de Tarjeta</label>
       </div>
 
@@ -959,7 +977,7 @@
     </div>
 
     <div class="col s4 lmp">
-      <div class="collection" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
+      <div class="collection hide" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
         <input type="text" id="mxtot" readonly class="eder">
@@ -968,7 +986,7 @@
     </div>
 
 
-    <div class="col s4 lmp">
+    <div class="col s4 lmp hide" id="scnl">
       <div class="collection" id="lpc" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
@@ -1095,6 +1113,73 @@
   </div>
 </div>
 
+        <div class="modal modal-fixed-footer grandemodal" id="modal-limitcre">
+          <div class="modal-header">
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center" id="tit-creli"></h5>
+            </ul>
+            </div>
+            <div class="modal-content" style="padding:0;padding-top: 24px;">
+                <div class="row">
+                  <div class="col s6 input-field">
+                    <input type="text" id="lmcre" readonly class="eder">
+                    <label for="lmcre" class="active">Límite de Crédito</label>
+                  </div>
+
+                  <div class="col s6 input-field">
+                    <input type="text" id="lmday" readonly class="eder">
+                    <label for="lmday" class="active">Plazo Días</label>
+                  </div>
+
+                  <div class="col s4 input-field">
+                    <input type="text" id="lmven" readonly class="eder">
+                    <label for="lmven">Facturas Vencidas</label>
+                  </div>
+
+                  <div class="col s4 input-field">
+                    <input type="text" id="lmmon" readonly class="eder">
+                    <label for="lmmon" class="active">Monto Vencidos</label>
+                  </div>
+
+                  <div class="col s4 input-field">
+                    <input type="text" id="lmtot" readonly class="eder">
+                    <label for="lmtot" class="active">Total Crédito</label>
+                  </div>
+
+                  <div class="col s4" style="margin: 0px;"></div>
+                  <div class="col s4" style="margin: 0px;"></div>
+                  <div class="col s4 input-field" style="margin: 0px;">
+                    <input type="text" id="lmrtot" readonly class="eder">
+                    <label for="lmrtot" class="active">Total Crédito + Venta</label>
+                  </div>
+
+                </div>
+
+
+                  <span><b> Lista Facturas Vencidas</b></span>
+
+                  <table class="table striped pequeño  bordered highlight centered responsive-table z-depth-3" cellspacing="0" width="100%" style="padding-right: 1%;padding-left: 1%">
+                      <thead>
+                         <tr>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Factura</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Fecha</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Vencimiento</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Días</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Valor</b></td>
+                          <td class="white-text blue sinborde " style="text-align: center"><b>Moneda</b></td>
+                        </tr>
+                      </thead>
+                      <tbody id="listvencidas">
+                      </tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <a class="btn" id="lmgo">Ir a Cobros</a>
+                <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+                <button type="button" class="waves-effect waves-green btn-flat" id="sg-limit">Continuar</button>
+            </div>
+        </div>
+
 <ul id="slide-factura" class="side-nav" style="z-index:1500;width: 50%">
   <li class="hide">
     <div class="user-view center">
@@ -1129,4 +1214,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.50-1"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.55"></script>

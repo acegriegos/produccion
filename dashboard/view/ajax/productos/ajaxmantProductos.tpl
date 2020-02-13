@@ -337,7 +337,7 @@
             </div>
             {/section}
 
-            <div class="chg hide precclienete">
+           <!--  <div class="chg hide precclienete">
                 <tr>
                     <td style="padding: 0px"><label>Nombre Cliente</label></td>
                 </tr>
@@ -356,7 +356,7 @@
                         <input type="text" id="vventa1" class="validate calcvv eder" value="0" num="3" line="1" style="margin: 0px">
                     </td>
                 </tr>
-            </div>
+            </div> -->
 
         {/if}
 

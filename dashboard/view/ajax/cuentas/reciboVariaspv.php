@@ -118,7 +118,7 @@ echo '<tr>
 <br>
 <table style="width: 100% !important;">
   <tr >
-    <td colspan="2">'.$transaccion[0][13].':</td>
+    <td colspan="2">'.$transaccion[0][12].':</td>
   </tr>
   <tr>
     <td align="center" colspan="2">'.$transaccion[0][2].'</td>
@@ -171,9 +171,9 @@ echo '<hr><b>SALDO '.$transaccion[0][12].':</b> '.$obj[6].$obj[11].'
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.50"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.50"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.50"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.55"></script>
+ <script src="../assets/js/materialize.js?v=10.2.0.55"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.55"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

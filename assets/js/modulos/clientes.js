@@ -45,6 +45,95 @@ $(function(){
 		}
 	})
 
+	$("#vnumdoc").keyup(function(e){
+		var code = e.wich || e.keyCode;
+		if(code == 13){
+			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
+        	.done(function(data){
+        		var p = JSON.parse(data);
+            	if (p['succed']) {
+					$("#vtipodoc").val(p['tipoDocumento']['codigo'])
+					$("#vtipodoc").material_select('update');
+					$("#vnumdoc").val(p['numeroDocumento']);
+					$("#ventidad").val(p['nombreInstitucion']);
+					$("#vfechaDoc").val(p['fechaEmision'].substring(0,p['fechaEmision'].indexOf('T')));
+					$("#vtimeDoc").val(p['fechaEmision'].substring(p['fechaEmision'].indexOf('T')+1));
+					$("#vfechafin").val(p['fechaVencimiento'].substring(0,p['fechaVencimiento'].indexOf('T')));
+					Materialize.updateTextFields();
+					$("#vporcompra").focus().select();
+            	}else{
+            		 Materialize.toast(p['error'],4000,'red');
+            		 $("#videxoneracion").val(0);
+					$("#vtipodoc").val(0);
+					$("#vtipodoc").material_select('update');
+					$("#vnumdoc").focus().select();
+					$("#ventidad").val('');
+					$("#vfechaDoc").val('');
+					$("#vtimeDoc").val('');
+					$("#vfechafin").val('');
+					$("#vporcompra").val(0);
+            	}
+        	})
+		}
+	});
+
+	$("#addexo").click(function(){
+
+		if(!$("#vnumdoc").val().trim().length){
+			Materialize.toast('Número de Documento Requerido',4000,'red');
+			$("#vnumdoc").focus().select();
+			return false;
+		}
+
+		if(!$("#ventidad").val().trim().length){
+			Materialize.toast('Número de Documento es Válido',4000,'red');
+			$("#vnumdoc").focus().select();
+			return false;
+		}
+
+		if(isNaN($("#vporcompra").val())){
+			Materialize.toast('Porcentaje de Exoneración no Válido',4000,'red');
+			$("#vporcompra").focus().select();
+			return false;
+		}
+
+		if(parseInt($("#vporcompra").val()) <= 0){
+			Materialize.toast('Porcentaje de Exoneración Debe ser Mayor a Cero',4000,'red');
+			$("#vporcompra").focus().select();
+			return false;
+		}
+
+		var acc = parseInt($(this).attr('acc'))
+		var id = 0
+		if(acc == 2){
+			id = $("#videxoneracion").val();
+			$(".lstexo[tp="+id+"]").find('._exo').html($("#vporcompra").val());
+			$(".lstexo[tp="+id+"]").find('._ffin').html($("#vfechafin").val());
+		}else{
+			var ndoc = getDatos('id',285,'trim(ndoc)=trim('+$("#vnumdoc").val()+')');
+			if(ndoc[0].length){
+				Materialize.toast('Número de Documento ya Existe',4000,'red');
+				$("#vnumdoc").focus().select();
+				return false;
+			}
+
+    		$("#exolist").append('<tr class="lstexo" tp="-'+$("#vnumdoc").val()+'" style="cursor: pointer;"><td style="padding:0px;">'+$("#vnumdoc").val()+'</td><td style="padding:0px;"><span class="_exo">'+$("#vporcompra").val()+'</span>%</td><td style="padding:0px;"><span class="_ffin">'+$("#vfechafin").val()+'</span> <i class="mdi mdi-close redtext der"></i></td></tr>');
+
+    		$(".lstexo[tp=-"+$("#vnumdoc").val()+"]").data('triforce',{vaccion:2,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});
+    		id = "-"+$("#vnumdoc").val();
+		}
+
+		$(".lstexo[tp="+id+"]").data('triforce')['vaccion'] = acc;
+		$(".lstexo[tp="+id+"]").data('triforce')['vtdoc'] = $("#vtipodoc option:selected").val();
+		$(".lstexo[tp="+id+"]").data('triforce')['vndoc'] = $("#vnumdoc").val();
+		$(".lstexo[tp="+id+"]").data('triforce')['vfechaDoc'] = $("#vfechaDoc").val()+' '+$("#vtimeDoc").val()
+		$(".lstexo[tp="+id+"]").data('triforce')['ventidad'] = $("#ventidad").val(); 
+		$(".lstexo[tp="+id+"]").data('triforce')['vffin'] = $("#vfechafin").val()
+		$(".lstexo[tp="+id+"]").data('triforce')['vexo'] =  $("#vporcompra").val()
+
+		$("#modal-addexo").modal('close');
+	});
+
 	$(document).on("click",".s-cliente",function(){   
 
 		if ($("#slide-tc").length == 1)
@@ -72,75 +161,17 @@ $(function(){
 		                break;
 		            case 2: 
 		                titulo = 'Exoneraciones';
-		                $("#exoneracion").removeClass('hide');
 		                $(".exoneracion .select-wrapper").css('border','0px');
+		                $("#exolist").html('')
+		                var exos = getDatos('id,lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ifnull(ffin,"N/A")',285,'idcliente = '+$("#vid").val())
+		                if(exos[0].length){
+		                	for (var i = 0; i < exos[0].length; i++) {
+		                		$("#exolist").append('<tr class="lstexo" tp="'+exos[0][i][0]+'" style="cursor: pointer;"><td style="padding:0px;">'+exos[0][i][2]+'</td><td style="padding:0px;"><span class="_exo">'+exos[0][i][6]+'</span>%</td><td style="padding:0px;"><span class="_ffin">'+exos[0][i][7]+'</span> <i class="mdi mdi-close redtext der"></i></td></tr>');
 
-		                 validares = function(){
-		                	var salida = true;
-		                	if(parseFloat($("#vporcompra").val()) > 0 || $("#vporcompra").val().trim().length > 0 || parseInt($("#vtipodoc").val())){
-
-		                		if(!$("#vtipodoc").val()){
-		                			Materialize.toast('Tipo Documento Requerido',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#vnumdoc").val().trim().length){
-		                			$("#vnumdoc").focus();
-		                			Materialize.toast('Número de Documento Requerido',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#ventidad").val().trim().length){
-		                			$("#ventidad").focus();
-		                			Materialize.toast('Entidad Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#vfechaDoc").val().trim().length){
-		                			$("#vfechaDoc").focus();
-		                			Materialize.toast('Fecha Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#vtimeDoc").val().trim().length){
-		                			$("#vtimeDoc").focus();
-		                			Materialize.toast('Hora Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(!$("#ventidad").val().trim().length){
-		                			$("#ventidad").focus();
-		                			Materialize.toast('Entidad Requerida',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(isNaN($("#vporcompra").val())){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Monto Debe ser Numerico',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(parseInt($("#vporcompra").val()) < 0 || parseInt($("#vporcompra").val()) > 100){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Valor no Aceptado debe ser entre 0 a 100',4000,'red')
-		                			return false;
-		                		}
-
-		                		if($("#vporcompra").val().indexOf('.') > -1 || $("#vporcompra").val().indexOf(',') > -1){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Valor no Aceptado debe ser Entero no Decimal',4000,'red')
-		                			return false;
-		                		}
-
-		                		if(parseInt($("#vporcompra").val()) < 0 || parseInt($("#vporcompra").val()) > 100){
-		                			$("#vporcompra").focus().select();
-		                			Materialize.toast('Valor no Aceptado debe ser entre 0 a 100',4000,'red')
-		                			return false;
-		                		}
-
+		                		$(".lstexo[tp="+exos[0][i][0]+"]").data('triforce',{vaccion:2,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});
 		                	}
-		                	return salida;
 		                }
+		                $("#exoneracion").removeClass('hide');
 		                break;
 		            case 3: 
 		                titulo = 'XML Otros';
@@ -164,9 +195,27 @@ $(function(){
 
 		});
 
+	$("#addnexo").click(function(){
+		$("#addexo").attr('acc',1);
+		$("#videxoneracion").val(0);
+		$("#vtipodoc").val(0);
+		$("#vtipodoc").material_select('update');
+		$("#vnumdoc").val('').prop('readonly',false);
+		$("#ventidad").val('');
+		$("#vfechaDoc").val('');
+		$("#vtimeDoc").val('');
+		$("#vfechafin").val('');
+		$("#vporcompra").val(0);
+		Materialize.updateTextFields();
+		$("#modal-addexo").modal('open').css('z-index',2000);
+		$("#vnumdoc").focus()
+	})
+
     $("#eslidec").click(function(e){
     	e.preventDefault();
-    	return validares()
+    	if(validares()){
+    		$("#slide-cliente").sideNav('hide');
+    	}
     });
 
 	$("#ingClie").click(function(){
@@ -244,6 +293,38 @@ $(function(){
 });
 
 function validares(){ return false };
+
+$(document).on("click",".lstexo",function(){
+	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),ffin,exoneracion',285,'id='+$(this).attr('tp'));
+	if (exoneraciones[0].length) {
+		
+		$("#videxoneracion").val($(this).attr('tp'));
+		$("#vtipodoc").val(exoneraciones[0][0][0]);
+		$("#vtipodoc").material_select('update');
+		$("#vnumdoc").val(exoneraciones[0][0][1]).prop('readonly',true);
+		$("#ventidad").val(exoneraciones[0][0][2]);
+		$("#vfechaDoc").val(exoneraciones[0][0][3]);
+		$("#vtimeDoc").val(exoneraciones[0][0][4]);
+		$("#vfechafin").val(exoneraciones[0][0][5]);
+		Materialize.updateTextFields();
+		$("#modal-addexo").modal('open').css('z-index',2000);
+		$("#addexo").attr('acc',2);
+		$("#vporcompra").val(exoneraciones[0][0][6]).focus().select();
+	}else{
+		$("#videxoneracion").val($(this).data('triforce')['vndoc']);
+		$("#vtipodoc").val($(this).data('triforce')['vtdoc']);
+		$("#vtipodoc").material_select('update');
+		$("#vnumdoc").val($(this).data('triforce')['vndoc']);
+		$("#ventidad").val($(this).data('triforce')['ventidad']);
+		$("#vfechaDoc").val($(this).data('triforce')['vfechaDoc'].substring(0,$(this).data('triforce')['vfechaDoc'].indexOf(' ')));
+		$("#vtimeDoc").val($(this).data('triforce')['vfechaDoc'].substring($(this).data('triforce')['vfechaDoc'].indexOf(' ')+1));
+		$("#vfechafin").val($(this).data('triforce')['vffin']);
+		Materialize.updateTextFields();
+		$("#modal-addexo").modal('open').css('z-index',2000);
+		$("#addexo").attr('acc',2);
+		$("#vporcompra").val($(this).data('triforce')['vexo']).focus().select();
+	}
+})
 
 $(document).on("blur",".onblur",function(){
 	var id = $(this).attr('id');
@@ -556,19 +637,7 @@ function postload(modulo) {
 				$("#slideCorreo").removeData('fila'+num);
 			 num++;
             }
-
-            var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),exoneracion,ffin,id',285,'idcliente = '+$("#vid").val(),0,0,0);
-            if(exoneraciones[0].length){
-            	$("#videxoneracion").val(exoneraciones[0][0][7])
-            	$("#vtipodoc").val(exoneraciones[0][0][0])
-            	$("#vtipodoc").material_select('update');
-            	$("#vnumdoc").val(exoneraciones[0][0][1]);
-            	$("#ventidad").val(exoneraciones[0][0][2]);
-            	$("#vfechaDoc").val(exoneraciones[0][0][3]);
-            	$("#vtimeDoc").val(exoneraciones[0][0][4]);
-            	$("#vporcompra").val(exoneraciones[0][0][5]);
-            	$("#vfechafin").val(exoneraciones[0][0][6]);
-            }
+            
 		break;
 	}
 }

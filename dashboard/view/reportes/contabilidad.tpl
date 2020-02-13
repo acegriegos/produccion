@@ -6,11 +6,15 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Contabilidad</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.50">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.55">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
+      {if $VAR eq "balancecomprobacion"}
+      <div class="filtros row" portipo="varios" tbltipos="-1" tpactive="1" tipos="Mes" tfiltar="0" elem='0' types="6" sp="271" chg="271_1" modulo="reporteconta" ></div>
+      {else}
       <div class="filtros row" entrefechas elem="" sp="271" chg="271_1" modulo="reporteconta" ></div>
+      {/if}
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -29,11 +33,11 @@
         </font>
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" title="Mostrar Filtros" style="display:none;"></i>
       </div>
-      <div class="col s2 m4 l4">
+      <div class="col s2 m4 l4" id="hiddens">
         <input type="hidden" class="zelda">
 
         <input type="hidden" id="vtrep">
-        <input type="hidden" id="vidtipo1" value="0">
+        <input type="hidden" id="vidtipo2" value="0">
         <input type="hidden" id="vidmoneda" value="1">
 
       </div>
@@ -45,7 +49,7 @@
   </div>
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.50"></script>
-  <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.2.0.50"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.55"></script>
+  <script src="../assets/js/modulos/reportes/contabilidad.js?v=10.2.0.55"></script>
 </body>
 </html>

@@ -49,6 +49,13 @@ $(function(){
             arr('login',6,'',271,'"","",@@impresa,3,0','271_1',1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
             $("#titrep").html('Balance Comprobación de Saldos');
             $("#vtrep").val(3)
+            $("#hiddens").append('<input type="hidden" id="vdesde" value=""> <input type="hidden" id="vhasta" value="">')
+            $(".repcheck[checked]").change();
+
+            $("#vidtipo1").change(function(){
+                $("#vdesde").val($(this).val()+'-01');
+                doreport()
+            })
             break;
         case 'catalogo':
             var orden = '0,1';

@@ -35,7 +35,7 @@
 				$posicion = strpos($arreglo['modulo'], '-');
 				$schema = $posicion ? substr($arreglo['modulo'], 0,$posicion).'.' : '';
 				$modulo = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
-				$id_tabla = $this->kamehameha('id',70,'nombre like "'.$schema.$modulo.'s"')[0][0];
+				$id_tabla = $this->kamehameha('id',70,'nombre = "'.$schema.$modulo.'s"')[0][0];
 				$rollback = '';
 				$roll_tbl = 0;
 				
@@ -106,6 +106,33 @@
 		function ini($id,$pss){
 			$this->user = $id;
 			$this->pass = $pss;
+		}
+
+		function getCURL($url,$param,$post=true){
+			$curl = curl_init($url);
+	        curl_setopt($curl, CURLOPT_HEADER, true);
+	        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	        curl_setopt($curl, CURLOPT_POST, $post);
+	        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+	        $postData = "";
+
+	        foreach($param as $k => $v)
+	        {
+	           $postData .= $k . '='.urlencode($v).'&';
+	        }
+
+	        $postData = rtrim($postData, '&');
+
+	        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+	        $json_response = curl_exec($curl);
+	        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	        $error = curl_error($curl);
+
+	        curl_close($curl);
+
+	        return array('rs' => $json_response, 'status' => $status,'error' => $error);
 		}
 	}
 			

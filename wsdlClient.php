@@ -351,7 +351,10 @@
                 else
                     echo "NO HAY LOG IN";
                 break;
-            case 14: //NC INTEGRACION
+             case 14: //PDF INTEGRACION
+                $db = new DBClass();
+                $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$_REQUEST['cons'].'.xml');
+                $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
                 break;
             case 15: //ENVIAR CORREO Integracion
                 break;
@@ -1829,8 +1832,9 @@
                 $linea = [];
                 $linea['0'] = $_xml[$this->tdoc]['NumeroConsecutivo'];
                 $linea['1'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? 'Contado' : 'Crédito';
-                $linea['2'] = isset($_xml[$this->tdoc]['MedioPago']) ? $_xml[$this->tdoc]['MedioPago'] == '01' ? 'Efectivo' : 'Tarjeta' : 'N/A';
+                $linea['2'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? $_xml[$this->tdoc]['MedioPago'] == '01' ? 'Efectivo' : 'Tarjeta' : '';
                 $linea['3'] = substr($_xml[$this->tdoc]['FechaEmision'], 0,10);
+                $linea['3'] = substr($linea['3'],8,2).'/'.substr($linea['3'], 5,2).'/'.substr($linea['3'], 0,4).' '.substr($_xml[$this->tdoc]['FechaEmision'], 11,8);;
                 if (isset($_xml[$this->tdoc]['Receptor'])) {
                     $linea['4'] = $_xml[$this->tdoc]['Receptor']['Nombre'];
                     $linea['34'] = $_xml[$this->tdoc]['Receptor']['Identificacion']['Numero'];
@@ -1841,8 +1845,8 @@
                 
                 $linea['5'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalImpuesto'],2);
                 $linea['6'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalDescuentos'],2);
-                $linea['7'] = 0;
-                $linea['8'] = 0;
+                $linea['7'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalExonerado'],2);
+                $linea['8'] = number_format(0,2);
                 $linea['9'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalGravado'],2);
                 $linea['10'] = number_format($_xml[$this->tdoc]['ResumenFactura']['TotalComprobante'],2);
                 $linea['11'] = $_xml[$this->tdoc]['CondicionVenta'] == '01' ? 0 : $_xml[$this->tdoc]['PlazoCredito'];
@@ -1858,11 +1862,13 @@
                 $linea['21'] = isset($obj['MontoDescuento']) ? $obj['MontoDescuento'] : 0;
                 $linea['22'] = number_format($obj['SubTotal'],2);
                 $linea['23'] = isset($obj['UnidadMedidaComercial']) ? $obj['UnidadMedidaComercial'] : $obj['UnidadMedida'];
+                $linea['41'] = '';
 
                 if (isset($_xml[$this->tdoc]['Receptor'])) {
                     $linea['24'] = '1';
                     $linea['25'] = 'Venta';
                     $linea['30'] = 'Cliente';
+                    $linea['41'] =  $_xml[$this->tdoc]['Receptor']['CorreoElectronico'];
                 }else{
                     $linea['24'] = '7';
                     $linea['25'] = 'Tiquete';
@@ -1874,12 +1880,27 @@
                 $linea['29'] = isset($obj['Impuesto']) ? '' : '*';
                 $linea['31'] = '';
                 $linea['32'] = $_xml[$this->tdoc]['Clave'];
-                $linea['33'] = ''; //EXONERACION
+                $linea['33'] = isset($obj['Impuesto']['Exoneracion']) ? $obj['Impuesto']['Exoneracion']['TipoDocumento'].'^'.$obj['Impuesto']['Exoneracion']['NumeroDocumento'].'^'.$obj['Impuesto']['Exoneracion']['NombreInstitucion'].'^'.$obj['Impuesto']['Exoneracion']['FechaEmision'].'^'.$obj['Impuesto']['Exoneracion']['PorcentajeExoneracion'].'^'.$obj['Impuesto']['Exoneracion']['MontoExoneracion'] : ''; //EXONERACION
                 $linea['35'] = '';
                 $linea['36'] = isset($obj['Codigo']) ? $obj['Codigo']['Codigo'] : '';
                 $linea['46'] = 0;
                 $linea['47'] = 0;
                 $linea['48'] = '';
+                $linea['49'] = '';
+                $linea['50'] = '';
+                $linea['51'] = '';
+                $linea['52'] = '';
+                $linea['53'] = '';
+                $linea['54'] = '';
+                $linea['37'] = '';
+                $ffin = '';
+                if ($_xml[$this->tdoc]['CondicionVenta'] == '02') {
+                    $date_c=date_create($_xml[$this->tdoc]['FechaEmision']);
+                    $date_c=date_add($date_c,date_interval_create_from_date_string( $_xml[$this->tdoc]['PlazoCredito']." days"));
+                    $ffin = date_format($date_c,"d/m/Y");
+                }
+               
+                $linea['55'] = $ffin;
 
                 $transaccion[$ind] = $linea;
                 $ind += 1;

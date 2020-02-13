@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.2.0.50">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.2.0.55">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">
@@ -17,19 +17,19 @@
                     <input name="ctas" class="with-gap" type="radio" id="vencidas" value="2" />
                     <label for="vencidas">Vencidas</label>
                 </div>
-                <div class="col s12 m4 l2">
+                <div class="col s12 m4 l2 hide">
                     <input name="ctas" class="with-gap" type="radio" id="apartados" value="4" />
                     <label for="apartados">Apartados</label>
                 </div>
-                <div class="col s12 m4 l2">
+                <div class="col s12 m4 l2 hide">
                     <input name="ctas" class="with-gap" type="radio" id="consignacion" value="3" />
                     <label for="consignacion">Consignación</label>
                 </div>
-                <div class="col s12 m4 l2">
+                <div class="col s12 m4 l2 hide">
                     <input name="ctas" class="with-gap" type="radio" id="leasing" value="5" />
                     <label for="leasing">Leasing</label>
                 </div>
-                 <div class="col s12 m4 l2">
+                 <div class="col s12 m4 l2 hide">
                     <input name="ctas" class="with-gap" type="radio" id="financiero" value="6" />
                     <label for="financiero">Financiero</label>
                 </div>

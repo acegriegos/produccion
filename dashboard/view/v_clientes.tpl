@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.50">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.55">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -269,10 +269,34 @@
 
           </div>
 
-          <div class="subclie row" id="exoneracion">
-            <div class="col s12 input-field">
+          <div class="subclie" id="exoneracion">
+            <i class="mdi mdi-plus der pbtn" id="addnexo" title="Agregar Exoneración" ></i> <br>
+            <table cellspacing="0" cellpadding="0" class="tbl striped">
+              <thead>
+                <tr style="border-bottom: 1px solid black;"><th style="padding: 0px;">Documento</th><th style="padding: 0px;">Porcentaje</th><th style="padding: 0px;">Fecha Fin</th></tr>
+              </thead>
+              <tbody id="exolist"></tbody>
+            </table>
+          </div>
+
+          <div class="subclie row" id="contactos">
+          </div>
+
+          <a class="btn btn-default" id="eslidec" style="bottom:0px;position:absolute;margin:0px;margin-bottom: 50px;">Salir</a></li></ul>
+</section>
+</div>
+</div>
+
+        <div class="modal modal-fixed-footer grandemodal" id="modal-addexo" style="z-index: 2000 !important;">
+          <div class="modal-header">
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center">Exoneración</h5>
+            </ul>
+            </div>
+            <div class="modal-content row" style="margin:0px;">
+                <div class="col s6 input-field">
                   <input type="hidden" id="videxoneracion" value="0">
-                  <select id="vtipodoc" class="validate tooltiped" type="select">
+                  <select id="vtipodoc" class="tooltiped" type="select" disabled>
                     <option value="0" class="disabled">Tipo de Documento</option>
                     {section name=LE loop=$EXOS}
                     <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
@@ -280,46 +304,43 @@
                   </select>
                 </div>
 
-                <div class="col s12 input-field">
-                  <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
+                <div class="col s6 input-field">
+                  <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class=" tooltiped" autocomplete="off">
                   <label for="vnumdoc">Número de Documento</label>
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
+                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="tooltiped" autocomplete="off" readonly>
                   <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
                 </div>
 
                   <label class="col s12">Fecha y Hora de Emisión</label>
 
-                  <div class="col s8">
-                    <input type="date" id="vfechaDoc" class="validate tooltiped">
+                  <div class="col s6">
+                    <input type="date" id="vfechaDoc" class="tooltiped" readonly>
                   </div>
 
-                  <div class="col s4 input-field">
-                    <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
+                  <div class="col s6 input-field">
+                    <input type="time" id="vtimeDoc" class="tooltiped" step="1" readonly>
                   </div>
 
-                <div class="col s12 input-field">
-                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
+                <div class="col s6 input-field">
+                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class=" tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
                   <label for="vporcompra">Porcentaje de Exoneración</label>
+                </div>                
+
+                <div class="col s6 input-field">
+                  <label for="vfechafin" class="active">Fecha Fin</label>
+                  <input type="date" id="vfechafin" class="tooltiped">
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+                <button type="button" class="waves-effect waves-green btn-flat" id="addexo">Guardar</button>
+            </div>
+        </div>
 
-                <label class="col s12">Fecha Fin</label>
 
-                  <div class="col s8">
-                    <input type="date" id="vfechafin" class="validate tooltiped">
-                  </div>
-
-          </div>
-
-          <div class="subclie row" id="contactos">
-          </div>
-
-          <a class="btn btn-default" id="eslidec" style="bottom:42px;position:absolute;">Salir</a></li></ul>
-</section>
-</div>
-</div>
 <div id="modal-addvehiculos" class="modal modal-fixed-footer">
 <div class="modal-header">
   <ul class="tabs white-text bgcardhead">
@@ -329,13 +350,13 @@
 <div class="modal-content" id="ftaller-vehiculos">
   <div class="row">
     <div class="input-field col s6 m6 l6">
-      <input type="text" id="vplaca" class="validate" autocomplete="off">
+      <input type="text" id="vplaca" autocomplete="off">
       <input type="hidden" id="vid" value="0">
       <input type="hidden" id="vidcliente" value="0">
       <label for="vplaca">Placa</label>
     </div>
     <div class="input-field col s6 m6 l6">
-      <input type="text" id="vvin" class="validate" autocomplete="off">
+      <input type="text" id="vvin" autocomplete="off">
       <label for="vvin">VIN</label>
     </div>
   </div>
@@ -356,7 +377,7 @@
     <select type="select" id="vidtipo"></select>
   </div>
   <div class="input-field col s6 m6 l6">
-    <input type="text" id="vyear" class="validate" autocomplete="off">
+    <input type="text" id="vyear" autocomplete="off">
     <label for="vyear">Año</label>
   </div>
 </div>
@@ -391,6 +412,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.2.0.50"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.2.0.55"></script>
 </body>
 </html>

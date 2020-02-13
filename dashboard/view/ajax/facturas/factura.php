@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.50">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.50">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.50">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.55">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.55">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.55">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -46,7 +46,7 @@
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
               <table><tr><td style="padding: 0"><b>Provincia:</b> <?php echo $miscelaneos[12] ?></td> <td style="padding: 0"><b>Cantón:</b> <?php echo $miscelaneos[13] ?></td></tr> <tr> <td style="padding: 0"><b>Distrito:</b> <?php echo $miscelaneos[14]; ?></td> 
               <?php if( $miscelaneos[15] != 'N/A'){ ?>
-              <td style="padding: 0"><b>Barrio:</b> <?php echo $miscelaneos[12]; ?></td>
+              <td style="padding: 0"><b>Barrio:</b> <?php echo $miscelaneos[15]; ?></td>
             <?php } ?>
           </tr></table>
               <b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[23]; ?></span><br>
@@ -116,9 +116,10 @@
             <div class="col s8 right">
               <div class="card white-text imprimirSINBOR" style="background-color: #3960A7;">
                 <div class="card-content" style="padding: 2%;">
-                  <?php if ($datos[2] === 'N/A'){ ?>
+                  <?php if ($datos[2] === ''){ ?>
                   <p><b class="ftipofact">Plazo en Días: </b>
-                    <span class="ftipofa"><?php echo $datos[11]; ?></span>
+                    <span class="ftipofa"><?php echo $datos[11]; ?></span> <br>
+                    <b>Fecha Vencimiento:</b> <span> <?php echo $datos[55]; ?></span>
                   </p>
                   <?php }else{ ?>
                     <p><b class="ftipofact">Tipo de Pago: </b>
@@ -308,10 +309,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.2.0.50"></script>
-     <script src="../assets/js/materialize.js?v=10.2.0.50"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.50"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.50"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.55"></script>
+     <script src="../assets/js/materialize.js?v=10.2.0.55"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.55"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.55"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

@@ -1315,8 +1315,9 @@ $(document).on("blur",".calcvv",function(){
 		var tven = rven = 0;
 		$(".gan").each(function(){
 			costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
+
 			var padre = $(this).parent().parent();
-			if (padre.attr('dimension') != undefined ){ //&& $(":visible",this).length
+			if (padre.attr('dimension') != undefined && padre.attr('dimension') != ''){ //&& $(":visible",this).length
 				costo = costo/parseFloat($("#vldimension1").val())
 				costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 			}
@@ -2126,7 +2127,7 @@ function endDetail(id, acc, modulo) {
 				}
 			});
 
-			$(".precunidad").each(function() {
+			$(".precunidad:visible").each(function() {
 				
 				var idfila = $(this).attr('idf');
 				if($("#vuventaiva" + idfila).val().trim().length){
