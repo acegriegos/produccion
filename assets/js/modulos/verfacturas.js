@@ -342,7 +342,17 @@ $(document).on("click",".print",function(){
 });
 
 $(document).on("click",".xml",function(){
-	window.location = "../wsdlClient.php?accion=2&view=1&id="+$(this).attr('id').substr(1);
+    var vid = $(this).attr('id').substr(1);
+    var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
+    // switch ($("input[name=tventa]:checked").attr('id').substr(2)) {
+    //     case "9":
+    //         vid = '';
+    //         break;
+    //     default:
+    //         break;
+    // }    
+	mantenimiento('login',9,{restado:vbody[3],factura:vbody[2],sucursal:vbody[1],id:vid},1);
+    $(this).attr('href','../assets/xml/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.xml'); 
 });
 
 

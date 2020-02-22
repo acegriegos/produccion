@@ -44,6 +44,15 @@ $(window).keydown(function(e){
     }
 });
 
+$(document).on('click','.rd-td',function(){
+    $("#"+$(this).parent().attr('vid')).click();
+});
+
+$(document).on('dblclick','.rd-td',function(){
+    $("#"+$(this).parent().attr('vid')).click();
+    $("#acepfact").click();
+});
+
 $(document).on('click','.alv',function(){
     $(this).attr('disabled',true);
     setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);

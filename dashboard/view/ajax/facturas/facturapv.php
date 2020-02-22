@@ -60,6 +60,7 @@
   <input type="hidden" id="ttipo" value="<?php echo $datos[35]; ?>">
   <input type="hidden" id="config0" value="<?php echo $config[0][0]; ?>">
   <input type="hidden" id="config9" value="<?php echo $config[0][9]; ?>">
+  <input type="hidden" id="d56" value="<?php echo $datos[56]; ?>">
 <?php 
 $pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
 $vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
@@ -160,9 +161,12 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
     <td width="50%">T. Pago:</td>
     <td width="50%">'.$datos[2].'</td>
   </tr>
-</table>
+  </table>';
 
-<hr>';
+  if ($datos[12]) {
+    echo "Comentario: ".$datos[12];
+  }
+echo '<hr>';
 
 switch($config[0][10]) {
   case 1:
@@ -319,12 +323,13 @@ echo '
 
  ?>
  <script src="../assets/js/jquery.js?v=10.2.0.58"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.58"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.58"></script>
  <script src="../assets/js/asgard.js?v=10.2.0.58"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
+      var d56 = parseInt($("#d56").val());
       var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
@@ -338,7 +343,7 @@ echo '
         
       }
 
-      if (config9) {
+      if (config9 || d56) {
         $(".recibo").show();
       }
 

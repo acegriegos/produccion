@@ -61,12 +61,14 @@ $(function(){
             inicial = $("#vreferencia");
             cargarCompras(); 
             $(document).attr("title", "Facturacion-Compra");
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 3:
             cargarOCompras();
             $(document).attr("title", "Facturacion-Orden Compra");
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 4:
             cargarVentas();
@@ -74,30 +76,35 @@ $(function(){
             $("#facturar").html('Generar');
             $("#crrclie").removeClass('hide').removeClass('clieBTN');
             $(document).attr("title", "Facturacion-Proformas");
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 5:
             cargarVentas();
             cargarResembled('PEDIDOS');
             $(document).attr("title", "Facturacion-Pedidos");
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 6:
             cargarVentas();
             $(document).attr("title", "Facturacion-Pre-Ventas");
             cargarResembled('PRE-VENTA');
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 9:
             //cargarFECompra();
             cargarResembled('COMPRA ELECTRONICA');
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 10:
             cargarVentas();
             $(document).attr("title", "Facturacion-Exportaciones");
             cargarResembled('EXPORTACION');
-            $("#special").removeClass('per1110')
+            $("#special").removeClass('per1110');
+            $("#prefact").removeClass('per1111');
             break;
         case 100:
             $(document).attr("title", "Facturacion-Pago Sobre Adelanto");
@@ -188,6 +195,7 @@ function cargarCompras(){
 
     var ncons = getDatos('lpad(consecutivo103+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
     $("#idfact").html(ncons);
+    $("#facturar").html('Aceptar');
 
     $("#titfact").html("COMPRAS");
     $("[for=iva]").removeClass('hide');
@@ -1471,7 +1479,11 @@ function doplazo(vval){
 }
 
 function cargarFactura(vidp,asoc){
-    var vfacturap = arr('login',6,'',163,vidp+',\"'+asoc+'\"',0,1,$("#fdetallefacturas"));
+    var vfacturap = arr('login',6,'',163,vidp,0,1,$("#fdetallefacturas"));
+    var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente',261,'id=-1*'+vidp)[0][0];
+    /*$("#ncli").val(facturah[0]);
+    $("#ffacturas .zelda").data('triforce')['idcliente'] = facturah[1];
+    $("#ncli").blur();*/
 
     idext = vidp;
     if($("#impm:visible").length){
@@ -1482,6 +1494,10 @@ function cargarFactura(vidp,asoc){
             $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
         }
         $(".order").removeClass('hide');
+    }
+
+    if($("#prefact:visible").length){
+        $("#prefact").attr('vid',parseInt(vidp)*-1)
     }
 
     // $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];

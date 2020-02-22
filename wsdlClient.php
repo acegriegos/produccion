@@ -492,7 +492,7 @@
             $this->opcion = isset($this->info['NumeroConsecutivo']) ? substr($this->info['NumeroConsecutivo'],9,1) : 0;
             if ($vid != "0") {
                 switch ($this->opcion) {
-                case 2: //NOTA DE DEITO
+                case 2: //NOTA DE DEBITO
                     $this->tdoc = 'NotaDebitoElectronica';
                     $this->xmldoc = 'notaDebitoElectronica';
                     $this->ref = 1;
@@ -1248,7 +1248,7 @@
                         if ($sError != '') {
                             $sError     = substr($sRespuesta, strpos($sRespuesta, '[')-1);
                             $aError = explode(',',substr($sRespuesta, strpos($sRespuesta, '[')-1));
-                            $sRespuesta = str_replace($sError, $aError[4], $sRespuesta);
+                            $sRespuesta = str_replace($sError, '', $sRespuesta);
                         }
                         $salida['xml'] = base64_decode($aBody['respuesta-xml']);
                         $salida['rs'] = $sRespuesta;
@@ -1313,7 +1313,12 @@
                 }
 
                 //$data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
-                // $data['Otros'] = ['OtroTexto' => '','OtroContenido' => ''];
+                $otros = $this->getJSON('call fe_getOtros('.$this->id.')');
+
+                if ($otros) {
+                    $data['Otros'] = $otros['Otros'] ;
+                }
+                
             }
 
             if (!isset($this->info['Emisor']['CorreoElectronico']) && substr($this->id, 0,1) != '!') {
