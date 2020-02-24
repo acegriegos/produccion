@@ -399,7 +399,7 @@
             <tr>
               <th align="center">Tipo Precio</th>
               <th>Margen</th>
-              <th>Venta</th>
+              <th>Venta+IVA</th>
               <th></th>
           </tr>
           </thead>

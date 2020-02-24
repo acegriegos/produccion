@@ -30,7 +30,7 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
             </div>
-            {if $smarty.session.BUSS neq 1}
+            {if $smarty.session.BUSS eq 3}
             <div class="col s6  m2">
                 <input name="tventa" class="with-gap truncate" type="radio" id="tf3" {if $TF eq 3}checked{/if}/>
                 <label for="tf3">Ord. Compras</label>
@@ -69,6 +69,11 @@
             <div class="col s6 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf101" {if $TF eq 101}checked{/if}/>
                 <label for="tf101">Pago por Adelanto</label>
+            </div> 
+
+            <div class="col s6 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf104" {if $TF eq 104}checked{/if}/>
+                <label for="tf104">Compra Manual</label>
             </div>         
                 
             </div>
@@ -156,6 +161,6 @@
 
     {$SCR}
     
-    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.59"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.59-1"></script>
   </body>
 </html>
