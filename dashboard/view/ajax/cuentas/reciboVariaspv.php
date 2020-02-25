@@ -172,7 +172,7 @@ echo '<hr><b>SALDO '.$transaccion[0][12].':</b> '.$obj[6].$obj[11].'
 
  ?>
  <script src="../assets/js/jquery.js?v=10.2.0.60"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.60"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.60"></script>
  <script src="../assets/js/asgard.js?v=10.2.0.60"></script>
    <script type="text/javascript">
        $(function(){

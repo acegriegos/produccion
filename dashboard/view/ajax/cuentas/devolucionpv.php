@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.60">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.60">
 <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.60">
 <!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.60"> -->
 <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-devolucion.css?v=10.2.0.60">
@@ -137,7 +137,7 @@ echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
 </section> -->
 </div>
 <script src="../assets/js/jquery.js?v=10.2.0.60"></script>
-<script src="../assets/js/materialize.js?v=10.2.0.60"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.60"></script>
 <script src="../assets/js/asgard.js?v=10.2.0.60"></script>
 <script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.60"></script>
   <script type="text/javascript">
