@@ -471,6 +471,10 @@
     <br>
       <!-- <label for="monedas">Divisa</label> -->
 
+      <section class="hide">
+        <span class="truncate"><b>Usuario:</b> <span id="username"></span></span>
+      </section>
+
       <div class="input-field">
         <select id="monedas">
           {section name="LE" loop=$MON}
@@ -1054,7 +1058,7 @@
 </div>
 
 <div id="modal-usuario" class="modal modal-fixed-footer mymodal">
-  <div class="modal-content" >
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
     <h4 class="center">Autenticar Usuario</h4>
    
     <div class="input-field col s6 edescu container" style="width: 50%">

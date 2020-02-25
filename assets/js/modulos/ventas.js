@@ -314,6 +314,8 @@ $(function(){
         if(parseInt(rs['succed'])){
             if (rs[0].length){
                 $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
+                $("#username").html(rs[0][0][1])
+                $("#username").parent().parent().removeClass('hide')
                 $("#modal-usuario").modal('close');
                 pril.focus()
             }
@@ -795,7 +797,7 @@ $("#prefact").click(function(){
         return false;
     }
     var comodin = parseInt($("#ffacturas .zelda").data('triforce')['vidcliente']) == 0 ? $("#ncli").val() : '';
-    console.log($(this).attr('vid'))
+ 
     if(parseInt($(this).attr('vid')) == 0){
         var cons = getDatos('consecutivo5+1',252,'idsucursal=@@impresa')[0][0][0];
         var user = $("#ffacturas .zelda").data('triforce')['vidusuario'] ? $("#ffacturas .zelda").data('triforce')['vidusuario'] : '@@usr';
@@ -853,6 +855,7 @@ $("#prefact").click(function(){
     $("#ffacturas .zelda").data('triforce')['idline'] = 0;
     $("#ncli").val('').blur();
     $("#vcomentario").val('');
+    $(this).attr('vid',0)
 
     totalizar();
     Materialize.toast("Pre-Factura Guardada",4000,'green')
