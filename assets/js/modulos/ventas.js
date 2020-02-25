@@ -2690,6 +2690,6 @@ function mixto(){
 
 function deleterow(elem){
     var id = elem.attr('id').substr(1);
-    console.log(getDatos('',326,id))
-    $("[vid="+id+"]").remove()
+    console.log(getDatos('',326,"1,"+id))
+    $("[vid=l"+id+"]").remove()
 }
