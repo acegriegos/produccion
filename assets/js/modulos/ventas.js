@@ -92,7 +92,7 @@ $(function(){
         var code = e.which || e.keyCode;
         var ciclos = parseInt($(".ciclos").length);
 
-        if (code == 13 && ciclos > 0  && $(this).val() == ''){
+        if (code == 13 && ciclos > 0  && $(this).val() == '' && !param.toString().match(new RegExp(/\b2\b|\b104\b|\b9\b/g))){
             $("#facturar").click();
         }
 
@@ -795,7 +795,7 @@ $("#prefact").click(function(){
         return false;
     }
     var comodin = parseInt($("#ffacturas .zelda").data('triforce')['vidcliente']) == 0 ? $("#ncli").val() : '';
-
+    console.log($(this).attr('vid'))
     if(parseInt($(this).attr('vid')) == 0){
         var cons = getDatos('consecutivo5+1',252,'idsucursal=@@impresa')[0][0][0];
         var user = $("#ffacturas .zelda").data('triforce')['vidusuario'] ? $("#ffacturas .zelda").data('triforce')['vidusuario'] : '@@usr';
@@ -959,7 +959,7 @@ $(document).on("click","#cargarfact",function(){
     var facturas = getDatos('',257,'@@impresa',0,0,0)[0];
     var body = '';
     for (var i = 0; i < facturas.length; i++) {
-        body += '<tr vid="l'+facturas[i][0]+'"> <td> <input type="radio" name="factlist" id="l'+facturas[i][0]+'"> </label> <label for="l'+facturas[i][0]+'"></td> <td class="rd-td">'+facturas[i][1]+'</td> <td class="rd-td">'+facturas[i][2]+'</td> <td class="rd-td">'+facturas[i][3]+'</td> <td><i class="mdi mdi-close red-text deltmpfact" style="cursor:pointer;"></i></td> </tr>'  
+        body += '<tr vid="l'+facturas[i][0]+'"> <td> <input type="radio" name="factlist" id="l'+facturas[i][0]+'"> </label> <label for="l'+facturas[i][0]+'"></td> <td class="rd-td">'+facturas[i][1]+'</td> <td class="rd-td">'+facturas[i][2]+'</td> <td class="rd-td">'+facturas[i][3]+'</td> <td><i class="mdi mdi-close red-text deltmpfact delete-row" id="w'+facturas[i][0]+'" style="cursor:pointer;"></i></td> </tr>'  
     }
     $("#bdylist").html(body);
 });
@@ -1155,7 +1155,7 @@ $(document).on("blur",".ven2",function(){
     var costo = parseFloat($("#cos2").html().replace(/,/g,''));
     var valorv = $("#n"+id+" .ven1").html();
     var valor = $(this).val();
-    var imp = (parseFloat($("#vimpiva").attr('num'))/100+1);
+    var imp = (parseFloat($("#vimpiva option:selected").attr('num'))/100+1);
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
     valor = isNaN(valor) ? valorv : valor;
     var g = parseFloat(valor)/imp - costo;
@@ -1169,7 +1169,7 @@ $(document).on("blur",".gan2",function(){
     var costo = parseFloat($("#cos2").html().replace(/,/g,''));
     var valorv = $("#n"+id+" .gan1").html();
     var valor = $(this).val();
-    var imp = $("#iva").is(":checked") ? (parseFloat($("#vimpiva").attr('num'))/100+1) : 1;
+    var imp = (parseFloat($("#vimpiva option:selected").attr('num'))/100+1);
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
     valor = isNaN(valor) ? valorv : valor;
     $(this).attr('gn',(costo*(parseFloat(valor)/100+1))-costo);
@@ -1440,7 +1440,7 @@ function totalizar(){
 
                 eimv = $("#fd"+vidlinea).data('triforce')['exoneracion'];
                 timv = $("#fd"+vidlinea).data('triforce')['timv'];
-                rimv = $("#vimpiva:visible").length ? $("#vimpiva").attr('num') : eimv;
+                rimv = $("#vimpiva:visible").length ? $("#vimpiva option:selected").attr('num') : eimv;
                 iimv = $(this).data('valores')['vid'];
                 var simv = dimv = dimve = oimv = 0
 
@@ -1694,19 +1694,19 @@ function validarFactura() {
             }     
             
             $("#ffacturas .zelda").data('triforce')['visregistrada'] = parseInt($("[name='tcompra']:checked").val())
-            break;
 
-            if ($("#ffacturas .zelda").data('triforce')['vreferencia'].toString().trim() == ''){
+            if ($("#vreferencia").val().trim() == ''){
                 $("#vreferencia").focus();
                 return "No se Ha Ingresado la Referencia";
             }
 
-            /*var refprod = getDatos('id',64,'if(CHAR_LENGTH(referencia) =50,substring(referencia,32,10)*1,referencia) = "'+$("#ffacturas .zelda").data('triforce')['vreferencia']+'" and idsucursal = @@impresa and idcliente = '+$("#ffacturas .zelda").data('triforce')['vidcliente'])[0][0];
+            var refprod = getDatos('id',64,'if(CHAR_LENGTH(referencia) =50,substring(referencia,32,10)*1,referencia) = "'+$("#vreferencia").val().trim()+'" and idsucursal = @@impresa and idcliente = '+$("#ffacturas .zelda").data('triforce')['vidcliente'])[0][0];
 
             if (refprod.length) {
-                $("#vreferencia").focus();
+                $("#vreferencia").focus().select();
                 return "Referencia ya Existente";
-            }*/
+            }
+            break;
         case 4:
             if(!$("#ncli").val().trim().length){
                 $("#ncli").focus();
@@ -2686,4 +2686,10 @@ function mixto(){
 
 
         }
+}
+
+function deleterow(elem){
+    var id = elem.attr('id').substr(1);
+    console.log(getDatos('',326,id))
+    $("[vid="+id+"]").remove()
 }

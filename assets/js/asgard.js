@@ -336,6 +336,7 @@ $(document).on("click",".delete",function(){
 });
 
 $(document).on("click",".delete-row",function(){
+
     if ($(this).attr('cnt') == undefined) {
         if(!$("#_DEL").length){
             var id = $(this).attr('id');
@@ -359,6 +360,7 @@ $(document).on("click","#deldef",function(){
 
 $(document).on("click","#delcan",function(){
     var id = $(this).attr("inid");
+    console.log(id)
     $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'));
     $(this).parent().remove();
 });

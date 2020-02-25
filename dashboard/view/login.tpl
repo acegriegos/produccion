@@ -121,5 +121,7 @@
 <script src="../assets/js/materialize.min.js?v=10.2.0.59"></script>
 <script src="../assets/js/asgard.js?v=10.2.0.59"></script>
 <script src="../assets/js/modulos/login.js?v=10.2.0.59"></script>
+<!-- https://texttospeech.responsivevoice.org/v1/text:synthesize
+<script src="../assets/js/responsivevoice.js?key=GEHGxHC2"></script> -->
 </body>
 </html>

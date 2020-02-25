@@ -198,7 +198,7 @@ function cargarCompras(){
     $("#facturar").html('Aceptar');
 
     $("#titfact").html("COMPRAS");
-    $("[for=iva]").removeClass('hide');
+    $("[for=iva]").addClass('hide');
 
     $(".trCompra").removeClass('hide');
     $(".trsec.hide").remove();
@@ -450,8 +450,10 @@ function cargarCompras(){
     });
 
     $("#vimpiva").change(function(){
-        if ($(".ven2").length)
+        if ($(".ven2").length){
+            cargarMargenes();
             $(".ven2:first").focus();
+        }
     });
 
     $("#docompra").click(function(){mdocompra()});
@@ -911,7 +913,7 @@ function cargarCompras(){
         var idp = $("#valores").data('elemento') != undefined ? $("#valores").data('elemento')['idp'] : $("#ffacturas .zelda").data('margenes')['idp'];
         var tpmoneda = getDatos('idmoneda',11,'id = '+ idp ,0,0,0)[0][0][0];
         var tpdivisa = parseInt(tpmoneda) == parseInt($("#monedas").val()) ? 1 : parseFloat($("#monedas [value="+tpmoneda+"]").attr('dv'));
-        var ncosto = (parseFloat($("#precp").val().replace(/,/g,''))*descuentol)/($("#iva").is(":checked") ? (parseFloat($("#vimpiva").attr('num'))/100 +1): 1);
+        var ncosto = (parseFloat($("#precp").val().replace(/,/g,''))*descuentol);
 
         $("#cos2").html(parseFloat(ncosto).formatMoney(2,'.',''));
         matriz['costo'] = $("#cos2").html();
@@ -919,11 +921,10 @@ function cargarCompras(){
         if(!$("#chgvalor").is(":checked")){
             $(".ven1").each(function(){
                 id = $(this).parent().parent().attr('id').substr(1);
-                cganancia = (parseFloat($("#n"+id+" .ven1").html())/($("#iva").is(":checked") ? (parseFloat($("#vimpiva").attr('num'))/100 +1): 1)-ncosto);
-
+                cganancia = (parseFloat($("#n"+id+" .ven1").html())/(parseFloat($("#vimpiva option:selected").attr('num'))/100 +1))-ncosto;
                     $("#n"+id+" .gan2").val(ncosto == -1*cganancia ? '0.00' : ((cganancia*100)/ncosto).formatMoney(2,'.','')); 
                     $("#n"+id+" .gan2").attr('gn',cganancia);
-                    $("#n"+id+" .ven2").val(((ncosto+cganancia)*($("#iva").is(":checked") ? (parseFloat($("#vimpiva").attr('num'))/100 +1): 1)).formatMoney(2,'.',''));     
+                    $("#n"+id+" .ven2").val(((ncosto+cganancia)*(parseFloat($("#vimpiva option:selected").attr('num'))/100 +1)).formatMoney(2,'.',''));     
                     matriz[id] = []
                     matriz[id][0] = $("#n"+id+" .ven2").val()
                     matriz[id][1] = $("#n"+id+" .gan2").val()
@@ -935,17 +936,18 @@ function cargarCompras(){
             $(".ven1").each(function(){
                 id = $(this).parent().parent().attr('id').substr(1);
                 cganancia = parseFloat(ncosto*(parseFloat($("#n"+id+" .gan1").html())/100));
-                //if(cganancia){
+
+                if(cganancia){
                     $("#n"+id+" .gan2").val(((cganancia*100)/ncosto).formatMoney(2,'.','')); 
                     $("#n"+id+" .gan2").attr('gn',cganancia);
-                    $("#n"+id+" .ven2").val(((ncosto+cganancia)*($("#iva").is(":checked") ? (parseFloat($("#vimpiva").attr('num'))/100 +1): 1)).formatMoney(2,'.',''));
+                    $("#n"+id+" .ven2").val(((ncosto+cganancia)*(parseFloat($("#vimpiva option:selected").attr('num'))/100 +1)).formatMoney(2,'.',''));
                     matriz[id] = {}
                     matriz[id][0] = $("#n"+id+" .ven2").val()
                     matriz[id][1] = $("#n"+id+" .gan2").val()
                     matriz[id][2] = $("#n"+id+" .gan2").attr('gn');
                     matriz[id][3] = id; 
                     matriz[id][4] = ncosto;    
-                //}
+                }
             });
         }
         $("#valores").data('matriz',matriz);
@@ -1481,8 +1483,9 @@ function doplazo(vval){
 function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp,0,1,$("#fdetallefacturas"));
     var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente',261,'id=-1*'+vidp)[0][0];
-    /*$("#ncli").val(facturah[0]);
-    $("#ffacturas .zelda").data('triforce')['idcliente'] = facturah[1];
+    if(facturah[1] == '0' && facturah[0] != '')
+        $("#ncli").val(facturah[0]);
+    /*$("#ffacturas .zelda").data('triforce')['idcliente'] = facturah[1];
     $("#ncli").blur();*/
 
     idext = vidp;

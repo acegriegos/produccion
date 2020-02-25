@@ -2,7 +2,6 @@ var crr = '';
 var conteo = 1;
 
 $(document).ready(function(){
-
  $(".modal").modal();
  
  var animating = false,
@@ -125,7 +124,7 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
-    
+
     switch(p[0].length){
         case 2:
             Materialize.toast(p[0][0], 4000, 'red');
