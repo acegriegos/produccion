@@ -1023,6 +1023,8 @@ $(document).on("click",".delf",function(){
         if($("#prefact:visible").attr('vid') != 0){
             $("#fd"+id).addClass('hide');
             $("#fd"+id).data('triforce','');
+        }else {
+            $("#fd"+id).remove();
         }
     }else {
         $("#fd"+id).remove();
