@@ -1238,9 +1238,11 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
 
+
     if(param.toString().match(new RegExp(/\b1\b|\b3\b|\b4\b|\b5\b|\b6\b|\b7\b|\b8\b/g)))
         $("[for=iva]").addClass('hide');
     else{
+        isiva = 0;
         vexo = $("#vimpiva option:selected").attr('num')
     }
 
@@ -2015,8 +2017,7 @@ function endCargarProducto(exo,cod,pesaje){
             }
         }else{
             if (param == 9 || param == 104) {
-                if(param == 104)
-                    $("#iva").prop('checked',false);
+                
                 $("#vimpiva").val($("#valores").data("elemento")['timv']).material_select('update');
                 if (parseInt(pesaje)){
                     $("._uni .select-wrapper .select-dropdown").click();
