@@ -226,6 +226,6 @@
     </div>
     
     <script src="../assets/js/dropzone.js?v=10.2.0.61"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.2.0.61"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.2.0.61-1   "></script>
   </body>
 </html>

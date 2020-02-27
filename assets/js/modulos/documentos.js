@@ -143,9 +143,8 @@ $(document).on("click",".msjh",function(){
        credito = $("#credito").val();
        gasto = $("#gasto").val();
     }
-    console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto)
+
     var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto,0,0,0);
-    console.log(idfact);
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';
@@ -156,12 +155,13 @@ $(document).on("click",".msjh",function(){
         $(this).parent().parent().remove();
     }else{
 
-        var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
-        Materialize.toast($toastContent,2000);
+        // var $toastContent = $('<span style="width: 500px" id="t'+idfact[0][0][0]+'">Generando Documento:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        // Materialize.toast($toastContent,2000);
+        Materialize.toast('Documento '+titulo+' Correctamente',4000,'green');
         var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+idfact[0][0][0],0,0)[0][0];
         var tlimit = parseInt(factura[1]);
 
-        if(tlimit <= 36)
+        if(tstado != 5)
             sendFE('^'+idfact[0][0][0],crrprov,64,titulo);
 
         if($(this).attr('xml') == undefined){
