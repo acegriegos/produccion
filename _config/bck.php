@@ -4,6 +4,7 @@
     $user = isset($_GET['user']) ? $_GET['user'] : 'itech01';
     $pass = isset($_GET['psse']) ? $_GET['psse'] : 'Login2Help';
     $ruta = isset($_GET['ruta']) ? "/".$_GET['ruta'] : "";
+    $port = isset($_GET['port']) ? $_GET['port'] : "3306";
     $fecha = date('D_H');
 
     if (isset($_GET['url']))
@@ -13,5 +14,5 @@
     
     $archivo = $archivo.strtoupper($mdb)."_".strtoupper($fecha).".sql";
 
-    shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --routines --events --triggers > ".$archivo);
+    shell_exec("mysqldump --user=".$user." --password=".$pass." ".$mdb." --port=".$port." --routines --events --triggers > ".$archivo);
  ?>

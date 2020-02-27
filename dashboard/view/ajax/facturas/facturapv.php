@@ -160,8 +160,16 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   <tr '.$ocultar.'>
     <td width="50%">T. Pago:</td>
     <td width="50%">'.$datos[2].'</td>
-  </tr>
-  </table>';
+  </tr>';
+
+  if($datos[48] != '')
+    echo '<tr '.$ocultar.'>
+      <td width="50%">N° Orden:</td>
+      <td width="50%">'.$datos[48].'</td>
+    </tr>';
+  }
+
+  '</table>';
 
   if ($datos[12]) {
     echo "Comentario: ".$datos[12];
