@@ -127,6 +127,16 @@
             </div>
             {/section}
             <div class="row">
+                <div class="col s4 input-field">
+                  <input type="text" id="vcuentacierre" autocomplete="off">
+                  <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>
+                </div>
+
+                <div class="col s4 input-field">
+                  <input type="text" id="vdoccierre" autocomplete="off">
+                  <label for="vdoccierre">Documento de Depósito</label>
+                </div>
+
                 <div class="col s12 m6">
                   <h2>Dinero en caja:</h2>
                 </div>

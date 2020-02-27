@@ -70,6 +70,7 @@ $(function(){
 
         var cod =  $("#ecouser").val();
         var rs = getDatos('',137,'"'+cod+'"',0,0,0);
+        console.log(rs);
         if(parseInt(rs['succed'])){
             if (rs[0].length){
                 //$("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
@@ -124,7 +125,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'idusuario = '+guser+' order by id desc',0,0)[0];
+		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) = 1,1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {
@@ -138,15 +139,15 @@ $(function(){
 
 	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
 
-	if (parseInt(config[11]) == 3){
+	/*if (parseInt(config[11]) == 3){
         
         $("#modal-usuario").modal({
 	        dismissible:false
 	    });
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
-	}else
-		arr('login',6,'',182,guser,0,1,$("#listacierrespendientes"));
+	}else*/
+		arr('login',6,'',182,guser+',@@impresa',0,1,$("#listacierrespendientes"));
 });
 
 $(document).on("click","#refresh",function(){
@@ -192,15 +193,15 @@ $(document).on("click","#chkcierre",function(){
 	*/
 	$("#totcashier").text(0);
 
-	if (!$(this).hasClass('tooltipped')) {
+	/*if (!$(this).hasClass('tooltipped')) {
 		if ($(this).attr('vfecha') == undefined) {
 			Materialize.toast('Seleccione un cierre', 4000, 'green');
-		}else{
+		}else{*/
 			$(this).addClass('modal-trigger');
 			$("#modal-tipomonedas").modal('open');
 			$("#totalizar").attr('vfecha',$(this).attr('vfecha'));
-		}
-	}
+		/*}
+	}*/
 	
 });
 
@@ -228,20 +229,22 @@ $(document).on("blur",".mnd",function(){
 
 $(document).on("click","#totalizar",function(){
 	// chkcierre
-	if ($(this).attr('vfecha') != undefined)
+	//if ($(this).attr('vfecha') != undefined)
 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
-	else
-		Materialize.toast('Seleccione un cierre', 4000, 'green');
+	/*else
+		Materialize.toast('Seleccione un cierre', 4000, 'green');*/
 });
 
 $(document).on("click","#docierre",function(){
-	var total = $(".zelda").data('triforce')['vtotal'];
+	//var total = $(".zelda").data('triforce')['vtotal'];
 	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
 	// var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
 
-	if (total == 0)
-		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,''),0,0,0)[0][0][0];
+	/*if (total == 0)
+		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');*/
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#vdoccierre").val()+'"',0,0,0)
+	console.log(idcierre)
+	idcierre = idcierre[0][0][0];
 
 	$('#toast-container').remove();
 	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
