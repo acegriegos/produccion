@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Inventarios</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.60">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.61">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -37,7 +37,7 @@
   </div>
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.60"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.2.0.60"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.61"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.2.0.61"></script>
 </body>
 </html>
