@@ -92,6 +92,14 @@
               <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
             </div>
+
+            <?php if($datos[48] != ''){ ?>
+              <div class="col s12" style="padding: 0px">
+                <span><b>N° Orden:</b></span><br>
+                <span><?php echo $datos[48]; ?> </span>
+              </div>
+            ?php } ?>
+
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
               <span><b>Comentario:</b></span><br>
