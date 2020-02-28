@@ -167,7 +167,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
       <td width="50%">N° Orden:</td>
       <td width="50%">'.$datos[48].'</td>
     </tr>';
-  }
+  
 
   '</table>';
 

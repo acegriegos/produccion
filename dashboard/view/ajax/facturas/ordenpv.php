@@ -167,7 +167,7 @@ echo '<tr>
   <tr >
     <td colspan="'.$colspan1.'" style="border-bottom: 1px dashed white;"></td>
   </tr>
-  <tr >
+  <tr>
     <td colspan="'.$colspan1.'"></td>
   </tr>
   <tr >
