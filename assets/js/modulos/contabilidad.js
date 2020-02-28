@@ -315,7 +315,7 @@ function cargarTransacciones(){
 	$(".zelda").data('triforce',{vid:0,vidfila:0,vidtabla:0,vidusuario:'',vidsucursal:''})
 
 	var fecha = new Date();
-	$('#vfecha').val(fecha.getFullYear()+'-'+("0"+fecha.getMonth()).slice(-2)+'-'+("0"+fecha.getDate()).slice(-2));
+	$('#vfecha').val(fecha.getFullYear()+'-'+("0"+(fecha.getMonth()+1)).slice(-2)+'-'+("0"+fecha.getDate()).slice(-2));
 
 	 $(document).on('keydown','.autocomplete',function(e){
         var charCode = e.which || e.keyCode;

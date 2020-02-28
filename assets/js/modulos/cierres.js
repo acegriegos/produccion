@@ -9,6 +9,89 @@ $(function(){
 		$("#mcierre").val(parseFloat(hascaja[0][0][0]).formatMoney(2,'.',',')).attr('readonly',true);
 	}
 
+	$("#tpc").change(function(){
+		if($(this).is(":checked")){
+			$(".auto").removeClass('hide')
+			$(".manu").addClass('hide')
+		}else{
+			var fecha = new Date();
+			$('#mn-fecha').val(fecha.getFullYear()+'-'+("0"+(fecha.getMonth()+1)).slice(-2)+'-'+("0"+fecha.getDate()).slice(-2));
+			$("#mn-fecha").change();
+
+			$(".manu").removeClass('hide')
+			$(".auto").addClass('hide');
+
+			$("#mn-tefectivo").focus().select();
+		}
+	});
+
+	$("#mn-fecha").change(function(){
+		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
+	
+		if(info[0].length){
+			$("#mn-credito").val(parseFloat(info[0][0][0]).formatMoney(2,'.',','));
+			$("#mn-vdia").val(parseFloat(info[0][0][1]).formatMoney(2,'.',','));
+
+			totalizar_mn();
+		}
+	});
+
+	$(".numeric").keyup(function(e){
+		var code = e.which || e.keyCode;
+		if(code == 13){
+			var next;
+			switch ($(this).attr('id')) {
+				case "mn-tefectivo":
+					next = "mn-credito";					
+					break;
+				case "mn-credito":
+					next = "mn-cheque";					
+					break;
+				case "mn-cheque":
+					next = "mn-tarjeta";					
+					break;
+				case "mn-tarjeta":
+					next = "mn-compra";					
+					break;
+				case "mn-compra":
+					next = "mn-otros";					
+					break;
+				case "mn-otros":
+					next = "mn-depositom";					
+					break;
+				case "mn-depositom":
+					next = "mn-depositon";					
+					break;
+				case "mn-depositon":
+					next = "print-cierre";				
+					break;
+				default:
+					console.log($(this).attr('id'))
+					break;
+			}
+			totalizar_mn()
+			$("#"+next).focus().select();
+		}
+	});
+
+	$("#print-cierre").click(function(){
+                      
+        var str = '<style>           th, td {                 padding-top: 1%;                 background-color:none;             }  .borde{border-bottom: 1px solid black; margin-left:2%}        </style> <h3 align="center">'+$("#jstprint").html()+'</h3> <table style="width: 100%" cellspadding="2"> <tr style="margin-bottom: 2%"> <td style="width: 50%;text-align:right"></td> <td style="width: 3%;"></td> <td style="width: 47%;" align="center"></td></tr> <tr> <td></td> <td></td> <td style="text-align: right;"><b>Fecha: </b>'+$("#mn-fecha").val()+'</td> </tr>';
+
+        var last = $("#mn-tbl tr").length-1;
+
+        $("#mn-tbl tr").each(function(index){
+            if(index != last)
+            str += '<tr><td style="size: 8px;text-align: right;">'+$('td:nth-child(1)',this).html()+'</td> <td></td> <td style="size: 8px;text-align:left;">'+$('td:nth-child(2)',this).find('.numeric').val()+'</td> </tr>';
+        });
+
+        newWin= window.open("");
+        newWin.document.write(str);
+        newWin.print();
+        newWin.close();
+
+	});
+
 	if (parseInt($("#BUSS").val()) != 1) {
 		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
 		if (monto == undefined) {
@@ -334,6 +417,41 @@ $(document).on("change","#vfecha",function(e){
 	arr('login',6,'contador,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
 	$("#vfecha").focus();
 });
+
+function totalizar_mn(){
+	var efectivo = $("#mn-tefectivo").val().replace(/,/g,'');
+	efectivo = isNaN(efectivo) ? 0 : parseFloat(efectivo);
+
+	var credito = $("#mn-credito").val().replace(/,/g,'');
+	credito = isNaN(credito) ? 0 : parseFloat(credito);
+
+	var tarjeta = $("#mn-tarjeta").val().replace(/,/g,'');
+	tarjeta = isNaN(tarjeta) ? 0 : parseFloat(tarjeta);
+
+	var cheque = $("#mn-cheque").val().replace(/,/g,'');
+	cheque = isNaN(cheque) ? 0 : parseFloat(cheque);
+
+	var compra = $("#mn-compra").val().replace(/,/g,'');
+	compra = isNaN(compra) ? 0 : parseFloat(compra);
+
+	var otros = $("#mn-otros").val().replace(/,/g,'');
+	otros = isNaN(otros) ? 0 : parseFloat(otros);
+
+	$("#mn-tdoc").val((credito+tarjeta+cheque-compra+otros).formatMoney(2,'.',','))
+
+	var tdoc = $("#mn-tdoc").val().replace(/,/g,'');
+	tdoc = isNaN(tdoc) ? 0 : parseFloat(tdoc);
+
+	$("#mn-tocefe").val((tdoc+efectivo).formatMoney(2,'.',','));
+
+	var tocefe = $("#mn-tocefe").val().replace(/,/g,'');
+	tocefe = isNaN(tocefe) ? 0 : parseFloat(tocefe);
+
+	var vdia = $("#mn-vdia").val().replace(/,/g,'');
+	vdia = isNaN(vdia) ? 0 : parseFloat(vdia);
+
+	$("#mn-dif").val((vdia-tocefe).formatMoney(2,'.',','))
+}
 
 function totalizar() {
 	
