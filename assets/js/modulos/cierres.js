@@ -26,11 +26,11 @@ $(function(){
 	});
 
 	$("#mn-fecha").change(function(){
-		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
+		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") and idfactura = facturas.id and idtipo = 5 ),0) as nc, ifnull(sum(if(idtipo = 2,(select valor from estadoscuentas where idfactura = facturas.id and idtipo = 5 and date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") ),0)),0) as nc_cre',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
 	
 		if(info[0].length){
-			$("#mn-credito").val(parseFloat(info[0][0][0]).formatMoney(2,'.',','));
-			$("#mn-vdia").val(parseFloat(info[0][0][1]).formatMoney(2,'.',','));
+			$("#mn-credito").val((parseFloat(info[0][0][0])-parseFloat(info[0][0][3])).formatMoney(2,'.',','));
+			$("#mn-vdia").val((parseFloat(info[0][0][1])-parseFloat(info[0][0][2])).formatMoney(2,'.',','));
 
 			totalizar_mn();
 		}
@@ -42,7 +42,9 @@ $(function(){
 			var next;
 			switch ($(this).attr('id')) {
 				case "mn-tefectivo":
-					next = "mn-credito";					
+					next = "mn-credito";
+					$("#mn-deposito").val(parseFloat($(this).val()).formatMoney(2,'.',','));
+					$("#mn-depositom").val(parseFloat($(this).val()).formatMoney(2,'.',','));					
 					break;
 				case "mn-credito":
 					next = "mn-cheque";					
@@ -63,7 +65,7 @@ $(function(){
 					next = "mn-depositon";					
 					break;
 				case "mn-depositon":
-					next = "print-cierre";				
+					return false;		
 					break;
 				default:
 					console.log($(this).attr('id'))
@@ -451,6 +453,14 @@ function totalizar_mn(){
 	vdia = isNaN(vdia) ? 0 : parseFloat(vdia);
 
 	$("#mn-dif").val((vdia-tocefe).formatMoney(2,'.',','))
+
+	var tdeposito = $("#mn-deposito").val().replace(/,/g,'');
+	tdeposito = isNaN(tdeposito) ? 0 : parseFloat(tdeposito);
+
+	var depositon = $("#mn-depositom").val().replace(/,/g,'');
+	depositon = isNaN(depositon) ? 0 : parseFloat(depositon);
+
+	$("#mn-depositod").val((tdeposito-depositon).formatMoney(2,'.',','))
 }
 
 function totalizar() {

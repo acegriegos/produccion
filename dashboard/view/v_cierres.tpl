@@ -120,13 +120,13 @@
         <tr><td style="text-align: right;"><label><b>Tarjeta:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tarjeta" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Compras Totales:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-compra" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Otros:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-otros" value="0.00"><td></tr>
-        <tr><td style="text-align: right;"><label><b>Total Documentos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tdoc" value="0.00"><td></tr>
-        <tr><td style="text-align: right;"><label><b>Total Documentos + Efectivo:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tocefe" value="0.00"><td></tr>
-        <tr><td style="text-align: right;"><label><b>Venta del Dia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-vdia" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Documentos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tdoc" value="0.00"  style="color: red;"><td></tr>
+        <tr><td style="text-align: right"><label><b>Total Documentos + Efectivo:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tocefe" value="0.00" style="color: red;"><td></tr>
+        <tr><td style="text-align: right"><label><b>Venta del Dia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-vdia" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Diferencia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-dif" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Total Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-deposito" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Monto Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositom" value="0.00"><td></tr>
-        <tr><td style="text-align: right;"><label><b>Número Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositon" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Número Depósito:</b></label> </td><td> <input type="text" class="browser-default eder" id="mn-depositon" value="0"><td></tr>
         <tr><td style="text-align: right;"><label><b>Diferencia Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositod" value="0.00"><td></tr>
       </table>
       <a class="btn" id="print-cierre"><i class="mdi mdi-printer mdi-24px"></i> Imprimir Cierre</a>
