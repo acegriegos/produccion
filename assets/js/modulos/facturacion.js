@@ -1482,7 +1482,7 @@ function doplazo(vval){
 
 function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp,0,1,$("#fdetallefacturas"));
-    var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente',261,'id=-1*'+vidp)[0][0];
+    var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo',261,'id=-1*'+vidp)[0][0];
     if(facturah[1] == '0' && facturah[0] != '')
         $("#ncli").val(facturah[0]);
     /*$("#ffacturas .zelda").data('triforce')['idcliente'] = facturah[1];
@@ -1501,6 +1501,8 @@ function cargarFactura(vidp,asoc){
 
     if($("#prefact:visible").length){
         $("#prefact").attr('vid',parseInt(vidp)*-1)
+        $("#prefact").css('background-color','red !important')
+        $("#prefact").html('PRE FACTURA #'+facturah[2])
     }
 
     // $("#ffacturas .zelda").data('triforce')['vterminal'] = config[26];

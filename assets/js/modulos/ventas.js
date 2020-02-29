@@ -856,6 +856,8 @@ $("#prefact").click(function(){
     $("#ncli").val('').blur();
     $("#vcomentario").val('');
     $(this).attr('vid',0)
+    $(this).css('background-color','green !important')
+    $(this).html('PRE FACTURA')
 
     totalizar();
     Materialize.toast("Pre-Factura Guardada",4000,'green')
@@ -962,7 +964,7 @@ $(document).on("click","#cargarfact",function(){
     var facturas = getDatos('',257,'@@impresa',0,0,0)[0];
     var body = '';
     for (var i = 0; i < facturas.length; i++) {
-        body += '<tr vid="l'+facturas[i][0]+'"> <td> <input type="radio" name="factlist" id="l'+facturas[i][0]+'"> </label> <label for="l'+facturas[i][0]+'"></td> <td class="rd-td">'+facturas[i][1]+'</td> <td class="rd-td">'+facturas[i][2]+'</td> <td class="rd-td">'+facturas[i][3]+'</td> <td><i class="mdi mdi-close red-text deltmpfact delete-row" id="w'+facturas[i][0]+'" style="cursor:pointer;"></i></td> </tr>'  
+        body += '<tr vid="l'+facturas[i][0]+'"> <td> <input type="radio" name="factlist" id="l'+facturas[i][0]+'"> </label> <label for="l'+facturas[i][0]+'"></td> <td class="rd-td">'+facturas[i][1]+'</td> <td class="rd-td">'+facturas[i][2]+'</td> <td class="rd-td eder">'+facturas[i][3]+'</td> <td><i class="mdi mdi-close red-text deltmpfact delete-row" id="w'+facturas[i][0]+'" style="cursor:pointer;"></i></td> </tr>'  
     }
     $("#bdylist").html(body);
 });
