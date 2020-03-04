@@ -124,12 +124,12 @@
       <div class="col s12 row" >
         <div class="col s6 input-field" >
           <span class="prefix mdi mdi-24px mdi-calendar"></span>
-          <input type="date" id="vfechaDoc" class="validate tooltiped" value="">
+          <input type="date" id="vfechaDoc" class="validate tooltiped">
         </div>
 
         <div class="col s6 input-field">
           <span class="prefix mdi mdi-24px mdi-clock"></span>
-          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1" value="0" value="">
+          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
         </div>
       </div>
 

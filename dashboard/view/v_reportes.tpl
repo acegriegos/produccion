@@ -134,6 +134,12 @@ Inventario <hr>
 <a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
 <p>Movimientos Inventario</p>
 </div>
+
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<p>Movimientos de Productos</p>
+</div>
+
 </div>
 
 <div class="row">

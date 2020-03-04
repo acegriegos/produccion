@@ -1,0 +1,6 @@
+ERROR 1054 (42S22) at line 61: Unknown column 'mnventa' in 'field list'
+ERROR 1054 (42S22) at line 200: Unknown column 'ec8' in 'field list'
+ERROR 1054 (42S22) at line 930: Unknown column 'idvarios' in 'field list'
+ERROR 1054 (42S22) at line 1085: Unknown column 'idtipoabono' in 'field list'
+ERROR 1062 (23000) at line 1140: Duplicate entry '1' for key 'PRIMARY'
+ERROR 1054 (42S22) at line 1288: Unknown column 'idhacienda' in 'field list'

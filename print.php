@@ -4,7 +4,7 @@ fputs($fp, 'hola');
 fclose($fp);
 
 
-$html = "<h1>Test de Impresión de Tickets</h1>";
+$html = "<h1>Test de Impresión de Tickets a</h1>";
 
 $html = "Impresión automática desde la impresora escogida";
 

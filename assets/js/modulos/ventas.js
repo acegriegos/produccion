@@ -564,11 +564,31 @@ $(document).on("change","#impm",function(){
 });
 
 $(document).on("click","#fdev",function(){
+    if($(this).attr('dodev') == '0'){
+        return false;
+    }
+
     var variable1 = $(".cdev").filter(function(){ return $(this).val() > 0 })
+    var idf = 0;
+
     if(variable1.length){
+        var idusr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
+        var idcons = getDatos('devoluciones+1',252,'idsucursal=@@impresa')[0][0][0];
+
+        var iddev = insertar(408,'','null,-1*'+$("#detfact").attr('vfact')+',now(),'+idusr+',"'+$("#rdev").html().trim()+'",'+$("#detfact").attr('moneda')+',@@impresa,'+idcons)[0][0][0]; 
+        var lcant = 0;
+        //GUARDAR DEVOLUCION
         variable1.each(function(){
-            $(this).parent().parent().attr('id').substr(1)+",";
+            idf = $(this).parent().parent().attr('id').substr(1);
+            lcant = $("#r"+idf).find('.cdev').val();
+            insertar(407,'','null,'+iddev+','+idf+','+lcant+','+$("#r130").find('.trazon').val()+','+$("#r130").find('.tcmb').val());
         });
+
+        getDatos('',276,iddev+',@@impresa');
+        actualizar(252,'devoluciones='+idcons,'idsucursal=@@impresa');
+        Materialize.toast('Devolución Realizada Correctamente',4000,'green')
+        cargarFacturasNota();
+        $("#slide-facturas").sideNav('hide');
     }else {
         Materialize.toast('No hay Productos que Devolver',4000,'red')
     }
@@ -1040,16 +1060,17 @@ $(document).on("click",".detalle",function(){
     var id = $(this).attr('id').substr(1);
 
     if(str_dev == ''){
-        str_dev = '<option value="1">Mal Estado</option><option value="2">Vencido</option><option value="3">Otros</option>';
+        str_dev = '<option value="1">Mal Estado</option><option value="2">Vencido</option><option value="3" selected>Otros</option>';
         //VER ESTADO DE CUENTA SINO CARGAR EN EL
-        str_camb = '<option value="1">Efectivo</option><option value="2" selected>Otro Producto</option>';
+        str_camb = '<option value="1">Efectivo</option><option value="2">Otro Producto</option><option value="3" selected>Otros</option>';
     }
 
-    var pdetalle = getDatos('(select nombre from productos where id = idproducto),cantidad,format(precio*cantidad-descuento+imv,2),idproducto',65,'idproducto is not null and idfactura = '+id,0,0,0);
+    var pdetalle = getDatos('(select nombre from productos where id = idproducto),cantidad,format(precio*cantidad-descuento+imv,2) as valorfact,idproducto,id',65,'idproducto is not null and idfactura = '+id,0,0,0);
     var str = '';
     for (var i = 0; i < pdetalle[0].length; i++) {
-        str += '<tr id="r'+pdetalle[0][i][3]+'"> <td class="mxv">'+pdetalle[0][i][1]+'</td> <td>'+pdetalle[0][i][0]+'</td> <td><input type="number" value="0" class="eder cdev"></td> <td><select class="browser-default trazon">'+str_dev+'</select></td> <td><select class="browser-default tcmb">'+str_camb+'</select></td></tr>';
+        str += '<tr id="r'+pdetalle[0][i][4]+'" idp="'+pdetalle[0][i][3]+'"> <td class="mxv">'+pdetalle[0][i][1]+'</td> <td>'+pdetalle[0][i][0]+'</td> <td><input type="number" value="0" class="eder cdev"></td> <td><select class="browser-default trazon">'+str_dev+'</select></td> <td><select class="browser-default tcmb">'+str_camb+'</select></td></tr>';
     }
+    $("#detfact").attr('vfact',id).attr('debe',$(this).attr('debe')).attr('haber',$(this).attr('haber')).attr('moneda',$(this).attr('moneda'));
     $("#detfact").html(str);
 });
 
@@ -1058,12 +1079,16 @@ $(document).on("blur",".cdev",function(){
     if( isNaN($(this).val())){
         Materialize.toast('Cantidad Debe ser Numérica',4000,'red')
         $(this).focus().select();
-    }
+        $("#fdev").attr('dodev',0)
+    }else
+        $("#fdev").attr('dodev',1)
 
     if(parseFloat(mx) < parseFloat($(this).val())){
         Materialize.toast('Cantidad Debe ser Menor o Igual a '+mx,4000,'red')
             $(this).focus().select();
-    }
+        $("#fdev").attr('dodev',0)
+    }else
+        $("#fdev").attr('dodev',1)
 })
 
 $(document).on("click",".addesgloce",function(){

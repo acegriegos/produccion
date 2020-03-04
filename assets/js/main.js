@@ -238,10 +238,7 @@ function sse_response(vid,p) {
                     type: 'POST',
                     data: {id: 0, accion : 13}
                 })
-                .done(function(data) {
-
-                    /*console.log('REFRESH TOKEN');   
-                    console.log(data)*/
+                .done(function(data) { //REFRESH DATA
               });
             }
 

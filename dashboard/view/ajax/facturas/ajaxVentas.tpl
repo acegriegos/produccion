@@ -50,7 +50,7 @@
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="5" id="chg_tipo5" disabled>
         <label for="chg_tipo5" class="tooltipped per1108 hide" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="6" id="chg_tipo6" disabled>
-        <label for="chg_tipo6" class="tooltipped per1109 hide" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
+        <label for="chg_tipo6" class="tooltipped per1109_ hide" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
@@ -715,7 +715,8 @@
       <thead>
         <th></th>
         <th>Numero Factura</th>
-        <th>Valor</th>
+        <th>Valor Factura</th>
+        <th>Valor Actual</th>
         <th>Fecha</th>
       </thead>
       <tbody id="listafacturas"></tbody>
@@ -1198,7 +1199,7 @@
     Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%">
       <i class="mdi mdi-exit-to-app mdi-24px" id="fext" title="Salir" style="width: 5% !important; float: right;cursor: pointer;"></i>
 
-      <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" style="width: 5% !important; float: right;cursor: pointer;"></i>
+      <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" dodev="1" style="width: 5% !important; float: right;cursor: pointer;"></i>
       
     <br>
     <table>
