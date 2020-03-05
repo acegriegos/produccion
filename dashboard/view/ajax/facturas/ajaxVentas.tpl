@@ -20,7 +20,7 @@
  
 <div class="card z-depth-3 movil p1 ps" style="margin-bottom: 0px;">
 <div class="card-header center head1 white-text">
-  <a href="#!" class="green btn per1111 hide"  title="Realizar Factura en Espera" style="float: left;" id="prefact" vid="0">PRE-VENTA</a>
+  <a href="#!" class="green btn per1111 hide"  title="Realizar Factura en Espera" style="float: left;" id="prefact" vid="0">PRE-FACTURA</a>
   <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
   {if $smarty.session.CAJA eq 1}
@@ -50,7 +50,7 @@
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="5" id="chg_tipo5" disabled>
         <label for="chg_tipo5" class="tooltipped per1108 hide" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="6" id="chg_tipo6" disabled>
-        <label for="chg_tipo6" class="tooltipped per1109_ hide" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
+        <label for="chg_tipo6" class="tooltipped per1109 hide" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
       </div>
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 

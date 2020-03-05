@@ -140,8 +140,35 @@ if($datos[7] <> ''){
   </tr>';
 }
 
-echo '</table>
-  <br>
+
+
+echo '</table>';
+
+if($datos[23]){
+  echo '<table style="width: 100%">
+         <tr>
+            <td class="margen" colspan="4" align="center">LINEAS AFECTADAS </td>
+          </tr>
+         <tr>
+            <td colspan="4">Descripción</td>
+         </tr>
+         </tr>
+            <td align="center" colspan="2">Cantidad</td>
+            <td align="center" colspan="2">Importe</td>
+          </tr>';
+
+          foreach ($transaccion as $obj) {
+            echo '<tr>
+            <td  colspan="4">'.$obj[16].'</td>
+            </tr>
+            <tr>
+            <td align="center" colspan="2">'.$obj[17].'</td>
+            <td align="center" colspan="2">'.$obj[18].'</td>
+          </tr>';
+          }
+  echo '</table>';
+} 
+echo '<br>
 <hr>
 <table  style="width: 100% !important;">
   <tr>
