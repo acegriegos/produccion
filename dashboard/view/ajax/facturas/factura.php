@@ -98,7 +98,7 @@
                 <span><b>N° Orden:</b></span><br>
                 <span><?php echo $datos[48]; ?> </span>
               </div>
-            ?php } ?>
+            <?php } ?>
 
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
