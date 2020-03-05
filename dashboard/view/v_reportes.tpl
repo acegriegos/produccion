@@ -143,6 +143,16 @@ Inventario <hr>
 </div>
 
 <div class="row">
+	Cierres <hr>
+
+	<div class="col s6 m3 l2 center-align">
+	<a class="report pbtn" rep="cierre"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i></a>
+	<p>Cierre General</p>
+	</div>
+
+</div>
+
+<div class="row">
 Contabilidad <hr>
 
 <div class="col s6 m3 l2 center-align">

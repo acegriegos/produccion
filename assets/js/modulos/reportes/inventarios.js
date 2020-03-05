@@ -1,6 +1,6 @@
 $(function(){
     var param = getParameterByName('rep');
-
+  
     switch(param){
         case 'invgen':
             arr('login',6,'',254,'6,@@impresa,"",-1,-1,-1,-1,-1','',1,$(".detrep")); 
@@ -42,6 +42,52 @@ $(function(){
             break;
         case 'inventarios':
             arr('login',6,'',127,'6,@@impresa','127_1',1,$(".detrep"));
+            break;
+        case 'movprod':
+            
+            var orden = '0,1,8,6,7,2,3,4,5';
+            var suma = ',2,7,';
+            var conteo = 1;
+
+            $(".excel").data('parametros')['vista'] = orden;
+            $(".excel").data('parametros')['conteo'] = conteo;
+            $(".excel").data('parametros')['suma'] = suma;
+
+            //arr('login',6,'',329,'0,0','271',1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
+            $("#vidtipo1").change(function(){
+                if($(this).val() == "1")
+                    $(".principal .filtros").removeAttr('bisprov')
+                else
+                    $(".principal .filtros").attr('bisprov',1)
+            });
+
+            $("#chktipo1").click();
+            $("#vidtipo1").change();
+
+            $("#doreport").click(function(){
+                if($("#cliente").val().trim() == '')
+                    $("#vidcliente").val(0)
+                if($("#productos").val().trim() == '')
+                    $("#vidproducto").val(0)
+
+                if($("#vidcliente").val() == '0' && $("#vidproducto").val() != '0')
+                    $(".excel").data('parametros')['vista'] = '8,6,7,2,3,4,5';
+                else /*if($("#vidcliente").val() != '0' && $("#vidproducto").val() == '0')*/
+                    $(".excel").data('parametros')['vista'] = '0,1,6,7,2,3,4,5';
+
+                var leyenda = $("#vidtipo1 option:selected").html()
+
+                if($("#vdesde").val() == ''){
+                    var fecha = new Date();
+                    var hasta = fecha.getFullYear()+'-'+("0"+(fecha.getMonth()+1)).slice(-2)+'-'+("0"+fecha.getDate()).slice(-2);
+                    leyenda += ' Desde Hasta '+Hasta
+                }
+
+                $("#leyenda").html(leyenda)
+
+
+            });
+
             break;
         default:
             break;

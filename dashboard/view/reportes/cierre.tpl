@@ -4,13 +4,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Movimientos de Productos</title>
+  <title>Cierre General</title>
   {$STY}
   <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.61">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="329" modulo="reportemovprod" porproducto entrefechas porcliente tbltipos="0" tipos="Movimiento" types="4" options="Ventas,Compras" optionsval="1,2" portipo="varios"></div>
+      <div class="filtros row" elem="" sp="329" modulo="reportemovprod" entrefechas ></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -30,7 +30,7 @@
         <i class="waves-effect waves-light mdi mdi-chevron-down btn blue der sfiltr" id="ofiltr" title="Mostrar Filtros"></i>
       </div>
     </div>
-    <h2 align="center">Movimiento de Productos</h2>
+    <h2 align="center">Cierre General</h2>
     <small id="leyenda"></small>
     <div class="detrep"></div>
   <br><br>
