@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.62">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.63">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.62"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.62"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.63"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.63"></script>
     <![endif]-->
   </head>
   <body> 
@@ -121,7 +121,9 @@
         <tr><td style="text-align: right;"><label><b>Compras Totales:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-compra" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Otros:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-otros" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Total Documentos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tdoc" value="0.00"  style="color: red;"><td></tr>
-        <tr><td style="text-align: right"><label><b>Total Documentos + Efectivo:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tocefe" value="0.00" style="color: red;"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Abonos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tabo" value="0.00"  style="color: red;"><td></tr>
+        <!-- <tr><td style="text-align: right;"><label><b>Total Notas Crédito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tncre" value="0.00"  style="color: red;"><td></tr> -->
+        <tr><td style="text-align: right"><label><b>Total Documentos + Efectivo + Abonos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tocefe" value="0.00" style="color: red;"><td></tr>
         <tr><td style="text-align: right"><label><b>Venta del Dia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-vdia" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Diferencia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-dif" value="0.00"><td></tr>
         <tr><td style="text-align: right;"><label><b>Total Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-deposito" value="0.00"><td></tr>
@@ -217,6 +219,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.2.0.62"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.2.0.63"></script>
   </body>
 </html>

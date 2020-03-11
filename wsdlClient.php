@@ -1316,7 +1316,7 @@
                 $otros = $this->getJSON('call fe_getOtros('.$this->id.')');
 
                 if ($otros) {
-                    $data['Otros'] = $otros['Otros'] ;
+                    $data['Otros'] = $otros['OtroTexto'] ;
                 }
                 
             }

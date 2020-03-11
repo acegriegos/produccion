@@ -1401,7 +1401,7 @@ function doreport() {
     if($("#cabeza").length){
         var cabeza = $("#cabeza")[0].outerHTML;
     }
-    arr('login',6,'',resultado['vtbl'],resultado['vattr'],0,1,$(".detrep"),0,resultado['votros']);
+    arr('login',6,'',resultado['vtbl'],resultado['vattr'],resultado['vchg'],1,$(".detrep"),0,resultado['votros']);
 
     try {
         rxlxs(cabeza);

@@ -119,6 +119,10 @@ label[for=nclie], label[for=xnum] {
 #ofiltr {
   display: none; }
 
+.detrep{
+  font-size: 14px;
+}
+
 @media print {
   body {
     padding: 1px !important;

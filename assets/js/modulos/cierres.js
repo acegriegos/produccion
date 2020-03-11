@@ -26,12 +26,13 @@ $(function(){
 	});
 
 	$("#mn-fecha").change(function(){
-		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") and idfactura = facturas.id and idtipo = 5 ),0) as nc, ifnull(sum(if(idtipo = 2,(select valor from estadoscuentas where idfactura = facturas.id and idtipo = 5 and date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") ),0)),0) as nc_cre',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
+		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") and idfactura = facturas.id and idtipo = 5 ),0) as nc, ifnull(sum(if(idtipo = 2,(select valor from estadoscuentas where idfactura = facturas.id and idtipo = 5 and date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") ),0)),0) as nc_cre,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(3,7) ),0) as abonos,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(5) ),0) as rnc',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
 	
 		if(info[0].length){
 			$("#mn-credito").val((parseFloat(info[0][0][0])-parseFloat(info[0][0][3])).formatMoney(2,'.',','));
 			$("#mn-vdia").val((parseFloat(info[0][0][1])-parseFloat(info[0][0][2])).formatMoney(2,'.',','));
-
+			//$("#mn-tncre").val(parseFloat(info[0][0][5]).formatMoney(2,'.',','))
+			$("#mn-tabo").val(parseFloat(info[0][0][4]).formatMoney(2,'.',','))
 			totalizar_mn();
 		}
 	});
@@ -43,8 +44,11 @@ $(function(){
 			switch ($(this).attr('id')) {
 				case "mn-tefectivo":
 					next = "mn-credito";
-					$("#mn-deposito").val(parseFloat($(this).val()).formatMoney(2,'.',','));
-					$("#mn-depositom").val(parseFloat($(this).val()).formatMoney(2,'.',','));					
+					var valor = parseFloat($(this).val().replace(/,/g,''))
+					valor += parseFloat($("#mn-tabo").val().replace(/,/g,''))
+					valor = valor.formatMoney(2,'.',',')
+					$("#mn-deposito").val(valor);
+					$("#mn-depositom").val(valor);					
 					break;
 				case "mn-credito":
 					next = "mn-cheque";					
@@ -66,6 +70,8 @@ $(function(){
 					break;
 				case "mn-depositon":
 					return false;		
+					break;
+				case "mn-tabo":
 					break;
 				default:
 					console.log($(this).attr('id'))
@@ -444,7 +450,10 @@ function totalizar_mn(){
 	var tdoc = $("#mn-tdoc").val().replace(/,/g,'');
 	tdoc = isNaN(tdoc) ? 0 : parseFloat(tdoc);
 
-	$("#mn-tocefe").val((tdoc+efectivo).formatMoney(2,'.',','));
+	var tabo = $("#mn-tabo").val().replace(/,/g,'');
+	tabo = isNaN(tabo) ? 0 : parseFloat(tabo)
+
+	$("#mn-tocefe").val((tdoc+efectivo+tabo).formatMoney(2,'.',','));
 
 	var tocefe = $("#mn-tocefe").val().replace(/,/g,'');
 	tocefe = isNaN(tocefe) ? 0 : parseFloat(tocefe);
@@ -452,7 +461,7 @@ function totalizar_mn(){
 	var vdia = $("#mn-vdia").val().replace(/,/g,'');
 	vdia = isNaN(vdia) ? 0 : parseFloat(vdia);
 
-	$("#mn-dif").val((vdia-tocefe).formatMoney(2,'.',','))
+	$("#mn-dif").val((vdia-tocefe+tabo).formatMoney(2,'.',','))
 
 	var tdeposito = $("#mn-deposito").val().replace(/,/g,'');
 	tdeposito = isNaN(tdeposito) ? 0 : parseFloat(tdeposito);
