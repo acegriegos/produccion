@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Laboratorio</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.2.0.64">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-laboratorio.css?v=10.2.0.65">
   </head>
 <body>
   {$NAV}
@@ -59,6 +59,6 @@
       </div>
 </div>
     {$SCR}
-    <!-- <script src="../assets/js/modulos/laboratorio.js?v=10.2.0.64"></script> -->
+    <!-- <script src="../assets/js/modulos/laboratorio.js?v=10.2.0.65"></script> -->
   </body>
 </html>

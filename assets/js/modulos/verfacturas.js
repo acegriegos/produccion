@@ -91,17 +91,6 @@ $(document).on("click",".mh",function(){
         $(this).attr('href',rs["arhivo"]); 
 });
 
-$(document).on("click","#process",function(){
-	var idfactura = $("#process").attr('idfactura');
-	var tf = $("#process").attr('tipo');
-	var idproducto = new Array();
-	$("[name=processitem]:checked").each(function(){
-		idproducto.push($(this).attr('idd'));
-	});
-	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&id='+idfactura);
-
-});
-
 $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
@@ -111,24 +100,9 @@ $(document).on("click",".pdf",function(e){
 
 
 $(document).on("click",".process",function(){
-	var id = $(this).attr('id').substr(1);
-	var tabla = $("#data-table-productos").DataTable();
-	tabla.destroy();
-	var prod = arr('login',6,'',161,id,0,1,$("#listaproductos"));
-	$("#data-table-productos").DataTable({
-		bFilter: false,
-        order : [],
-        "bScrollInfinite": true
-	});
+	var idfactura = $(this).attr('id').substr(1);
 
-	var tipo = arr('login',4,'',161,id,0,0,0)
-    console.log(tipo)
-    tipo = tipo[0];
-	$("#process").attr('idfactura',tipo[0][0]);
-	$("#process").attr('tipo',tipo[0][7]);
-	$("#nomproc").text(tipo[0][1]);
-    $('.tooltipped').tooltip({delay: 50});
-    $("#modal-process").modal('open');
+	window.open('facturacion?id='+idfactura)
 });
 
 $(document).on("change","input[name=tventa]",function(){

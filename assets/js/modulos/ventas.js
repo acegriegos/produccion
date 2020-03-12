@@ -2570,7 +2570,7 @@ function postExcecute(vid,p){
 
 function postSendmail() {
 
-   /*if(parseInt($("[name=tipopago]:checked").val()) != 5){
+   if(parseInt($("[name=tipopago]:checked").val()) != 5){
         if (parseInt(idext) > 0) {
             setTimeout(function(){window.close();},2000);
         }else{
@@ -2581,7 +2581,7 @@ function postSendmail() {
         }
     }else
         if(parseFloat($("#mxtot").val()) < 5)
-            setTimeout(function(){window.close();},2000);*/
+            setTimeout(function(){window.close();},2000);
 }
 
 function validarGeneral(velemento) {
