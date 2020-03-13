@@ -966,10 +966,10 @@
                 }
                 if ($idfact) {
 
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
+                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
 
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');1
                         return false;
@@ -1111,8 +1111,9 @@
                 if (!isset($ciclo['LineaDetalle']->NumeroLinea)) {
                     $ciclo = $ciclo['LineaDetalle'];
                 }
+                $salida['codigo'] = [];
 
-                foreach ($ciclo as $key) {
+                foreach ($ciclo as $ind=>$key) {
                     $vunidad = (array)$key->UnidadMedida;
                     $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
                     $vunidad = isset($vunidad[0]) ? $vunidad[0] : $vunidad ;
@@ -1127,7 +1128,7 @@
                             $dcodigo =  1; 
                         else 
                             $dcodigo = 2;//  (array)$key->CodigoComercial->Codigo : '';
-                    $salida['codigo'] = $dcodigo;
+                    $salida['codigo'][$ind] = $dcodigo;
                     $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';     
                     
                     $dcantidad = (array)$key->Cantidad;
@@ -1141,10 +1142,10 @@
                     $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
                     $dtarifa = 0;
                     $timv = 0;
-                    $dimpuesto = isset($key->ImpuestoNeto) ? (array) $key->ImpuestoNeto : 0;
-                    $dimpuesto = $dimpuesto == 0 ? isset($key->Impuesto) ? (array) $key->Impuesto->Monto : 0 : $dimpuesto;
+                    $dimpuesto = isset($key->ImpuestoNeto) ? is_numeric($key->ImpuestoNeto) ? (array) $key->ImpuestoNeto : 0 : 0;
+                    $dimpuesto = $dimpuesto[0] == 0 ? isset($key->Impuesto) ? (array) $key->Impuesto->Monto : 0 : $dimpuesto;
                     $dimpuesto = $dimpuesto == 0 ? 0 : $dimpuesto[0];
-
+                    
                     if(isset($key->Impuesto)){
 
                         for ($i = 0; $i < sizeof($key->Impuesto); $i++) {

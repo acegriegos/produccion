@@ -61,7 +61,7 @@
             var ml = tr.find('.um').val() == 1 ? parseFloat($(this).val())*parseFloat(tr.attr('metrica')) : $(this).val();
             var cactual = getDatos('cantidad',97,'idproducto = '+tr.attr('id'),0,0,0)[0][0][0]
             actualizar(97,'cantidad = '+ml,'idproducto = '+tr.attr('id'));
-            var resta = parseFloat(cactual) - parseFloat(ml)
+            var resta = parseFloat(ml) - parseFloat(cactual);
             if(resta){
                 console.log(insertar(298,'','null,2,'+resta+',now(),'+tr.attr('id')+',"",@@impresa,@@usr,'+ml));
             }

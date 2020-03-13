@@ -1,4 +1,5 @@
 <?php 
+
     error_reporting(E_ALL);
     ini_set('display_errors', TRUE);
     ini_set('display_startup_errors', TRUE);
@@ -123,9 +124,14 @@
                        ->setCellValue('A'.$ftotal,'TOTAL(CRC)')
                        ->getStyle('A'.$ftotal)->applyFromArray($styleArray);
 
+                $tsuma =  array_reverse($tsuma); 
                 foreach ($tsuma as $aindex => $areglo) {
-                    $objPHPExcel->setActiveSheetIndex(0)
+                    if($areglo['valor'] == 0){
+                      $objPHPExcel->getActiveSheet()->removeColumn($areglo['columna']);
+                    }else{
+                      $objPHPExcel->setActiveSheetIndex(0)  
                           ->setCellValue($areglo['columna'].$ftotal, strtoupper(number_format($areglo['valor'],2,".","")));
+                    }
                 }
               }
                 

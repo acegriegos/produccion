@@ -1310,14 +1310,15 @@ $(document).on("blur",".calcvv",function(){
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
 	var costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
 	var impuestos = parseFloat($("#vimpiva option:selected").attr('num'));
-
+	
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
 		$(".gan").each(function(){
 			costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
 
 			var padre = $(this).parent().parent();
-			if (padre.attr('dimension') != undefined && padre.attr('dimension') != ''){ //&& $(":visible",this).length
+
+			if ($("#vcosto").attr('dimension') != undefined){ //&& $(":visible",this).length
 				costo = costo/parseFloat($("#vldimension1").val())
 				costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 			}
@@ -1328,7 +1329,6 @@ $(document).on("blur",".calcvv",function(){
 			
 			tven = parseInt(ventaiva) ? (((ventaiva / (1+(impuestos/100)))/ costo) - 1)	 * 100 : 0;
 			rven = parseInt(ventaiva) ? ((ventaiva / (1+impuestos/100) ) - costo) : 0;
-
 			tven = isNaN(tven) ? 0 : tven;
 			padre.find('.gan').val(tven.formatMoney(2,'.',','));
 			padre.find('.rgan').val(rven.toFixed(5));
@@ -2172,11 +2172,12 @@ function endDetail(id, acc, modulo) {
 
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
 				var cnt = $("#unidimension1").val() == '0' ? $("#vcantidad").val() : parseFloat($("#vcantidad").val())*parseFloat($("#unidimension1").val());
-				var cante = getDatos('cantidad',97,'idproducto =  '+id[0][0],0,0,0);
+				var cante = getDatos('cantidad',97,'idproducto =  '+id[0][0],0,0,0)[0][0][0];
 				actualizar(97,'cantidad='+cnt,'idinventario = 6 and idproducto='+id[0][0]);
 				var resta = parseFloat(cnt)-parseFloat(cante); 
-				if(resta)
-					insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt);
+				if(resta){
+					console.log(insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt));
+				}
 			}
 
 			if ($("#cdivisa").is(":checked")) {
@@ -2309,6 +2310,12 @@ function postload(vmodulo){
 		    		$(this).attr('idu',0);
 		    	}
 		    });
+
+		    if($(".precunidad").length)
+		    	$("#vcosto").attr('dimension',1);
+		    else
+				$("#vcosto").removeAttr('dimension');
+
 		    $("#vimpiva").val($("#fproductos .zelda").data('triforce')['vtimv']).material_select('update')
 		    Materialize.updateTextFields();
 			break;

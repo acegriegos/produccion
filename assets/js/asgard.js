@@ -1344,13 +1344,14 @@ function rreport(){
     var orden = $(".excel").data('parametros')['vista'] == undefined ? '' : $(".excel").data('parametros')['vista'];
     var conteo = $(".excel").data('parametros')['conteo'] == undefined ? '' : $(".excel").data('parametros')['conteo'];
     var suma = $(".excel").data('parametros')['suma'] == undefined ? '' : $(".excel").data('parametros')['suma'];
+    var align = $(".excel").data('parametros')['align'] == undefined ? '' : $(".excel").data('parametros')['align'];
     var original = $(".excel").data('parametros')['original'] == undefined ? 0 : 1;
     var chg = $(".principal .filtros").attr('chg') == undefined ? 0 : $(".principal .filtros").attr('chg');
     
     if(original)
         var otros = '';
     else
-        var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma));
+        var otros = Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma),Array('align',align));
     var atributos = '';
     var vmodulo = {};
     vmodulo['modulo'] = $(".principal .filtros").attr('modulo');

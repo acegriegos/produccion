@@ -184,7 +184,8 @@ function cargarOCompras(){
 }//cargar ORDEN COMPRA
 
 function cargarCompras(){
-    param = 104
+    param = 104;
+
     var ncons = getDatos('lpad(consecutivo103+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
     $("#idfact").html(ncons);
 
@@ -206,7 +207,7 @@ function cargarCompras(){
         if($(this).is(':checked')){ //MANUAL
             $(".v104").removeClass('hide')
             param = 104;
-            $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 2;
+            $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 104;
             var ncons = getDatos('lpad(consecutivo103+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
 
             $(".numfact").removeClass('hide')
@@ -279,9 +280,11 @@ function cargarCompras(){
             $("#docompra").html('Facturar').attr('id','facturar');
 
             $("[for=cauto]").addClass('hide')
+            $("[name=tcompra]").parent().removeClass('hide');
 
         }else{
             $("[for=cauto]").removeClass('hide')
+            $("[name=tcompra]").parent().addClass('hide');
         }
     });
 

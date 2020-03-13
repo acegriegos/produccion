@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Cuentas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css?v=10.2.0.55">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cuentas.css?v=10.2.0.57">
 </head>
     
   <body>
@@ -20,7 +20,7 @@
     {$SCR}
 
     
-    <script src="../assets/js/modulos/cuentas.js?v=10.2.0.55"></script>
+    <script src="../assets/js/modulos/cuentas.js?v=10.2.0.57"></script>
     
   </body>
 </html>

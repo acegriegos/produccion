@@ -46,6 +46,7 @@ $(function(){
             $(".excel").data('parametros')['suma'] = suma;
             $(".excel").data('parametros')['vista'] = orden;
             $(".excel").data('parametros')['conteo'] = conteo;
+            $(".excel").data('parametros')['align'] = 'SWB,2-R,3-R,4-R,5-R,6-R';
             arr('login',6,'',271,'"","",@@impresa,3,0','271_1',1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
             $("#titrep").html('Balance Comprobación de Saldos');
             $("#vtrep").val(3)

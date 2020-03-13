@@ -115,16 +115,19 @@
 	        curl_setopt($curl, CURLOPT_POST, $post);
 	        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
-	        $postData = "";
+	        if ($post) {
+	        	$postData = "";
 
-	        foreach($param as $k => $v)
-	        {
-	           $postData .= $k . '='.urlencode($v).'&';
+		        foreach($param as $k => $v)
+		        {
+		           $postData .= $k . '='.urlencode($v).'&';
+		        }
+
+		        $postData = rtrim($postData, '&');
+
+		        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
 	        }
-
-	        $postData = rtrim($postData, '&');
-
-	        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+	        
 
 	        $json_response = curl_exec($curl);
 	        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
