@@ -79,6 +79,8 @@ $(document).ready(function(){
     }else{
         $("#tps").attr('checked',true);
     }
+
+    permisos(1110,1110)
 });
 
 
@@ -95,9 +97,16 @@ $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vbody[3],sel:'',tbl:72,where:vid},1);
+    console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
     $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf'); 
 });
 
+$(document).on("click",".fedit",function(){
+	var idfactura = $(this).attr('id').substr(1);
+	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+	tf = tf == 104 ? 2 : tf;
+	window.open('facturacion?edt=1&id='+idfactura+'&tf='+tf)
+});
 
 $(document).on("click",".process",function(){
 	var idfactura = $(this).attr('id').substr(1);

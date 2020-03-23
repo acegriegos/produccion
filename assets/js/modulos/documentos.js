@@ -227,7 +227,6 @@ $(document).on("click",".status",function(){
 
             try{
                 p = JSON.parse(data);
-                console.log(p['estado'])
                 switch(p['estado']){
                     case 'aceptado':
                         color = 'lime';

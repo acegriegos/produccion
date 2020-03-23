@@ -25,7 +25,7 @@
 
             <li class="tr trCot"><a class="center mdi mdi-24px mdi-settings process tooltipped" data-tooltip="Procesar Factura" data-position="left" id="b<?php echo $obj[0] ?>"></a></li>
 
-            <li class="tr trCot trCompra trPedido"><a class="center mdi mdi-24px mdi-pencil edit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
+            <li class="tr trCot trManual trPedido trOCompra"><a class="center mdi mdi-24px mdi-pencil fedit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
 
             <li class="tr"><a class="center mdi mdi-24px mdi-content-duplicate clone tooltipped" data-tooltip="Clonar" data-position="left" id="f<?php echo $obj[0] ?>"></a></li>
 
@@ -90,6 +90,9 @@
             break;
         case 10:
             $(".trExportacion").removeClass('hide')
+            break;
+        case 104:
+            $(".trManual").removeClass('hide')
             break;
     }
 

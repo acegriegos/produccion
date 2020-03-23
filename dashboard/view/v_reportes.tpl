@@ -132,12 +132,17 @@ Inventario <hr>
 
 <div class="col s6 m3 l2 center-align basic">
 <a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
-<p>Movimientos Inventario</p>
+<p>Movimientos de Inventario</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<p>Movimiento de Costos-Ventas</p>
 </div>
 
 <div class="col s6 m3 l2 center-align basic">
 <a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
-<p>Movimientos de Productos</p>
+<p>Kardex</p>
 </div>
 
 </div>
@@ -196,6 +201,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.65"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.66"></script>
 </body>
 </html>

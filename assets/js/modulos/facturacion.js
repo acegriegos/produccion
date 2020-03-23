@@ -7,8 +7,7 @@ $(function(){
   param = getParameterByName('tf');
   param = param == '' || param == 1 ? 7 : parseInt(param) ;
 
-  config = getDatos('',42,'@@impresa',0,0)
-  config = config[0][0];
+  config = getDatos('',42,'@@impresa',0,0)[0][0];
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 
@@ -1424,13 +1423,15 @@ function cargarGlobal(){
         Materialize.updateTextFields();
 
         $("#fproductos .zelda").data('triforce',{vid:0,vnombre:'',vcodigointerno:'',vcosto:0,vganancia:0,vexoneracion: 0,vidunidad:1,vminimo:0,vmaximo:0,vmaxdescuento:0,vidmarca:0,vidinventario:6,vidusuario: '',vidmoneda:1,vidsucursal:'',visinventariado:0,vidheredado:0,visvariable:1,vcantequiv:0,visgravamen:0,vcomision:0,vventa:0,vventaiva:0,vtimv:8,vidvarios:0});
+
+        $("#pvs").prop('checked',true).change();
         
         $("#modal-producto").modal('open');
         $("#vcodigo").focus()
         $(this).parent().parent().hide();
 
         $("#pmoneda").val($("#monedas").val()).prop('disabled',false).material_select('update');
-        $("#pimv").prop('disabled',false).material_select('update');
+        $("#pimv").prop('disabled',false).material_select('update')
     });
 
     // if (config[1] == 0) {
@@ -1481,11 +1482,15 @@ function doplazo(vval){
 
 function cargarFactura(vidp,asoc){
     var vfacturap = arr('login',6,'',163,vidp,0,1,$("#fdetallefacturas"));
-    var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo',261,'id=-1*'+vidp)[0][0];
+    if(parseInt(asoc) == 1)
+        var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',261,'id=-1*'+vidp)[0][0];
+    else
+        var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',64,'id='+vidp)[0][0];
+    
     if(facturah[1] == '0' && facturah[0] != '')
         $("#ncli").val(facturah[0]);
-    /*$("#ffacturas .zelda").data('triforce')['idcliente'] = facturah[1];
-    $("#ncli").blur();*/
+    
+    $("#vreferencia").val(facturah[3]);
 
     idext = vidp;
     if($("#impm:visible").length){

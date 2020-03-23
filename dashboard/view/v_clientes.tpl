@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.65">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.66">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -412,6 +412,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.2.0.65"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.2.0.66"></script>
 </body>
 </html>

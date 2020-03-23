@@ -154,7 +154,7 @@ $(function(){
 
             var p = arr('login', 4, "" , 302,'0,0,"0,'+ factura+',0,0,0,0,0,@@impresa'+'","0,10"', 0,0,0)[0];
             
-            $("#listaclientes").html();
+            $("#listaclientes").html('');
 
             $.each(p,function(i){
                 $("#listaclientes").append('<tr class="detallefactura" estado="1" id="a'+p[i][4]+'""><td style=" padding: 10px;">'+p[i][0]+'</td><td style=" padding: 10px;">'+p[i][1]+'</td><td style=" padding: 10px;">'+p[i][2]+'</td><td style=" padding: 10px;">'+p[i][3]+'</td></tr>');

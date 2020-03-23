@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.2.0.65">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.2.0.66">
   </head>
   <body>
   
@@ -51,7 +51,7 @@
                 <label for="tf4">Proformas</label>
             </div>
 
-            <div class="col s6  m2 hide">
+            <div class="col s6 per1110 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf8" {if $TF eq 8}checked{/if}/>
                 <label for="tf8">Especiales</label>
             </div>
@@ -161,6 +161,6 @@
 
     {$SCR}
     
-    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.65"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.66"></script>
   </body>
 </html>

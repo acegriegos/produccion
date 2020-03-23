@@ -412,7 +412,9 @@
             <td rowspan="3">
               <b>Costo:</b> <span id="cos1">0.00</span> -> <span id="cos2">0.00</span> <br>
               <input type="checkbox" id="chgvalor">
-              <label for="chgvalor">Cambiar Venta</label> <br>
+              <label for="chgvalor">Por Venta</label>
+              <input type="checkbox" id="byprepo">
+              <label for="byprepo">Preponderar</label> <br>
               <button class="browser-default hide" id="changemar">Aceptar</button>
             </td>
           </tr>
@@ -1013,7 +1015,19 @@
 
 <div id="modal-producto" class="modal modal-fixed-footer">
   <div class="modal-content" id="fproductos">
-    <h4>Agregar Producto</h4>
+    <h4>Agregar Item</h4>
+
+    <div class="switch der">
+      <label>
+        <span class="hide-on-small">Servicio</span>
+        <input type="checkbox" id="pvs" checked>
+        <span class="lever"></span>
+        Producto
+      </label>
+    </div>
+
+    <br>
+
     <input type="hidden" class="zelda">
     <div class="row">
 
@@ -1053,7 +1067,7 @@
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat add" modulo="producto">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat add" modulo="producto" id="addps">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
   </div>
 </div>
@@ -1218,4 +1232,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.65"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.66"></script>
