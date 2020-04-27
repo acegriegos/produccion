@@ -34,7 +34,6 @@
 <script type="text/javascript">
     $(function(){
 
-
         $("#chnPss").click(function(){
             var param = atob(getParameterByName('sr'));
             var param1 = atob(getParameterByName('cr'));
@@ -109,7 +108,7 @@
                 }else{
                     $(this).css('border-bottom','1px solid #4CAF50');
                     $(this).css('box-shadow','0 1px 0 0 #4CAF50');
-                    $("#chnPss").click();
+                    //$("#chnPss").click();
                 }
             }else{
                 $(this).css('border-bottom','1px solid #9e9e9e');

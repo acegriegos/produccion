@@ -1549,7 +1549,6 @@ function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
-    console.log('0,0,"'+h+'","0,10"')
     $("#data-table-"+b).DataTable({
         bFilter: false,
         bScrollInfinite: true,

@@ -2440,7 +2440,7 @@ function searchClient(vvariable,visprv){
             $("#monedas").material_select('update');
         }
 
-        if (parseInt(vclie[15]) && (param == 1 || param == 10 || param == 4 || param == 5)) {
+        if (parseInt(vclie[16]) && (param == 1 || param == 10 || param == 4 || param == 5)) {
 
             $("#vtipodoc").val(vclie[16]).material_select('update')
             $("#vnumdoc").val(vclie[17])

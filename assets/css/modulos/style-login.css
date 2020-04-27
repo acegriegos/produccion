@@ -292,3 +292,17 @@ input, button {
   color: #8C8080;
   opacity: 1; /* Firefox */
 }
+
+
+#modal2{
+  font-size: 18px;
+}
+
+#modal2 input{
+  margin-bottom: 0px;
+}
+
+
+#modal2 label{
+  font-size: 14px;
+}

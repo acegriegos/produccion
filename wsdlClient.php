@@ -17,6 +17,7 @@
                 ignore_user_abort();
                 ob_start();
                 header("Connection: close");
+                header("Content-Encoding: none");
                 echo json_encode(['rs'=>'Documento Electronico Aprobado--','clave'=>$fe->info['Clave'],'num'=>$fe->info['NumeroConsecutivo'],'succes'=>1]);
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
@@ -451,6 +452,7 @@
                 ignore_user_abort();
                 ob_start();
                 header("Connection: close");
+                header("Content-Encoding: none");
                 echo json_encode(['success'=>1]);
                 header("Content-Length: " . ob_get_length());
                 ob_end_flush();
@@ -575,6 +577,7 @@
 
     class facturaElectronica
     {
+        var $pagina = 'api2.comprobanteselectronicos.go.cr';
         var $info;
         var $id;
         var $bearer;
@@ -662,7 +665,7 @@
             $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
             if (!$fP) { return json_encode(["rs"=>'Sin Internet',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]); }
 
-            $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr", 443, $errno, $errstr, 10);
+            $fP = fSockOpen("ssl://".$this->pagina, 443, $errno, $errstr, 10);
             if (!$fP) { return json_encode(["rs"=>'Problemas con el Servidor de Hacienda',"erno"=>1,'clave'=>$this->info['Clave'],'num'=>$this->info['NumeroConsecutivo']]); }
             restore_error_handler();
 
@@ -684,6 +687,7 @@
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_POST, true);
+            //curl_setopt($curl, CURLOPT_SSLVERSION, 6);
             curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
             $params = array(
@@ -739,7 +743,7 @@
             $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
             if (!$fP) { return "Sin Internet"; }
 
-            $fP = fSockOpen("ssl://idp.comprobanteselectronicos.go.cr", 443, $errno, $errstr, 10);
+            $fP = fSockOpen("ssl://".$this->pagina, 443, $errno, $errstr, 10);
             if (!$fP) { return "Problemas con el Servidor de Hacienda"; }
             restore_error_handler();
 
@@ -813,14 +817,14 @@
 
             if ($this->credenciales[2] == 1) {
                 if ($id == 0) 
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/?emisor=".$emisor."&offset=".$offset."&limit=".$limit.$receptor);
+                    $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/comprobantes/?emisor=".$emisor."&offset=".$offset."&limit=".$limit.$receptor);
                 else
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/comprobantes/".$this->info['Clave']);
+                    $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/comprobantes/".$this->info['Clave']);
             }else{
                 if ($id == 0) 
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/?emisor=".$emisor."&offset=".$offset."&limit=".$limit.$receptor);
+                    $curl = curl_init("https://".$this->pagina."/recepcion/v1/comprobantes/?emisor=".$emisor."&offset=".$offset."&limit=".$limit.$receptor);
                 else
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/comprobantes/".$this->info['Clave']);
+                    $curl = curl_init("https://".$this->pagina."/recepcion/v1/comprobantes/".$this->info['Clave']);
             }
             
             
@@ -887,9 +891,9 @@
                 return 'Problemas con la Llave Criptográfica';
 
             if ($this->credenciales[2] == 1) 
-                    $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
+                    $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/recepcion");
             else
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
+                $curl = curl_init("https://".$this->pagina."/recepcion/v1/recepcion");
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLINFO_HEADER_OUT,true);
@@ -944,9 +948,9 @@
             }
 
             if ($this->credenciales[2] == 1) 
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion");
+                $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/recepcion");
             else
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
+                $curl = curl_init("https://".$this->pagina."/recepcion/v1/recepcion");
             
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -1301,9 +1305,9 @@
                 $clave = $this->info['Clave'];
 
             if ($this->credenciales[2] == 1) 
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion-sandbox/v1/recepcion/".$clave);
+                $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/recepcion/".$clave);
             else
-                $curl = curl_init("https://api.comprobanteselectronicos.go.cr/recepcion/v1/recepcion/".$clave);
+                $curl = curl_init("https://".$this->pagina."/recepcion/v1/recepcion/".$clave);
 
             curl_setopt($curl, CURLOPT_HEADER, true);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

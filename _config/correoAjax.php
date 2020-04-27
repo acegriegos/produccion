@@ -16,6 +16,7 @@ ob_end_clean();
 ignore_user_abort();
 ob_start();
 header("Connection: close");
+header("Content-Encoding: none");
 echo json_encode(['success'=>1]);
 header("Content-Length: " . ob_get_length());
 ob_end_flush();
