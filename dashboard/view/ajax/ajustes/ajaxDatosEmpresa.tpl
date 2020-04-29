@@ -41,7 +41,7 @@
             <div class="row col s12">
                 <div class="col s3 pequeño">
                     <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
-                        <input type="hidden" name="idsucursal"/>
+                        <input type="hidden" name="idsucursal" value="{$smarty.session.IMPRESA}" />
                         <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
                     </form>
                     <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
@@ -528,7 +528,7 @@
                         <tbody id="listanivelesclientes">
                             {section name=LE loop=$CATC}
                             <tr id="d_{$CATC[LE][0]} ">
-                                <td><input type="text" id="vnombre" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
+                                <td><input type="text" id="vnombre_cat" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
                                 <td style=" width: 50%;">
                                 <a class="waves-effect waves-light load_x modal-trigger" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="mdi mdi-pencil mdi-24px left gtext"></i></a>
                                 <a class="waves-effect waves-light catcli modal-trigger" id="g{$CATC[LE][0]}" href='#modal-clientexcategoria' title="Valores en el Sistema"><i class="mdi mdi-account-multiple mdi-24px left gtext"></i></a>

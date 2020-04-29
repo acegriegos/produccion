@@ -75,8 +75,8 @@
                         <label for="vmarca">Marca</label>
                     </div>
 
-                     <div class="input-field marginzero col s12">
-                        <select id="vidvarios" type="select" class="per11">
+                     <div class="input-field marginzero col s12 per11">
+                        <select id="vidvarios" type="select">
                             <option value="0" selected>N/A</option>   
                             <option value="1">Entrada</option>
                             <option value="2">Plato Fuerte</option>
@@ -125,20 +125,32 @@
 
                     <div class="input-field marginzero col s12">
                         <input type="text" id="vcodigointerno" class="formprod validate" value="" focus="1vidunidad" autocomplete="off" tabindex="6">
-                        <label class="active" for="vcodigointerno">Notas</label>
+                        <label class="active" for="vcodigointerno">Codigo Interno</label>
                     </div>
 
                     {if $smarty.session.BUSS eq 1}
                         <input type="hidden" id="vminimo" value="0">
                         <input type="hidden" id="vmaximo" value="0">
                      {else}
-                        <div class="input-field marginzero col s12 _inventariado">
+                        <div class="input-field marginzero col s6 _inventariado">
                             <input type="number" id="vminimo" class="formprod validate eder" value="" min="0" focus="1vmaximo" autocomplete="off" tabindex="7">
                             <label for="vminimo">Mínimo</label>
                         </div>
-                        <div class="input-field marginzero col s12 _inventariado">
+                        <div class="input-field marginzero col s6 _inventariado">
                             <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off" tabindex="8">
                             <label for="vmaximo">Máximo</label>
+                        </div>
+                        <div class="input-field marginzero col s6">
+                            <input type="text" id="vestante" class="eder" value="" autocomplete="off" tabindex="7">
+                            <label for="vestante">Estante</label>
+                        </div>
+                        <div class="input-field marginzero col s3">
+                            <input type="text" id="vfila" class="eder" value="" autocomplete="off">
+                            <label for="vfila">Fila</label>
+                        </div>
+                        <div class="input-field marginzero col s3">
+                            <input type="text" id="vcolumna" class="eder" value="" autocomplete="off">
+                            <label for="vcolumna">Columna</label>
                         </div>
                     {/if}
 
@@ -192,10 +204,11 @@
                     {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
                     <div class="input-field marginzero col s12">
                         <a href="#" id="heredado" class="btn-floating tooltipped hide" data-tooltip="Producto Heredado" data-position="bottom"><i>H</i></a>
-                        <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto Heredado" data-position="bottom"><i class="mdi mdi-book-multiple-variant mdi-24px"></i></a>
+                        <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto Mixtos" data-position="bottom"><i class="mdi mdi-note-multiple-outline mdi-24px"></i></a>
                         <a href="#" id="proveedores" class="btn-floating tooltipped" data-tooltip="Proveedores" data-position="bottom" style="margin-bottom: 5px"><i class="mdi mdi-account-multiple-outline mdi-24px"></i></a>
                         <a href="#" id="imagenes" class="btn-floating tooltipped" data-tooltip="Imagenes" data-position="bottom"><i class="mdi mdi-image-multiple mdi-24px"></i></a>
                         <a href="#" id="dimensiones" class="btn-floating tooltipped" data-tooltip="Dimensiones" data-position="bottom"><i class="mdi mdi-move-resize-variant mdi-24px"></i></a>
+                        <a href="#" id="notas" class="btn-floating tooltipped" data-tooltip="Notas del Producto" data-position="bottom"><i class="mdi mdi-note mdi-24px"></i></a>
                     </div>
                     {/if}
 
@@ -788,7 +801,7 @@
 <div id="modal-union" class="modal modal-fixed-footer grandemodal" >
 <div class="modal-header">
 <ul class="tabs head2">
-    <li class="tab col s3"><a class="white-text">Receta del Producto <span class="dprd"></span></a></li>
+    <li class="tab col s3"><a class="white-text">Producto <span class="dprd"></span></a></li>
 </ul>
 </div>
 <div class="modal-content pequeño" stylle="padding: 0px;">

@@ -106,16 +106,16 @@ $(document).on("click",".menu3",function(){
 
 				num = 1;
 				while ($("#slideCorreo").data()['fila'+num] != undefined) {
-					if($("#slideTelefono").data()['fila'+num]['vidcorreo'] != "0"){
-						actualizar(17,'correo='+$("#slideTelefono").data()['fila'+num]['vcorreo'],'idcorreo='+$("#slideTelefono").data()['fila'+num]['vidcorreo']);
+					if($("#slideCorreo").data()['fila'+num]['vidcorreo'] != "0"){
+						actualizar(17,'correo="'+$("#slideCorreo").data()['fila'+num]['vcorreo']+'"','idcorreo='+$("#slideCorreo").data()['fila'+num]['vidcorreo']);
 					}else{
-						ingresar(17,'','null,@@impresa,39,'+$("#slideTelefono").data()['fila'+num]['vcorreo'])
+						ingresar(17,'','null,@@impresa,39,'+$("#slideCorreo").data()['fila'+num]['vcorreo'])
 					}
 					num += 1;
 				}
 
 				if($("#slideDireccion").data()['fila1'] != undefined){
-					actualizar(239,'direccion='+$("#slideDireccion").data()['fila1']['vdireccion']+',idbarrio='+$("#slideDireccion").data()['vidbarrio'],'idubicacion='+$("#slideDireccion").data()['vidubicacion'])
+					actualizar(239,'direccion="'+$("#slideDireccion").data()['fila1']['vdireccion']+'",idbarrio='+$("#slideDireccion").data()['fila1']['vidbarrio'],'idubicacion='+$("#slideDireccion").data()['fila1']['vidubicacion'])
 				}
 
 				eliminar(293,'idsucursal = @@impresa');
@@ -125,7 +125,12 @@ $(document).on("click",".menu3",function(){
 						actualizar(39,'codactividad='+$(this).attr('cod'),'id=@@impresa');
 					else
 						insertar(293,'','@@impresa,"'+$(this).attr('cod')+'"');
-				})
+				});
+
+				var myDropzone = Dropzone.forElement("#registro-upload");
+				if(myDropzone.getQueuedFiles()[0] != undefined){
+					myDropzone.processQueue();
+				}
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 
@@ -426,8 +431,8 @@ $(document).on("click",".menu3",function(){
 				});
 			});
 			$("select").material_select('update');
-			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*');
-			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12',null,removep12());
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*',null,null,loadIMG());
+			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12',null,null,removep12());
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');
@@ -741,7 +746,7 @@ $(document).on("keyup","#vvalor",function(e){
 		$("#addvarprod").click();
 });
 
-$(document).on("keyup","#vnombre",function(e){
+$(document).on("keyup","#vnombre_cat",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13)
 		$("#vvalor").focus();
@@ -2220,4 +2225,10 @@ function removep12(){
     $("#vcedula").val('');
     $("#juridico").click()
     Materialize.updateTextFields();
+}
+
+
+function loadIMG(a,b){
+	console.log(a)
+	console.log(b)
 }

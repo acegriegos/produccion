@@ -7,7 +7,26 @@
         
         if (isset($_REQUEST['accion'])) {
 
-            if (is_array($_FILES['file']['name'])) {
+            foreach ($_FILES as $key => $obj) {
+                $temp = $obj['tmp_name'];
+                $dir_separator = DIRECTORY_SEPARATOR;
+
+                switch ($_REQUEST['accion']) {
+                case 1: //IMAGENES SUCURSALES
+                    $folder = 'assets/img/logos';
+                    $name = $obj['name'];
+                    $ext = explode('.', $name);
+                    $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
+                    $base->ejecutar("UPDATE sucursales SET logo = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
+                    break;
+                default:
+                    break;
+                }
+
+                json_encode(move_uploaded_file($temp, $target_path));
+            }
+
+            /*if (is_array($_FILES['file']['name'])) {
 
                 for ($i=0; $i < sizeof($_FILES['file']['name']); $i++) { 
 
@@ -150,7 +169,7 @@
                         break;
                 }
                 
-            }
+            }*/
         }else{
             echo json_encode("ERROR");
         }
