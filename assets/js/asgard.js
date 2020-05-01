@@ -1168,7 +1168,6 @@ function InitDropzone(vmaxfiles,vmultiple,vurl,velemento,vautoprocess,vfiles,fun
                 console.log(response)
             });
             this.on('success', function(file, response) {
-                console.log(response)
                 if (funcionFinish != '')
                     funcionFinish(file,response)
             });

@@ -6,6 +6,7 @@
         $base = new DBClass();
         
         if (isset($_REQUEST['accion'])) {
+            $salida = [];
 
             foreach ($_FILES as $key => $obj) {
                 $temp = $obj['tmp_name'];
@@ -14,16 +15,32 @@
                 switch ($_REQUEST['accion']) {
                 case 1: //IMAGENES SUCURSALES
                     $folder = 'assets/img/logos';
-                    $name = $obj['name'];
-                    $ext = explode('.', $name);
-                    $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
-                    $base->ejecutar("UPDATE sucursales SET logo = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
+                    $name = explode('.',$obj['name']);
+                    $ext = '.'.$name[sizeof($name)-1];
+                    
+                    $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$_REQUEST['idsucursal'].$ext;
+
+                    $salida['up'] = move_uploaded_file($temp, $target_path);
+
+                    $im = new Imagick($target_path);
+
+                    unlink($target_path);
+                    
+                    $im->setImageFormat("png");
+                    $im->adaptiveResizeImage(300, 300);
+                    $im->writeImage(dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$_REQUEST['idsucursal'].'.png');/*(or .jpg)*/
+                    $im->clear();
+                    $im->destroy();
+
+                    $base->ejecutar("UPDATE sucursales SET logo = '..".$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].".png' WHERE id = ".$_REQUEST['idsucursal']);
+
+                    $salida['url'] = '..'.$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].'.png';
                     break;
                 default:
                     break;
                 }
 
-                json_encode(move_uploaded_file($temp, $target_path));
+                echo json_encode($salida);
             }
 
             /*if (is_array($_FILES['file']['name'])) {

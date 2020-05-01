@@ -23,12 +23,12 @@
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
 
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="70%">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" style="width: 95%;max-height: 150px;">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
               $ldos = isset($nom[1]) ? substr($nom[1], 0,1) : substr($nom[0], 1,1);
-              echo strtoupper($luno.$ldos);
+              echo '<a class="btn-floating" style="cursor:default;margin: 5% 0;width: 100px;height: 100px;font-size: 50px;padding-top: 30px;">'.strtoupper($luno.$ldos).'</a>';
             }?>
             
           </div>

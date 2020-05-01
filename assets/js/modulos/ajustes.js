@@ -71,6 +71,13 @@ $(document).on("click",".menu3",function(){
 			  	}
 			});
 
+			  $('#more').sideNav({
+			      menuWidth: 700, // Default is 300
+			      edge: 'right', // Choose the horizontal origin
+			      closeOnClick: true
+			    }
+			  );
+
 			$("#actSuc").click(function(){
 
 				if ($("#vnombre").val() == '') {
@@ -194,7 +201,7 @@ $(document).on("click",".menu3",function(){
 
 			$(".wsdl-op").hide();
 
-			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*');
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*','','',loadIMG);
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -2229,6 +2236,15 @@ function removep12(){
 
 
 function loadIMG(a,b){
-	console.log(a)
+	var myDropzone = Dropzone.forElement("#registro-upload");
+	myDropzone.removeFile(a)
 	console.log(b)
+	try{
+		b = JSON.parse(b);
+		$("#vlogo").attr('src',b['url'])	
+	}
+	catch(e){
+		console.log('error: '+e);
+	}
+
 }
