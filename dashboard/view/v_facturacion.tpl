@@ -13,7 +13,7 @@
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
 
-        <ul id="margenes" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
+        <ul id="margenes" class="side-nav" style="max-width: 500px !important; font-size: 1.2em !important;width: 500px !important  ;overflow-y: scroll;">
           <li>
             <div id="marbdy" style="line-height: 22px;">
               HOLA

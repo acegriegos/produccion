@@ -294,11 +294,11 @@ function cargarCompras(){
         }
     });
 
-    $("#vreferencia").keyup(function(e){
-        var code = e.which || e.keyCode;
-        if (code == 13)
-            $("#vfecha").focus();
-    });
+    // $("#vreferencia").keyup(function(e){
+    //     var code = e.which || e.keyCode;
+    //     if (code == 13)
+    //         $("#vfecha").focus();
+    // });
 
     $(document).on("keydown",".fcompra",function(e){
         var charCode = e.which || e.keyCode;
@@ -548,7 +548,7 @@ function cargarCompras(){
         }
 
         var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
-
+        console.log($(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'])
         var str = '';
         if(prod[0].length){
             var fd = $(this).parent().parent().attr('id');
@@ -624,7 +624,7 @@ function cargarCompras(){
         $("#grp0").find('.vgan').focus().select();
 
         var vnotas = prod[0][0][20];
-        $("#marbdy").append('<br> <label><b>Última Compra</b></label> <table><tr> <td style="width:50%"><b>PROVEEDOR</b></td> <td style="width:45%"><b>FECHA</b></td> <td style="width:5%"><b>CANT</b></td> </tr> <tr> <td title="'+prod[0][0][15]+'">'+prod[0][0][18]+'</td> <td>'+prod[0][0][16]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> </tr> </table>  <br> <label for="vnotas"><b>NOTAS</b></label> <textarea id="vnotas" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500">'+vnotas+'</textarea> ')
+        $("#marbdy").append('<br> <label><b>Última Compra</b></label> <table><tr> <td style="width:50%"><b>PROVEEDOR</b></td> <td style="width:35%"><b>FECHA</b></td> <td style="width:5%"><b>CANT</b></td> <td style="width:5%"><b>VALOR</b></td> </tr> <tr> <td title="'+prod[0][0][15]+'">'+prod[0][0][18]+'</td> <td>'+prod[0][0][16]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> </tr> </table>  <br> <label for="vnotas"><b>NOTAS</b></label> <textarea id="vnotas" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500">'+vnotas+'</textarea> ')
     });
 
     $(document).on('click','.divcnt',function(){

@@ -116,9 +116,18 @@
                 <div class="switch col s6 m4">
                     <label>
                       
-                      <input type="checkbox" id="vpven">
+                      <input type="checkbox" id="vpv">
                       <span class="lever"></span>
                       Punto Venta
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vprintsale">
+                      <span class="lever"></span>
+                      Imprimir Factura
                     </label>
                 </div>
 
@@ -193,7 +202,28 @@
                         <option value="1">Codigo</option>
                         <option value="2">Item</option>
                         <option value="0">Cliente</option>
-                        <option value="0">Usuario</option>
+                        <option value="3">Usuario</option>
+                    </select>
+                    
+                </div>
+
+                <div class="col s6 m4">
+                    <label for="vtrecibo">Tipo de Recibo</label>
+                    <select class=" browser-default" id="vtrecibo">
+                        <option value="0">Normal</option>
+                        <option value="1">Media Hoja</option>
+                        <option value="2">Nombre por Linea</option>
+                    </select>
+                    
+                </div>
+
+                <div class="col s6 m4">
+                    <label for="vtcierre">Tipo de Cierre</label>
+                    <select class=" browser-default" id="vtcierre">
+                        <option value="0">Normal</option>
+                        <option value="1">Lista Productos</option>
+                        <option value="2">Lista Facturas</option>
+                        <option value="3">Agrupar Categorias</option>
                     </select>
                     
                 </div>

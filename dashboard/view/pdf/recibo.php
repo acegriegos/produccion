@@ -5,16 +5,23 @@ if (isset($url2))
   $ubic = '';
 
 require_once($ubic.'_config/rep_TCPDF.php');
+include_once '../assets/libs/qr/barcode.php'; 
+$generator = new barcode_generator();
 
 class myPDF extends TCPDF {
 
     var $tfactura;
     var $fe;
     var $credito;
+    var $generator;
 
     function __construct()
     {
         parent::__construct();
+    }
+
+    public function setGen(&$gen){
+      $this->generator = $gen;
     }
 
     public function setData($arrData){
@@ -36,30 +43,16 @@ class myPDF extends TCPDF {
           break;
         } 
 
-        $style = array(
-            'position' => '',
-            'align' => 'C',
-            'stretch' => false,
-            'fitwidth' => true,
-            'cellfitalign' => 'yes',
-            'border' => false,
-            'hpadding' => 'auto',
-            'vpadding' => 'auto',
-            'fgcolor' => array(0,0,0),
-            'bgcolor' => false, //array(255,255,255),
-            'text' => false,
-            'font' => 'helvetica',
-            'fontsize' => 8,
-            'stretchtext' => 4
-        );
-
-        $params = $this->serializeTCPDFtagParameters(array($this->fe, 'C128', '', '', '', 18, 0.4, $style, 'N'));
         $html = '<div align="center">';
+
+        /*$params = $this->serializeTCPDFtagParameters(array('CODE 128', 'C128', '', '', 80, 30, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
+$html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';*/
           if ($this->fe != '') {
            $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
               <br>Versión API Hacienda: 4.3<br> 
-              <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span>
-              <tcpdf method="write1DBarcode" params="'.$params.'"/>
+              <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span>';
+              
+              $html .= '
               </p>
             </div>';
           }else{
@@ -73,6 +66,7 @@ class myPDF extends TCPDF {
 // create new PDF document
 $pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false,$transaccion[0][32]);
 $pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32]]);
+$pdf->setGen($generator);
 // set document information
 // $pdf->SetCreator(PDF_CREATOR);
 // $pdf->SetAuthor(PDF_AUTHOR);
@@ -132,7 +126,7 @@ $html .= '</head>'.
 '<td align="left" valign="top" style="width:20%">';
 if ($miscelaneos[3]) {
   $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
-  $html .= '<img src="'.$logo.'" style="max-width:339px;" >';
+  $html .= '<img src="'.$logo.'" style="width=300px;height=300px" >';
 }
 
 $html .= '</td>'.
@@ -152,20 +146,13 @@ $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
     $html .= '<td><b>Barrio:</b> '.$miscelaneos[15].'</td>';
   $html .= '</tr> </table> <br><strong>Dirección:</strong>'.
 $miscelaneos[23].'</td> <td style="width:20%">';
-$style = array(
-    'border' => false,
-    'vpadding' => 'auto',
-    'hpadding' => 'auto',
-    'fgcolor' => array(0,0,0),
-    'bgcolor' => false, //array(255,255,255)
-    'module_width' => 1, // width of a single module in points
-    'module_height' => 1 // height of a single module in points
-);
-//$pdf->write2DBarcode($transaccion[0][32], 'QRCODE,L', 20, 30, 50, 50, $style, 'N');
 
-$html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
-<tr><br>';
-
+if($transaccion[0][32]){
+  $svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
+  $pdf->ImageSVG('@' . $svg, $x=150, $y=0, $w='50', $h='50', $link='', $align='', $palign='', $border=0, $fitonpage=false);                
+  $html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+  <tr><br>';
+}
 
 if ($datos[0][32] != '') {
   $html.= '<td><b>'.$datos[0][25].' Electrónica N°</b>'.$datos[0][0].'  </td>';

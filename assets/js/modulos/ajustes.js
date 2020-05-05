@@ -59,6 +59,24 @@ $(document).on("click",".menu3",function(){
 			$("#vpass_n_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
 
+			//SAN AJUSTES
+
+			$("#vmsj1").val(e[24]);
+			$("#vmsj2").val(e[25]);
+			$("#vcorreoconta").val(e[26]);
+			$("#vdiaconta").val(e[27]);
+
+			$("#vpv").prop('checked',parseInt(e[28]) ? true : false);
+			$("#vprintsale").prop('checked',parseInt(e[18]) ? true : false);
+			$("#vcba").prop('checked',parseInt(e[29]) ? true : false);
+			$("#vivi").prop('checked',parseInt(e[30]) ? true : false);
+			$("#viva").prop('checked',parseInt(e[31]) ? true : false);
+			$("#vininvc").prop('checked',parseInt(e[32]) ? true : false);
+			$("#vautoacept").prop('checked',parseInt(e[33]) ? true : false);
+			$("#vlastmemory").prop('checked',parseInt(e[34]) ? true : false);
+			$("#vrecibo").prop('checked',parseInt(e[35]) ? true : false);
+			$("#vautoacept").prop('checked',parseInt(e[36]) ? true : false);
+
 			$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
 			.done(function( data ) {
 				var list = ''
@@ -99,7 +117,13 @@ $(document).on("click",".menu3",function(){
 					return "Validación Factura Electrónica Requerida";
 				}
 
-				actualizar(39,'pfisico='+$("#vpfisico").val(),'id=@@impresa');
+				if($("#vcorreoconta").val().trim().length && !validarCorreo($("#vcorreoconta").val())){
+
+					return 'Correo Contador no Valido';
+				}
+
+				var ps = $("#vprintsale").is(':checked')?1:0;
+				console.log(actualizar(39,'pfisico="'+$("#vpfisico").val()+'",printSale='+ps,'id=@@impresa'));
 
 				var num = 1;
 				while ($("#slideTelefono").data()['fila'+num] != undefined) {
@@ -138,6 +162,10 @@ $(document).on("click",".menu3",function(){
 				if(myDropzone.getQueuedFiles()[0] != undefined){
 					myDropzone.processQueue();
 				}
+
+				//SAN AJUSTES
+
+				console.log(actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked'),'idsucursal=@@impresa'));
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 

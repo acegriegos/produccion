@@ -509,14 +509,22 @@ $(function(){
             });
 
             $("#vreferencia").blur(function(){
-                var refprod = getDatos('id',64,'if(CHAR_LENGTH(referencia) =50,substring(referencia,32,10)*1,referencia) = "'+$("#vreferencia").val().trim()+'" and idsucursal = @@impresa and idcliente = '+$("#ffacturas .zelda").data('triforce')['vidcliente'])[0];
-
-                if (refprod.length) {
-                    $("#vreferencia").focus().select();
-                    return "Referencia ya Existente";
+                if($("#vreferencia").val().trim().length == 0){
+                    return false;
                 }
 
-                $("#ncli").focus();
+                if(param != 2){
+                   var refprod = getDatos('id',64,'if(CHAR_LENGTH(referencia) =50,substring(referencia,32,10)*1,referencia) = "'+$("#vreferencia").val().trim()+'" and idsucursal = @@impresa and idcliente = '+$("#ffacturas .zelda").data('triforce')['vidcliente'])[0];
+
+                    if (refprod.length) {
+                        $("#vreferencia").focus().select();
+                        Materialize.toast("Referencia ya Existente",4000,'red');
+                        return false;
+                    }
+
+                    $("#ncli").focus();    
+                } 
+                
             });
 
             $("#pvs").change(function(){
@@ -705,7 +713,7 @@ $(document).on("keyup",".vextra",function(e){
     var code = e.wich || e.keyCode
     if (code == 13) {
         var elimprimir = $("#factrealp");
-        elimprimir = parseInt(config[3]) ? elimprimir : $("#factreal");
+        elimprimir = parseInt(config[4]) ? elimprimir : $("#factreal");
         elimprimir.focus();
     }
 })
@@ -826,7 +834,7 @@ $(document).on("click","#facturar",function(){
 $("#pcon").blur(function(){
     calcVuelto();
     var elimprimir = $("#factrealp");
-    elimprimir = parseInt(config[3]) ? elimprimir : $("#factreal");
+    elimprimir = parseInt(config[4]) ? elimprimir : $("#factreal");
     elimprimir.focus();
 });
 
@@ -1480,7 +1488,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             case 7:
             case 8:
                 if (vmobil) 
-                    $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$("#ffacturas .zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div class="row col s12" style="padding:0px;"> <div class="col s12" style="padding: 0 !important;font-weight: bold;" id="desc'+id+'">'+desc+' <div class="der"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div></div> <small><span class="col s3" style="padding: 0px">Precio Uni: </span><div style="padding: 0 !important;" class="divisa col s3" id="prec'+id+'">'+(precio+0).formatMoney(2,'.',',')+'</div> <span class="col s3" style="padding: 0px">Total: </span>  <div style="padding: 0 !important;" class="col s3 center-align totp" id="tota'+id+'">'+tot+'</div> </small> <div id="divcnt" style="padding: 0 !important;"><small>Cantidad: <span id="cant'+id+'">'+cant+'</span></small></div> </div><div style="padding: 0 !important;" class="col s1 hide center-align" id="unitprod'+id+'">'+uni+'</div>  </div>');
+                    $("#fdetallefacturas").append('<div id="fd'+id+'" xtr="'+$("#ffacturas .zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div class="row col s12" style="padding:0px;"> <div class="col s12" style="padding: 0 !important;font-weight: bold;"><span id="desc'+id+'">'+desc+'</span> <div class="der"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div></div> <small><span class="col s3" style="padding: 0px">Precio Uni: </span><div style="padding: 0 !important;" class="divisa col s3" id="prec'+id+'">'+(precio+0).formatMoney(2,'.',',')+'</div> <span class="col s3" style="padding: 0px">Total: </span>  <div style="padding: 0 !important;" class="col s3 center-align totp" id="tota'+id+'">'+tot+'</div> </small> <div id="divcnt" style="padding: 0 !important;"><small>Cantidad: <span id="cant'+id+'">'+cant+'</span></small></div> </div><div style="padding: 0 !important;" class="col s1 hide center-align" id="unitprod'+id+'">'+uni+'</div>  </div>');
                 else
                     $("#fdetallefacturas").prepend('<div id="fd'+id+'" '+rpago+' xtr="'+$("#ffacturas .zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div class="col s1 hide"><input type="checkbox" id="check'+id+'" checked><label for="check'+id+'"></label></div> <div style="padding: 0 !important;" class="col s2" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> '+strprec+' <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'"><select class="browser-default pbtn" style="padding: 0;margin: 0;height:auto !important;width:100%;border:0;outline-color: black;">'+$("#uni").html()+' </select></div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align">  <input type="number" class="browser-default eder" id="cant'+id+'" value="'+cant+'" style="border:0px;width:100%;height:auto !important" /></div> <div style="padding: 0 !important;" class="col s1 center-align totp divisa" id="tota'+id+'">'+tot+'</div> <div class="right">  <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding:0px"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding:0px"></a> <span id="mdesc'+id+'"></span></div> </div>');
                     break;
@@ -1840,11 +1848,18 @@ function validarDetalleFactura(){
 
 function validarFactura() {
 
-    if ($("#fdetallefacturas .ciclos:visible").length == 0) {
-        pril.focus()
-        return "No se Han Ingresado Productos en Detalle";
+    if($("#fdetallefacturas:visible").length){ //NORMAL
+        if ($("#fdetallefacturas .ciclos:visible").length == 0) {
+            pril.focus()
+            return "No se Han Ingresado Productos en Detalle";
+        }
+    }else{ //NUBE
+        if ($("#fdetallefacturas .ciclos").length == 0) {
+            pril.focus()
+            return "No se Han Ingresado Productos en Detalle";
+        }
     }
-
+    
     if (str_correos.length == '' && param == 1) {
         $("#crrclie").click()
         return "Cliente sin Correo Electrónico";
