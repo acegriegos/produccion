@@ -40,6 +40,9 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
+    if(config[27] != '0')
+        Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence '+config[27]+',<br> Favor proceder actualizar </span> <i class="mdi mdi-close" style="float:right"></i>','red','red');
+
     cargarImpuestos(0,'11,2');
     cargarDescuentos(0,'2',undefined,1);
 

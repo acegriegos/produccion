@@ -33,7 +33,6 @@ $(window).keydown(function(e){
     }
 
     if (e.ctrlKey && e.keyCode == 73){// Prevent Ctrl+I
-        console.log('CTR I')
         $("#iva").click()
         return false;        
     }
@@ -373,7 +372,6 @@ $(document).on("click","#deldef",function(){
 
 $(document).on("click","#delcan",function(){
     var id = $(this).attr("inid");
-    console.log(id)
     $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'));
     $(this).parent().remove();
 });
@@ -557,7 +555,6 @@ function getData(vmodulo){
             salida += dt[0][i]+":'',";
         }
         salida = salida.slice(0,-1);
-        console.log(salida+"})");
     }
 }
 
@@ -919,7 +916,6 @@ case "6":
                 salida[num] = {};
             for (var i = 0;  i < varreglo.length; i++) {
                 salida[num][varreglo[i][0]] = $("#"+vform).data('fila'+num)[varreglo[i][0]];
-                console.log(varreglo[i][0])
                 salida[num][varreglo[i][0]] = salida[num][varreglo[i][0]] == '' && (varreglo[i][1].indexOf('int') >= 0 || varreglo[i][1].indexOf('decimal') >= 0) && (varreglo[i][0] != 'vidusuario' || varreglo[i][0] != 'vidsucursal' ) ? 0 : salida[num][varreglo[i][0]];
                 if (salida[num][varreglo[i][0]] == undefined && varreglo[i][0] != 0) {
                     if (varreglo[i][0] == 'vidfila' || varreglo[i][0] == 'vidtabla') {
@@ -1002,7 +998,6 @@ default:
                         salida[varreglo[i][0]] = $("#"+vform+" input[name='"+varreglo[i][0]+"']").is(":checked") ? 1 : 0;
                         break;
                         default:
-                        // console.log(varreglo[i][0]+": "+$("#"+vform+" .zelda").data('triforce')[varreglo[i][0]])
                             if($("#"+vform+" .zelda").data('triforce')[varreglo[i][0]] != undefined)
                                 salida[varreglo[i][0]] = $("#"+vform+" .zelda").data('triforce')[varreglo[i][0]];
                             else{
@@ -1105,7 +1100,6 @@ function permisos(vnumber,vnumber2) {
         data: {x1 : vnumber, x2 : vnumber2}
     })
     .done(function(data) {
-        //console.log(data)
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);

@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.69">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.2.0.69">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.70">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-factura.css?v=10.2.0.70">
 <!-- <?php $hide = $datos[24] > 2 ? 'hide':'' ?> -->
 <title>Recibo de Dinero Multiple</title>
 
@@ -83,7 +83,7 @@
   <div class="card  white-text imprimirSINBOR" style="background-color: #3960A7;">
     <div class=" card-content white-text imprimirSINBOR">
       <p>Fecha:
-       <?php echo $transaccion[0][7]; ?>
+       <?php echo $transaccion[0][0]; ?>
       </div>
     </div>
   </div>
@@ -106,8 +106,8 @@
       <tr class="tr" >
         <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][5]; ?> </span>
         <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][7]; ?> </span>
-        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][9]; ?> </span> 
-          <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][8]; ?> </span>
+        <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][6].number_format($transaccion[$i][9],2); ?> </span> 
+          <td class="td center-align"><span id="desc"><?php echo $transaccion[$i][6].$transaccion[$i][8]; ?> </span>
         </td>
       </tr>
 <?php } ?>
@@ -119,7 +119,7 @@
         <td class="margen" colspan="2">&nbsp;</td>
 
       <td  class="   white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b>SALDO CLIENTE</b></td>
-      <td  class="  white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b><?php echo $transaccion[0][11]; ?></b></td> 
+      <td  class="  white-text sinborde imprimirSINBOR center-align" style="background-color: #3960A7;"><b><?php echo $transaccion[0][6].$transaccion[0][11]; ?></b></td> 
     </tr>
     </tfoot>
   </table>
@@ -131,9 +131,9 @@
   </div>
   </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.69"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.70"></script>
 
-<script src="../assets/js/materialize.min.js?v=10.2.0.69"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.69"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.69"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.70"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.70"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.70"></script>
 </body>

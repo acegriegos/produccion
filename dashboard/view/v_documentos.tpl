@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.69">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.69">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.70">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.70">
   </head>
   <body>
   <br>
@@ -184,6 +184,7 @@
             <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-compras" style="width: 100%">
                 <thead>
                     <tr>
+                        <th title="Generar Cuenta por Pagar">CxP</th>
                         <th>Proveedor</th>
                         <th>Fecha</th>
                         <th>Consecutivo</th>
@@ -225,7 +226,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.2.0.69"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.2.0.69"></script>
+    <script src="../assets/js/dropzone.js?v=10.2.0.70"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.2.0.70"></script>
   </body>
 </html>

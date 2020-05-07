@@ -137,3 +137,9 @@ function postSendmail() {
             break;
     }
 }
+
+function deleterow(elem){
+    var id = elem.attr('id').substr(1);
+    getDatos('',300,'3,'+id+','+$("[name=tventa]:checked").attr('id').substr(2)+',0,0,@@usr,0,0,0,0,0,"",@@impresa,"",0,0,""');
+    $("[id=d"+id+"]").parent().parent().remove()
+}

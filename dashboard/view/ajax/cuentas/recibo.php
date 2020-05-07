@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.69">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.69">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.70">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.70">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.69"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.70"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.2.0.69">
+<link href="../assets/css/modulos/style-factura.css?v=10.2.0.70">
 
 <title>Movimiento CxC</title>
 
@@ -45,10 +45,12 @@
       <div class="row">
         <div class="col s12 left-align">
          <div class="row">
+          <?php if($datos[14]){ ?>
           <div class="col s12" id="infofact" >
             <b id="fact">Documento Electónico N°</b>
             <span id="numfact"> <?php echo $datos[14]; ?> </span>
           </div>
+          <?php } ?>
            <div class="col s12" id="infofact" >
             <b id="fact">Consecutivo N°</b>
             <span id="numfact"> <?php echo $datos[1]; ?> </span>
@@ -198,11 +200,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.69"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.70"></script>
 
-<script src="../assets/js/materialize.min.js?v=10.2.0.69"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.69"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.69"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.70"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.70"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.70"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

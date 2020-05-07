@@ -56,7 +56,7 @@ $(document).on("click",".menu3",function(){
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
 			$("#vuser_atv").val(e[20]);
-			$("#vpass_n_atv").val(e[21]);
+			$("#vpass_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
 
 			//SAN AJUSTES
@@ -178,7 +178,7 @@ $(document).on("click",".menu3",function(){
 				}).done(function(data){
 					var p = JSON.parse(data);
 					if (p['succed']) {
-						$(".fe").addClass('hide');			
+						//$(".fe").addClass('hide');			
 						$("#fecheck").removeClass('gray-text').addClass('green-text')
 					}else{
 						Materialize.toast(p['ERROR'], 4000, 'red');
@@ -2266,9 +2266,10 @@ function removep12(){
 function loadIMG(a,b){
 	var myDropzone = Dropzone.forElement("#registro-upload");
 	myDropzone.removeFile(a)
-	console.log(b)
+	
 	try{
 		b = JSON.parse(b);
+		$("#vlogo").attr('src','')
 		$("#vlogo").attr('src',b['url'])	
 	}
 	catch(e){

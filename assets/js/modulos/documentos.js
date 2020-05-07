@@ -95,6 +95,17 @@ $(function(){
     paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0,0');
 });
 
+$(document).on("blur",".cxp",function(){
+    var valor = $(this).val();
+    var padre = $(this).parent().parent();
+    if(!valor.trim().length)
+        padre.attr('cxp',0)
+    else if(isNaN(valor))
+        padre.attr('cxp',0)
+    else
+        padre.attr('cxp',valor);
+});
+
 $(document).on("change",".tcompra",function(){
     var id = parseInt($('option:selected',this).val());
     var padre = $(this).parent().parent();
@@ -353,7 +364,9 @@ function removeHacienda(file){
 }
 
 function xmlCargar(file,response){
-    if(response == ''){
+    console.log(response)
+    try{
+        response = JSON.parse(response);
         var mced = getDatos('replace(cedula,"-","")',39,'id = @@impresa',0,0,0)[0][0][0];
 
         $.get('../wsdlClient.php',{accion:10,id:file['name'],hclave:$("#myclave").val(),ced:mced})
@@ -361,6 +374,7 @@ function xmlCargar(file,response){
                 var p;
                 $(".iloop").hide();
                 try{
+                    console.log(data)
                     p = JSON.parse(data);
 
                     if(!p.succed){
@@ -430,8 +444,9 @@ function xmlCargar(file,response){
                     console.log(e)              
                 }
             });
-    }else
+    }catch(f){
         Materialize.toast('Error Subiendo el XML',4000,'red')   
+    }
 };
 
 function emptyDropzones() {

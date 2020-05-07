@@ -9,7 +9,10 @@
             $salida = [];
 
             foreach ($_FILES as $key => $obj) {
-                $temp = $obj['tmp_name'];
+                if(is_array($obj['tmp_name']))
+                    $temp = $obj['tmp_name'][0];
+                else
+                    $temp = $obj['tmp_name'];
                 $dir_separator = DIRECTORY_SEPARATOR;
 
                 switch ($_REQUEST['accion']) {
@@ -35,6 +38,12 @@
                     $base->ejecutar("UPDATE sucursales SET logo = '..".$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].".png' WHERE id = ".$_REQUEST['idsucursal']);
 
                     $salida['url'] = '..'.$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].'.png';
+                    break;
+                case 4: //SUBIR XML
+                    $folder = 'assets/xml';
+                    $name = $obj['name'][0];
+                    $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
+                    $salida['up'] = move_uploaded_file($temp, $target_path);
                     break;
                 default:
                     break;

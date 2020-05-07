@@ -67,13 +67,14 @@
                     </form>
                     <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s5">
                     <label for="vuser_atv">Usuario Comprobante Electrónico</label>
                     <input type="text" class="validate" id="vuser_atv" autocomplete="off">
                 </div>
+                <small>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></small>
                 <div class="input-field col s3">
                     <label for="vpass_atv">Contraseña Comprobante Electrónico</label>
-                    <input type="text" class="validate" id="vpass_atv" autocomplete="off">
+                    <input type="text" class="validate" id="vpass_atv" autocomplete="off" maxlength="20">
                 </div>
                 <div class="input-field col s3">
                     <label for="vpass_n">Clave Llave Criptografica</label>
@@ -85,7 +86,7 @@
                 <div class="row col s12">
 
                     <div class="col s12 m12 pull-s2">
-                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
+                        
                         <a data-activates="slide-more" class="btn btn-primary der z-depth-3 button-collapse" id="more" style="width: 250px;"><i class="small mdi mdi-plus right mdi-24px"></i>Mas Ajustes</a> <br> <br>
                         <a  class="btn btn-primary der z-depth-3" id="actSuc" style="width: 250px;"><i class="small mdi mdi-refresh right mdi-24px"></i>Actualizar</a>
                     </div>

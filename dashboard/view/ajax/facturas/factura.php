@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.69">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.69">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.69">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.70">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.70">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.70">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -265,7 +265,16 @@
             
               <!-- /FOOTER -->
               <footer class="imprimirSINBOR center " style=" width: 100%; padding-right: 8% !important" >
+              
               <hr>
+              <?php if ($transaccion[0][57] != '') { ?>
+                  <span style="font-size: 12px;"><b><?php echo $transaccion[0][57]; ?></b></span>
+              <?php } ?>
+
+              <?php if ($transaccion[0][58] != '') { ?>
+                  <p style="font-size: 12px;"><b><?php echo $transaccion[0][58]; ?></b></p>
+              <?php } ?>
+              
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
                 <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
@@ -317,10 +326,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.2.0.69"></script>
-     <script src="../assets/js/materialize.min.js?v=10.2.0.69"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.69"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.69"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.70"></script>
+     <script src="../assets/js/materialize.min.js?v=10.2.0.70"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.70"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.70"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

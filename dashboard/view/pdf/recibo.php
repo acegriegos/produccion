@@ -14,6 +14,8 @@ class myPDF extends TCPDF {
     var $fe;
     var $credito;
     var $generator;
+    var $m1;
+    var $m2;
 
     function __construct()
     {
@@ -28,6 +30,8 @@ class myPDF extends TCPDF {
       $this->tfactura = $arrData['tfactura'];
       $this->credito = $arrData['credito'];
       $this->fe = $arrData['fe'];
+      $this->m1 = $arrData['m1'];
+      $this->m2 = $arrData['m2'];
     }
 
     public function Footer() {
@@ -43,10 +47,17 @@ class myPDF extends TCPDF {
           break;
         } 
 
-        $html = '<div align="center">';
+        $html = '<hr><div align="center">';
 
         /*$params = $this->serializeTCPDFtagParameters(array('CODE 128', 'C128', '', '', 80, 30, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
 $html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';*/
+
+          if ($this->m1 != '')  
+            $html .= '<span style="font-size: 12px;"><b>'.$this->m1.'</b></span>';
+
+          if ($this->m2 != '')
+            $html .= '<p style="font-size: 12px;"><b>'.$this->m2.'</b></p>';
+
           if ($this->fe != '') {
            $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
               <br>Versión API Hacienda: 4.3<br> 
@@ -65,7 +76,7 @@ $html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';*/
 
 // create new PDF document
 $pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false,$transaccion[0][32]);
-$pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32]]);
+$pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32],'m1'=>$transaccion[0][57],'m2'=>$transaccion[0][58]]);
 $pdf->setGen($generator);
 // set document information
 // $pdf->SetCreator(PDF_CREATOR);
@@ -88,7 +99,7 @@ $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 // set margins
 $pdf->SetMargins(5, 5, 5);
 $pdf->SetHeaderMargin(10);
-$pdf->SetFooterMargin(50);
+$pdf->SetFooterMargin(32);
 $pdf->setPrintFooter(true);
 $pdf->setPrintHeader(false);
 // set auto page breaks
@@ -126,7 +137,7 @@ $html .= '</head>'.
 '<td align="left" valign="top" style="width:20%">';
 if ($miscelaneos[3]) {
   $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
-  $html .= '<img src="'.$logo.'" style="width=300px;height=300px" >';
+  $html .= '<img src="'.$logo.'" style="width=300px;height=300px;min-height=300px" >';
 }
 
 $html .= '</td>'.
@@ -149,7 +160,7 @@ $miscelaneos[23].'</td> <td style="width:20%">';
 
 if($transaccion[0][32]){
   $svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
-  $pdf->ImageSVG('@' . $svg, $x=150, $y=0, $w='50', $h='50', $link='', $align='', $palign='', $border=0, $fitonpage=false);                
+  $pdf->ImageSVG('@' . $svg, $x=150, $y=0, $w='45', $h='45', $link='', $align='', $palign='', $border=0, $fitonpage=false);                
   $html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
   <tr><br>';
 }
