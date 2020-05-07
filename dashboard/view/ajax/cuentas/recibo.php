@@ -1,11 +1,11 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.57">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.57">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.67">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.67">
 
-<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.57"> -->
+<!-- <link href="../assets/fonts/materialdesignicons/materialdesignicons.css?v=10.2.0.67"> -->
 
-<link href="../assets/css/modulos/style-factura.css?v=10.2.0.57">
+<link href="../assets/css/modulos/style-factura.css?v=10.2.0.67">
 
 <title>Movimiento CxC</title>
 
@@ -105,6 +105,28 @@
 
       </div>
       <!-- DETALLE FACT -->
+      <?php if($datos[23]){ ?>
+      <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
+        <thead><tr><td colspan="3" style="text-align: center"><b>Líneas Afectadas</b></td></tr></thead>
+        
+        <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
+
+          <tr>
+            <th class="center-align sinborde">Descripción</th>
+            <th class="center-align sinborde">Cantidad</th>
+            <th class="center-align sinborde">Importe</th>
+          </tr>
+        </thead>
+
+          <?php foreach ($transaccion as $obj) { ?>
+            <tr>
+            <td><?php echo $obj[16] ?></td>
+            <td style="text-align: center"><?php echo $obj[17] ?></td>
+            <td style="text-align: right;"><?php echo $obj[18] ?></td>
+          </tr>
+          <?php } ?>
+      </table>
+      <?php } ?> 
       <table class=" bordered  " style="border: 0px; font-size: 1.1em;" id="detalle">
         <thead class="white-text imprimirSINBOR margen" style="background-color: #3960A7;">
           <tr>
@@ -112,7 +134,7 @@
             <th class="center-align sinborde" id="th2">Fecha</th>
             <th class="center-align sinborde" id="th3">Valor anterior</th>
             <th class="center-align sinborde" id="th6">Monto </th>
-            <th class="center-align sinborde" id="th6">Valor actual</th>
+            <th class="sinborde" id="th6">Valor actual</th>
 
           </tr>
         </thead>
@@ -123,7 +145,7 @@
           <td class="td flista2 center-align"><span id="ffecha"><?php echo $datos[3]; ?></span></td>
           <td class="td flista3 center-align"><span id="punit"><?php echo $datos[11]; ?><?php echo $datos[12]; ?></span></td>
           <td class="td flista4 center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[5]; ?></span></td>
-          <td class="td flista5 center-align"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
+          <td class="td flista5" style="text-align: right;"><span id="desc"><?php echo $datos[11]; ?><?php echo $datos[6]; ?></span></td>
 
         </tr>
 
@@ -135,7 +157,7 @@
           <td class="margen" colspan="3">&nbsp;</td>
 
           <td  style="background-color: #3960A7;" class=" white-text sinborde imprimirSINBOR center-align"><b>SALDO CLIENTE</b></td>
-          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[11].number_format($datos[20]); ?></b></td>
+          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo /*$datos[11]*/'¢'.number_format($datos[20]); ?></b></td>
 
         </tr>
       </tfoot>
@@ -176,11 +198,11 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.57"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.67"></script>
 
-<script src="../assets/js/materialize.js?v=10.2.0.57"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.57"></script>
-<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.57"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.67"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.67"></script>
+<script src="../assets/js/modulos/recibos-notas-pagos.js?v=10.2.0.67"></script>
   <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

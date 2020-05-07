@@ -79,58 +79,39 @@ $(document).ready(function(){
     }else{
         $("#tps").attr('checked',true);
     }
+
+    permisos(1110,1110)
 });
 
 
 $(document).on("click",".mh",function(){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
-
-    $.post('login',{arreglo:{accion:14,id:vid,sucname:0}})
-    .done(function(data){
-        console.log(data)
-    })
-
-});
-
-$(document).on("click","#process",function(){
-	var idfactura = $("#process").attr('idfactura');
-	var tf = $("#process").attr('tipo');
-	var idproducto = new Array();
-	$("[name=processitem]:checked").each(function(){
-		idproducto.push($(this).attr('idd'));
-	});
-	window.open('facturacion?tf='+tf+'&arr='+idproducto+'&id='+idfactura);
-
+    var rs = mantenimiento('login',14,{id:vid,sucursal:vbody[1]},1);
+    
+    if(rs["succed"])
+        $(this).attr('href',rs["arhivo"]); 
 });
 
 $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vbody[3],sel:'',tbl:72,where:vid},1);
+    console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
     $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf'); 
 });
 
+$(document).on("click",".fedit",function(){
+	var idfactura = $(this).attr('id').substr(1);
+	var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
+	tf = tf == 104 ? 2 : tf;
+	window.open('facturacion?edt=1&id='+idfactura+'&tf='+tf)
+});
 
 $(document).on("click",".process",function(){
-	var id = $(this).attr('id').substr(1);
-	var tabla = $("#data-table-productos").DataTable();
-	tabla.destroy();
-	var prod = arr('login',6,'',161,id,0,1,$("#listaproductos"));
-	$("#data-table-productos").DataTable({
-		bFilter: false,
-        order : [],
-        "bScrollInfinite": true
-	});
+	var idfactura = $(this).attr('id').substr(1);
 
-	var tipo = arr('login',4,'',161,id,0,0,0)
-    console.log(tipo)
-    tipo = tipo[0];
-	$("#process").attr('idfactura',tipo[0][0]);
-	$("#process").attr('tipo',tipo[0][7]);
-	$("#nomproc").text(tipo[0][1]);
-    $('.tooltipped').tooltip({delay: 50});
-    $("#modal-process").modal('open');
+	window.open('facturacion?id='+idfactura)
 });
 
 $(document).on("change","input[name=tventa]",function(){
@@ -307,6 +288,23 @@ $(document).on("change","input[name=tventa]",function(){
             paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
             $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
             break;
+        case 104:
+            var tabla = $("#data-table-facturas").DataTable();
+            tabla.destroy();
+            arr('login',6,'',158,'0,0,"'+id+',0,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
+            $("#data-table-facturas").dataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
+            paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
+            break;
+
 	}
 });
 
@@ -343,7 +341,17 @@ $(document).on("click",".print",function(){
 });
 
 $(document).on("click",".xml",function(){
-	window.location = "../wsdlClient.php?accion=2&view=1&id="+$(this).attr('id').substr(1);
+    var vid = $(this).attr('id').substr(1);
+    var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
+    // switch ($("input[name=tventa]:checked").attr('id').substr(2)) {
+    //     case "9":
+    //         vid = '';
+    //         break;
+    //     default:
+    //         break;
+    // }    
+	mantenimiento('login',9,{restado:vbody[3],factura:vbody[2],sucursal:vbody[1],id:vid},1);
+    $(this).attr('href','../assets/xml/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.xml'); 
 });
 
 

@@ -312,7 +312,7 @@ if (isset($_POST['respuestaXml'])) {
             
           break;
         case 7: //FE INTEGRACION EN LINEA
-
+          $salida['error'] = 'REVIZAR CREDENCIALES';
           break;
         case 8: // REVICION DE USUARIOS
           if (!isset($_POST['cedula'])) {
@@ -323,19 +323,61 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          $rs = $base->ejecutar('call krattos("id",2,"!bisproveedor and trim(replace(cedula,\"-\",\"\")) = trim(\"'.$_POST['cedula'].'\") and id > 0")');
+          $rs = $base->ejecutar('call krattos("id",2,"!bisproveedor and trim(replace(cedula,\"-\",\"\")) = trim(replace(\"'.$_POST['cedula'].'\",\"-\",\"\")) and id > 0")');
           if(!isset($rs->num_rows)){
             $salida = getError($rs);
             break;
           }
           $rs=$rs->fetch_all();
           if(!sizeof($rs)){
-            $salida = getError('CLIENTE NO REGISTRADO');
+            $salida = getError('CLIENTE NO REGISTRADO '.$_POST['cedula'].' '.sizeof($rs));
             break;
           }
 
+          // $sys = $base->ejecutar('call krattos("",80,"0,0,\"\",\"\",\"'.$_POST['sysmod'].'\"")')->fetch_all();
+          // if(!sizeof($rs)){
+          //   $salida = getError('PROBLEMAS CON LA LLAVE ');
+          //   break;
+          // }
+
+          // $sys = explode(',', $sys);
+
+          // $salida = getError($sys[0]);
+
           $salida['rs'] = $rs;
 
+          break;
+        case 9: //INCLUIR CLIENTE
+          if(!isset($_POST['client'])){
+            $salida = getError('Variable no Valida');
+          }else{
+            require_once '_config/mysqlDB.php';
+            $base = new DBClass();
+            $client = $_POST['client'];
+
+            $rs = $base->ejecutar('call krattos("",172,"1,0,\"\",\"\",\"'.$client['nombre'].'\",\"'.$client['cedula'].'\",'.$client['tp'].',1,0,0,0,0,8,1,\"\",0,0,\"\",0,0,@idclie,1,0,0,\"\"")');
+
+            if(isset($rs->num_rows)){
+              $rs = $rs->fetch_all()[0][0];
+
+              $serv = $base->ejecutar('call shadow(1,320,"idcliente,idservicio,next_fecha,fecha,monto,idtipo,tipofactura,nactualiza,nbase,variacion","'.$rs.','.$client['servicio'].',\"'.$client['fcorte'].'\",now(),'.$client['valor'].',1,1,0,0,0")');
+
+              if(!isset($serv->num_rows))
+                $salida = getError($serv);
+              else{
+                $salida['rs'] = $base->ejecutar('call krattos("",80,"'.$rs.','.$client['servicio'].',\"'.$client['fcorte'].'\",0,\"\"")')->fetch_all()[0][0];
+              }
+            }
+            else{
+              if($client['issuc']){
+                $idcliente = $base->ejecutar('id',2,'trim(replace(cedula,"-","")) = "'.$client['cedula'].'"');
+                //$salida['rs'] = $idcliente;
+                $salida = getError($client['issuc']);
+              }
+              else
+                $salida = getError($rs);
+            }
+          }
           break;
         default:
            $salida['msj'] = 'WSDL APSY SEND A REQUEST';

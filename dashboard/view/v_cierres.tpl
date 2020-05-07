@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.57">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.67">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.57"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.57"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.67"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.67"></script>
     <![endif]-->
   </head>
   <body> 
@@ -21,7 +21,15 @@
     {$NAV}
     <div class="bdy">
       <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}">
-    <div class="row">
+      <div class="switch der">
+          <label>
+            <span class="hide-on-small">Manual</span>
+            <input type="checkbox" id="tpc" checked>
+            <span class="lever"></span>Automático
+          </label>
+        </div>
+    <div class="row auto">
+       
       <div class="col s12 m12 l12">
         <div class="input-field col s4"  style="float:left;">
           <i class="mdi mdi-plus prefix" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
@@ -97,6 +105,35 @@
         </div>
       </div>
     </div>
+    <div class="container manu hide center white" style="height: 90vh">
+      <h3 id="jstprint">Cierre de Caja <br> {$smarty.session.EMPRESA}</h3>
+
+      <div class="der">
+        <label for="mn-fecha"><b>Fecha: </b></label>  
+        <input type="date" class="browser-default" id="mn-fecha" style="border: 0px;">
+      </div> 
+
+      <table id="mn-tbl">
+        <tr><td style="text-align: right;"><label><b>Total Efectivo:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tefectivo" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Crédito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-credito" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Cheques:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-cheque" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Tarjeta:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tarjeta" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Compras Totales:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-compra" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Otros:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-otros" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Documentos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tdoc" value="0.00"  style="color: red;"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Abonos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tabo" value="0.00"  style="color: red;"><td></tr>
+        <!-- <tr><td style="text-align: right;"><label><b>Total Notas Crédito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tncre" value="0.00"  style="color: red;"><td></tr> -->
+        <tr><td style="text-align: right"><label><b>Total Documentos + Efectivo + Abonos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tocefe" value="0.00" style="color: red;"><td></tr>
+        <tr><td style="text-align: right"><label><b>Venta del Dia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-vdia" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Diferencia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-dif" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-deposito" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Monto Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositom" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Número Depósito:</b></label> </td><td> <input type="text" class="browser-default eder" id="mn-depositon" value="0"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Diferencia Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositod" value="0.00"><td></tr>
+      </table>
+      <a class="btn" id="print-cierre"><i class="mdi mdi-printer mdi-24px"></i> Imprimir Cierre</a>
+    </div>
+
     </div>
     
 
@@ -127,6 +164,16 @@
             </div>
             {/section}
             <div class="row">
+                <div class="col s4 input-field">
+                  <input type="text" id="vcuentacierre" autocomplete="off">
+                  <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>
+                </div>
+
+                <div class="col s4 input-field">
+                  <input type="text" id="vdoccierre" autocomplete="off">
+                  <label for="vdoccierre">Documento de Depósito</label>
+                </div>
+
                 <div class="col s12 m6">
                   <h2>Dinero en caja:</h2>
                 </div>
@@ -172,6 +219,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.2.0.57"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.2.0.67"></script>
   </body>
 </html>

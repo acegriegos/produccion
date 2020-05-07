@@ -20,7 +20,8 @@
  
 <div class="card z-depth-3 movil p1 ps" style="margin-bottom: 0px;">
 <div class="card-header center head1 white-text">
-  <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
+  <a href="#!" class="green btn per1111 hide"  title="Realizar Factura en Espera" style="float: left;" id="prefact" vid="0">PRE-FACTURA</a>
+  <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
   {if $smarty.session.CAJA eq 1}
   <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" id="cargarfact"><span class="white-text" id="cantFact"></span></a>
@@ -398,7 +399,7 @@
             <tr>
               <th align="center">Tipo Precio</th>
               <th>Margen</th>
-              <th>Venta</th>
+              <th>Venta+IVA</th>
               <th></th>
           </tr>
           </thead>
@@ -411,7 +412,9 @@
             <td rowspan="3">
               <b>Costo:</b> <span id="cos1">0.00</span> -> <span id="cos2">0.00</span> <br>
               <input type="checkbox" id="chgvalor">
-              <label for="chgvalor">Cambiar Venta</label> <br>
+              <label for="chgvalor">Por Venta</label>
+              <input type="checkbox" id="byprepo">
+              <label for="byprepo">Preponderar</label> <br>
               <button class="browser-default hide" id="changemar">Aceptar</button>
             </td>
           </tr>
@@ -470,6 +473,10 @@
     <br>
       <!-- <label for="monedas">Divisa</label> -->
 
+      <section class="hide">
+        <span class="truncate"><b>Usuario:</b> <span id="username"></span></span>
+      </section>
+
       <div class="input-field">
         <select id="monedas">
           {section name="LE" loop=$MON}
@@ -494,7 +501,7 @@
     <div class="col s12 m12 l12">
 
         <div class="col s12 m12 l12 input-field">
-          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea>
+          <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="180"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
         </div>
         <table style="margin-top: 100px">
@@ -586,15 +593,12 @@
 
           <div class="col s12" style="padding: 0px;">
             <div class="row" style="padding: 0px;">
-              <div class="col s6 hide clieBTN" id="exobtn" style="padding: 0px;">
-                <a href="#modal-exo" class="btn doexo modal-trigger" style="width: 90%;padding-left: 19px;">Exonerar</a>
-              </div>
-              <div class="col s6" style="padding: 0px;">
-                <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1"  style="margin-bottom: 3%;">Facturar</a>
-              </div>
+              <a href="#modal-exo" class="btn doexo modal-trigger hide clieBTN col s6" title="Exonerar" style="border-radius: 50px 50px;" id="exobtn">Exonerar</a>
+              <a {if $smarty.session.TMPT neq 2} href="#modal-tpagos" id="facturar" {/if} class="btn btn1 col s6"  style="margin-bottom: 3%;border-radius: 50px 50px;">Facturar</a>
               <div class="col s12 order hide">
-                <a href="#!" class="green btn"  title="Imprimir Orden" id="printOrder">Imprimir Orden</a>
+                <a href="#!" class="green btn"  title="Imprimir Orden" id="printOrder" style="border-radius: 50px 50px;">Imprimir Orden</a>
               </div>
+              
             </div>  
           </div>
 
@@ -713,7 +717,8 @@
       <thead>
         <th></th>
         <th>Numero Factura</th>
-        <th>Valor</th>
+        <th>Valor Factura</th>
+        <th>Valor Actual</th>
         <th>Fecha</th>
       </thead>
       <tbody id="listafacturas"></tbody>
@@ -1010,7 +1015,19 @@
 
 <div id="modal-producto" class="modal modal-fixed-footer">
   <div class="modal-content" id="fproductos">
-    <h4>Agregar Producto</h4>
+    <h4>Agregar Item</h4>
+
+    <div class="switch der">
+      <label>
+        <span class="hide-on-small">Servicio</span>
+        <input type="checkbox" id="pvs" checked>
+        <span class="lever"></span>
+        Producto
+      </label>
+    </div>
+
+    <br>
+
     <input type="hidden" class="zelda">
     <div class="row">
 
@@ -1050,13 +1067,13 @@
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat add" modulo="producto">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat add" modulo="producto" id="addps">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
   </div>
 </div>
 
 <div id="modal-usuario" class="modal modal-fixed-footer mymodal">
-  <div class="modal-content" >
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
     <h4 class="center">Autenticar Usuario</h4>
    
     <div class="input-field col s6 edescu container" style="width: 50%">
@@ -1092,14 +1109,15 @@
 
 <div id="modal-facturas" class="modal modal-fixed-footer" style="width: 80%; height: 90% !important;">
   <div class="modal-content">
-    <h4>Lista de Ordenes</h4>
-    <table>
+    <h4 align="center">Lista de Facturas</h4>
+    <table class="table striped">
       <thead>
         <tr>
           <th></th>
           <th>Numero de Orden</th>
           <th>Nombre</th>
           <th>Total</th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="bdylist">
@@ -1195,7 +1213,7 @@
     Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%">
       <i class="mdi mdi-exit-to-app mdi-24px" id="fext" title="Salir" style="width: 5% !important; float: right;cursor: pointer;"></i>
 
-      <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" style="width: 5% !important; float: right;cursor: pointer;"></i>
+      <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" dodev="1" style="width: 5% !important; float: right;cursor: pointer;"></i>
       
     <br>
     <table>
@@ -1214,4 +1232,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.57"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.67"></script>

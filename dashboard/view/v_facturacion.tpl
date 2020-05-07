@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.57">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.67">
   <body >
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
@@ -25,7 +25,7 @@
       <div id="mfacturacion"></div>
     </div>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.57"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.67"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -106,7 +106,7 @@
         <select id="vtipodoc" class="validate tooltiped" type="select">
           <option value="0" class="disabled">Seleccione una Opción</option>
           {section name=LE loop=$EXOS}
-          <option value="{$EXOS[LE][0]}" selected>{$EXOS[LE][1]}</option>
+          <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] eq 1}selected{/if}>{$EXOS[LE][1]}</option>
           {/section}
         </select>
         <label for="vtipodoc">Tipo de Documento</label>
@@ -125,12 +125,12 @@
       <div class="col s12 row" >
         <div class="col s6 input-field" >
           <span class="prefix mdi mdi-24px mdi-calendar"></span>
-          <input type="date" id="vfechaDoc" class="validate tooltiped" value="2019-06-21">
+          <input type="date" id="vfechaDoc" class="validate tooltiped">
         </div>
 
         <div class="col s6 input-field">
           <span class="prefix mdi mdi-24px mdi-clock"></span>
-          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1" value="0" value="10:30:0">
+          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
         </div>
       </div>
 

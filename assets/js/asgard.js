@@ -44,6 +44,15 @@ $(window).keydown(function(e){
     }
 });
 
+$(document).on('click','.rd-td',function(){
+    $("#"+$(this).parent().attr('vid')).click();
+});
+
+$(document).on('dblclick','.rd-td',function(){
+    $("#"+$(this).parent().attr('vid')).click();
+    $("#acepfact").click();
+});
+
 $(document).on('click','.alv',function(){
     $(this).attr('disabled',true);
     setTimeout(function(){ $(".alv").removeAttr('disabled'); },2000);
@@ -327,6 +336,7 @@ $(document).on("click",".delete",function(){
 });
 
 $(document).on("click",".delete-row",function(){
+
     if ($(this).attr('cnt') == undefined) {
         if(!$("#_DEL").length){
             var id = $(this).attr('id');
@@ -350,6 +360,7 @@ $(document).on("click","#deldef",function(){
 
 $(document).on("click","#delcan",function(){
     var id = $(this).attr("inid");
+    console.log(id)
     $("#"+id).parent().parent().css('background-color',$("#"+id).attr('mbg'));
     $(this).parent().remove();
 });
@@ -488,7 +499,7 @@ function doGlobal(accion,modulo,tip,varias){
     if (arreglo['atributos'] == "[object Object]"){
         arreglo['atributos']['vaccion'] = accion;
         var p = mantenimiento('login',2,arreglo);
-        //console.log(p)
+        
         if (p['succed'] == 0) {
             Materialize.toast(p[0]['ERROR'], 4000, 'red');
         }else{
@@ -1081,7 +1092,7 @@ function permisos(vnumber,vnumber2) {
         data: {x1 : vnumber, x2 : vnumber2}
     })
     .done(function(data) {
-        // console.log(data)
+        //console.log(data)
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);
@@ -1390,7 +1401,7 @@ function doreport() {
     if($("#cabeza").length){
         var cabeza = $("#cabeza")[0].outerHTML;
     }
-    arr('login',6,'',resultado['vtbl'],resultado['vattr'],0,1,$(".detrep"),0,resultado['votros']);
+    arr('login',6,'',resultado['vtbl'],resultado['vattr'],resultado['vchg'],1,$(".detrep"),0,resultado['votros']);
 
     try {
         rxlxs(cabeza);
@@ -1538,7 +1549,7 @@ function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
-    console.log(c+' -- 0,0,"'+h+'","0,10"')
+
     $("#data-table-"+b).DataTable({
         bFilter: false,
         bScrollInfinite: true,

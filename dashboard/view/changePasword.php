@@ -3,8 +3,8 @@
 <head>
     <title>Cambio de Contraseña</title>
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.2.0.57">
-    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.57">
+    <link rel="stylesheet" href="../assets/css/materialize.min.css?v=10.2.0.67">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.67">
 </head>
 <body>
 
@@ -26,14 +26,13 @@
 
 </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.57"></script>
-<script src="../assets/js/jquery.mask.min.js?v=10.2.0.57"></script>
-<script src="../assets/js/materialize.min.js?v=10.2.0.57"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.57"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.67"></script>
+<script src="../assets/js/jquery.mask.min.js?v=10.2.0.67"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.67"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.67"></script>
 
 <script type="text/javascript">
     $(function(){
-
 
         $("#chnPss").click(function(){
             var param = atob(getParameterByName('sr'));
@@ -109,7 +108,7 @@
                 }else{
                     $(this).css('border-bottom','1px solid #4CAF50');
                     $(this).css('box-shadow','0 1px 0 0 #4CAF50');
-                    $("#chnPss").click();
+                    //$("#chnPss").click();
                 }
             }else{
                 $(this).css('border-bottom','1px solid #9e9e9e');

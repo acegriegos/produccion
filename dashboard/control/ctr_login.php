@@ -4,8 +4,7 @@
     
     if (!isset($_REQUEST['accion'])) {
     	if (session_status() !== PHP_SESSION_ACTIVE){
-		    session_start();
-        //exit(0);  
+		    session_start(); 
 		  }
 
     	if (isset($_POST['pss'])) {
@@ -68,6 +67,7 @@
                   break;
               }
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
+              
               header("Location: ../dashboard/$vdir");
            }
     	}else{
@@ -113,12 +113,12 @@
             cambioDia($log,$transaccion[0][5]);
         
           /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
-          $sysmod = $log->kamehameha('sysmod',39,'id='.$transaccion[0][5])[0][0];
-          if($tserv == 0){
-            if($sysmod == ''){
+          $sysmod = $log->kamehameha('sysmod,cedula,isprueba,idsucursal,idtipocliente',39,'id='.$transaccion[0][5])[0];
+          if($tserv == 0){ #&& !$sysmod[2]){
+            if($sysmod[0] == ''){
               $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
             }else{
-              $rsvr = (array) json_decode(verificar($log,$transaccion[0][9],$sysmod));
+              $rsvr = (array) json_decode(verificar($log,$sysmod[1],$sysmod[0],$sysmod[3],$sysmod[4]));
               if($rsvr['error']){
                 $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
               }
@@ -471,9 +471,9 @@
       }
     }
 
-    function verificar($log,$ced,$sysmod){
+    function verificar($log,$ced,$sysmod,$idsucursal,$tp){
       #VERIFICAR CLIENTE EXISTE
-      $params = array('cmd' => 8,'cedula' => '123456789111');
+      $params = array('cmd' => 8,'cedula' => $ced,'sysmod'=>$sysmod,'isucursal'=>$idsucursal,'tp'=>$tp);
       $result = $log->getCurl('http://localhost/wsdlServer.php',$params);
       return $result['error'] != '' ? $result['error'] : $result['rs'];
 

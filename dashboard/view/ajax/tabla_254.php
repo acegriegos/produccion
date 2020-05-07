@@ -63,9 +63,11 @@
             actualizar(97,'cantidad = '+ml,'idproducto = '+tr.attr('id'));
             var resta = parseFloat(ml) - parseFloat(cactual);
             if(resta){
-                console.log(insertar(298,'','null,2,'+resta+',now(),'+tr.attr('id')+',"",@@impresa,@@usr,'+ml));
+                insertar(298,'','null,2,'+resta+',now(),'+tr.attr('id')+',"",@@impresa,@@usr,'+ml);
             }
             $(this).next('.focus').focus().select();
+            var nml = tr.find('.um').val() == 1 ? $(this).val() : parseFloat($(this).val())/parseFloat(tr.attr('metrica'));
+            $(this).attr('rval',nml)
             Materialize.toast('Cantidad Cambiada Correctamente',4000,'green');
         }
     });
@@ -92,10 +94,11 @@
             if(mid[0].length){
                 actualizar(283,'valor = '+ml,'codigo = 1 and idproducto = '+tr.attr('id'));
                 ml = ((costo/ln)*parseFloat(tr.find('.focus4').val())/100)
-                console.log(actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id')));
+                actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id'));
             }
             else
-                console.log(insertar(283,'','null,'+tr.attr('id')+',8,"",1,'+ml));
+                insertar(283,'','null,'+tr.attr('id')+',8,"",1,'+ml);
+            tr.find('.focus').attr('metrica',ml);
             $(this).next('.focus2').focus().select();
             Materialize.toast('Factor Longitud Cambiado Correctamente',4000,'green');
         }
@@ -107,7 +110,7 @@
             var tr = $(this).parent().parent();
             var costo = parseFloat(tr.find('.focus1').val()); 
             var ml = (costo*(parseFloat($(this).val())/100));
-            console.log(actualizar(11,'ganancia = '+ml+', venta='+(costo+ml)*1.13,'id = '+tr.attr('id')));
+            actualizar(11,'ganancia = '+ml+', venta='+(costo+ml)*1.13,'id = '+tr.attr('id'));
             $(this).next('.focus3').focus().select();
             Materialize.toast('Utilidad Unitaria Cambiada Correctamente',4000,'green');
         }
@@ -123,9 +126,9 @@
             var mid = getDatos('id',105,'idtipoentrada =2 and identrada = '+tr.attr('id'),0,0,0)
 
             if(mid[0].length)
-                console.log(actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id')));
+                actualizar(105,'ganancia = '+ml+', venta = '+(costo/ln+ml)*1.13,'idtipoentrada =2 and identrada = '+tr.attr('id'));
             else
-                console.log(insertar(105,'','null,2,'+tr.attr('id')+',8,'+ml+',13,'+(costo/ln+ml)*1.13));
+                insertar(105,'','null,2,'+tr.attr('id')+',8,'+ml+',13,'+(costo/ln+ml)*1.13);
             $(this).next('.focus4').focus().select();
             Materialize.toast('Utilidad en Metros Cambiada Correctamente',4000,'green');
         }

@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.57">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.57">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.67">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.67">
   </head>
   <body>
   <br>
@@ -178,7 +178,7 @@
             <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar Documentos</p>
         </div>
         </div>
-        <div class="modal-content" style="padding: 3px;">
+        <div class="modal-content" style="padding: 3px;padding-bottom: 50px;">
            
             <div class="center iloop hide actin" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
             <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-compras" style="width: 100%">
@@ -225,7 +225,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.2.0.57"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.2.0.57"></script>
+    <script src="../assets/js/dropzone.js?v=10.2.0.67"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.2.0.67"></script>
   </body>
 </html>

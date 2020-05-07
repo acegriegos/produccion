@@ -132,8 +132,29 @@ Inventario <hr>
 
 <div class="col s6 m3 l2 center-align basic">
 <a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
-<p>Movimientos Inventario</p>
+<p>Movimientos de Inventario</p>
 </div>
+
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<p>Movimiento de Costos-Ventas</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic">
+<a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<p>Kardex</p>
+</div>
+
+</div>
+
+<div class="row">
+	Cierres <hr>
+
+	<div class="col s6 m3 l2 center-align">
+	<a class="report pbtn" rep="cierre"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i></a>
+	<p>Cierre General</p>
+	</div>
+
 </div>
 
 <div class="row">
@@ -179,6 +200,6 @@ Contabilidad <hr>
 
 {$SCR}
 
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.57"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.67"></script>
 </body>
 </html>

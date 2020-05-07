@@ -129,7 +129,7 @@ $(function(){
         if($("#vfac").val().trim().length){
             var cliente = factura = num1 = num2 = 0;
             var desde = hasta = "";
-            if ($("#cp").is(":checked")) {
+            /*if ($("#cp").is(":checked")) {
                 if ($("#nprov").val() != '') {
                     cliente= $("#nprov").attr("idc"); 
                 }
@@ -137,11 +137,11 @@ $(function(){
                 if ($("#ncli").val() != '') {
                     cliente= $("#ncli").attr("idc"); 
                 }
-            }
+            }*/
             if ($("#vfac").val() != '') {
                 factura= $("#vfac").val() == '' ?0: $("#vfac").val();
             }
-            if ($("#vnum1").val() != '') {
+            /*if ($("#vnum1").val() != '') {
                 num1= $("#vnum1").val() == '' ?0: $("#vnum1").val();
                 num2= $("#vnum2").val() == ''?0: $("#vnum2").val();
 
@@ -150,10 +150,11 @@ $(function(){
                 desde= $("#desde").val();
                 hasta= $("#hasta").val();
 
-            }
+            }*/
             $("#data-table-Notas").DataTable().destroy();
 
-            var p = arr('login', 4, "" , 302,'0,0,"'+$("#cp").is(":checked")+','+ factura+','+ cliente +','+ desde +','+ hasta +','+ num1 +','+ num2+',@@impresa'+'","0,10"', 0,0,0)[0];
+            var p = arr('login', 4, "" , 302,'0,0,"0,'+ factura+',0,0,0,0,0,@@impresa'+'","0,10"', 0,0,0)[0];
+            
             $("#listaclientes").html('');
 
             $.each(p,function(i){
@@ -357,7 +358,7 @@ function endDetail(vid,vacc,modulo){
         arr('login',6,'',303,$("#vidfactura").val(),0,1,$("#listaCuentasNotaDetalle"));
 
         arr('login',4,'',276,$("#vidfactura").val(),0,0,0);
-        window.open("cuentas?accion=4&id="+clave+"&tp=0")
+        window.open("cuentas?accion=4&id="+clave+"&tp="+$("#p_v").is(':checked'))
         if (estado == 0 || estado == 7 || estado == 9) {
             $.get('../wsdlClient.php',{accion:4,id:idfact})
             .done(function(data){

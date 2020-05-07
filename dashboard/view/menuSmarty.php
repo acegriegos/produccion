@@ -42,7 +42,7 @@
                 <li><a href="#!" value="2" class="otpmenu white-text hide" id="x2">Notificaciones</a></li>
                 <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true"></i> Usuario</a></li>
                 <li><a href="#!" value="5" class="otpmenu white-text" id="x5"><i class="mdi mdi-repeat mdi-24px right white-text" aria-hidden="true"></i>Flujo de Efectivo</a></li>
-                <li><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
+                <li class="per7300"><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
                 <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true"></i>Info Sistema</a></li>
 
@@ -133,6 +133,7 @@
           permisos(6100,6100);
           permisos(7100,7100);
           permisos(7200,7200);
+          permisos(7300,7300);
         }, false);
       </script>
       {/literal}

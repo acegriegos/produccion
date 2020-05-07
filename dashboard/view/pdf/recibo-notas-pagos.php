@@ -76,8 +76,13 @@ $html .= '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14].
          '<br><b>Factura de Referencia N°</b>'.$datos[0][13].'<br><br>'.
          '<table><tr><td>'.
          '<b>Cliente: </b>'.$datos[0][4].'<br>'.
-         '<b>Usuario: </b>'.$datos[0][10].
-         '</td><td>'.
+         '<b>Usuario: </b>'.$datos[0][10];
+
+         if($datos[0][7] <> ''){
+            $html .='<br><b>Comentario: </b>'.$datos[0][7];
+          }
+
+         $html .= '</td><td>'.
          '<table><tr>';
         if($datos[0][8])
           $html .= '<td align="center" style="width: 40%; margin-left:5%; max-heigth: 30px;"><div style="background-color: #3960A7;color: white;width:20px;heigth:20px;padding:0px"><p>Tipo de Pago: '.$datos[0][8].'</p></div></td>';
@@ -86,6 +91,7 @@ $html .= '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14].
          $html .= '</tr></table>'.
          '</td></tr></table><br><br>';
 
+         if($datos[0][23]){
          $html .= '<table style="font-size: 1.1em;">
          <tr>
             <td class="margen" colspan="4" align="center"><b>LINEAS AFECTADAS</b></td>
@@ -103,8 +109,10 @@ $html .= '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14].
             <th align="center">'.$obj[18].'</th>
           </tr>';
           }
+          $html .= '</table>';
+        }
 
-          $html .= '<tr>
+          $html .= '<table style="font-size: 1.1em;"><tr>
             <td class="margen" colspan="4">&nbsp;</td>
           </tr>
           <tr style="background-color: #3960A7; border: 0px;color: white;heigth">
@@ -123,18 +131,6 @@ $html .= '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14].
         <tr>
           <td class="margen" colspan="4">&nbsp;</td>
         </tr>
-        <tr>
-          <td class="margen" colspan="2">&nbsp;</td>
-
-          <td align="center"><b>VALOR TOTAL</b></td>
-          <td align="center"><b>'.$datos[0][11].''.$datos[0][6].'</b></td>
-        </tr>
-        <tr>
-          <td class="margen" colspan="2">&nbsp;</td>
-
-          <td align="center"><b>IMPUESTO TOTAL</b></td>
-          <td align="center"><b>'.$datos[0][11].''.$datos[0][19].'</b></td>
-        </tr>
     
     </table>';
 
@@ -144,6 +140,7 @@ $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('../assets/pdf/'.$datos[0][9].' No'.$datos[0][1].', '.$fact.'.pdf','F');
+$ver = isset($_REQUEST['arreglo']['show']) ? 'I' : 'F';
+$pdf->Output('../assets/pdf/'.$datos[0][9].' No'.$datos[0][1].', '.$fact.'.pdf',$ver);
 
 ?>

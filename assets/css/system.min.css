@@ -30,6 +30,10 @@ div > .modal {
   height: 100vh;
 }
 
+.rd-td{
+  cursor: pointer;
+}
+
 @font-face {
   font-family: "logintech";
   src: url("../fonts/roboto/Roboto-Light.eot") format("embedded-opentype"),
@@ -58,7 +62,6 @@ div > .modal {
     url("../fonts/material-icons/material-icons.ttf") format("truetype"),
     url("../fonts/material-icons/material-icons.svg#logintech") format("svg");
 }
-
 
 .border-left {
   border-left: 1px solid #000;

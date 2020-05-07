@@ -51,7 +51,7 @@
         $ced = $ced->fetch_all();
         echo '<hr>'.$ced[0][0].'<hr>';
         $_SESSION['IMPRESA'] = $ced[0][0];
-                //print_r(compras($config[18],$ced[0][1],0,$log,$salida));
+        //print_r(compras($config[18],$ced[0][1],0,$log,$salida));
         echo '<br>';
             }
         }
@@ -332,29 +332,29 @@ function enviocorreoauto(&$db,$id,$to,$mh = 0,$info,$tit,$idtabla){
    require_once './correoAjax.php';
 }
 
-function compras($url,$ced,$isp,&$log,&$salida){
+// function compras($url,$ced,$isp,&$log,&$salida){
     
     
     
-    $temporales = $log->kamehameha('id,fecha',262,'id>0 and datediff(curdate(),fecha) >= 7 limit 20');
+//     $temporales = $log->kamehameha('id,fecha',262,'id>0 and datediff(curdate(),fecha) >= 7 limit 20');
 
-    foreach ($temporales as $obj) {
-        $f1 = new DateTime($obj[1]);
-        $f2 = new DateTime();
-        $dif = $f2->diff($f1)->format('%a');
-        $salida['time'] = $dif;
-        if($dif >= 7){
-            $idfact = $log->kamehameha('',266,$obj[0].',@@usr,@@impresa,5')[0][0];
-            if ($dif <= 38) {
-                $salida['COMPRAS'][$obj[0]] = "ENVIAR HACIENDA";
-                include_once '../wsdlClient.php';
-                $fe = new facturaElectronica('^'.$idfact);
-            }else
-                $salida['COMPRAS'][$obj[0]] = "GUARDAR";
+//     foreach ($temporales as $obj) {
+//         $f1 = new DateTime($obj[1]);
+//         $f2 = new DateTime();
+//         $dif = $f2->diff($f1)->format('%a');
+//         $salida['time'] = $dif;
+//         if($dif >= 7){
+//             $idfact = $log->kamehameha('',266,$obj[0].',@@usr,@@impresa,5')[0][0];
+//             if ($dif <= 38) {
+//                 $salida['COMPRAS'][$obj[0]] = "ENVIAR HACIENDA";
+//                 include_once '../wsdlClient.php';
+//                 $fe = new facturaElectronica('^'.$idfact);
+//             }else
+//                 $salida['COMPRAS'][$obj[0]] = "GUARDAR";
             
-        }else
-            $salida['COMPRAS'][$obj[0]] = "diferencia en dias: ".$dif;
-    }
-}
+//         }else
+//             $salida['COMPRAS'][$obj[0]] = "diferencia en dias: ".$dif;
+//     }
+// }
 
 ?>

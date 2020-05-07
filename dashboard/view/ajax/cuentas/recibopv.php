@@ -140,8 +140,35 @@ if($datos[7] <> ''){
   </tr>';
 }
 
-echo '</table>
-  <br>
+
+
+echo '</table>';
+
+if($datos[23]){
+  echo '<table style="width: 100%">
+         <tr>
+            <td class="margen" colspan="4" align="center">LINEAS AFECTADAS </td>
+          </tr>
+         <tr>
+            <td colspan="4">Descripción</td>
+         </tr>
+         </tr>
+            <td align="center" colspan="2">Cantidad</td>
+            <td align="center" colspan="2">Importe</td>
+          </tr>';
+
+          foreach ($transaccion as $obj) {
+            echo '<tr>
+            <td  colspan="4">'.$obj[16].'</td>
+            </tr>
+            <tr>
+            <td align="center" colspan="2">'.$obj[17].'</td>
+            <td align="center" colspan="2">'.$obj[18].'</td>
+          </tr>';
+          }
+  echo '</table>';
+} 
+echo '<br>
 <hr>
 <table  style="width: 100% !important;">
   <tr>
@@ -173,9 +200,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.57"></script>
- <script src="../assets/js/materialize.js?v=10.2.0.57"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.57"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.67"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.67"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.67"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
