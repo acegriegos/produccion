@@ -223,27 +223,29 @@
           </div>
 
           <div class="subclie row" id="xmlotros">
-            <div class="input-field col s5">
-              <input type="text" class="eder" id="xo-etiqueta">
+            <div class="input-field col s6">
+              <input type="text" id="xo-etiqueta">
               <label for="xo-etiqueta">Etiqueta</label>
             </div>
 
-            <div class="input-field col s5">
-              <input type="text" class="eder" id="xo-valor">
+            <div class="input-field col s6">
+              <input type="text" id="xo-valor">
               <label for="xo-valor">Valor</label>
             </div>
 
-            <div class="col s2">
-              <i class="mdi mdi-plus mdi-24px" id="addxo"></i>
+            <div class="col s12">
+              <input type="checkbox" id="xo-factura">
+              <label for="xo-factura">Solicitar en Factura</label>
+              
+              <i class="mdi mdi-plus mdi-24px der" accion="1" style="cursor: pointer;" id="addxo"></i>
             </div>
-            
 
             <table>
               <thead>
                 <tr>
-                  <td>ETIQUETA</td>
-                  <td>VALOR</td>
-                  <td></td>
+                  <th style="padding: 0px">ETIQUETA</th>
+                  <th style="padding: 0px">VALOR</th>
+                  <th style="padding: 0px"></td>
                 </tr>
               </thead>
               <tbody id="xo-lista"></tbody>

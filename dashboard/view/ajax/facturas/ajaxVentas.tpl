@@ -201,13 +201,15 @@
 
     <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" style="position: absolute;top: 0;right: 0;"></a>
     
-    {if $smarty.session.BUSS eq 0 or $smarty.session.BUSS eq 3}
+    {if $smarty.session.BUSS eq 3}
     <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="position: absolute;top: 0;right: 0;margin-right: 36px"></a>
 
     <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
 
     <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
     {/if}
+
+    <a class="mdi mdi-xml tooltipped mdi-24px white-text der hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh" style="position: absolute;top: 0;right: 108px;"></a>
 
  </div>
 
@@ -699,6 +701,26 @@
       <a class="modal-action modal-close waves-effect waves-green btn-flat" id="mstprod">Aceptar</a>
   </div>
 </div>
+
+<div class="modal modal-fixed-footer" id="modal-xmlo">
+  <div class="modal-header head3 center" style="font-size: 22px;">XML Otros</div>
+  <div class="modal-content">
+
+    <table>
+      <thead class="tbl bordered">
+        <th>Etiqueta</th>
+        <th>Valor</th>
+      </thead>
+      <tbody id="xo-bdy"></tbody>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat" id="xo-cont">Continuar</a>
+  </div>
+</div>
+
 
 <div class="modal modal-fixed-footer" id="modal-devoluciones">
    <div class="modal-header head3 center" style="font-size: 22px;">Buscar Factura</div>

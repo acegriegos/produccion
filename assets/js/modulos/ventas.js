@@ -258,7 +258,7 @@ $(function(){
         $("#bname-inv").html(p[0]);
     });
 
-    $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:1,vidodt:0,vexonerado : 0,voc:'', idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:'',vidagente:0,margenes:0,vterminal:config[26]});
+    $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:1,vidodt:0,vexonerado : 0,voc:'', idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:'',vidagente:0,margenes:0,vterminal:config[26],xmlotros:0});
 
     $(".modal").modal();
 
@@ -569,6 +569,16 @@ $(function(){
         window.open('cuentas?tf=0&idclie='+$("#ffacturas .zelda").data('triforce')['vidcliente'])
     });
 
+    $("#xo-cont").click(function(){
+        $("#ffacturas .zelda").data('triforce')['xmlotros'] = 0;
+        $("#facturar").click()
+    });
+
+    $("#xo-sh").click(function(){
+        $("._xmlotros").find('input').eq(0).focus();
+        $("#modal-xmlo").modal('open')
+    })
+
     $("[name=mxt_tp]").change(function(){
         switch(parseInt($(this).attr('val'))){
             case 1: //MIXTO SEGMENTADO
@@ -743,7 +753,6 @@ $(document).on("change","[name=tipoclie]",function(){
 
 $(document).on("change","#vidunidad",function(){
     var id = $(this).val();
-    console.log(id)
 });
 
 $(document).on("click","#fastClient",function(){
@@ -1056,7 +1065,6 @@ $(document).on("change","#uni",function(){
             break;
         case -99:
             var nprecio = getDatos('venta/(select valor from dimensioproductos where idproducto = '+$("#valores").data('elemento')['idp']+'),exoneracion',11,'id = '+$("#valores").data('elemento')['idp'],0,0,0);
-            console.log(nprecio)
             break;
         default:
             var nprecio = getDatos('venta,exoneracion',105,'idtipoentrada = 2 and identrada = '+$("#valores").data('elemento')['idp']+' and idnivel = '+$(this).val(),0,0,0);
@@ -1851,6 +1859,14 @@ function validarDetalleFactura(){
 
 function validarFactura() {
 
+    /*if(parseInt($("#ffacturas .zelda").data('triforce')['xmlotros'])){
+        $("#xo-sh").click()
+        return 'Datos por llenar';
+    }*/
+
+    if(config[27] != '0')
+        return 'Su Llave CRIPTOGRAFICA a caducado, favor Actualizar';
+
     if($("#fdetallefacturas:visible").length){ //NORMAL
         if ($("#fdetallefacturas .ciclos:visible").length == 0) {
             pril.focus()
@@ -1929,7 +1945,7 @@ function validarFactura() {
                 return "No se Ha Ingresado Cliente";
             }
             $("#fdetallefacturas .ciclos").each(function(){
-                console.log($(this).data('triforce')['partida_arancelaria']);
+                $(this).data('triforce')['partida_arancelaria'];
             });
 
             return 'MANTENIMIENTO';
@@ -2328,6 +2344,10 @@ function endDetail(vid,vacc,vmodulo) {
                 getDatos('',259,'0,'+idext+',0',0,0,0);
             } 
 
+            $("._xmlotros").each(function(){
+                insertar(332,'',vid[0][0]+','+$(this).attr('vid')+',"'+$(this).find('input').val()+'"');
+            });
+
             if (config[0] == 1 && param.toString().match(new RegExp(/\b1\b|\b7\b|\b10\b/g))) {
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                 Materialize.toast($toastContent,5000);
@@ -2377,6 +2397,26 @@ function searchClient(vvariable,visprv){
     var clie = arr('login',4,'',63,'\"'+vvariable+'\",'+visprv+',@@impresa','',0,'');
 
     $(".clieBTN").addClass('hide');
+    $("#xo-sh").addClass('hide');
+
+    if(parseInt(clie[0][0][22])){
+        $("#ffacturas .zelda").data('triforce')['xmlotros'] = clie[0][0][22];
+        var xmlo = getDatos('id,label,val',331,'idtabla=2 and enfactura and idfila='+clie[0][0][0])[0];
+
+        var xo_bdy = '';
+
+        for (var i = 0; i < xmlo.length; i++) {
+            if(xmlo[i][2] == '%ORDEN_COMPRA%'){
+                
+                xmlo[i][2] = $("#oc").val();
+                $("#oc").attr('trg',"._xmlotros[vid="+xmlo[i][0]+"] .inp")
+            }
+
+            xo_bdy += '<tr class="_xmlotros" vid="'+xmlo[i][0]+'"> <td>'+xmlo[i][1]+'</td> <td> <input type="text" class="inp" value="'+xmlo[i][2]+'"> </td> </tr>';
+        }
+        $("#xo-bdy").html(xo_bdy);
+        $("#xo-sh").removeClass('hide');
+    }
 
     if (clie[0][0][0] != "0") {
         var vclie = clie[0][0];

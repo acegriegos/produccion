@@ -211,6 +211,9 @@ $(function(){
 		            case 3: 
 		                titulo = 'XML Otros';
 		                $("#xmlotros").removeClass('hide');
+		                $("#xo-etiqueta").val('')
+		                $("#xo-valor").val('')
+		                $("#xo-factura").prop('checked',false);
 		                break;
 		            case 4: 
 		                titulo = 'Contactos';
@@ -229,6 +232,42 @@ $(function(){
 		$(this).sideNav('show');
 
 		});
+
+	$("#addxo").click(function(){
+
+		var fact = 0;
+		var acc = $(this).attr('accion');
+
+		if($("#xo-factura").is(':checked')){
+			if(!$("#xo-etiqueta").val().trim().length){
+				$("#xo-etiqueta").focus();
+				Materialize.toast('Etiqueta Requerida',4000,'red')
+				return false;
+			}
+			fact = 1;
+		}else{
+			if(!$("#xo-valor").val().trim().length){
+				$("#xo-valor").focus();
+				Materialize.toast('Valor Requerido',4000,'red')
+				return false;
+			}
+		}
+
+		if(parseInt(acc) == 1){
+			var xolista = '<tr class="_xmlotros" label="'+$("#xo-etiqueta").val()+'" id="0" value="'+$("#xo-valor").val()+'" factura="'+fact+'" accion="1"> <td style="padding: 0px;">'+$("#xo-etiqueta").val()+'</td> <td style="padding: 0px;">'+$("#xo-valor").val()+'</td> <td style="padding: 0px;"> <i class="mdi mdi-pencil xo-edit pbtn" title="Ediar XML-OTRO"></i> <i class="mdi mdi-close xo-delete pbtn" title="Eliminar XML-OTRO"></i> </td> </tr>';
+
+			$("#xo-lista").append(xolista);
+		}else{
+			$("._xmlotros._act").attr('label',$("#xo-etiqueta").val()).attr('value',$("#xo-valor").val()).attr('factura',fact)
+			$("._xmlotros._act td").eq(0).html($("#xo-etiqueta").val())
+			$("._xmlotros._act td").eq(1).html($("#xo-valor").val())
+		}
+
+		$("#xo-etiqueta").val('');
+        $("#xo-valor").val('');
+        $("#xo-factura").prop('checked',false);
+        $(this).attr('accion',1)
+	});
 
 	$("#addnexo").click(function(){
 		$("#addexo").attr('acc',1);
@@ -637,6 +676,21 @@ function endDetail(vid,vacc,modulo){
 						default:
 							break;
 					}
+				});
+
+				$("._xmlotros").each(function(){
+					switch(parseInt($(this).attr('accion'))){
+						case 1:
+							insertar(331,'','null,2,'+vid[0][0]+',"'+$(this).attr('label')+'","'+$(this).attr('value')+'",'+$(this).attr('factura'));
+							break;
+						case 2:
+							actualizar(331,'label="'+$(this).attr('label')+'",val="'+$(this).attr('value')+'",enfactura='+$(this).attr('factura'),'id='+$(this).attr('id'));
+							break;
+						case 3:
+							if($(this).attr('id') != 0)
+								eliminar(331,'id='+$(this).attr('id'));
+							break;
+					}
 				})
 			}
 			
@@ -677,6 +731,13 @@ function postload(modulo) {
             }
 
             $("#exolist").html('');
+
+            var gxmlotros = getDatos('id,label,val,enfactura',331,'idtabla=2 and idfila='+$("#vid").val())
+            var xolista = '';
+            for (var i = 0; i < gxmlotros[0].length; i++){
+            	xolista += '<tr class="_xmlotros" label="'+gxmlotros[0][i][1]+'" id="'+gxmlotros[0][i][0]+'" value="'+gxmlotros[0][i][2]+'" factura="'+gxmlotros[0][i][3]+'" accion="2"> <td style="padding: 0px;">'+gxmlotros[0][i][1]+'</td> <td style="padding: 0px;">'+gxmlotros[0][i][2]+'</td> <td style="padding: 0px;"> <i class="mdi mdi-pencil xo-edit pbtn" title="Ediar XML-OTRO"></i> <i class="mdi mdi-close xo-delete pbtn" title="Eliminar XML-OTRO"></i> </td> </tr>';
+            }
+            $("#xo-lista").html(xolista);
             
 		break;
 	}
@@ -684,4 +745,21 @@ function postload(modulo) {
 
 $(document).on('click','[id^=dc]',function(){
 	var id = $(this).attr('id').substr(2);
+})
+
+$(document).on('click','.xo-edit',function(){
+	var padre = $(this).parent().parent();
+	$("#xo-etiqueta").val(padre.attr('label'));
+	$("#xo-valor").val(padre.attr('value'));
+	$("#xo-factura").prop('checked',parseInt(padre.attr('factura')));
+	$("._act").removeClass('_act');
+	padre.addClass('_act');
+
+	if(padre.attr('id') != '0')
+		$("#addxo").attr('accion',2);
+})
+
+$(document).on('click','.xo-delete',function(){
+	$(this).parent().parent().addClass('hide');
+	$(this).parent().parent().attr('accion',3)
 })
