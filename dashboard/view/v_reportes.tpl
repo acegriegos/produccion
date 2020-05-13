@@ -71,7 +71,7 @@
 </div>
 
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account-location"></i></a>
+<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account"></i></a>
 <p>Cuentas por Cobrar</p>
 </div>
 
@@ -116,32 +116,32 @@ Inventario <hr>
 
 <div class="row">
     <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Inventarios General</p>
 </div>
 
 <div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="costoinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<a class="report pbtn" rep="costoinv"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Costo Inventario</p>
 </div>
 
 <div class="col s6 m3 l2 center-align hide">
-<a class="report pbtn" rep="mventa"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<a class="report pbtn" rep="mventa"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Más Vendido</p>
 </div>
 
 <div class="col s6 m3 l2 center-align basic">
-<a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Movimientos de Inventario</p>
 </div>
 
 <div class="col s6 m3 l2 center-align basic">
-<a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Movimiento de Costos-Ventas</p>
 </div>
 
 <div class="col s6 m3 l2 center-align basic">
-<a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-file-document-box"></i></a>
+<a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Kardex</p>
 </div>
 
@@ -151,7 +151,7 @@ Inventario <hr>
 	Cierres <hr>
 
 	<div class="col s6 m3 l2 center-align">
-	<a class="report pbtn" rep="cierre"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i></a>
+	<a class="report pbtn" rep="cierre"><i class="mdi-48px mdi mdi-chart-arc"></i></a>
 	<p>Cierre General</p>
 	</div>
 
@@ -201,6 +201,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.70"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.71"></script>
 </body>
 </html>

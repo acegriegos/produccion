@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.70">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.71">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -48,24 +48,6 @@
                 </tr>
               </thead>
               <tbody id="listaclientes">
-                {section name=LE loop=$CLIE}
-                <tr id="f{$CLIE[LE][0]}">
-                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][1]}</td>
-                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][2]}</td>
-                  <!-- <td style=" padding: 10px;color:black">{$CLIE[LE][18]}</td> -->
-                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][4]}</td>
-                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][5]}</td>
-                  <td style=" padding: 0px !important;color:black">{$CLIE[LE][6]}</td>
-                  <td>
-                    <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Vehículos"><i class="car mdi mdi-car pbtn mdi-24px" id="v{$CLIE[LE][0]}"></i></a>
-                    {if $CLIE[LE][13] neq 1}
-                    <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact mdi-contacts pbtn" id="c{$CLIE[LE][0]}"></i></a>
-                    {/if}
-                    <a href="#modal-clientes" class="load mdi mdi-pencil mdi-24px pbtn per1002 modal-trigger" id="m{$CLIE[LE][0]}" modulo="cliente" style="color:black"></a>
-                    <a href="#" class="delete mdi mdi-close mdi-24px pbtn per1003" modulo="cliente" id="d{$CLIE[LE][0]}" style="color:black"></a>
-                  </td>
-                </tr>
-                {/section}
               </tbody>
             </table>
             <ul class="left showing" modulo="76"><small></small></ul>
@@ -182,11 +164,11 @@
 
                         <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="col s1 button-collapse tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion" data-position="bottom" hasTabla="1" tp="6" vtabla="ubicacione" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Parámetros" slide-id="0" data-position="bottom" num="1"><i class="mdi mdi-square-inc-cash mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Parámetros" slide-id="0" data-position="bottom" num="1"><i class="mdi mdi-currency-usd mdi-24px"></i></a>
 
                         <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Exoneración" data-position="bottom" num="2"><i class="mdi mdi-clipboard-text mdi-24px"></i></a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar XML Otros" data-position="bottom" num="3"><i class="mdi mdi-file-xml mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar XML Otros" data-position="bottom" num="3"><i class="mdi mdi-xml mdi-24px"></i></a>
 
                         <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Contactos" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px"></i></a>
 
@@ -341,6 +323,7 @@
         </div>
 
 
+
 <div id="modal-addvehiculos" class="modal modal-fixed-footer">
 <div class="modal-header">
   <ul class="tabs white-text bgcardhead">
@@ -411,7 +394,26 @@
 </div>
 </div>
 
+<div id="modal-servicios" class="modal modal-fixed-footer">
+  <div class="modal-header head3 center" style="font-size: 22px;">Servicios Asignados <span class="cliename"></span></div>
+<div class="modal-content">
+  <i class="mdi mdi-plus mdi-24px btn-floating" style="cursor: pointer;position: absolute;right: 0;text-align: center;" title="Agregar Servicio a Cliente"></i>
+  <table class="table">
+    <thead>
+      <th>Servicio</th>
+      <th>Valor</th>
+      <th>Creacion</th>
+      <th>Siguiente Cobro</th>
+      <th></th>
+    </thead>
+  </table>
+</div>
+<div class="modal-footer ">
+<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
+</div>
+</div>
+
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.2.0.70"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.2.0.71"></script>
 </body>
 </html>

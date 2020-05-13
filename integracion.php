@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.0.0.67">
     <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.0.0.67">
     <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.0.0.67">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.70">
     <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.0.0.67">
 </head>
 <body style="margin-left: 3%; margin-right: 3%">

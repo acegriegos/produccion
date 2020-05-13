@@ -16,7 +16,7 @@
       </div>
   </div>
 
-  <div class="l9 m12 s12 col movil">
+  <div class="l9 m12 s12 col movil" id="cuerpo">
  
 <div class="card z-depth-3 movil p1 ps" style="margin-bottom: 0px;">
 <div class="card-header center head1 white-text">
@@ -462,7 +462,7 @@
 
 <!-- DIVISOR -->
 
-<div class="l3 m12 s12 col p3 ps movil hide-on-med-and-down">
+<div class="l3 m12 s12 col p3 ps movil hide-on-med-and-down mfact">
 
 <div class="card center z-depth-3">
   <div class="card-header center head2 center hide-on-med-and-down" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
@@ -1232,4 +1232,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.70"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.71"></script>

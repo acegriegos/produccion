@@ -123,14 +123,14 @@ echo '<tr align="center" >
     <td colspan="2">CLIENTE:<br>'.$datos[4].'</td>
   </tr>
   <tr >
-    <td width="50%">USUARIO: </td>
-    <td width="50%">'.$datos[10].'</td>
+    <td width="20%">USUARIO: </td>
+    <td width="80%">'.$datos[10].'</td>
   </tr>';
 
 if($datos[8] <> ''){
   echo '<tr >
-    <td width="50%">T. PAGO:</td>
-    <td width="50%">'.$datos[8].'</td>
+    <td width="20%">T. PAGO:</td>
+    <td width="80%">'.$datos[8].'</td>
   </tr>';
 }
 
@@ -200,9 +200,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.70"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.70"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.70"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.71"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.71"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.71"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

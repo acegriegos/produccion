@@ -138,7 +138,7 @@ $(document).on("click",".msjh",function(){
       4=>GASTO
       5=>PROPORCIONALIDAD*/
     var msjreceptor = $("#msjreceptor").val();
-    var tipo = credito = gasto = 0;
+    var tipo = credito = gasto = plazo = 0;
 
     if ($(this).attr('xml') == undefined) {
         var padre = $(this).parent().parent();
@@ -146,6 +146,8 @@ $(document).on("click",".msjh",function(){
         tipo = padre.find('.tcompra').val();
         gasto = padre.find('.gs').html().replace(/,/g,'');
         credito = padre.find('.imv').html().replace(/,/g,'');
+        plazo = padre.find('.cxp').val();
+        plazo = isNaN(plazo) ? 0 : plazo;
 
     }else{
        var idcomp = getDatos('',278,$(this).parent().attr('idcompra'),0,0,0)
@@ -153,9 +155,9 @@ $(document).on("click",".msjh",function(){
        tipo = $("#tipo").val();
        credito = $("#credito").val();
        gasto = $("#gasto").val();
-    }
+    }   
 
-    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto,0,0,0);
+    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto+','+plazo,0,0,0);
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';

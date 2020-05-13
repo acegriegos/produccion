@@ -95,6 +95,16 @@ $(document).ready(function(){
             return false;
         }
 
+        if(!$("#n_phone").val().trim().length){
+            Materialize.toast('Correo Requerido',4000,'red');
+            return false;
+        }
+
+        if(!$("#n_phone").val().trim().length){
+            Materialize.toast('Telefono Requerido',4000,'red');
+            return false;
+        }
+
         $.post( 'http://localhost/wsdlServer.php',{cmd:9,client:{nombre:$("#n_rzocial").val(),cedula:$("#n_ced").val(),tp:$("#n_rzocial").attr('tp'),issuc:$("#issuc").is(":checked") ? 1 : 0,fantasia:$("#n_fant").val(),correo:$("#n_mail").val(),tel:$("#n_phone").val(),fcorte:$("#n_date").val(),servicio:$("#n_tipo option:selected").val(),valor:$("#n_valor").val().replace(/,/g,'')}})
           .done(function( data ) {
             try{

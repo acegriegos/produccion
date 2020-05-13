@@ -18,6 +18,8 @@ $(function(){
 		$(".cghs").html('Clientes');
 	}
 
+	arr('login',6,'',76,'0,0,",'+param+',@@impresa","0,10"',29,1,$("#listaclientes"));
+
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
 		bScrollInfinite: true,
@@ -43,7 +45,12 @@ $(function(){
             	}
         	})
 		}
-	})
+	});
+
+	$(document).on("click",".service",function(){
+		var id = $(this).attr('id').substr(1)
+		$(".cliename").html($("#f"+id+">td:eq(1)").html())
+	});
 
 	$("#vnumdoc").keyup(function(e){
 		var code = e.wich || e.keyCode;
