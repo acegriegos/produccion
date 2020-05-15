@@ -40,8 +40,8 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
-    if(config[27] != '0')
-        Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence '+config[27]+',<br> Favor proceder actualizar </span> <i class="mdi mdi-close" style="float:right"></i>','red','red');
+    if(config[28] != '0' && config[28] != '-1')
+        Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence el '+config[28]+',<br> Favor proceder actualizar </span> <i class="mdi mdi-close pbtn closetoast" style="float:right"></i>','red','red');
 
     cargarImpuestos(0,'11,2');
     cargarDescuentos(0,'2',undefined,1);
@@ -1864,7 +1864,7 @@ function validarFactura() {
         return 'Datos por llenar';
     }*/
 
-    if(config[27] != '0')
+    if(config[28] == '-1')
         return 'Su Llave CRIPTOGRAFICA a caducado, favor Actualizar';
 
     if($("#fdetallefacturas:visible").length){ //NORMAL
