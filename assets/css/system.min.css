@@ -358,3 +358,9 @@ label{
   margin: 0;
   border: 0px;
 }
+
+select.browser-default{
+  border: 0px;
+  border-bottom: 1px solid #9e9e9e;
+  height: 2.5em !important;
+}

@@ -56,8 +56,26 @@ $(document).on("click",".menu3",function(){
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
 			$("#vuser_atv").val(e[20]);
-			$("#vpass_n_atv").val(e[21]);
+			$("#vpass_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
+
+			//SAN AJUSTES
+
+			$("#vmsj1").val(e[24]);
+			$("#vmsj2").val(e[25]);
+			$("#vcorreoconta").val(e[26]);
+			$("#vdiaconta").val(e[27]);
+
+			$("#vpv").prop('checked',parseInt(e[28]) ? true : false);
+			$("#vprintsale").prop('checked',parseInt(e[18]) ? true : false);
+			$("#vcba").prop('checked',parseInt(e[29]) ? true : false);
+			$("#vivi").prop('checked',parseInt(e[30]) ? true : false);
+			$("#viva").prop('checked',parseInt(e[31]) ? true : false);
+			$("#vininvc").prop('checked',parseInt(e[32]) ? true : false);
+			$("#vautoacept").prop('checked',parseInt(e[33]) ? true : false);
+			$("#vlastmemory").prop('checked',parseInt(e[34]) ? true : false);
+			$("#vrecibo").prop('checked',parseInt(e[35]) ? true : false);
+			$("#vautoacept").prop('checked',parseInt(e[36]) ? true : false);
 
 			$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
 			.done(function( data ) {
@@ -70,6 +88,13 @@ $(document).on("click",".menu3",function(){
 			  		$("#myactivities").html(list)
 			  	}
 			});
+
+			  $('#more').sideNav({
+			      menuWidth: 700, // Default is 300
+			      edge: 'right', // Choose the horizontal origin
+			      closeOnClick: true
+			    }
+			  );
 
 			$("#actSuc").click(function(){
 
@@ -92,7 +117,13 @@ $(document).on("click",".menu3",function(){
 					return "Validación Factura Electrónica Requerida";
 				}
 
-				actualizar(39,'pfisico='+$("#vpfisico").val(),'id=@@impresa');
+				if($("#vcorreoconta").val().trim().length && !validarCorreo($("#vcorreoconta").val())){
+
+					return 'Correo Contador no Valido';
+				}
+
+				var ps = $("#vprintsale").is(':checked')?1:0;
+				console.log(actualizar(39,'pfisico="'+$("#vpfisico").val()+'",printSale='+ps,'id=@@impresa'));
 
 				var num = 1;
 				while ($("#slideTelefono").data()['fila'+num] != undefined) {
@@ -106,16 +137,16 @@ $(document).on("click",".menu3",function(){
 
 				num = 1;
 				while ($("#slideCorreo").data()['fila'+num] != undefined) {
-					if($("#slideTelefono").data()['fila'+num]['vidcorreo'] != "0"){
-						actualizar(17,'correo='+$("#slideTelefono").data()['fila'+num]['vcorreo'],'idcorreo='+$("#slideTelefono").data()['fila'+num]['vidcorreo']);
+					if($("#slideCorreo").data()['fila'+num]['vidcorreo'] != "0"){
+						actualizar(17,'correo="'+$("#slideCorreo").data()['fila'+num]['vcorreo']+'"','idcorreo='+$("#slideCorreo").data()['fila'+num]['vidcorreo']);
 					}else{
-						ingresar(17,'','null,@@impresa,39,'+$("#slideTelefono").data()['fila'+num]['vcorreo'])
+						ingresar(17,'','null,@@impresa,39,'+$("#slideCorreo").data()['fila'+num]['vcorreo'])
 					}
 					num += 1;
 				}
 
 				if($("#slideDireccion").data()['fila1'] != undefined){
-					actualizar(239,'direccion='+$("#slideDireccion").data()['fila1']['vdireccion']+',idbarrio='+$("#slideDireccion").data()['vidbarrio'],'idubicacion='+$("#slideDireccion").data()['vidubicacion'])
+					actualizar(239,'direccion="'+$("#slideDireccion").data()['fila1']['vdireccion']+'",idbarrio='+$("#slideDireccion").data()['fila1']['vidbarrio'],'idubicacion='+$("#slideDireccion").data()['fila1']['vidubicacion'])
 				}
 
 				eliminar(293,'idsucursal = @@impresa');
@@ -125,7 +156,16 @@ $(document).on("click",".menu3",function(){
 						actualizar(39,'codactividad='+$(this).attr('cod'),'id=@@impresa');
 					else
 						insertar(293,'','@@impresa,"'+$(this).attr('cod')+'"');
-				})
+				});
+
+				var myDropzone = Dropzone.forElement("#registro-upload");
+				if(myDropzone.getQueuedFiles()[0] != undefined){
+					myDropzone.processQueue();
+				}
+
+				//SAN AJUSTES
+
+				console.log(actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked'),'idsucursal=@@impresa'));
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 
@@ -138,7 +178,7 @@ $(document).on("click",".menu3",function(){
 				}).done(function(data){
 					var p = JSON.parse(data);
 					if (p['succed']) {
-						$(".fe").addClass('hide');			
+						//$(".fe").addClass('hide');			
 						$("#fecheck").removeClass('gray-text').addClass('green-text')
 					}else{
 						Materialize.toast(p['ERROR'], 4000, 'red');
@@ -189,7 +229,7 @@ $(document).on("click",".menu3",function(){
 
 			$(".wsdl-op").hide();
 
-			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*');
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*','','',loadIMG);
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -426,8 +466,8 @@ $(document).on("click",".menu3",function(){
 				});
 			});
 			$("select").material_select('update');
-			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*');
-			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12',null,removep12());
+			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*',null,null,loadIMG());
+			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12',null,null,removep12());
 			break;
 		case 6:
 			var p = mantenimiento('ajustes',6,'');
@@ -741,7 +781,7 @@ $(document).on("keyup","#vvalor",function(e){
 		$("#addvarprod").click();
 });
 
-$(document).on("keyup","#vnombre",function(e){
+$(document).on("keyup","#vnombre_cat",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13)
 		$("#vvalor").focus();
@@ -2220,4 +2260,20 @@ function removep12(){
     $("#vcedula").val('');
     $("#juridico").click()
     Materialize.updateTextFields();
+}
+
+
+function loadIMG(a,b){
+	var myDropzone = Dropzone.forElement("#registro-upload");
+	myDropzone.removeFile(a)
+	
+	try{
+		b = JSON.parse(b);
+		$("#vlogo").attr('src','')
+		$("#vlogo").attr('src',b['url'])	
+	}
+	catch(e){
+		console.log('error: '+e);
+	}
+
 }

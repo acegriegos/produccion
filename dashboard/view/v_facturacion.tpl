@@ -8,12 +8,12 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.67">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.70">
   <body >
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
 
-        <ul id="margenes" class="side-nav" style="max-width: 400px !important; font-size: 1.2em !important">
+        <ul id="margenes" class="side-nav" style="max-width: 500px !important; font-size: 1.2em !important;width: 500px !important  ;overflow-y: scroll;">
           <li>
 
             <div id="marbdy" style="line-height: 22px;">
@@ -25,7 +25,7 @@
       <div id="mfacturacion"></div>
     </div>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.67"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.70"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">

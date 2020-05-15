@@ -199,7 +199,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.67"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.70"></script>
 </body>
 </html>

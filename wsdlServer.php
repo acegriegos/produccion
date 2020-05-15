@@ -153,6 +153,11 @@ if (isset($_POST['respuestaXml'])) {
                 $salida['msj'] = 'PIN O LLAVE CRIPTOGRAFICA INVALIDAS';
                 $salida['error'] = 12;
             }else{
+                $publicKey = $certs["cert"];
+
+                $certData = openssl_x509_parse($publicKey);
+                $exp_p12 = gmdate("Y-m-d H:i:s",$certData['validTo_time_t']);
+
                 $user = $userComprobante;
                 $pass = $passComprobante;
                 $curl_hacienda = "https://idp.comprobanteselectronicos.go.cr/auth/realms/rut/protocol/openid-connect/token";
@@ -232,7 +237,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,null,0,0,0,0,1,'https://recepcion.logintechcr.com/produccion/wsdlServer.php')");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://recepcion.logintechcr.com/produccion/wsdlServer.php')");
                     }else{
                         $salida['error'] = 14;
                     }

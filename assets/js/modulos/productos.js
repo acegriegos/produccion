@@ -35,6 +35,10 @@ $(function () {
 					$("#modal-dimensiones").modal('open')
 				});
 
+				$("#notas").click(function(){
+					$("#modal-notasprod").modal('open')
+				});
+
 				$("#pu").change(function(){
 					if($(this).is(':checked'))
 						$(".precunidiv").removeClass('hide');
@@ -122,6 +126,9 @@ $(function () {
 					bPaginate: false,
 					info: false
 				});
+
+				if($(".per11.hide").length)
+					$(".per11").addClass('hide')
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -2172,11 +2179,14 @@ function endDetail(id, acc, modulo) {
 
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
 				var cnt = $("#unidimension1").val() == '0' ? $("#vcantidad").val() : parseFloat($("#vcantidad").val())*parseFloat($("#vldimension1").val());
+
 				var cante = getDatos('cantidad',97,'idproducto =  '+id[0][0],0,0,0)[0][0][0];
+				console.log(cante)
 				actualizar(97,'cantidad='+cnt,'idinventario = 6 and idproducto='+id[0][0]);
-				var resta = parseFloat(cnt)-parseFloat(cante); 
-				if(resta){
-					console.log(insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt));
+				var resta = parseFloat(cnt)-parseFloat(cante);
+				console.log(resta) 
+				if(resta != 0){
+					insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt);
 				}
 			}
 

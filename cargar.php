@@ -6,8 +6,53 @@
         $base = new DBClass();
         
         if (isset($_REQUEST['accion'])) {
+            $salida = [];
 
-            if (is_array($_FILES['file']['name'])) {
+            foreach ($_FILES as $key => $obj) {
+                if(is_array($obj['tmp_name']))
+                    $temp = $obj['tmp_name'][0];
+                else
+                    $temp = $obj['tmp_name'];
+                $dir_separator = DIRECTORY_SEPARATOR;
+
+                switch ($_REQUEST['accion']) {
+                case 1: //IMAGENES SUCURSALES
+                    $folder = 'assets/img/logos';
+                    $name = explode('.',$obj['name']);
+                    $ext = '.'.$name[sizeof($name)-1];
+                    
+                    $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$_REQUEST['idsucursal'].$ext;
+
+                    $salida['up'] = move_uploaded_file($temp, $target_path);
+
+                    $im = new Imagick($target_path);
+
+                    unlink($target_path);
+                    
+                    $im->setImageFormat("png");
+                    $im->adaptiveResizeImage(300, 300);
+                    $im->writeImage(dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$_REQUEST['idsucursal'].'.png');/*(or .jpg)*/
+                    $im->clear();
+                    $im->destroy();
+
+                    $base->ejecutar("UPDATE sucursales SET logo = '..".$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].".png' WHERE id = ".$_REQUEST['idsucursal']);
+
+                    $salida['url'] = '..'.$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].'.png';
+                    break;
+                case 4: //SUBIR XML
+                    $folder = 'assets/xml';
+                    $name = $obj['name'][0];
+                    $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.$name;
+                    $salida['up'] = move_uploaded_file($temp, $target_path);
+                    break;
+                default:
+                    break;
+                }
+
+                echo json_encode($salida);
+            }
+
+            /*if (is_array($_FILES['file']['name'])) {
 
                 for ($i=0; $i < sizeof($_FILES['file']['name']); $i++) { 
 
@@ -150,7 +195,7 @@
                         break;
                 }
                 
-            }
+            }*/
         }else{
             echo json_encode("ERROR");
         }

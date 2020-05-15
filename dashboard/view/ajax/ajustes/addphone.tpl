@@ -28,7 +28,7 @@
         if(!$("#ftelefonos .ciclos").length && parseInt($("#slideTelefono").data('idfila')) != parseInt($("#_idfila").val())){
 
             var telefonos = getDatos('',19,$("#_idfila").val()+","+$("#_idtabla").val(),0,0,0);
-            console.log(telefonos)
+            console.log($("#_idfila").val()+","+$("#_idtabla").val())
             var str = '';
             $("#slideTelefono").data('idfila',$("#_idfila").val());
 

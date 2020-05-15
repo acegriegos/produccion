@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.2.0.67">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.2.0.70">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">
@@ -80,7 +80,7 @@
                     <div class="card-content white-text" style="padding: 0.1% !important">
                         <div class="row pequeño">
                             <div class="col s12 m8">
-                                <div class="col s12 m6">
+                                <div class="col s12 m12">
                                     <p><b>Nombre:</b><span id="inombr"> </span></p>
                                 </div>
                                 <div class="col s12 m6">
@@ -208,7 +208,7 @@
             </div>
         </div>
     </ul>
-    <ul id="pagomultiples" class="side-nav"  style="width: 60%">
+    <ul id="pagomultiples" class="side-nav"  style="width: 60%;overflow-y: scroll;">
         <div class="card-header center pequeño head1" style="margin: 0 !important" >
             <p class="flow-text">Pago Multiple</p>
         </div>

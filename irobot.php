@@ -1,3 +1,9 @@
+<?php 
+    require_once '_config/mysqlDB.php';
+    set_time_limit(0);
+    $_REQUEST['accion'] = 99;
+    require_once 'wsdlClient.php';
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,11 +12,6 @@
 <body>
 
 <?php 
-    set_time_limit(0);
-    require_once '_config/mysqlDB.php';
-    $_REQUEST['accion'] = 99;
-    require_once 'wsdlClient.php';
-
     $fe = new facturaElectronica(0);
     $db = new DBClass();
     set_time_limit(0);
@@ -50,7 +51,6 @@
             exit(0); 
     }
     
-
     $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Tiriyo: ' . imap_last_error());
     
     $emails = imap_search($inbox,'UNSEEN');

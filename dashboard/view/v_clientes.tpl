@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.67">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.70">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -296,10 +296,10 @@
             <div class="modal-content row" style="margin:0px;">
                 <div class="col s6 input-field">
                   <input type="hidden" id="videxoneracion" value="0">
-                  <select id="vtipodoc" class="tooltiped" type="select" disabled>
-                    <option value="0" class="disabled">Tipo de Documento</option>
+                  <select id="vtipodoc" class="tooltiped" type="select">
+                    <option value="0">Tipo de Documento</option>
                     {section name=LE loop=$EXOS}
-                    <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
+                    <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] neq 3 and $EXOS[LE][0] neq 1}disabled{/if}>{$EXOS[LE][1]}</option>
                     {/section}
                   </select>
                 </div>
@@ -412,6 +412,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.2.0.67-1"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.2.0.70"></script>
 </body>
 </html>

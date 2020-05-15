@@ -156,8 +156,8 @@ echo '<tr>
 
   foreach ($transaccion as $obj) {
       echo '<tr><td align="center">'.$obj[5].'</td>
-    <td align="center">'.$obj[6].$obj[7].'</td>
-    <td align="center"> '.$obj[6].$obj[8].'</td></tr>';
+    <td align="right">'.$obj[6].$obj[7].'</td>
+    <td align="right"> '.$obj[6].$obj[8].'</td></tr>';
   }  
   echo '
 </table>';
@@ -171,9 +171,9 @@ echo '<hr><b>SALDO '.$transaccion[0][12].':</b> '.$obj[6].$obj[11].'
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.67"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.67"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.67"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.70"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.70"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.70"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

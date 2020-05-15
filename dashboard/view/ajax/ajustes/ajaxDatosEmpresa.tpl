@@ -40,15 +40,15 @@
             </div>
             <div class="row col s12">
                 <div class="col s3 pequeño">
-                    <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 44% !important">
-                        <input type="hidden" name="idsucursal"/>
+                    <form class="dropzone needsclick dz-clickable dz-started" id="registro-upload" style="padding-left: 33% !important">
+                        <input type="hidden" name="idsucursal" value="{$smarty.session.IMPRESA}" />
                         <span class="dz-message needsclick text-center ico-reg"><img src="../assets/img/foto.svg" class="imgDrop" style="margin-top: 25px; width: 80px;" /></span>
                     </form>
-                    <label for="registro-upload" class="right">LOGO DE EMPRESA</label>
+                    <label for="registro-upload" class="right">LOGO DE EMPRESA (300x300px)</label>
 
                 </div>
                 <div class="col s3 center" style="margin: 0px">
-                    <img type="file" src="#" class="responsive-img hide" alt="Image" id="vlogo">
+                    <img type="file" src="#" class="responsive-img hide" alt="Image" id="vlogo" style="height: 150px !important; width: 150px">
                     <span class="vloge">SIN LOGO</span><i class="mdi mdi-24px mdi-backspace vloge"></i>    
                 </div>
                 
@@ -67,13 +67,14 @@
                     </form>
                     <label for="p12-upload" class="right">LLAVE CRIPTOGRAFICA</label>
                 </div>
-                <div class="input-field col s3">
+                <div class="input-field col s5">
                     <label for="vuser_atv">Usuario Comprobante Electrónico</label>
                     <input type="text" class="validate" id="vuser_atv" autocomplete="off">
                 </div>
+                <small>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></small>
                 <div class="input-field col s3">
                     <label for="vpass_atv">Contraseña Comprobante Electrónico</label>
-                    <input type="text" class="validate" id="vpass_atv" autocomplete="off">
+                    <input type="text" class="validate" id="vpass_atv" autocomplete="off" maxlength="20">
                 </div>
                 <div class="input-field col s3">
                     <label for="vpass_n">Clave Llave Criptografica</label>
@@ -81,52 +82,154 @@
                 </div>
             </div>
             <div class="row s12">
-                <div class="row col s4 hide">
-                    <div class="col s12">
-                        <input type="checkbox" id="visinventariado" class="with-gap">
-                        <label for="visinventariado">Control de Inventario</label>
-                    </div>
-                    <div class="col s12">
-                        <input type="checkbox" id="vfastshow">
-                        <label for="vfastshow">Envío de Correo Automático</label>
-                    </div>
-                    <div class="col s12">
-                        <input type="checkbox" id="vcbarras">
-                        <label for="vcbarras">Código de Barras</label>
-                    </div>
-                    <div class="col s12">
-                        <input type="checkbox" id="vpv">
-                        <label for="vpv">Impresión Punto Venta</label>
-                    </div>
-                </div>
-                <div class="row col s2 hide">
-                    <div class="col s12">
-                        <input type="checkbox" id="vprintSale">
-                        <label for="vprintSale">Imprimir Venta</label>
-                    </div>
-                    <div class="col s12">
-                        <input type="checkbox" id="vrecibido">
-                        <label for="vrecibido">Recibo Conforme</label>
-                    </div>
-                   
-                </div>
+             
                 <div class="row col s12">
 
-                     <div class="col s12 input-field hide">
-                        <select>
-                            <option value="0">Op 1</option>
-                            <option value="1">Op 2</option>
-                            <option value="2">Op 3</option>
-                        </select>
-                        <label>Márgenes</label>
-                    </div>
-
                     <div class="col s12 m12 pull-s2">
-                        <label>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></label>
-                        <a  class="btn btn-primary der z-depth-3" id="actSuc"><i class="small mdi mdi-refresh right mdi-24px"></i>Actualizar</a>
+                        
+                        <a data-activates="slide-more" class="btn btn-primary der z-depth-3 button-collapse" id="more" style="width: 250px;"><i class="small mdi mdi-plus right mdi-24px"></i>Mas Ajustes</a> <br> <br>
+                        <a  class="btn btn-primary der z-depth-3" id="actSuc" style="width: 250px;"><i class="small mdi mdi-refresh right mdi-24px"></i>Actualizar</a>
                     </div>
                 </div>
             </div>
+
+            <ul id="slide-more" class="side-nav row">
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vmsj1">
+                    <label for="vmsj1">Mensaje Pie de Factura #1</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vmsj2">
+                    <label for="vmsj2">Mensaje Pie de Factura #2</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vcorreoconta">
+                    <label for="vcorreoconta">Correo Contador</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vdiaconta">
+                    <label for="vdiaconta">Dia Envio al Contador</label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vpv">
+                      <span class="lever"></span>
+                      Punto Venta
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vprintsale">
+                      <span class="lever"></span>
+                      Imprimir Factura
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vcba">
+                      <span class="lever"></span>
+                      Codigo Barras
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vivi">
+                      <span class="lever"></span>
+                      Impuesto Venta Incluido
+                    </label>
+                </div>
+
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="viva">
+                      <span class="lever"></span>
+                      +IVA en Recibo
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vininvc">
+                      <span class="lever"></span>
+                      +IVA en Facturacion
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vautoacept">
+                      <span class="lever"></span>
+                      Aceptar Compras Auto
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vlastmemory">
+                      <span class="lever"></span>
+                      Memoria Precio Venta
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
+                      
+                      <input type="checkbox" id="vrecibo">
+                      <span class="lever"></span>
+                      Recibo Conforme
+                    </label>
+                </div>
+
+
+                <div class="col s6 m4">
+                    <label for="viniciofact">Inicio Facturacion</label>
+                    <select class=" browser-default" id="viniciofact">
+                        <option value="1">Codigo</option>
+                        <option value="2">Item</option>
+                        <option value="0">Cliente</option>
+                        <option value="3">Usuario</option>
+                    </select>
+                    
+                </div>
+
+                <div class="col s6 m4">
+                    <label for="vtrecibo">Tipo de Recibo</label>
+                    <select class=" browser-default" id="vtrecibo">
+                        <option value="0">Normal</option>
+                        <option value="1">Media Hoja</option>
+                        <option value="2">Nombre por Linea</option>
+                    </select>
+                    
+                </div>
+
+                <div class="col s6 m4">
+                    <label for="vtcierre">Tipo de Cierre</label>
+                    <select class=" browser-default" id="vtcierre">
+                        <option value="0">Normal</option>
+                        <option value="1">Lista Productos</option>
+                        <option value="2">Lista Facturas</option>
+                        <option value="3">Agrupar Categorias</option>
+                    </select>
+                    
+                </div>
+
+            </ul>
         </section>
     </div>
 </div>
@@ -528,7 +631,7 @@
                         <tbody id="listanivelesclientes">
                             {section name=LE loop=$CATC}
                             <tr id="d_{$CATC[LE][0]} ">
-                                <td><input type="text" id="vnombre" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
+                                <td><input type="text" id="vnombre_cat" class="fast-edit fast-edit-r center-align" value="{$CATC[LE][1]}" style="border: 0px;margin: 0px; padding: 0px;" maxlength="20"></td>
                                 <td style=" width: 50%;">
                                 <a class="waves-effect waves-light load_x modal-trigger" id="g{$CATC[LE][0]}" href='#modal-valorescat' title="Valores en el Sistema"><i class="mdi mdi-pencil mdi-24px left gtext"></i></a>
                                 <a class="waves-effect waves-light catcli modal-trigger" id="g{$CATC[LE][0]}" href='#modal-clientexcategoria' title="Valores en el Sistema"><i class="mdi mdi-account-multiple mdi-24px left gtext"></i></a>
