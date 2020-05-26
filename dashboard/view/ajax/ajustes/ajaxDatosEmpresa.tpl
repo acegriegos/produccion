@@ -61,6 +61,9 @@
             <div class="row col s12 fe">
                 <div class="col s6"><br>
                     <form class="dropzone needsclick dz-clickable dz-started center" id="p12-upload" style="padding: 5% !important" >
+                        <input type="hidden" name="idsucursal" value="{$smarty.session.IMPRESA}" />
+                        <input type="hidden" name="pin" />
+                        <input type="hidden" name="ced" />
                         <span class="dz-message needsclick text-center ico-reg" >
                             <i class="mdi mdi-key mdi-48px imgDrop"></i>
                         </span>
@@ -69,12 +72,12 @@
                 </div>
                 <div class="input-field col s5">
                     <label for="vuser_atv">Usuario Comprobante Electrónico</label>
-                    <input type="text" class="validate" id="vuser_atv" autocomplete="off">
+                    <input type="text" class="validate fev" id="vuser_atv" autocomplete="off">
                 </div>
                 <small>Factura Electrónica <i class="mdi mdi-marker-check mdi-24px gray-text" id="fecheck"></i></small>
                 <div class="input-field col s3">
                     <label for="vpass_atv">Contraseña Comprobante Electrónico</label>
-                    <input type="text" class="validate" id="vpass_atv" autocomplete="off" maxlength="20">
+                    <input type="text" class="validate fev" id="vpass_atv" autocomplete="off" maxlength="20">
                 </div>
                 <div class="input-field col s3">
                     <label for="vpass_n">Clave Llave Criptografica</label>

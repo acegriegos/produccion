@@ -518,7 +518,7 @@
           </tr>
           <tr class="hide clieBTN" id="norden">
             <td><label for="oc">N° Orden</label></td>
-            <td><input type="text" id="oc" class="eder _txtaside" value=""  style="margin:0px;height: 0.5% !important"></td>
+            <td><input type="text" id="oc" class="eder _txtaside" value="" autocomplete="off" style="margin:0px;height: 0.5% !important"></td>
           </tr>
           <tr class="hide">
             <td><div class="prefix pbtn" id="btnAjuste" accion="1"><i class="mdi mdi-plus mdi-24px"></i></div></td>
@@ -1254,4 +1254,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.72"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.73"></script>

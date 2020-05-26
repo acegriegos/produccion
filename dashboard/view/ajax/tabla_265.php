@@ -2,8 +2,9 @@
 
     $lista = '<option value="1">Compra</option> <option value="2">Gasto</option> <option value="3">Gasto No Diferido</option> <option value="4">Bien de Capital</option> <option value="5">Proporcionalidad</option>';
     $color = $titulo = '';
-    $hide = '';
+    
     foreach ($transaccion as $obj) {
+        $hide = '';
         switch ($obj[5]) {
             case 1:
                 $color = 'yellow';  

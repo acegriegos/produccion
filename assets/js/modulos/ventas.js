@@ -40,6 +40,11 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
+    if(parseInt(config[3])){
+        Materialize.toast('<span>Estimado Usuario APSY le informa que sus Credenciales de Factura Electronica son Incorrectos </span> <a href="ajustes" class="btn"> Actualizar</a>','red','red');
+        $("#facturar").attr('disabled',true);
+    }
+
     if(config[28] != '0' && config[28] != '-1')
         Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence el '+config[28]+',<br> Favor proceder actualizar </span> <i class="mdi mdi-close pbtn closetoast" style="float:right"></i>','red','red');
 

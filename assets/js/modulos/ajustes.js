@@ -43,6 +43,7 @@ $(document).on("click",".menu3",function(){
 			$("#vid").val(e[9]);
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
+			$("[name=ced]").val(e[1].replace(/-/g,''));
 			$("#vpfisico").val(e[2]);
 			if (e[3]){
 				$("#vlogo").removeClass('hide');
@@ -100,7 +101,8 @@ $(document).on("click",".menu3",function(){
 
 				if ($("#vnombre").val() == '') {
 					$("#vnombre").focus();
-					return "Razón Social Requerida";
+					Materialize.toast("Razón Social Requerida",4000,'red');
+					return false;
 				}
 
 				if ($("#vcedula").val() == '') {
@@ -118,12 +120,44 @@ $(document).on("click",".menu3",function(){
 				}
 
 				if($("#vcorreoconta").val().trim().length && !validarCorreo($("#vcorreoconta").val())){
-
 					return 'Correo Contador no Valido';
 				}
 
+				if(!$("#vuser_atv").val().trim().length){
+					$("#vuser_atv").focus();
+					return 'Usuario de Comprobante Electronico Requerido';
+				}
+
+				if(!$("#vpass_atv").val().trim().length){
+					$("#vpass_atv").focus();
+					return 'Contrasena de Comprobante Electronico Requerido';
+				}
+
+				if(!$("#vpass_n").val().trim().length){
+					$("#vpass_n").focus();
+					return 'Pin de Llave Criptográfica Requerido';
+				}
+
+				if($("#vpass_atv").val().trim().length != 20){
+					$("#vpass_atv").focus().select();
+					return 'Contrasena debe de ser de 20 Caracteres';
+				}
+
+				if($("#vpass_n").val().trim().length != 4){
+					$("#vpass_n").focus().select();
+					return 'Pin de Llave Criptográfica debe ser de 4 Numeros';
+				}
+
+				$("[name=pin]").val($("#vpass_n").val())
+
+				var myDropzone = Dropzone.forElement("#p12-upload");
+				if(myDropzone.getQueuedFiles()[0] != undefined){
+					myDropzone.processQueue();
+					return false;
+				}
+
 				var ps = $("#vprintsale").is(':checked')?1:0;
-				console.log(actualizar(39,'pfisico="'+$("#vpfisico").val()+'",printSale='+ps,'id=@@impresa'));
+				console.log(actualizar(39,'pass_atv="'+$("#vpass_atv").val()+'",user_atv="'+$("#vuser_atv").val()+'",pass_n="'+$("#vpass_n").val()+'",pfisico="'+$("#vpfisico").val()+'",printSale='+ps,'id=@@impresa'));
 
 				var num = 1;
 				while ($("#slideTelefono").data()['fila'+num] != undefined) {
@@ -158,7 +192,7 @@ $(document).on("click",".menu3",function(){
 						insertar(293,'','@@impresa,"'+$(this).attr('cod')+'"');
 				});
 
-				var myDropzone = Dropzone.forElement("#registro-upload");
+				myDropzone = Dropzone.forElement("#registro-upload");
 				if(myDropzone.getQueuedFiles()[0] != undefined){
 					myDropzone.processQueue();
 				}
@@ -179,14 +213,15 @@ $(document).on("click",".menu3",function(){
 					var p = JSON.parse(data);
 					if (p['succed']) {
 						//$(".fe").addClass('hide');			
-						$("#fecheck").removeClass('gray-text').addClass('green-text')
+						$("#fecheck").removeClass('red-text').addClass('green-text')
 					}else{
 						Materialize.toast(p['ERROR'], 4000, 'red');
 						$("#dempresa").click();
-						$("#isfe").prop({ 'disabled' : false,'checked' : false });
-						$("#p12-upload").removeClass('hide');
-						$("label[for=p12-upload]").removeClass('hide');
-						$("#vpass_n").parent().removeClass('offset-s6');
+						// $("#isfe").prop({ 'disabled' : false,'checked' : false });
+						// $("#p12-upload").removeClass('hide');
+						// $("label[for=p12-upload]").removeClass('hide');
+						// $("#vpass_n").parent().removeClass('offset-s6');
+						$("#fecheck").removeClass('green-text').addClass('red-text')
 					}
 				});
 				
@@ -230,6 +265,7 @@ $(document).on("click",".menu3",function(){
 			$(".wsdl-op").hide();
 
 			InitDropzone(1,false,'../cargar.php?accion=1',"#registro-upload",false,'image/*','','',loadIMG);
+			InitDropzone(1,false,'../cargar.php?accion=2',"#p12-upload",false,'.p12','','',removep12);
 			break;
 		case 2:
 			var p = mantenimiento('ajustes',2,'');
@@ -2255,11 +2291,27 @@ function postload(vmodulo){
 }
 
 
-function removep12(){
-	$("#vnombre").val('');
-    $("#vcedula").val('');
-    $("#juridico").click()
-    Materialize.updateTextFields();
+function removep12(a,b){
+	try{
+		b = JSON.parse(b);
+	}catch(e){
+		console.log(e)
+	}
+
+	if(b['succed'] == '0'){
+		Materialize.toast(b['ERROR'],4000,'red')
+		$("#fecheck").removeClass('green-text').addClass('red-text')
+		actualizar(39,'fastshow=1','id=@@impresa');
+		var myDropzone = Dropzone.forElement("#p12-upload");
+		myDropzone.removeFile(a)
+	}else{
+		$("#fecheck").removeClass('red-text').addClass('green-text')
+		actualizar(39,'fastshow=0','id=@@impresa');
+		var myDropzone = Dropzone.forElement("#p12-upload");
+		myDropzone.removeFile(a)
+
+		$("#actSuc").click();
+	}
 }
 
 

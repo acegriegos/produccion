@@ -13,13 +13,13 @@
     $data = (array)json_decode($data);
     
     if (isset($data['numeroDocumento'])) {
-        /*if($data['identificacion'] == $_REQUEST['ced']){*/
+        if($data['identificacion'] == $_REQUEST['ced']){
             $salida = $data;
             $salida['succed'] = 1;
-        /*}else{
-            $salida['error'] = 'Exoneración no Enlazada';
+        }else{
+            $salida['error'] = 'Exoneración no Corresponde al Cliente';
             $salida['succed'] = 0;
-        }*/
+        }
     }else{
         $salida['error'] = 'Exoneración no Existente';
         $salida['succed'] = 0;
