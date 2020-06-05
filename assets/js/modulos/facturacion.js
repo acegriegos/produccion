@@ -207,6 +207,13 @@ function cargarCompras(){
     $("#precp").attr('readonly',false);
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
 
+    // $("#byprepo").change(function{
+    //     $()
+    //     if($(this).is(":checked")){
+
+    //     }
+    // });
+
     $("#cauto").change(function(){
         var tp = 1;
         $("#fdetallefacturas").html('');
@@ -321,7 +328,7 @@ function cargarCompras(){
 
             $(this).autocomplete({
                 limit: 20,
-                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where idfactura = facturas.id and !compraprocesada) having nombre like "%'+busqueda+'%"',0,0,0,1),
+                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where compraprocesada) having nombre like "%'+busqueda+'%"',0,0,0,1),
                 onAutocomplete: function(val){
                     
                     var ref = val.substr(0,val.indexOf('-'));
@@ -523,7 +530,8 @@ function cargarCompras(){
                     if(matriz[indice]['mventa']){
                         switch(parseInt(matriz[indice]['tipo'])){
                             case 0: //ACTUALIZAR COSTO-UTILIDAD-VENTA PROD BASE
-                                actualizar(11,'costo = '+$(this).data('triforce')['vprecio']+',ganancia='+matriz[indice]['mutilidad']+',timv='+$(this).data('triforce')['timv']+',exoneracion='+$(this).data('triforce')['exoneracion']+',codigointerno="'+$(this).data('triforce')['vnotas']+'",venta = '+matriz[indice]['mventaiva'],'id = '+$(this).data('triforce')['videntrada']);
+                                
+                                actualizar(11,'costo = '+$(this).data('triforce')['vprecio']+',ganancia='+matriz[indice]['mutilidad']+',timv='+$(this).data('triforce')['timv']+',exoneracion='+$(this).data('triforce')['exoneracion']+',venta = '+matriz[indice]['mventaiva'],'id = '+$(this).data('triforce')['videntrada']);
                                 break;
                             default: //ACTUALZAR UTILIDAD-VENTA NIVEL PRODUCTOS
                                 if(parseInt(matriz[indice]['id']))
@@ -588,14 +596,13 @@ function cargarCompras(){
             var optund = '<option value="1">UNID</option>';
             if(prod[0][0][19] != "1"){
                 optund += '<option value="2">METROS</option>';
-                $(this).parent().parent().data('triforce')['vcantidad'] = parseFloat($(this).parent().parent().data('triforce')['vcantidad'])*$(this).parent().parent().data('triforce')['rcant'] == "0" ? parseFloat(prod[0][0][19]) : 1;
-                var rcant = $(this).parent().parent().data('triforce')['vcantidad']; 
-                $(this).parent().parent().data('triforce')['rcant'] = rcant;
+                $(this).parent().parent().data('triforce')['vcantidad'] = parseFloat($(this).parent().parent().data('triforce')['vcantidad'])*$(this).parent().parent().data('triforce')['rcant'] == "0" ? parseFloat(prod[0][0][19]) : $(this).parent().parent().data('triforce')['vcantidad'];
                 $(this).parent().parent().data('triforce')['tcu'] = "2"
-            }else{
-                var rcant = $(this).parent().parent().data('triforce')['vcantidad']; 
-                $(this).parent().parent().data('triforce')['rcant'] = rcant;
             }
+
+            var rcant = $(this).parent().parent().data('triforce')['vcantidad']; 
+            $(this).parent().parent().data('triforce')['rcant'] = rcant;
+            
 
             str += '<span><b>COSTOS</b></span><br>'+cstold.formatMoney(2,'.',',')+' => <span id="cst">'+cst.formatMoney(2,'.',',') + '</span> <span style="color:'+color+';border-left:1px solid black;padding-left:2%;" id="perg"><i class="mdi '+icon+'" id="icong"></i> <span id="perrcent">'+perrcent+'</span> (<span id="ddif">'+ddif.formatMoney(2,'.',',')+'</span>)</span> <br> <table> <tr> <td style="width:20% !important;"><b>EQUIVALENCIA</b></td> <td style="width:50% !important;"><input id="equiv" type="number" class="browser-default eder" value="" style="border: 0px;height:auto !important;width: 100%;"/></td> <td style="width:20% !important;"><select id="optund" class="browser-default" style="height:auto;">'+optund+'</select></td> </tr> <tr> <td style="width:20% !important;"><b>ENTRADA</b></td> <td style="width:50% !important;"><input id="centrada" type="number" class="browser-default eder" value="" style="border: 0px;height:auto !important;width: 100%;"/></td> <td style="width:20% !important;"><select id="optund_" class="browser-default" style="height:auto;">'+optund+'</select></td> </tr> </table> <br> <div id="gruposmargen" style="max-height: 255px; overflow-y: auto"></div>';
 
@@ -632,8 +639,7 @@ function cargarCompras(){
         $("#openmargen").sideNav('show');
         $("#grp0").find('.vgan').focus().select();
 
-        var vnotas = prod[0][0][20];
-        $("#marbdy").append('<br> <label><b>Última Compra</b></label> <table><tr> <td style="width:50%"><b>PROVEEDOR</b></td> <td style="width:35%"><b>FECHA</b></td> <td style="width:5%"><b>CANT</b></td> <td style="width:5%"><b>VALOR</b></td> </tr> <tr> <td title="'+prod[0][0][15]+'">'+prod[0][0][18]+'</td> <td>'+prod[0][0][16]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> </tr> </table>  <br> <label for="vnotas"><b>NOTAS</b></label> <textarea id="vnotas" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500">'+vnotas+'</textarea> ')
+        $("#marbdy").append('<br> <label><b>Última Compra</b></label> <table><tr> <td style="width:50%"><b>PROVEEDOR</b></td> <td style="width:35%"><b>FECHA</b></td> <td style="width:5%"><b>CANT</b></td> <td style="width:5%"><b>VALOR</b></td> </tr> <tr> <td title="'+prod[0][0][15]+'">'+prod[0][0][18]+'</td> <td>'+prod[0][0][16]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> <td style="text-align: center">'+prod[0][0][21]+'</td> </tr> </table>  <br> <label for="vnotas"><b>NOTAS</b></label> <textarea id="vnotas" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea> ')
     });
 
     $(document).on('click','.divcnt',function(){
@@ -649,10 +655,6 @@ function cargarCompras(){
         }
     });
 
-    $(document).on('blur','#vnotas',function(){
-       $("#"+$("#marbdy").attr('fd')).data('triforce')['vnotas'] = $(this).val()
-    });
-
     $(document).on('keyup','.gchange',function(e){
         var code = e.wich || e.keyCode;
         if(code == 13)
@@ -661,6 +663,13 @@ function cargarCompras(){
 
     $(document).on('blur','.gchange',function(e){
         cargarcosto($(this).parent().parent().parent().parent().attr('id').substr(3),$(this).attr('cc'))
+    });
+
+    $(document).on('change','#optund',function(){
+        $("#equiv").blur();
+        if($('option:selected',this).val() != 1 && $("#optund_ option:selected").val() != 1){
+            $("#centrada").val(1)
+        }
     });
 
     $(document).on('change','#optund_',function(){
@@ -719,7 +728,10 @@ function cargarCompras(){
         $("#"+$("#marbdy").attr('fd')).data('triforce')['rcant'] = ecant;
         $("#"+$("#marbdy").attr('fd')).data('triforce')['vcantidad'] = equiv;
 
-        var rcosto = (parseFloat($("#"+$("#marbdy").attr('fd')).data('triforce')['original'])/equiv)*parseFloat($("#"+$("#marbdy").attr('fd')).data('triforce')['vlong']);
+        var rcosto = (parseFloat($("#"+$("#marbdy").attr('fd')).data('triforce')['original'])/parseFloat($(this).val()))
+        var ln =  $("#optund option:selected").val() == 1 ? 1 : parseFloat($("#"+$("#marbdy").attr('fd')).data('triforce')['vlong']);
+        
+        rcosto = rcosto*ln;
         $("#"+$("#marbdy").attr('fd')).data('triforce')['vprecio'] = rcosto;
         $("#cst").html(rcosto.formatMoney(2,'.',','))
         $("#marbdy").attr('cst',rcosto)
@@ -1005,6 +1017,7 @@ function cargarCompras(){
 
     $(document).on("change","#chgvalor",function(){
        cargarUtilidad();
+       $(".ven2").focus()
     });
 }//cargar COMPRAS
 

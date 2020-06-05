@@ -49,8 +49,8 @@ class myPDF extends TCPDF {
 
         $html = '<hr><div align="center">';
 
-        /*$params = $this->serializeTCPDFtagParameters(array('CODE 128', 'C128', '', '', 80, 30, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
-$html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';*/
+        $params = $this->serializeTCPDFtagParameters(array('CODE 128', 'C128', '', '', 80, 30, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
+          $html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';
 
           if ($this->m1 != '')  
             $html .= '<span style="font-size: 12px;"><b>'.$this->m1.'</b></span>';
@@ -162,16 +162,12 @@ if($transaccion[0][32]){
   $svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
   $pdf->ImageSVG('@' . $svg, $x=150, $y=0, $w='45', $h='45', $link='', $align='', $palign='', $border=0, $fitonpage=false);                
   $html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
-  <tr><br>';
-}
-
-if ($datos[0][32] != '') {
-  $html.= '<td><b>'.$datos[0][25].' Electrónica N°</b>'.$datos[0][0].'  </td>';
+  <tr><br> <td><b>'.$datos[0][25].' Electrónica N°</b>'.$datos[0][0].' </td>';
 }else{
-  $html .= '<td></td>';
+  $html .= '</td> </tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%"> <tr> <td><b>'.$datos[0][25].' N°</b>'.$datos[0][0].' </td>';
 }
 
-$html .= '<td></td></tr>';
+$html .= '<td></td></tr> </table> <table style="color: #494949;font-family: Helvetica;font-size: 12px;font-weight: normal;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">';
 
 $clave = '';
 if ($datos[0][32] != '') {
@@ -242,7 +238,7 @@ if(strlen($datos[0][33])){
   $exon .= '<span style="font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;"><br>Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',con fecha '.$fexo.'</span><br><br>';
 } 
 
-$html .= '<tr> <td width="65%">'.$clave.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="5%"></td> <td width="30%">'.$plazo.'</td> </tr> </html>';
+$html .= '<tr> <td width="65%">'.$clave.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="5%"></td> <td width="30%">'.$plazo.'</td> </tr> </table>';
 
 
 $html .= '* Línea Exenta<br>'.
@@ -278,7 +274,7 @@ $html .= '* Línea Exenta<br>'.
 '</tr>'.
 '</tbody></table>';
 
-/*DETALLE FACTURA*/
+//DETALLE FACTURA
 
 $html .= '<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer"><tbody>';
 
@@ -365,6 +361,7 @@ $html .= '<table style="width: 100%" style="font-size:9px">';
   </tr></table>';
 
 $html .= '</body></html>';
+
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
 $pdf->writeHTML($html, true, false, true, false, '');
 

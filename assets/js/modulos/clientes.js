@@ -57,6 +57,7 @@ $(function(){
 		if(code == 13){
 			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
         	.done(function(data){
+        		console.log(data)
         		var p = JSON.parse(data);
             	if (p['succed']) {
 					$("#vtipodoc").val(p['tipoDocumento']['codigo'])
@@ -124,7 +125,7 @@ $(function(){
 			}
 
 			var id =  ($(".lstexo").length+1)*-1;
-		
+
 			if(!parseInt($("#videxoneracion").val())){
 				var ndoc = getDatos('id',285,'trim(ndoc)=trim('+$("#vnumdoc").val()+')');
 				if(ndoc[0].length){
@@ -132,7 +133,6 @@ $(function(){
 					$("#vnumdoc").focus().select();
 					return false;
 				}
-
 	    		$("#exolist").append('<tr><td style="padding:0px;cursor: pointer;" class="lstexo" tp="'+id+'">'+$("#vnumdoc").val()+'</td><td style="padding:0px;"><span class="_exo">'+$("#vporcompra").val()+'</span>%</td><td style="padding:0px;"><span class="_ffin">'+$("#vfechafin").val()+'</span> <i class="mdi mdi-close red-text der delexo" style="cursor: pointer;"></i></td></tr>');
 
 	    		$(".lstexo[tp="+id+"]").data('triforce',{vid:0,vaccion:0,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});

@@ -30,9 +30,9 @@ if (!isset($_REQUEST['accion'])) {
 				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0 and id  <> 2');
 			}
 			else if ($_REQUEST['arreglo'] == 2) 
-				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1");
+				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1 and FIND_IN_SET(@@impresa,idsucursal);");
 			else{ 
-				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1");
+				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1 and FIND_IN_SET(@@impresa,idsucursal)");
 				$acc = $kakaroto->kamehameha('id,nombre',305,"");
 				$log = $kakaroto->kamehameha('',304,$_REQUEST['arreglo']['where']);
 				if($_REQUEST['arreglo']['id'] == 2)

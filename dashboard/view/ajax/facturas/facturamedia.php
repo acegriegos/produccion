@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.72">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.72">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.72">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.24">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.24">
 
 <style type="text/css">
   html{
@@ -22,10 +22,10 @@
 
       <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
-        <div class="row">
+        <div class="row" style="margin: 0px">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100%">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -86,7 +86,7 @@
                   <b class="ftipofact" style="margin-left: 5%">Plazo en Días: </b>
                     <span class="ftipofa"><?php echo $datos[11]; ?></span>
                     <b style="margin-left: 5%">Vence:</b><?php echo $datos[38]; ?>
-                  <?php }else{ ?>
+                  <?php }else if($datos[2]){ ?>
                     <b class="ftipofact" style="margin-left: 5%">Tipo de Pago: </b>
                     <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   <?php } ?>
@@ -107,7 +107,8 @@
             <div class="col s12" style="padding: 0px">
               <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
-              <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; ?>
+              <?php if($datos[48]){ ?>
+              <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; } ?>
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
               <b style="padding-left: 5%; color: red">ORIGINAL</b>
@@ -240,7 +241,7 @@
               $msj = $datos[26] == 2 ? 'Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos' : 'Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio.';
               break;
               case 4:
-              $msj = 'La presente Proforma tiene una durabilidad de OCHO días.';
+              $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
               default:
               $msj = '';
@@ -256,14 +257,14 @@
                 <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?>.No se aceptan Devoluciones después de 30 días</span></p><br>
-                </div>
+                
                 <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
+                </div>
               </div>
             </div>
             <!-- /MAIN -->
 
           </div>
-
           <!-- @PRINT -->
           <section class="hideonprint">
             <div class="col s12 m3 l3 white-text">
@@ -276,7 +277,7 @@
                 <div class="chips chips-initial white-text" id="listcorreos" style="color: white;"></div>
               </div>
               <div class="s2 col">
-                <a href="#" id="lcorreos" class="right"><i class="small white-text material-icons">send</i></a>
+                <a href="#" id="lcorreos" class="right"><i class="small white-text mdi mdi-send"></i></a>
               </div>
             </div>
             <div class="row">
@@ -297,10 +298,10 @@
     <div class="col s12 m9 l9">
 
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
-        <div class="row">
+        <div class="row" style="margin: 0px;">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100%">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -515,7 +516,7 @@
               $msj = $datos[26] == 2 ? 'Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos' : 'Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio.';
               break;
               case 4:
-              $msj = 'La presente Proforma tiene una durabilidad de OCHO días.';
+              $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
               default:
               $msj = '';
@@ -542,10 +543,10 @@
     <div class="col s12 m9 l9">
 
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
-        <div class="row">
+        <div class="row" style="margin: 0px;">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100%">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -767,7 +768,7 @@
               $msj = $datos[26] == 2 ? 'Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos' : 'Esta factura constituye Título Ejecutivo de acuerdo al art. 460 del Código de Comercio.';
               break;
               case 4:
-              $msj = 'La presente Proforma tiene una durabilidad de OCHO días.';
+              $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
               default:
               $msj = '';
@@ -790,10 +791,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.2.0.72"></script>
-     <script src="../assets/js/materialize.min.js?v=10.2.0.72"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.72"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.72"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.24"></script>
+     <script src="../assets/js/materialize.min.js?v=10.2.0.24"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.24"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.24"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

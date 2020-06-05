@@ -40,8 +40,13 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
+    if(parseInt(config[3])){
+        Materialize.toast('<span>Estimado Usuario APSY le informa que sus Credenciales de Factura Electronica son Incorrectos </span> <a href="ajustes" class="btn" style="float:right"> Actualizar</a>','red','red');
+        $("#facturar").attr('disabled',true);
+    }
+
     if(config[28] != '0' && config[28] != '-1')
-        Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence el '+config[28]+',<br> Favor proceder actualizar </span> <i class="mdi mdi-close pbtn closetoast" style="float:right"></i>','red','red');
+        Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence el '+config[28]+',<br> Favor proceder actualizar </span> <a href="ajustes" class="btn" style="float:right"> Actualizar</a> <i class="mdi mdi-close pbtn closetoast" style="float:right"></i>','red','red');
 
     cargarImpuestos(0,'11,2');
     cargarDescuentos(0,'2',undefined,1);
@@ -518,7 +523,7 @@ $(function(){
 
                 if(param != 2){
                    var refprod = getDatos('id',64,'if(CHAR_LENGTH(referencia) =50,substring(referencia,32,10)*1,referencia) = "'+$("#vreferencia").val().trim()+'" and idsucursal = @@impresa and idcliente = '+$("#ffacturas .zelda").data('triforce')['vidcliente'])[0];
-
+                   
                     if (refprod.length) {
                         $("#vreferencia").focus().select();
                         Materialize.toast("Referencia ya Existente",4000,'red');
@@ -1865,7 +1870,7 @@ function validarFactura() {
     }*/
 
     if(config[28] == '-1')
-        return 'Su Llave CRIPTOGRAFICA a caducado, favor Actualizar';
+        return 'Su Llave CRIPTOGRAFICA a caducado, favor <a href="ajustes" class="btn" style="float:right"> Actualizar</a>';
 
     if($("#fdetallefacturas:visible").length){ //NORMAL
         if ($("#fdetallefacturas .ciclos:visible").length == 0) {
@@ -2112,8 +2117,7 @@ function cargarProducto(kbrota,elemento) {
         cod = cod[0][0];
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
-        var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);
-
+        var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);          
         if(!$("#iva").is(":checked") && $("#iva:visible").length && !param.toString().match(new RegExp(/\b9\b|\b104\b/g)) )
                 cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
@@ -2304,6 +2308,7 @@ function endDetail(vid,vacc,vmodulo) {
                             else
                                 insertar(105,'','null,1,'+idp+','+matriz[i][3]+','+matriz[i][2]+',0,'+matriz[i][0]);
                        }else{ //PRECIO PUBLICO 
+                            console.log(insertar(330,'','null,1,0,'+matriz[0][0]+',0,now(),'+idp+',@@usr,@@impresa,'+matriz[0][2]+',0,'+$(this).data('triforce')['vprecio']+',0'));
                             actualizar(11,'costo = '+$(this).data('triforce')['vprecio']+',ganancia = '+matriz[0][2]+',venta = '+matriz[0][0]+',exoneracion='+$(this).data('triforce')['exoneracion']+',timv='+$(this).data('triforce')['timv'],'id = '+idp);
                        }
                    }

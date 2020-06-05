@@ -1,0 +1,16 @@
+.mn2{
+	width: 90%;
+    height: 75px;
+    font-size: 22px;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+#tbl1{
+	border: 1px solid #e2e2e2;
+}
+
+#tbl1 td{
+	border: 1px solid #e2e2e2;
+	padding: 0px;
+}

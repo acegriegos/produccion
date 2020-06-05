@@ -131,7 +131,7 @@
                         $salida['certificado'] = $certData;
                     }else{
                         $salida['succed'] = 0;
-                        $salida['ERROR'] = 'Clave o PIN no Válidos';    
+                        $salida['ERROR'] = 'Llave o PIN no Válidos';    
                     }
                 }
                 
@@ -199,7 +199,7 @@
                             }
                     }else{
                         $salida['succed'] = 0;
-                        $salida['ERROR'] = 'Clave o PIN no Válidos';    
+                        $salida['ERROR'] = 'Llave o PIN no Válidos';    
                     }
                 }
                 echo json_encode($salida);

@@ -39,6 +39,46 @@
 
                     $salida['url'] = '..'.$dir_separator.$folder.$dir_separator."logo".$_REQUEST['idsucursal'].'.png';
                     break;
+                case 2: //P12 SUCURSALES
+                    $folder = 'assets/p12';
+                    if(is_array($obj['name']))
+                        $name = $obj['name'][0];
+                    else
+                        $name = $obj['name'];
+
+                    $url_file = $dir_separator.$folder.$dir_separator.$name;
+
+                    $target_path = dirname(__FILE__).$url_file;
+
+                    $salida['up'] = move_uploaded_file($temp, $target_path);
+
+                    /*VERIFICAR CEDULA SEA IGUAL*/
+
+                    if(openssl_pkcs12_read(file_get_contents('./'.$url_file), $certs, $_REQUEST['pin'])){
+                        $publicKey   = $certs["cert"];
+                        
+                        $certData   = openssl_x509_parse($publicKey);
+
+                        $ced = $certData['subject']['serialNumber'];
+                        $ced = str_replace('-', '', substr($ced, strpos($ced, '-')))*1;
+
+                        if($ced != $_REQUEST['ced']){
+                            $salida['succed'] = 0;
+                            $salida['ERROR'] = 'Llave no Corresponde a la Empresa'; 
+                            unlink('./'.$url_file);
+                        }else{
+                            $salida['succed'] = 1;
+                            $fexp = gmdate("Y-m-d H:i:s",$certData['validTo_time_t']);
+                            $base->ejecutar('update ajustessucursales set exp_p12 = "'.$fexp.'" where idsucursal = '.$_REQUEST['idsucursal']);
+                            $base->ejecutar("UPDATE sucursales SET p12 = '.".$url_file."' WHERE id = ".$_REQUEST['idsucursal']);
+                        }
+                    }else{
+                        $salida['succed'] = 0;
+                        $salida['ERROR'] = 'Llave o PIN no Válidos';    
+                    }
+
+                    $salida['url'] = '..'.$url_file;
+                    break;
                 case 4: //SUBIR XML
                     $folder = 'assets/xml';
                     $name = $obj['name'][0];
@@ -68,12 +108,7 @@
                             $base->ejecutar("UPDATE sucursales SET logo = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
                             break;
 
-                        case 2: //P12 SUCURSALES
-                            $folder = 'assets/p12';
-                            $name = $_FILES['file']['name'][$i];
-                            $ext = end(explode('.', $name));
-                            $target_path = dirname(__FILE__).$dir_separator.$folder.$dir_separator.'logo'.$REQUEST['idsucursal'].$ext;
-                            $base->ejecutar("UPDATE sucursales SET p12 = '.".$dir_separator.$folder.$dir_separator."logo".$REQUEST['idsucursal'].$ext."' WHERE id = ".$REQUEST['idsucursal']);
+                        
                             break;
                          case 4: //SUBIR XML
                             $folder = 'assets/xml';

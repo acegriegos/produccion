@@ -108,8 +108,8 @@
    			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
    			$transaccion = $log->autenticar();
 
-        /*if(isset($transaccion[0][7])){
-          if ($transaccion[0][7] == 1)*/
+        if(isset($transaccion[0][7])){
+          if ($transaccion[0][7] == 1)
             cambioDia($log,$transaccion[0][5]);
         
           /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
@@ -124,7 +124,7 @@
               }
             }
           }*/
-        //}
+        }
    			break;
    		case 4:
    			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);

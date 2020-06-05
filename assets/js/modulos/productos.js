@@ -2123,6 +2123,9 @@ function endDetail(id, acc, modulo) {
 					imp_n = parseInt($("#vimpiva option:selected").attr('num'));
 					gan_n = (parseFloat($("#vventaiva" + idfila).val().replace(/,/g,''))/(1+(imp_n/100))) - parseFloat($("#vcosto").val().replace(/,/g,''));
 					acc = !parseInt(idlinea) ? 1 : acc;
+					if(acc == 2)
+						console.log(insertar(330,'','null,2,'+idfila+','+$("#vventaiva" + idfila).val().replace(/,/g,'')+',0,now(),'+id[0][0]+',@@usr,@@impresa,'+gan_n+',0,0,0'));
+
 					arr('login', 4, '', 108, acc+','+idlinea+',1,' + id[0][0] + ',' + idfila + ',' + gan_n + ',' + imp_n + ','+$("#vventaiva" + idfila).val().replace(/,/g,'')+',@@usr,@@impresa', 0, 0, 0);
 				}
 			});
@@ -2181,10 +2184,8 @@ function endDetail(id, acc, modulo) {
 				var cnt = $("#unidimension1").val() == '0' ? $("#vcantidad").val() : parseFloat($("#vcantidad").val())*parseFloat($("#vldimension1").val());
 
 				var cante = getDatos('cantidad',97,'idproducto =  '+id[0][0],0,0,0)[0][0][0];
-				console.log(cante)
 				actualizar(97,'cantidad='+cnt,'idinventario = 6 and idproducto='+id[0][0]);
 				var resta = parseFloat(cnt)-parseFloat(cante);
-				console.log(resta) 
 				if(resta != 0){
 					insertar(298,'','null,3,'+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt);
 				}
