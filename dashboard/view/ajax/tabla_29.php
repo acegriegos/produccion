@@ -4,13 +4,20 @@
     <tr id="f<?php echo $obj[0] ?>">
         <td  style=" padding: 10px;color:black"><?php echo $obj[1] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[2] ?></td>
-        <!-- <td  style=" padding: 10px;color:black"><?php echo $obj[18] ?></td> -->
         <td  style=" padding: 10px;color:black"><?php echo $obj[4] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[5] ?></td>
         <td  style=" padding: 10px;color:black"><?php echo $obj[6] ?></td>
         <td  style=" padding: 10px;color:black">
+          
           <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Contactos"><i class="car mdi mdi-car pbtn mdi-24px" id="v<?php echo $obj[0]; ?>"></i></a>
-        <?php if ($obj[13] != 1 ) {?>
+
+          <a href="#modal-mascotas" class="modal-trigger hide" style="color:black" title="Mascotas"><i class="dog mdi mdi-dog-side pbtn mdi-24px" id="z<?php echo $obj[0]; ?>"></i></a>
+
+          <a href="#modal-agenda" class="modal-trigger hide" style="color:black" title="Agenda"><i class="agenda mdi mdi-calendar pbtn mdi-24px" id="y<?php echo $obj[0]; ?>"></i></a>
+
+          <a href="#modal-servicios" class="modal-trigger hide" style="color:black" title="Servicios"><i class="service mdi mdi-account-details pbtn mdi-24px" id="z<?php echo $obj[0]; ?>"></i></a>
+
+            <?php if ($obj[13] != 1 ) {?>
            <a href="modal-contactos" class="hide modal-trigger" style="color:black" title="Contactos"><i class="contact material-icons pbtn" id="c<?php echo $obj[0]; ?>">contact_phone</i></a>
            
            <?php } ?>

@@ -208,6 +208,7 @@ function cargarCompras(){
     $("#ncli").attr('placeholder',"Nombre o Cédula del Proveedor");
 
     $("#cauto").change(function(){
+        var tp = 1;
         $("#fdetallefacturas").html('');
 
         if($(this).is(':checked')){ //MANUAL
@@ -235,6 +236,8 @@ function cargarCompras(){
 
             $("#docompra").unbind();
             $("#docompra").html('Facturar').attr('id','facturar');
+
+            tp = 0;
             
         }else{ //AUTO
 
@@ -260,10 +263,13 @@ function cargarCompras(){
             $("#facturar").html('Aceptar').attr('id','docompra');
             $("#docompra").click(function(){mdocompra()});
         }
+
+        visualizarCompra(tp)
     });
     
     $("#celectronica").change(function(){
         $("#cauto").prop('checked',true).change();
+        var tp = 0;
 
         if($("#celectronica").is(':checked')){
             param = 9
@@ -287,11 +293,14 @@ function cargarCompras(){
 
             $("[for=cauto]").addClass('hide')
             $("[name=tcompra]").parent().removeClass('hide');
+            tp = 2;
 
         }else{
             $("[for=cauto]").removeClass('hide')
             $("[name=tcompra]").parent().addClass('hide');
         }
+
+        visualizarCompra(tp)
     });
 
     // $("#vreferencia").keyup(function(e){
@@ -548,7 +557,7 @@ function cargarCompras(){
         }
 
         var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
-        console.log($(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'])
+        $(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'];
         var str = '';
         if(prod[0].length){
             var fd = $(this).parent().parent().attr('id');
@@ -717,6 +726,22 @@ function cargarCompras(){
         cambiarUtilidades();
         resizecosto();
     });
+
+    function visualizarCompra(tipo){
+        // switch(parseInt(tipo)){
+        //     case 1:
+        //         $('.afact').removeClass('hide');
+        //         $('.mfact').addClass('hide');
+        //         $("#cuerpo").css('width','100%')
+        //         break;
+        //     default:
+        //         $('.afact').addClass('hide')
+        //         $('.mfact').removeClass('hide')
+        //         $("#cuerpo").css('width','75%')
+        //         break;
+        // }
+        totalizar();
+    }
 
     function cambiarUtilidades(){
         $("[id^='grp'").each(function(){

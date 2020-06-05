@@ -171,7 +171,14 @@
 
                 <div class="switch col s6 m4">
                     <label>
-                      
+                      <input type="checkbox" id="vinvauto">
+                      <span class="lever"></span>
+                     Compras Automaticas
+                    </label>
+                </div>
+
+                <div class="switch col s6 m4">
+                    <label>
                       <input type="checkbox" id="vautoacept">
                       <span class="lever"></span>
                       Aceptar Compras Auto
@@ -196,6 +203,7 @@
                     </label>
                 </div>
 
+                <hr class="col s12">
 
                 <div class="col s6 m4">
                     <label for="viniciofact">Inicio Facturacion</label>

@@ -281,22 +281,19 @@
     <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
   </div>
 </div>
-<div id="modalMainGeneral"></div>
 
-<div class="modal modal-fixed-footer" id="modal-rutasg" style="height: 50%; width: 50%">
-    <div class="modal-header head3 center" style="font-size: 22px;">Rutas</div>
+<div class="modal modal-fixed-footer" id="modal-notas" style="height: 50%; width: 50%">
+    <div class="modal-header head3 center" style="font-size: 22px;">Notas Producto <span class="proname"></span></div>
     <div class="modal-content">
-        <div class="row">
-          <label for="chruta" class="col s4"><b>Cambiar Ruta</b></label>
-          <select id="chruta" class="col s8">
-          </select>
-        </div>
-
-        <div class="row">
-          <label for="chreg" class="col s4"><b>Cambiar Región</b></label>
-          <select id="chreg" class="col s8">
-          </select>
-        </div>
+        <table class="table bordered">
+          <thead>
+            <th>Fecha</th>
+            <th>Nota</th>
+            <th>Mostrar</th>
+            <th>Usuario</th>
+            <th></th>
+          </thead>
+        </table>
     </div>
     <div class="modal-footer">
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>

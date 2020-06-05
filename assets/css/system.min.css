@@ -43,25 +43,6 @@ div > .modal {
     url("../fonts/roboto/Roboto-Light.svg#logintech") format("svg");
 }
 
-@font-face {
-  font-family: 'Material Design Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/materialdesignicons/materialdesignicons.eot") format("embedded-opentype"),
-    url("../fonts/materialdesignicons/materialdesignicons.woff") format("woff"),
-    url("../fonts/materialdesignicons/materialdesignicons.svg#logintech") format("svg");
-  /*src: url("../fonts/material-icons/material-icons.woff") format("woff");*/
-}
-
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/material-icons/material-icons.eot") format("embedded-opentype"),
-    url("../fonts/material-icons/material-icons.woff") format("woff"),
-    url("../fonts/material-icons/material-icons.ttf") format("truetype"),
-    url("../fonts/material-icons/material-icons.svg#logintech") format("svg");
-}
 
 .border-left {
   border-left: 1px solid #000;

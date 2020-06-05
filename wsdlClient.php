@@ -522,7 +522,7 @@
         <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.0.0.47">
         <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.0.0.47">
         <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.0.0.47">
-        <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.47">
+        <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.70">
         <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.0.0.47">
     </head>
     <body>
@@ -577,7 +577,7 @@
 
     class facturaElectronica
     {
-        var $pagina = 'api2.comprobanteselectronicos.go.cr';
+        var $pagina = 'api.comprobanteselectronicos.go.cr';
         var $info;
         var $id;
         var $bearer;
@@ -1425,9 +1425,9 @@
                 //$data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
                 $otros = $this->getJSON('call fe_getOtros('.$this->id.')');
 
-                if ($otros) {
-                    $data['Otros'] = $otros;
-                }
+                if ($otros)
+                    array_push($data,$otros);
+                
                 
             }
 
@@ -1518,8 +1518,15 @@
                        $firma = $xml_data->addChild('Signature');
                        $firma->addAttribute('xmlns:ds','http://www.w3.org/2000/09/xmldsig#');
                        $firma->addChild();
-                    }else
-                        $xml_data->addChild("$key",htmlspecialchars("$value"));
+                    }else{
+                        if($value){
+                            if(strpos($key,'*')){
+                                $ccod = $xml_data->addChild(substr($key,0,strpos($key,'*')),htmlspecialchars("$value"));
+                                $ccod->addAttribute('codigo',substr($key,strpos($key,'*')+1)); 
+                            }else                        
+                                $xml_data->addChild("$key",htmlspecialchars("$value"));
+                        }
+                    }
                 }
              }
         }

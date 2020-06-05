@@ -75,7 +75,7 @@ $(document).on("click",".menu3",function(){
 			$("#vautoacept").prop('checked',parseInt(e[33]) ? true : false);
 			$("#vlastmemory").prop('checked',parseInt(e[34]) ? true : false);
 			$("#vrecibo").prop('checked',parseInt(e[35]) ? true : false);
-			$("#vautoacept").prop('checked',parseInt(e[36]) ? true : false);
+			$("#vinvauto").prop('checked',parseInt(e[40]) ? true : false);
 
 			$.get( "https://api.hacienda.go.cr/fe/ae", {identificacion:$("#vcedula").val().replace(/-/g,'')})
 			.done(function( data ) {
@@ -165,7 +165,7 @@ $(document).on("click",".menu3",function(){
 
 				//SAN AJUSTES
 
-				console.log(actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked'),'idsucursal=@@impresa'));
+				console.log(actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked"),'idsucursal=@@impresa'));
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 

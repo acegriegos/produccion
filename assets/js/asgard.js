@@ -43,6 +43,14 @@ $(window).keydown(function(e){
     }
 });
 
+$(document).on('click','.closetoast',function(){
+    $(this).parent().addClass('hide');
+});
+
+$(document).on('blur','[trg]',function(){
+    $($(this).attr('trg')).val($(this).val().trim());
+});
+
 $(document).on('click','.rd-td',function(){
     $("#"+$(this).parent().attr('vid')).click();
 });

@@ -237,7 +237,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,impresora,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://recepcion.logintechcr.com/produccion/wsdlServer.php')");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,exp_p12,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://recepcion.logintechcr.com/produccion/wsdlServer.php')");
                     }else{
                         $salida['error'] = 14;
                     }
@@ -335,7 +335,7 @@ if (isset($_POST['respuestaXml'])) {
           }
           $rs=$rs->fetch_all();
           if(!sizeof($rs)){
-            $salida = getError('CLIENTE NO REGISTRADO '.$_POST['cedula'].' '.sizeof($rs));
+            $salida = getError('CLIENTE NO REGISTRADO '.$_POST['cedula']);
             break;
           }
 
@@ -365,10 +365,13 @@ if (isset($_POST['respuestaXml'])) {
             if(isset($rs->num_rows)){
               $rs = $rs->fetch_all()[0][0];
 
+              $correo = $base->ejecutar('call shadow(1,17,"","null,'.$rs.',2,\"'.$client['correo'].'\"")');
+              $telefono = $base->ejecutar('call shadow(1,238,"","null,3,\"'.$client['tel'].'\",2,'.$rs.',52")');
+
               $serv = $base->ejecutar('call shadow(1,320,"idcliente,idservicio,next_fecha,fecha,monto,idtipo,tipofactura,nactualiza,nbase,variacion","'.$rs.','.$client['servicio'].',\"'.$client['fcorte'].'\",now(),'.$client['valor'].',1,1,0,0,0")');
 
               if(!isset($serv->num_rows))
-                $salida = getError($serv);
+                $salida = getError('SERVICIO-CLIENTES: '.$serv);
               else{
                 $salida['rs'] = $base->ejecutar('call krattos("",80,"'.$rs.','.$client['servicio'].',\"'.$client['fcorte'].'\",0,\"\"")')->fetch_all()[0][0];
               }
