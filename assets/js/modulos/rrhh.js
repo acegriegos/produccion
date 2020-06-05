@@ -1,13 +1,16 @@
 $(function(){
-	$("#data-table-rrhhs").dataTable({
-        bFilter: false,
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
-    });
+	
+	$("#usr_name").focus()
+
+	$(".mn2").click(function(){
+		var num = $(this).attr('num')
+		$(".sect").addClass('hide')
+		$("#sect"+num).removeClass('hide')
+	});
+
+	$("#mnt-empleado").click(function(){
+		$("#modal-empleado").modal('open')
+	});
 
 });
 

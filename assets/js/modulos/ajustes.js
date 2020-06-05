@@ -2295,7 +2295,7 @@ function removep12(a,b){
 	try{
 		b = JSON.parse(b);
 	}catch(e){
-		console.log(e)
+		console.log(b)
 	}
 
 	if(b['succed'] == '0'){

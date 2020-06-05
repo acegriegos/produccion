@@ -1,72 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="max-age=86400"/>
-  <title>Área Recurso Humano</title>
-  {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-comercial.css?v=10.2.0.73">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="max-age=86400"/>
+    <title>Area de Recursos Humanos</title>
+   {$STY}
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-rrhh.css?v=10.2.0.24">
+  </head>
+  <body>
+  <br>
+    {$NAV}
+    <div class="bdy">
 
-    </head>
-    <body>
-      {$NAV}
-      <div class="bdy pequeño">
-        <div class="card z-depth-5">
-          <div class="card-header center  pequeño hide-on-small-only head1"><p class="flow-text">Área Comercial</p></div>
-          <div class="card-content  pequeño">
-            <div class="row">
+      <div class="row">
+        <div class="col s3 center" style="border: 1px solid #e2e2e2;height: 100vh;background-color: #ffffff;padding-top: 10px;">
+          
+          <a class="btn tooltipped mn2" data-tooltip="Mantenimiento de Empleados" data-position="bottom" num="1"> <i class="mdi mdi-account-hard-hat mdi-24px"></i> EMPLEADOS</a>
 
-              <div class="col s12 m12 l6 pequeño">
-                <div class="card z-depth-5">
-                  <div class="card-title center head2">&nbsp;Opciones</div>
+          <a class="btn tooltipped mn2" data-tooltip="Generar Planilla" data-position="bottom" num="2"> <i class="mdi mdi-clipboard-list-outline mdi-24px"></i> PLANILLA</a>
 
-                  <div class="card-panel pequeño">
+          <a class="btn tooltipped mn2" data-tooltip="Generar Reportes" data-position="bottom" num="2"> <i class="mdi mdi-chart-multiple mdi-24px"></i> REPORTES</a>
 
-                    <div class="row">
-                     <div class="col s12 m6 l6 per1000 hide">
-                      <a href="empleados" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Clientes">Empleados</a>
-                    </div>
-                    <div class="col s12 m6 l6 per1100 hide">
-                      <a href="facturacion?tf=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Ventas">Ventas</a>
-                    </div>
-                    <div class="col s12 m6 l6 hide">
-                      <a href="#" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="CRM">CRM</a>
-                    </div>
-                    <div class="col s12 m6 l6 per1200 hide">
-                    <a href="rutas" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Rutas">Rutas</a>
-                    </div>
-                     <div class="col s12 m6 l6 per1300 hide">
-                    <a href="facturacion?tf=4" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Cotizaciones">Proforma</a>
-                    </div>
-                    <div class="col s12 m6 l6 per1400 hide">
-                      <a href="facturacion?tf=5" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Pedidos">Pedidos</a>
-                    </div>
-                    <div class="col s12 m6 l6 per1600 hide">
-                      <a href="facturacion?tf=6" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Pre Ventas">Pre Venta</a>
-                    </div>
-                    <div class="col s12 m6 l6 per1500 hide">
-                      <a href="reportes?tr=1" class="waves-effect waves-light btn-large btn1 z-depth-3" style="margin-top:4%; width: 100%;" title="Reportes">Reportes</a>
-                    </div>
-                  </div>
-                </div>
+        </div>
+
+        <div class="col s9" id="_rrhh" style="background-color: white; height: 100vh;padding-top: 2%;">
+
+          <section id="sect0" class="sect">
+              <div class="input-field container center">
+                <i class="mdi mdi-account mdi-24px prefix"></i>
+                <input type="text" id="usr_name" maxlength="9">
+                <label for="usr_name">Ingrese Cedula de Empleado</label>
               </div>
-            </div>
 
-            <div class="col s12 m12 l6 pequeño">
-              <div class="card z-depth-5 per1500 pequeño">
-                <div class="card-title center head2">&nbsp;Gráfico</div>
-                <div class="card-content pequeño">
-                  <canvas class="charts" id="chartG1" width="100%" height="50"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
+              <table id="tbl1">
+                <tr>
+                  <td><b>Empleado</b></td>
+                  <td id="n_empl">Andres Miranda Castro</td>
+                  <td><b>Cedula</b></td>
+                  <td id="c_empl">206650577</td>
+                </tr>
+                <tr>
+                  <td><b>Departamento</b></td>
+                  <td id="d_empl">TI</td>
+                  <td><b>Salario</b></td>
+                  <td id="s_empl">500,000.00 CRC</td>
+                </tr>
+              </table>
+
+              <p class="center">
+                <input class="with-gap" name="opc1" type="radio" id="op1" />
+                <label for="op1">Vacaciones</label>
+
+                <input class="with-gap" name="opc1" type="radio" id="op2" />
+                <label for="op2">Liquidacion</label>
+
+                <input class="with-gap" name="opc1" type="radio" id="op4" />
+                <label for="op4">Tiempo Laborado</label>
+              
+              </p>
+
+          </section>
+          
+          <section id="sect1" class="hide sect">
+            <i class="btn-floating mdi mdi-24px mdi-plus center" id="mnt-empleado" style="cursor: pointer; float: right;"></i>
+          </section>
+
         </div>
       </div>
+
+       <div id="modal-empleado" class="modal modal-fixed-footer mymodal" style="border-bottom: 1px solid #e3e3ee;">
+        <div class="modal-header"><h4 class="center">Agregar Empleado</h4> </div>
+        <div class="modal-content" style="padding-bottom: 55px;">
+
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action waves-effect waves-green btn-flat">Aceptar</a>
+        </div>
+      </div>
+
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/comercial.js?v=10.2.0.73"></script>
+    <script src="../assets/js/modulos/rrhh.js?v=10.2.0.24"></script>
   </body>
 </html>

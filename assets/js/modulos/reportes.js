@@ -3,7 +3,7 @@ $(function(){
     if (!$(".per2000").length)
         $(".basic").addClass('hide')
 
-    if ($(".per15.hide").length)
+    if ($(".per15.hide").length || !$(".per15").length)
         $("#conta").parent().addClass('hide')
 
 	$(".report").click(function(){

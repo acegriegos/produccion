@@ -81,11 +81,7 @@
 		{
 
 			if (strpos($args2,'@usr')) {
-				// require_once '../_config/ecy.php';
-				// $cy = new _cy();
 				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));//$cy->decy($_SESSION['USR']));
-
-
 				$args2 = str_replace('@@usr', $usr, $args2);
 			}
 
@@ -97,6 +93,11 @@
 			if (strpos($arg1,'@impresa')) {
 				$impresa = $_SESSION['IMPRESA'];
 				$arg1 = str_replace('@@impresa', $impresa, $arg1);
+			}
+			
+			if (strpos($arg1,'@usr')) {
+				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));
+				$arg1 = str_replace('@@usr', $usr, $arg1);
 			}
 
 			$args2 = addslashes($args2);

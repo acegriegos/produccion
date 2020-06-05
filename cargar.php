@@ -68,7 +68,8 @@
                             unlink('./'.$url_file);
                         }else{
                             $salida['succed'] = 1;
-
+                            $fexp = gmdate("Y-m-d H:i:s",$certData['validTo_time_t']);
+                            $base->ejecutar('update ajustessucursales set exp_p12 = "'.$fexp.'" where idsucursal = '.$_REQUEST['idsucursal']);
                             $base->ejecutar("UPDATE sucursales SET p12 = '.".$url_file."' WHERE id = ".$_REQUEST['idsucursal']);
                         }
                     }else{
