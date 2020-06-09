@@ -79,6 +79,11 @@
         <label for="vlimite2">Hora de Salida</label>
         <input id="vlimite2" type="time" class="">
       </div>
+      <div class=" col s6 l4 pequeño input-field style="margin-bottom: 20px;">
+        <i class="prefix mdi mdi-whatsapp mdi-24px green-text"></i>
+        <input id="vnum" type="text" class="">
+        <label for="vnum">Numero Whatsapp</label>
+      </div>
     </div>
 
     <br>

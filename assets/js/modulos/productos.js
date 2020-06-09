@@ -2342,9 +2342,10 @@ function cargarUnidades(vidproducto){
 	var uni  = '';
 	var unis = getDatos('',250,'"+'+vidproducto+'"',0,0,0)
 	unis = unis[0];
+	var hide_gan = '';//$("#vganancia:visible").length ? '' : 'hide';
 
     $.each(unis, function(index, valor) {
-        uni += '<div class="precunidad row" idf="'+valor[0]+'" idu="0" dimension style="margin: 0px;"> <div class="col s12 l3" style="padding-left: 5%;"><b>'+valor[1]+'</b> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix">%</i> <input type="text" id="vuganancia'+valor[0]+'" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off"> <input type="hidden" id="vuganancia'+valor[0]+'" value="0" class="rgan"> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventa'+valor[0]+'" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off"> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventaiva'+valor[0]+'" class="validate calcvv eder numeric veniva" value="0.00" num="5" autocomplete="off"> </div></div>';
+        uni += '<div class="precunidad row" idf="'+valor[0]+'" idu="0" dimension style="margin: 0px;"> <div class="col s12 l3" style="padding-left: 5%;"><b>'+valor[1]+'</b> </div> <div class="col s12 l3 input-field '+hide_gan+'"> <i class="mdi prefix">%</i> <input type="text" id="vuganancia'+valor[0]+'" class="validate calcvv eder gan numeric" value="0.00" num="2" style="margin-bottom: 0px" autocomplete="off"> <input type="hidden" id="vuganancia'+valor[0]+'" value="0" class="rgan"> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventa'+valor[0]+'" class="validate calcvv eder ven numeric" value="0.00" num="3" style="margin-bottom: 0px" autocomplete="off"> </div> <div class="col s12 l3 input-field"> <i class="mdi prefix moneda">¢</i> <input type="text" id="vuventaiva'+valor[0]+'" class="validate calcvv eder numeric veniva" value="0.00" num="5" autocomplete="off"> </div></div>';
     });
     $(".precunidiv").html(uni);
 };

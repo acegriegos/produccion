@@ -277,7 +277,7 @@
             <div class="row" style="margin: 0;margin-top:20px;">
 
                 <div class="col s12 l3 ">
-                    <div class="input-field">
+                    <div class="input-field per4119">
                         <i class="mdi prefix" id="icosto">¢</i>
                         <input type="text" id="vcosto" class="validate eder numeric cos calcvv" value="0.00" num="1" autocomplete="off" focus="vgganancia">
                         <label for="vcosto">Precio Costo</label>
@@ -292,7 +292,7 @@
                     </div>
                 </div>
 
-                <div class="col s12 l3 input-field">
+                <div class="col s12 l3 input-field per4120">
                     <i class="mdi prefix">%</i>
                     <input type="text" id="vgganancia" class="validate calcvv eder numeric gan" value="0.00" focus="vventa" num="2" autocomplete="off">
                     <input type="hidden" id="vganancia" value="0" class="rgan">
