@@ -177,6 +177,33 @@ $(function(){
         }
     });
 
+    $("#mntNotas").click(function(){
+        if( !$("#_vnota").val().trim().length){
+            Materialize.toast('Nota Requrida',4000,'red');
+            $("#_vnota").focus()
+            return false;
+        }
+
+        switch(parseInt($(this).attr('tp'))){
+            case 1:
+                insertar(333,'','null,'+$(this).attr('idtabla')+','+$(this).attr('idfila')+',"'+$("#_vnota").val()+'",now(),@@usr,@@impresa,'+$("#_vtiponota option:selected").val())
+                $("#_vnota").val('')
+                $("#_vtiponota").val(1).change()
+                Materialize.toast('Nota Registrada Correctamente',4000,'green');
+                break;
+            case 2:
+                console.log(actualizar(333,'nota="'+$("#_vnota").val()+'",idtipo='+$("#_vtiponota option:selected").val(),'id='+$(this).attr('vid')))
+                Materialize.toast('Nota Editada Correctamente',4000,'green');
+                break;
+            default:
+                console.log(eliminar(333,'id='+$(this).attr('vid')))
+                Materialize.toast('Nota Elminada Correctamente',4000,'green');
+                break;    
+        }
+        
+        arr('login',6,'',334,'@@impresa,'+$(this).attr('idtabla')+','+$(this).attr('idfila'),0,1,$("#_listanotas"));
+    });
+
     var moneda = getDatos('nombre,id,valor+suma',54,'id > 0',0,0);
     var ht = '';
     for (var i = 0; i < moneda[0].length; i++) {

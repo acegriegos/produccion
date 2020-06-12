@@ -1,6 +1,6 @@
 <?php 
-	
-	foreach ($transaccion as $obj) {
+    
+    foreach ($transaccion as $obj) {
 ?>
 
 <tr>
@@ -19,11 +19,11 @@
 
             <li><a class="center mdi mdi-24px mdi-file-pdf pdf tooltipped" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="c<?php echo $obj[0] ?>" data-tooltip=""></a></li>
 
-            <li class="tr trVenta trTiquete trExportacion trFECompra"><a class="center mdi mdi-24px mdi-file-xml xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g<?php echo $obj[0] ?>" data-tooltip=""></a></li>
+            <li class="tr trVenta trTiquete trExportacion trFECompra"><a class="center mdi mdi-24px mdi-cloud-download-outline xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g<?php echo $obj[0] ?>" data-tooltip=""></a></li>
 
             <li class="tr trVenta trTiquete trExportacion trFECompra"><a class="center mdi mdi-24px mdi-xml mh tooltipped" data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="h<?php echo $obj[0] ?>" data-tooltip=""></a></li>
 
-            <li class="tr trCot"><a class="center mdi mdi-24px mdi-settings process tooltipped" data-tooltip="Procesar Factura" data-position="left" id="b<?php echo $obj[0] ?>"></a></li>
+            <li class="tr trCot"><a class="center mdi mdi-24px mdi-cog process tooltipped" data-tooltip="Procesar Factura" data-position="left" id="b<?php echo $obj[0] ?>"></a></li>
 
             <li class="tr trCot trManual trPedido trOCompra"><a class="center mdi mdi-24px mdi-pencil fedit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
 
@@ -60,7 +60,7 @@
  ?>
 
  <script type="text/javascript">
- 	$(function(){
+    $(function(){
         var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
         $(".tr").addClass('hide');
         switch(tf) {
@@ -98,6 +98,6 @@
 
         $('.tooltipped').tooltip({delay: 50});
         $('.dropdown-button').dropdown();
- 		permisos(310,311);
- 	})
+        permisos(310,311);
+    })
  </script>

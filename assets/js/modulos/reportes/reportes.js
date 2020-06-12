@@ -290,7 +290,6 @@ $(document).on("click",".pdf",function(){
 
     $.get('login',{accion:8,arreglo:{sel:'',tbl:resultado.vtbl,where:resultado.vattr,mic:1,tit:$("#titrep").html(),arch:$(this).attr('arch')}})
         .done(function(data){
-           console.log(data) 
            $("#shpdf").html('PDF Generado')
            $(".expect").removeClass('progress');
            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");

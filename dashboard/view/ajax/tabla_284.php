@@ -4,6 +4,7 @@
         <td class="white-text blue sinborde " style="text-align: center"><b>Producto</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Movimiento</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Fecha</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Usuario</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad Inicial</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad Final</b></td>
@@ -20,6 +21,7 @@
         <td style=" padding: 1px;text-align: left"><?php echo $obj[0] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[1] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td> 
+        <td style=" padding: 1px;"><?php echo $obj[7] ?></td> 
         <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[6],2) ?></td> 
         <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[3],2) ?></td>
         <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[5],2) ?></td> 

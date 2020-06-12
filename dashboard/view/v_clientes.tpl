@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.24">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.75">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -43,7 +43,7 @@
                   <th class="sinborde white-text tab1">Nombre</th>
                   <th class="sinborde white-text tab1">Teléfonos</th>
                   <th class="sinborde white-text tab1">Correo</th>
-                  <th class="sinborde white-text tab1">Tipo</th>
+                  <th class="sinborde white-text tab1">Saldo</th>
                   <th class="sinborde white-text tab1">Acciones</th>
                 </tr>
               </thead>
@@ -416,6 +416,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.2.0.24"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.2.0.75"></script>
 </body>
 </html>

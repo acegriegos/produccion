@@ -413,7 +413,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-		vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave,aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsuc';
+		vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave,aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsuc,num as vnum';
 		vmodulo['tbl'] = 1;
 		vmodulo['where'] = 'id = "'+vid+'"';
 		$("#vuser").focus();

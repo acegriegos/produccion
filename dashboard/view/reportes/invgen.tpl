@@ -6,8 +6,9 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Inventarios</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.24">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.75">
 </head>
+
 <body class="black">
   <div class=" principal contenedor" >
       <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos" types="0,3,3,3,3,3" portipo="varios" tfiltrar=""></div>
@@ -35,9 +36,46 @@
     <div class="detrep"></div>
   <br><br>
   </div>
+
+  <div class="modal modal-fixed-footer grandemodal" id="modal-notasprod">
+  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto <span class="_proname"></span></div>
+  <div class="modal-content">
+
+      <div class="row">
+        <div class="col s8 input-field">
+          <textarea id="_vnota" class="materialize-textarea" data-length="100"></textarea>
+          <label for="_vnota">Nota</label>
+        </div>
+
+        <div class="col s4">
+          <label for="_vtiponota">Tipo Nota</label>
+          <select id="_vtiponota" class="browser-default">
+            <option value="1" selected>Informativa</option>
+            <option value="2">Mostrar en Facturacion</option>
+          </select>
+          <br>
+          <a class="btn" tp="1" id="mntNotas">Guardar</a>
+        </div>  
+      </div>
+      
+      <table class="table bordered">
+        <thead>
+          <th>Fecha</th>
+          <th>Nota</th>
+          <th>Mostrar en</th>
+          <th>Usuario</th>
+          <th></th>
+        </thead>
+        <tbody id="_listanotas"></tbody>
+      </table>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.24"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.2.0.24"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.75"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.2.0.75"></script>
 </body>
 </html>

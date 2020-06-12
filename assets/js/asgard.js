@@ -43,6 +43,14 @@ $(window).keydown(function(e){
     }
 });
 
+$(document).on('click','.notasprod',function(){
+    arr('login',6,'',334,'@@impresa,'+$(this).attr('tbl')+','+$(this).attr('row'),0,1,$("#_listanotas"));
+    $("#mntNotas").attr('idtabla',$(this).attr('tbl')).attr('idfila',$(this).attr('row'));
+    $("#_proname").html($(this).attr('name'));
+    $("#modal-notasprod").modal('open')
+    $("#_vnota").focus();
+});
+
 $(document).on('click','.closetoast',function(){
     $(this).parent().addClass('hide');
 });

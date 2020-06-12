@@ -24,12 +24,22 @@
     <tr id="<?php echo $obj[13]; ?>" metrica="<?php echo $obj[14]; ?>">
         <td style=" padding: 1px;text-align: left;"><?php echo $obj[2] ?></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus" style="border: 0px" value="<?php echo number_format($obj[6],2,'.','') ?>" rval="<?php echo $obj[6] ?>"></td> 
-        <td style=" padding: 1px;"><select class="browser-default um" style="border: 0px;"> <option value="1" selected>UN</option> <option value="2">M</option> </select></td> 
+        <td style=" padding: 1px;">
+            <select class="browser-default um" style="border: 0px;">
+                <?php if($obj[20]){
+                    echo '<option value="'.$obj[19].'" selected cnt="'.$obj[21].'">'.$obj[22].'</option>
+                          <option value="-1" cnt="1">'.$obj[23].'</option>';
+                }else{
+                    echo '<option value="'.$obj[19].'" selected cnt="'.$obj[21].'">'.$obj[22].'</option>';
+                } ?> 
+                 
+            </select>
+        </td> 
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus1" style="border: 0px" value="<?php echo number_format($obj[12],2,'.','') ?>"/></td>
-         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus2" style="border: 0px" value="<?php echo number_format($obj[14],2,'.','') ?>"/></td>
-          <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus3" style="border: 0px" value="<?php echo number_format($obj[16],2,'.','') ?>"/></td>
-           <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus4" style="border: 0px" value="<?php echo number_format($obj[17],2,'.','') ?>"/></td>
-            <td style=" padding: 1px;text-align: right;"><input type="text" class="eder browser-default focus5" style="border: 0px" value="<?php echo $obj[18]; ?>"/></td>
+        <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus2" style="border: 0px" value="<?php echo number_format($obj[14],2,'.','') ?>"/></td>
+        <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus3" style="border: 0px" value="<?php echo number_format($obj[16],2,'.','') ?>"/></td>
+        <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus4" style="border: 0px" value="<?php echo number_format($obj[17],2,'.','') ?>"/></td>
+        <td style=" padding: 1px;text-align: right;"> <!-- <input type="text" class="eder browser-default focus5" style="border: 0px" value="<?php echo $obj[18]; ?>"/> --> <span class="notasprod" name="<?php echo $obj[2] ?>" tbl="11" row="<?php echo $obj[13]; ?>" style="cursor: pointer;"><?php echo $obj[18]; ?></span> </td>
        
     </tr>
 
@@ -58,7 +68,8 @@
         var code = e.wich || e.keyCode;
         if(code == 13){
             var tr = $(this).parent().parent();
-            var ml = tr.find('.um').val() == 1 ? parseFloat($(this).val())*parseFloat(tr.attr('metrica')) : $(this).val();
+            var ml = tr.find('.um').val() != -1 ? parseFloat($(this).val())*parseFloat(tr.attr('metrica'))*parseFloat(tr.find('.um option:selected').attr('cnt')) : $(this).val();
+            
             var cactual = getDatos('cantidad',97,'idproducto = '+tr.attr('id'),0,0,0)[0][0][0]
             actualizar(97,'cantidad = '+ml,'idproducto = '+tr.attr('id'));
             var resta = parseFloat(ml) - parseFloat(cactual);
