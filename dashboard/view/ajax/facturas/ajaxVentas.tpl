@@ -859,7 +859,7 @@
   <div class="row">
     {section name=LE loop=$TPAGO}
         <input type="radio" value="{$TPAGO[LE][0]}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
-        <label for="tpg{$TPAGO[LE][0]}" class="col s2">{$TPAGO[LE][1]}</label>
+        <label for="tpg{$TPAGO[LE][0]}" class="col s4 l2">{$TPAGO[LE][1]}</label>
     {/section}
   </div>
 <!--  -->
@@ -1254,4 +1254,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.24"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.75"></script>

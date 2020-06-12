@@ -43,7 +43,7 @@
                 <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true"></i> Usuario</a></li>
                 <li><a href="#!" value="5" class="otpmenu white-text" id="x5"><i class="mdi mdi-repeat mdi-24px right white-text" aria-hidden="true"></i>Flujo de Efectivo</a></li>
                 <li class="per7300"><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
-                <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-settings mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
+                <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-cog mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true"></i>Info Sistema</a></li>
 
               </ul>
@@ -282,23 +282,42 @@
   </div>
 </div>
 
-<div class="modal modal-fixed-footer" id="modal-notas" style="height: 50%; width: 50%">
-    <div class="modal-header head3 center" style="font-size: 22px;">Notas Producto <span class="proname"></span></div>
-    <div class="modal-content">
-        <table class="table bordered">
-          <thead>
-            <th>Fecha</th>
-            <th>Nota</th>
-            <th>Mostrar</th>
-            <th>Usuario</th>
-            <th></th>
-          </thead>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-    </div>
+<div class="modal modal-fixed-footer grandemodal" id="modal-notasprod">
+  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto <span class="_proname"></span></div>
+  <div class="modal-content">
+
+      <div class="row">
+        <div class="col s8 input-field">
+          <textarea id="_vnota" class="materialize-textarea" data-length="100"></textarea>
+          <label for="_vnota">Nota</label>
+        </div>
+
+        <div class="col s4">
+          <label for="_vtiponota">Tipo Nota</label>
+          <select id="_vtiponota" class="browser-default">
+            <option value="1" selected>Informativa</option>
+            <option value="2">Mostrar en Facturacion</option>
+          </select>
+          <br>
+          <a class="btn" tp="1" id="mntNotas">Guardar</a>
+        </div>  
+      </div>
+      
+      <table class="table bordered">
+        <thead>
+          <th>Fecha</th>
+          <th>Nota</th>
+          <th>Mostrar en</th>
+          <th>Usuario</th>
+          <th></th>
+        </thead>
+        <tbody id="_listanotas"></tbody>
+      </table>
   </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
 
   <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 75%; width: 50%">
     <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo</div>

@@ -137,7 +137,7 @@ $html .= '</head>'.
 '<td align="left" valign="top" style="width:20%">';
 if ($miscelaneos[3]) {
   $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
-  $html .= '<img src="'.$logo.'" style="width=300px;height=300px;min-height=300px" >';
+  $html .= '<img src="'.$logo.'" style="width:300px;height:300px;min-height:300px" >';
 }
 
 $html .= '</td>'.

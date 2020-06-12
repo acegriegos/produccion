@@ -2182,6 +2182,10 @@ function cargarProducto(kbrota,elemento) {
             endCargarProducto(cod[9],cod[19],cod[21]);   
         }
 
+        var notas = getDatos('nota',333,'idtipo=2 and idsucursal = @@impresa and idtabla = 11 and idfila = '+cod[0]);
+        if(notas[0].length && param.toString().match(new RegExp(/\b1\b|\b7\b|\b10\b|\b8\b/g))){
+            $("#shnotas").removeClass('hide')
+        }
         Materialize.updateTextFields()
     }else{
         switch(param) {

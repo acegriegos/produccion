@@ -544,6 +544,14 @@ function cargarCompras(){
                     indice += 1;
                 }
             }
+
+            if(parseInt($(this).data('triforce')['vidnota'])){
+                console.log(actualizar(333,'nota="'+$(this).data('triforce')['vnota']+'"','id = '+$(this).data('triforce')['vidnota']))
+            }else{
+                if($(this).data('triforce')['vnota'] != ''){
+                    console.log(insertar(333,'','null,11,'+$(this).data('triforce')['videntrada']+',"'+$(this).data('triforce')['vnota']+'",now(),@@usr,@@impresa,1'))
+                }
+            }
         });
 
         insertar(291,'idfactura,compraprocesada',$("#fd1").data('triforce')['vidfactura']+',1');
@@ -557,6 +565,10 @@ function cargarCompras(){
             },4000);
         }
     };
+
+    $(document).on("blur","#vnotas",function(){
+        $("#"+$("#marbdy").attr('fd')).data('triforce')['vnota'] = $(this).val();
+    });
 
     $(document).on("click",".costo",function(e){
         if(parseInt($(this).parent().parent().data('triforce')['videntrada']) == 0){
@@ -639,7 +651,15 @@ function cargarCompras(){
         $("#openmargen").sideNav('show');
         $("#grp0").find('.vgan').focus().select();
 
-        $("#marbdy").append('<br> <label><b>Última Compra</b></label> <table><tr> <td style="width:50%"><b>PROVEEDOR</b></td> <td style="width:35%"><b>FECHA</b></td> <td style="width:5%"><b>CANT</b></td> <td style="width:5%"><b>VALOR</b></td> </tr> <tr> <td title="'+prod[0][0][15]+'">'+prod[0][0][18]+'</td> <td>'+prod[0][0][16]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> <td style="text-align: center">'+prod[0][0][21]+'</td> </tr> </table>  <br> <label for="vnotas"><b>NOTAS</b></label> <textarea id="vnotas" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="500"></textarea> ')
+        if($(this).parent().parent().data('triforce')['vidnota'] != undefined){
+            prod[0][0][20] = $(this).parent().parent().data('triforce')['vnota'];
+        }else{
+            $(this).parent().parent().data('triforce')['vnota'] = prod[0][0][20];
+            $(this).parent().parent().data('triforce')['vidnota'] = prod[0][0][22];    
+        }
+        
+
+        $("#marbdy").append('<br> <label><b>Última Compra</b></label> <table><tr> <td style="width:50%"><b>PROVEEDOR</b></td> <td style="width:35%"><b>FECHA</b></td> <td style="width:5%"><b>CANT</b></td> <td style="width:5%"><b>VALOR</b></td> </tr> <tr> <td title="'+prod[0][0][15]+'">'+prod[0][0][18]+'</td> <td>'+prod[0][0][16]+'</td> <td style="text-align: center">'+prod[0][0][17]+'</td> <td style="text-align: center">'+prod[0][0][21]+'</td> </tr> </table>  <br> <label><b>NOTAS</b></label> <br> <textarea id="vnotas" maxlength="100">'+prod[0][0][20]+'</textarea> ')
     });
 
     $(document).on('click','.divcnt',function(){

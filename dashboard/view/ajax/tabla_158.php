@@ -1,6 +1,6 @@
 <?php 
-	
-	foreach ($transaccion as $obj) {
+    
+    foreach ($transaccion as $obj) {
 ?>
 
 <tr>
@@ -60,7 +60,7 @@
  ?>
 
  <script type="text/javascript">
- 	$(function(){
+    $(function(){
         var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
         $(".tr").addClass('hide');
         switch(tf) {
@@ -98,6 +98,6 @@
 
         $('.tooltipped').tooltip({delay: 50});
         $('.dropdown-button').dropdown();
- 		permisos(310,311);
- 	})
+        permisos(310,311);
+    })
  </script>
