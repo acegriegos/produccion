@@ -35,7 +35,7 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(5, 5, 5);
+$pdf->SetMargins(5, 5, 10);
 $pdf->SetHeaderMargin(10);
 $pdf->SetFooterMargin(5);
 $pdf->setPrintFooter(true);
@@ -51,7 +51,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 }
 
 $pdf->setFontSubsetting(true);
-$pdf->SetFont('dejavusans', '', 10, '', true);
+$pdf->SetFont('dejavusans', '', 9.5, '', true);
 $pdf->AddPage('L');
 $total = 0;
 
@@ -64,10 +64,10 @@ $html = '<!doctype html>'.
 '<meta name="viewport" content="width=device-width, initial-scale=1"></head>';
 
 $html .= '<table align="right" boridder="0" cellpadding="0" cellspacing="0"> '.
-'<tr><td>';
+'<tr><td align="left">';
 if ($miscelaneos[3]) {
   $logo = isset($url2) ? str_replace('../', '', $miscelaneos[3]) : $miscelaneos[3];
-  $html .= '<img src="'.$logo.'" width="264" style="max-width:339px;">';
+  $html .= '<img src="'.$logo.'" style="width:300px;height:150px;min-height:150px">';
 }
 $html .=  '</td><td valign="top" style="font-size: 13px;font-family: Helvetica;">'.
 '<div style="text-align: center; color: #494949;">';
@@ -77,7 +77,7 @@ $fact = $miscelaneos[2] != '' ? $miscelaneos[2] : $miscelaneos[0];
    }
    else
       $html .= '<strong>'.$miscelaneos[0].'</strong><br>';
-$filtros = isset($datos[0][14]) ? 'Fecha Vencimiento '.$datos[0][14] : '';
+
 $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 '<strong>Teléfono:</strong> '.$miscelaneos[5].'<br>'.
 '<strong>Correo:</strong> '.$miscelaneos[4].'<br>'.
@@ -87,7 +87,7 @@ $miscelaneos[6].'</div>'.
 '</td><td> <strong>Fecha del Reporte: </strong>'.date('d-m-Y H:i a').'</td>'.
 '</tr>
 <tr>
-  <td align="center" colspan="3"><br><br><b>'.$tit.'</b><br>'.$filtros.'</td></tr>
+  <td align="center" colspan="3"><b>'.$tit.'</b><br>'.$filtros.'</td></tr>
   <tr><td colspan="3"><br><br>
     <table style="border: 1px solid #e2e2e2">';
 
@@ -164,7 +164,9 @@ for($i = 0; $i<sizeof($datos);$i++){
       </tr>';
 }
 
-$html .= '<tr> <td colspan="2" align="left"><br><br><br><br> <br> <b>Saldo por Vencer 1 Dia:</b> <br> <b>Saldo por Vencer 8 Dias</b> <br> <b>Saldo por Vencer 15 Dias</b> <br> <b>Saldo por Vencer 30 Dias</b> <br> <b>Saldo por Vencer +30 Dias</b> <br> <b>Saldo sin Vencer:</b> </td> <td colspan="2" align="right"><br><br><br><br> <br>'.number_format($spv1,2).' <br>'.number_format($spv8,2).' <br>'.number_format($spv15,2).' <br>'.number_format($spv30,2).' <br>'.number_format($spvm30,2).' <br> '.number_format($ssv,2).'</td> <td></td> <td colspan="2" align="left"><br><br><br><br> <b>Saldo Vencido Hoy:</b> <br> <b>Saldo Vencido 1 Dia:</b> <br> <b>Saldo Vencido 8 Dias</b> <br> <b>Saldo Vencido 15 Dias</b> <br> <b>Saldo Vencido 30 Dias</b> <br> <b>Saldo Vencido +30 Dias</b> <br> <b>Saldo Vencido:</b></td> <td colspan="2" align="right"><br><br><br><br>'.number_format($sv0,2).' <br>'.number_format($sv1,2).' <br>'.number_format($sv8,2).' <br>'.number_format($sv15,2).' <br>'.number_format($sv30,2).' <br>'.number_format($svm30,2).' <br> '.number_format($sv,2).'</td> </tr></table></td></tr></table>';
+ //$html .= '<tr> <td colspan="2" align="left"><br><br><br><br> <br> <b>Saldo por Vencer 1 Dia:</b> <br> <b>Saldo por Vencer 8 Dias</b> <br> <b>Saldo por Vencer 15 Dias</b> <br> <b>Saldo por Vencer 30 Dias</b> <br> <b>Saldo por Vencer +30 Dias</b> <br> <b>Saldo sin Vencer:</b> </td> <td colspan="2" align="right"><br><br><br><br> <br>'.number_format($spv1,2).' <br>'.number_format($spv8,2).' <br>'.number_format($spv15,2).' <br>'.number_format($spv30,2).' <br>'.number_format($spvm30,2).' <br> '.number_format($ssv,2).'</td> <td></td> <td colspan="2" align="left"><br><br><br><br> <b>Saldo Vencido Hoy:</b> <br> <b>Saldo Vencido 1 Dia:</b> <br> <b>Saldo Vencido 8 Dias</b> <br> <b>Saldo Vencido 15 Dias</b> <br> <b>Saldo Vencido 30 Dias</b> <br> <b>Saldo Vencido +30 Dias</b> <br> <b>Saldo Vencido:</b></td> <td colspan="2" align="right"><br><br><br><br>'.number_format($sv0,2).' <br>'.number_format($sv1,2).' <br>'.number_format($sv8,2).' <br>'.number_format($sv15,2).' <br>'.number_format($sv30,2).' <br>'.number_format($svm30,2).' <br> '.number_format($sv,2).'</td> </tr></table></td></tr></table>';
+
+  $html .= '</table></td></tr></table>';
 
 
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.
@@ -174,7 +176,8 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output($ubic.'assets/pdf/Estado Cuenta_'.$fact.'_'.date('YmdHis').'.pdf','F');
+$ver = isset($_REQUEST['arreglo']['show']) ? 'I' : 'F';
+$pdf->Output($ubic.'assets/pdf/Estado Cuenta_'.$fact.'_'.date('YmdHis').'.pdf',$ver);
 
 echo json_encode('Estado Cuenta_'.$fact.'_'.date('YmdHis').'.pdf');
 

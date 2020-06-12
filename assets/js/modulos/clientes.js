@@ -52,6 +52,34 @@ $(function(){
 		$(".cliename").html($("#f"+id+">td:eq(1)").html())
 	});
 
+	$(document).on("click",".stado",function(){
+		var $toastContent = $('<span style="width: 500px" id="shpdf">Generando PDF:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+        Materialize.toast($toastContent);
+
+        $.get('login',{accion:8,arreglo:{sel:'',tbl:269,where:$(this).attr('id').substr(1)+',0,0,@@impresa,"","",""',mic:1,tit:'Estado de Cuenta',arch:'cxc'}})
+        .done(function(data){
+        	console.log(data)
+           $("#shpdf").html('PDF Generado')
+           $(".expect").removeClass('progress');
+           $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
+           data =JSON.parse(data);
+            var link = document.createElement('a');
+            link.href = '../assets/pdf/'+data;
+            link.download = data;
+            link.dispatchEvent(new MouseEvent('click'));
+            
+           setTimeout(function(){ 
+                $("#shpdf").parent().remove();
+                $.get('login',{accion:17,arreglo:{file:'../assets/pdf/'+data}})
+                .done(function(data){
+                    console.log(data);
+                })
+            }, 3000);
+           
+        })
+
+	});
+
 	$("#vnumdoc").keyup(function(e){
 		var code = e.wich || e.keyCode;
 		if(code == 13){
