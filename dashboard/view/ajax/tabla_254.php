@@ -88,7 +88,9 @@
         if(code == 13){
             var tr = $(this).parent().parent();
             var ml = $(this).val();
-            actualizar(11,'costo = '+ml,'id = '+tr.attr('id'));
+            //actualizar(11,'costo = '+ml,'id = '+tr.attr('id'));
+            console.log(getDatos('',335,tr.attr('id')+','+ml));
+            console.log(tr.attr('id')+','+ml)
             $(this).next('.focus1').focus().select();
             Materialize.toast('Costo Cambiado Correctamente',4000,'green');
         }

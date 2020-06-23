@@ -7,7 +7,7 @@
         <meta http-equiv="Cache-Control" content="max-age=86400"/>
         <title>Taller</title>
         {$STY}
-        <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.2.0.75">
+        <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.2.0.76">
     </head>
     
     <body>
@@ -140,13 +140,59 @@
                         </div>
                     </div>
 
-                        <div class="modal modal-fixed-footer" id="modal-descr" style="width: 40%;height: 40%;">
+                        <div class="modal modal-fixed-footer" id="modal-descr" style="width: 90%;">
                           <div class="modal-header center">
                           <ul class="tabs head3">
                             <h5>Agregar Descripción del Elemento</h5>
                           </ul>
                           </div>
+
                             <div class="modal-content" style="margin:0px;">
+
+                              <div class="row">
+                                <div class="col s4">
+                                  <div class="input-field">
+                                    <input type="text" id="det-elem-placa" maxlength="60" class="eder" tp="1">
+                                    <label for="det-elem-placa">Placa</label>
+                                  </div>
+
+                                  <div class="input-field">
+                                    <input type="text" id="det-elem-cilindraje" maxlength="60" class="eder" tp="2">
+                                    <label for="det-elem-cilindraje">Cilindraje</label>
+                                  </div>
+
+                                  <div class="input-field">
+                                    <input type="number" min="1690" max="2050" id="det-elem-ano" class="eder" tp="3">
+                                    <label for="det-elem-ano">Año</label>
+                                  </div>
+                                </div>
+
+                                <div class="col s4">
+                                  <section>
+                                  <label for="det-elem-tipodemotor" tp="4">Tipo de Motor</label>
+                                  <select id="det-elem-tipodemotor" class="browser-default">
+                                    <option value="5">Manual</option>
+                                    <option value="6">Automatico</option>
+                                  </select>
+                                  </section>
+
+                                  <section>
+                                    <label for="det-elem-depuno">Marca</label>
+                              <select class="browser-default" tp="7" id="det-elem-depuno"></select>
+                                  </section>
+
+                                  <section>
+                                     <label for="det-elem-depdos">Modelo</label>
+                              <select class="browser-default" tp="8" id="det-elem-depdos">
+                                
+                              </select>
+                                  </section>
+                                </div>
+
+                                <div class="col s4"></div>
+                          </div>
+
+
                               <div class="input-field center">
                                 <label for="descrip">Descripción</label>
                                 <input type="text" id="descrip" maxlength="100">
@@ -277,6 +323,6 @@
         </div>
 
         {$SCR}
-        <script src="../assets/js/modulos/taller.js?v=10.2.0.75"></script>
+        <script src="../assets/js/modulos/taller.js?v=10.2.0.76"></script>
     </body>
 </html>                                         
