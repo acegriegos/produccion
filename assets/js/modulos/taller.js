@@ -107,8 +107,12 @@ $(function(){
         if(idbol['succed'] == 1){
 
             $.each($('.elemento'),function(ind,val){
-                if(parseInt($(this).attr('accion')) == 1)
+                if(parseInt($(this).attr('accion')) == 1){
                     insertar(502,'','null,'+idbol[0][0][0]+','+$(this).attr('vid')+',"'+$(this).data('descr')+'"');
+                    /*$("[id^=det-elem]").each(function(){
+                        insertar(513,'','null,')
+                    });*/
+                }
                 else
                     actualizar(502,'descripcion="'+$(this).data('descr')+'"','idboleta='+idbol[0][0][0]+' and idelemento='+$(this).attr('vid'));
 
@@ -391,7 +395,28 @@ $(function(){
     });
 });
 
+$("#det-elem-depuno").change(function(){
+    var depuno = getDatos('id,nombre',512,'id > 0 and iduno='+$('option:selected',this).val()+' order by nombre');
+    var list = '';
+        for (var i = 0; i < depuno[0].length; i++) {
+            list += '<option value="'+depuno[0][i][0]+'">'+depuno[0][i][1]+'</option>';
+        }
+        $("#det-elem-depdos").html(list);
+});
+
 $(document).on('click','.infoelem',function(){
+    //var detelem = getDatos()
+    if(!$("#det-elem-depuno option").length){
+        var depuno = getDatos('id,nombre',511,'id > 0 and idelemento = '+$(this).parent().find('.elemento').attr('vid')+' order by nombre');
+
+        var list = '';
+        for (var i = 0; i < depuno[0].length; i++) {
+            list += '<option value="'+depuno[0][i][0]+'">'+depuno[0][i][1]+'</option>';
+        }
+        $("#det-elem-depuno").html(list);
+        $("#det-elem-depuno").change()
+    }
+
     $("#modal-descr").modal('open');
     var elm = $(this).parent().find('.elemento');
 
