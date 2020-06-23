@@ -2530,6 +2530,10 @@ function searchClient(vvariable,visprv){
             $("#idfact").html(ncons);
         }
 
+        if ($("#ffacturas .zelda").data('triforce')['vidtipoventa'] == 4){
+            $("#oc").parent().parent().removeClass('hide')
+        }
+
         $("#ffacturas .zelda").data('triforce')['vidcliente'] = 0;
         $("#vdescuentop").val(0);
         $("#vdescuentop").data('valor',0);

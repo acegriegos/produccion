@@ -35,12 +35,12 @@
 
 <div class="row">
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align per1501 hide">
 <a class="report pbtn" rep="clientes"><i class="mdi mdi-account-multiple  mdi-48px"></i></a>
 <p>Clientes</p>
 </div>
 
-<div class="col s6 m3 l2 center-align ">
+<div class="col s6 m3 l2 center-align per1502 hide">
 <a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i></a>
 <p>Ventas</p>
 </div>
@@ -70,22 +70,22 @@
 <p>Pedidos</p>
 </div>
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align per1503 hide">
 <a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account"></i></a>
 <p>Cuentas por Cobrar</p>
 </div>
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align per1504 hide">
 <a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-history"></i></a>
 <p>Histórico CxC</p>
 </div>
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align per1510 hide">
 <a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i></a>
 <p>Proveedores</p>
 </div>
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align per1509 hide">
 <a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i></a>
 <p>Compras</p>
 </div>
@@ -95,17 +95,17 @@
 <p>Ordenes de Compras</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic">
+<div class="col s6 m3 l2 center-align basic per1505 hide">
 <a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-clipboard-account"></i></a>
 <p>Cuentas por Pagar</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic">
+<div class="col s6 m3 l2 center-align basic per1506 hide">
 <a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-clock"></i></a>
 <p>Histórico CxP</p>
 </div>
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align hide">
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
@@ -115,7 +115,7 @@
 Inventario <hr>
 
 <div class="row">
-    <div class="col s6 m3 l2 center-align">
+    <div class="col s6 m3 l2 center-align per1508 hide">
 <a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Inventarios General</p>
 </div>
@@ -130,17 +130,17 @@ Inventario <hr>
 <p>Más Vendido</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic">
+<div class="col s6 m3 l2 center-align basic per1511 hide">
 <a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Movimientos de Inventario</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic">
+<div class="col s6 m3 l2 center-align basic hide">
 <a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Movimiento de Costos-Ventas</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic">
+<div class="col s6 m3 l2 center-align basic hide">
 <a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Kardex</p>
 </div>

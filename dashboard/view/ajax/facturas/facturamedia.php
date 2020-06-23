@@ -11,7 +11,7 @@
     line-height: 1;
   }
 </style>
-<?php $hide = $datos[24] > 2 ? 'hide':'' ?>
+<?php $hide = $datos[24] > 2 ? 'hide':''; $special = $datos[24] == 8 ? 'color:red;' : ''; ?>
 <?php $co = isset($_REQUEST['co']) ? 0 : 1 ?>
 </a>
 
@@ -25,7 +25,7 @@
         <div class="row" style="margin: 0px">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="300px" heigth="150px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -39,16 +39,16 @@
               <?php
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                    else
                       echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
                 }else{
                    if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                       echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }
                 
               ?>
@@ -316,16 +316,16 @@
 
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }else{
                    if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                       echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }
                 
               ?>
@@ -561,16 +561,16 @@
 
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }else{
                    if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                       echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }
                 
               ?>

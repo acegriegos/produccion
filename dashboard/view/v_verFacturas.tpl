@@ -161,6 +161,6 @@
 
     {$SCR}
     
-    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.75"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.2.0.75-1"></script>
   </body>
 </html>
