@@ -1,4 +1,4 @@
-<?php $config = $kakaroto->kamehameha('',42,'@@impresa');?>
+<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa');?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +83,7 @@ echo '<button class="print" style="cursor: pointer;left:100px;position:fixed;pad
     border: 2px solid #0016b0">Imprimir</button>';
 
   echo '<div class="container"  >
-<table>';
+<table style="width:100%;">';
 
 /*if($miscelaneos[3] != '')
   echo $logo;*/
@@ -128,7 +128,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
-    <td align="left" colspan="4" style="font-size:11px">'.$transaccion[0][32].'</td>
+    <td align="left" colspan="4" >'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
@@ -139,7 +139,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>
 </table>
 
-<table>
+<table style="width:100%">
   <tr>
     <td>Fecha: '.$fecha[0].'-'.$fecha[1].'-'.$fecha[2].'</td>
     <td>Hora: '.$datos[37].'</td>
@@ -156,11 +156,19 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   echo '<tr '.$ocultar.'>
     <td width="50%">Vendedor: </td>
     <td width="50%">'.$datos[16].'</td>
-  </tr>
-  <tr '.$ocultar.'>
-    <td width="50%">T. Pago:</td>
-    <td width="50%">'.$datos[2].'</td>
   </tr>';
+
+  if($datos[2] == 'Mixto'){
+    $mxt = $kakaroto->kamehameha('format(total,2)',336,'idfactura='.$_REQUEST['id'].' order by idpago');
+    echo '<tr>
+      <td width="50%">T. Pago:</td>
+      <td width="50%"> <table style="width: 100%;"> <tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr> <tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[1][0].'</td> </tr> </table> </td>
+    </tr>';
+  }else
+    echo '<tr '.$ocultar.'>
+      <td width="50%">T. Pago:</td>
+      <td width="50%">'.$datos[2].'</td>
+    </tr>';
 
   if($datos[48] != '')
     echo '<tr '.$ocultar.'>
@@ -319,6 +327,9 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 </table>';
 }
 
+$svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
+echo '<div class="fe">'.$svg.'</div>';
+
 echo '
 <div style="text-align: center;font-size:10px;'.$oc.'" id="resolucion"></div><br><br><br>
 <div class="recibo" style="display:none"><hr>
@@ -330,9 +341,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.76"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.76"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.76"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.77"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.77"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.77"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

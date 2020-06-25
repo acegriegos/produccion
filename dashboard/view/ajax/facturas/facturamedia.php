@@ -2,16 +2,16 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.76">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.76">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.76">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.77">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.77">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.77">
 
 <style type="text/css">
   html{
     line-height: 1;
   }
 </style>
-<?php $hide = $datos[24] > 2 ? 'hide':'' ?>
+<?php $hide = $datos[24] > 2 ? 'hide':''; $special = $datos[24] == 8 ? 'color:red;' : ''; ?>
 <?php $co = isset($_REQUEST['co']) ? 0 : 1 ?>
 </a>
 
@@ -25,7 +25,7 @@
         <div class="row" style="margin: 0px">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="300px" height="150px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -39,16 +39,16 @@
               <?php
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                    else
                       echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
                 }else{
                    if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                       echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }
                 
               ?>
@@ -301,7 +301,7 @@
         <div class="row" style="margin: 0px;">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" height="150px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -316,16 +316,16 @@
 
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }else{
                    if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                       echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }
                 
               ?>
@@ -546,7 +546,7 @@
         <div class="row" style="margin: 0px;">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" heigth="90px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" height="150px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -561,16 +561,16 @@
 
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }else{
                    if (trim($miscelaneos[2]) != ''){
-                      echo '<b><span id="fnombre">'.$miscelaneos[2].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[2].'</span></b><br>';
                       echo '<b><span id="fnombre1">'.$miscelaneos[0].'</span></b><br>';
                    }
                    else
-                      echo '<b><span id="fnombre">'.$miscelaneos[0].'</span></b><br>';
+                      echo '<b><span id="fnombre" style="'.$special.'">'.$miscelaneos[0].'</span></b><br>';
                 }
                 
               ?>
@@ -791,10 +791,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.2.0.76"></script>
-     <script src="../assets/js/materialize.min.js?v=10.2.0.76"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.76"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.76"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.77"></script>
+     <script src="../assets/js/materialize.min.js?v=10.2.0.77"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.77"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.77"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
