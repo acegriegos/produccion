@@ -108,41 +108,43 @@
 
       <div class="col s6 input-field">
         <select id="vtipodoc" class="validate tooltiped" type="select">
-          <option value="0" class="disabled">Seleccione una Opción</option>
+          <option value="0">Tipo de Documento</option>
           {section name=LE loop=$EXOS}
-          <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] eq 1}selected{/if}>{$EXOS[LE][1]}</option>
+          <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] neq 3 and $EXOS[LE][0] neq 1}disabled{/if}>{$EXOS[LE][1]}</option>
           {/section}
         </select>
         <label for="vtipodoc">Tipo de Documento</label>
       </div>
 
-      <div class="col s6 input-field">
-        <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class="validate tooltiped" autocomplete="off">
-        <label for="vnumdoc">Número de Documento</label>
-      </div>
+     <div class="col s6 input-field">
+                  <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class=" tooltiped" autocomplete="off">
+                  <label for="vnumdoc">Número de Documento</label>
+                </div>
 
-      <div class="col s12 input-field">
-        <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="validate tooltiped" autocomplete="off">
-        <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
-      </div>
+                <div class="col s12 input-field">
+                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="tooltiped" autocomplete="off" readonly>
+                  <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
+                </div>
 
-      <div class="col s12 row" >
-        <div class="col s6 input-field" >
-          <span class="prefix mdi mdi-24px mdi-calendar"></span>
-          <input type="date" id="vfechaDoc" class="validate tooltiped">
-        </div>
+                  <label class="col s12">Fecha y Hora de Emisión</label>
 
-        <div class="col s6 input-field">
-          <span class="prefix mdi mdi-24px mdi-clock"></span>
-          <input type="time" id="vtimeDoc" class="validate tooltiped" step="1">
-        </div>
-      </div>
+                  <div class="col s6">
+                    <input type="date" id="vfechaDoc" class="tooltiped" readonly>
+                  </div>
 
-      <div class="col s6 input-field">
+                  <div class="col s6 input-field">
+                    <input type="time" id="vtimeDoc" class="tooltiped" step="1" readonly>
+                  </div>
 
-        <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class="validate tooltiped eder" isnumeric="1" value="0" autocomplete="off">
-        <label for="vporcompra">Porcentaje de Exoneración</label>
-      </div>
+                <div class="col s6 input-field">
+                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class=" tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
+                  <label for="vporcompra">Porcentaje de Exoneración</label>
+                </div>                
+
+                <div class="col s6 input-field">
+                  <label for="vfechafin" class="active">Fecha Fin</label>
+                  <input type="date" id="vfechafin" class="tooltiped">
+                </div>
 
 
     </div>

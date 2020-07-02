@@ -1571,7 +1571,7 @@
                             
                             // foreach ($array_impuestos as $obj) {
                                 $sub_array = explode(',', $obj);
-                              
+
                                 if (strlen($sub_array[0])) {
                                     
                                     $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
@@ -1579,16 +1579,15 @@
                                     if ($value[16] != '' && $value[21] > 0){
                                         $this->exo = 1;
 
-                                        $exoneracion =   ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[21], 'MontoExoneracion' => number_format($sub_array[2]*($value[21]/100),5,'.','')];
+                                        $exoneracion =   ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[20], 'MontoExoneracion' => $value[21]];
 
                                         $this->sumaexonerados += $value[11];//$sub_array[2];
-                                        $sub_array[2] = $sub_array[2]*(1-$exoneracion['PorcentajeExoneracion']/100);
-
+                            
                                         $impuesto['Exoneracion'] = $exoneracion;
                                         
-                                        // $impuesto['Monto'] = $sub_array[2];
-                                        // $impuesto['Tarifa'] = str_replace(',','',ceil(number_format(($sub_array[2]/$value[8])*100)));
                                         $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
+
+                                        $sub_array[2] -= $impuesto['Exoneracion']['MontoExoneracion'];
                                     }else{
                                         $this->sumagravados += $value[11];
                                         $sum_imp += $sub_array[2];
