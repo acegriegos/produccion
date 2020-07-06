@@ -30,7 +30,7 @@
       <div id="mfacturacion"></div>
     </div>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.76"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.76-1"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">

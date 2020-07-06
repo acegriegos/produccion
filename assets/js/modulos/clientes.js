@@ -19,7 +19,7 @@ $(function(){
 	}
 
 	arr('login',6,'',76,'0,0,",'+param+',@@impresa","0,10"',29,1,$("#listaclientes"));
-
+	console.log('0,0,",'+param+',@@impresa","0,10"')
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
 		bScrollInfinite: true,

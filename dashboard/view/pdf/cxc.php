@@ -35,7 +35,7 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(5, 5, 10);
+$pdf->SetMargins(10, 5, 10);
 $pdf->SetHeaderMargin(10);
 $pdf->SetFooterMargin(5);
 $pdf->setPrintFooter(true);

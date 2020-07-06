@@ -1124,7 +1124,7 @@ function permisos(vnumber,vnumber2) {
                 $(".per"+p[i][1]).removeClass('hide');
                 break;
                 case 2:
-                $(".per"+p[i][1]).attr('disabled',true);
+                $(".per"+p[i][1]).attr('readonly',true);
                 break;
                 case 3:
                 $(".per"+p[i][1]).addClass('hide');
