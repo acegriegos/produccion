@@ -858,7 +858,7 @@
 <div id="modal-tpagos" class="modal modal-fixed-footer grandemodal" gfort="0" align="center" style="width: 70%; height: 100vh !important;">
   <div class="row">
     {section name=LE loop=$TPAGO}
-        <input type="radio" value="{$TPAGO[LE][0]}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
+        <input type="radio" value="{if $TPAGO[LE][0] eq 5}-1{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
         <label for="tpg{$TPAGO[LE][0]}" class="col s4 l2">{$TPAGO[LE][1]}</label>
     {/section}
   </div>
@@ -937,11 +937,11 @@
       <input type="radio" name="mxt_tp" val="1" id="mxt_seg">
       <label for="mxt_seg" title="Parte Efectivo y Parte con Tarjeta">Segmentado</label>
     </div>
-    <div class="col s4 center" style="cursor: pointer;">
+    <div class="col s4 center hide" style="cursor: pointer;">
       <input type="radio" name="mxt_tp" val="2" id="mxt_div" >
       <label for="mxt_div" title="Una Porte del Total">Dividio</label>
     </div>
-    <div class="col s4 center" style="cursor: pointer;">
+    <div class="col s4 center hide" style="cursor: pointer;">
       <input type="radio" name="mxt_tp" val="3" id="mxt_det" >
       <label for="mxt_det" title="Por Líneas de la Factura">Desgloce</label>
     </div>
@@ -970,7 +970,7 @@
 
       <hr style="border:1px dashed #e2e2e2">
 
-      <div class="col s12">
+      <div class="col s12 hide">
         <input type="checkbox" name="tmixto" id="newfact">
         <label for="newfact" style="float: left;">Con Factura</label>
       </div>
@@ -1254,5 +1254,4 @@
 
 </ul>
 
-
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.76"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.78"></script>

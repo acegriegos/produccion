@@ -594,7 +594,7 @@ function cargarCompras(){
         }
 
         var prod = getDatos('',297,$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'],0,0,0);
-        $(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'];
+        //$(this).parent().parent().data('triforce')['videntrada']+','+$(this).parent().parent().data('triforce')['longitud'];
         var str = '';
         if(prod[0].length){
             var fd = $(this).parent().parent().attr('id');
@@ -622,31 +622,30 @@ function cargarCompras(){
             if(cstold > 0){
                 perrcent = ((ddif*100)/cstold).formatMoney(2,'.',',')+'%';
             }
-            var optund = '<option value="1">UNID</option>';
+            var sel = $(this).parent().parent().data('triforce')['vidunidad'] == "1" ? 'selected' : '';
+            var optund = '<option value="1" '+sel+'>UNID</option>';
             var lntxt = '';
+
             if(prod[0][0][19] != "1"){
+                sel = $(this).parent().parent().data('triforce')['vidunidad'] == "8" ? 'selected' : '';
                 lntxt = '<span style="float: right;"><b>Longitud:</b> 1 Un = '+prod[0][0][19]+'m</span>';
-                optund += '<option value="2">METROS</option>';
-                $(this).parent().parent().data('triforce')['vcantidad'] = parseFloat($(this).parent().parent().data('triforce')['vcantidad'])*$(this).parent().parent().data('triforce')['rcant'] == "0" ? parseFloat(prod[0][0][19]) : $(this).parent().parent().data('triforce')['vcantidad'];
-                $(this).parent().parent().data('triforce')['tcu'] = "2"
+                optund += '<option value="2" '+sel+'>METROS</option>';
+                // $(this).parent().parent().data('triforce')['vcantidad'] = parseFloat($(this).parent().parent().data('triforce')['vcantidad'])*$(this).parent().parent().data('triforce')['rcant'] == "0" ? parseFloat(prod[0][0][19]) : $(this).parent().parent().data('triforce')['vcantidad'];
+                // $(this).parent().parent().data('triforce')['tcu'] = "2"
             }
 
-            var rcant = $(this).parent().parent().data('triforce')['vcantidad']; 
-            $(this).parent().parent().data('triforce')['rcant'] = rcant;
-
-            str += '<span><b>COSTOS</b></span> '+lntxt+' <br>'+cstold.formatMoney(2,'.',',')+' => <span id="cst">'+cst.formatMoney(2,'.',',') + '</span> <span style="color:'+color+';border-left:1px solid black;padding-left:2%;" id="perg"><i class="mdi '+icon+'" id="icong"></i> <span id="perrcent">'+perrcent+'</span> (<span id="ddif">'+ddif.formatMoney(2,'.',',')+'</span>) <input type="checkbox" id="prep"> <label for="prep" title="Preponderar Precio">PRD</label></span> <span style="float: right;"><b>Cantidad Actual:</b> '+prod[0][0][23]+'Un</span> <br> <table> <tr> <td style="width:20% !important;"><b>EQUIVALENCIA</b></td> <td style="width:50% !important;"><input id="equiv" type="number" class="browser-default eder" value="" style="border: 0px;height:auto !important;width: 100%;"/></td> <td style="width:20% !important;"><select id="optund" class="browser-default" style="height:auto;">'+optund+'</select></td> </tr> <tr> <td style="width:20% !important;"><b>ENTRADA</b></td> <td style="width:50% !important;"><input id="centrada" type="number" class="browser-default eder" value="" style="border: 0px;height:auto !important;width: 100%;"/></td> <td style="width:20% !important;"><select id="optund_" class="browser-default" style="height:auto;">'+optund+'</select></td> </tr> </table> <br> <div id="gruposmargen" style="max-height: 255px; overflow-y: auto"></div>';
+            str += '<span><b>COSTOS</b></span> '+lntxt+' <br>'+cstold.formatMoney(2,'.',',')+' => <span id="cst">'+cst.formatMoney(2,'.',',') + '</span> <span style="color:'+color+';border-left:1px solid black;padding-left:2%;" id="perg"><i class="mdi '+icon+'" id="icong"></i> <span id="perrcent">'+perrcent+'</span> (<span id="ddif">'+ddif.formatMoney(2,'.',',')+'</span>) <input type="checkbox" id="prep"> <label for="prep" title="Preponderar Precio">PRD</label></span> <span style="float: right;"><b>Cantidad Actual:</b> '+prod[0][0][23]+'Un</span> <br> <table> <tr> <td style="width:20% !important;"><b>EQUIVALENCIA</b></td> <td style="width:50% !important;"><input id="equiv" type="number" class="browser-default eder" value="" style="border: 0px;height:auto !important;width: 100%;"/></td> <td style="width:20% !important;"><select id="optund" class="browser-default" style="height:auto;">'+optund+'</select></td> </tr> <tr> <td style="width:20% !important;"><b>ENTRADA</b></td> <td style="width:50% !important;"><input id="centrada" type="number" class="browser-default eder" value="'+$(this).parent().parent().data('triforce')['vcantidad']+'" style="border: 0px;height:auto !important;width: 100%;"/></td> <td style="width:20% !important;"><select id="optund_" class="browser-default" style="height:auto;">'+optund+'</select></td> </tr> </table> <br> <div id="gruposmargen" style="max-height: 255px; overflow-y: auto"></div>';
 
             $("#marbdy").html(str).attr('cst',cst).attr('miva',miva).attr('fd',fd).attr('lno',prod[0][0][19]).attr('oldcst',prod[0][0][1]);
-
-            $("#centrada").val(rcant);
+            
             var equivalencia = $(this).parent().parent().data('triforce')['requiv'] == "0" ? 1 : $(this).parent().parent().data('triforce')['requiv']; 
 
             $("#equiv").val(equivalencia)
             $(this).parent().parent().data('triforce')['requiv'] = equivalencia;
             $(this).parent().parent().data('triforce')['vlong'] = prod[0][0][19];
 
-            $("#optund").val($(this).parent().parent().data('triforce')['teu'])
-            $("#optund_").val($(this).parent().parent().data('triforce')['tcu'])
+            // $("#optund").val($(this).parent().parent().data('triforce')['teu'])
+            // $("#optund_").val($(this).parent().parent().data('triforce')['tcu'])
 
             $("#gruposmargen").html('<div class="_row" style="margen:0px;"> <div class="_col s12"> <b>PUBLICO</b> <small id="lgrp0"></small> <hr> <table id="grp0" tipo="0" gid="0" indice="0" lon="1" nsub="0"> <tr> <td style="width:20% !important;">Utilidad</td> <td style="width:20% !important;text-align:right;"><span class="voldgan">'+parseFloat(prod[0][0][5]).formatMoney(0)+'</span></td> <td style="width:5% !important;">=> </td> <td style="width:20% !important;"><input type="number" class="browser-default eder vgan gchange" cc="2" value="'+utlnew+'" style="border: 0px;height:auto !important;width: 100%;"/></td> </tr>  <tr> <td style="width:20% !important;">Venta</td> <td style="width:20% !important;text-align:right;"><span class="voldbruta">'+parseFloat(prod[0][0][3]).formatMoney(0)+'</span></td> <td style="width:5% !important;"> => </td> <td style="width:20% !important;"><input type="number" class="browser-default eder vbruta gchange" cc="1" value="'+utlnew+'" style="border: 0px;height:auto !important;width: 100%;"/></td> </tr>  <tr> <td style="width:20% !important;">Venta+IVA</td> <td style="width:20% !important;text-align:right;"><span class="voldneta">'+parseFloat(prod[0][0][4]).formatMoney(0)+'</span></td> <td style="width:5% !important;"> => </td> <td style="width:20% !important;"><input type="number" class="browser-default eder vneta gchange" cc="3" value="'+utlnew+'" style="border: 0px;height:auto !important;width: 100%;"/></td> </tr> </table> </div>')
 
@@ -765,7 +764,6 @@ function cargarCompras(){
 
         ecant = cu == "1" ? ecant : equiv;
         $("#centrada").val(ecant);
-        $("#"+$("#marbdy").attr('fd')).data('triforce')['rcant'] = ecant;
         $("#"+$("#marbdy").attr('fd')).data('triforce')['vcantidad'] = equiv;
 
         var rcosto = (parseFloat($("#"+$("#marbdy").attr('fd')).data('triforce')['original'])/parseFloat($(this).val()))

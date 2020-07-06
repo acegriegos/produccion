@@ -103,6 +103,7 @@ $(document).on("click","#vdireccion",function(){
 
 $(document).on("click","#eslide",function(){
     if($("#direccion_in:visible").length){
+        if(parseFloat($("#direccion_in").val()))
         $("#slideDireccion").data('fila1')['vdireccion'] = $("#direccion_in").val();
         $("#slideDireccion").data('fila1')['vidbarrio'] = $("#vidbarrio").val() == null ? 0 : $("#vidbarrio").val();
     }

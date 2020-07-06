@@ -152,6 +152,12 @@ $(function(){
 				return false;
 			}
 
+			if(parseInt($("#vporcompra").val()) > 13){
+				Materialize.toast('Porcentaje de Exoneración Debe ser Menor a 13',4000,'red');
+				$("#vporcompra").focus().select();
+				return false;
+			}
+
 			var id =  ($(".lstexo").length+1)*-1;
 
 			if(!parseInt($("#videxoneracion").val())){

@@ -126,7 +126,20 @@ $(function () {
 				});
 
 				if($(".per11.hide").length)
-					$(".per11").addClass('hide')
+					$(".per11").addClass('hide');
+
+				cargarCategorias(1,1,'','');
+
+				$("#cabys").keyup(function(e){
+					var code = e.which || e.keyCode;
+					if(code == 13){
+						cargarCategorias(1,8,'',$(this).val())
+						var e = jQuery.Event("keyup");
+			            e.which = 13;
+			            $("#cat8").trigger(e);
+					}
+				});
+
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -1034,7 +1047,7 @@ $(document).on("click","#actinv",function(){
 
     if (validar == false){
         var mov = arr('login',4,'',114,vacc+","+idprod+","+idinv+","+newinv+","+cantidad+",\""+comentario+"\",@@usr,@@impresa",0,0,0);
-        console.log(mov);
+
         mov = mov[0][0];
         var max = arr('login',4,'maximo',11,'id = '+idprod,0,0,0)[0][0];
         if (parseFloat(mov[0]) > parseFloat(max)) {
@@ -1424,10 +1437,6 @@ $(document).on("click","#addproduct",function(){
     $("#listavariables").html('');
     deadclear('producto');
     var imp = arr('login',4,'',200,'11,0',0,0,0)[0];
-    // $("#impuestos").html('');
-    // for (var i = 0, len = imp.length; i < len; i++) {
-    //     $("#impuestos").append('<li class="collection-item dismissable" id="newimp'+imp[i][1]+'"><div class="row" style="margin: 0px"><div class="col s6"><span class="impuestos" id="vimv'+imp[i][1]+'" rf="'+imp[i][3]+'" defecto="1">'+imp[i][5]+' : '+imp[i][3]+'%</span></div><div class="col s6"><label>Exención: </label> <i class="mdi mdi-percent di-24px por-num"></i><input id="impexo'+imp[i][1]+'" type="number" class="validate eder calcvv" noClear="1" value="'+imp[i][4]+'" style="margin: 0px;width: 50%"></div></div></li>');
-    // };
     $(".validate").css('border-bottom', '1px solid #9e9e9e');
     $(".validate").css('box-shadow', 'none');
     $("#vidunidad").val(1)
@@ -1571,6 +1580,13 @@ $(document).on("keyup",".package[id=vnombre]",function(e){
 	if (code == 13) {
 		$("#prod").focus();
 	}
+});
+
+$(document).on("change","[id^=cat]",function(e){
+	var id = parseInt($(this).attr('id').substr(3));
+	var cat = $('option:selected',this).attr('cat');
+	var cabys = $('option:selected',this).attr('cod');
+	cargarCategorias(cat,id+1,cabys,'')
 });
 
 function addfeat(nom,val) {
@@ -2335,6 +2351,24 @@ function postload(vmodulo){
 			break;
 		default:
 			break;
+	}
+}
+
+function cargarCategorias(numero,len,cabys,nombre){
+
+	if(len == 9){
+		$("#cabys").val(cabys)
+		$("[for=cabys]").addClass('active')
+	}else{
+
+		var where = nombre != '' ? 'numero = 8 and nombre like "%'+nombre+'%" limit 20' : 'numero = '+len+' and if('+len+' <> 1,categoria like "'+numero+'%",1)' ;
+		var cats = getDatos('nombre,categoria,codigo',337,where)
+		var list = '<option selected>--</option>';
+		for (var i = 0; i < cats[0].length; i++) {
+			list += '<option cat="'+cats[0][i][1]+'" cod="'+cats[0][i][2]+'">'+cats[0][i][0]+'</option>';
+		}
+
+		$("#cat"+len).html(list)
 	}
 }
 

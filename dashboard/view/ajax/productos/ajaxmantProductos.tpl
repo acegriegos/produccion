@@ -45,7 +45,7 @@
         <br><br><br>
     </div>
 </div>
-<div id="modal-productos" class="modal modal-fixed-footer grandemodal">
+<div id="modal-productos" class="modal modal-fixed-footer grandemodal" style="top: 0px !important; min-height: 100vh;">
     <div class="modal-header">
         <ul class="tabs head3">
             <li class="tab col s3 menuP but" id="tb1"><a class="white-text">Datos Productos</a></li>
@@ -57,58 +57,73 @@
     <div class="modal-content" style="padding: 0px; padding-bottom: 50px;" id="fproductos">
         <input type="hidden" class="zelda">
         <input type="hidden" id="visinventariado" value="0">
-        <div id="datosproductos" style="padding: 30px 10px 0 10px">
+        <div id="datosproductos" style="padding: 20px 10px 0 10px">
             <div class="row" style="margin: 0px">
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px;margin-bottom: 15px;">
-                    <div class="input-field marginzero col s12">
+                    <div class="input-field marginzero col s12 hide">
                         <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off" tabindex="1">
                         <label for="vfamilia">Familia</label>
                     </div>
 
-                    <div class="input-field marginzero col s12">
+                    <div class="input-field marginzero col s12 hide">
                         <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
                         <label for="vtipo">Tipo</label>
                     </div>
 
-                    <div class="input-field marginzero col s12">
+                    <div class="input-field marginzero col s12 hide">
                         <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
                         <label for="vmarca">Marca</label>
                     </div>
 
-                     <div class="input-field marginzero col s12 per11">
-                        <select id="vidvarios" type="select">
-                            <option value="0" selected>N/A</option>   
-                            <option value="1">Entrada</option>
-                            <option value="2">Plato Fuerte</option>
-                            <option value="3">Postre</option>
-                            <option value="4">Bebida</option>
+                    <div class="col s6">
+                        <label for="cat1">Categoria 1</label>
+                        <select class="browser-default" id="cat1">
+                            <option>1</option>
                         </select>
-                        <label for="vidvarios">Tipo Plato</label>
+
+                        <label for="cat3">Categoria 3</label>
+                        <select class="browser-default" id="cat3">
+                            <option>--</option>
+                        </select>
+
+                        <label for="cat5">Categoria 5</label>
+                        <select class="browser-default" id="cat5">
+                            <option>--</option>
+                        </select>
+
+                         <label for="cat7">Categoria 7</label>
+                        <select class="browser-default" id="cat7">
+                            <option>--</option>
+                        </select>
                     </div>
 
-                    <div class="col s12 switch">
-                        <label>
-                          <input type="checkbox" id="variable" ische="{if $smarty.session.BUSS eq 1}3{else}1{/if}">
-                          <span class="lever tooltipped " data-tooltip="Define si el Precio de Venta Varía Cuando Factura" data-position="button"></span>
-                          Producto Variable
-                        </label>
+                    <div class="col s6">
+                        <label for="cat2">Categoria 2</label>
+                        <select class="browser-default" id="cat2">
+                            <option>--</option>
+                        </select>
+
+                        <label for="cat4">Categoria 4</label>
+                        <select class="browser-default" id="cat4">
+                            <option>--</option>
+                        </select>
+
+                        <label for="cat6">Categoria 6</label>
+                        <select class="browser-default" id="cat6">
+                            <option>--</option>
+                        </select>
+
+                        <label for="cat8">Categoria 8</label>
+                        <select class="browser-default" id="cat8">
+                            <option>--</option>
+                        </select>
                     </div>
-                    <div class="col s12 switch hide">
-                        <label>
-                          <input type="checkbox" id="pesaje">
-                          <span class="lever tooltipped " data-tooltip="Define si el Producto varía por el Peso" data-position="button"></span>
-                          Producto de Pesaje
-                        </label>
+
+                    <div class="col s12 input-field" style="margin-top: 20px;">
+                        <input type="text" id="cabys" maxlength="13" class="eder">
+                        <label for="cabys">Codigo Cabys</label>
                     </div>
-                {if $smarty.session.BUSS eq 3}
-                    <div class="col s12 switch">
-                        <label>
-                          <input type="checkbox" id="goldinventariado">
-                          <span class="lever tooltipped " data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
-                          Producto Inventariado
-                        </label>
-                    </div>
-                {/if}
+
                 </div>
                 
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px">
@@ -153,6 +168,41 @@
                             <label for="vcolumna">Columna</label>
                         </div>
                     {/if}
+
+                    <div class="input-field marginzero col s12 per11">
+                        <select id="vidvarios" type="select">
+                            <option value="0" selected>N/A</option>   
+                            <option value="1">Entrada</option>
+                            <option value="2">Plato Fuerte</option>
+                            <option value="3">Postre</option>
+                            <option value="4">Bebida</option>
+                        </select>
+                        <label for="vidvarios">Tipo Plato</label>
+                    </div>
+
+                    <div class="col s12 switch">
+                        <label>
+                          <input type="checkbox" id="variable" ische="{if $smarty.session.BUSS eq 1}3{else}1{/if}">
+                          <span class="lever tooltipped " data-tooltip="Define si el Precio de Venta Varía Cuando Factura" data-position="button"></span>
+                          Producto Variable
+                        </label>
+                    </div>
+                    <div class="col s12 switch hide">
+                        <label>
+                          <input type="checkbox" id="pesaje">
+                          <span class="lever tooltipped " data-tooltip="Define si el Producto varía por el Peso" data-position="button"></span>
+                          Producto de Pesaje
+                        </label>
+                    </div>
+                {if $smarty.session.BUSS eq 3}
+                    <div class="col s12 switch">
+                        <label>
+                          <input type="checkbox" id="goldinventariado">
+                          <span class="lever tooltipped " data-tooltip="Llevar Control de Inventario del Producto" data-position="button"></span>
+                          Producto Inventariado
+                        </label>
+                    </div>
+                {/if}
 
                 </div>
 

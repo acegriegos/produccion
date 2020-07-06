@@ -223,8 +223,17 @@ if ($datos[0][32] != '') {
   if ($datos[0][2] === ''){ 
       $plazo .= '<strong>Plazo en Días: </strong>'.$datos[0][11].'<br> <strong>Fecha Vencimiento: </strong>'.$datos[0][55].'<br>';
     }
-  else
-       $plazo .= '<strong>Tipo de Pago: </strong><br>'.$datos[0][2].'<br>';
+  else{
+    $plazo .= '<strong>Tipo de Pago: </strong><br>';
+    if ($datos[0][2] == 'Mixto') { 
+      $mxt = $log->kamehameha('format(total,2)',336,'idfactura='.$_REQUEST['arreglo']['where'].' order by idpago');
+      $plazo .= '<table style="color: white;">
+                          <tr> <td style="padding: 0px">Efectivo</td>  <td style="padding: 0px;">'.$mxt[0][0].'</td> </tr>
+                          <tr> <td style="padding: 0px">Tarjeta</td>   <td style="padding: 0px;">'.$mxt[1][0].'</td> </tr>
+                        </table>';
+    }else
+      $plazo .= $datos[0][2].'<br>';
+  }
 
      $plazo .= '</div>';
  }

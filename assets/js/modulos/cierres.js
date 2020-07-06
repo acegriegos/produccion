@@ -358,7 +358,7 @@ $(document).on("click",".getfacturas",function(){
 	tabla.destroy();
    
     arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa',0,1,$("#listafacturas"));
-    
+    console.log(arr('login',4,'',183,'"'+fecha+'",'+guser+',@@impresa',0,0,0))
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
 	$("#tefectivo").text($("#hidet").attr('tefe'));
