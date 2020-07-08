@@ -1700,7 +1700,7 @@ function totalizar(){
 
                 if(parseInt(eimv) == 0 && $("#fd"+vidlinea+":visible").length || param == 8) { 
                     //PRODUCTOS O CLIENTES EXENTOS
-                    precio = param == 8 ? parseFloat(tmpdesc*(1+rimv/100)).toFixed(5) : precio;
+                    precio = param == 8 ? parseFloat(tmpdesc*(1+rimv/100)) : precio;
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
                     $("#fastVenta"+vidlinea).val(tmpdesc);
                     $("#fastVenta"+vidlinea).attr('imp',0);

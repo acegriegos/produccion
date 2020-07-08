@@ -25,7 +25,7 @@
         <div class="row" style="margin: 0px">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="300px" height="150px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="300px" height="100px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -301,7 +301,7 @@
         <div class="row" style="margin: 0px;">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" height="150px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="300px" height="100px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
@@ -546,7 +546,7 @@
         <div class="row" style="margin: 0px;">
           <div class="col s4" align="center" style="padding: 0% 0% 0% 0%;">
             <?php if ($miscelaneos[3]) {
-              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="100px" height="150px">';
+              echo '<img src='.$miscelaneos[3].' id="imglogo" class="img-responsive" width="300px" height="100px">';
             }else{
               $nom = explode(' ', $miscelaneos[2]);
               $luno = substr($nom[0], 0,1);
