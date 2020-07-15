@@ -1283,10 +1283,10 @@ $(document).on("click",".detalle",function(){
         str_camb = '<option value="1">Efectivo</option><option value="2">Otro Producto</option><option value="3" selected>Otros</option>';
     }
 
-    var pdetalle = getDatos('(select nombre from productos where id = idproducto),cantidad-ifnull((select sum(cantidad) from detalledevoluciones where idddetfact = detallefacturas.id),0),format(precio*cantidad-descuento+imv,2) as valorfact,idproducto,id',65,'idproducto is not null and idfactura = '+id,0,0,0);
+    var pdetalle = getDatos('if(comodin = "",(select nombre from productos where id = idproducto),comodin),cantidad-ifnull((select sum(cantidad) from detalledevoluciones where idddetfact = detallefacturas.id),0),format(precio*cantidad-descuento+imv,2) as valorfact,idproducto,id',65,'idproducto is not null and idfactura = '+id,0,0,0);
     var str = '';
     for (var i = 0; i < pdetalle[0].length; i++) {
-        str += '<tr id="r'+pdetalle[0][i][4]+'" idp="'+pdetalle[0][i][3]+'"> <td class="mxv">'+pdetalle[0][i][1]+'</td> <td>'+pdetalle[0][i][0]+'</td> <td><input type="number" value="0" class="eder cdev"></td> <td><select class="browser-default trazon">'+str_dev+'</select></td> <td><select class="browser-default tcmb">'+str_camb+'</select></td></tr>';
+        str += '<tr id="r'+pdetalle[0][i][4]+'" idp="'+pdetalle[0][i][3]+'"> <td class="mxv">'+pdetalle[0][i][1]+'</td> <td style="font-size: 12px; line-height: 1;">'+pdetalle[0][i][0]+'</td> <td><input type="number" value="0" class="eder cdev"></td> <td><select class="browser-default trazon">'+str_dev+'</select></td> <td><select class="browser-default tcmb">'+str_camb+'</select></td></tr>';
     }
     $("#detfact").attr('vfact',id).attr('debe',$(this).attr('debe')).attr('haber',$(this).attr('haber')).attr('moneda',$(this).attr('moneda'));
     $("#detfact").html(str);
@@ -1738,7 +1738,7 @@ function totalizar(){
                         exonerado += parseFloat(orig*(rexov/rimv).toFixed(5));
                         gravado += parseFloat(orig*(1-(rexov/rimv).toFixed(5)));
                         simv = parseFloat(orig*(1-(rexov/rimv).toFixed(5)))*(rimv/100);
-                        $("#fd"+vidlinea).data('triforce')['montoExo'] = dimve-simv;
+                        $("#fd"+vidlinea).data('triforce')['montoExo'] = (dimve-simv).toFixed(5);
                         dimve = dimve-simv;
                     }
                     else{
