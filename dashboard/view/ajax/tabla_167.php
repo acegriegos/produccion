@@ -8,10 +8,11 @@ foreach ($transaccion as $obj) {
 
       if($obj[5] == ''){
         $obj[5] = substr($obj[1], 0,2);
-        $obj[6] = -1*($obj[28]+$obj[31]+$obj[33]+$obj[35]+$obj[37]);
-        $obj[7] = -1*($obj[39]);
-        $obj[13] = -1*($obj[30]+$obj[32]+$obj[34]+$obj[36]+$obj[38]);
-        $obj[14] = -1*$obj[40];
+        $obj[6] = -1*($obj[25]+$obj[27]+$obj[29]+$obj[31]+$obj[33]);
+        $obj[7] = -1*($obj[35]);
+        $obj[8] = -1*($obj[24]);
+        $obj[11] = -1*($obj[26]+$obj[28]+$obj[30]+$obj[32]+$obj[34]);
+        $obj[12] = -1*$obj[36];
       }
       echo '<tr>
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[0].'</td>
@@ -20,22 +21,22 @@ foreach ($transaccion as $obj) {
       <td style="border-radius: 0px !important; text-align: center ">'.$obj[5].'</td>
       <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[6],2).'</td>
       <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[7],2).'</td>
-      <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[11],2).'</td>
       <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[8],2).'</td>
+      <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[9],2).'</td>
+      <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[10],2).'</td>
+      <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[11],2).'</td>
       <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[12],2).'</td>
-      <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[13],2).'</td>
-      <td style="border-radius: 0px !important; text-align: right ">'.number_format($obj[14],2).'</td>
 
       </tr>';
       $cantt++;
-      $obj[9] = 1;
-      $tgr += str_replace(",", "", $obj[6])*$obj[9];
-      $text += str_replace(",", "", $obj[7])*$obj[9];
-      $texo += str_replace(",", "", $obj[11])*$obj[9];
-      $tde += str_replace(",", "", $obj[8])*$obj[9];
-      $toc += str_replace(",", "", $obj[12])*$obj[9];
-      $tim += str_replace(",", "", $obj[13])*$obj[9];
-      $tot += str_replace(",", "", $obj[14])*$obj[9];
+      $divisa = 1;
+      $tgr += str_replace(",", "", $obj[6]);
+      $text += str_replace(",", "", $obj[7]);
+      $texo += str_replace(",", "", $obj[8]);
+      $tde += str_replace(",", "", $obj[9]);
+      $toc += str_replace(",", "", $obj[10]);
+      $tim += str_replace(",", "", $obj[11]);
+      $tot += str_replace(",", "", $obj[12]);
   ?>
   <?php } ?>
 

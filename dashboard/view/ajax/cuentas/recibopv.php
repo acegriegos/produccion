@@ -66,11 +66,11 @@
 // $miscelaneos;
 // $datos;  padding: 0% 37.5% 0% 37.5%
 $fecha = explode('-', $datos[3]);
-$logo = '<tr align="center">
+$logo = '';/*'<tr align="center">
     <td>
       <img src="'.$miscelaneos[3].'" alt="LOGO" width="60%">
     </td>
-    </tr><br><br>';
+    </tr><br><br>';*/
 
 echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;position:fixed;padding: 10px;
     font-weight: 600;
@@ -81,8 +81,8 @@ echo '<button class="print" onclick="print()" style="cursor: pointer;left:100px;
     border: 2px solid #0016b0">Imprimir</button>';
 
   echo '<div class="container"  >
-  <br><br>
-<table>';
+  <br>
+<table style="width:100%;">';
 
 if($miscelaneos[3] != '')
   echo $logo;
@@ -163,7 +163,7 @@ if($datos[23]){
             </tr>
             <tr>
             <td align="center" colspan="2">'.$obj[17].'</td>
-            <td align="center" colspan="2">'.$obj[18].'</td>
+            <td align="right" colspan="2">'.$obj[18].'</td>
           </tr>';
           }
   echo '</table>';
@@ -186,7 +186,7 @@ echo '<tr>
   <tr>
     <td align="center">'.$datos[11].$datos[12].'</td>
     <td align="center">'.$datos[11].$datos[5].'</td>
-    <td align="center"> '.$datos[11].$datos[6].'</td>
+    <td align="right"> '.$datos[11].$datos[6].'</td>
   </tr>
 </table><br>
 <b>SALDO DEL CLIENTE: </b>'.$datos[11].number_format($datos[20],2);
@@ -200,9 +200,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.78"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.78"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.78"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.79"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.79"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.79"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

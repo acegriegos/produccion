@@ -2,7 +2,6 @@ var vpara = vbody = "";
 var mid = 0;
 
 $(function(){
-
      $('.chips-initial').material_chip({
         data: getCorreos(),
      });

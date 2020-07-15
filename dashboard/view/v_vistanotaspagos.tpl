@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Movimientos Estados</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.2.0.78">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.2.0.79">
   </head>
   <body>
   <br>
@@ -75,12 +75,12 @@
                         <thead class="tab1">
                             <tr>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Documento</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">N° Factura</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Cliente</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Total</th>
-                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Comentario</th>
-                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Acciones</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Fecha</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">N° Factura</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Cliente</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Total</th>
+                                 <!-- <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Comentario</th> -->
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="listafacturas" class="tpag">
@@ -92,6 +92,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.2.0.78"></script>
+    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.2.0.79"></script>
   </body>
 </html>

@@ -330,6 +330,18 @@ $(function(){
     });
 
     $("#editExo").click(function(){
+
+        if(!parseInt($("#vporcompra").val())){
+             $("#ffacturas .zelda").data('triforce')['videxoneracion'] = '';
+            var producto = $("#fdetallefacturas .ciclos");
+            producto.each(function(i) {
+                var idlinea = $(this).attr('id').substr(2);
+
+                $("#fd"+idlinea).data('triforce')['videxoneracion'] = '';
+            });
+            totalizar()
+            return false;
+        }
         
         if(parseInt($("#vtipodoc option:selected").val())){
             if(!$("#vnumdoc").val().trim().length){
@@ -350,7 +362,7 @@ $(function(){
                 return false;
             }
 
-            if(parseInt($("#vporcompra").val()) <= 0){
+            if(parseInt($("#vporcompra").val()) < 0){
                 Materialize.toast('Porcentaje de Exoneración Debe ser Mayor a Cero',4000,'red');
                 $("#vporcompra").focus().select();
                 return false;
@@ -772,7 +784,7 @@ $(document).on("click","#fdev",function(){
         var idusr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
         var idcons = getDatos('devoluciones+1',252,'idsucursal=@@impresa')[0][0][0];
 
-        var iddev = insertar(408,'','null,-1*'+$("#detfact").attr('vfact')+',now(),'+idusr+',"'+$("#rdev").html().trim()+'",'+$("#detfact").attr('moneda')+',@@impresa,'+idcons)[0][0][0]; 
+        var iddev = insertar(408,'','null,-1*'+$("#detfact").attr('vfact')+',now(),'+idusr+',"'+$("#rdev").val().trim()+'",'+$("#detfact").attr('moneda')+',@@impresa,'+idcons)[0][0][0]; 
         var lcant = 0;
         //GUARDAR DEVOLUCION
         variable1.each(function(){
@@ -1700,7 +1712,7 @@ function totalizar(){
 
                 if(parseInt(eimv) == 0 && $("#fd"+vidlinea+":visible").length || param == 8) { 
                     //PRODUCTOS O CLIENTES EXENTOS
-                    precio = param == 8 ? parseFloat(tmpdesc*(1+rimv/100)).toFixed(5) : precio;
+                    precio = param == 8 ? parseFloat(tmpdesc*(1+rimv/100)) : precio;
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
                     $("#fastVenta"+vidlinea).val(tmpdesc);
                     $("#fastVenta"+vidlinea).attr('imp',0);
