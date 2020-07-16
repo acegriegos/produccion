@@ -797,10 +797,10 @@ $(document).on("click","#fdev",function(){
         
         idnota = idnota[0][0][0];
         actualizar(252,'devoluciones='+idcons,'idsucursal=@@impresa');
-        //var tmpparam = param;
-        //param = 0;
-        //sendFE(idnota)
-        // param = tmpparam;
+        var tmpparam = param;
+        param = 0;
+        sendFE(idnota)
+        param = tmpparam;
         Materialize.toast('Devolución Realizada Correctamente',4000,'green');
         window.open("cuentas?accion=4&id="+idnota+"&tp=1")
         cargarFacturasNota(idnota);
@@ -2806,8 +2806,9 @@ function cargarDescuentos(vfila,vtabla,vtipo,vcarga,vidfila){
 
 function sendFE(clave){
     var ap = param == 9 ? '!' : param == 0 ? '-' : '';
-    var vtit = param == 1 ? 'Factura' : '';
+    var vtit = param == 1 ? 'Factura' : 'Nota de Credito';
     var vtbl = param == 0 ? 301 : 64;
+    
     $.ajax({
         async: true,
         url: "../wsdlClient.php",
@@ -2820,7 +2821,8 @@ function sendFE(clave){
         var vclave = p['clave'];
         $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
         str_correos = '';
-        sendVMail(0,0,clave);  
+        if(ap == '')
+            sendVMail(0,0,clave);  
                     
   });
 }
@@ -2897,7 +2899,7 @@ function postExcecute(vid,p){
 
 function postSendmail() {
 
-   if(parseInt($("[name=tipopago]:checked").val()) != -1){
+    if(parseInt($("[name=tipopago]:checked").val()) != -1){
         if (parseInt(idext) > 0) {
             setTimeout(function(){window.close();},2000);
         }else{

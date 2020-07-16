@@ -1232,7 +1232,7 @@
     <div class="divider"></div>
   </li>
   <li>
-    Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%">
+    Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%" autocomplete="off">
       <i class="mdi mdi-exit-to-app mdi-24px" id="fext" title="Salir" style="width: 5% !important; float: right;cursor: pointer;"></i>
 
       <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" dodev="1" style="width: 5% !important; float: right;cursor: pointer;"></i>
