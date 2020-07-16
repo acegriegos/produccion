@@ -61,6 +61,6 @@
   </div>
   {$SCR}
   <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.79"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.79"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.79-1"></script>
 </body>
 </html>

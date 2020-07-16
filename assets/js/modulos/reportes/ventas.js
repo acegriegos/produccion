@@ -5,15 +5,13 @@ $(function(){
     param = getParameterByName('rep');
     var ajax = 167;
 
-    $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,8,10,13,14,15,16,17,18,19,20,21,22,23,12';
+    $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,8,10,13,14,15,16,17,18,19,20,21,22,23,12,25,26,27,28,29,30,31,32,33,34,35,36';
     $(".excel").data('parametros')['conteo'] = 1;
-    $(".excel").data('parametros')['suma'] = ',8,10,13,14,15,16,17,18,19,20,21,22,23,12,';
+    $(".excel").data('parametros')['suma'] = ',8,10,13,14,15,16,17,18,19,20,21,22,23,12,25,26,27,28,29,30,31,32,33,34,35,36,';
     $(".excel").data('parametros')['original'] = 1;
     switch(param){
         case 'compras':
             tipo = 2;
-            $(".excel").data('parametros')['vista'] = '0,1,2,3,4,5,11,12,16,17,18,19,20,21,22,23,24,25,26,14,44,45,27,29,28,30,31,32,33,34,35,36,37,38,39,40';
-            $(".excel").data('parametros')['suma'] = ',11,12,16,17,18,19,20,21,22,23,24,25,26,14,41,42,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,';
             break;
        
        case 'ordencompra':
@@ -33,8 +31,7 @@ $(function(){
       default:
             break;
     }
-
-
+  
   arr('login',6,'',167,'0,"'+tipo+'",@@impresa,0,0,1,"","",0,0,0',0,1,$(".detrep"));
 
 });
