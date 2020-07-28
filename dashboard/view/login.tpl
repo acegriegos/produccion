@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.79">
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.79">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.79"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.2.0.79">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.80">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.80">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.80"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.2.0.80">
 
 </head>
 <body>
@@ -235,11 +235,11 @@ Fecha de entrada en vigor: 28 de Junio de 2016.
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.2.0.79"></script>
-<script src="../assets/js/materialize.min.js?v=10.2.0.79"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.79"></script>
-<script src="../assets/js/modulos/login.js?v=10.2.0.79"></script>
+<script src="../assets/js/jquery.js?v=10.2.0.80"></script>
+<script src="../assets/js/materialize.min.js?v=10.2.0.80"></script>
+<script src="../assets/js/asgard.js?v=10.2.0.80"></script>
+<script src="../assets/js/modulos/login.js?v=10.2.0.80"></script>
 <!-- https://texttospeech.responsivevoice.org/v1/text:synthesize
-<script src="../assets/js/responsivevoice.js?v=10.2.0.79"></script> -->
+<script src="../assets/js/responsivevoice.js?v=10.2.0.80"></script> -->
 </body>
 </html>

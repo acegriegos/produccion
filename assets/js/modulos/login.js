@@ -182,7 +182,7 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
-
+    console.log(p)
     switch(p[0].length){
         case 2:
             Materialize.toast(p[0][0], 4000, 'red');
@@ -234,8 +234,7 @@ function getIn(){
         else if(!$("#remember").is(':checked'))
             deleteCookie('userAPSY');
     }else
-        $("#vdir").val('')
-    
+        $("#vdir").val('')    
     return salida;
 }
 

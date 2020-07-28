@@ -1732,24 +1732,11 @@ function totalizar(){
                         orig = tmpdesc;
                         var rexov = exov > rimv ? rimv : exov;
 
-                        dimve = parseFloat(orig*(rimv/100)).toFixed(5)
-                        /*simv = parseFloat(orig*((rimv-rexov)/100)).toFixed(5);
-                        console.log(orig+' '+rimv+' '+rexov+' '+(rexov/rimv).toFixed(5)+' '+simv)
-                        cexov = dimve-simv;
+                        dimve = parseFloat(orig*(rimv/100)); //.toFixed(5)
 
-                        $("#fd"+vidlinea).data('triforce')['montoExo'] = cexov;
-
-                        if(dimve-cexov){
-                            dimve = cexov;
-                            exonerado += cexov/(rimv/100)
-                            gravado += simv/(rimv/100)
-                        }else{
-                            exonerado += precio;
-                        }*/
-
-                        exonerado += parseFloat(orig*(rexov/rimv).toFixed(5));
-                        gravado += parseFloat(orig*(1-(rexov/rimv).toFixed(5)));
-                        simv = parseFloat(orig*(1-(rexov/rimv).toFixed(5)))*(rimv/100);
+                        exonerado += parseFloat(orig*(rexov/rimv));//.toFixed(5));
+                        gravado += parseFloat(orig*(1-(rexov/rimv)));//.toFixed(5)));
+                        simv = parseFloat(orig*(1-(rexov/rimv)/*.toFixed(5)*/))*(rimv/100);
                         $("#fd"+vidlinea).data('triforce')['montoExo'] = (dimve-simv).toFixed(5);
                         dimve = dimve-simv;
                     }
