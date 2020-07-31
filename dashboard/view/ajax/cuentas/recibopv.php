@@ -189,7 +189,7 @@ echo '<tr>
     <td align="right"> '.$datos[11].$datos[6].'</td>
   </tr>
 </table><br>
-<b>SALDO DEL CLIENTE: </b>'.$datos[11].number_format($datos[20],2);
+<b>SALDO DEL CLIENTE: </b>'.$datos[24].number_format($datos[20],2);
 
 echo '<hr>
 <div style="text-align: center;" id="resolucion"></div><br><br><br>

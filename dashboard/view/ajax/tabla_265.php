@@ -27,7 +27,7 @@
 
  <script type="text/javascript">
     $(function(){
-        if($(".per2000:visible").length)
+        if($(".per2000").length)
             $("._cxp").removeClass('hide')
     });
  </script>

@@ -156,7 +156,7 @@
           <td class="margen" colspan="3">&nbsp;</td>
 
           <td  style="background-color: #3960A7;" class=" white-text sinborde imprimirSINBOR center-align"><b>SALDO CLIENTE</b></td>
-          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo /*$datos[11]*/'¢'.number_format($datos[20]); ?></b></td>
+          <td style="background-color: #3960A7;"  class="white-text sinborde imprimirSINBOR center-align"><b><?php echo $datos[24].number_format($datos[20],2); ?></b></td>
 
         </tr>
       </tfoot>

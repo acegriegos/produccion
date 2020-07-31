@@ -26,15 +26,18 @@ $(function(){
         })
             .done(function(res){  
                 var str = '';
+                $("#data-table-compras").hide();
                 var tabla = $("#data-table-compras").DataTable();   
                 tabla.destroy();
 
                 var temporal = arr('login',6,'',265,'@@impresa',0,1,$("#bcompras"),0);
 
-                $("#data-table-compras").dataTable({
+                setTimeout(function() { $("#data-table-compras").dataTable({
                     LengthChange : false,
                     order : []
                 });
+                $("#data-table-compras").show()
+                },500)
                 
                 $(".act").removeClass('hide');
                 $(".actin").addClass('hide');

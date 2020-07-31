@@ -374,7 +374,7 @@ $(function(){
                 return false;
             }
             var tiempo = $("#vtimeDoc").val().length == 5 ? $("#vtimeDoc").val()+':00' : $("#vtimeDoc").val();
-            $("#ffacturas .zelda").data('triforce')['videxoneracion'] = $("#vtipodoc").val()+"^"+$("#vnumdoc").val()+"^"+$("#ventidad").val()+"^"+$("#vfechaDoc").val()+"T"+tiempo+"-06:00^"+$("#vporcompra").val();
+            $("#ffacturas .zelda").data('triforce')['videxoneracion'] = $("#vtipodoc option:selected").val()+"^"+$("#vnumdoc").val()+"^"+$("#ventidad").val()+"^"+$("#vfechaDoc").val()+"T"+tiempo+"-06:00^"+$("#vporcompra").val();
             var producto = $("#fdetallefacturas .ciclos");
             producto.each(function(i) {
                 var idlinea = $(this).attr('id').substr(2);

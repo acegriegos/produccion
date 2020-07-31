@@ -155,7 +155,7 @@ for($i = 0; $i<sizeof($datos);$i++){
           <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][1].'</td>
           <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][10].'</td>
           <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][11].'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][2],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.$datos[$i][16].number_format($datos[$i][2],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][3],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][4],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][5],2).'</td>
