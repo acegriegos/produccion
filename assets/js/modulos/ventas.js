@@ -1731,6 +1731,8 @@ function totalizar(){
                     if(parseInt(exov) && parseInt(eimv) > 0){
                         orig = tmpdesc;
                         var rexov = exov > rimv ? rimv : exov;
+                        // var rrimv = exov > rimv ? rexov : rimv;
+                        // console.log(rimv+' '+rexov+' '+rrimv)
 
                         dimve = parseFloat(orig*(rimv/100)); //.toFixed(5)
 
@@ -1739,6 +1741,8 @@ function totalizar(){
                         simv = parseFloat(orig*(1-(rexov/rimv)/*.toFixed(5)*/))*(rimv/100);
                         $("#fd"+vidlinea).data('triforce')['montoExo'] = (dimve-simv).toFixed(5);
                         dimve = dimve-simv;
+                        var lexo = $("#fd"+vidlinea).data('triforce')['videxoneracion'];
+                        $("#fd"+vidlinea).data('triforce')['videxoneracion'] = lexo.substr(0,(lexo.lastIndexOf('^')))+'^'+parseFloat(rexov).toFixed(0);
                     }
                     else{
                         gravado += precio;

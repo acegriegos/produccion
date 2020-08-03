@@ -1079,7 +1079,7 @@
                     $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
 
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');1
                         return false;
@@ -1574,7 +1574,7 @@
 
                                 if (strlen($sub_array[0])) {
                                     
-                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>$sub_array[1],'Monto'=>$sub_array[2]];
+                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>number_format($sub_array[1],0),'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != '' && $value[21] > 0){
                                         $this->exo = 1;

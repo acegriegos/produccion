@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.81">
-    <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.81">
-    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.81">
+    <link rel="stylesheet" type="text/css" href="../assets/css/materialize.css?v=10.2.0.82">
+    <link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.82">
+    <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.2.0.82">
     <title>Asiento</title>
 </head>
 <body class="forprint">
