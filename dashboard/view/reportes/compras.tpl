@@ -38,7 +38,7 @@
     </div>
     
     <small id="leyenda"></small>
-    F: Factura, T: Tickete, C: Compra Electrónica<br>
+    F: Factura, T: Tickete, C: Compra Electrónica, M: Compra Manual<br>
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
