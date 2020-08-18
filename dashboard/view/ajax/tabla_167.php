@@ -11,6 +11,7 @@ foreach ($transaccion as $obj) {
         $obj[6] = -1*($obj[25]+$obj[27]+$obj[29]+$obj[31]+$obj[33]);
         $obj[7] = -1*($obj[35]);
         $obj[8] = -1*($obj[24]);
+        $obj[10] = -1*$obj[40];
         $obj[11] = -1*($obj[26]+$obj[28]+$obj[30]+$obj[32]+$obj[34]);
         $obj[12] = -1*$obj[36];
       }
