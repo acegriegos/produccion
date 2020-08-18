@@ -74,7 +74,7 @@ if ($miscelaneos[2] != ''){
 else
   $html .= '<strong>'.$miscelaneos[0].'</strong>';
 
-$html .= $miscelaneos[1].'</div></td> <td></td> </tr></table> <h4 align="center">Declaración Informativa D104-2 Período '.$datos[0][0].'</h4> <br> ACTIVIDAD: '.$datos[0][10].'-'.$datos[0][11].' ('.number_format($datos[0][12],0).'%) <hr> <table><tr><td></td></tr></table> VENTAS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td> <td align="center">Proporción</td><td align="center">IVA Deducible</td></tr>';
+$html .= $miscelaneos[1].'</div></td> <td></td> </tr></table> <h4 align="center">Declaración Informativa D104-2 Período '.$datos[0][0].'</h4> <br> ACTIVIDAD: '.$datos[0][10].'-'.$datos[0][11].' <hr> <table><tr><td></td></tr></table> VENTAS <hr> <table cellpadding="0" cellspacing="0" style="width:100%"><tr><td></td><td align="center">Subtotal</td> <td align="center">IVA</td> <td align="center">Total</td> <td align="center">Proporción</td><td align="center">IVA Deducible</td></tr>';
 
 $tprop = $tivad = $tsubt = $tivat = $totcompra = $totgastos = $tsubtc = $tivatc = $totc = $tgastos = $tivac = $tsubtg = $tivatg = $totg = 0;
 $listav = $listac = $listag = $totcompra = $totgastos = '';
