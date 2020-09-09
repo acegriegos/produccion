@@ -1678,7 +1678,6 @@ function totalizar(){
 
         dunit = precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
         idesc += parseFloat(dunit);
-        totd += parseFloat($("#fd"+vidlinea).attr('retpago')) > 0 ? 0 : precio;
 
         $("#fd"+vidlinea).data('triforce')['viddescuentos'] = '';
         $("#mdesc"+vidlinea).html('');
@@ -1712,15 +1711,17 @@ function totalizar(){
 
                 if(parseInt(eimv) == 0 && $("#fd"+vidlinea+":visible").length || param == 8) { 
                     //PRODUCTOS O CLIENTES EXENTOS
-                    precio = param == 8 ? parseFloat(tmpdesc*(1+rimv/100)) : precio;
+                    if(parseFloat(param)== 8){
+                        tmpdesc = parseFloat(tmpdesc*(1+rimv/100));
+                    }
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
                     $("#fastVenta"+vidlinea).val(tmpdesc);
                     $("#fastVenta"+vidlinea).attr('imp',0);
                     exento += precio;
-                    if (parseInt(config[16]))
+                    /*if (parseInt(config[16]))
                         $("#fake"+vidlinea).html(((((parseFloat(precio)+parseFloat(dimv))/cantidad))).formatMoney(2,'.',','))
-                    else
-                        $("#fake"+vidlinea).html(((((parseFloat(precio))/cantidad))).formatMoney(2,'.',','))
+                    else*/
+                    $("#fake"+vidlinea).html(((((parseFloat(precio))/cantidad))).formatMoney(2,'.',','))
 
                     tmpdesc = 0;
                 }
@@ -1770,6 +1771,9 @@ function totalizar(){
                         $("#fake"+vidlinea).html((parseFloat(precio)/cantidad).formatMoney(2,'.',','))
                     }
                 }
+
+
+            totd += parseFloat($("#fd"+vidlinea).attr('retpago')) > 0 ? 0 : precio;
         });
     });
 
@@ -2213,7 +2217,7 @@ function cargarProducto(kbrota,elemento) {
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         var dvalor = iscomodin ? {descuento:0,iddescuento:0} : cargarDescuentos(cod[0].substr(1)+',0',tabla,2);          
-        if(!$("#iva").is(":checked") && $("#iva:visible").length && !param.toString().match(new RegExp(/\b9\b|\b104\b/g)) )
+        if(!$("#iva").is(":checked") && $("#iva:visible").length && !param.toString().match(new RegExp(/\b9\b|\b104\b|\b8\b/g)) )
                 cod[3] = parseFloat(cod[3])/((parseFloat(cod[8])/100)+1);
 
         $("#valores").data("elemento",{idp : cod[0],hcodp : cod[1],hprec : cod[3],hdesc : dvalor,hdescm : cod[12], hinv : cod[13] == '' ? 0 : cod[13], hbod:cod[13] == '' ? 0 : cod[13], hunidad: cod[15], hcomodin: cod[16],isdesgloce: cod[17],exo: cod[9],ncomodin : iscomodin,idheredado : cod[18],retpago : cod[11],inventariado:cod[20],comision:cod[23],moneda:cod[24],divisa : cod[25],timv:cod[26]}) //,imp: cod[6]

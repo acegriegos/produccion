@@ -1252,9 +1252,14 @@
                     $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
                     $dtarifa = 0;
                     $timv = 0;
-                    $dimpuesto = isset($key->ImpuestoNeto) ? is_numeric($key->ImpuestoNeto) ? (array) $key->ImpuestoNeto : 0 : 0;
-                    $dimpuesto = $dimpuesto[0] == 0 ? isset($key->Impuesto) ? (array) $key->Impuesto->Monto : 0 : $dimpuesto;
-                    $dimpuesto = $dimpuesto == 0 ? 0 : $dimpuesto[0];
+                    
+                    $dimpuesto = 0;
+                    $cimp = 0;
+                    $_exento = 0;
+                    // $dimpuesto = isset($key->ImpuestoNeto) ? is_numeric($key->ImpuestoNeto) ? (array) $key->ImpuestoNeto : 0 : 0;
+                    // $dimpuesto = $dimpuesto[0] == 0 ? isset($key->Impuesto) ? (array) $key->Impuesto->Monto : 0 : $dimpuesto;
+                    
+                    //$dimpuesto = $dimpuesto == 0 ? 0 : $dimpuesto[0];
                     
                     if(isset($key->Impuesto)){
 
@@ -1263,11 +1268,20 @@
                             $timpuesto = (array) $key->Impuesto[$i]->Codigo;
                             $timpuesto = $timpuesto[0];
 
-                            if( $timpuesto == '01'){
+                            if( $timpuesto != '99'){
                                 $dtarifa = isset($key->Impuesto[$i]->Tarifa) ? (array)$key->Impuesto[$i]->Tarifa : 0;
                                 $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
                                 $timv = isset($key->Impuesto[$i]->CodigoTarifa) ? (array)$key->Impuesto[$i]->CodigoTarifa : 0;
                                 $timv = is_array($timv) ? $timv[0] : $timv;
+                                $cimp = isset($key->Impuesto[$i]->Monto) ? (array)$key->Impuesto[$i]->Monto : 0;
+                                $cimp = is_array($cimp) ? $cimp[0] : $cimp;
+                                //echo "\n ".$ddetalle[0].'--'.$cimp.'--'.$timpuesto;
+
+                                $dimpuesto += $cimp;
+                            }else{
+                                $cimp = isset($key->Impuesto[$i]->Monto) ? (array)$key->Impuesto[$i]->Monto : 0;
+                                $cimp = is_array($cimp) ? $cimp[0] : $cimp;
+                                $_exento += $cimp;
                             }
                         }
                     }
@@ -1277,7 +1291,7 @@
                     $ddescuento = is_array($ddescuento) ? $ddescuento[0] : $ddescuento;
                     $vunidad = is_array($vunidad) ? isset($vunidad[0]) ? $vunidad[0]  : 0 : $vunidad;
 
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
+                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$_exento.')');
                     
                     if (!isset($iddet->num_rows)) {
                         $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');

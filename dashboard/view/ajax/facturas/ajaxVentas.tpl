@@ -1254,4 +1254,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.83"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.84"></script>
