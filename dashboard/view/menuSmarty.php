@@ -33,7 +33,7 @@
     <div class="userView">
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
-         <p class="white-text">{$smarty.session.NOM}</p>
+         <p class="white-text" style="margin: 0px;">{$smarty.session.NOM}</p>
          <ul class="collapsible collapsible-accordion">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</i></a>
@@ -192,7 +192,10 @@
       {/literal}
 {php} break; defualt: break;} {/php}
   <li class="gtext per12"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
-    <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+
+  <li class="gtext hide" id="help"><a href="#" class="black-text"><i class="mdi mdi-lifebuoy mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Centro de Ayuda</span></a></li>
+  
+  <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
 
@@ -398,6 +401,16 @@
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acptmsj">Aceptar</a>
+  </div>
+</div>
+
+ <div id="modal-help" class="modal modal-fixed-footer" style="border-bottom: 1px solid #e3e3ee;">
+   <div class="modal-header head3"> <h4 class="center">Centro de Ayuda APSY</h4>  </div>
+  <div class="modal-content">
+    <a href="#" class="btn">Estado de las Incidencias <i class="mdi mdi-24px mdi-magnify"></i></a>
+  </div>
+  <div class="modal-footer" style="padding-bottom: 55px;">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat">Salir</a>
   </div>
 </div>
 

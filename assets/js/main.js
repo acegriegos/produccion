@@ -8,6 +8,10 @@ $(function(){
         $("#cpu").click()
     });
 
+    $("#help").click(function(){
+        $("#modal-help").modal('open'); 
+    }); 
+
     $('.button-collapses').sideNav({
         menuWidth: 300, // Default is 240
         edge: 'left', // Choose the horizontal origin

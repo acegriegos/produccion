@@ -1496,7 +1496,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
 
 
-    if(param.toString().match(new RegExp(/\b1\b|\b3\b|\b4\b|\b5\b|\b6\b|\b7\b|\b8\b/g)))
+    if(param.toString().match(new RegExp(/\b1\b|\b3\b|\b4\b|\b5\b|\b6\b|\b7\b/g)))
         $("[for=iva]").addClass('hide');
     else{
         isiva = 0;
@@ -1542,8 +1542,8 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
     if(comodin.indexOf('^') != -1)
         cod = comodin.replace(/\^/g,'');
-    prec = (prec+0).toFixed(5);
-    tot = (tot+0).toFixed(5);
+    prec = (prec+0);
+    tot = (tot+0);
 
     var err = 0;
     var existe = 0;
@@ -1676,7 +1676,7 @@ function totalizar(){
         precio = precio * cantidad;
         tmpdesc = precio * (1-(desct/100));
 
-        dunit = precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ));
+        dunit = parseFloat(precio * ( (desct/100) + ((1-(desct/100)) * (desc/100) ))).toFixed(5);
         idesc += parseFloat(dunit);
 
         $("#fd"+vidlinea).data('triforce')['viddescuentos'] = '';
