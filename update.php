@@ -180,7 +180,7 @@
             <head>
                 <link rel="icon" type="image/png" href="assets/img/favicon.ico">
                 <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.29">
-                <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/mdi-out.min.css?v=10.0.0.29">
+                <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.0.0.29">
                 <title>APSY</title>
             </head>
             <body>
@@ -331,30 +331,17 @@
             <script src="assets/js/jquery.js?v=10.0.0.29"></script>
             <script src="assets/js/materialize.min.js?v=10.0.0.29"></script>
             <script type="text/javascript">
+
                 $(window).keydown(function(e){
                     var code = e.wich || e.keyCode
-                    switch(code){
-                        case 113: //ABRIR MENU
-                            $(".menu-btn").click();
-                            $("#numtrans").focus();
-                            break;
-                        case 107: //CLICK EN AGREGAR
-                            $(".pluskey").click();
-                            break;
-                        case 123: //F12
-                            return false;
-                            break;
-                        default:
-                            break;
-                    }
-                    if (e.ctrlKey && e.shiftKey && e.keyCode == 73)// Prevent Ctrl+Shift+I .. +J(74)
-                        return false;        
+                    // if (e.ctrlKey && e.shiftKey && e.keyCode == 73)// Prevent Ctrl+Shift+I .. +J(74)
+                    //     return false;        
                         
                 });
 
-                $(document).on("contextmenu", function (e) {        
-                    e.preventDefault();
-                });
+                // $(document).on("contextmenu", function (e) {        
+                //     e.preventDefault();
+                // });
 
                 $('.tooltipped').tooltip({delay: 50});
                 $('select').material_select();
@@ -376,29 +363,23 @@
                 $(".valid").click(function(){
                     $(this).attr('disabled',true);
 
-                    $.post('https://logintechcr.com/server.php',{cmd:'metallica',usr:$("#rusr").val(),pswd:$("#rpsw").val()})
+                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
                         .done(function(data){
-                            var p;
-                            try{
-                                p = JSON.parse(data);
-                                if(p['succed'] && p['rs'].length == 1){
-                                    if (p['rs'][0][0] == 1 || p['rs'][0][0] == 2) {
-                                        $(".valid").attr('disabled',false);
-                                        Materialize.toast('Solo Usuarios Autorizados',4000,'red');
-                                    }else{
-                                        $(".credentials").attr('disabled','true');
-                                        $("#unom").html(p['rs'][0][2]);
-                                        $(".isvalid").removeClass('hide');
-                                        $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+p['rs'][0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
-                                    }
-                                    
-                                }else{
+                            console.log(data.rs[0][0])
+                            if(data.succed && data.rs.length == 1){
+                                if (data.rs[0][3] != 1) {
                                     $(".valid").attr('disabled',false);
-                                    Materialize.toast(p['rs'][0],4000,'red');
+                                    Materialize.toast('Solo Usuarios Autorizados',4000,'red');
+                                }else{
+                                    $(".credentials").attr('disabled','true');
+                                    $("#unom").html(data.rs[0][2]);
+                                    $(".isvalid").removeClass('hide');
+                                    $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+p['rs'][0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
                                 }
-                            }catch(e){
+                                
+                            }else{
                                 $(".valid").attr('disabled',false);
-                                Materialize.toast(data,4000,'red');
+                                Materialize.toast(data.rs,4000,'red');
                             }
                         })
                         .fail(function(x){

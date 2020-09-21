@@ -70,7 +70,7 @@
                         <label for="vtipo">Tipo</label>
                     </div>
 
-                    <div class="input-field marginzero col s12 hide">
+                    <div class="input-field marginzero col s12">
                         <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
                         <label for="vmarca">Marca</label>
                     </div>
@@ -176,6 +176,9 @@
                             <option value="2">Plato Fuerte</option>
                             <option value="3">Postre</option>
                             <option value="4">Bebida</option>
+                            <option value="5">Desayuno</option>
+                            <option value="4">Bebida</option>
+                            <option value="7">Extra</option>
                         </select>
                         <label for="vidvarios">Tipo Plato</label>
                     </div>

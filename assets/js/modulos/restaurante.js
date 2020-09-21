@@ -722,7 +722,7 @@ function generarComanda(idfactura){
 }
 
 function cargarProdList(){
-    var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'"',0,0,0);
+    var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'",'+$("#lfam option:selected").val(),0,0,0);
 
     var epp = '';
     var str = '';

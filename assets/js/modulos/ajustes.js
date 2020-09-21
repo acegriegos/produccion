@@ -56,6 +56,9 @@ $(document).on("click",".menu3",function(){
 			$("#vdireccion").val(e[6]);
 			$("#vfechainicio").val(e[7]);
 			$("#vfechafinal").val(e[8]);
+
+			if (e[20] == '')
+				$(".fe").addClass('hide');
 			$("#vuser_atv").val(e[20]);
 			$("#vpass_atv").val(e[21]);
 			$("#vpass_n").val(e[22]);
@@ -123,32 +126,34 @@ $(document).on("click",".menu3",function(){
 					return 'Correo Contador no Valido';
 				}
 
-				if(!$("#vuser_atv").val().trim().length){
-					$("#vuser_atv").focus();
-					return 'Usuario de Comprobante Electronico Requerido';
-				}
+				if ($(".fe:visible").length){ 
+					if(!$("#vuser_atv").val().trim().length){
+						$("#vuser_atv").focus();
+						return 'Usuario de Comprobante Electronico Requerido';
+					}
 
-				if(!$("#vpass_atv").val().trim().length){
-					$("#vpass_atv").focus();
-					return 'Contrasena de Comprobante Electronico Requerido';
-				}
+					if(!$("#vpass_atv").val().trim().length){
+						$("#vpass_atv").focus();
+						return 'Contrasena de Comprobante Electronico Requerido';
+					}
 
-				if(!$("#vpass_n").val().trim().length){
-					$("#vpass_n").focus();
-					return 'Pin de Llave Criptográfica Requerido';
-				}
+					if(!$("#vpass_n").val().trim().length){
+						$("#vpass_n").focus();
+						return 'Pin de Llave Criptográfica Requerido';
+					}
 
-				if($("#vpass_atv").val().trim().length != 20){
-					$("#vpass_atv").focus().select();
-					return 'Contrasena debe de ser de 20 Caracteres';
-				}
+					if($("#vpass_atv").val().trim().length != 20){
+						$("#vpass_atv").focus().select();
+						return 'Contrasena debe de ser de 20 Caracteres';
+					}
 
-				if($("#vpass_n").val().trim().length != 4){
-					$("#vpass_n").focus().select();
-					return 'Pin de Llave Criptográfica debe ser de 4 Numeros';
-				}
+					if($("#vpass_n").val().trim().length != 4){
+						$("#vpass_n").focus().select();
+						return 'Pin de Llave Criptográfica debe ser de 4 Numeros';
+					}
 
-				$("[name=pin]").val($("#vpass_n").val())
+					$("[name=pin]").val($("#vpass_n").val())
+				}
 
 				var myDropzone = Dropzone.forElement("#p12-upload");
 				if(myDropzone.getQueuedFiles()[0] != undefined){

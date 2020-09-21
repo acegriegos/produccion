@@ -856,13 +856,26 @@
 
 
 <div id="modal-tpagos" class="modal modal-fixed-footer grandemodal" gfort="0" align="center" style="width: 70%; height: 100vh !important;">
+
+  <div class="modal-content" style="padding: 0px">
+   <!--  <hr style="border: 1px solid #F0F0F0">
+    <span>TOTAL:</span><br>
+    <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
+    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
+      <span>PAGA CON:</span>
+      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+    </div>
+    <br>
+    <span>SU CAMBIO ES DE:</span><br>
+    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
+  </div> -->
+
   <div class="row">
     {section name=LE loop=$TPAGO}
         <input type="radio" value="{if $TPAGO[LE][0] eq 5}-1{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
         <label for="tpg{$TPAGO[LE][0]}" class="col s4 l2">{$TPAGO[LE][1]}</label>
     {/section}
   </div>
-<!--  -->
 <section id="m-efectivo" class="modal-tpago">
   <div class="modal-content" style="padding: 0px">
   <hr style="border: 1px solid #F0F0F0">
@@ -878,13 +891,13 @@
   </div>
 
 </section>
-<!--  -->
+
 <section id="m-tarjeta" class="modal-tpago">
   <div class="modal-content">
   <hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
+
   <br>
   <div class="row center-align">
     <div class="input-field col s12">
@@ -895,13 +908,13 @@
   <br>
   </div>
 </section>
-<!--  -->
+
 <section id="m-deposito" class="modal-tpago">
   <div class="modal-content">
   <hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
+
   <br>
   <div class="row center-align">
     <div class="input-field col s12">
@@ -912,13 +925,13 @@
   <br>
   </div>
 </section>
-<!--  -->
+
 <section id="m-cheque" class="modal-tpago">
   <div class="modal-content">
   <hr style="border: 1px solid #F0F0F0">
   <span>TOTAL:</span><br>
   <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b><br>
-  <!-- <p>Para realizar las compras con tarjeta digite por favor los últimos 4 dígitos para verificar la compra:</p> -->
+
   <br>
   <div class="row center-align" align="center">
     <div class="input-field col s12">
@@ -929,7 +942,7 @@
   <br>
   </div>
 </section>
-<!--  -->
+
 <section id="m-mixto" class="modal-tpago">
   <hr>
   <div class="row" style="margin:0px; padding: 0px;">

@@ -27,10 +27,12 @@
       <div class="row center head1" style="margin-bottom: 0px;background-color: #01579b;">
         <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span>
       </div>
+      
+     {if $BARRAS.length}
       <div class="row ">
         <h6 class="col s6 m2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
       </div>
-     
+
       <div class="row" id="barras">
       
         {section name=LE loop=$BARRAS}
@@ -44,6 +46,8 @@
         {/section}
         
       </div>
+
+      {/if}
 
       <div class="row center head1" style="margin-bottom: 0px;height: 20px;background-color: #01579b;">
         
@@ -140,10 +144,18 @@
             </div>
           <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;" id="listgeneral">
             <div class="row col s12" style="margin: 0px;">
-              <select class="browser-default col s4" id="lfam"> 
-                {section name=LE loop=$FAM}
+              <select class="col s4" id="lfam"> 
+                <!-- {section name=LE loop=$FAM}
                   <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
-                {/section}
+                {/section} -->
+                <option value="0">Todos</option>
+                <option value="1">Entrada</option>
+                <option value="2">Plato Fuerte</option>
+                <option value="3">Postre</option>
+                <option value="4">Bebida</option>
+                <option value="5">Desayuno</option>
+                <option value="4">Bebida</option>
+                <option value="7">Extra</option>
               </select>
               <input type="text" placeholder="Buscar Producto" class="der col s8" style="width: 50%" id="sprod" autocomplete="off">
             </div>

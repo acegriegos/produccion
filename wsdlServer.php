@@ -3,7 +3,8 @@
 if (isset($_SERVER['HTTP_ORIGIN'])) {  
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");  
     header('Access-Control-Allow-Credentials: true');  
-    header('Access-Control-Max-Age: 86400');   
+    header('Access-Control-Max-Age: 86400');
+    header('Content-Type: text/html; charset=utf-8');   
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {  
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");  
 }
 
+header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_POST['respuestaXml'])) {
     file_put_contents('./assets/xml/'.$_POST['clave'].'.xml', base64_decode($_POST['respuestaXml']) );
@@ -388,6 +390,29 @@ if (isset($_POST['respuestaXml'])) {
                 $salida = getError($rs);
             }
           }
+          break;
+        case 10: //AUTENTICAR
+          require_once '_config/mysqlDB.php';
+          $db = new DBClass();
+          
+          $_POST['usr'] = isset($_POST['usr']) ? $_POST['usr'] : '';
+          $_POST['pswd'] = isset($_POST['pswd']) ? $_POST['pswd'] : '';
+          
+          $rs = $db->ejecutar('call krattos("",215,"\''.$_POST['usr'].'\',\''.$_POST['pswd'].'\'")');
+          
+          if(isset($rs->num_rows)){
+            $rs = $rs->fetch_all();
+            if (sizeof($rs) == 1) {
+              $salida['succed'] = 1;
+              $salida['rs'] = $rs; 
+            }else{
+              $salida['succed'] = 0;
+              $salida['rs'] = $rs[0][0];
+            }
+          }else{
+            $salida = getError($rs);
+          }
+
           break;
         default:
            $salida['msj'] = 'WSDL APSY SEND A REQUEST';
