@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Proyección</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyeccion.css?v=10.2.0.85">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyeccion.css?v=10.2.0.86">
   </head>
   <body>
     {$NAV}
@@ -15,6 +15,6 @@
 
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/proyeccion.js?v=10.2.0.85"></script>
+    <script src="../assets/js/modulos/proyeccion.js?v=10.2.0.86"></script>
   </body>
 </html>
