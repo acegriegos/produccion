@@ -7,14 +7,14 @@
 	<meta http-equiv="Cache-Control" content="max-age=86400"/>
 	<title>Productos y Servicios</title>
 	{$STY}
-	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.2.0.86">
+	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.2.0.87">
 </head>
 <body>
 {$NAV}
 	<div class="bdy pequeño">
 		<div class="card z-depth-5 pequeño">
         	<div class="card-header center white-text head1">
-          		<p class="flow-text" style="font-size: 1.9em;">Productos y Servicios</p>
+          		<p class="flow-text" style="font-size: 1.9em;">Productos y Servicios <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
         	</div>
 			<nav class="navbar navbar-dark head2 z-depth-1" style="margin-top: -25px;">
 				<ul class="nav navbar-nav">
@@ -35,7 +35,7 @@
 		</div>
 	</div> <!-- END BDY -->
 {$SCR}
-<script src="../assets/js/modulos/productos.js?v=10.2.0.86"></script>
+<script src="../assets/js/modulos/productos.js?v=10.2.0.87"></script>
 
 </body>
 </html>

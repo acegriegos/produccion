@@ -857,7 +857,7 @@
 
 <div id="modal-tpagos" class="modal modal-fixed-footer grandemodal" gfort="0" align="center" style="width: 70%; height: 100vh !important;">
 
-  <div class="modal-content" style="padding: 0px">
+  <!-- <div class="modal-content" style="padding: 0px"> -->
    <!--  <hr style="border: 1px solid #F0F0F0">
     <span>TOTAL:</span><br>
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
@@ -1267,4 +1267,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.86"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.87"></script>

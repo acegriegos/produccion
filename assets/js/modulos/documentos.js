@@ -6,6 +6,7 @@ var opcompras = '<option value="1">Compra</option> <option value="2">Gasto</opti
 
 $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
+    loadmybussiness();
 
     $('[href="#modal-getxml"]').click(function(){
         $("#modal-getxml").modal('open')

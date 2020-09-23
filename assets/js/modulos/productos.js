@@ -2,7 +2,8 @@
 
 $(function () {
 	config = getDatos('',42,'@@impresa',0,0)[0][0];
-
+	loadmybussiness();
+	
 	$(".menu3").click(function () {
 		var id = $(this).attr('id').substr(1);
 		$(".menu3").removeClass('active');

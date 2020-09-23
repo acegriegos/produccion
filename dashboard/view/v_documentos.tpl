@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.86">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.86">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.87">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.87">
   </head>
   <body>
   <br>
@@ -17,7 +17,7 @@
       <div class="card z-depth-3 ">
           <div class="card-header center"> 
           <p class="flow-text head1">
-          Documentos Electrónicos <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
+          Documentos Electrónicos <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
           </div>
           
           <div class="row">
@@ -227,7 +227,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.2.0.86"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.2.0.86"></script>
+    <script src="../assets/js/dropzone.js?v=10.2.0.87"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.2.0.87"></script>
   </body>
 </html>

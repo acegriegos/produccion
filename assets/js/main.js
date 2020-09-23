@@ -252,6 +252,7 @@ function sse_response(vid,p) {
     
     switch(parseInt(vid)){
         case 1:
+            
             if (p['succed'] == undefined || p['succed'] == '')
                 location.reload();
             if (p[0][0][0] != 0) {
@@ -285,6 +286,12 @@ function sse_response(vid,p) {
                 $.post('../_config/sendcontador.php')
                     .done(function(data){ console.log(data)});
             }
+
+            if(p[0][0][6] != '' && parseInt(p[0][0][7])){ //SINCRONIZADOR
+                $.post('../sincro.php',{server:p[0][0][6]})
+                    .done(function(data){ console.log(data)});   
+            }
+
             break;
         case 2:
             $(".asig").addClass('hide');
