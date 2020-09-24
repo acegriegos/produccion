@@ -697,12 +697,14 @@ function endDetail(vid,vacc,modulo){
 			if(!isprov){
 				$(".lstexo").each(function(){
 					var obj = $(this).data('triforce');
+					obj['vffin'] = !obj['vffin'].length ? null : '"'+obj['vffin']+'"';
+					
 					switch(parseInt(obj['vaccion'])){
 						case 1:
-							insertar(285,'','null,'+vid[0][0]+','+obj['vtdoc']+',"'+obj['vndoc']+'","'+obj['ventidad']+'","'+obj['vfechaDoc']+'",'+obj['vexo']+',"'+obj['vffin']+'"');
+							console.log(insertar(285,'','null,'+vid[0][0]+','+obj['vtdoc']+',"'+obj['vndoc']+'","'+obj['ventidad']+'","'+obj['vfechaDoc']+'",'+obj['vexo']+','+obj['vffin']));
 							break;
 						case 2:
-							actualizar(285,'tdoc = '+obj['vtdoc']+', ndoc = "'+obj['vndoc']+'",inst = "'+obj['ventidad']+'", femision = "'+obj['vfechaDoc']+'", exoneracion = '+obj['vexo']+',ffin = "'+obj['vffin']+'"','id = '+obj['vid']);
+							actualizar(285,'tdoc = '+obj['vtdoc']+', ndoc = "'+obj['vndoc']+'",inst = "'+obj['ventidad']+'", femision = "'+obj['vfechaDoc']+'", exoneracion = '+obj['vexo']+',ffin = '+obj['vffin'],'id = '+obj['vid']);
 							break;
 						case 3:
 							eliminar(285,'id ='+obj['vid'])
