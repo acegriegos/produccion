@@ -1,23 +1,23 @@
 <?php  
-	  require_once 'model/m_login.php';
-   	$log = new _login();
+    require_once 'model/m_login.php';
+    $log = new _login();
     
     if (!isset($_REQUEST['accion'])) {
-    	if (session_status() !== PHP_SESSION_ACTIVE){
-		    session_start(); 
-		  }
+      if (session_status() !== PHP_SESSION_ACTIVE){
+        session_start(); 
+      }
 
-    	if (isset($_POST['pss'])) {
+      if (isset($_POST['pss'])) {
 
-    		require_once '../_config/ecy.php';
-    		$log->ini($_POST['usr'],$_POST['pss']);
-		    $encrypt = new _cy();
+        require_once '../_config/ecy.php';
+        $log->ini($_POST['usr'],$_POST['pss']);
+        $encrypt = new _cy();
 
-		    $user = $log->autenticar();
-		    if(sizeof($user) == 2){
-		    	header("Location: ../dashboard/login");
-		    }else if (sizeof($user) == 1)
-		    {
+        $user = $log->autenticar();
+        if(sizeof($user) == 2){
+          header("Location: ../dashboard/login");
+        }else if (sizeof($user) == 1)
+        {
 
           if($user[0][10] != ''){
             header("Location: ../dashboard/cambioPasswd.php?sr=".base64_encode($user[0][1])."&cr=".base64_encode($user[0][8])."&tr=".base64_encode($user[0][2]) );
@@ -70,25 +70,25 @@
               
               header("Location: ../dashboard/$vdir");
            }
-    	}else{
+      }else{
         $mod = 'facturacion';
         
-    		if (isset($_SESSION['USR'])) {
+        if (isset($_SESSION['USR'])) {
             if ($_SESSION['BUSS'] == 1) {
               $mod = 'facturacion';
             }
             header("Location: ../dashboard/".$mod);
-		    }else{
-		   	require '../_config/mySmarty.php';
-		   
-		   	$smarty  = new mySmarty();
-		   	$smarty->setModule('dashboard');
-		   	$pg = $smarty->fetch('../view/menuSmarty.php');
-		    
-		   	$smarty->display('login.tpl');
+        }else{
+        require '../_config/mySmarty.php';
+       
+        $smarty  = new mySmarty();
+        $smarty->setModule('dashboard');
+        $pg = $smarty->fetch('../view/menuSmarty.php');
+        
+        $smarty->display('login.tpl');
 
-		   }
-		}
+       }
+    }
    }else{
    $pagina = 0;
    $tabla = 0;
@@ -97,72 +97,58 @@
       header("Location: login");
     }
 
-   	switch ($_REQUEST['accion']) {
-   		case 1:
-   			$transaccion = $log->analizarTabla($_POST['arreglo']);
-   			break;
-   		case 2:
-   			$transaccion = $log->mantenimiento($_POST['arreglo']);
-   			break;
-   		case 3:
-   			$log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
-   			$transaccion = $log->autenticar();
+    switch ($_REQUEST['accion']) {
+      case 1:
+        $transaccion = $log->analizarTabla($_POST['arreglo']);
+        break;
+      case 2:
+        $transaccion = $log->mantenimiento($_POST['arreglo']);
+        break;
+      case 3:
+        $log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
+        $transaccion = $log->autenticar();
 
         if(isset($transaccion[0][7])){
           if ($transaccion[0][7] == 1)
-            cambioDia($log,$transaccion[0][5]);
-        
-          // $tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
-          // $sysmod = $log->kamehameha('sysmod,cedula,isprueba,idsucursal,idtipocliente',39,'id='.$transaccion[0][5])[0];
-          // if($tserv == 0){ #&& !$sysmod[2]){
-          //   if($sysmod[0] == ''){
-          //     $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
-          //   }else{
-          //     $rsvr = (array) json_decode(verificar($log,$sysmod[1],$sysmod[0],$sysmod[3],$sysmod[4]));
-          //     $transaccion = $rsvr;
-          //     /*if($rsvr['error']){
-          //       $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
-          //     }*/
-          //   }
-          // }
+            cambioDia($log,$transaccion);
         }
-   			break;
-   		case 4:
-   			$transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        break;
+      case 4:
+        $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
         $tabla = $_REQUEST['arreglo']['tbl'];
-   			break;
-   		case 5:
-   			$transaccion = $log->kaioken($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
-   			break;
-   		case 6:
-   			$pagina = 1;
+        break;
+      case 5:
+        $transaccion = $log->kaioken($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+        break;
+      case 6:
+        $pagina = 1;
         $otros = isset($_REQUEST['arreglo']['conteo']) ? $_REQUEST['arreglo']['conteo'] : '';
 
         if($otros != '')
           $transaccion = $log->sel_col($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
         else
-   			  $transaccion = $_REQUEST['arreglo']['sel'] == '-' ? $_REQUEST['arreglo']['where'] : $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+          $transaccion = $_REQUEST['arreglo']['sel'] == '-' ? $_REQUEST['arreglo']['where'] : $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
 
-   			if (isset($_REQUEST['arreglo']['join'])) {
-   				$join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
-   			}
+        if (isset($_REQUEST['arreglo']['join'])) {
+          $join = $log->kamehameha($_REQUEST['arreglo']['select'],$_REQUEST['arreglo']['join'],$_REQUEST['arreglo']['whr']);
+        }
         if(isset($_REQUEST['arreglo']['cambio'])){
             $_REQUEST['arreglo']['tbl'] = $_REQUEST['arreglo']['cambio'];
         }
             
-   			if (!is_array($transaccion)) {
-   				$pagina = 0;
-   			}else{
+        if (!is_array($transaccion)) {
+          $pagina = 0;
+        }else{
           if($otros != '')
             include 'view/ajax/tabla_271.php';
           else
             include 'view/ajax/tabla_'.$_REQUEST['arreglo']['tbl'].'.php';
         }
-   			break;
-   		case 7:
-   			$transaccion = $log->genkidama($_REQUEST['arreglo']['accion'],$_REQUEST['arreglo']['tabla'],$_REQUEST['arreglo']['arg1'],$_REQUEST['arreglo']['arg2']);
-   			break;
-   		case 8:  //MOSTRAR SOLO PDFs
+        break;
+      case 7:
+        $transaccion = $log->genkidama($_REQUEST['arreglo']['accion'],$_REQUEST['arreglo']['tabla'],$_REQUEST['arreglo']['arg1'],$_REQUEST['arreglo']['arg2']);
+        break;
+      case 8:  //MOSTRAR SOLO PDFs
           $pagina = 1;
           if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
             $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
@@ -185,7 +171,7 @@
           if (isset($_REQUEST['arreglo']['filtro']))
             $filtros = $_REQUEST['arreglo']['filtro'];
           include 'view/pdf/'.$_REQUEST['arreglo']['arch'].'.php';  
-		   	break;
+        break;
         case 9:  //GENERAR SOLO XML
           $pagina = 1;
           unset($_REQUEST['accion']);
@@ -296,9 +282,9 @@
       default:
         break;
 
-   	}
+    }
 
-	 if(!$pagina){
+   if(!$pagina){
       
       if (isset($_REQUEST['arreglo']['JSON'])) {
         $salida = array();
@@ -312,8 +298,8 @@
         
       }else{
         
-  	   	if (is_array($transaccion)){
-  			  $marcas = $transaccion;
+        if (is_array($transaccion)){
+          $marcas = $transaccion;
           if ($tabla == 234) {
             $ahora = new DateTime('now');
             $reserved = $_SESSION['tuser'];
@@ -326,21 +312,21 @@
             
           }else
             $succed = 1;
-  			}else{
-  				$marcas = array('ERROR'=>$transaccion);
-  				$succed = 0;
-  			}
-  	    
-  			$salida = array('succed'=>$succed);
-  			array_push($salida, $marcas);
+        }else{
+          $marcas = array('ERROR'=>$transaccion);
+          $succed = 0;
+        }
+        
+        $salida = array('succed'=>$succed);
+        array_push($salida, $marcas);
 
       }
-  		
+      
       echo json_encode($salida);
-  	 }
+     }
    }
 
-    function cambioDia($log,$empresa)
+    function cambioDia($log,&$transaccion)
      {  
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $actual_link = str_replace('ctr_login.php','/dashboard/login', $actual_link);
@@ -371,7 +357,21 @@
 
         curl_close($curl);
 
-        $log->kamehameha('',146,$empresa);
+        $log->kamehameha('',146,$transaccion[0][5]);
+
+        $tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
+        $sysmod = $log->kamehameha('sysmod,cedula,isprueba,idsucursal,idtipocliente',39,'id='.$transaccion[0][5])[0];
+        if($tserv == 0 && !$sysmod[2]){
+          if($sysmod[0] == ''){
+            $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
+          }else{
+            $rsvr = (array) json_decode(verificar($log,$sysmod[1],$sysmod[0],$sysmod[3],$sysmod[4]));
+            $transaccion = $rsvr;
+            if($rsvr['error']){
+              $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
+            }
+          }
+        }
      } 
 
      function indicadores($log){
@@ -411,7 +411,7 @@
         $json_response = str_replace('<NUM_VALOR>', '', substr($json_response,$uno,$dos-$uno));
 
         $log->genkidama(2,54,'valor='.number_format($json_response,2),'codigo="USD"');
-     }	
+     }  
 
     function getCompras($url,$ced,$isp,&$log){
       $curl = curl_init($url);
@@ -465,8 +465,7 @@
                   $compra = $compra[0][0];
               }
 
-              $rs = $log->genkidama(1,263,'','null,"'.$compra.'","'.$obj[31].'",'.$obj[52].','.$obj[51].',"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.str_replace('"', '\"', $obj[30]).'","'.$obj[36].'","'.$obj[50].'",'.$obj[53].',0');
-              print_r($res);
+              $rs = $log->genkidama(1,263,'','null,"'.$compra.'","'.$obj[31].'",'.$obj[52].','.$obj[51].',"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.str_replace('"', '\"', $obj[30]).'","'.$obj[36].'","'.$obj[50].'","",0');
           }
       }
     }
@@ -478,5 +477,5 @@
       return $result['error'] != '' ? $result['error'] : $result['rs'];
 
     }
-			   
+         
 ?>

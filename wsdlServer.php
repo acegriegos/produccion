@@ -253,54 +253,14 @@ if (isset($_POST['respuestaXml'])) {
                 
             }
             break;
-        case 3: //SIC HACIENDA
-            require_once 'assets/libs/nusoapLT/nusoap.php';
-            // $options = [
-            //     'uri' => 'http://schemas.xmlsoap.org/soap/envelope/',
-            //     'style' => SOAP_RPC,
-            //     'use' => SOAP_ENCODED,
-            //     'soap_version' => SOAP_1_1,
-            //     'cache_wsdl' => WSDL_CACHE_NONE,
-            //     'connection_timeout' => 30,
-            //     'trace' => true,
-            //     'encoding' => 'UTF-8',
-            //     'exceptions' => true
-            // ];
+        case 3: //SINCRONIZADOR MANUAL
+          require_once '_config/mysqlDB.php';
+          $base = new DBClass();
 
-            $params = [
-                'origen' => 'Fisico', // Fisico,  Juridico o DIMEX
-                'cedula' => '',
-                'ape1' => 'MIRANDA',
-                'ape2' => '',
-                'nomb1' => 'LUIS',
-                'nomb2' => 'MIGUEL',
-                'razon' => '',
-                'Concatenado' => ''
-            ];
-            
+          $rs = $base->ejecutar('select * from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vid'].', 0)');
 
-            $wsdl = "http://196.40.56.20/wsInformativasSICWEB/Service1.asmx?WSDL";
-            $oSoapClient = new nusoap_client($wsdl,true);
-            $rs = $oSoapClient->call("ObtenerDatos", $params);
-            $salida = isset($rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table']) ? $rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table'] : '';
-            print_r($salida);
-            break;
-        case 4:
-          if (!isset($_POST['ced'])) {
-            $salida['msj'] = 'DATOS REQUERIDOS';
-            $salida['error'] = 1;
-          }else{
-            require_once '_config/mysqlDB.php';
-            $base = new DBClass();
+          $salida =  isset($rs->num_rows) ? $rs->fetch_all() : $rs;
 
-            $rs = $base->ejecutar('call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')');
-            if (isset($rs->num_rows)) {
-                $salida['rs'] = $rs->fetch_all();
-            }else
-                $salida['error'] = $rs;
-            
-            $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
-          }
           break;
         case 5: //GUARDAR EN HACIENDA
           require_once '_config/mysqlDB.php';
@@ -364,7 +324,7 @@ if (isset($_POST['respuestaXml'])) {
             $base = new DBClass();
             $client = $_POST['client'];
 
-            $rs = $base->ejecutar('call krattos("",172,"1,0,\"\",\"\",\"'.$client['nombre'].'\",\"'.$client['cedula'].'\",'.$client['tp'].',1,0,0,0,0,8,1,\"\",0,0,\"\",0,0,@idclie,1,0,0,\"\"")');
+            $rs = $base->ejecutar('call krattos("",172,"1,0,\"\",\"\",\"'.$client['nombre'].'\",\"'.$client['cedula'].'\",'.$client['tp'].',1,0,0,0,0,8,1,\"'.$client['fantasia'].'\",0,0,\"\",0,0,@idclie,1,0,0,\"\"")');
 
             if(isset($rs->num_rows)){
               $rs = $rs->fetch_all()[0][0];
@@ -413,6 +373,20 @@ if (isset($_POST['respuestaXml'])) {
             $salida = getError($rs);
           }
 
+          break;
+        case 11: //CHECHEADOR MANUAL
+          require_once '_config/mysqlDB.php';
+          $db = new DBClass();
+
+          switch ($_POST['acc']) {
+            case 1:
+              $salida['rs'] = $db->ejecutar('call krattos("valor",15,"descr = \"versionbms\"")')->fetch_all();
+              break;
+            
+            default:
+              # code...
+              break;
+          }
           break;
         default:
            $salida['msj'] = 'WSDL APSY SEND A REQUEST';

@@ -9,7 +9,7 @@
  //    ob_end_flush();
  //    flush();
 
-	$curl = curl_init($_POST['server'].'/wsdlServer.php');
+	$curl = curl_init($_REQUEST['server'].'/wsdlServer.php');
     curl_setopt($curl, CURLOPT_HEADER, true);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
@@ -17,9 +17,9 @@
     curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
 
     $params = array(
-      "client_secret" => "",
-      "scope" => "",
-      "grant_type" => "password");
+      "cmd" => "3",
+      "vid" => "",
+      "vsucursal" => $_SESSION['IMPRESA']);
 
     $postData = "";
 
