@@ -2217,6 +2217,11 @@ function endDetail(id, acc, modulo) {
 			$("#vidunidad").val(1);
 			$("#vidunidad").material_select('update');
 			$("#tb1").click();
+			
+			if(config[29] != ''){
+				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"",0,-1');
+				insertar(338,'','null,'+getDatos('id',97,'idproducto = '+id[0][0])[0][0][0]+',97,'+acc+',"",0,-1');
+			}
 			break;
 		case 'servicio':
 			if (acc == 1) {

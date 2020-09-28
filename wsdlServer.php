@@ -257,10 +257,55 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          $rs = $base->ejecutar('select * from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vid'].', 0)');
+          $rs = $base->ejecutar('select id,idfila,idtabla,idestado from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
 
-          $salida =  isset($rs->num_rows) ? $rs->fetch_all() : $rs;
+          if(isset($rs->num_rows)){
+            $salida['rs'] = [];
 
+            $rs = $rs->fetch_all();
+            foreach ($rs as $obj) {
+              switch ($obj[3]) {
+                case 0: //SINCRONIZAR TODA LA TABLA
+                  if($obj[2] == 11){
+                    llenado_masivo($salida['rs'],11,$base,'id > 0');
+                    llenado_masivo($salida['rs'],97,$base,'idproducto > 0');
+                  }                   
+                  break;
+                case 1: //INSERTAR UNA FILA
+                  $line = $base->ejecutar('call krattos("*",'.$obj[2].',"id = '.$obj[1].'")')->fetch_all();
+                  array_push($salida['rs'], ['acc' => "1","tbl" => $obj[2], "row" => $obj[1],"bdy" => $line[0]]);
+                  break;
+                case 2: //ACTUALIZAR UNA FILA
+                  actualizador($salida['rs'],$obj[2],$base,$obj[1]);
+                  break; 
+                default:
+                  $salida['rs'] = 'opcion no valida';
+                  break;
+              }
+            }
+
+            if(sizeof($rs))
+              $salida['last_id'] = $rs[sizeof($rs)-1][0];
+
+            if(isset($_POST['vmore'])){
+              $marr = json_decode($_POST['vmore']);
+              $rback = [];
+              foreach ($marr as $obj) {
+                $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
+                $arg = substr(substr(json_encode($obj->bdy),1),0,-1);
+                $arg = substr($arg,strpos($arg, ','));
+                
+                $mrs = $base->ejecutar('insert into '.$tbl.' values(null'.$arg.')');
+                if($mrs == 1)
+                  array_push($rback,'update sincro set issync = 1 where id = '.$obj->row);
+                  
+              }
+              $salida['act'] = json_encode($rback);
+            }
+
+          }else{
+            $salida['rs'] = $rs;
+          }
           break;
         case 5: //GUARDAR EN HACIENDA
           require_once '_config/mysqlDB.php';
@@ -400,4 +445,32 @@ if (isset($_POST['respuestaXml'])) {
 function getError($msj){
   return  array('msj' => $msj, 'error' => 1);
 }
+
+function llenado_masivo(&$salida,$tbl,&$base,$where){
+  $tbln = $base->ejecutar('call krattos("nombre",70,"id = '.$tbl.'")')->fetch_all()[0][0];
+
+  array_push($salida, ['acc' => "0","tbl" => $tbl, "row" => 0,"bdy" => ""]);
+
+  $line = $base->ejecutar('call krattos("*",'.$tbl.',"'.$where.'")')->fetch_all();
+  $lstr = 'insert into '.$tbln.' values(';
+  foreach ($line as $ll) {
+    $lstr .= substr(substr(json_encode($ll),1),0,-1).' ),(';  
+  }
+
+  array_push($salida, ['acc' => "4","tbl" => 0, "row" => 0,"bdy" => substr($lstr,0,-2) ]);
+}
+
+function actualizador(&$salida,$tbl,&$base,$where){
+  $tbln = $base->ejecutar('call krattos("nombre",70,"id = '.$tbl.'")')->fetch_all()[0][0];
+  $line = $base->ejecutar('call krattos("*",'.$tbl.',"id = '.$where.'")')->fetch_all();
+  $cls = $base->ejecutar('describe '.$tbln)->fetch_all();
+  $act_str = '';
+  foreach ($cls as $key => $value) {
+    $act_str .= $value[0].' = "'.addslashes($line[0][$key]).'", ';
+  }
+
+  array_push($salida, ['acc' => "2","tbl" => $tbl, "row" => $where,"bdy" => substr($act_str,0,-2)]);
+
+}
+
 ?>

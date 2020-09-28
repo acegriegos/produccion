@@ -40,10 +40,10 @@ $(function(){
         $(".autocomplete-content").hide('500'); 
     });
 
-    if(parseInt(config[3])){
-        Materialize.toast('<span>Estimado Usuario APSY le informa que sus Credenciales de Factura Electronica son Incorrectos </span> <a href="ajustes" class="btn" style="float:right"> Actualizar</a>','red','red');
-        $("#facturar").attr('disabled',true);
-    }
+    // if(parseInt(config[3])){
+    //     Materialize.toast('<span>Estimado Usuario APSY le informa que sus Credenciales de Factura Electronica son Incorrectos </span> <a href="ajustes" class="btn" style="float:right"> Actualizar</a>','red','red');
+    //     $("#facturar").attr('disabled',true);
+    // }
 
     if(config[28] != '0' && config[28] != '-1')
         Materialize.toast('<span>Estimado Usuario APSY le informa que su LLAVE CRIPTOGRAFICA vence el '+config[28]+',<br> Favor proceder actualizar </span> <a href="ajustes" class="btn" style="float:right"> Actualizar</a> <i class="mdi mdi-close pbtn closetoast" style="float:right"></i>','red','red');
@@ -301,7 +301,6 @@ $(function(){
         if(code == 13){
             $.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
             .done(function(data){
-                console.log(data)
                 var p = JSON.parse(data);
                 if (p['succed']) {
                     $("#vtipodoc").val(p['tipoDocumento']['codigo'])
@@ -530,7 +529,6 @@ $(function(){
 
     //     tarjeta = isNaN(tarjeta) ? 0 : parseFloat(tarjeta);
     //     $("#montoefect").val((total-tarjeta).formatMoney(2,'.',','));
-    //     console.log(total-tarjeta)
     // })
 
     if (parseInt(config[23] == 1))
@@ -1738,8 +1736,6 @@ function totalizar(){
                     if(parseInt(exov) && parseInt(eimv) > 0){
                         orig = tmpdesc;
                         var rexov = exov > rimv ? rimv : exov;
-                        // var rrimv = exov > rimv ? rexov : rimv;
-                        // console.log(rimv+' '+rexov+' '+rrimv)
 
                         dimve = parseFloat(orig*(rimv/100)); //.toFixed(5)
 
@@ -2118,7 +2114,6 @@ function validarFactura() {
     }
  
     if($(".vextra:visible").length){
-        console.log($(".vextra:visible").val())
         $("#ffacturas .zelda").data('triforce')['vextrapagos'] = $(".vextra:visible").val();
     }
     
@@ -2429,7 +2424,7 @@ function endDetail(vid,vacc,vmodulo) {
                             else
                                 insertar(105,'','null,1,'+idp+','+matriz[i][3]+','+matriz[i][2]+',0,'+matriz[i][0]);
                        }else{ //PRECIO PUBLICO 
-                            console.log(insertar(330,'','null,1,0,'+matriz[0][0]+',0,now(),'+idp+',@@usr,@@impresa,'+matriz[0][2]+',0,'+$(this).data('triforce')['vprecio']+',0'));
+                            insertar(330,'','null,1,0,'+matriz[0][0]+',0,now(),'+idp+',@@usr,@@impresa,'+matriz[0][2]+',0,'+$(this).data('triforce')['vprecio']+',0');
                             actualizar(11,'costo = '+$(this).data('triforce')['vprecio']+',ganancia = '+matriz[0][2]+',venta = '+matriz[0][0]+',exoneracion='+$(this).data('triforce')['exoneracion']+',timv='+$(this).data('triforce')['timv'],'id = '+idp);
                        }
                    }
@@ -2458,6 +2453,11 @@ function endDetail(vid,vacc,vmodulo) {
                         set = set.substr(0,set.length-1);
                         insertar(291,'idfactura',vid[0][0]);
                         actualizar(291,set,'idfactura = '+vid[0][0]);
+                    }
+
+                    if(config[29] != '' && config[29] != '99'){ 
+                        insertar(338,'','null,'+vid[0][0]+',64,1,"",0,@@impresa');
+                        insertar(338,'','null,'+vid[0][0]+',65,1,"",0,@@impresa');
                     }
                     break;
                 default:
@@ -2684,7 +2684,6 @@ function searchClient(vvariable,visprv){
         var idlinea = $(this).attr('id').substr(2);
         // var idprod = $("#desc"+idlinea).text();
         // var prod = arr('login',4,'',43,'"'+idprod+'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+getParameterByName('tf'),0,0,0);
-        // console.log(prod)
         // var char1 = $("#desc"+idlinea).text().substring(0,1);
         // var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
         // var vstrimp = cargarImpuestos($("#desc"+idlinea).text().substr(1)+',0',tabla);
@@ -3086,7 +3085,6 @@ function mixto(el){
         //         else
         //             sendVMail(factura,0,0);
         //     }else{
-        //         console.log(factura);
         //         Materialize.toast('Problemas Generando el Tiquete',4000,'red');
         //     }
 
