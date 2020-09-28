@@ -290,14 +290,26 @@ if (isset($_POST['respuestaXml'])) {
             if(isset($_POST['vmore'])){
               $marr = json_decode($_POST['vmore']);
               $rback = [];
+              $aid = 0;
               foreach ($marr as $obj) {
                 $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
+                switch($obj->tbl){
+                  case 65:
+                    $obj->bdy[1] = $aid;
+                    break;
+                  default:
+                    break;
+                } 
                 $arg = substr(substr(json_encode($obj->bdy),1),0,-1);
                 $arg = substr($arg,strpos($arg, ','));
-                
+
                 $mrs = $base->ejecutar('insert into '.$tbl.' values(null'.$arg.')');
+                $aid = $obj->tbl == 64 ? $base->ejecutar('select max(id) from facturas where idsucursal = '.$_POST['vsucursal'])->fetch_all()[0][0] : 0;
+
                 if($mrs == 1)
                   array_push($rback,'update sincro set issync = 1 where id = '.$obj->row);
+                else
+                  array_push($rback,$mrs.' --- ARG: '.$arg);
                   
               }
               $salida['act'] = json_encode($rback);
