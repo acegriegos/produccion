@@ -359,7 +359,7 @@
 
         $log->kamehameha('',146,$transaccion[0][5]);
 
-        $tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
+        /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
         $sysmod = $log->kamehameha('sysmod,cedula,isprueba,idsucursal,idtipocliente',39,'id='.$transaccion[0][5])[0];
         if($tserv == 0 && !$sysmod[2]){
           if($sysmod[0] == ''){
@@ -371,7 +371,7 @@
               $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
             }
           }
-        }
+        }*/
      } 
 
      function indicadores($log){
