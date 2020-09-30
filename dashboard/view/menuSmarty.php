@@ -436,3 +436,19 @@
 <ul id="extra" class="side-nav side-nav-conta1" >
 <iframe src="" id="extra-i" style="width: 100%;height: 100vh;"></iframe>
 </ul>
+
+<div id="modal-usuario" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
+    <h4 class="center">Autenticar Usuario</h4>
+   
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="password" id="ecouser" autocomplete="new-password" maxlength="64" autosave="off">
+        <label for="ecouser">Código</label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>

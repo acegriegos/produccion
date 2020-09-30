@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.88">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.89">
   </head>
   <body>
     {$NAV}
@@ -65,8 +65,7 @@
       <div class="row" id="mesas">
   
         {section name=LE loop=$MESAS}
-        <!-- <div class="center col s2 btn black-text mesa" style="border: 1px solid #e2e2e2; background-color: white;padding: 0.5%;margin: 0.5%;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1"> {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
-        </div> -->
+
         <div class="col s6 m2 black-text mesa center" style="background: url('../assets/img/mesa.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1">
           {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
         </div>
@@ -158,6 +157,8 @@
                 <option value="7">Extra</option>
               </select>
               <input type="text" placeholder="Buscar Producto" class="der col s8" style="width: 50%" id="sprod" autocomplete="off">
+
+              <a href="#!" class="btn" id="dofact" style="float: right;">Facturar</a>
             </div>
             
             <!-- <ul>
@@ -213,6 +214,6 @@
             </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.88"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.89"></script>
   </body>
 </html>

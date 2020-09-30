@@ -945,7 +945,7 @@
 
 <section id="m-mixto" class="modal-tpago">
   <hr>
-  <div class="row" style="margin:0px; padding: 0px;">
+  <!-- <div class="row" style="margin:0px; padding: 0px;">
     <div class="col s4 center" style="cursor: pointer;">
       <input type="radio" name="mxt_tp" val="1" id="mxt_seg">
       <label for="mxt_seg" title="Parte Efectivo y Parte con Tarjeta">Segmentado</label>
@@ -958,7 +958,7 @@
       <input type="radio" name="mxt_tp" val="3" id="mxt_det" >
       <label for="mxt_det" title="Por Líneas de la Factura">Desgloce</label>
     </div>
-  </div>
+  </div> -->
    
   <div class="modal-content row">
 
@@ -1017,7 +1017,7 @@
     </div>
 
     <div class="col s4 lmp">
-      <div class="collection hide" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
+      <div class="collection" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
         <input type="text" id="mxtot" readonly class="eder">
@@ -1026,7 +1026,7 @@
     </div>
 
 
-    <div class="col s4 lmp hide" id="scnl">
+    <div class="col s4 lmp" id="scnl">
       <div class="collection" id="lpc" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
@@ -1104,22 +1104,6 @@
   <div class="modal-footer">
     <a href="#!" class="modal-action waves-effect waves-green btn-flat add" modulo="producto" id="addps">Aceptar</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
-  </div>
-</div>
-
-<div id="modal-usuario" class="modal modal-fixed-footer mymodal">
-  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
-    <h4 class="center">Autenticar Usuario</h4>
-   
-    <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="password" id="ecouser" autocomplete="new-password" maxlength="64" autosave="off">
-        <label for="ecouser">Código</label>
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
   </div>
 </div>
 
@@ -1267,4 +1251,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.88"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.89"></script>

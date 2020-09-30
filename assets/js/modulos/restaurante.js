@@ -3,11 +3,13 @@ var mesa;
 var ipbebidas = '';
 var ipcomidas = '';
 var tipo_cmd;
+var config;
 
 $(function(){
     $("#ffacturas .zelda").data()['idmesa'] = 0;
     $("#ffacturas .zelda").data()['idbarra'] = 0;
 
+    config = getDatos('',42,'@@impresa',0,0)[0][0];
     tipo_cmd = getDatos('valor',809,'descr="PER_CMD"')[0][0][0];
 
     var impresoras = getDatos('ip,port,cola,tipo',288,'idsucursal = @@impresa',0,0,0);
@@ -115,6 +117,13 @@ $(function(){
         Materialize.toast("Orden Cancelada Correctamente",4000,'green');
     });
 
+    $("#dofact").click(function(){
+        var id = $("#ffacturas .zelda").data('triforce')['vidtipo'];
+        var idfactura = getDatos('id',261,'idtipo = '+id)[0][0][0];
+        window.open('facturacion?id=-'+idfactura+'&au=0&ebd=1','_blank');
+        $("#modal-mesa").modal('close')
+    });
+
     $("#abarra").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
@@ -142,11 +151,13 @@ $(function(){
         $("#saveOrder").removeClass('saveOrder');
         $("#printOrder").removeClass('hide')
         $("#cancOrder").removeClass('hide');
+        $("#dofact").removeClass('hide');
         $(".zelda").data('triforce')['vidtipopago'] = 0;
 
         $("#total_mesa").html('0.00');
         $("#total_mesa_d").html('0.00');
         mesa = id;
+        $("#sprod").val('');
         switch(estado){
             case 5:
             case 1:
@@ -170,6 +181,7 @@ $(function(){
                 $("#saveOrder").addClass('add');
                 $("#cancOrder").addClass('hide');
                 $("#printOrder").addClass('hide');
+                $("#dofact").addClass('hide');
 
                 $("#lfam").change();
                 actualizar(800,'idtipoocupado=5','id='+id);
@@ -393,6 +405,7 @@ $(function(){
     });
 
     $(document).on('click','.comida',function(){
+        $("#sprod").focus().select();
         addline($(this).attr('trid'),$(this).attr('trcol'));
     });
 
@@ -478,12 +491,14 @@ $(document).on("click",".cdb",function(){
         $("#saveOrder").addClass('saveOrder').removeClass('add');
         $("#cancOrder").removeClass('hide');
         $("#printOrder").removeClass('hide');
+        $("#dofact").removeClass('hide')
     }else{
         $("#detfactmsj").show();
         $("#fdetallefacturas .ciclos").remove();
         $("#saveOrder").addClass('add').removeClass('saveOrder');
         $("#cancOrder").addClass('hide');
         $("#printOrder").addClass('hide');
+        $("#dofact").addClass('hide')
     }
 
 
@@ -575,6 +590,7 @@ function endDetail(vid,vacc,vmodulo) {
     $("#saveOrder").addClass('saveOrder');
     $("#cancOrder").removeClass('hide');
     $("#printOrder").removeClass('hide');
+    $("#dofact").removeClass('hide');
 };
 
 function totalizar(){
@@ -738,7 +754,17 @@ function cargarProdList(){
             btns = '';
         }
 
-        str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
+        var tfoto = getDatos('valor',809,'descr="FT_SZ"')[0][0];
+
+        switch(parseInt(tfoto)){
+            case 1:
+                str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 50px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span>          </div>'
+                break;
+            default:
+                str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
+                break;
+        }
+
     }
 
     $("#test1").html(str)

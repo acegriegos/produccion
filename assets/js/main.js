@@ -58,6 +58,45 @@ $(function(){
         }
     });
 
+    $("#ecouser").keyup(function(e){
+        var code = e.wich || e.keyCode;
+
+        if (code == 13)
+            $("#accecouser").click();
+    });
+
+    $("#exitcouser").click(function(){
+        $("#modal-usuario").modal('close');
+        $("#facturar").attr('disabled',true)
+    });
+
+     $("#accecouser").click(function(){
+
+        var cod =  $("#ecouser").val();
+        var rs = getDatos('',137,'"'+cod+'"',0,0,0);
+        if(parseInt(rs['succed'])){
+            if (rs[0].length){
+                $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
+                $("#username").html(rs[0][0][1])
+                $("#username").parent().parent().removeClass('hide')
+                $("#modal-usuario").modal('close');
+                pril.focus()
+            }
+            else{
+                Materialize.toast('Usuario no Valido',4000,'red');
+                $("#ecouser").focus().select();
+
+            }
+        }else{
+            Materialize.toast('Usuario no Valido',4000,'red');
+             $("#ecouser").focus().select();
+        }
+     });
+
+    $("#modal-usuario").modal({
+        dismissible:false
+    });
+
     $("#gproveedor").on("keydown",function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);

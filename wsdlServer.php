@@ -299,11 +299,11 @@ if (isset($_POST['respuestaXml'])) {
                     break;
                   default:
                     break;
-                } 
+                }
+                $obj->bdy[0] = 'null'; 
                 $arg = substr(substr(json_encode($obj->bdy),1),0,-1);
-                $arg = substr($arg,strpos($arg, ','));
 
-                $mrs = $base->ejecutar('insert into '.$tbl.' values(null'.$arg.')');
+                $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
                 $aid = $obj->tbl == 64 ? $base->ejecutar('select max(id) from facturas where idsucursal = '.$_POST['vsucursal'])->fetch_all()[0][0] : 0;
 
                 if($mrs == 1)
