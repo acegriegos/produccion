@@ -159,10 +159,16 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>';
 
   if($datos[2] == 'Mixto'){
-    $mxt = $kakaroto->kamehameha('format(total,2)',336,'idfactura='.$_REQUEST['id'].' order by idpago');
+    $mxt = $kakaroto->kamehameha('format(total,2),idpago',336,'idfactura='.$_REQUEST['id'].' order by idpago');
+    $mxt_efect = $mxt[0][1] == 1 ? '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr>' : '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr>';
+
+    $mxt_tar = '';
+    if(isset($mxt[1]))
+      $mxt_tar = '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[1][0].'</td> </tr>';
+
     echo '<tr>
       <td width="50%">T. Pago:</td>
-      <td width="50%"> <table style="width: 100%;"> <tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr> <tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[1][0].'</td> </tr> </table> </td>
+      <td width="50%"> <table style="width: 100%;"> '.$mxt_efect.$mxt_tar.' </table> </td>
     </tr>';
   }else
     echo '<tr '.$ocultar.'>
@@ -341,9 +347,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.89"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.89"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.89"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.90"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.90"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.90"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

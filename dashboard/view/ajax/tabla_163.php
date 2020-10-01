@@ -57,7 +57,7 @@ echo '<input type="hidden" id="indice" value="'.$index.'" clie="'.$transaccion[0
 
 		$(".sload").html($("#uni").html());
 					
-		$("#ffacturas .zelda").data('triforce')['idline'] = $("#indice").val();
+		$("#ffacturas .zelda").data('triforce')['idline'] = $(".ciclos").length;
 		if($("#impm:visible").length && $("#tmp_estado").val() == "1"){
 			$("#impm").attr('checked',true).change();
 		}

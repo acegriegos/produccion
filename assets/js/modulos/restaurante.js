@@ -55,7 +55,7 @@ $(function(){
 
         if($(".ciclos").length){
             $(".ciclos").each(function(){
-                insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,"","",6,"'+$(this).data('triforce')['vcomodin']+'"');
+                console.log(insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,'+$(this).attr('iva')+',"",6,"'+$(this).data('triforce')['vcomodin']+'"'));
             });
 
             vdata = generarComanda(id);
@@ -206,7 +206,7 @@ $(function(){
                     var flag  = '<i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i>';
                     t_mesa += total;
 
-                    mstr = '<section strid="'+idproducto+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+                    mstr = '<section strid="'+idproducto+'" iva="'+imp+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
@@ -349,7 +349,7 @@ $(function(){
     function addline(tfila,tcolor){
 
         var elem = $("[strid="+tfila+"][strcol="+tcolor+"]");
-        console.log(tcolor)
+
         if(elem.length){
             var cactual = parseFloat(elem.find('.clinea').val());
             elem.find('.clinea').val(cactual+1)
@@ -383,15 +383,16 @@ $(function(){
                 break;
         }
         var precio = $("[trid="+tfila+"]").find('.cprod').html().replace(/,/g,'');
+        var iva = $("[trid="+tfila+"]").attr('iva')
         var cantidad = 1;
         var total = parseFloat(precio)*cantidad;
         var flag  = tcolor == -1 ? '' : '<i class="mdi mdi-flag-variant pbtn der" style="color:'+color+';"></i>';
 
-        var linea = '<section strid="'+tfila+'" strcol="'+tcolor+'" nuevo="0" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+$("[trid="+tfila+"]").find('.nprod').html()+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="1">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> '+flag+' <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+        var linea = '<section strid="'+tfila+'" iva="'+iva+'" strcol="'+tcolor+'" nuevo="0" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+$("[trid="+tfila+"]").find('.nprod').html()+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="1">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> '+flag+' <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
         $("#"+seccion).append(linea);
 
-        $("[strid="+tfila+"][strcol="+tcolor+"]").data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : tfila,vcantidad : cantidad,vprecio : parseFloat(precio).formatMoney(5,'.',''),vdesc : 0,vtotal : (total).formatMoney(5,'.',''),vidinventario : 6,vidodt : 0,vimv : 0,vcomodin : "",vidunidad : 1,vidimpuestos:13,viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:1,vcomision : tcolor,videxoneracion:''});
+        $("[strid="+tfila+"][strcol="+tcolor+"]").data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : tfila,vcantidad : cantidad,vprecio : parseFloat(precio).formatMoney(5,'.',''),vdesc : 0,vtotal : (total).formatMoney(5,'.',''),vidinventario : 6,vidodt : 0,vimv : 0,vcomodin : "",vidunidad : 1,vidimpuestos:iva,viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:1,vcomision : tcolor,videxoneracion:''});
 
         totalizar();
     }
@@ -744,6 +745,7 @@ function cargarProdList(){
     var str = '';
     var isbebida = 1;
     var btns = '';
+    var tfoto = getDatos('valor',809,'descr="FT_SZ"')[0][0];
 
     for(var i = 0; i < productos[0].length; i++){
         if(parseInt(productos[0][i][4]) != 4){
@@ -754,18 +756,15 @@ function cargarProdList(){
             btns = '';
         }
 
-        var tfoto = getDatos('valor',809,'descr="FT_SZ"')[0][0];
-
         switch(parseInt(tfoto)){
             case 1:
-                str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 50px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span>          </div>'
+                str += '<div class="comida" iva="'+productos[0][i][5]+'" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 50px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span>          </div>'
                 break;
             default:
-                str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
+                str += '<div class="comida" iva="'+productos[0][i][5]+'" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
                 break;
         }
 
     }
-
     $("#test1").html(str)
 }

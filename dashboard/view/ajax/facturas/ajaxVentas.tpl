@@ -945,20 +945,20 @@
 
 <section id="m-mixto" class="modal-tpago">
   <hr>
-  <!-- <div class="row" style="margin:0px; padding: 0px;">
+  <div class="row" style="margin:0px; padding: 0px;">
     <div class="col s4 center" style="cursor: pointer;">
       <input type="radio" name="mxt_tp" val="1" id="mxt_seg">
       <label for="mxt_seg" title="Parte Efectivo y Parte con Tarjeta">Segmentado</label>
     </div>
-    <div class="col s4 center hide" style="cursor: pointer;">
+    <!-- <div class="col s4 center hide" style="cursor: pointer;">
       <input type="radio" name="mxt_tp" val="2" id="mxt_div" >
       <label for="mxt_div" title="Una Porte del Total">Dividio</label>
     </div>
     <div class="col s4 center hide" style="cursor: pointer;">
       <input type="radio" name="mxt_tp" val="3" id="mxt_det" >
       <label for="mxt_det" title="Por Líneas de la Factura">Desgloce</label>
-    </div>
-  </div> -->
+    </div> -->
+  </div>
    
   <div class="modal-content row">
 
@@ -1251,4 +1251,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.89"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.90"></script>
