@@ -33,7 +33,7 @@
     <div class="userView">
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
-         <p class="white-text" style="margin: 0px;">{$smarty.session.NOM}</p>
+         <p class="white-text" style="margin: 0px;font-size: 12px;max-width: 100%;word-break: break-all;white-space: normal;overflow-x: auto;max-height: 55px;overflow-y: hidden;">{$smarty.session.NOM}</p>
          <ul class="collapsible collapsible-accordion">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</i></a>

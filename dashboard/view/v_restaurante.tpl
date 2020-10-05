@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.90">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.91">
   </head>
   <body>
     {$NAV}
@@ -63,6 +63,10 @@
 
 
       <div class="row" id="mesas">
+
+        <div class="col s6 m2 black-text barra center" style="background: url('../assets/img/espress2.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="99" id="m99" estado="0">
+       <span id="sm99"><strong style="color: white;"><b></b></strong></span>
+        </div> 
   
         {section name=LE loop=$MESAS}
 
@@ -214,6 +218,6 @@
             </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.90"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.91"></script>
   </body>
 </html>

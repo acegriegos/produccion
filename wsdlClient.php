@@ -1161,7 +1161,7 @@
             $fact['plazo']     = isset($inv_xml->PlazoCredito) ? (array) $inv_xml->PlazoCredito : 0;
             $fact['plazo']     = $fact['plazo'] == 0 ? $fact['plazo'] : isset($fact['plazo'][0]) ? $fact['plazo'][0] : 0;
             preg_match_all('!\d+!', $fact['plazo'], $matches);
-            $fact['plazo']     = $matches[0][0];
+            $fact['plazo']     = isset($matches[0][0]) ? $matches[0][0] : 0;
             $fact['tipopago']  = (array) $inv_xml->MedioPago;
             $fact['tipopago']  = $fact['tipopago'][0];
 

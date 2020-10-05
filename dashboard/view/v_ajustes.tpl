@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Configuración</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.90">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.2.0.90">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.91">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-ajustes.css?v=10.2.0.91">
   </head>
 <body>
   {$NAV}
@@ -40,7 +40,7 @@
     <div id="majustes" class="pequeño"></div>
   </div>
   {$SCR}
-  <script src="../assets/js/dropzone.js?v=10.2.0.90"></script>
-  <script src="../assets/js/modulos/ajustes.js?v=10.2.0.90"></script>
+  <script src="../assets/js/dropzone.js?v=10.2.0.91"></script>
+  <script src="../assets/js/modulos/ajustes.js?v=10.2.0.91"></script>
 </body>
 </html>

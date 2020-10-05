@@ -129,18 +129,6 @@ $(function () {
 				if($(".per11.hide").length)
 					$(".per11").addClass('hide');
 
-				cargarCategorias(1,1,'','');
-
-				$("#cabys").keyup(function(e){
-					var code = e.which || e.keyCode;
-					if(code == 13){
-						cargarCategorias(1,8,'',$(this).val())
-						var e = jQuery.Event("keyup");
-			            e.which = 13;
-			            $("#cat8").trigger(e);
-					}
-				});
-
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -178,6 +166,13 @@ $(function () {
 				$("#fpaquetes .zelda").data('triforce',{vid:0,vidsucursal:'',vidusuario:''})
 				break;
 		}
+
+		$("#scabys").keyup(function(e){
+			var code = e.which || e.keyCode
+			if(code == 13 && $(this).val().trim() != '')
+				cargarCategorias($(this).val())
+		});
+
 		paginate($("ul.pagination").attr('vtbl'));
 		$('select').material_select();
 		$('.dropdown-button').dropdown();
@@ -1444,6 +1439,8 @@ $(document).on("click","#addproduct",function(){
     $("#vcantidad").val(0)
     Materialize.updateTextFields();
     $("select").material_select();
+    $("#lcabys").html('')
+    $("#scabys").val('')
     setTimeout(function(){$("#vnombre").focus();},500);
     cargarUnidades(1);
 });
@@ -1474,6 +1471,8 @@ $(document).on("click","#addservice",function(){
     $("#addserv").addClass('add');
     $("#vidmoneda").val(1);
     $('select').material_select();
+    $("#lcabys").html('')
+    $("#scabys").val('')
     $("#vimpiva").val('8').material_select('update');
 });
 
@@ -1522,6 +1521,11 @@ $(document).on("change",".cper",function(){
 $(document).on("keyup","#voptServ",function(){
     var opotros = parseInt($("#voptServ").val());
     $("#vperiodo").val(opotros)
+});
+
+$(document).on("click",".rcabys",function(){
+    $("#vcabys").val($(this).attr('cod'));
+    $("#vimpiva").val($(this).attr('iva')).material_select('update')
 });
 
 $(document).on("click","#isinventariado",function(){
@@ -1583,12 +1587,12 @@ $(document).on("keyup",".package[id=vnombre]",function(e){
 	}
 });
 
-$(document).on("change","[id^=cat]",function(e){
-	var id = parseInt($(this).attr('id').substr(3));
-	var cat = $('option:selected',this).attr('cat');
-	var cabys = $('option:selected',this).attr('cod');
-	cargarCategorias(cat,id+1,cabys,'')
-});
+// $(document).on("change","[id^=cat]",function(e){
+// 	var id = parseInt($(this).attr('id').substr(3));
+// 	var cat = $('option:selected',this).attr('cat');
+// 	var cabys = $('option:selected',this).attr('cod');
+// 	cargarCategorias(cat,id+1,cabys,'')
+// });
 
 function addfeat(nom,val) {
     if (nom != '' && val != '') {
@@ -2217,6 +2221,8 @@ function endDetail(id, acc, modulo) {
 			$("#vidunidad").val(1);
 			$("#vidunidad").material_select('update');
 			$("#tb1").click();
+
+			actualizar(299,'estante="'+$("#vestante").val().trim()+'",fila="'+$("#vfila").val().trim()+'",columna="'+$("#vcolumna").val().trim()+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0])
 			
 			if(config[29] != ''){
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"",0,-1');
@@ -2273,9 +2279,12 @@ function addlineCliente(preccli) {
 function postload(vmodulo){
 	switch(vmodulo){
 		case 'producto':
+			$("#lcabys").html('')
+    		$("#scabys").val('')
 			$("#agProd").removeClass('add');
 			$("#agProd").addClass('edit');
 			$("#agProd").html('Editar');
+
 			if(parseInt($("#vidmoneda").val()) == 1)
 				$("#costodivisa").addClass('hide')
 			else
@@ -2349,32 +2358,30 @@ function postload(vmodulo){
 				$("#vcosto").removeAttr('dimension');
 
 		    $("#vimpiva").val($("#fproductos .zelda").data('triforce')['vtimv']).material_select('update');
+		    var extra = getDatos('estante,fila,columna,cabys',299,'idproducto='+$("#fproductos .zelda").data('triforce')['vid'])[0][0];
+		    console.log(extra)
+		    $("#vestante").val(extra[0])
+		    $("#vfila").val(extra[1])
+		    $("#vcolumna").val(extra[2])
+		    $("#vcabys").val(extra[3])
 		    Materialize.updateTextFields();
 			break;
 		case 'servicio':
-			
+			$("#lcabys").html('')
+    		$("#scabys").val('')
 			break;
 		default:
 			break;
 	}
 }
 
-function cargarCategorias(numero,len,cabys,nombre){
-
-	if(len == 9){
-		$("#cabys").val(cabys)
-		$("[for=cabys]").addClass('active')
-	}else{
-
-		var where = nombre != '' ? 'numero = 8 and nombre like "%'+nombre+'%" limit 20' : 'numero = '+len+' and if('+len+' <> 1,categoria like "'+numero+'%",1)' ;
-		var cats = getDatos('nombre,categoria,codigo',337,where)
-		var list = '<option selected>--</option>';
-		for (var i = 0; i < cats[0].length; i++) {
-			list += '<option cat="'+cats[0][i][1]+'" cod="'+cats[0][i][2]+'">'+cats[0][i][0]+'</option>';
-		}
-
-		$("#cat"+len).html(list)
+function cargarCategorias(nombre){
+	var cats = getDatos('nombre,case iva when 0 then 1 when 1 then 2 when 2 then 3 when 4 then 4 when 13 then 8 end as iva,codigo',337,'numero = 8 and nombre like "%'+nombre+'%"');
+	var list = '';
+	for (var i = 0; i < cats[0].length; i++) {
+		list += '<p iva="'+cats[0][i][1]+'" cod="'+cats[0][i][2]+'" style="cursor:pointer;" class="rcabys">'+cats[0][i][0]+'</p>';
 	}
+	$("#lcabys").html(list);
 }
 
 function cargarUnidades(vidproducto){

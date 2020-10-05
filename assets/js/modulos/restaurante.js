@@ -55,7 +55,7 @@ $(function(){
 
         if($(".ciclos").length){
             $(".ciclos").each(function(){
-                console.log(insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,'+$(this).attr('iva')+',"",6,"'+$(this).data('triforce')['vcomodin']+'"'));
+                insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,'+$(this).attr('iva')+',"",6,"'+$(this).data('triforce')['vcomodin']+'"');
             });
 
             vdata = generarComanda(id);
@@ -77,7 +77,7 @@ $(function(){
 
     $(".barra").click(function(){
        $("#modal-barra").modal('open');
-       $("#btit").html($("strong b",this).html());
+       $("#btit").html($("strong b",this).html() == '' ? 'Llevar' : $("strong b",this).html());
        var idbarra = $(this).attr('id').substr(1);
        var clientes = getDatos('',805,'2,'+idbarra+',""',0,0,0)[0];
 
@@ -118,8 +118,14 @@ $(function(){
     });
 
     $("#dofact").click(function(){
-        var id = $("#ffacturas .zelda").data('triforce')['vidtipo'];
-        var idfactura = getDatos('id',261,'idtipo = '+id)[0][0][0];
+        var isbarra = parseInt($(".zelda").data('triforce')['vidtipopago']);
+        if(isbarra){
+            var idfactura = getDatos('id',261,'idtipopago = '+isbarra)[0][0][0];
+        }
+        else{
+            var id = $("#ffacturas .zelda").data('triforce')['vidtipo'];
+            var idfactura = getDatos('id',261,'idtipo = '+id)[0][0][0];
+        }
         window.open('facturacion?id=-'+idfactura+'&au=0&ebd=1','_blank');
         $("#modal-mesa").modal('close')
     });
@@ -167,6 +173,7 @@ $(function(){
                 
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
                 $(".zelda").data('triforce')['vcomodin'] = $(this).attr('nmesa');
+                $(".zelda").data('triforce')['videstado'] = $(this).attr('estado')
 
                 $("#modal-mesa").modal('open');
                 /mobile/i.test(navigator.userAgent) && document.documentElement.scrollTop === 0 && !pageYOffset && !location.hash && setTimeout(function () {
@@ -228,6 +235,8 @@ $(function(){
             default:
                 break;
         }
+
+        $("#sprod").focus();
         
     });
     
@@ -455,7 +464,7 @@ $(document).on("click",".delb",function(){
 
 $(document).on("click",".cdb",function(){
 
-    $("#tit").html('Orden de '+$(this).html()+', Barra '+$("#btit").html());
+    $("#tit").html('Orden de '+$(this).html()+', '+$("#btit").html());
     var id = parseFloat($("#modal-barra").attr('bnumber'));
     var idcliente = $(this).attr('id').substr(1);
 
@@ -480,7 +489,7 @@ $(document).on("click",".cdb",function(){
             var total = parseFloat((precio+cimp)*cantidad);
             t_mesa += total;
 
-            mstr = '<section strid="'+idproducto+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+            mstr = '<section strid="'+idproducto+'" iva="'+imp+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
             $("#fdetallefacturas").prepend(mstr);
                     
             $("[strid="+idproducto+"][strcol=0]").data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][11],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0,videxoneracion:'',idtipo:1});
@@ -505,7 +514,8 @@ $(document).on("click",".cdb",function(){
 
     $(".zelda").data('triforce')['vidtipo'] = id*-1;
     $(".zelda").data('triforce')['vidtipopago'] = idcliente;
-    $(".zelda").data('triforce')['vcomodin'] = $(this).html()+', Barra '+$("#btit").html();
+    $(".zelda").data('triforce')['videstado'] = 0;
+    $(".zelda").data('triforce')['vcomodin'] = $(this).html()+', '+$("#btit").html();
 
     $("#modal-mesa").modal('open');
     $("#ffacturas .zelda").data()['idbarra'] = id;
