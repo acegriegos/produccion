@@ -967,12 +967,12 @@
       <H5>FORMA DE PAGO</H5>
       
       <div class="col s12 input-field">
-          <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1">
+          <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1" autocomplete="off">
           <label for="montoefect">Efectivo</label>
       </div>
 
        <div class="col s12 input-field">
-            <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2">
+            <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2" autocomplete="off">
             <label for="montotar">Tarjeta</label>
       </div>
 

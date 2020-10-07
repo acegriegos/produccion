@@ -1165,7 +1165,7 @@ $(document).on("click",".loadserv",function(){
     $("#vid").val(serv[0]);
     $("#vcodigo").val(serv[1]);
     $("#vnombre").val(serv[2]);
-    $("#vdescripcion").val(serv[3]);
+    $("#vcabys").val(serv[3]);
 
     if (serv[13] == 0)
         $("#servpro").prop('checked',false);
@@ -2061,7 +2061,7 @@ function cargar(vmodulo, vid) {
 			break;
 
 		case 'servicio':
-			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,descripcion as vdescripcion,pfactura as vpfactura,periodo as vperiodo,idproveedor as vidproveedor,pcompra as vprecio,pganancia as vpganancia,idmoneda as vidmoneda,venta as vventa,timv as vtimv';
+			vmodulo['sel'] = 'id as vid,codigo as vcodigo,nombre as vnombre,cabys as vcabys,pfactura as vpfactura,periodo as vperiodo,idproveedor as vidproveedor,pcompra as vprecio,pganancia as vpganancia,idmoneda as vidmoneda,venta as vventa,timv as vtimv';
 			vmodulo['tbl'] = 16;
 			vmodulo['where'] = 'id = ' + vid;
 			break;
@@ -2215,14 +2215,14 @@ function endDetail(id, acc, modulo) {
 				actualizar(11,'divisa ='+$("#vidmoneda option:selected").attr('dv'),'id ='+id[0][0]);
 			}
 
+			console.log(actualizar(299,'estante="'+$("#vestante").val().trim()+'",fila="'+$("#vfila").val().trim()+'",columna="'+$("#vcolumna").val().trim()+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0]))
+
 			thorload(modulo);
 			deadclear(modulo);
 			paginate(14);
 			$("#vidunidad").val(1);
 			$("#vidunidad").material_select('update');
 			$("#tb1").click();
-
-			actualizar(299,'estante="'+$("#vestante").val().trim()+'",fila="'+$("#vfila").val().trim()+'",columna="'+$("#vcolumna").val().trim()+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0])
 			
 			if(config[29] != ''){
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"",0,-1');

@@ -130,8 +130,8 @@
                     </div> -->
 
                     <div class="col s12 input-field" style="margin-top: 20px;">
-                        <input type="text" id="cabys" maxlength="13" class="eder" autocomplete="off">
-                        <label for="cabys">Codigo Cabys</label>
+                        <input type="text" id="vcabys" maxlength="13" class="eder" autocomplete="off">
+                        <label for="vcabys">Codigo Cabys</label>
                     </div>
 
                 </div>

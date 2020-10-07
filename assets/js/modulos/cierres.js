@@ -25,6 +25,8 @@ $(function(){
 		}
 	});
 
+	permisos(7301,7302);
+
 	$("#mn-fecha").change(function(){
 		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") and idfactura = facturas.id and idtipo = 5 ),0) as nc, ifnull(sum(if(idtipo = 2,(select valor from estadoscuentas where idfactura = facturas.id and idtipo = 5 and date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") ),0)),0) as nc_cre,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(3,7) ),0) as abonos,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(5) ),0) as rnc',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
 	
@@ -334,18 +336,21 @@ $(document).on("click","#docierre",function(){
 	/*if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');*/
 	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#vdoccierre").val()+'"',0,0,0)
-	console.log(idcierre)
 	idcierre = idcierre[0][0][0];
+	$(".cancel").parent().remove()
+	
+	if(parseInt(idcierre)){
+		$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 
-	$('#toast-container').remove();
-	$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
-
-	window.open('cierres?accion=1&id='+idcierre);
-	location.reload();
+		window.open('cierres?accion=1&id='+idcierre);
+		location.reload();
+	}else{
+		Materialize.toast('Error Generando el Cierre',4000,'red')
+	}
 });
 
 $(document).on("click",".cancel",function(){
-    $('#toast-container').remove();
+    $(".cancel").parent().remove()
 });
 
 $(document).on("click",".getfacturas",function(){
@@ -358,7 +363,7 @@ $(document).on("click",".getfacturas",function(){
 	tabla.destroy();
    
     arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa',0,1,$("#listafacturas"));
-    console.log(arr('login',4,'',183,'"'+fecha+'",'+guser+',@@impresa',0,0,0))
+
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
 	$("#tefectivo").text($("#hidet").attr('tefe'));
