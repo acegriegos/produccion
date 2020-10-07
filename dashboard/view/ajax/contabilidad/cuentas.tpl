@@ -168,10 +168,6 @@
 
 </ul>
 
-<ul id="extra" class="side-nav side-nav-conta1" >
-<iframe src="" id="extra-i" style="width: 100%;height: 100vh;"></iframe>
-</ul>
-
 </div>
 
 </div>

@@ -1593,7 +1593,7 @@ function cargarFacturasNota(){
     var vcliente = $("#byclie").attr('cid');
     var vfactura = $("#byfact").val().trim().length ? $("#byfact").val() : 0;
     var str = '';
-    var info = getDatos('concat(case idtipoventa when 1 then "F-" when 8 then "S-" when 10 then "E-" else "T-" end,lpad(consecutivo,10,0)) as consecutivo,subtotal+exento+imv-descuento+exonerado as vorig,date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id,getSaldoFact(id) as actu,(select simbolo from monedas where id = idmoneda),idmoneda,divisa',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") and idtipoventa in(1,7,8,10) and idsucursal = @@impresa having dias <= 15 and actu > 0',0,0,0);
+    var info = getDatos('concat(case idtipoventa when 1 then "F-" when 8 then "S-" when 10 then "E-" else "T-" end,lpad(consecutivo,10,0)) as consecutivo,subtotal+exento+imv-descuento+exonerado as vorig,date_format(fecha,"%d-%m-%Y"),datediff(curdate(),fecha) as dias,id,getSaldoFact(id) as actu,(select simbolo from monedas where id = idmoneda),idmoneda,divisa',64,'id > 0 and if('+vcliente+' = 0,1,idcliente = '+vcliente+') and if("'+vfactura+'" = 0,1,consecutivo = "'+vfactura+'") and idtipoventa in(1,7,8,10) and idsucursal = @@impresa having /*dias <= 15 and*/ actu > 0',0,0,0);
  
     $("#listafacturas").html('');
     if (info.succed) {

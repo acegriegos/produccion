@@ -92,6 +92,14 @@ $(function(){
 		}
 	});
 
+	$("#vidmoneda").change(function(){
+		if(parseFloat($("option:selected",this).attr('dv')) == 1){
+			$("#isaldovista").text( parseFloat($("#isaldovista").attr('rmn')).formatMoney(2,'.',',') )
+		}
+		else
+			$("#isaldovista").text( (parseFloat($("#isaldovista").attr('rmn'))/parseFloat($("#isaldovista").attr('div'))).formatMoney(2,'.',',') )
+	});
+
 	$("#ncli").keyup(function(e){
 		var charCode = e.which || e.keyCode;
 		if (charCode == 13)
@@ -335,7 +343,7 @@ $(document).on("click",".detalle",function(){
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
 	arr('login',6,'',213,gtipo+','+id+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
-	
+	console.log(datos)
 	var dias = parseInt(datos[7]);
 	$("#ifac").text(datos[3]);
 	$("#vidfactura").val(datos[12]);
@@ -358,6 +366,10 @@ $(document).on("click",".detalle",function(){
 		order : [],
 		"bLengthChange": false
 	});
+	$("#vidmoneda").val(datos[15]).material_select('update');
+	$("#vidtipopago").val(1).material_select('update');
+	$("#isaldovista").attr('div',datos[16])
+	$("#isaldovista").attr('rmn',parseFloat(datos[14])*parseFloat(datos[16]))
 });
 
 $(document).on("click","#btn-navsalir",function(){
@@ -511,19 +523,22 @@ function cargarSintax(){
 }
 
 function endDetail(vid,vacc,modulo) {
-	console.log(vid)
+
 	if (vacc == 1) {
 		var saldo = $("#isaldovista").text();
 		saldo = parseFloat(saldo.substr(1).replace(/,/g, ""));
 		var tsaldo = saldo - parseFloat($("#vvalor").val());
-		$("#isaldovista").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(5,'.',',') );
-		$("#isaldo").html('¢'+( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
+		$("#isaldovista").html(( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',',') );
+		$("#isaldo").html(( saldo - parseFloat($("#vvalor").val()) ).formatMoney(2,'.',','));
 		$("#vidtipopago").val('');
 		$("#vvalor").val(0.00);
 		arr('login',6,'',213,gtipo+','+$("#vidfactura").val()+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
 		arr('login',6,'',214,gtipo+',0,0,0,2,@@impresa',0,1,$("#listaCuentasx"));
 		$("#btn-div").click();
 		var tp = $("#p_v").is(":checked") == true ? 1 : 2;
+		if($("#vidmoneda").val() != 1)
+			actualizar(301,'divisa='+$("#vidmoneda option:selected").attr('dv'),'id='+vid[0][0]);
+			
 		if($("#vcta").val() != 0)
 			insertar(280,'','null,'+vid[0][0]+','+$("#vcta").val());
 		window.open('cuentas?accion=4&id='+vid[0][0]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

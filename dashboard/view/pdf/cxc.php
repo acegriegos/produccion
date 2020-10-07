@@ -155,7 +155,7 @@ for($i = 0; $i<sizeof($datos);$i++){
           <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][1].'</td>
           <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][10].'</td>
           <td align="center" style="border:1px solid #e2e2e2">'.$datos[$i][11].'</td>
-          <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][2],2).'</td>
+          <td style="border:1px solid #e2e2e2">'.$datos[$i][16].number_format($datos[$i][2],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][3],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][4],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][5],2).'</td>
@@ -164,9 +164,9 @@ for($i = 0; $i<sizeof($datos);$i++){
       </tr>';
 }
 
- //$html .= '<tr> <td colspan="2" align="left"><br><br><br><br> <br> <b>Saldo por Vencer 1 Dia:</b> <br> <b>Saldo por Vencer 8 Dias</b> <br> <b>Saldo por Vencer 15 Dias</b> <br> <b>Saldo por Vencer 30 Dias</b> <br> <b>Saldo por Vencer +30 Dias</b> <br> <b>Saldo sin Vencer:</b> </td> <td colspan="2" align="right"><br><br><br><br> <br>'.number_format($spv1,2).' <br>'.number_format($spv8,2).' <br>'.number_format($spv15,2).' <br>'.number_format($spv30,2).' <br>'.number_format($spvm30,2).' <br> '.number_format($ssv,2).'</td> <td></td> <td colspan="2" align="left"><br><br><br><br> <b>Saldo Vencido Hoy:</b> <br> <b>Saldo Vencido 1 Dia:</b> <br> <b>Saldo Vencido 8 Dias</b> <br> <b>Saldo Vencido 15 Dias</b> <br> <b>Saldo Vencido 30 Dias</b> <br> <b>Saldo Vencido +30 Dias</b> <br> <b>Saldo Vencido:</b></td> <td colspan="2" align="right"><br><br><br><br>'.number_format($sv0,2).' <br>'.number_format($sv1,2).' <br>'.number_format($sv8,2).' <br>'.number_format($sv15,2).' <br>'.number_format($sv30,2).' <br>'.number_format($svm30,2).' <br> '.number_format($sv,2).'</td> </tr></table></td></tr></table>';
+ //$html .= '<tr> <td colspan="2" align="left"><br><br><br><br>'. /*<br> <b>Saldo por Vencer 1 Dia:</b> <br> <b>Saldo por Vencer 8 Dias</b> <br> <b>Saldo por Vencer 15 Dias</b> <br> <b>Saldo por Vencer 30 Dias</b> <br> <b>Saldo por Vencer +30 Dias</b> <br> */'<b>Saldo sin Vencer:</b> </td> <td colspan="2" align="right"><br><br><br><br>'./* <br>'.number_format($spv1,2).' <br>'.number_format($spv8,2).' <br>'.number_format($spv15,2).' <br>'.number_format($spv30,2).' <br>'.number_format($spvm30,2).' <br> '.*/number_format($ssv,2).'</td> <td></td> <td colspan="2" align="left"><br><br><br><br>'./* <b>Saldo Vencido Hoy:</b> <br> <b>Saldo Vencido 1 Dia:</b> <br> <b>Saldo Vencido 8 Dias</b> <br> <b>Saldo Vencido 15 Dias</b> <br> <b>Saldo Vencido 30 Dias</b> <br> <b>Saldo Vencido +30 Dias</b> <br>*/ '<b>Saldo Vencido:</b></td> <td colspan="2" align="right"><br><br><br><br>'./*.number_format($sv0,2).' <br>'.number_format($sv1,2).' <br>'.number_format($sv8,2).' <br>'.number_format($sv15,2).' <br>'.number_format($sv30,2).' <br>'.number_format($svm30,2).' <br> '.*/number_format($sv,2).'</td> </tr></table></td></tr></table>';
 
-  $html .= '</table></td></tr></table>';
+$html .= '</table></td></tr></table>';
 
 
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.

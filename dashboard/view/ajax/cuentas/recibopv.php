@@ -189,7 +189,7 @@ echo '<tr>
     <td align="right"> '.$datos[11].$datos[6].'</td>
   </tr>
 </table><br>
-<b>SALDO DEL CLIENTE: </b>'.$datos[11].number_format($datos[20],2);
+<b>SALDO DEL CLIENTE: </b>'.$datos[24].number_format($datos[20],2);
 
 echo '<hr>
 <div style="text-align: center;" id="resolucion"></div><br><br><br>
@@ -200,9 +200,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.80"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.80"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.80"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.81"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.81"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.81"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

@@ -134,6 +134,17 @@ $(function(){
         );
         //$("#gextra").html(123)
         $(this).sideNav('show');
+    });
+
+    $(document).on("click",".detextra",function(){
+        $(this).sideNav({
+                menuWidth: 700,
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+            }
+        );
+        $("#extra-i").attr('src','login?accion=8&arreglo[arch]=recibo&arreglo[sel]=&arreglo[tbl]=72&arreglo[where]='+$(this).attr('fila')+'&arreglo[mic]=1&arreglo[tit]=Vista del Recibo&arreglo[show]=1')
+        $(this).sideNav('show');
     })
 
     $("#tiporubro").change(function(){
