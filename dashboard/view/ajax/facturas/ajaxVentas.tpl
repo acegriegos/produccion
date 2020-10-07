@@ -1020,7 +1020,7 @@
       <div class="collection" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
-        <input type="text" id="mxtot" readonly class="eder">
+        <input type="text" id="mxtot" readonly class="eder" subtotal="0" exento="0" descuento="0" imv="0">
         <label for="mxtot">TOTAL FACTURA</label>
       </div>
     </div>
