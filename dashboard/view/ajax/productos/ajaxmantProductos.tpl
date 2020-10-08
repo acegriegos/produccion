@@ -179,7 +179,7 @@
                         </div>
                     {/if}
 
-                    <div class="input-field marginzero col s12 per11">
+                    <div class="input-field marginzero col s12 per11 hide">
                         <select id="vidvarios" type="select">
                             <option value="0" selected>N/A</option>   
                             <option value="1">Entrada</option>

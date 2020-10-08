@@ -2215,7 +2215,10 @@ function endDetail(id, acc, modulo) {
 				actualizar(11,'divisa ='+$("#vidmoneda option:selected").attr('dv'),'id ='+id[0][0]);
 			}
 
-			console.log(actualizar(299,'estante="'+$("#vestante").val().trim()+'",fila="'+$("#vfila").val().trim()+'",columna="'+$("#vcolumna").val().trim()+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0]))
+			var vestante = $("#vestante:visible").length ? $("#vestante").val().trim() : '';
+			var vcolumna = $("#vcolumna:visible").length ? $("#vcolumna").val().trim() : '';
+			var vfila = $("#vfila:visible").length ? $("#vfila").val().trim() : '';
+			console.log(actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0]))
 
 			thorload(modulo);
 			deadclear(modulo);
