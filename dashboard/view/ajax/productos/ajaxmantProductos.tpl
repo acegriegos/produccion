@@ -1,6 +1,6 @@
 <div class="pequeño" id="mantProd" >
     <div class="row">
-        <div class="input-field col s10 m8 l5">
+        <div class="input-field col s12 m5">
             <a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"></a>
             <ul id='filtr_1' class='dropdown-content' style="width: auto;">
                 <li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Notas o Nombre</a></li>
@@ -13,7 +13,20 @@
             <label class="truncate" for="search_productos">Buscar Producto por Código, Notas o Nombre</label>
         </div>
 
-        <div class="col s2 m4 l7">
+        <div class="col s12 m3">
+            {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
+            <div class="input-field">
+                <select id="mystock">
+                {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
+                {/section}
+                </select>
+                <label for="mystock">Inventario</label>
+            </div>
+            {/if}
+        </div>
+
+        <div class="col s2 m4">
 
             <a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger per4102" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
 

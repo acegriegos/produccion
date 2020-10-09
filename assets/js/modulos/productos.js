@@ -99,7 +99,7 @@ $(function () {
 			    	if(salir)
 			    		$("#modal-dimensiones").modal('close');
 			    });
-			    arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
+			    arr('login',6,'',14,'0,0,",@@impresa,0,'+$("#mystock").val()+'","0,10"',0,1,$("#listaproductos"));
 			    
 				$("#data-table-productos").DataTable({
 					bFilter: false,
@@ -173,7 +173,15 @@ $(function () {
 				cargarCategorias($(this).val())
 		});
 
-		paginate($("ul.pagination").attr('vtbl'));
+		$("#mystock").change(function(){
+			thorload($("ul.pagination").attr('vtbl') == '14' ? 'producto' : 'servicio');
+			paginate($("ul.pagination").attr('vtbl'),undefined,',@@impresa,'+$(this).val());
+		});
+
+		// if(config[29] == '99')
+		// 	$("#mystock")
+
+		paginate($("ul.pagination").attr('vtbl'),undefined,',@@impresa,6');
 		$('select').material_select();
 		$('.dropdown-button').dropdown();
 		$('.modal').modal({
@@ -749,7 +757,7 @@ $(document).on("click", ".delprod", function () {
 $(document).on("click", ".accept", function () {
 	var id = $(this).attr('id').substr(3);
 	arr('login',4,'',78,'3,'+id+',"","","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
-	arr('login',6,'',14,'0,0,",@@impresa","0,10"',0,1,$("#listaproductos"));
+	arr('login',6,'',14,'0,0,",@@impresa,'+$("#mystock").val()+'","0,10"',0,1,$("#listaproductos"));
 	paginate(14);
 	$('#toast-container').remove();
 	Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
@@ -2083,13 +2091,13 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa,0,'+$("#mystock").val()+'","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 13;
-			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa","0,10"';
+			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa,0,'+$("#mystock").val()+'","0,10"';
 			break;
 		case 'paquetes':
 			var arr = {};

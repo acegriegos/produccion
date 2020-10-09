@@ -2860,12 +2860,13 @@ function sendVMail(factura,clave,vid){
                 },2000);
             }
         }else
-            if(parseFloat($("#mxtot").val()) == 0)
-                setTimeout(function(){window.close();},2000);
-            else{
+            // if(parseFloat($("#mxtot").val()) == 0)
+            //     setTimeout(function(){window.close();},2000);
+            // else{
                 $("#montotar").val(0)
                 $("#montoefect").val($("#mxtot").val())
-            }
+            //}
+            $("#tpg5").attr('value',-1);
     }
 }
 
@@ -3032,7 +3033,7 @@ function mixto(el){
             //COMODIN DE CLIENTE FACTURA
         //}else{
             //TIQUETE ELECTRONICO, 66, 67
-            var factura = getDatos('',66,'1,0,7,'+$("#ffacturas .zelda").data('triforce')['vidtipo']+',5,0,1,0,'+$("#"+rtot).attr('imv')+','+$("#"+rtot).attr('subtotal')+','+$("#"+rtot).attr('exento')+','+$("#"+rtot).attr('descuento')+',0,"",0,"'+$("#vcomentario").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vidmoneda']+',@@usr,@@impresa,"",0,"","'+$("#ntarjmixto").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vdivisa']+',"'+$("#ffacturas .zelda").data('triforce')['videxoneracion']+'",0,'+config[26],0,0,0);
+            var factura = getDatos('',66,'1,0,7,'+$("#ffacturas .zelda").data('triforce')['vidtipo']+',5,0,1,0,'+$("#"+rtot).attr('imv')+','+$("#"+rtot).attr('subtotal')+','+$("#"+rtot).attr('exento')+','+$("#mxcan").attr('descuento')+',0,"",0,"'+$("#vcomentario").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vidmoneda']+',@@usr,@@impresa,"",0,"","'+$("#ntarjmixto").val()+'","",'+$("#ffacturas .zelda").data('triforce')['vdivisa']+',"'+$("#ffacturas .zelda").data('triforce')['videxoneracion']+'",0,'+config[26],0,0,0);
             
             if(factura.succed){
                 factura = factura[0][0][0];
@@ -3110,6 +3111,7 @@ function mixto(el){
                 Materialize.toast('Tiquete Registrado Correctamente',4000,'green');
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
                 Materialize.toast($toastContent,4000);
+
                 if(parseInt($("#ffacturas .zelda").data('triforce')['vidtipoventa']) != 8)
                     sendFE(factura);
                 else
