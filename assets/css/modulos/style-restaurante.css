@@ -3,6 +3,16 @@
     width: 90% !important;
 }
 
+#usr{
+    background-color: transparent;
+    text-align: right;
+    border: 0px;
+}
+
+#usr:focus{
+    outline: none;
+}
+
 @media only screen and (max-width:769px){
     .comanda{
         width: 100% !important;

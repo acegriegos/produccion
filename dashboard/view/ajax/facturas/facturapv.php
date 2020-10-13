@@ -1,4 +1,4 @@
-<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa');?>
+<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa');  $tmpfact = $kakaroto->kamehameha('(select nombre from usuarios where id = idusuario)',327,'factura='.$_REQUEST['id']); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,8 +153,15 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>';
   }
   
+  if (isset($tmpfact[0])) {
+    echo '<tr>
+      <td width="50%">Atendido por: </td>
+      <td width="50%">'.$tmpfact[0][0].'</td>
+    </tr>';    
+  }
+
   echo '<tr '.$ocultar.'>
-    <td width="50%">Vendedor: </td>
+    <td width="50%">Facturado por: </td>
     <td width="50%">'.$datos[16].'</td>
   </tr>';
 
@@ -347,9 +354,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.93"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.93"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.93"></script>
+ <script src="../assets/js/jquery.js?v=10.2.0.94"></script>
+ <script src="../assets/js/materialize.min.js?v=10.2.0.94"></script>
+ <script src="../assets/js/asgard.js?v=10.2.0.94"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

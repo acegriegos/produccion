@@ -1,10 +1,10 @@
-<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
+<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa')[0]; ?>
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.93">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.93">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.93">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.94">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.2.0.94">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.2.0.94">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -88,6 +88,7 @@
             <b>Cédula:</b> <?php echo $datos[34]; ?><br>
             <b>Correo:</b> <?php echo $datos[41]; ?><br>
             <?php } ?>
+
             <div class="col s12" style="padding: 0px">
               <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
@@ -336,10 +337,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.2.0.93"></script>
-     <script src="../assets/js/materialize.min.js?v=10.2.0.93"></script>
-     <script src="../assets/js/asgard.js?v=10.2.0.93"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.2.0.93"></script>
+     <script src="../assets/js/jquery.js?v=10.2.0.94"></script>
+     <script src="../assets/js/materialize.min.js?v=10.2.0.94"></script>
+     <script src="../assets/js/asgard.js?v=10.2.0.94"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.2.0.94"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

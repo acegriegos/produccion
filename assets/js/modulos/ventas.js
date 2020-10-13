@@ -472,9 +472,18 @@ $(function(){
     }
     
     var au = getParameterByName('au');
-    if (parseInt(config[11]) == 3 && param.toString().match(new RegExp(/\b1\b|\b6\b|\b7\b|\b8\b/g)) && $(".zelda").attr('tipo') != 1){
-        if(au != '0')
+
+    if(au != '0' && au != ''){
+        var user = getDatos('nombre',1,'id='+au);
+        if(user[0].length){
+            $("#ffacturas .zelda").data('triforce')['vidusuario'] = au;
+            $("#username").html(user[0][0][0])
+            $("#username").parent().parent().removeClass('hide')
+        }
+    }else{
+        if (parseInt(config[11]) == 3 && param.toString().match(new RegExp(/\b1\b|\b6\b|\b7\b|\b8\b/g)) && $(".zelda").attr('tipo') != 1){
             $("#modal-usuario").modal('open');
+        }   
     }
 
     if($("#prefact:visible").length && !$("#cantFact:visible").length){
@@ -2454,7 +2463,7 @@ function endDetail(vid,vacc,vmodulo) {
 
             if (parseInt(idext) < 0){
                 var usr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
-                insertar(327,'','null,'+idext+',now(),'+usr+',@@impresa,'+$("#tot").html().replace(/,/g,'')+',4,'+$("#ffacturas .zelda").data('triforce')['vidcliente']);
+                insertar(327,'','null,'+idext+',now(),'+usr+',@@impresa,'+$("#tot").html().replace(/,/g,'')+',4,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+vid[0][0]);
                 getDatos('',259,'0,'+idext+',0',0,0,0);
             } 
 
