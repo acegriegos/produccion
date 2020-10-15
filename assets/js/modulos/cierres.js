@@ -112,13 +112,6 @@ $(function(){
 			$(".tt").attr('id','chkcierre');
 		}
 	}
-	
-	$("#ecouser").keyup(function(e){
-        var code = e.wich || e.keyCode;
-
-        if (code == 13)
-            $("#accecouser").click();
-    });
 
 	$("#mcierre").keyup(function(e){
 		var code = e.wich || e.keyCode
@@ -152,35 +145,6 @@ $(function(){
 		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
 		$("#mcierre").attr('readonly',true);
 	});
-
-    $("#exitcouser").click(function(){
-        $("#modal-usuario").modal('close');
-        $("#shcierre").attr('disabled',true);
-        $("#chkcierre").attr('disabled',true)
-    });
-
-     $("#accecouser").click(function(){
-
-        var cod =  $("#ecouser").val();
-        var rs = getDatos('',137,'"'+cod+'"',0,0,0);
-        console.log(rs);
-        if(parseInt(rs['succed'])){
-            if (rs[0].length){
-                //$("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
-                arr('login',6,'',182,rs[0][0][0],0,1,$("#listacierrespendientes"));
-                $("#modal-usuario").modal('close');
-                guser = rs[0][0][0];
-            }
-            else{
-                Materialize.toast('Usuario no Valido',4000,'red');
-                $("#ecouser").focus().select();
-
-            }
-        }else{
-            Materialize.toast('Usuario no Valido',4000,'red');
-             $("#ecouser").focus().select();
-        }
-     });
 
 	$('.chips').material_chip();
 
@@ -232,14 +196,14 @@ $(function(){
 
 	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
 
-	/*if (parseInt(config[11]) == 3){
+	if (parseInt(config[11]) == 3){
         
         $("#modal-usuario").modal({
 	        dismissible:false
 	    });
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
-	}else*/
+	}else
 		arr('login',6,'',182,guser+',@@impresa',0,1,$("#listacierrespendientes"));
 });
 
@@ -553,4 +517,16 @@ function cargarSintax(){
 	arr['where'] = '';
 
 	return arr;
+}
+
+function acceuser(rs){
+	arr('login',6,'',182,rs[0][0][0]+',@@impresa',0,1,$("#listacierrespendientes"));
+	console.log(arr('login',4,'',182,rs[0][0][0],0,0,0))
+    guser = rs[0][0][0];
+    $("#uname").removeClass('hide');
+}
+
+function exitcouser(){
+    $("#shcierre").attr('disabled',true);
+    $("#chkcierre").attr('disabled',true)
 }

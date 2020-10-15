@@ -23,13 +23,6 @@ $(window).keydown(function(e){
         
 });
 
-$("#fe").on('click',function(e){
-    e.preventDefault(); 
-    var win = window.open('../wsdlClient.php?accion=1&id='+$(this).attr('id'),'','width=,height=,resizable=no');
-    window.resizeTo(0,0); 
-    window.moveTo(0,window.screen.availHeight+10);
-});
-
 $(function(){
     $('select').material_select();
     $('.tooltipped').tooltip({delay: 50});
@@ -471,13 +464,19 @@ $(function(){
         $("#celectronica").change();
     }
     
+    $("#modal-usuario").modal({
+        dismissible:false,
+        ready: function(){
+            console.log('ready')
+        }
+    });
+
     var au = getParameterByName('au');
 
     if(au != '0' && au != ''){
         var user = getDatos('nombre',1,'id='+au);
         if(user[0].length){
             $("#ffacturas .zelda").data('triforce')['vidusuario'] = au;
-            $("#username").html(user[0][0][0])
             $("#username").parent().parent().removeClass('hide')
         }
     }else{
@@ -3139,4 +3138,14 @@ function deleterow(elem){
     insertar(327,'','null,'+id+',now(),'+usr+',@@impresa,'+$("#tot").html().replace(/,/g,'')+',3,'+$("#ffacturas .zelda").data('triforce')['vidcliente']);
     getDatos('',326,"1,"+id)
     $("[vid=l"+id+"]").remove()
+}
+
+function acceuser(rs){
+    $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
+    $("#username").parent().parent().removeClass('hide')
+    pril.focus()
+}
+
+function exitcouser(){
+    $("#facturar").attr('disabled',true)
 }

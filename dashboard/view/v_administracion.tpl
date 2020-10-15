@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title></title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-administracion.css?v=10.2.0.94">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-administracion.css?v=10.2.0.96">
 
   </head>
   <body class="tamLetra pequeño">
@@ -61,6 +61,6 @@
 
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/administracion.js?v=10.2.0.94"></script>
+    <script src="../assets/js/modulos/administracion.js?v=10.2.0.96"></script>
   </body>
 </html>

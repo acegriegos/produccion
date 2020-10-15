@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.94">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.96">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.94"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.94"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.96"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.96"></script>
     <![endif]-->
   </head>
   <body> 
@@ -36,15 +36,18 @@
           <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
           <label for="mcierre">Inicio de Caja</label>
         </div>
+
+        <strong class="hide" id="uname">Usuario: <b id="username"></b></strong>
+
         <a class="waves-effect waves-light btn blue right" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
         <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>
         <input type="hidden" class="zelda">
       </div>
-      <div class="row hide per7301">
+      <div class="row">
         <div class="col s3 m3 l3">
           <ul class="collection with-header" id="listacierrespendientes"></ul>
         </div>
-        <div class="col s9 m9 l9">
+        <div class="col s9 m9 l9 per7301 hide">
           <h4>Facturas</h4>
           <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
             <thead>
@@ -202,6 +205,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.2.0.94"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.2.0.96"></script>
   </body>
 </html>

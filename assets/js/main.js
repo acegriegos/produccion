@@ -1,5 +1,5 @@
 $(function(){
-    
+
     $("#bsse1").click(function(){
         return false;
     });
@@ -66,21 +66,18 @@ $(function(){
     });
 
     $("#exitcouser").click(function(){
+        exitcouser();
         $("#modal-usuario").modal('close');
-        $("#facturar").attr('disabled',true)
     });
 
-     $("#accecouser").click(function(){
-
+    $("#accecouser").click(function(){
         var cod =  $("#ecouser").val();
         var rs = getDatos('',137,'"'+cod+'"',0,0,0);
         if(parseInt(rs['succed'])){
             if (rs[0].length){
-                $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
+                acceuser(rs)
                 $("#username").html(rs[0][0][1])
-                $("#username").parent().parent().removeClass('hide')
                 $("#modal-usuario").modal('close');
-                pril.focus()
             }
             else{
                 Materialize.toast('Usuario no Valido',4000,'red');
@@ -91,11 +88,9 @@ $(function(){
             Materialize.toast('Usuario no Valido',4000,'red');
              $("#ecouser").focus().select();
         }
-     });
-
-    $("#modal-usuario").modal({
-        dismissible:false
     });
+
+    
 
     $("#gproveedor").on("keydown",function(e){
         var charCode = e.which || e.keyCode;

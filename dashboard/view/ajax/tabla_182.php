@@ -27,12 +27,12 @@
 		$id++;
 ?>
 	
-	<li class="collection-item"><div><span class="blueh pbtn getfacturas" <?php echo 'id="c'.$id.'" vfecha="'.$obj[1].'"' ?> ><?php echo $obj[1]?></span><a class="secondary-content"><div class="chip red white-text"><?php echo $obj[0]?></div></a></div></li>
+	<li class="collection-item"><div><span class="blueh pbtn getfacturas" <?php echo 'id="c'.$id.'" vfecha="'.$obj[1].'"' ?> ><?php echo $obj[1]?></span><a class="secondary-content"><div class="chip red white-text per7301"><?php echo $obj[0]?></div></a></div></li>
 
 <?php } ?>
 
 <script type="text/javascript">
 	$(function(){
-	    permisos(310,311);
+	    permisos(7301,7302);
 	})
 </script>
