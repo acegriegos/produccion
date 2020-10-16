@@ -477,6 +477,7 @@ $(function(){
         var user = getDatos('nombre',1,'id='+au);
         if(user[0].length){
             $("#ffacturas .zelda").data('triforce')['vidusuario'] = au;
+            $("#username").html(user[0][0][0])
             $("#username").parent().parent().removeClass('hide')
         }
     }else{
