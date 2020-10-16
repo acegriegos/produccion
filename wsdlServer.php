@@ -319,6 +319,23 @@ if (isset($_POST['respuestaXml'])) {
             $salida['rs'] = $rs;
           }
           break;
+        case 4:
+          if (!isset($_POST['ced'])) {
+            $salida['msj'] = 'DATOS REQUERIDOS';
+            $salida['error'] = 1;
+          }else{
+            require_once '_config/mysqlDB.php';
+            $base = new DBClass();
+
+            $rs = $base->ejecutar('call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')');
+            if (isset($rs->num_rows)) {
+                $salida['rs'] = $rs->fetch_all();
+            }else
+                $salida['error'] = $rs;
+            
+            $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
+          }
+          break;
         case 5: //GUARDAR EN HACIENDA
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
