@@ -1,6 +1,5 @@
 <?php 
     session_start();
-    set_time_limit(0);
 
     if(!isset($_REQUEST['show'])){
          if(!isset($_COOKIE['SINCRO'])){
@@ -20,7 +19,8 @@
             exit(0);
         }
     }
-
+    
+    set_time_limit(0);
     require_once '_config/mysqlDB.php';
     $base = new DBClass();
 

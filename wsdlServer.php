@@ -254,6 +254,7 @@ if (isset($_POST['respuestaXml'])) {
             }
             break;
         case 3: //SINCRONIZADOR MANUAL
+          set_time_limit(0);
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
