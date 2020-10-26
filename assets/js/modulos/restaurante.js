@@ -107,7 +107,6 @@ $(function(){
         var code =  e.which || e.keyCode
 
         if(code == 13){
-            var cod =  $("#ecouser").val();
             var rs = getDatos('',137,'"'+$(this).val()+'"',0,0,0);
           
             if(parseInt(rs['succed'])){
@@ -125,6 +124,30 @@ $(function(){
             }else{
                 Materialize.toast('Usuario no Valido',4000,'red');
                  $("#usr").focus().select();
+            }
+        }
+     });
+
+     $("#cusr").keyup(function(e){
+        var code =  e.which || e.keyCode
+
+        if(code == 13){
+            var rs = getDatos('',137,'"'+$(this).val()+'"',0,0,0);
+          
+            if(parseInt(rs['succed'])){
+                if (rs[0].length){
+                    $("#cusername").html(rs[0][0][1])
+                    $("#sprod").focus();
+                    $(this).val(rs[0][0][0])
+                }
+                else{
+                    Materialize.toast('Usuario no Valido',4000,'red');
+                    $("#cusr").focus().select();
+
+                }
+            }else{
+                Materialize.toast('Usuario no Valido',4000,'red');
+                 $("#cusr").focus().select();
             }
         }
      });

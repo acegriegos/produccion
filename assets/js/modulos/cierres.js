@@ -196,14 +196,14 @@ $(function(){
 
 	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
 
-	if (parseInt(config[11]) == 3){
+	/*if (parseInt(config[11]) == 3){
         
         $("#modal-usuario").modal({
 	        dismissible:false
 	    });
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
-	}else
+	}else*/
 		arr('login',6,'',182,guser+',@@impresa',0,1,$("#listacierrespendientes"));
 });
 
@@ -296,7 +296,8 @@ $(document).on("click","#docierre",function(){
 
 	/*if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');*/
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#vdoccierre").val()+'"',0,0,0)
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#vdoccierre").val()+'"',0,0,0);
+	console.log(idcierre)
 	idcierre = idcierre[0][0][0];
 	$(".cancel").parent().remove()
 	

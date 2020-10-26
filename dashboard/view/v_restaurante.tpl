@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.97">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.98">
   </head>
   <body>
     {$NAV}
@@ -133,7 +133,7 @@
       </div>
     </div>
     <div id="modal-mesa" class="modal modal-fixed-footer comanda">
-      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section>  <input type="text" id="usr" value="00" class="browser-default"> <span class="center">Atiende: <span id="username"></span> </span> <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
+      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section>  <input type="text" id="usr" value="00" class="browser-default usr"> <span class="center">Atiende: <span id="username"></span> </span>  <input type="text" id="cusr" value="00" class="browser-default usr"> <span class="center">Cajero: <span id="cusername"></span> </span> <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
 
       <div class="modal-content" style="padding: 0px; overflow: hidden;" id="ffacturas">
         <input type="hidden" class="zelda">
@@ -218,6 +218,6 @@
             </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.97"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.98"></script>
   </body>
 </html>

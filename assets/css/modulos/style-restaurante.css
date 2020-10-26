@@ -3,13 +3,13 @@
     width: 90% !important;
 }
 
-#usr{
+.usr{
     background-color: transparent;
     text-align: right;
     border: 0px;
 }
 
-#usr:focus{
+.usr:focus{
     outline: none;
 }
 
