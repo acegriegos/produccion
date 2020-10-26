@@ -432,7 +432,7 @@ function cargar(vmodulo,vid) {
 
 		arr['sel'] = '';
 		arr['tbl'] = 7;
-		arr['where'] = '@@impresa';
+		arr['where'] = '@@impresa,@@usr';
 
 		return arr;
 	}
@@ -527,6 +527,14 @@ pg += '/>'+
 			thorload(modulo);
 			$(".validate").css('border-bottom', '1px solid #9e9e9e');
 			$(".validate").css('box-shadow', 'none');
+
+			var config = getDatos('',42,'@@impresa',0,0)[0][0];
+			if(config[29] != ''){
+				if(config[29] != '99')
+                	insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,@@impresa');
+                else
+                	console.log(insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,'+$("#vidsuc").val()));
+            }
 			break;
 		}
 

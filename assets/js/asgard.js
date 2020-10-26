@@ -103,8 +103,11 @@ $(document).on("click","#vdireccion",function(){
 
 $(document).on("click","#eslide",function(){
     if($("#direccion_in:visible").length){
-        if($("#vidbarrio").val() != null && $("#direccion_in").val().tim() == '')
-        if(parseFloat($("#direccion_in").val()))
+        if($("#vidbarrio").val() != null && $("#direccion_in").val().trim() == ''){
+            Materialize.toast('Dirección Exacta Requerida',4000,'red')
+            $("#direccion_in").focus();
+            return false;
+        }
         $("#slideDireccion").data('fila1')['vdireccion'] = $("#direccion_in").val();
         $("#slideDireccion").data('fila1')['vidbarrio'] = $("#vidbarrio").val() == null ? 0 : $("#vidbarrio").val();
     }
@@ -132,7 +135,7 @@ $(document).on("click",".tc-show",function(){
             $(".s-cliente").sideNav('destroy');
 
     if ($("#slide-tc").length == 0) {
-        var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;padding-left:0.5%;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <a class="btn btn-default" id="eslide" style="bottom:42px;position:absolute;">Salir</a></li></ul>';
+        var ul = '<ul id="slide-tc" class="side-nav" style="z-index:1500;padding-left:0.5%;"><li><div class="user-view center"><span class="ntit"></span></a></div></li><li><div class="divider"></div></li><li><div id="unico">Subheader</div> <button class="btn btn-default" id="eslide" style="width: 100%;bottom: 10%;position: absolute;">Salir</button></li></ul>';
         $(".bdy").append(ul);
     }
     

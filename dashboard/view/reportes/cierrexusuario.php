@@ -4,7 +4,7 @@
   $det = $kakaroto->kamehameha('',339,$cierre[0]);
   $gravado = '';
   $exento = '';
-  $descuento = 'Descuentos:<span style="float: right;">'.$cierre[25].' </span><br>';
+  $descuento = $cierre[25] > 0 ? 'Descuentos:<span style="float: right;">'.$cierre[25].' </span><br>' : '';
   foreach ($det as $dobj) {
     if($dobj[0] == 0)
       $exento .= 'Excento:<span style="float: right;">'.number_format($dobj[1],2).' </span><br>';
@@ -130,7 +130,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.2.0.96">
+<link href="../assets/css/materialize.min.css?v=10.2.0.97">
 <style>
   @media print {
     .print{
@@ -173,29 +173,25 @@
     
     <div>
       <br>
-      Ventas en Efectivo: <span style="float: right;"><?php echo $cierre[7]; ?></span><br>
-      Ventas con Tarjetas:<span style="float: right;"><?php echo $cierre[8]; ?></span><br>
-      Ventas con Depósito:<span style="float: right;"><?php echo $cierre[9]; ?></span><br> 
-      <br>
-      Total Ventas a Contado:<span style="float: right;"><?php echo $cierre[3]; ?></span><br>
-      Total Ventas a Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br> 
-      <br>
-      <?php echo $gravado.$exento.$descuento; ?>
-      Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br>
-      <br>
-      Abonos Clientes: <span style="float: right;"><?php echo $cierre[4]; ?> </span> <br>
-      Notas Crédito Cliente:<span style="float: right;"><?php echo $cierre[5]; ?> </span> <br>
-      Notas Débito Cliente:<span style="float: right;"><?php echo $cierre[6]; ?> </span> <br>
-      Abonos Proveedores: <span style="float: right;"><?php echo $cierre[21]; ?> </span> <br>
-      <br>
-      <b>Entradas de Efectivo: </b> <span style="float: right;"><?php echo $cierre[19]; ?></span><br>
-      <b>Salidas de Efectivo: </b> <span style="float: right;"><?php echo $cierre[20]; ?></span><br>
-      <b>Abonos Liquidos Cliente: </b> <span style="float: right;"><?php echo $cierre[22]; ?></span><br>
-      <b>Abonos Liquidos Proveedores: </b> <span style="float: right;"><?php echo $cierre[23]; ?></span><br>
-      <br>
+      <?php if($cierre[7] > 0) echo 'Ventas en Efectivo: <span style="float: right;">'.$cierre[7].'</span><br>'; ?>
+      <?php if($cierre[8] > 0) echo 'Ventas con Tárjetas: <span style="float: right;">'.$cierre[8].'</span><br>'; ?>
+      <?php if($cierre[9] > 0) echo 'Ventas con Depósitos: <span style="float: right;">'.$cierre[9].'</span><br>'; ?>
+      <?php if($cierre[3] > 0) echo 'Total Ventas a Contado: <span style="float: right;">'.$cierre[3].'</span><br>'; ?>
+      <?php if($cierre[2] > 0) echo 'Total Ventas a Crédito: <span style="float: right;">'.$cierre[2].'</span><br>'; ?>
+      <!-- <?php echo $gravado.$exento.$descuento; ?>
+      Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br> -->
+      <?php if($cierre[4] > 0) echo 'Abonos Clientes: <span style="float: right;">'.$cierre[4].'</span><br>'; ?>
+      <?php if($cierre[5] > 0) echo 'Notas Crédito Clientes: <span style="float: right;">'.$cierre[5].'</span><br>'; ?>
+      <?php if($cierre[6] > 0) echo 'Notas Débito Clientes: <span style="float: right;">'.$cierre[6].'</span><br>'; ?>
+      <?php if($cierre[21] > 0) echo 'Abonos Proveedores: <span style="float: right;">'.$cierre[21].'</span><br>'; ?>  
+      <?php if($cierre[19] > 0) echo 'Entradas de Efectivo: <span style="float: right;">'.$cierre[19].'</span><br>'; ?>
+      <?php if($cierre[20] > 0) echo 'Salidas de Efectivo: <span style="float: right;">'.$cierre[20].'</span><br>'; ?>
+      <?php if($cierre[22] > 0) echo 'Abonos Líquidos Cliente:<span style="float: right;">'.$cierre[22].'</span><br>'; ?>
+      <?php if($cierre[23] > 0) echo 'Abonos Líquidos Proveedores: <span style="float: right;">'.$cierre[23].'</span><br>'; ?>
       Caja Inicial:<span style="float: right;"><?php echo $cierre[14]; ?></span><br>
       Caja Reportada: <span style="float: right;"><?php echo $cierre[12]; ?></span><br>
       Caja del Sistema: <span style="float: right;"><?php echo number_format(str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[14]),2); ?></span><br>
+      Diferencia: <span style="float: right;"><?php echo number_format(str_replace(',', '', $cierre[12])-str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20])-str_replace(',', '', $cierre[14]),2); ?></span><br>
     </div>
      
       <!-- /INFO CONTACTO -->
@@ -226,8 +222,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.2.0.96"></script>
-    <script src="../assets/js/materialize.min.js?v=10.2.0.96"></script>
+    <script src="../assets/js/jquery.js?v=10.2.0.97"></script>
+    <script src="../assets/js/materialize.min.js?v=10.2.0.97"></script>
 
      <script type="text/javascript">
    $(function(){

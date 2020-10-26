@@ -382,6 +382,7 @@ $(function(){
     });
 
     $("[name=tipopago]").change(function(){
+        $("#factrealp").removeClass('hide')
         switch(parseInt($('[name=tipopago]:checked').attr('bancos'))){
             case 5: //MIXTO
                 var str = '';
@@ -403,6 +404,7 @@ $(function(){
                 $(".modal-tpago").addClass('hide');
                 $("#m-mixto").removeClass('hide');
                 $("#mxt_seg").click().change();
+                $("#factrealp").addClass('hide')
             break;
 
             case 4:
@@ -548,6 +550,7 @@ $(function(){
 
     if($(".per11:visible").length && param.toString().match(new RegExp(/\b1\b|\b7\b|\b8\b/g))){//RESTAURANTES
         $(".rest").removeClass('hide')
+        $("#impm").attr('checked',config['ch_rest'] == '1' ? true : false);
         $("#impm").change()
         var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
     }
@@ -645,7 +648,7 @@ $(function(){
         switch(parseInt($(this).attr('val'))){
             case 1: //MIXTO SEGMENTADO
                 $("#montoefect").val($("#mxtot").val());
-                $(".mxt_val_tot[tp=2]").focus().select();
+                $("#pconm").focus().select();
                 $(".mxt_val_tot").unbind();
                 $(".mxt_val_tot").keyup(function(e){
                     var rtot = parseInt($("#mxcan").val().replace(/,/g,'')) > 0 ? $("#mxcan").val() : $("#mxtot").val()
@@ -922,9 +925,33 @@ $("#pcon").blur(function(){
     elimprimir.focus();
 });
 
+$("#pconm").keyup(function(e){
+    var code = e.wich || e.keyCode
+    if(code == 13)
+        if(parseFloat($(this).val()) > 0)
+            $(this).blur();
+        else{
+            $("#montotar").val($("#montoefect").val().replace(/,/g,'')).keyup();
+            $("#factreal").focus();
+        }
+});
+
+$("#pconm").blur(function(){
+    if(parseFloat($(this).val()) > 0){
+        var tot = parseFloat($("#montoefect").val().replace(/,/g,''));
+        var tar = parseFloat($("#montotar").val().replace(/,/g,''));
+        var paga = isNaN($(this).val()) ? 0 : parseFloat($(this).val());
+        var diff = (paga-tot).formatMoney(2,'.',',');
+        if(diff > 0){
+            $("#pcons").html(diff)
+            $("#factreal").focus();
+        }else
+            $("#montotar").val(diff).focus().select();
+    }
+});
 
 $("#factreal").click(function(){
-    if(parseInt($("[name=tipopago]:checked").val()) == -1){
+    if(parseInt($("[name=tipopago]:checked").val()) == 5){
         mixto($(this));
         return false;
     }else{
@@ -939,7 +966,7 @@ $("#factreal").click(function(){
 });
 
 $("#factrealp").click(function(){
-    if(parseInt($("[name=tipopago]:checked").val()) == -1){
+    if(parseInt($("[name=tipopago]:checked").val()) == 5){
         mixto($(this));
         return false;
     }else{
@@ -1481,6 +1508,8 @@ $(document).on("click",".mover",function(){
         $("#mxtot").attr('subtotal',parseFloat($("#mxtot").attr('subtotal'))+parseFloat($("#mxcan").attr('subtotal')));
         $("#mxtot").attr('exento',parseFloat($("#mxtot").attr('exento'))+parseFloat($("#mxcan").attr('exento')));
     }
+
+    $("#pconm").focus().select();
 })
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo,vmobil) {
@@ -2833,7 +2862,7 @@ function sendVMail(factura,clave,vid){
             if (imprimir) {
                 var vuelto = parseInt(param) == 1 ? 1 : 0;
                 if((param == 1 || param == 7 || param == 8)){
-                    vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : '';
+                    vuelto = $("#pcam").is(":visible") ? '&pvuelto='+$("#pcon").val()+'&vuelto='+$("#pcam").html() : $("#pconm").is(":visible") ? '&pvuelto='+$("#pconm").val()+'&vuelto='+$("#pcons").html() : '';
                 }
                 try{ 
                     w = window.open('facturacion?accion=6&id='+vid+'&tp='+$("#p_v").is(':checked')+vuelto+"&fp=1");
@@ -2868,14 +2897,15 @@ function sendVMail(factura,clave,vid){
                         location.reload();
                 },2000);
             }
-        }else
-            // if(parseFloat($("#mxtot").val()) == 0)
-            //     setTimeout(function(){window.close();},2000);
-            // else{
+        }else{
+            if(parseFloat($("#mxtot").val()) == 0)
+                 setTimeout(function(){window.close();},2000);
+            else{
                 $("#montotar").val(0)
                 $("#montoefect").val($("#mxtot").val())
-            //}
-            $("#tpg5").attr('value',-1);
+            }
+            //$("#tpg5").attr('value',-1);
+        }
     }
 }
 
@@ -3000,7 +3030,7 @@ function mixto(el){
         switch(parseInt($("[name=mxt_tp]:checked").attr('val'))){
             case 1:
                 if(parseFloat($("#montoefect").val().replace(/,/g,'')) < 0){
-                    $("#montotar").focus().select();
+                    $("#pconm").focus().select();
                     Materialize.toast('Valores no Validos',4000,'red');
                     return false;
                 }

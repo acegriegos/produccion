@@ -5,7 +5,8 @@ $(function(){
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	$("#fclientes").submit(function(){return false});
-
+	loadmybussiness();
+	
 	var param = getParameterByName('is');
 	if(param == "1"){
 		$(".ncliente").addClass('hide');
@@ -729,6 +730,11 @@ function endDetail(vid,vacc,modulo){
 					}
 				})
 			}
+
+			var config = getDatos('',42,'@@impresa',0,0)[0][0];
+			if(config[29] != ''){
+                insertar(338,'','null,'+vid[0][0]+',2,'+vacc+',"17,238,239",0,@@impresa');
+            }	
 			
 			break;
 		case 'taller-vehiculo':

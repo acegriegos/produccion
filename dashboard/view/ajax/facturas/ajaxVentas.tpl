@@ -872,7 +872,7 @@
 
   <div class="row">
     {section name=LE loop=$TPAGO}
-        <input type="radio" value="{if $TPAGO[LE][0] eq 5}-1{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
+        <input type="radio" value="{if $TPAGO[LE][0] eq 5}5{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
         <label for="tpg{$TPAGO[LE][0]}" class="col s4 l2">{$TPAGO[LE][1]}</label>
     {/section}
   </div>
@@ -971,6 +971,11 @@
           <label for="montoefect">Efectivo</label>
       </div>
 
+      <div class="col s12 input-field">
+          <input type="text" id="pconm" value="0.00" class="eder" tp="1" autocomplete="off">
+          <label for="pconm">Paga Con</label>
+      </div>
+
        <div class="col s12 input-field">
             <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2" autocomplete="off">
             <label for="montotar">Tarjeta</label>
@@ -980,6 +985,8 @@
         <input type="text" id="ntarjmixto" maxlength="4" class="eder">
         <label for="ntarjmixto">Número de Tarjeta</label>
       </div>
+
+      <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons">0.00</span></h3>
 
       <hr style="border:1px dashed #e2e2e2">
 
@@ -1251,4 +1258,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.96"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.2.0.97"></script>

@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.96">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.2.0.97">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -16,7 +16,7 @@
     <div class="bdy pequeño">
       <div class="card z-depth-5 pequeño">
         <div class="card-header center white-text head1">
-          <p class="flow-text cghs" style="font-size: 1.9em;"></p>
+          <p class="flow-text" style="font-size: 1.9em;"> <span class="cghs"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
         </div>
         <div class="card-content pequeño">
           <div class="row">
@@ -32,7 +32,7 @@
              
             </div>
             <div class="col s2 m6 ">
-              <a id="ingClie" class="der per1001 btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
+              <a id="ingClie" class="der per1001_ btn-floating btn2 tooltipped modal-trigger z-depth-2" data-position="left" data-tooltip="Ingresar" href="#modal-clientes"><i class="mdi mdi-plus mdi-24px "></i></a>
             </div>
           </div>
           <div class="card-block">
@@ -416,6 +416,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.2.0.96"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.2.0.97"></script>
 </body>
 </html>

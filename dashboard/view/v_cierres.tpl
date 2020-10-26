@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.96">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.97">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.96"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.96"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.97"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.97"></script>
     <![endif]-->
   </head>
   <body> 
@@ -161,7 +161,7 @@
             <input type="hidden" id="stot" value="0">
             {section name=LE loop=$TMON}
             <div class="input-field col s4 m4 l4">
-              <input type="number" id="m{$TMON[LE][0]}" class="mnd" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}">
+              <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}">
               <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
             </div>
             {/section}
@@ -205,6 +205,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.2.0.96"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.2.0.97"></script>
   </body>
 </html>

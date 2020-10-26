@@ -253,12 +253,12 @@ if (isset($_POST['respuestaXml'])) {
                 
             }
             break;
-        case 3: //SINCRONIZADOR MANUAL
+        case 3:
           set_time_limit(0);
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          $rs = $base->ejecutar('select id,idfila,idtabla,idestado from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
+          /*$rs = $base->ejecutar('select id,idfila,idtabla,idestado from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
 
           if(isset($rs->num_rows)){
             $salida['rs'] = [];
@@ -286,39 +286,80 @@ if (isset($_POST['respuestaXml'])) {
             }
 
             if(sizeof($rs))
-              $salida['last_id'] = $rs[sizeof($rs)-1][0];
+              $salida['last_id'] = $rs[sizeof($rs)-1][0];*/
 
             if(isset($_POST['vmore'])){
               $marr = json_decode($_POST['vmore']);
               $rback = [];
-              $aid = 0;
+              $memory = 0;
+
               foreach ($marr as $obj) {
                 $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
                 switch($obj->tbl){
-                  case 65:
-                    $obj->bdy[1] = $aid;
+                  case 1:
+                    $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\"")')->fetch_all();
+                    break;
+                  case 2:
+                    $val = $base->ejecutar('call krattos("id",2,"cedula = \"'.$obj->bdy->cedula.'\" and bisproveedor = '.$obj->bdy->bisproveedor.'")')->fetch_all();
                     break;
                   default:
+                    $val = 0;
                     break;
                 }
-                $obj->bdy[0] = 'null'; 
-                $arg = substr(substr(json_encode($obj->bdy),1),0,-1);
 
-                $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
-                $aid = $obj->tbl == 64 ? $base->ejecutar('select max(id) from facturas where idsucursal = '.$_POST['vsucursal'])->fetch_all()[0][0] : 0;
+                $pass = !$obj->memory ? 1 : $memory;
 
-                if($mrs == 1)
-                  array_push($rback,'update sincro set issync = 1 where id = '.$obj->row);
-                else
-                  array_push($rback,$mrs.' --- ARG: '.$arg);
-                  
+                if (is_array($val)) {
+                  if (isset($val[0][0])) {
+                    $val = 1;
+                  }else
+                    $val = 0;
+                }
+
+                if ($obj->acc == 1 && !$val && $pass) {
+                  switch ($obj->tbl) {
+                    case 17:
+                        $mrow = 'idcorreo';
+                        $obj->bdy->idfila = $memory;
+                        break;
+                    case 238:
+                        $mrow = 'idtelefono';
+                        $obj->bdy->idfila = $memory;
+                        break;
+                    case 239:
+                        $mrow = 'idubicacion';
+                        $obj->bdy->idfila = $memory;
+                        break;
+                    default:
+                        $mrow = 'id';
+                        break;
+                  }
+
+                  $obj->bdy->$mrow = null;
+                  $arg = substr(substr(json_encode(array_values((array)$obj->bdy)),1),0,-1);
+
+                  $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
+                  if(!$obj->memory){
+                    $memory = $base->ejecutar('select max(id) from '.$tbl)->fetch_all()[0][0];
+                    if($mrs == 1)
+                      array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
+                    else
+                      array_push($rback,$mrs.' --- ARG: '.$arg);
+                  }else
+                    if($mrs != 1)
+                      array_push($rback,$mrs.' --- ARG: '.$arg);
+                }else
+                  if(!$obj->memory){
+                    array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
               }
               $salida['act'] = json_encode($rback);
+                }
             }
-
-          }else{
+          /*}else{
             $salida['rs'] = $rs;
-          }
+          }*/
+
+          //$salida['post'] = $_POST;
           break;
         case 4:
           if (!isset($_POST['ced'])) {

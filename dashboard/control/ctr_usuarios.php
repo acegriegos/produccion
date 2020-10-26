@@ -24,7 +24,7 @@ if (!isset($_REQUEST['accion'])) {
 		case 2:
 			$pagina = 1;
 			if ($_REQUEST['arreglo'] == 1){ 
-				$usr = $kakaroto->kamehameha('',7,'@@impresa');
+				$usr = $kakaroto->kamehameha('',7,'@@impresa,@@usr');
 				$cia = $kakaroto->kamehameha('id,nombre',13,'id > 0 and id in(select vidempresa from usuarios where id = @@usr)');
 				$suc = $kakaroto->kamehameha('',155,'@@usr');
 				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0 and id  <> 2');

@@ -122,7 +122,7 @@ $(function(){
 	});
 
 	$("#iniciarcaja").click(function(){
-		var valor = $("#mcierre").val()
+		var valor = $("#mcierre").val().replace(/,/g,'')
 
 		if($("#mcierre").attr('readonly') != undefined){
 			Materialize.toast('Caja Iniciada',4000,'red')
@@ -141,9 +141,9 @@ $(function(){
 			return false;
 		}
 
-		insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0');
-		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
-		$("#mcierre").attr('readonly',true);
+		$("#totalizar").attr('tp',2);
+		$("#totcashier").html(parseInt(valor).formatMoney(2,'.',','))
+		$("#modal-tipomonedas").modal('open');
 	});
 
 	$('.chips').material_chip();
@@ -241,25 +241,9 @@ $(document).on("click","#refresh",function(){
 });
 
 $(document).on("click","#chkcierre",function(){
-/*
-	var cajainicial
-	if (parseInt($("#BUSS").val()) != 1 ) {
-		cajainicial = arr('login',4,'monto',404,'idusuario ='+guser+' and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
-	}else
-		cajainicial = 0;
-	*/
-	$("#totcashier").text(0);
-
-	/*if (!$(this).hasClass('tooltipped')) {
-		if ($(this).attr('vfecha') == undefined) {
-			Materialize.toast('Seleccione un cierre', 4000, 'green');
-		}else{*/
-			$(this).addClass('modal-trigger');
-			$("#modal-tipomonedas").modal('open');
-			$("#totalizar").attr('vfecha',$(this).attr('vfecha'));
-		/*}
-	}*/
-	
+	$("#totcashier").html(parseInt($("#mcierre").val().replace(/,/g,'')).formatMoney(2,'.',','))
+	$("#modal-tipomonedas").modal('open');
+	$("#totalizar").attr('tp',1);
 });
 
 
@@ -286,10 +270,23 @@ $(document).on("blur",".mnd",function(){
 
 $(document).on("click","#totalizar",function(){
 	// chkcierre
-	//if ($(this).attr('vfecha') != undefined)
+	var valor = $("#tcaja").html().replace(/,/g,'');
+	if(parseInt(valor) <= 0){
+		Materialize.toast('Debe Incluir un Desgloce de Monedas',4000,'red');
+		return false
+	}
+
+
+	if ($(this).attr('tp') == '1')
 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
-	/*else
-		Materialize.toast('Seleccione un cierre', 4000, 'green');*/
+	else{ //GUARDDAR INICIO DE CAJA
+		$("#mcierre").val(valor)
+		var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0');
+		guardarMonedas(0,lcinic[0][0][0])
+		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
+		$("#modal-tipomonedas").modal('close')
+		$("#mcierre").attr('readonly',true);
+	}
 });
 
 $(document).on("click","#docierre",function(){
@@ -305,7 +302,7 @@ $(document).on("click","#docierre",function(){
 	
 	if(parseInt(idcierre)){
 		$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
-
+		guardarMonedas(idcierre,0);
 		window.open('cierres?accion=1&id='+idcierre);
 		location.reload();
 	}else{
@@ -509,6 +506,15 @@ function cargar(vmodulo,vid) {
 	return vmodulo;
 }
 
+function guardarMonedas(vidc,vidi){
+	$(".mnd").each(function(i){
+		if(parseInt($(this).val()) > 0 && $(this).attr('id').substr(1) != undefined){
+			console.log(insertar(340,'','null,'+vidc+','+vidi+','+$(this).attr('id').substr(1)+','+$(this).val()));
+		}
+	});
+	return 'false';
+}
+
 function cargarSintax(){
 	var arr = {}
 
@@ -521,9 +527,13 @@ function cargarSintax(){
 
 function acceuser(rs){
 	arr('login',6,'',182,rs[0][0][0]+',@@impresa',0,1,$("#listacierrespendientes"));
-	console.log(arr('login',4,'',182,rs[0][0][0],0,0,0))
     guser = rs[0][0][0];
     $("#uname").removeClass('hide');
+    if($("#mcierre").val() == '0'){
+    	$("#totalizar").attr('tp',2);
+		$("#totcashier").html(parseInt(0).formatMoney(2,'.',','))
+		$("#modal-tipomonedas").modal('open');
+    }
 }
 
 function exitcouser(){
