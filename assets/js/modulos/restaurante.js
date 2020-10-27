@@ -180,11 +180,11 @@ $(function(){
 
             eliminar(261,'idtipo = -1*'+$("#modal-barra").attr('bnumber')+' and idtipopago = '+isbarra);
         }else{
+            actualizar(800,'idtipoocupado = 1','id='+$("#ffacturas .zelda").data()['idmesa']);
             var cons = getDatos('consecutivo,id',261,'idtipo = '+$("#ffacturas .zelda").data()['idmesa']+' and idtipopago = 0');
             insertar(810,'','null,'+cons[0][0][0]+','+cons[0][0][1]+',3,'+$('#total_mesa').html().replace(/,/g,'')+','+cusr+',@@impresa,now()');
 
             eliminar(261,'idtipo = '+$("#ffacturas .zelda").data()['idmesa']+' and idtipopago = 0');
-            actualizar(800,'idtipoocupado = 1','id='+$("#ffacturas .zelda").data()['idmesa']);
         }
 
         eliminar(260,'idfactura not in(select id from tmpfacturas)');
