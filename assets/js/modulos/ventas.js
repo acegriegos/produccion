@@ -945,8 +945,11 @@ $("#pconm").blur(function(){
         if(diff > 0){
             $("#pcons").html(diff.formatMoney(2,'.',','))
             $("#factreal").focus();
-        }else
-            $("#montotar").val(Math.abs(diff)).focus().select();
+        }else{
+            $("#montoefect").val(paga.formatMoney(2,'.',','))
+            $("#montotar").val(Math.abs(diff).formatMoney(2,'.',','));
+            $("#factreal").focus();
+        }
     }
 });
 
