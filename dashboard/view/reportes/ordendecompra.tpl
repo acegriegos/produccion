@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Compras Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.99">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.0">
 </head>
 <body>
   <div class="container principal">
@@ -50,7 +50,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.99"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.99"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.0"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.3.0.0"></script>
 </body>
 </html>
