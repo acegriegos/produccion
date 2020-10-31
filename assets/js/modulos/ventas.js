@@ -1573,8 +1573,9 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
     $("#fdetallefacturas .ciclos").each(function(){
         var vid = $(this).attr('id').substr(2);
-
-        if ( idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario'] && prec == parseFloat($(this).data('triforce')['vprecio']) && $("#desc"+vid).html().trim() == desc.trim() && cod.trim() == $("#codprod"+vid).html().trim()) {
+        
+        var evalor = $(this).data('triforce')['vorig'] != undefined ? parseFloat($(this).data('triforce')['vorig']) :parseFloat($(this).data('triforce')['vprecio']);
+        if ( idprod == $(this).data('triforce')['videntrada'] && hinv == $(this).data('triforce')['vidinventario'] && prec == evalor && $("#desc"+vid).html().trim() == desc.trim() && cod.trim() == $("#codprod"+vid).html().trim()) {
             existe = 1;
 
             if ( parseFloat($("#cant"+vid).text())+cant > cntinv && param.toString().match(new RegExp(/\b1\b|\b6\b|\b7\b|\b8\b/g)) && parseInt($(this).data('triforce')['isinventariado']) && comodin == '' ) {
@@ -2209,6 +2210,17 @@ function cargarProducto(kbrota,elemento) {
 
     if($("#codp").val() == '' && $("#descp").val() == '')
         return false;
+
+    if($("#codp").val().substr(0,2) == config[30] && $("#codp").val().trim().length > 10 && parseInt(config[30])){ //LECTOR DE CODIGOS
+        var romana = getDatos('prefijo,codigo,peso,omitir',341,'caja=0')[0][0];
+        var r_codigo =  romana[1].split(',');
+        r_codigo = $("#codp").val().trim().substr(r_codigo[0],r_codigo[1]);
+        var r_peso =  romana[2].split(',');
+        var r_decimales = r_peso[2];
+        r_peso = $("#codp").val().trim().substr(r_peso[0],r_peso[1]);
+        $("#codp").val(((r_peso*1/(Math.pow(10,r_decimales)))+'*'+r_codigo*1));
+    }
+
     /*COMODIN = 0 => NORMAL
               = 1 => CAMBIO_NOMBRE_SIN_ID_GRABADO
               = 2 => CAMBIO_NOMBRE_SIN_ID_EXENTO

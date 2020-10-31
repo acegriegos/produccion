@@ -1984,6 +1984,12 @@ function validarproductos() {
 		$("#fproductos .zelda").data('triforce')["visvariable"] = 0;
 	}
 
+	if($("#pesaje").is(":checked")){
+		$("#fproductos .zelda").data('triforce')["visgravamen"] = 1;
+	}else{
+		$("#fproductos .zelda").data('triforce')["visgravamen"] = 0;
+	}
+
 	if($("#fproductos .zelda").attr('inventariado') != undefined){
 		if (isNaN($("#vcantidad").val()) ) {
 			$("#vcantidad").focus();
@@ -2306,6 +2312,13 @@ function postload(vmodulo){
 		    }
 		    else{
 		    	$("#variable").prop('checked',false);
+		    }
+
+		    if(parseInt($("#fproductos .zelda").data('triforce')['visgravamen'])){
+		    	$("#pesaje").prop('checked',true);
+		    }
+		    else{
+		    	$("#pesaje").prop('checked',false);
 		    }
 
 		    if(parseInt($("#visinventariado").val())){

@@ -213,7 +213,7 @@
                           Producto Variable
                         </label>
                     </div>
-                    <div class="col s12 switch hide">
+                    <div class="col s12 switch">
                         <label>
                           <input type="checkbox" id="pesaje">
                           <span class="lever tooltipped " data-tooltip="Define si el Producto varía por el Peso" data-position="button"></span>

@@ -178,8 +178,8 @@
       <?php if($cierre[9] > 0) echo 'Ventas con Depósitos: <span style="float: right;">'.$cierre[9].'</span><br>'; ?>
       <?php if($cierre[3] > 0) echo 'Total Ventas a Contado: <span style="float: right;">'.$cierre[3].'</span><br>'; ?>
       <?php if($cierre[2] > 0) echo 'Total Ventas a Crédito: <span style="float: right;">'.$cierre[2].'</span><br>'; ?>
-      <!-- <?php echo $gravado.$exento.$descuento; ?>
-      Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br> -->
+      <?php echo $gravado.$exento.$descuento; ?>
+      Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br>
       <?php if($cierre[4] > 0) echo 'Abonos Clientes: <span style="float: right;">'.$cierre[4].'</span><br>'; ?>
       <?php if($cierre[5] > 0) echo 'Notas Crédito Clientes: <span style="float: right;">'.$cierre[5].'</span><br>'; ?>
       <?php if($cierre[6] > 0) echo 'Notas Débito Clientes: <span style="float: right;">'.$cierre[6].'</span><br>'; ?>

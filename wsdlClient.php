@@ -360,8 +360,18 @@
                 
                 break;
             case 13: //REFRESCAR TOKEN
-                if (isset($_SESSION['IMPRESA']))
+                if (isset($_SESSION['IMPRESA'])){
+                    ob_end_clean();
+                    ignore_user_abort();
+                    ob_start();
+                    header("Connection: close");
+                    header("Content-Encoding: none");
+                    echo json_encode(['rs'=>'Token ACT']);
+                    header("Content-Length: " . ob_get_length());
+                    ob_end_flush();
+                    flush();
                     echo $fe->refresh();
+                }
                 else
                     echo "NO HAY LOG IN";
                 break;
@@ -458,7 +468,7 @@
                 ob_end_flush();
                 flush();
                 $db = new DBClass();
-                $fact = $db->ejecutar('select substring(clave,22,20) from integraciones where factura = "'.$_REQUEST['cons'].'"')->fetch_all()[0][0];
+                $fact = $db->ejecutar('select substring(clave,22,20) from integraciones where substring(clave,30,2)*1 in(1,3) and factura = "'.$_REQUEST['cons'].'"')->fetch_all()[0][0];
                 $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$fact.'.xml');
                 $axml =  $fe->XMLtoArray($xml);
                 $llave = key($axml);
@@ -1567,7 +1577,8 @@
                         $detalle['Codigo'] = $value[2];//$codigo;
                         $detalle['Cantidad'] = $value[3];
                         $detalle['UnidadMedida'] = $value[4];
-                        $detalle['UnidadMedidaComercial'] = $value[5];
+                        if($value[5])
+                            $detalle['UnidadMedidaComercial'] = ['tipo'=>99,'codigo'=>$value[5]];
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];
