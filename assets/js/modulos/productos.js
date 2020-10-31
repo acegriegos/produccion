@@ -1433,7 +1433,12 @@ $(document).on("click","#agInvSerPqts",function(){
 });
 
 $(document).on("click","#addproduct",function(){
-	$("#vimpiva").val('8').material_select('update');
+
+	if(config[0] == '0'){
+		$("#vimpiva").val(1).attr('disabled',true);
+		$("#vimpiva").material_select('update');
+	}else
+		$("#vimpiva").val('8').material_select('update');
     $("#agProd").removeClass('edit');
 	$("#agProd").addClass('add');
 	$("#agProd").html('Agregar');
@@ -1481,7 +1486,11 @@ $(document).on("click","#addservice",function(){
     $('select').material_select();
     $("#lcabys").html('')
     $("#scabys").val('')
-    $("#vimpiva").val('8').material_select('update');
+    if(config[0] == '0'){
+		$("#vimpiva").val(1).attr('disabled',true);
+		$("#vimpiva").material_select('update');
+	}else
+		$("#vimpiva").val('8').material_select('update');
 });
 
 $(document).on("click","#addpackage",function(){

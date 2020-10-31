@@ -151,6 +151,20 @@ $(function(){
         
     });
 
+    if(config[0] == '0'){//simplificado
+        $("#dofe").removeClass('hide');
+    }
+
+    $("#dofe").click(function(){
+
+        if($(this).attr('act') == '0'){
+            $(this).attr('act',1).css('border','1px solid #e2e2e2')
+        }else{
+            console.log(1)
+            $(this).attr('act',0).css('border','none')
+        }
+    });
+
     $("#special").click(function(){
         if(parseInt($("#ffacturas .zelda").data('triforce')['vidtipoventa']) != 8){
             $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 8;
@@ -1519,6 +1533,10 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
 
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
 
+    if(config[0] == '0'){//simplificado
+        vexo = 0;
+        $("#valores").data('elemento')['timv'] = 1;
+    }
 
     if(param.toString().match(new RegExp(/\b1\b|\b3\b|\b4\b|\b5\b|\b6\b|\b7\b/g)))
         $("[for=iva]").addClass('hide');
@@ -2203,6 +2221,7 @@ function cargarProducto(kbrota,elemento) {
     var cantidad = 1;
     var iscomodin = 0;
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
+    var r_precio = 0;
     
     $("#precp").attr('base',"0.00");
     $("#totp").attr('base',"0.00");
@@ -2212,13 +2231,21 @@ function cargarProducto(kbrota,elemento) {
         return false;
 
     if($("#codp").val().substr(0,2) == config[30] && $("#codp").val().trim().length > 10 && parseInt(config[30])){ //LECTOR DE CODIGOS
-        var romana = getDatos('prefijo,codigo,peso,omitir',341,'caja=0')[0][0];
+        var romana = getDatos('prefijo,codigo,peso,precio,omitir',341,'caja=0')[0][0];
         var r_codigo =  romana[1].split(',');
         r_codigo = $("#codp").val().trim().substr(r_codigo[0],r_codigo[1]);
         var r_peso =  romana[2].split(',');
         var r_decimales = r_peso[2];
         r_peso = $("#codp").val().trim().substr(r_peso[0],r_peso[1]);
+        r_precio = romana[3] == '' ? 0 : romana[3].split(',');
+
         $("#codp").val(((r_peso*1/(Math.pow(10,r_decimales)))+'*'+r_codigo*1));
+
+        // if(r_precio != 0){
+        //     r_decimales = r_precio[2];
+        //     r_precio = $("#codp").val().trim().substr(r_precio[0],r_precio[1]);
+        // }
+        
     }
 
     /*COMODIN = 0 => NORMAL
@@ -2514,6 +2541,13 @@ function endDetail(vid,vacc,vmodulo) {
             $("._xmlotros").each(function(){
                 insertar(332,'',vid[0][0]+','+$(this).attr('vid')+',"'+$(this).find('input').val()+'"');
             });
+
+            if(config[0] == '0')
+                if($("#dofe").attr('act') == '0') //simplificado
+                    actualizar(64,'feestado=99','id='+vid[0][0])
+                else
+                    config[0] = 1;
+
 
             if (config[0] == 1 && param.toString().match(new RegExp(/\b1\b|\b7\b|\b10\b/g))) {
                 var $toastContent = $('<span style="width: 500px">Generando Factura Electronica:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));

@@ -1578,7 +1578,7 @@
                         $detalle['Cantidad'] = $value[3];
                         $detalle['UnidadMedida'] = $value[4];
                         if($value[5])
-                            $detalle['UnidadMedidaComercial'] = ['tipo'=>99,'codigo'=>$value[5]];
+                            $detalle['UnidadMedidaComercial'] = $value[5];
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];

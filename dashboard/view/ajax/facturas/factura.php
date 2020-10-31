@@ -292,7 +292,7 @@
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
                 </div>
-                <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
+                <?php }else echo '<p class="center-align" style="font-size: 0.8em;">REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D<br>'.$msj.'</p>'; ?>
               </footer>
 
               <div class="center <?php if ($transaccion[0][32] == '') echo 'hide';  ?>" style="width: 100%;">
