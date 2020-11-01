@@ -134,6 +134,9 @@ $(function(){
         var pr = getDatos('',172,'1,0,"","","'+$("#c-nom").val()+'","'+$("#c-ced").val()+'",'+$("#c-nom").attr('tipo')+',1,'+isprov+',0,'+$("#c-max").val()+','+$("#c-dias").val()+',0,1,"",@@usr,0,"",0,@@impresa,@id,1,0,0,""',0,0,0);
 
         if(guardarSlide(1,pr,2)){
+
+            insertar(338,'','null,'+pr[0][0]+',2,1,"idfila=$1 and idtabla=$2,17:idcorreo,238:idtelefono,239:idubicacion",0,@@impresa');
+
             Materialize.toast('Cliente Agregado Exitosamente',4000,'green');
             $("#ncli").val($("#c-nom").val()+' *'+$("#c-ced").val()+'*');
             $("#slideDireccion").data('idbarrio',0);
@@ -2523,9 +2526,8 @@ function endDetail(vid,vacc,vmodulo) {
                         actualizar(291,set,'idfactura = '+vid[0][0]);
                     }
 
-                    if(config[29] != '' && config[29] != '99'){ 
-                        insertar(338,'','null,'+vid[0][0]+',64,1,"",0,@@impresa');
-                        insertar(338,'','null,'+vid[0][0]+',65,1,"",0,@@impresa');
+                    if(config[29] != '' && config[29] != '99'){
+                        insertar(338,'','null,'+vid[0][0]+',64,1,"idfactura=$1,65,291,336,327^factura=$1,279^idfila=$1 and idtabla=$2",0,@@impresa');
                     }
                     break;
                 default:
@@ -3189,6 +3191,10 @@ function mixto(el){
 
                 if (parseInt(idext) < 0)
                     eliminar(260,'cantidad <= 0 and idfactura = -1*'+idext)
+
+                if(config[29] != '' && config[29] != '99'){
+                    insertar(338,'','null,'+factura+',64,1,"idfactura=$1,65,291,336,327^factura=$1,279^idfila=$1 and idtabla=$2",0,@@impresa');
+                }
 
                 totalizar();
                 $("#mxcan").val('0.00');

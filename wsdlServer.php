@@ -302,6 +302,9 @@ if (isset($_POST['respuestaXml'])) {
                   case 2:
                     $val = $base->ejecutar('call krattos("id",2,"cedula = \"'.$obj->bdy->cedula.'\" and bisproveedor = '.$obj->bdy->bisproveedor.'")')->fetch_all();
                     break;
+                  case 64:
+                    $val = $base->ejecutar('call krattos("id",64,"idsucursal='.$obj->bdy->idsucursal.' and consecutivo = \"'.$obj->bdy->consecutivo.'\" and idtipoventa = '.$obj->bdy->idtipoventa.'")')->fetch_all();
+                    break;
                   default:
                     $val = 0;
                     break;
@@ -316,23 +319,19 @@ if (isset($_POST['respuestaXml'])) {
                     $val = 0;
                 }
 
+                if($obj->idusuario != ''){
+                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\"")')->fetch_all()[0][0];
+                }
+
+                if($obj->idcliente != ''){
+                  $obj->bdy->idcliente = $base->ejecutar('call krattos("id",2,"!bisproveedor and replace(cedula,\"-\",\"\")=\"'.$obj->idcliente.'\"")')->fetch_all()[0][0];
+                }
+
                 if ($obj->acc == 1 && !$val && $pass) {
-                  switch ($obj->tbl) {
-                    case 17:
-                        $mrow = 'idcorreo';
-                        $obj->bdy->idfila = $memory;
-                        break;
-                    case 238:
-                        $mrow = 'idtelefono';
-                        $obj->bdy->idfila = $memory;
-                        break;
-                    case 239:
-                        $mrow = 'idubicacion';
-                        $obj->bdy->idfila = $memory;
-                        break;
-                    default:
-                        $mrow = 'id';
-                        break;
+                  $mrow = $obj->mrow;
+                  if($obj->search){
+                    $search = $obj->search;
+                    $obj->bdy->$search = $memory;
                   }
 
                   $obj->bdy->$mrow = null;
@@ -344,10 +343,10 @@ if (isset($_POST['respuestaXml'])) {
                     if($mrs == 1)
                       array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
                     else
-                      array_push($rback,$mrs.' --- ARG: '.$arg);
+                      array_push($rback,$mrs.' --- ARG: '.$arg.' --- SQL: '.'insert into '.$tbl.' values('.$arg.')');
                   }else
                     if($mrs != 1)
-                      array_push($rback,$mrs.' --- ARG: '.$arg);
+                      array_push($rback,$mrs.' --- ARG: '.$arg.' --- SQL: '.'insert into '.$tbl.' values('.$arg.')');
                 }else
                   if(!$obj->memory){
                     array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);

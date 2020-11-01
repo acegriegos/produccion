@@ -732,8 +732,8 @@ function endDetail(vid,vacc,modulo){
 			}
 
 			var config = getDatos('',42,'@@impresa',0,0)[0][0];
-			if(config[29] != ''){
-                insertar(338,'','null,'+vid[0][0]+',2,'+vacc+',"17,238,239",0,@@impresa');
+			if(config[29] != '' && config[29] != '99'){
+                insertar(338,'','null,'+vid[0][0]+',2,'+vacc+',"idfila=$1 and idtabla=$2,17:idcorreo,238:idtelefono,239:idubicacion",0,@@impresa');
             }	
 			
 			break;
