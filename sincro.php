@@ -104,55 +104,30 @@
         echo "</pre>";
     }
 
-    if(isset($json_arr['last_id'])){
+    /*if(isset($json_arr['last_id'])){
         $base->ejecutar('update ajustes set valor = '.$json_arr['last_id'].' where descr = "is_sync"');
         echo "<br>ULTIMA LINEA: ".$json_arr['last_id'];    
-    }
+    }*/
 
     if(isset($json_arr['act'])){
         $rbarr = json_decode($json_arr['act']);
         foreach ($rbarr as $obj) {
             $base->ejecutar($obj);
-        }
+        }    
     }
 
-    /*$rs = $base->ejecutar('select id,idfila,idtabla,idestado from sincro where !issync and idsucursal = '.$_SESSION['IMPRESA'])->fetch_all();
-    $sts = [];
-    foreach ($rs as $obj) {
-        switch ($obj[3]) {
-            case 1:
-                $whr = $obj[2] == 65 ? 'idfactura = '.$obj[1] : 'id = '.$obj[1];
-                $line = $base->ejecutar('call krattos("*",'.$obj[2].',"'.$whr.'")')->fetch_all();
-                foreach ($line as $_line) {
-                    array_push($sts, ['acc' => "1","tbl" => $obj[2], "row" => $obj[0],"bdy" => $_line]);
-                }
-                
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
-    }
-    
-    
-    
-    // echo $json_response;
-    
     if(!$json_arr['error'] && is_array($json_arr['rs'])){
         foreach ($json_arr['rs'] as $obj) {
             $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
 
+            if($obj->idusuario != ''){
+              $obj->bdy->idsucursal = $_SESSION['IMPRESA'];
+            }
+
             switch ($obj->acc) {
-                case 0:
-                    echo "<br>SINCRONIZANDO LA TABLA ".$tbl;
-                    $base->ejecutar('truncate '.$tbl);
-                    break;
                 case 1:
                     echo "<br>INGRESANDO FILA ";
-                    print_r($base->ejecutar('insert into '.$tbl.' values('.substr(substr(json_encode($obj->bdy),1),0,-1).')'));
+                    print_r($base->ejecutar('insert into '.$tbl.' values('.substr(substr(json_encode(array_values((array)$obj->bdy)),1),0,-1).')'));
                     break;
                 case 2:
                     echo "<br>ACTUALIZANDO FILA ";
@@ -163,25 +138,19 @@
                     print_r($base->ejecutar('delete from '.$tbl.' where id = '.$obj->row));
                     break;
                 case 4:
-                    echo '<br>INGRESO MASIVO ';
-                    print_r($base->ejecutar($obj->bdy));
+                    echo '<br>TRUNCATE '.$tbl;
+                    print_r($base->ejecutar('TRUNCATE '.$tbl));
                     break;
                 default:
                     echo "<br>ACCION NO VALIDA";
                     break;
             }
         }
-
-        $base->ejecutar('call shadow(2,11,"idsucursal = '.$_SESSION['IMPRESA'].'","id > 0")');
         
-    }else
-        echo $json_response;*/
+    }
 
     function dosts($id,&$sts,$tbl,$whr,$row,$acc,&$base,$memory,$one,$two){
         $search = '';
-        if(strpos($whr,'$1') !== false){
-            $search = $whr;
-        }
 
         if(strpos($tbl,':') === false)
             $mrow = 'id';
@@ -205,10 +174,28 @@
         if(!isset($line->num_rows))
             echo 'SQL<hr>call krattos("*",'.$tbl.',"'.$whr.'")<br>RS:'.$line.'<br>';
 
+        $user = $base->ejecutar('call krattos("idusuario",'.$tbl.',"'.$whr.'")');
+        if(isset($user->num_rows)){
+            if($user->num_rows)
+                $user = $base->ejecutar('call krattos("user",1,"id='.$user->fetch_all()[0][0].'")')->fetch_all()[0][0];
+            else
+                $user = '';
+        }else
+            $user = '';
+
+        $client = $base->ejecutar('call krattos("idcliente",'.$tbl.',"'.$whr.'")');
+        if(isset($client->num_rows)){
+            if($client->num_rows)
+                $client = $base->ejecutar('call krattos("replace(cedula,\"-\",\"\")",2,"id='.$client->fetch_all()[0][0].' and !bisproveedor")')->fetch_all()[0][0];
+            else
+                $client = '';
+        }else
+            $client = '';
+
         while ($_row = $line->fetch_array(MYSQLI_ASSOC)) {
 
             if($_row > 0)
-                array_push($sts, ['id'=>$id,'acc' => $acc,"tbl" => $tbl, "row" => $_row[$mrow],"bdy" => $_row,'memory' => $memory,'mrow'=>$mrow,'search'=>$search]);
+                array_push($sts, ['id'=>$id,'acc' => $acc,"tbl" => $tbl, "row" => $_row[$mrow],"bdy" => $_row,'memory' => $memory,'mrow'=>$mrow,'search'=>$search,'idusuario'=>$user,'idcliente'=>$client]);
         }
     }
  ?>

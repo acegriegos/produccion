@@ -2241,7 +2241,7 @@ function endDetail(id, acc, modulo) {
 			var vestante = $("#vestante:visible").length ? $("#vestante").val().trim() : '';
 			var vcolumna = $("#vcolumna:visible").length ? $("#vcolumna").val().trim() : '';
 			var vfila = $("#vfila:visible").length ? $("#vfila").val().trim() : '';
-			console.log(actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0]))
+			actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0])
 
 			thorload(modulo);
 			deadclear(modulo);
@@ -2251,8 +2251,7 @@ function endDetail(id, acc, modulo) {
 			$("#tb1").click();
 			
 			if(config[29] != ''){
-				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"",0,-1');
-				insertar(338,'','null,'+getDatos('id',97,'idproducto = '+id[0][0])[0][0][0]+',97,'+acc+',"",0,-1');
+				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"idproducto=$1,97,299",0,-1');
 			}
 			break;
 		case 'servicio':

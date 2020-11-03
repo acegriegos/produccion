@@ -258,35 +258,39 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          /*$rs = $base->ejecutar('select id,idfila,idtabla,idestado from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
+          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
 
           if(isset($rs->num_rows)){
             $salida['rs'] = [];
-
             $rs = $rs->fetch_all();
             foreach ($rs as $obj) {
-              switch ($obj[3]) {
-                case 0: //SINCRONIZAR TODA LA TABLA
-                  if($obj[2] == 11){
-                    llenado_masivo($salida['rs'],11,$base,'id > 0');
-                    llenado_masivo($salida['rs'],97,$base,'idproducto > 0');
-                  }                   
-                  break;
-                case 1: //INSERTAR UNA FILA
-                  $line = $base->ejecutar('call krattos("*",'.$obj[2].',"id = '.$obj[1].'")')->fetch_all();
-                  array_push($salida['rs'], ['acc' => "1","tbl" => $obj[2], "row" => $obj[1],"bdy" => $line[0]]);
-                  break;
-                case 2: //ACTUALIZAR UNA FILA
-                  actualizador($salida['rs'],$obj[2],$base,$obj[1]);
-                  break; 
-                default:
-                  $salida['rs'] = 'opcion no valida';
-                  break;
+              $variables = explode(',', $obj[4]);
+
+              switch ($obj[2]) {
+                  case 1:
+                      $whr = $obj[3] == 0 ? 'id > 2' : 'id = '.$obj[1];
+                      break;
+                  default:
+                      $whr = $obj[3] == 0 ? 'id > 0' : 'id = '.$obj[1]; 
+                      break;
+              }
+              $acc = $obj[3] == 0 ? 1 : $obj[3];
+              $truncate = $obj[3] == 0 ? 1 : 0;
+              dosts($obj[0],$salida['rs'],$obj[2],$whr,$obj[1],$acc,$base,0,0,0,$truncate);
+
+              if (is_array($variables)) {
+                  $whr = $obj[3] == 0 ? 'id > 0' : $variables[0];
+                  unset($variables[0]);
+
+                  foreach ($variables as $nexo) {
+                      if($nexo)
+                          dosts($obj[0],$salida['rs'],$nexo,$whr,$nexo,$acc,$base,1,$obj[1],$obj[2],$truncate);
+                  }
               }
             }
 
             if(sizeof($rs))
-              $salida['last_id'] = $rs[sizeof($rs)-1][0];*/
+              $salida['last_id'] = $rs[sizeof($rs)-1][0];
 
             if(isset($_POST['vmore'])){
               $marr = json_decode($_POST['vmore']);
@@ -354,11 +358,11 @@ if (isset($_POST['respuestaXml'])) {
               $salida['act'] = json_encode($rback);
                 }
             }
-          /*}else{
+          }else{
             $salida['rs'] = $rs;
-          }*/
+          }
 
-          //$salida['post'] = $_POST;
+          $salida['post'] = $_POST;
           break;
         case 4:
           if (!isset($_POST['ced'])) {
@@ -516,31 +520,58 @@ function getError($msj){
   return  array('msj' => $msj, 'error' => 1);
 }
 
-function llenado_masivo(&$salida,$tbl,&$base,$where){
-  $tbln = $base->ejecutar('call krattos("nombre",70,"id = '.$tbl.'")')->fetch_all()[0][0];
+function dosts($id,&$sts,$tbl,$whr,$row,$acc,&$base,$memory,$one,$two,$truncate){
+        $search = '';
 
-  array_push($salida, ['acc' => "0","tbl" => $tbl, "row" => 0,"bdy" => ""]);
+        if(strpos($tbl,':') === false)
+            $mrow = 'id';
+        else{
+            $mrow = substr($tbl, strpos($tbl,':')+1);
+            $tbl = substr($tbl,0,strpos($tbl,':'));
+        }
 
-  $line = $base->ejecutar('call krattos("*",'.$tbl.',"'.$where.'")')->fetch_all();
-  $lstr = 'insert into '.$tbln.' values(';
-  foreach ($line as $ll) {
-    $lstr .= substr(substr(json_encode($ll),1),0,-1).' ),(';  
-  }
+        if(strpos($tbl,'^') !== false){
+            $whr = substr($tbl, strpos($tbl,'^')+1);
+            $tbl = substr($tbl,0,strpos($tbl,'^'));
+        }
 
-  array_push($salida, ['acc' => "4","tbl" => 0, "row" => 0,"bdy" => substr($lstr,0,-2) ]);
-}
+        if(strpos($whr,'$1') !== false){
+            $search = trim(str_replace('=','',substr($whr,0,strpos($whr,'$1'))));
+            $whr = str_replace('$1', $one,$whr);
+            $whr = str_replace('$2', $two,$whr);
+        }        
 
-function actualizador(&$salida,$tbl,&$base,$where){
-  $tbln = $base->ejecutar('call krattos("nombre",70,"id = '.$tbl.'")')->fetch_all()[0][0];
-  $line = $base->ejecutar('call krattos("*",'.$tbl.',"id = '.$where.'")')->fetch_all();
-  $cls = $base->ejecutar('describe '.$tbln)->fetch_all();
-  $act_str = '';
-  foreach ($cls as $key => $value) {
-    $act_str .= $value[0].' = "'.addslashes($line[0][$key]).'", ';
-  }
+        $line = $base->ejecutar('call krattos("*",'.$tbl.',"'.$whr.'")');
+        if(!isset($line->num_rows))
+            echo 'SQL<hr>call krattos("*",'.$tbl.',"'.$whr.'")<br>RS:'.$line.'<br>';
 
-  array_push($salida, ['acc' => "2","tbl" => $tbl, "row" => $where,"bdy" => substr($act_str,0,-2)]);
+        $user = $base->ejecutar('call krattos("idusuario",'.$tbl.',"'.$whr.'")');
+        if(isset($user->num_rows)){
+            if($user->num_rows)
+                $user = $base->ejecutar('call krattos("user",1,"id='.$user->fetch_all()[0][0].'")')->fetch_all()[0][0];
+            else
+                $user = '';
+        }else
+            $user = '';
 
-}
+        $client = $base->ejecutar('call krattos("idcliente",'.$tbl.',"'.$whr.'")');
+        if(isset($client->num_rows)){
+            if($client->num_rows)
+                $client = $base->ejecutar('call krattos("replace(cedula,\"-\",\"\")",2,"id='.$client->fetch_all()[0][0].' and !bisproveedor")')->fetch_all()[0][0];
+            else
+                $client = '';
+        }else
+            $client = '';
+
+        if($truncate)
+          array_push($sts,['id'=>0,'acc' => 4,"tbl" => $tbl, "row" => '',"bdy" => '','memory' => '','mrow'=>'','search'=>'','idusuario'=>'','idcliente'=>'']);
+
+        while ($_row = $line->fetch_array(MYSQLI_ASSOC)) {
+
+            if($_row > 0)
+                array_push($sts, ['id'=>$id,'acc' => $acc,"tbl" => $tbl, "row" => $_row[$mrow],"bdy" => $_row,'memory' => $memory,'mrow'=>$mrow,'search'=>$search,'idusuario'=>$user,'idcliente'=>$client]);
+        }
+
+    }
 
 ?>
