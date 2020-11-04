@@ -127,6 +127,40 @@ $(function(){
 	})
 
 	$("#addexo").click(function(){
+		var id =  ($(".lstsrv").length+1)*-1;
+		var nxt  = new Date($("#s_fecha").val());
+		var tp = $("#s_tipo").val();
+		var stp = 'S/L';
+		switch(parseInt(tp)){
+			case 2:
+				stp = 'Mensual';
+				nxt.setDate(nxt.getMonth()+1);
+				break;
+			case 3:
+				stp = 'Diario';
+				nxt.setDate(nxt.getDate()+1);
+				break;
+			case 5:
+				stp = 'Anual';
+				nxt.setDate(nxt.getFullYear()+1);
+				break;
+			case 6:
+				stp == 'Quincenal';
+				nxt.setDate(nxt.getDate()+15);
+				break;
+			default:
+				nxt = 'N/A';
+				break;
+		}
+
+		$("#servlist").append('<tr><td style="padding:0px;cursor: pointer;" class="lstsrv" tp="'+id+'">'+$("#s_list").html()+'</td><td style="padding:0px;"><span class="_monto">'+$("#s_monto").val()+'</span></td><td style="padding:0px;"><span class="_fnxt">'+nxt+'</span></td> <td>'+stp+' <i class="mdi mdi-close red-text der delexo" style="cursor: pointer;"></i></td></tr>');
+
+		//$(".lstsrv[tp="+id+"]").data('triforce',{vid:0,vaccion:0,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});
+		acc = 1;
+		$("#modal-addserv").modal('close');
+	});
+
+	$("#addexo").click(function(){
 
 		if(parseInt($("#vtipodoc option:selected").val())){
 			if(!$("#vnumdoc").val().trim().length){
@@ -254,6 +288,10 @@ $(function(){
 		                titulo = 'Contactos';
 		                $("#contactos").removeClass('hide');
 		                break;
+		            case 5:
+		            	titulo = 'Servicios';
+		            	$("#servicios").removeClass('hide');
+		            	break;
 		            default:
 		                break;
 		        }
@@ -318,6 +356,13 @@ $(function(){
 		Materialize.updateTextFields();
 		$("#modal-addexo").modal('open').css('z-index',2000);
 		$("#vnumdoc").focus()
+	});
+
+	$("#addnserv").click(function(){
+		var fecha = new Date();
+		fecha = fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+(fecha.getDate());
+		$("#s_fecha").pickadate().pickadate('picker').set('select', fecha);
+		$("#modal-addserv").modal('open').css('z-index',2000);
 	})
 
     $("#eslidec").click(function(e){

@@ -157,20 +157,22 @@
                       <div class="row center">
 
 
-                        <a href="#" data-activates="slide-tc" data-num="1" class="col s1 mdi mdi-phone tooltipped mdi-24px button-collapse tc-show  black-text" data-tooltip="Administrar Teléfonos" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="0" slide-tbl="2" asave="0"></a>
+                        <a href="#" data-activates="slide-tc" data-num="1" class="col s3 m2 mdi mdi-phone tooltipped mdi-24px button-collapse tc-show  black-text" data-tooltip="Administrar Teléfonos" data-position="bottom" id="slideTelefono" hasTabla="1" tp="6" vtabla="telefono" slide-id="0" style="text-align: left;" slide-tbl="2" asave="0">Teléfonos</a>
                         <input type="hidden" id="vtelefono">
                         
-                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="col s1 button-collapse tc-show tooltipped black-text" data-tooltip="Administrar Correos" data-position="bottom" hasTabla="1" tp="6" vtabla="correo" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-email  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" data-num="2" id="slideCorreo" class="col s3 m2 button-collapse tc-show tooltipped black-text" data-tooltip="Administrar Correos" data-position="bottom" hasTabla="1" tp="6" vtabla="correo" slide-id="0" style="text-align: left;" slide-tbl="2" asave="0"><i class="mdi mdi-email  mdi-24px" style="margin-right: 3px;"></i>Correos</a>
 
-                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="col s1 button-collapse tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion" data-position="bottom" hasTabla="1" tp="6" vtabla="ubicacione" slide-id="0" slide-tbl="2" asave="0"><i class="mdi mdi-map-marker  mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-tc" id="slideDireccion" data-num="3" class="col s3 m2 button-collapse tooltipped tc-show black-text" data-tooltip="Administrar Ubicacion" data-position="bottom" hasTabla="1" tp="6" vtabla="ubicacione" slide-id="0" style="text-align: left;" slide-tbl="2" asave="0"><i class="mdi mdi-map-marker  mdi-24px" style="margin-right: 3px;"></i>Ubicaciones</a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Parámetros" slide-id="0" data-position="bottom" num="1"><i class="mdi mdi-currency-usd mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s3 m21 button-collapse tooltipped black-text s-cliente" data-tooltip="Administrar Parámetros" slide-id="0" style="text-align: left;" data-position="bottom" num="1"><i class="mdi mdi-currency-usd mdi-24px" style="margin-right: 3px;"></i>Financiero</a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Exoneración" data-position="bottom" num="2"><i class="mdi mdi-clipboard-text mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s3 m2 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar Exoneración" data-position="bottom" num="2"><i class="mdi mdi-clipboard-text mdi-24px" style="margin-right: 3px;"></i>Exoneraciones</a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar XML Otros" data-position="bottom" num="3"><i class="mdi mdi-xml mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="col s3 m2 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar XML Otros" data-position="bottom" num="3"><i class="mdi mdi-xml mdi-24px" style="margin-right: 3px;"></i>XML Otros</a>
 
-                        <a href="#" data-activates="slide-cliente" class="col s1 button-collapse tooltipped black-text s-cliente" slide-id="0" data-tooltip="Administrar Contactos" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px"></i></a>
+                        <a href="#" data-activates="slide-cliente" class="hide col s3 m2 button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar Contactos" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px" style="margin-right: 3px"></i>Contactos</a>
+
+                        <a href="#" data-activates="slide-cliente" class="hide per1004 col s3 m2 button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar Servicios" data-position="bottom" num="5"><i class="mdi mdi-account-details mdi-24px" style="margin-right: 3px;"></i>Servicios</a>
 
                       </div>
                 </div>
@@ -266,6 +268,16 @@
           <div class="subclie row" id="contactos">
           </div>
 
+          <div class="subclie row" id="servicios">
+            <i class="mdi mdi-plus der pbtn" id="addnserv" title="Agregar Servicio" ></i> <br>
+            <table cellspacing="0" cellpadding="0" class="tbl striped">
+              <thead>
+                <tr style="border-bottom: 1px solid black;"><th style="padding: 0px;">Servicio</th><th style="padding: 0px;">Monto</th><th style="padding: 0px;">Sig.Pago</th><th>Tipo</th></tr>
+              </thead>
+              <tbody id="servlist"></tbody>
+            </table>
+          </div>
+
           <a class="btn btn-default" id="eslidec" style="bottom:0px;position:absolute;margin:0px;margin-bottom: 50px;">Salir</a></li></ul>
 </section>
 </div>
@@ -324,7 +336,61 @@
             </div>
         </div>
 
+         <div id="modal-addserv" class="modal modal-fixed-footer mymodal" style="z-index: 2000 !important;">
+          <div class="modal-header"> <h4 class="center">Servicios</h4>  </div>
+          <div class="modal-content row">
+            
+            <div class="col s6 input-field">
+              <select id="s_list">
+                {section name=LE loop=$SERV}
+                  <option value="{$SERV[LE][0]}" valor="{$SERV[LE][2]}">{$SERV[LE][1]}</option>
+                {/section}
+              </select>
+              <label for="s_list">Servicio</label>
+            </div>
+            
+            <div class="col s6 input-field">
+              <input type="text" class="numeric eder" id="s_monto" value="0.00">
+              <label for="s_monto">Monto</label>
+            </div>
 
+            <div class="col s6 input-field">
+              <input type="date" id="s_fecha">
+              <label for="s_fecha" class="active">Fecha Servicio</label>
+            </div>
+
+            <div class="col s6 input-field">
+              <select id="s_factura">
+                <option value="1">Electrónica</option>
+                <option value="2">Normal</option>
+              </select>
+              <label for="s_factura">Tipo Factura</label>
+            </div>
+
+            <div class="col s6 m3 input-field">
+              <select id="s_tipo">
+                {section name=LE loop=$CICLOS}
+                  <option value="{$CICLOS[LE][0]}">{$CICLOS[LE][1]}</option>
+                {/section}
+              </select>
+              <label for="s_tipo">Ciclo</label>
+            </div>
+
+            <div class="col s3 input-field hide s_vf">
+              <input type="date" id="s_desde">
+              <label for="s_desde" class="active">Desde</label>
+            </div>
+
+            <div class="col s3 input-field hide s_vf">
+              <input type="date" id="s_hasta">
+              <label for="s_hasta" class="active">Hasta</label>
+            </div>
+
+          </div>
+          <div class="modal-footer" style="padding-bottom: 55px;">
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="addserv">Aceptar</a>
+          </div>
+        </div>
 
 <div id="modal-addvehiculos" class="modal modal-fixed-footer">
 <div class="modal-header">

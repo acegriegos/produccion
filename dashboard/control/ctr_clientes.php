@@ -14,6 +14,8 @@
 		$smarty->assign('STY',$sty);
 		$smarty->assign('SCR',$scr);
 	    $smarty->assign('PRO',$kakaroto->kamehameha('*',8,'1 order by id'));
+	    $smarty->assign('SERV',$kakaroto->kamehameha('id,nombre,precio',16,'id > 0 and idsucursal = @@impresa order by nombre'));
+	    $smarty->assign('CICLOS',$kakaroto->kamehameha('id,nombre',90,'id > 0 order by nombre'));
 	    $smarty->assign('ESTCLIE',$kakaroto->kamehameha('*',68,'id >= 0 order by nombre'));
 	    $smarty->assign('NVLCLIE',$kakaroto->kamehameha('*',69,'id > 0 and idsucursal = @@impresa order by id'));
 	    $smarty->assign('TPTEL',$kakaroto->kamehameha('*',4,'id > 0 order by id'));
