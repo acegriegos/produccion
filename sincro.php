@@ -7,6 +7,7 @@
 
     if(!isset($_REQUEST['show'])){
          if(!isset($_COOKIE['SINCRO'])){
+            session_write_close();
             setcookie("SINCRO",1, time()+10);
             ob_end_clean();
             ignore_user_abort();
@@ -25,7 +26,8 @@
     require_once '_config/mysqlDB.php';
     $base = new DBClass();
 
-    $server = $base->ejecutar('select valor from ajustes where descr = "sincro"')->fetch_all()[0][0];
+    $server = $base->ejecutar('select trim(valor) from ajustes where descr = "sincro"')->fetch_all()[0][0];
+    $server = trim($server);
 
     $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where !issync and idsucursal = '.$_SESSION['IMPRESA'].' limit 20')->fetch_all();
     
@@ -95,7 +97,9 @@
     $json_arr = (array)json_decode($json_response);
 
     if(isset($_REQUEST['debug']) && !isset($json_arr['error']))
-        echo 'ERROR SERVER<hr>'.$json_response.'<br><br>';
+        echo 'ERROR SERVER: .'.$server.'/wsdlServer.php'.'.<hr>'.$json_response.'<br>'.curl_error($curl).'<br><br>';
+
+    curl_close($curl);
 
     if(isset($_REQUEST['debug'])){
         echo "RESPUESTA DEL SERVER <hr>";
@@ -104,10 +108,10 @@
         echo "</pre>";
     }
 
-    /*if(isset($json_arr['last_id'])){
+    if(isset($json_arr['last_id'])){
         $base->ejecutar('update ajustes set valor = '.$json_arr['last_id'].' where descr = "is_sync"');
         echo "<br>ULTIMA LINEA: ".$json_arr['last_id'];    
-    }*/
+    }
 
     if(isset($json_arr['act'])){
         $rbarr = json_decode($json_arr['act']);

@@ -355,7 +355,7 @@ if (isset($_POST['respuestaXml'])) {
                   if(!$obj->memory){
                     array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
               }
-              $salida['act'] = json_encode($rback);
+              //$salida['act'] = json_encode($rback);
                 }
             }
           }else{

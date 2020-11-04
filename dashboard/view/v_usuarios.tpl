@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Usuarios</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.3.0.2">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.3.0.3">
 
 </head>
 
@@ -16,7 +16,7 @@
 {$NAV}
 
 <div class="bdy pequeño">
-<div class="center head1 padding1"><h5>Usuarios</h5></div>
+<div class="center head1 padding1"><h5>Usuarios  <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></h5></div>
     <div class="row" style="margin: 0px;">
         <div class="col s12" style="padding: 0px">
             <ul class="tabs head2">
@@ -33,7 +33,7 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/usuarios.js?v=10.3.0.2"></script>
+<script src="../assets/js/modulos/usuarios.js?v=10.3.0.3"></script>
 
 </body>
 </html>

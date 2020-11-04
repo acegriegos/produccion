@@ -1470,7 +1470,7 @@ $(document).on("click",".mover",function(){
     var cantidad = parseFloat($(".lpcant",this).html());
     var nombre = $(".lpname",this).html();
     var valor = parseFloat($("#fd"+idp).data('triforce')['vprecio'])+parseFloat($("#fd"+idp).data('triforce')['vimv'])/parseFloat($("#fd"+idp).data('triforce')['vcantidad']);
-    var otros = parseFloat($("#fd"+idp).data('triforce')['otros'])/parseFloat($("#fd"+idp).data('triforce')['vcantidad']);
+    var otros = $("#fd"+idp).data('triforce')['otros'] == undefined ? 0 : parseFloat($("#fd"+idp).data('triforce')['otros'])/parseFloat($("#fd"+idp).data('triforce')['vcantidad']);
     var cancelar = parseFloat($("#mxcan").val().replace(/,/g,''));
     var total = parseFloat($("#mxtot").val().replace(/,/g,''));
     var pbase = parseFloat($("#fd"+idp).data('triforce')['vprecio']);

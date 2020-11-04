@@ -130,8 +130,11 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.3.0.2">
+<link href="../assets/css/materialize.min.css?v=10.3.0.3">
 <style>
+  *{
+    font-size: 18px;
+  }
   @media print {
     .print{
       display: none;
@@ -164,6 +167,7 @@
     border: 2px solid #0016b0">Imprimir</button>
 
   <div>
+      <b align="center"><?php echo $miscelaneos[0];?></b> <br>
       <b>Cierre N°: </b>
       <span > <?php echo $cierre[0]; ?> </span><br>
       <b>Usuario: </b>
@@ -178,8 +182,8 @@
       <?php if($cierre[9] > 0) echo 'Ventas con Depósitos: <span style="float: right;">'.$cierre[9].'</span><br>'; ?>
       <?php if($cierre[3] > 0) echo 'Total Ventas a Contado: <span style="float: right;">'.$cierre[3].'</span><br>'; ?>
       <?php if($cierre[2] > 0) echo 'Total Ventas a Crédito: <span style="float: right;">'.$cierre[2].'</span><br>'; ?>
-      <?php echo $gravado.$exento.$descuento; ?>
-      Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br>
+      <!-- <?php echo $gravado.$exento.$descuento; ?>
+      Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br> -->
       <?php if($cierre[4] > 0) echo 'Abonos Clientes: <span style="float: right;">'.$cierre[4].'</span><br>'; ?>
       <?php if($cierre[5] > 0) echo 'Notas Crédito Clientes: <span style="float: right;">'.$cierre[5].'</span><br>'; ?>
       <?php if($cierre[6] > 0) echo 'Notas Débito Clientes: <span style="float: right;">'.$cierre[6].'</span><br>'; ?>
@@ -189,9 +193,11 @@
       <?php if($cierre[22] > 0) echo 'Abonos Líquidos Cliente:<span style="float: right;">'.$cierre[22].'</span><br>'; ?>
       <?php if($cierre[23] > 0) echo 'Abonos Líquidos Proveedores: <span style="float: right;">'.$cierre[23].'</span><br>'; ?>
       Caja Inicial:<span style="float: right;"><?php echo $cierre[14]; ?></span><br>
-      Caja Reportada: <span style="float: right;"><?php echo $cierre[12]; ?></span><br>
-      Caja del Sistema: <span style="float: right;"><?php echo number_format(str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[14]),2); ?></span><br>
-      Diferencia: <span style="float: right;"><?php echo number_format(str_replace(',', '', $cierre[12])-str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20])-str_replace(',', '', $cierre[14]),2); ?></span><br>
+      Caja Reportada: <span style="float: right;"><?php $rep = str_replace(',', '', $cierre[12])-str_replace(',', '', $cierre[14]);echo number_format($rep,2); ?></span><br>
+      Caja del Sistema: <span style="float: right;"><?php $final = str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20]); echo number_format($final,2); ?></span><br>
+      Diferencia: <span style="float: right;"><?php $dif = str_replace(',', '', $cierre[12])-str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20])-str_replace(',', '', $cierre[14]); echo number_format($rep-$final,2); ?></span><br>
+      <br>
+      <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[3])),2).'</span><br>'; ?>
     </div>
      
       <!-- /INFO CONTACTO -->
@@ -222,8 +228,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.3.0.2"></script>
-    <script src="../assets/js/materialize.min.js?v=10.3.0.2"></script>
+    <script src="../assets/js/jquery.js?v=10.3.0.3"></script>
+    <script src="../assets/js/materialize.min.js?v=10.3.0.3"></script>
 
      <script type="text/javascript">
    $(function(){
