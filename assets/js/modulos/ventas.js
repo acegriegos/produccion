@@ -2544,7 +2544,7 @@ function endDetail(vid,vacc,vmodulo) {
                 insertar(332,'',vid[0][0]+','+$(this).attr('vid')+',"'+$(this).find('input').val()+'"');
             });
 
-            if(config[0] == '0' && condig[31])
+            if(config[0] == '0' && config[31])
                 if($("#dofe").attr('act') == '0') //simplificado
                     actualizar(64,'feestado=99','id='+vid[0][0])
                 else
