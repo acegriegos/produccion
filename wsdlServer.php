@@ -324,7 +324,9 @@ if (isset($_POST['respuestaXml'])) {
                 }
 
                 if($obj->idusuario != ''){
-                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\"")')->fetch_all()[0][0];
+                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\"")')->fetch_all();
+                  if(isset($obj->bdy->idusuario[0][0]))
+                    $obj->bdy->idusuario = $obj->bdy->idusuario[0][0];
                 }
 
                 if($obj->idcliente != ''){
@@ -340,7 +342,7 @@ if (isset($_POST['respuestaXml'])) {
 
                   $obj->bdy->$mrow = null;
                   $arg = substr(substr(json_encode(array_values((array)$obj->bdy)),1),0,-1);
-
+                  
                   $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
                   if(!$obj->memory){
                     $memory = $base->ejecutar('select max(id) from '.$tbl)->fetch_all()[0][0];
@@ -355,7 +357,7 @@ if (isset($_POST['respuestaXml'])) {
                   if(!$obj->memory){
                     array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
               }
-              //$salida['act'] = json_encode($rback);
+              $salida['act'] = json_encode($rback);
                 }
             }
           }else{

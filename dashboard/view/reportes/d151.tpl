@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Reporte D-151</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.3">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.4">
 </head>
 <body class="black">
   <div class="principal contenedor" >
@@ -61,10 +61,10 @@
     </table>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.3"></script>
-  <script src="../assets/js/modulos/reportes/xlsx.core.min.js?v=10.3.0.3"></script>
-  <script src="../assets/js/modulos/reportes/FileSaver.min.js?v=10.3.0.3"></script>
-  <script src="../assets/js/modulos/reportes/tableexport.min.js?v=10.3.0.3"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.4"></script>
+  <script src="../assets/js/modulos/reportes/xlsx.core.min.js?v=10.3.0.4"></script>
+  <script src="../assets/js/modulos/reportes/FileSaver.min.js?v=10.3.0.4"></script>
+  <script src="../assets/js/modulos/reportes/tableexport.min.js?v=10.3.0.4"></script>
   {literal}
   <script type="text/javascript">
 

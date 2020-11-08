@@ -124,7 +124,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>
 </table>
 <table style="width: 100% !important;">
-  <tr>
+  <tr class="fe">
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
@@ -135,7 +135,7 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
     <td align="center">'.$datos[25].' de '.$datos[1].' N°</td>
   </tr>
   <tr>
-    <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
+    <td align="center"><span> '.$datos[0].' </span></td>
   </tr>
 </table>
 
@@ -354,9 +354,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.3"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.3"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.3"></script>
+ <script src="../assets/js/jquery.js?v=10.3.0.4"></script>
+ <script src="../assets/js/materialize.min.js?v=10.3.0.4"></script>
+ <script src="../assets/js/asgard.js?v=10.3.0.4"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
@@ -366,7 +366,8 @@ echo '
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
         resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
-      }
+      }else
+        $(".fe").hide()
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
 

@@ -16,6 +16,7 @@
 	   	$smarty->assign('NAV',$pg);
 	   	$moneda = $kakaroto->kamehameha('id,simbolo',54,'id > 0 and principal = 1');
 	   	$smarty->assign('MON',$moneda[0][1]);
+	   	$smarty->assign('CCIERRE',$kakaroto->kamehameha('ccierre',40,'idsucursal=@@impresa')[0][0]);
 	   	$smarty->assign('TMON',$kakaroto->kamehameha('id,nombre,idmoneda,valor',405,'id > 0 and idmoneda = '.$moneda[0][0]));
 	   	$smarty->display('v_cierres.tpl');
 	   }else{

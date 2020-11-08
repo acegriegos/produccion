@@ -154,7 +154,7 @@ $(function(){
         
     });
 
-    if(config[0] == '0' ){//simplificado
+    if(config[0] == '0' && config[31] != ''){//simplificado
         $("#dofe").removeClass('hide');
     }
 
@@ -2520,6 +2520,14 @@ function endDetail(vid,vacc,vmodulo) {
                         }
                     }
 
+                    if($("#cargarfact").attr('idcaja') != undefined){
+                        var caja = parseInt($("#cargarfact").attr('idcaja'));
+                        if (caja > 0) {
+                            ms = 1;
+                            set += 'caja = '+caja+',';
+                        }
+                    }
+
                     if(ms){
                         set = set.substr(0,set.length-1);
                         insertar(291,'idfactura',vid[0][0]);
@@ -2949,6 +2957,7 @@ function sendVMail(factura,clave,vid){
                 },2000);
             }
         }else{
+            console.log($("#lmp .mover").length)
             if(parseFloat($("#mxtot").val()) == 0)
                  setTimeout(function(){window.close();},2000);
             else{
@@ -3182,6 +3191,14 @@ function mixto(el){
 
                 if($("#impm:visible").length)
                     set += 'servmesero = '+tsr+',';
+
+                if($("#cargarfact").attr('idcaja') != undefined){
+                    var caja = parseInt($("#cargarfact").attr('idcaja'));
+                    if (caja > 0) {
+                        ms = 1;
+                        set += 'caja = '+caja+',';
+                    }
+                }
 
                 if(ms){
                     set = set.substr(0,set.length-1);

@@ -42,10 +42,10 @@
                 case 2:
                 case 3:
                   $caja = $log->kamehameha('',253,'"'.str_replace(' ', '', $_SERVER['REMOTE_ADDR']).'"');
-
+                  
                   if ($caja[0][0]) {
                     if ($caja[0][1]) {
-                      $_SESSION['CAJA']    = 1;
+                      $_SESSION['CAJA']    = $caja[0][1];
                       $mod = 'facturacion';
                     }else{
                       $_SESSION['CAJA']    = 0;

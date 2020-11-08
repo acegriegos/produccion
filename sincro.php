@@ -189,9 +189,10 @@
 
         $client = $base->ejecutar('call krattos("idcliente",'.$tbl.',"'.$whr.'")');
         if(isset($client->num_rows)){
-            if($client->num_rows)
-                $client = $base->ejecutar('call krattos("replace(cedula,\"-\",\"\")",2,"id='.$client->fetch_all()[0][0].' and !bisproveedor")')->fetch_all()[0][0];
-            else
+            if($client->num_rows){
+                $client = $base->ejecutar('call krattos("replace(cedula,\"-\",\"\")",2,"id='.$client->fetch_all()[0][0].' and !bisproveedor")')->fetch_all();
+                $client = isset($client[0][0]) ? $client[0][0] : '';
+            }else
                 $client = '';
         }else
             $client = '';

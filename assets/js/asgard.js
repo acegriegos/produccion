@@ -585,7 +585,7 @@ function loadpool(vmodulo,vid,vvarias){
         Materialize.toast(vmodulo,4000,'red');
         return false
     }
-
+    
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
     

@@ -4,9 +4,16 @@ var guser = '@@usr';
 $(function(){
 	 config = getDatos('',42,'@@impresa',0,0)[0][0];
 	
-	var hascaja = getDatos('monto',404,'fmonto is null and idusuario = @@usr and idsucursal = @@impresa',0,0,0);
+	var hascaja = getDatos('monto',404,'fmonto is null and caja = '+$("#BUSS").attr('idcaja')+' and idsucursal = @@impresa',0,0,0);
 	if(hascaja[0].length){
 		$("#mcierre").val(parseFloat(hascaja[0][0][0]).formatMoney(2,'.',',')).attr('readonly',true);
+	}else{
+		if($("#BUSS").attr('ccierre') == '0'){
+			$("#mcierre").focus().select()
+		}
+		else
+			$("#modal-tipomonedas").modal('open')
+
 	}
 
 	$("#tpc").change(function(){
@@ -103,7 +110,7 @@ $(function(){
 	});
 
 	if (parseInt($("#BUSS").val()) != 1) {
-		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
+		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") and caja = '+$("#BUSS").attr('idcaja'),0,0,0)[0][0];
 		if (monto == undefined) {
 			$(".tt").removeAttr('id')
 			$(".tt").addClass('tooltipped')
@@ -129,21 +136,27 @@ $(function(){
 			return false;
 		}
 
-		if(isNaN(valor)){
-			Materialize.toast('Valor Debe ser Numérico',4000,'red')
-			$("#mcierre").focus().select();
-			return false;
-		}
+		if($("#BUSS").attr('ccierre') == '1'){
+			$("#totalizar").attr('tp',2);
+			$("#totcashier").html(parseInt(valor).formatMoney(2,'.',','))
+			$("#modal-tipomonedas").modal('open');
+		}else{
+			if(isNaN(valor)){
+				Materialize.toast('Valor Debe ser Numérico',4000,'red')
+				$("#mcierre").focus().select();
+				return false;
+			}
 
-		if(valor <= 0){
-			Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
-			$("#mcierre").focus().select();
-			return false;
-		}
+			if(valor <= 0){
+				Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
+				$("#mcierre").focus().select();
+				return false;
+			}
 
-		$("#totalizar").attr('tp',2);
-		$("#totcashier").html(parseInt(valor).formatMoney(2,'.',','))
-		$("#modal-tipomonedas").modal('open');
+			var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0,'+$("#BUSS").attr('idcaja'));
+			Materialize.toast('Caja Iniciada Correctamente',4000,'green');
+			$("#mcierre").attr('readonly',true);
+		}
 	});
 
 	$('.chips').material_chip();
@@ -204,7 +217,7 @@ $(function(){
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
 	}else*/
-		arr('login',6,'',182,guser+',@@impresa',0,1,$("#listacierrespendientes"));
+		arr('login',6,'',182,guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
 });
 
 $(document).on("click","#refresh",function(){
@@ -271,7 +284,7 @@ $(document).on("blur",".mnd",function(){
 $(document).on("click","#totalizar",function(){
 	// chkcierre
 	var valor = $("#tcaja").html().replace(/,/g,'');
-	if(parseInt(valor) <= 0){
+	if(parseInt(valor) <= 0 && $("#BUSS").attr('ccierre') == '1'){
 		Materialize.toast('Debe Incluir un Desgloce de Monedas',4000,'red');
 		return false
 	}
@@ -281,7 +294,7 @@ $(document).on("click","#totalizar",function(){
 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
 	else{ //GUARDDAR INICIO DE CAJA
 		$("#mcierre").val(valor)
-		var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0');
+		var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0,'+$("#BUSS").attr('idcaja'));
 		guardarMonedas(0,lcinic[0][0][0])
 		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
 		$("#modal-tipomonedas").modal('close')
@@ -296,7 +309,7 @@ $(document).on("click","#docierre",function(){
 
 	/*if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');*/
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#vdoccierre").val()+'"',0,0,0);
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#BUSS").attr('idcaja')+'"',0,0,0);
 	console.log(idcierre)
 	idcierre = idcierre[0][0][0];
 	$(".cancel").parent().remove()
@@ -324,7 +337,7 @@ $(document).on("click",".getfacturas",function(){
 	var tabla = $("#data-table-facturas").DataTable();
 	tabla.destroy();
    
-    arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa',0,1,$("#listafacturas"));
+    arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
 
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
