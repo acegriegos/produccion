@@ -109,6 +109,11 @@
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
+
+<div class="col s6 m3 l2 per11 hide center-align">
+<a class="report pbtn" rep="servrest"><i class="mdi-48px mdi mdi-glass-wine"></i></a>
+<p>Servicio Restaurante</p>
+</div>
  
 </div>
 
@@ -201,6 +206,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.3.0.4"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.3.0.5"></script>
 </body>
 </html>

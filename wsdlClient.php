@@ -146,6 +146,7 @@
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$id);
                     $fe->loadXML_FILE($xml,$salida,$db,$_REQUEST['ced']);
+                    touch('./assets/xml/'.$id);
                 }
 
                 echo json_encode($salida);
@@ -1312,6 +1313,7 @@
 
                 }
             }
+
         }
 
         function estado()

@@ -131,7 +131,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.3.0.4">
+<link href="../assets/css/materialize.min.css?v=10.3.0.5">
 <style>
   *{
     font-size: 18px;
@@ -233,8 +233,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.3.0.4"></script>
-    <script src="../assets/js/materialize.min.js?v=10.3.0.4"></script>
+    <script src="../assets/js/jquery.js?v=10.3.0.5"></script>
+    <script src="../assets/js/materialize.min.js?v=10.3.0.5"></script>
 
      <script type="text/javascript">
    $(function(){

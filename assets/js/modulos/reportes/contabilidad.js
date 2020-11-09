@@ -11,7 +11,7 @@ $(function(){
             $(".excel").data('parametros')['conteo'] = conteo;
             $(".excel").data('parametros')['suma'] = suma;
             $("#titrep").html('Asientos');
-            arr('login',6,'',271,'"","",@@impresa,0,0',0,1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));;
+            arr('login',6,'',271,'"","",@@impresa,0,0',0,1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
             $("#vtrep").val(0);
              $(".principal .filtros").removeAttr('chg');
             break;
