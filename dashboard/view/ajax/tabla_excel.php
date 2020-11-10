@@ -85,15 +85,15 @@
         $tsuma = [];
         $column = 'A';
         $varray = explode(',', $vista);
-        
+
         foreach($varray as $index => $obj) {
           $objPHPExcel->setActiveSheetIndex(0)
-              ->setCellValue($column.($row-1), strtoupper($transaccion[1][$index]->name))
+              ->setCellValue($column.($row-1), strtoupper($transaccion[1][$obj]->name))
                ->getStyle($column.($row-1))->applyFromArray($styleArray);
 
           if(is_numeric(strpos($suma, ",".$obj.","))){
             $tsuma[$index]['valor'] = 0;
-            $tsuma[$index]['nombre'] = $transaccion[1][$index]->name;
+            $tsuma[$index]['nombre'] = $transaccion[1][$obj]->name;
             $tsuma[$index]['columna'] = $column;
           }
 

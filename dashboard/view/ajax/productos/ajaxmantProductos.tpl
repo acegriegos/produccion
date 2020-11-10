@@ -78,7 +78,7 @@
                         <label for="vfamilia">Familia</label>
                     </div>
 
-                    <div class="input-field marginzero col s12 hide">
+                    <div class="input-field marginzero col s12">
                         <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
                         <label for="vtipo">Tipo</label>
                     </div>
@@ -88,6 +88,8 @@
                         <label for="vmarca">Marca</label>
                     </div>
 
+                    <input type="hidden" id="idheredado">
+
                     <div class="col s12">
                         <div class="input-field">
                             <i class="mdi mdi-24px mdi-magnify prefix"></i>
@@ -95,7 +97,7 @@
                             <label for="scabys">Buscar Código CABYS</label>
                         </div>
 
-                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 10px" id="lcabys"></div>
+                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 16px" id="lcabys"></div>
                     </div>
 
                     <!-- <div class="col s6">
