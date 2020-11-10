@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Servicio Restaurante</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.5">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=mesero">
 </head>
 
 <body class="black">
@@ -16,7 +16,7 @@
     <div class="row header">
       <div class="col s4 m4 l4">
         {if $MIS[3] neq ''}
-        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%">
+        <img src="{$MIS[3]}" class="img-responsive" style="width: 60%;max-height: 150px">
         {/if}
       </div>
       <input type="hidden" id="vidinventario" value="6">  
@@ -40,7 +40,7 @@
 
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.5"></script>
-  <script src="../assets/js/modulos/reportes/servrest.js?v=10.3.0.5"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=mesero"></script>
+  <script src="../assets/js/modulos/reportes/servrest.js?v=mesero"></script>
 </body>
 </html>

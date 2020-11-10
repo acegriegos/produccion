@@ -7,8 +7,8 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Notas</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.3.0.5">
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=10.3.0.5">
+  <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=mesero">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-notas.css?v=mesero">
 </head>
 <body>
   {$NAV}
@@ -189,7 +189,7 @@
 </div>
 
   {$SCR}
-  <script src="../assets/js/dropzone.js?v=10.3.0.5"></script>
-  <script src="../assets/js/modulos/notas.js?v=10.3.0.5"></script>
+  <script src="../assets/js/dropzone.js?v=mesero"></script>
+  <script src="../assets/js/modulos/notas.js?v=mesero"></script>
 </body>
 </html>

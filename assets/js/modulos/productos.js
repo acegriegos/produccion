@@ -360,19 +360,6 @@ $(document).on("change","#visheredado",function(){
 	}
 });
 
-$(document).on("blur","#prodher",function(){
-	var idheredado = arr('login',4,'id,idunidad',11,'nombre like "%'+$(this).val()+'%"',0,0,0)[0][0];
-	$("#vidheredado").val(idheredado[0]);
-	$("#vinvheredado").val(idheredado[1]);
-	// if ($("#vidunidad").val() != idheredado[1]) {
-		$(".equivalente").removeClass('hide');
-		var uni = arr('login',4,'upper(nombre)',107,'id = '+idheredado[1],0,0,0)[0][0];
-		$("#ud_equiv").text(uni);
-	// }else{
-	// 	$(".equivalente").addClass('hide');
-	// }
-
-});
 
 $(document).on("click", ".delvar", function () {
 	var id = $(this).attr('id').substr(1);

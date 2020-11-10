@@ -298,8 +298,6 @@
                     <div class="col s4 m2 l2">
                         <input type="checkbox" id="visheredado" class="filled-in">
                         <label for="visheredado">Heredado</label>
-                        <input type="hidden" id="vidheredado" value="">
-                        <input type="hidden" id="vinvheredado" value="">
                     </div>
                     <div class="input-field col s4 m4 l4">
                         <input type="text" id="prodher" class="autocomplete" disabled autocomplete="off" value="0">
@@ -324,8 +322,6 @@
                     
                 </div>
             </div>
-
-            <input type="hidden" id="vidheredado" value="0">
 
         </div>
 
