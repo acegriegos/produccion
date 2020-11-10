@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Tarjetas</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-arrendamiento.css?v=mesero">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-arrendamiento.css?v=10.3.0.5">
   </head>
   <body>
     {$NAV}
@@ -143,6 +143,6 @@
   </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/arrendamiento.js?v=mesero"></script>
+    <script src="../assets/js/modulos/arrendamiento.js?v=10.3.0.5"></script>
   </body>
 </html>
