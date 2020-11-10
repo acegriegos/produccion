@@ -85,7 +85,7 @@
         $tsuma = [];
         $column = 'A';
         $varray = explode(',', $vista);
-
+        
         foreach($varray as $index => $obj) {
           $objPHPExcel->setActiveSheetIndex(0)
               ->setCellValue($column.($row-1), strtoupper($transaccion[1][$index]->name))

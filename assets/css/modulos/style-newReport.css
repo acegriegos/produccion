@@ -5,6 +5,7 @@ img{
 table thead{
   color: white;
   background-color: #0080C6;
+  border-bottom: 1px solid #e2e2e2;
 }
 
 .head1 {
