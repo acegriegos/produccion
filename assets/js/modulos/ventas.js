@@ -2957,14 +2957,13 @@ function sendVMail(factura,clave,vid){
                 },2000);
             }
         }else{
-            console.log($("#lmp .mover").length)
-            if(parseFloat($("#mxtot").val()) == 0)
-                 setTimeout(function(){window.close();},2000);
+            if(!$("#lmp .mover:visible").length)
+                setTimeout(function(){location.reload();},2000);
             else{
                 $("#montotar").val(0)
                 $("#montoefect").val($("#mxtot").val())
+                $("#pconm").val(0)
             }
-            //$("#tpg5").attr('value',-1);
         }
     }
 }
@@ -3094,10 +3093,6 @@ function mixto(el){
                     Materialize.toast('Valores no Validos',4000,'red');
                     return false;
                 }
-                // $("#tpg5").attr('value',5);
-                // $("#ffacturas .zelda").data('triforce')['vidtipopago'] = 5;
-
-                //el.click();
                 break;
             default:
                 break;
@@ -3173,8 +3168,11 @@ function mixto(el){
                     if(parseFloat($("#fd"+$(this).attr('idp')).data('triforce')['vcantidad']) <= 0){
                         $("#fd"+$(this).attr('idp')).remove();
                     }
-                         
-                    $(this).remove(); 
+                    
+                    if(!parseFloat($("#lmp .mover[ridp="+$(this).attr('ridp')+"] .lpcant").html()))
+                        $("#lmp .mover[ridp="+$(this).attr('ridp')+"]").remove()
+
+                    $(this).remove();
                 });
 
                 switch(parseInt($("[name=mxt_tp]:checked").attr('val'))){

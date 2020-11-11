@@ -201,7 +201,7 @@
         if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
           $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
         }
-        $arch = $_REQUEST['arreglo']['archivo'];
+        $arch = str_replace('^', '#', $_REQUEST['arreglo']['archivo']);
         $save = $_REQUEST['arreglo']['save'];
         $tit = $_REQUEST['arreglo']['tit'];
         $tit2 = isset($_REQUEST['arreglo']['tit2']) ? $_REQUEST['arreglo']['tit2'] : '' ;

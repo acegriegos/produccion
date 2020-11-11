@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Área Proveedor</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedor.css?v=10.3.0.5">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proveedor.css?v=10.3.0.6">
     
     </head>
     <body >
@@ -53,7 +53,7 @@
 
       </div>
       {$SCR}
-      <!-- <script src="../assets/libs/charts/dist/Chart.bundle.min.js?v=10.3.0.5"></scrsipt> -->
-      <script src="../assets/js/modulos/proveedor.js?v=10.3.0.5"></script>
+      <!-- <script src="../assets/libs/charts/dist/Chart.bundle.min.js?v=10.3.0.6"></scrsipt> -->
+      <script src="../assets/js/modulos/proveedor.js?v=10.3.0.6"></script>
     </body>
     </html>
