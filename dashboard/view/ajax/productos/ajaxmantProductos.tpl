@@ -88,7 +88,7 @@
                         <label for="vmarca">Marca</label>
                     </div>
 
-                    <input type="hidden" id="idheredado">
+                    <input type="hidden" id="idheredado" value="0">
 
                     <div class="col s12">
                         <div class="input-field">

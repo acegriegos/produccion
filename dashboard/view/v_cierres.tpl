@@ -45,7 +45,7 @@
       </div>
       <div class="row">
         <div class="col s3 m3 l3">
-          <ul class="collection with-header" id="listacierrespendientes"></ul>
+          <ul class="collection with-header" id="listacierrespendientes" style="font-size: 12px"></ul>
         </div>
         <div class="col s9 m9 l9 per7301 hide">
           <h4>Facturas</h4>

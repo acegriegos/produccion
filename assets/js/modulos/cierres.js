@@ -209,14 +209,14 @@ $(function(){
 
 	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
 
-	/*if (parseInt(config[11]) == 3){
+	if (parseInt(config[11]) == 3){
         
         $("#modal-usuario").modal({
 	        dismissible:false
 	    });
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
-	}else*/
+	}else
 		arr('login',6,'',182,guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
 });
 
