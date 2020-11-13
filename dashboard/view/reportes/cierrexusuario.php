@@ -198,7 +198,7 @@
       <?php if($cierre[22] > 0) echo 'Abonos Líquidos Cliente:<span style="float: right;">'.$cierre[22].'</span><br>'; ?>
       <?php if($cierre[23] > 0) echo 'Abonos Líquidos Proveedores: <span style="float: right;">'.$cierre[23].'</span><br>'; ?>
       Caja Inicial:<span style="float: right;"><?php echo number_format($cierre[14],2); ?></span><br>
-      Caja Reportada: <span style="float: right;"><?php $rep = $cierre[14] > 0 ? $cierre[12]-$cierre[14] : $cierre[12]; echo number_format($rep,2); ?></span><br>
+      Caja Reportada: <span style="float: right;"><?php $rep = $cierre[12]-$cierre[14] > 0 ? $cierre[12]-$cierre[14] : $cierre[12]; echo number_format($rep,2); ?></span><br>
       Caja del Sistema: <span style="float: right;"><?php echo number_format($cierre[13],2); ?></span><br>
       Diferencia: <span style="float: right;"><?php echo number_format($rep-$cierre[13],2); ?></span><br>
       <br>
