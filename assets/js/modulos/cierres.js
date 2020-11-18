@@ -220,39 +220,6 @@ $(function(){
 		arr('login',6,'',182,guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
 });
 
-$(document).on("click","#refresh",function(){
-	var tabla1 = $("#data-table-facturas").DataTable();
-	var tabla2 = $("#data-table-estadocuenta").DataTable();
-	tabla1.destroy();
-	tabla2.destroy();
-	arr('login',6,'',182,guser,0,1,$("#listacierrespendientes"));
-	$("#data-table-facturas").DataTable({
-	    bFilter: false,
-	    bScrollInfinite: true,
-	    bSort: false,
-	    bLengthChange: false,
-	    order: [],
-	    bPaginate: false,
-	    info: false
-	});
-	$("#data-table-estadocuenta").DataTable({
-        bFilter: false,
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
-    });
-	$("#tcontado").text('0.00');
-	$("#tcredito").text('0.00');
-	$("#tabono").text('0.00');
-	$("#tnotcre").text('0.00');
-	$("#tnotdeb").text('0.00');
-	$("#chkcierre").removeAttr('vfecha');
-	$(".tt").removeClass('modal-trigger');
-});
-
 $(document).on("click","#chkcierre",function(){
 	$("#totcashier").html(parseInt($("#mcierre").val().replace(/,/g,'')).formatMoney(2,'.',','))
 	$("#modal-tipomonedas").modal('open');
@@ -379,16 +346,6 @@ var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and i
 
 $(document).on("click","#filtro",function(){
 	$(".inv").show();
-});
-
-$(document).on("click","#order",function(){
-	if ($(this).attr('value') == 1) {
-		arr('login',6,'contador,fecha',182,'idusuario = '+guser+' order by fecha asc',0,1,$("#listacierrespendientes"));
-		$("#order").attr('value',2);
-	}else{
-		arr('login',6,'contador,fecha',182,'idusuario = '+guser+' order by fecha desc',0,1,$("#listacierrespendientes"));
-		$("#order").attr('value',1);
-	}
 });
 
 $(document).on("keyup","#vfecha",function(e){
@@ -540,7 +497,7 @@ function cargarSintax(){
 }
 
 function acceuser(rs){
-	arr('login',6,'',182,rs[0][0][0]+',@@impresa',0,1,$("#listacierrespendientes"));
+	arr('login',6,'',182,rs[0][0][0]+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
     guser = rs[0][0][0];
     $("#uname").removeClass('hide');
     if($("#mcierre").val() == '0'){

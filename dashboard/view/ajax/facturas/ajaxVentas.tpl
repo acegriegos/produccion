@@ -885,7 +885,7 @@
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
     <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <input type="text" class="form-control form-control-sm center numeric vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
@@ -974,7 +974,7 @@
       </div>
 
       <div class="col s12 input-field">
-          <input type="text" id="pconm" value="0.00" class="eder" tp="1" autocomplete="off">
+          <input type="text" id="pconm" value="0.00" class="eder vextra" tp="1" autocomplete="off">
           <label for="pconm">Paga Con</label>
       </div>
 
@@ -1260,4 +1260,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.3.0.6"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.3.0.7"></script>

@@ -1,6 +1,5 @@
 $(function(){
     var param = getParameterByName('rep');
-  
     switch(param){
         case 'invgen':
             arr('login',6,'',254,'6,@@impresa,"",-1,-1,-1,-1,-1','',1,$(".detrep")); 

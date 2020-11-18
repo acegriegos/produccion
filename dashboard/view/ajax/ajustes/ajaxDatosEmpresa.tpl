@@ -607,7 +607,7 @@
 {/if}
 {if $smarty.session.BUSS eq 0 || $smarty.session.BUSS eq 3}
 <li>
-    <div class="collapsible-header"><i class="mdi mdi-settings"></i><h5>Categorías</h5></div>
+    <div class="collapsible-header"><i class="mdi mdi-account-settings"></i><h5>Categorías</h5></div>
     <div class="collapsible-body">
         <div class="class-block">
             <div class="row pequeño">
@@ -741,7 +741,7 @@
 </li>
 {/if}
 <li>
-<div class="collapsible-header"><i class="mdi mdi-clock"></i><h5>Período Fiscal</h5></div>
+<div class="collapsible-header hide"><i class="mdi mdi-clock"></i><h5>Período Fiscal</h5></div>
 <div class="collapsible-body">
     <div class="card-block">
         <div class="row pequeño">

@@ -1389,6 +1389,14 @@ $(document).on("blur",".calcvv",function(){
 		}	
 	}
 
+	if($("#vcosto").val().replace(/,/g,'') > 0 && $("#vganancia").val().replace(/,/g,'') > 0){
+		costo = parseFloat($("#vcosto").val().replace(/,/,''))/parseFloat($("#vdivisa").val());
+		ganancia = parseFloat($("#vganancia").val().replace(/,/g,''));
+		var mdesc = ((ganancia*100)/(costo+ganancia));
+		$("#mdesc").html(mdesc.formatMoney(2,'.','.'))
+	}
+
+	Materialize.updateTextFields();
 });	
 
 
@@ -2228,7 +2236,8 @@ function endDetail(id, acc, modulo) {
 			var vestante = $("#vestante:visible").length ? $("#vestante").val().trim() : '';
 			var vcolumna = $("#vcolumna:visible").length ? $("#vcolumna").val().trim() : '';
 			var vfila = $("#vfila:visible").length ? $("#vfila").val().trim() : '';
-			actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'"','idproducto='+id[0][0])
+			var vadescuento = $("#adescuento").is(':checked') ? 1 : 0;
+			actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'",adescuento='+vadescuento,'idproducto='+id[0][0])
 
 			thorload(modulo);
 			deadclear(modulo);

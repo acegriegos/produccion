@@ -219,9 +219,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.6"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.6"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.6"></script>
+ <script src="../assets/js/jquery.js?v=10.3.0.7"></script>
+ <script src="../assets/js/materialize.min.js?v=10.3.0.7"></script>
+ <script src="../assets/js/asgard.js?v=10.3.0.7"></script>
  <script type="text/javascript">
   var salir = 0;
    $(function(){

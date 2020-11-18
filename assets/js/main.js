@@ -242,16 +242,18 @@ $(function(){
                 Materialize.toast('Nota Registrada Correctamente',4000,'green');
                 break;
             case 2:
-                console.log(actualizar(333,'nota="'+$("#_vnota").val()+'",idtipo='+$("#_vtiponota option:selected").val(),'id='+$(this).attr('vid')))
+                actualizar(333,'nota="'+$("#_vnota").val()+'",idtipo='+$("#_vtiponota option:selected").val(),'id='+$(this).attr('vid'))
                 Materialize.toast('Nota Editada Correctamente',4000,'green');
+                $("#_vnota").val('')
+                $("#_vtiponota").val(1).change()
+                $(this).attr('tp',1)
                 break;
             default:
-                console.log(eliminar(333,'id='+$(this).attr('vid')))
-                Materialize.toast('Nota Elminada Correctamente',4000,'green');
                 break;    
         }
         
         arr('login',6,'',334,'@@impresa,'+$(this).attr('idtabla')+','+$(this).attr('idfila'),0,1,$("#_listanotas"));
+        $(".notasprod[tbl="+$(this).attr('idtabla')+"][row="+$(this).attr('idfila')+"]").html($("._enota").parent().parent().find('td').eq(1).html())
     });
 
     var moneda = getDatos('nombre,id,valor+suma',54,'id > 0',0,0);

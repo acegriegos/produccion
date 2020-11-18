@@ -8,7 +8,9 @@
         <td class="white-text blue sinborde " style="text-align: center"><b>Costo</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Factor</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>UTIL1</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>VENTA</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>UTIL2</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>VENTA</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Notas</b></td>
       </tr>
     </thead>
@@ -38,7 +40,9 @@
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus1" style="border: 0px" value="<?php echo number_format($obj[12],2,'.','') ?>"/></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus2" style="border: 0px" value="<?php echo number_format($obj[14],2,'.','') ?>"/></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus3" style="border: 0px" value="<?php echo number_format($obj[16],2,'.','') ?>"/></td>
+        <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[24],2,'.',',') ?></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus4" style="border: 0px" value="<?php echo number_format($obj[17],2,'.','') ?>"/></td>
+        <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[15],2,'.',',') ?></td>
         <td style=" padding: 1px;text-align: right;"> <!-- <input type="text" class="eder browser-default focus5" style="border: 0px" value="<?php echo $obj[18]; ?>"/> --> <span class="notasprod" name="<?php echo $obj[2] ?>" tbl="11" row="<?php echo $obj[13]; ?>" style="cursor: pointer;"><?php echo $obj[18] ? $obj[18] : '---'; ?></span> </td>
        
     </tr>
@@ -60,6 +64,13 @@
 </table>
 
 <script type="text/javascript">
+
+    $(function(){
+        if($("#tuser").val() != '1'){
+            $(".detrep input").attr('readonly',true);
+        }
+    });
+
     $(".focus").click(function(){
         $(this).select()
     });

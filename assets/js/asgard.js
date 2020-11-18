@@ -14,7 +14,7 @@ $(function(){
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
     switch(code){
-        case 113: //ABRIR MENU
+        case 117: //ABRIR MENU
             $(".menu-btn").click();
             //$("#numtrans").focus();
             break;
@@ -49,6 +49,18 @@ $(document).on('click','.notasprod',function(){
     $("#_proname").html($(this).attr('name'));
     $("#modal-notasprod").modal('open')
     $("#_vnota").focus();
+});
+
+$(document).on('click','._enota',function(){
+    $("#mntNotas").attr('tp',2)
+    $("#mntNotas").attr('vid',$(this).parent().parent().attr('vid'));
+    $("#_vnota").val($(this).parent().parent().find('td').eq(1).html()).focus();
+});
+
+$(document).on('click','._dnota',function(){
+    console.log(eliminar(333,'id='+$(this).parent().parent().attr('vid')))
+    Materialize.toast('Nota Elminada Correctamente',4000,'green');
+    arr('login',6,'',334,'@@impresa,'+$("#mntNotas").attr('idtabla')+','+$("#mntNotas").attr('idfila'),0,1,$("#_listanotas"));
 });
 
 $(document).on('click','.closetoast',function(){

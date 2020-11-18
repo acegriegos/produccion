@@ -88,7 +88,7 @@
                         <label for="vmarca">Marca</label>
                     </div>
 
-                    <input type="hidden" id="idheredado" value="0">
+                    <input type="hidden" id="vidheredado" value="0">
 
                     <div class="col s12">
                         <div class="input-field">
@@ -232,6 +232,14 @@
                     </div>
                 {/if}
 
+                <div class="col s12 switch">
+                        <label>
+                          <input type="checkbox" id="adescuento" checked>
+                          <span class="lever tooltipped " data-tooltip="Aplicar Descuento en Facturación" data-position="button"></span>
+                          Aplicar Descuento
+                        </label>
+                    </div>
+
                 </div>
 
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px">
@@ -345,7 +353,9 @@
                     
                 </div>
                 <input type="checkbox" id="pu" >
-                    <label for="pu" class="col s6" style="padding: 0px; padding-left: 25px; margin-left: 2%;">Por Unidad</label>
+                    <label for="pu" style="padding: 0px; padding-left: 25px; margin-left: 2%;">Por Unidad</label>
+
+                    <label style="padding-left: 25px;">Max. Descuento: <span id="mdesc">0.00</span>% </label>
             <br><br>
             <div class="row" style="margin: 0;margin-top:20px;">
 

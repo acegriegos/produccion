@@ -2268,6 +2268,9 @@ function endDetail(vid,vacc,modulo){
 			$("input[name='idsucursal']").val(vid);
 			myDropzone.processQueue();
 			break;
+		case 'descuento':
+			console.log(vid);
+			break;
 		default:
 			setTimeout(function(){ deadclear(modulo); }, 100);
 			thorload(modulo);

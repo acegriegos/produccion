@@ -8,8 +8,31 @@ var imprimir = 1;
 
 $(window).keydown(function(e){
     var code = e.wich || e.keyCode
-
     switch(code){
+        case 112:
+            if(!$("#modal-tpagos:visible").length)
+                $("#facturar").click();
+            $("#tpg1").click();
+            return false;
+            break;
+        case 113:
+            if(!$("#modal-tpagos:visible").length)
+                $("#facturar").click();
+            $("#tpg2").click();
+            return false;
+            break;
+        case 114:
+            if(!$("#modal-tpagos:visible").length)
+                $("#facturar").click();
+            $("#tpg3").click();
+            return false;
+            break;
+        case 115:
+            if(!$("#modal-tpagos:visible").length)
+                $("#facturar").click();
+            $("#tpg5").click();
+            return false;
+            break;
         case 118: //PRODUCT LIST
             $("#lproductos").click();
             break;
@@ -2028,6 +2051,8 @@ function validarFactura() {
         $("#xo-sh").click()
         return 'Datos por llenar';
     }*/
+
+    //$("#ffacturas .zelda").data('triforce')['vextra'] = $(".vextra:visible").val();
 
     if(config[28] == '-1')
         return 'Su Llave CRIPTOGRAFICA a caducado, favor <a href="ajustes" class="btn" style="float:right"> Actualizar</a>';
