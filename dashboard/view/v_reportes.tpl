@@ -140,7 +140,7 @@ Inventario <hr>
 <p>Movimientos de Inventario</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic">
+<div class="col s6 m3 l2 center-align basic hide">
 <a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Movimiento de Costos-Ventas</p>
 </div>
@@ -162,7 +162,7 @@ Inventario <hr>
 
 </div>
 
-<div class="row">
+<div class="row per15 hide">
 Contabilidad <hr>
 
 <div class="col s6 m3 l2 center-align">
@@ -170,7 +170,7 @@ Contabilidad <hr>
 <p>Declaraciones Informativas</p>
 </div>
 
-<div id="conta">
+<div>
 
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="catalogo"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
