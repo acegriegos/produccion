@@ -3170,6 +3170,8 @@ function mixto(el){
                         limv = parseFloat($(this).attr('imv'))*parseFloat($(".lpcant",this).html());
                         lvidimpuesto = lvidimpuesto.split(',');
                         lvidimpuesto = lvidimpuesto[0]+','+lvidimpuesto[1]+','+limv+','+lvidimpuesto[3];
+                    }else{
+                        limv = 0;
                     }
 
                     detfactura = getDatos('',67,'1,0,'+factura+','+$(this).attr(lprod)+','+$(".lpcant",this).html()+','+rlinea.data('triforce')['vprecio']+','+parseFloat($(this).attr('descuento'))*parseFloat($(".lpcant",this).html())+',6,0,'+limv+',"",'+rlinea.data('triforce')['vidunidad']+',"'+lvidimpuesto+'","'+lviddescuento+'",0,""',0,0,0);

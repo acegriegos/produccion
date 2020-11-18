@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Cierre General</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.7">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.8">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -36,7 +36,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.7"></script>
-  <script src="../assets/js/modulos/reportes/cierres.js?v=10.3.0.7"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.8"></script>
+  <script src="../assets/js/modulos/reportes/cierres.js?v=10.3.0.8"></script>
 </body>
 </html>

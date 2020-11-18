@@ -121,21 +121,26 @@
     }
 
     if(!$json_arr['error'] && is_array($json_arr['rs'])){
+
         foreach ($json_arr['rs'] as $obj) {
             $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
 
             if($obj->idusuario != ''){
               $obj->bdy->idsucursal = $_SESSION['IMPRESA'];
             }
-
+            
             switch ($obj->acc) {
                 case 1:
                     echo "<br>INGRESANDO FILA ";
-                    print_r($base->ejecutar('insert into '.$tbl.' values('.substr(substr(json_encode(array_values((array)$obj->bdy)),1),0,-1).')'));
+                    print_r($base->ejecutar('insert into '.$tbl.' values('.substr(substr(json_encode(array_values((array)$obj->bdy),JSON_UNESCAPED_UNICODE),1),0,-1).')'));
                     break;
                 case 2:
                     echo "<br>ACTUALIZANDO FILA ";
-                    print_r($base->ejecutar('update '.$tbl.' set '.$obj->bdy.' where id = '.$obj->row));
+                    $line = '';
+                    foreach ((array)$obj->bdy as $key => $value) {
+                        $line .= $key.'="'.$value.'",';
+                    }
+                    print_r($base->ejecutar('update '.$tbl.' set '.substr($line,0,-1).' where id = '.$obj->row));
                     break;
                 case 3:
                     echo "<br>ELIMINANDO FILA ";
