@@ -1,7 +1,7 @@
 $(function(){
-    var orden = '0,1,2,3';
+    var orden = '0,1,2,3,4,5';
     var conteo = 1;
-    var suma = ',3,';
+    var suma = ',3,4,5,';
 
     arr('login',6,'',342,'"","",0,0',271,1,$(".detrep"),0,Array(Array('orden',orden),Array('conteo',conteo),Array('suma',suma)));
 
