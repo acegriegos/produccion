@@ -306,6 +306,9 @@ if (isset($_POST['respuestaXml'])) {
                   case 2:
                     $val = $base->ejecutar('call krattos("id",2,"cedula = \"'.$obj->bdy->cedula.'\" and bisproveedor = '.$obj->bdy->bisproveedor.'")')->fetch_all();
                     break;
+                  case 291:
+                    $val = $base->ejecutar('call krattos("id",291,"idfactura = '.$memory.')')->fetch_all();
+                    break;
                   case 64:
                     $val = $base->ejecutar('call krattos("id",64,"idsucursal='.$obj->bdy->idsucursal.' and consecutivo = \"'.$obj->bdy->consecutivo.'\" and idtipoventa = '.$obj->bdy->idtipoventa.'")')->fetch_all();
                     break;

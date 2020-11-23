@@ -213,9 +213,9 @@ echo '</table><div style="text-align: center;font-size:10px;" id="resolucion"></
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.8"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.8"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.8"></script>
+ <script src="../assets/js/jquery.js?v=10.3.0.9"></script>
+ <script src="../assets/js/materialize.min.js?v=10.3.0.9"></script>
+ <script src="../assets/js/asgard.js?v=10.3.0.9"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()

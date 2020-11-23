@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Inventarios</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.8">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.9">
   {literal}
   <style type="text/css">
     .detrep input{
@@ -18,7 +18,7 @@
 
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos" types="0,3,3,3,3,3" portipo="varios" tfiltrar=""></div>
+      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0,0" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos,CABYS" types="0,3,3,3,3,3,3" portipo="varios" tfiltrar=""></div>
       <input type="hidden" id="tuser" value="{$smarty.session.TIPO}">
       <!-- HEADER -->
     <div class="row header">
@@ -83,7 +83,7 @@
 </div>
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.8"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.8"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.9"></script>
 </body>
 </html>
