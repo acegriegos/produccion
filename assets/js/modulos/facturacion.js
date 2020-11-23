@@ -8,6 +8,8 @@ $(function(){
   param = param == '' || param == 1 ? 7 : parseInt(param) ;
 
   config = getDatos('',42,'@@impresa',0,0)[0][0];
+  if($(".per11:visible").length)
+    config['tp_rest'] = getDatos('valor',809,'descr="SIC_TP"')[0][0][0];
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 
@@ -1557,27 +1559,24 @@ function doplazo(vval){
 }
 
 function cargarFactura(vidp,asoc){
+
+    if($(".per11:visible").length){
+        $(".order").removeClass('hide');
+    }
+    
     var vfacturap = arr('login',6,'',163,vidp,0,1,$("#fdetallefacturas"));
     if(parseInt(asoc) == 1)
-        var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',261,'id=-1*'+vidp)[0][0];
+        var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',261,'id=-1*'+vidp);
     else
-        var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',64,'id='+vidp)[0][0];
+        var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',64,'id='+vidp);
     
+    facturah = facturah.length ? facturah[0][0] : '';
     if(facturah[1] == '0' && facturah[0] != '')
         $("#ncli").val(facturah[0]);
     
     $("#vreferencia").val(facturah[3]);
 
     idext = vidp;
-    if($("#impm:visible").length){
-        var vmobil = $(".addline").attr('tr') == 2 ? 1 : 0;
-        if($("#impm").is(':checked')){
-            $("#ffacturas .zelda").data('triforce')['idline'] = parseInt($("#ffacturas .zelda").data('triforce')['idline'])+1;
-            addline('-0','sr','',1,0,0,99,{iddescuento:0,descuento:0},0,0,0,0,'10% Servicios Restaurante','','',0,vmobil);        
-            $("#fd"+$("#ffacturas .zelda").data('triforce')['idline']).addClass('hide')
-        }
-        $(".order").removeClass('hide');
-    }
 
     if($("#prefact:visible").length){
         $("#prefact").attr('vid',parseInt(vidp)*-1)

@@ -118,6 +118,7 @@ for($i = 0; $i<sizeof($datos);$i++){
   if($datos[$i][11] <= 0){
   $sv += $datos[$i][6];
   $color = 'color:red;';
+  $datos[$i][11] = $datos[$i][11]*-1;
 
   if($datos[$i][11] == 0){
     $sv0 += $datos[$i][6];
@@ -166,7 +167,7 @@ for($i = 0; $i<sizeof($datos);$i++){
 
  //$html .= '<tr> <td colspan="2" align="left"><br><br><br><br>'. /*<br> <b>Saldo por Vencer 1 Dia:</b> <br> <b>Saldo por Vencer 8 Dias</b> <br> <b>Saldo por Vencer 15 Dias</b> <br> <b>Saldo por Vencer 30 Dias</b> <br> <b>Saldo por Vencer +30 Dias</b> <br> */'<b>Saldo sin Vencer:</b> </td> <td colspan="2" align="right"><br><br><br><br>'./* <br>'.number_format($spv1,2).' <br>'.number_format($spv8,2).' <br>'.number_format($spv15,2).' <br>'.number_format($spv30,2).' <br>'.number_format($spvm30,2).' <br> '.*/number_format($ssv,2).'</td> <td></td> <td colspan="2" align="left"><br><br><br><br>'./* <b>Saldo Vencido Hoy:</b> <br> <b>Saldo Vencido 1 Dia:</b> <br> <b>Saldo Vencido 8 Dias</b> <br> <b>Saldo Vencido 15 Dias</b> <br> <b>Saldo Vencido 30 Dias</b> <br> <b>Saldo Vencido +30 Dias</b> <br>*/ '<b>Saldo Vencido:</b></td> <td colspan="2" align="right"><br><br><br><br>'./*.number_format($sv0,2).' <br>'.number_format($sv1,2).' <br>'.number_format($sv8,2).' <br>'.number_format($sv15,2).' <br>'.number_format($sv30,2).' <br>'.number_format($svm30,2).' <br> '.*/number_format($sv,2).'</td> </tr></table></td></tr></table>';
 
-$html .= '</table></td></tr></table>';
+  $html .= '</table></td></tr></table>';
 
 
 //<br>ESTA FACTURA DEVENGARA INTERES MORATORIA DEL 4% MENSUAL.

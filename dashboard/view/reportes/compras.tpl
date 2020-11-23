@@ -7,7 +7,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Compras Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.81">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.2.0.91">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -38,7 +38,7 @@
     </div>
     
     <small id="leyenda"></small>
-    F: Factura, T: Tickete<br>
+    F: Factura, T: Tickete, C: Compra Electrónica, M: Compra Manual<br>
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
@@ -60,8 +60,8 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.81"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.81"></script>
-  <script src="../assets/libs/jspdf/jspdf.js?v=10.2.0.81"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.2.0.91"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.2.0.91"></script>
+  <script src="../assets/libs/jspdf/jspdf.js?v=10.2.0.91"></script>
 </body>
 </html>

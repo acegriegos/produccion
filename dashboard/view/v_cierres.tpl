@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.81">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.2.0.91">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.81"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.81"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.2.0.91"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.2.0.91"></script>
     <![endif]-->
   </head>
   <body> 
@@ -21,7 +21,7 @@
     {$NAV}
     <div class="bdy">
       <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}">
-      <div class="switch der">
+      <div class="switch der hide">
           <label>
             <span class="hide-on-small">Manual</span>
             <input type="checkbox" id="tpc" checked>
@@ -36,12 +36,11 @@
           <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
           <label for="mcierre">Inicio de Caja</label>
         </div>
-        <a class="btn waves-effect waves-light blue right" id="refresh" style="margin-left: 15px;"><i class="mdi mdi-refresh mdi-24px"></i>Actualizar</a>
         <a class="waves-effect waves-light btn blue right" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
         <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>
         <input type="hidden" class="zelda">
       </div>
-      <div class="row">
+      <div class="row hide per7301">
         <div class="col s3 m3 l3">
           <ul class="collection with-header" id="listacierrespendientes"></ul>
         </div>
@@ -164,12 +163,12 @@
             </div>
             {/section}
             <div class="row">
-                <div class="col s4 input-field">
+                <div class="col s4 input-field hide">
                   <input type="text" id="vcuentacierre" autocomplete="off">
                   <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>
                 </div>
 
-                <div class="col s4 input-field">
+                <div class="col s4 input-field hide">
                   <input type="text" id="vdoccierre" autocomplete="off">
                   <label for="vdoccierre">Documento de Depósito</label>
                 </div>
@@ -201,24 +200,8 @@
       </div>
     </div>
 
-    <div id="modal-usuario" class="modal modal-fixed-footer mymodal">
-  <div class="modal-content" >
-    <h4 class="center">Autenticar Usuario</h4>
-   
-    <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="password" id="ecouser" autocomplete="off" maxlength="64" autosave="off">
-        <label for="ecouser">Código</label>
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
-  </div>
-</div>
-
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.2.0.81"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.2.0.91"></script>
   </body>
 </html>

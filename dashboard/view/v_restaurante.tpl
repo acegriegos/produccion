@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>{$smarty.session.EMPRESA}</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.81">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-restaurante.css?v=10.2.0.91">
   </head>
   <body>
     {$NAV}
@@ -27,10 +27,12 @@
       <div class="row center head1" style="margin-bottom: 0px;background-color: #01579b;">
         <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span>
       </div>
+      
+     {if $BARRAS.length}
       <div class="row ">
         <h6 class="col s6 m2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
       </div>
-     
+
       <div class="row" id="barras">
       
         {section name=LE loop=$BARRAS}
@@ -44,6 +46,8 @@
         {/section}
         
       </div>
+
+      {/if}
 
       <div class="row center head1" style="margin-bottom: 0px;height: 20px;background-color: #01579b;">
         
@@ -59,10 +63,13 @@
 
 
       <div class="row" id="mesas">
+
+        <div class="col s6 m2 black-text barra center" style="background: url('../assets/img/espress2.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="99" id="m99" estado="0">
+       <span id="sm99"><strong style="color: white;"><b></b></strong></span>
+        </div> 
   
         {section name=LE loop=$MESAS}
-        <!-- <div class="center col s2 btn black-text mesa" style="border: 1px solid #e2e2e2; background-color: white;padding: 0.5%;margin: 0.5%;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1"> {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
-        </div> -->
+
         <div class="col s6 m2 black-text mesa center" style="background: url('../assets/img/mesa.png');padding: 0.5%;margin: 0.5%;background-repeat: no-repeat;background-size: 100%;border-radius: 50%;height: 125px;width: 125px;background-color: white;border: 3px solid black; cursor: pointer;" nmesa="{$MESAS[LE][1]}" id="m{$MESAS[LE][0]}" estado="1">
           {$MESAS[LE][1]} <span id="sm{$MESAS[LE][0]}"></span>
         </div>
@@ -140,12 +147,22 @@
             </div>
           <div class="col s12 l9" style="border-left: 1px solid black;height: 80vh;" id="listgeneral">
             <div class="row col s12" style="margin: 0px;">
-              <select class="browser-default col s4" id="lfam"> 
-                {section name=LE loop=$FAM}
+              <select class="col s4" id="lfam"> 
+                <!-- {section name=LE loop=$FAM}
                   <option value="{$FAM[LE][0]}">{$FAM[LE][1]}</option>
-                {/section}
+                {/section} -->
+                <option value="0">Todos</option>
+                <option value="1">Entrada</option>
+                <option value="2">Plato Fuerte</option>
+                <option value="3">Postre</option>
+                <option value="4">Bebida</option>
+                <option value="5">Desayuno</option>
+                <option value="4">Bebida</option>
+                <option value="7">Extra</option>
               </select>
               <input type="text" placeholder="Buscar Producto" class="der col s8" style="width: 50%" id="sprod" autocomplete="off">
+
+              <a href="#!" class="btn" id="dofact" style="float: right;">Facturar</a>
             </div>
             
             <!-- <ul>
@@ -201,6 +218,6 @@
             </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.81"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.2.0.91"></script>
   </body>
 </html>

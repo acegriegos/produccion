@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.81">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.2.0.91">
   <body >
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
@@ -30,7 +30,7 @@
       <div id="mfacturacion"></div>
     </div>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.81-2"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.2.0.91"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">

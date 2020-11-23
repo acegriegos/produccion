@@ -6,6 +6,7 @@ var opcompras = '<option value="1">Compra</option> <option value="2">Gasto</opti
 
 $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
+    loadmybussiness();
 
     $('[href="#modal-getxml"]').click(function(){
         $("#modal-getxml").modal('open')
@@ -24,7 +25,8 @@ $(function(){
             type: "post",
             data: {accion:15,arreglo:1,server:config[18],ced:sucursal[0],isp:sucursal[1]}
         })
-            .done(function(res){  
+            .done(function(res){
+                console.log(res);
                 var str = '';
                 $("#data-table-compras").hide();
                 var tabla = $("#data-table-compras").DataTable();   
@@ -327,13 +329,13 @@ $(document).on("click",".status",function(){
 });
 
 $(document).on("click",".shcompra",function(){
-    var dtcompra = getDatos('format(cantidad,2),idunidad,comodin,format(descuento,2),format(idpaquete,2),format(idimpuestos,2),format((precio*cantidad)+(imv*(1-(idpaquete/100)))-descuento,2) as total',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
+    var dtcompra = getDatos('format(cantidad,2),idunidad,comodin,format(descuento,2),format(idpaquete,2),format(idimpuestos,0),format((precio*cantidad)+(imv*(1-(idpaquete/100)))-descuento+iddescuentos,2) as total,format(iddescuentos,2)',263,'idfactura = '+$(this).parent().parent().attr('id').substr(2),0,0,0);
     $("#modal-shcompra").modal('open');
     $("#bdtompras").html();
 
     var str = '';
     for (var i = 0; i < dtcompra[0].length; i++) {
-        str += '<tr> <td class="hide"><select class="browser-default tcompraa">'+opcompras+'</select></td> <td>'+dtcompra[0][i][0]+'</td><td>'+dtcompra[0][i][1]+'</td><td>'+dtcompra[0][i][2]+'</td><td>'+dtcompra[0][i][3]+'</td> <td>'+dtcompra[0][i][4]+'</td> <td>'+dtcompra[0][i][5]+'</td> <td>'+dtcompra[0][i][6]+'</td></tr>';
+        str += '<tr> <td class="hide"><select class="browser-default tcompraa">'+opcompras+'</select></td> <td>'+dtcompra[0][i][0]+'</td><td>'+dtcompra[0][i][1]+'</td><td>'+dtcompra[0][i][2]+'</td><td>'+dtcompra[0][i][3]+'</td> <td>'+dtcompra[0][i][4]+'</td> <td>'+dtcompra[0][i][5]+'</td> <td>'+dtcompra[0][i][7]+'</td> <td>'+dtcompra[0][i][6]+'</td></tr>';
     }
     $("#bdtompras").html(str);
 })

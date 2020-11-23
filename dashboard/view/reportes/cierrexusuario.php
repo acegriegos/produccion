@@ -1,11 +1,136 @@
-<?php $config = $kakaroto->kamehameha('',42,'@@impresa')[0];?>
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa')[0];
+  $lista = '';
+
+  $det = $kakaroto->kamehameha('',339,$cierre[0]);
+  $gravado = '';
+  $exento = '';
+  $descuento = 'Descuentos:<span style="float: right;">'.$cierre[25].' </span><br>';
+  foreach ($det as $dobj) {
+    if($dobj[0] == 0)
+      $exento .= 'Excento:<span style="float: right;">'.number_format($dobj[1],2).' </span><br>';
+    else{
+      $gravado .= 'Gravado al '.$dobj[0].'%:<span style="float: right;">'.number_format($dobj[1],2).' </span><br>';
+      $gravado .= 'IVA al '.$dobj[0].'%:<span style="float: right;">'.number_format($dobj[2],2).' </span><br>';
+    }
+  }
+  switch($config[13]){ 
+    case 1:
+      $lista = '<table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
+        <thead>
+          <tr>
+            <th colspan="3" align="center">Facturas</th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th >Consecutivo</th>
+            <th >T.Pago</th>
+            <th >Total</th>
+          </tr>
+        </thead>
+        <tbody>';
+        foreach ($cierreg as $obj) {
+          $lista .= ' <tr class="tr" >
+            <td ><span id="con" >'.$obj[11].'</span></td>
+            <td ><span id="pag" >'.$obj[15].'</span></td>
+            <td align="right"><span  >'.number_format($obj[16],2).'</span></td>
+          </tr>';
+        }
+        $lista .= '</tbody>
+      </table>
+      <br>
+      
+      <table style="border: 0px; font-size: 1em;width: 100%;">
+        <thead>
+          <tr>
+            <th colspan="3" align="center">Notas y abonos</th>
+          </tr>
+        </thead>
+        <thead class=" blue-grey white-text imprimirSINBOR margen">
+          <tr>
+            <th >Factura</th>
+            <th >Nota/Abono</th>
+            <th align="right">Valor</th>
+          </tr>
+        </thead>
+        <tbody >Notas y Abonos';
+
+        foreach ($estados as $obj) {
+          $lista .= '<tr class="tr" >
+            <td ><span id="con">'.$obj[0].'</span></td>
+            <td ><span id="fec">'.$obj[1].'</span></td>
+            <td ><span id="pag">'.number_format($obj[4],2).'></span></td>
+          </tr>';
+        }
+        break;
+      case 2:
+        $lista = ' <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
+        <thead>
+          <tr>
+            <th colspan="2" align="center">Productos</th>
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Cantidad</th>
+            <th >Producto</th>
+            <th >Total</th>
+          </tr>
+        </thead>
+        <tbody >';
+        foreach ($cierreg as $obj) {
+          $lista .= '<tr class="tr" >
+            <td align="left">'.$obj[24].'</td>
+            <td ><span>'.$obj[11].'</span></td>
+            <td align="right"><span>'.number_format($obj[16],2).'</span></td>
+          </tr>';
+        }
+        $lista .= '</tbody>
+        </table>
+        <br>';
+        break;
+      case 3:
+        $lista = '<br>
+        <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
+        <!-- <thead>
+          <tr>
+            <th colspan="3" align="center">Familias</th>
+          </tr>
+        </thead> -->
+        <thead>
+          <tr>
+            <th>Cantidad</th>
+            <th>Familia</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody >';
+
+        if($config[13] == 3)
+          foreach ($cierreg as $obj) {
+
+            $lista .= '<tr class="tr" >
+              <td align="left">'.$obj[37].'</td>
+              <td ><span>'.$obj[36].'</span></td>
+              <td align="right"><span>'.number_format($obj[38],2).'</span></td>
+            </tr>';
+          }
+
+        $lista .= '</tbody>
+      </table>';
+        break; 
+      default:
+        break;
+  }
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.2.0.81">
+<link href="../assets/css/materialize.min.css?v=10.2.0.91">
 <style>
   @media print {
     .print{
@@ -55,10 +180,7 @@
       Total Ventas a Contado:<span style="float: right;"><?php echo $cierre[3]; ?></span><br>
       Total Ventas a Crédito:<span style="float: right;"><?php echo $cierre[2]; ?></span><br> 
       <br>
-      Gravado:<span style="float: right;"><?php echo $cierre[24]; ?></span><br>
-      Excento:<span style="float: right;"><?php echo $cierre[22]; ?></span><br>
-      Descuentos:<span style="float: right;"><?php echo $cierre[25]; ?></span><br>
-      IVA:<span style="float: right;"><?php echo $cierre[17]; ?></span><br>
+      <?php echo $gravado.$exento.$descuento; ?>
       Ventas Totales: <span style="float: right;"><?php echo $cierre[15]; ?></span><br>
       <br>
       Abonos Clientes: <span style="float: right;"><?php echo $cierre[4]; ?> </span> <br>
@@ -74,124 +196,11 @@
       Caja Inicial:<span style="float: right;"><?php echo $cierre[14]; ?></span><br>
       Caja Reportada: <span style="float: right;"><?php echo $cierre[12]; ?></span><br>
       Caja del Sistema: <span style="float: right;"><?php echo number_format(str_replace(',', '', $cierre[7])+str_replace(',', '', $cierre[22])-str_replace(',', '', $cierre[5])+str_replace(',', '', $cierre[6])+str_replace(',', '', $cierre[19])-str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[14]),2); ?></span><br>
-      <br>
-      Depósito:<span style="float: right;"><?php echo $cierre[20]; ?></span><br>
-      Cuenta:<span style="float: right;"><?php echo $cierre[26]; ?></span><br>
-      Documento:<span style="float: right;"><?php echo $cierre[27]; ?></span><br>
     </div>
      
       <!-- /INFO CONTACTO -->
       <!-- DETALLE FACT -->
-      <?php switch($config[13]){ case 1: ?>
-      <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
-        <thead>
-          <tr>
-            <th colspan="3" align="center">Facturas</th>
-          </tr>
-        </thead>
-        <thead>
-          <tr>
-            <th >Consecutivo</th>
-            <th >T.Pago</th>
-            <th >Total</th>
-          </tr>
-        </thead>
-        <tbody >
-          <?php foreach ($cierreg as $obj) {?>
-          <tr class="tr" >
-            <td ><span id="con" ><?php echo $obj[11]; ?></span></td>
-            <td ><span id="pag" ><?php echo $obj[15]; ?></span></td>
-            <td align="right"><span  ><?php echo number_format($obj[16],2); ?></span></td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-      <br>
-      <!-- DETALLE FACT -->
-      <table style="border: 0px; font-size: 1em;width: 100%;">
-        <thead>
-          <tr>
-            <th colspan="3" align="center">Notas y abonos</th>
-          </tr>
-        </thead>
-        <thead class=" blue-grey white-text imprimirSINBOR margen">
-          <tr>
-            <th >Factura</th>
-            <th >Nota/Abono</th>
-            <th align="right">Valor</th>
-          </tr>
-        </thead>
-        <tbody >Notas y
-          <?php foreach ($estados as $obj) {?>
-          <tr class="tr" >
-            <td ><span id="con"><?php echo $obj[0]; ?></span></td>
-            <td ><span id="fec"><?php echo $obj[1]; ?></span></td>
-            <td ><span id="pag"><?php echo number_format($obj[4],2); ?></span></td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-      <?php break;
-            case 2:
-      ?>
-      <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
-        <thead>
-          <tr>
-            <th colspan="2" align="center">Productos</th>
-          </tr>
-        </thead>
-        <thead>
-          <tr>
-            <th>Cantidad</th>
-            <th >Producto</th>
-            <th >Total</th>
-          </tr>
-        </thead>
-        <tbody >
-          <?php foreach ($cierreg as $obj) {?>
-          <tr class="tr" >
-            <td align="left"><?php echo $obj[24]; ?></td>
-            <td ><span><?php echo $obj[11]; ?></span></td>
-            <td align="right"><span><?php echo number_format($obj[16],2); ?></span></td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-      <br>
-      <?php 
-      break;
-      case 3:
-        ?>
-        <br>
-        <table style="border: 0px; font-size: 1em; width: 100%" id="detalle">
-        <!-- <thead>
-          <tr>
-            <th colspan="3" align="center">Familias</th>
-          </tr>
-        </thead> -->
-        <thead>
-          <tr>
-            <th>Cantidad</th>
-            <th>Familia</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody >
-          <?php foreach ($cierreg as $obj) {?>
-          <tr class="tr" >
-            <td align="left"><?php echo $obj[37]; ?></td>
-            <td ><span><?php echo $obj[36]; ?></span></td>
-            <td align="right"><span><?php echo number_format($obj[38],2); ?></span></td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-
-      <?php
-        break;
-      default:
-            break;
-            } ?>
+      <?php echo $lista; ?>
       <br>
       <!-- INFO FACT -->
       <div class="row">
@@ -217,8 +226,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.2.0.81"></script>
-    <script src="../assets/js/materialize.min.js?v=10.2.0.81"></script>
+    <script src="../assets/js/jquery.js?v=10.2.0.91"></script>
+    <script src="../assets/js/materialize.min.js?v=10.2.0.91"></script>
 
      <script type="text/javascript">
    $(function(){

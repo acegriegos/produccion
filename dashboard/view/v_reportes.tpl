@@ -161,7 +161,7 @@ Inventario <hr>
 Contabilidad <hr>
 
 <div class="col s6 m3 l2 center-align">
-<a class="report pbtn" rep="d151"><i class="mdi-48px mdi mdi-chart-scatterplot-hexbin"></i></a>
+<a class="report pbtn" rep="d151"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
 <p>Declaraciones Informativas</p>
 </div>
 
@@ -199,6 +199,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.81"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.2.0.91"></script>
 </body>
 </html>

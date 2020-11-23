@@ -152,10 +152,24 @@
                 </div>
 
                 <div class="row" style="margin: 0;padding: 0">
-                    <div class="input-field col s12 m6 precio" >
+                    <div class="col s12 m4">
+                        <div class="input-field">
+                            <i class="mdi mdi-24px mdi-magnify prefix"></i>
+                            <input type="text" id="scabys" autocomplete="off">
+                            <label for="scabys">Buscar Código CABYS</label>
+                        </div>
+
+                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 10px" id="lcabys"></div>
+
+                        <div class="input-field">
+                            <input type="text" id="vcabys" maxlength="13" class="eder" autocomplete="off">
+                            <label for="vcabys">Codigo Cabys</label>
+                        </div>
+                    </div>
+
+                    <div class="input-field col s12 m5 precio" >
 
                         <span class="prefix moneda"></span>
-
                         <input id="vprecio" type="text" class="eder" value="0" autocomplete="off">
                         <label for="vprecio">Precio</label>
 

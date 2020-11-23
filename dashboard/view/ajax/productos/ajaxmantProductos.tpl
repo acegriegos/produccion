@@ -70,12 +70,22 @@
                         <label for="vtipo">Tipo</label>
                     </div>
 
-                    <div class="input-field marginzero col s12 hide">
+                    <div class="input-field marginzero col s12">
                         <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
                         <label for="vmarca">Marca</label>
                     </div>
 
-                    <div class="col s6">
+                    <div class="col s12">
+                        <div class="input-field">
+                            <i class="mdi mdi-24px mdi-magnify prefix"></i>
+                            <input type="text" id="scabys" autocomplete="off">
+                            <label for="scabys">Buscar Código CABYS</label>
+                        </div>
+
+                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 10px" id="lcabys"></div>
+                    </div>
+
+                    <!-- <div class="col s6">
                         <label for="cat1">Categoria 1</label>
                         <select class="browser-default" id="cat1">
                             <option>1</option>
@@ -117,11 +127,11 @@
                         <select class="browser-default" id="cat8">
                             <option>--</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="col s12 input-field" style="margin-top: 20px;">
-                        <input type="text" id="cabys" maxlength="13" class="eder">
-                        <label for="cabys">Codigo Cabys</label>
+                        <input type="text" id="vcabys" maxlength="13" class="eder" autocomplete="off">
+                        <label for="vcabys">Codigo Cabys</label>
                     </div>
 
                 </div>
@@ -176,6 +186,9 @@
                             <option value="2">Plato Fuerte</option>
                             <option value="3">Postre</option>
                             <option value="4">Bebida</option>
+                            <option value="5">Desayuno</option>
+                            <option value="4">Bebida</option>
+                            <option value="7">Extra</option>
                         </select>
                         <label for="vidvarios">Tipo Plato</label>
                     </div>

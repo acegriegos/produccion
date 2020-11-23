@@ -7,7 +7,7 @@
         <meta http-equiv="Cache-Control" content="max-age=86400"/>
         <title>Taller</title>
         {$STY}
-        <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.2.0.81">
+        <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.2.0.91">
     </head>
     
     <body>
@@ -150,43 +150,42 @@
                             <div class="modal-content" style="margin:0px;">
 
                               <div class="row">
-                                <div class="col s4">
-                                  <div class="input-field">
+                                <div class="col s4" style="margin-top: 1rem;">
+                                  <div class="input-field" style="margin-top: 0;">
                                     <input type="text" id="det-elem-placa" maxlength="60" class="eder" tp="1">
                                     <label for="det-elem-placa">Placa</label>
                                   </div>
 
-                                  <div class="input-field">
+                                  <div class="input-field" style="margin-top: 0;">
                                     <input type="text" id="det-elem-cilindraje" maxlength="60" class="eder" tp="2">
                                     <label for="det-elem-cilindraje">Cilindraje</label>
                                   </div>
 
-                                  <div class="input-field">
+                                  <div class="input-field" style="margin-top: 0;">
                                     <input type="number" min="1690" max="2050" id="det-elem-ano" class="eder" tp="3">
                                     <label for="det-elem-ano">Año</label>
                                   </div>
                                 </div>
 
                                 <div class="col s4">
-                                  <section>
-                                  <label for="det-elem-tipodemotor" tp="4">Tipo de Motor</label>
-                                  <select id="det-elem-tipodemotor" class="browser-default">
-                                    <option value="5">Manual</option>
-                                    <option value="6">Automatico</option>
-                                  </select>
-                                  </section>
 
-                                  <section>
-                                    <label for="det-elem-depuno">Marca</label>
-                              <select class="browser-default" tp="7" id="det-elem-depuno"></select>
-                                  </section>
+                                  <div class="input-field">
+                                    <label for="det-elem-tipodemotor" tp="4" class="active">Tipo de Motor</label>
+                                    <select id="det-elem-tipodemotor">
+                                      <option value="5">Manual</option>
+                                      <option value="6">Automatico</option>
+                                    </select>
+                                  </div>
 
-                                  <section>
-                                     <label for="det-elem-depdos">Modelo</label>
-                              <select class="browser-default" tp="8" id="det-elem-depdos">
-                                
-                              </select>
-                                  </section>
+                                  <div class="input-field-">
+                                    <label for="det-elem-depuno" class="active">Marca</label>
+                                    <select tp="7" id="det-elem-depuno" class="browser-default"></select>
+                                  </div>
+
+                                  <div class="input-field">
+                                    <label for="det-elem-depdos" class="active">Modelo</label>
+                                    <select tp="8" id="det-elem-depdos"></select>
+                                  </div>
                                 </div>
 
                                 <div class="col s4"></div>
@@ -323,6 +322,6 @@
         </div>
 
         {$SCR}
-        <script src="../assets/js/modulos/taller.js?v=10.2.0.81"></script>
+        <script src="../assets/js/modulos/taller.js?v=10.2.0.91"></script>
     </body>
 </html>                                         

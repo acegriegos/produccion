@@ -33,7 +33,7 @@
     <div class="userView">
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
-         <p class="white-text">{$smarty.session.NOM}</p>
+         <p class="white-text" style="margin: 0px;font-size: 12px;max-width: 100%;word-break: break-all;white-space: normal;overflow-x: auto;max-height: 55px;overflow-y: hidden;">{$smarty.session.NOM}</p>
          <ul class="collapsible collapsible-accordion">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</i></a>
@@ -192,7 +192,10 @@
       {/literal}
 {php} break; defualt: break;} {/php}
   <li class="gtext per12"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
-    <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
+
+  <li class="gtext hide" id="help"><a href="#" class="black-text"><i class="mdi mdi-lifebuoy mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Centro de Ayuda</span></a></li>
+  
+  <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
 </ul>
 
@@ -401,6 +404,16 @@
   </div>
 </div>
 
+ <div id="modal-help" class="modal modal-fixed-footer" style="border-bottom: 1px solid #e3e3ee;">
+   <div class="modal-header head3"> <h4 class="center">Centro de Ayuda APSY</h4>  </div>
+  <div class="modal-content">
+    <a href="#" class="btn">Estado de las Incidencias <i class="mdi mdi-24px mdi-magnify"></i></a>
+  </div>
+  <div class="modal-footer" style="padding-bottom: 55px;">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
 <ul id="gextra" class="side-nav side-nav-flujo" style="z-index: 2500 !important;">
   <div class="card-header blue white-text center">
     <h5 style="margin: 0px;">Lista Entradas y Salidas</h5>
@@ -422,4 +435,21 @@
 
 <ul id="extra" class="side-nav side-nav-conta1" >
 <iframe src="" id="extra-i" style="width: 100%;height: 100vh;"></iframe>
+
 </ul>
+
+<div id="modal-usuario" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
+    <h4 class="center">Autenticar Usuario</h4>
+   
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="password" id="ecouser" autocomplete="new-password" maxlength="64" autosave="off">
+        <label for="ecouser">Código</label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>

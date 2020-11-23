@@ -8,6 +8,10 @@ $(function(){
         $("#cpu").click()
     });
 
+    $("#help").click(function(){
+        $("#modal-help").modal('open'); 
+    }); 
+
     $('.button-collapses').sideNav({
         menuWidth: 300, // Default is 240
         edge: 'left', // Choose the horizontal origin
@@ -52,6 +56,45 @@ $(function(){
             console.log('opcion no valida');
                 break
         }
+    });
+
+    $("#ecouser").keyup(function(e){
+        var code = e.wich || e.keyCode;
+
+        if (code == 13)
+            $("#accecouser").click();
+    });
+
+    $("#exitcouser").click(function(){
+        $("#modal-usuario").modal('close');
+        $("#facturar").attr('disabled',true)
+    });
+
+     $("#accecouser").click(function(){
+
+        var cod =  $("#ecouser").val();
+        var rs = getDatos('',137,'"'+cod+'"',0,0,0);
+        if(parseInt(rs['succed'])){
+            if (rs[0].length){
+                $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
+                $("#username").html(rs[0][0][1])
+                $("#username").parent().parent().removeClass('hide')
+                $("#modal-usuario").modal('close');
+                pril.focus()
+            }
+            else{
+                Materialize.toast('Usuario no Valido',4000,'red');
+                $("#ecouser").focus().select();
+
+            }
+        }else{
+            Materialize.toast('Usuario no Valido',4000,'red');
+             $("#ecouser").focus().select();
+        }
+     });
+
+    $("#modal-usuario").modal({
+        dismissible:false
     });
 
     $("#gproveedor").on("keydown",function(e){
@@ -143,6 +186,7 @@ $(function(){
                 closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
             }
         );
+
         $("#extra-i").attr('src','login?accion=8&arreglo[arch]=recibo&arreglo[sel]=&arreglo[tbl]=72&arreglo[where]='+$(this).attr('fila')+'&arreglo[mic]=1&arreglo[tit]=Vista del Recibo&arreglo[show]=1')
         $(this).sideNav('show');
     })
@@ -203,16 +247,18 @@ $(function(){
                 Materialize.toast('Nota Registrada Correctamente',4000,'green');
                 break;
             case 2:
-                console.log(actualizar(333,'nota="'+$("#_vnota").val()+'",idtipo='+$("#_vtiponota option:selected").val(),'id='+$(this).attr('vid')))
+                actualizar(333,'nota="'+$("#_vnota").val()+'",idtipo='+$("#_vtiponota option:selected").val(),'id='+$(this).attr('vid'))
                 Materialize.toast('Nota Editada Correctamente',4000,'green');
+                $("#_vnota").val('')
+                $("#_vtiponota").val(1).change()
+                $(this).attr('tp',1)
                 break;
             default:
-                console.log(eliminar(333,'id='+$(this).attr('vid')))
-                Materialize.toast('Nota Elminada Correctamente',4000,'green');
                 break;    
         }
         
         arr('login',6,'',334,'@@impresa,'+$(this).attr('idtabla')+','+$(this).attr('idfila'),0,1,$("#_listanotas"));
+        $(".notasprod[tbl="+$(this).attr('idtabla')+"][row="+$(this).attr('idfila')+"]").html($("._enota").parent().parent().find('td').eq(1).html())
     });
 
     var moneda = getDatos('nombre,id,valor+suma',54,'id > 0',0,0);
@@ -259,6 +305,7 @@ function sse_response(vid,p) {
     
     switch(parseInt(vid)){
         case 1:
+            
             if (p['succed'] == undefined || p['succed'] == '')
                 location.reload();
             if (p[0][0][0] != 0) {
@@ -292,6 +339,12 @@ function sse_response(vid,p) {
                 $.post('../_config/sendcontador.php')
                     .done(function(data){ console.log(data)});
             }
+
+            if(p[0][0][6] != '' && parseInt(p[0][0][7])){ //SINCRONIZADOR
+                $.post('../sincro.php',{server:p[0][0][6]})
+                    .done(function(data){ console.log(data)});   
+            }
+
             break;
         case 2:
             $(".asig").addClass('hide');

@@ -71,7 +71,7 @@ $(document).ready(function(){
             case '1':
                 $("#n_valor").val('11,300.00')
                 break;
-            case '2':
+            case '6':
                 $("#n_valor").val('16,950.00')
                 break;  
             default:
@@ -105,21 +105,18 @@ $(document).ready(function(){
             return false;
         }
 
-        $.post( 'http://localhost/wsdlServer.php',{cmd:9,client:{nombre:$("#n_rzocial").val(),cedula:$("#n_ced").val(),tp:$("#n_rzocial").attr('tp'),issuc:$("#issuc").is(":checked") ? 1 : 0,fantasia:$("#n_fant").val(),correo:$("#n_mail").val(),tel:$("#n_phone").val(),fcorte:$("#n_date").val(),servicio:$("#n_tipo option:selected").val(),valor:$("#n_valor").val().replace(/,/g,'')}})
+        $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:9,client:{nombre:$("#n_rzocial").val(),cedula:$("#n_ced").val(),tp:$("#n_rzocial").attr('tp'),issuc:$("#issuc").is(":checked") ? 1 : 0,fantasia:$("#n_fant").val(),correo:$("#n_mail").val(),tel:$("#n_phone").val(),fcorte:$("#n_date").val(),servicio:$("#n_tipo option:selected").val(),valor:$("#n_valor").val().replace(/,/g,'')}})
           .done(function( data ) {
-            try{
-                var p = JSON.parse(data);
-                if(p['error'] == '0'){
-                    Materialize.toast('Cliente Registrado Correctamente',4000,'green');
-                    actualizar(39,'sysmod="'+p['rs']+'"','id='+$("#n_rzocial").attr('rid'));
-                    $("[type=submit]").click();
-                }else{
-                    Materialize.toast(p['msj'],4000,'red')
-                }
-            }catch(e){
-                console.log(e)
-                Materialize.toast('ERROR',4000,'red')
+            if(data.error == '0'){
+                Materialize.toast('Cliente Registrado Correctamente',4000,'green');
+                actualizar(39,'sysmod="'+data.rs+'"','id='+$("#n_rzocial").attr('rid'));
+                $("[type=submit]").click();
+            }else{
+                Materialize.toast(data.msj,4000,'red')
             }
+          })
+          .fail(function(x){
+            console.log(x)
           });
     });
 

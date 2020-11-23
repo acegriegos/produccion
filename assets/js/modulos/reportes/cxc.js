@@ -38,5 +38,19 @@ $(function(){
     $(".excel").data('parametros')['conteo'] = 1;
     $(".excel").data('parametros')['suma'] = ',2,3,4,5,6,';
     $(".excel").data('parametros')['original'] = 1;
+
+
+    $("#chktipo1").change(function(){
+        if(!$(this).is(':checked'))
+            $(".pdf").attr('filtro','')
+    })
+
+    $("#vidtipo1").change(function(){
+        var fecha = $(this).val();
+        if(fecha != ''){
+            fecha = new Date(fecha.split(' ')[0]);
+            $(".pdf").attr('filtro','Fecha de Vencimiento: '+(fecha.getDate()+1)+'/'+(fecha.getMonth()+1)+'/'+fecha.getFullYear()+'<br>');
+        }
+    });
     
 });

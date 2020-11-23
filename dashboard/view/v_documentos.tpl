@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.81">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.81">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.2.0.91">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.2.0.91">
   </head>
   <body>
   <br>
@@ -17,7 +17,7 @@
       <div class="card z-depth-3 ">
           <div class="card-header center"> 
           <p class="flow-text head1">
-          Documentos Electrónicos <span class="hide-on-med-and-down">{$smarty.session.EMPRESA|upper}</span></p>
+          Documentos Electrónicos <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
           </div>
           
           <div class="row">
@@ -145,7 +145,7 @@
                 <div class="center iloop" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
                 <div>
                     <div class="shxml_head"></div>
-                    <table style="margin-bottom: 3%">
+                    <table style="margin-bottom: 3%;font-size: 10px;">
                         <thead>
                             <tr>
                                 <th class="hide">Tipo</th>
@@ -205,7 +205,7 @@
 
     <div id="modal-shcompra" class="modal modal-fixed-footer grandemodal" style="width: 80%">
         <div class="modal-content">
-            <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-dtcompras" style="width: 100%">
+            <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-dtcompras" style="width: 100%;font-size: 12px;">
                 <thead>
                     <tr>
                         <th class="hide">Tipo</th>
@@ -215,6 +215,7 @@
                         <th>Descuento</th>
                         <th>Exonerado</th>
                         <th>IVA(%)</th>
+                        <th>Otros</th>
                         <th>Precio</th>
                     </tr>
                 </thead>
@@ -226,7 +227,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.2.0.81"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.2.0.81"></script>
+    <script src="../assets/js/dropzone.js?v=10.2.0.91"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.2.0.91"></script>
   </body>
 </html>

@@ -139,11 +139,24 @@ span.badge {
 
 .side-nav {
   overflow: none !important; }
-  .side-nav .userView {
-    padding: 2% 3% !important; }
-  .side-nav a {
+.side-nav .userView {
+  padding: 2% 3% !important; 
+  position: fixed;
+  width: 100%;
+}
+.side-nav a {
     font-size: 12px !important;
     width: 100% !important; }
+.side-nav .options{
+  margin-top: 110px;
+  overflow-y: auto;
+}
+.side-nav .options li a{
+  padding-right: 3% !important;
+}
+.side-nav .options li a i{
+  margin: 0px;
+}
 
 .selectusr ul li span {
   /*color: white !important;*/ }

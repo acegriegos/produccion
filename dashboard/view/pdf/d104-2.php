@@ -133,7 +133,7 @@ foreach ($datos as $index=>$obj) {
       $tp = '- NC al ';
 
     $livacr = $obj[4]*(round($tivad,2)/100);
-    $livacr = $obj[2] ? /*$livacr*/ $obj[2] < $tivad ? $obj[5] : $livacr : 0;
+    $livacr = $obj[2] ? $livacr : 0;
     $listac .=  '<tr> <td>'.$tp.' '.$obj[2].'%</td> <td align="right">'.number_format($obj[4],2).' </td> <td align="right">'.number_format($obj[5],2).' </td> <td align="right">'.number_format($obj[3],2).'</td> <td align="right"></td> <td align="right">'.number_format(round($livacr,0),2).'</td> </tr>';
 
     $tsubtc += $obj[4];

@@ -3,7 +3,8 @@
 if (isset($_SERVER['HTTP_ORIGIN'])) {  
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");  
     header('Access-Control-Allow-Credentials: true');  
-    header('Access-Control-Max-Age: 86400');   
+    header('Access-Control-Max-Age: 86400');
+    header('Content-Type: text/html; charset=utf-8');   
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {  
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");  
 }
 
+header('Content-Type: application/json; charset=utf-8');
 
 if (isset($_POST['respuestaXml'])) {
     file_put_contents('./assets/xml/'.$_POST['clave'].'.xml', base64_decode($_POST['respuestaXml']) );
@@ -237,7 +239,7 @@ if (isset($_POST['respuestaXml'])) {
                         
                         $db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
-                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,exp_p12,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://recepcion.logintechcr.com/produccion/wsdlServer.php')");
+                        $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,exp_p12,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://fe.logintechcr.com/wsdlServer.php')");
                         if(isset($_POST['referencia']))
                           $db->ejecutar('update usuarios set idsucursal = concat(idsucursal,",'.$rs.'") where id = '.$_POST['referencia'].' and id in(246);');
                     }else{
@@ -251,53 +253,70 @@ if (isset($_POST['respuestaXml'])) {
                 
             }
             break;
-        case 3: //SIC HACIENDA
-            require_once 'assets/libs/nusoapLT/nusoap.php';
-            // $options = [
-            //     'uri' => 'http://schemas.xmlsoap.org/soap/envelope/',
-            //     'style' => SOAP_RPC,
-            //     'use' => SOAP_ENCODED,
-            //     'soap_version' => SOAP_1_1,
-            //     'cache_wsdl' => WSDL_CACHE_NONE,
-            //     'connection_timeout' => 30,
-            //     'trace' => true,
-            //     'encoding' => 'UTF-8',
-            //     'exceptions' => true
-            // ];
+        case 3: //SINCRONIZADOR MANUAL
+          require_once '_config/mysqlDB.php';
+          $base = new DBClass();
 
-            $params = [
-                'origen' => 'Fisico', // Fisico,  Juridico o DIMEX
-                'cedula' => '',
-                'ape1' => 'MIRANDA',
-                'ape2' => '',
-                'nomb1' => 'LUIS',
-                'nomb2' => 'MIGUEL',
-                'razon' => '',
-                'Concatenado' => ''
-            ];
-            
+          $rs = $base->ejecutar('select id,idfila,idtabla,idestado from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
 
-            $wsdl = "http://196.40.56.20/wsInformativasSICWEB/Service1.asmx?WSDL";
-            $oSoapClient = new nusoap_client($wsdl,true);
-            $rs = $oSoapClient->call("ObtenerDatos", $params);
-            $salida = isset($rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table']) ? $rs['ObtenerDatosResult']['diffgram']['DocumentElement']['Table'] : '';
-            print_r($salida);
-            break;
-        case 4:
-          if (!isset($_POST['ced'])) {
-            $salida['msj'] = 'DATOS REQUERIDOS';
-            $salida['error'] = 1;
+          if(isset($rs->num_rows)){
+            $salida['rs'] = [];
+
+            $rs = $rs->fetch_all();
+            foreach ($rs as $obj) {
+              switch ($obj[3]) {
+                case 0: //SINCRONIZAR TODA LA TABLA
+                  if($obj[2] == 11){
+                    llenado_masivo($salida['rs'],11,$base,'id > 0');
+                    llenado_masivo($salida['rs'],97,$base,'idproducto > 0');
+                  }                   
+                  break;
+                case 1: //INSERTAR UNA FILA
+                  $line = $base->ejecutar('call krattos("*",'.$obj[2].',"id = '.$obj[1].'")')->fetch_all();
+                  array_push($salida['rs'], ['acc' => "1","tbl" => $obj[2], "row" => $obj[1],"bdy" => $line[0]]);
+                  break;
+                case 2: //ACTUALIZAR UNA FILA
+                  actualizador($salida['rs'],$obj[2],$base,$obj[1]);
+                  break; 
+                default:
+                  $salida['rs'] = 'opcion no valida';
+                  break;
+              }
+            }
+
+            if(sizeof($rs))
+              $salida['last_id'] = $rs[sizeof($rs)-1][0];
+
+            if(isset($_POST['vmore'])){
+              $marr = json_decode($_POST['vmore']);
+              $rback = [];
+              $aid = 0;
+              foreach ($marr as $obj) {
+                $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
+                switch($obj->tbl){
+                  case 65:
+                    $obj->bdy[1] = $aid;
+                    break;
+                  default:
+                    break;
+                }
+                $obj->bdy[0] = 'null'; 
+                $arg = substr(substr(json_encode($obj->bdy),1),0,-1);
+
+                $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
+                $aid = $obj->tbl == 64 ? $base->ejecutar('select max(id) from facturas where idsucursal = '.$_POST['vsucursal'])->fetch_all()[0][0] : 0;
+
+                if($mrs == 1)
+                  array_push($rback,'update sincro set issync = 1 where id = '.$obj->row);
+                else
+                  array_push($rback,$mrs.' --- ARG: '.$arg);
+                  
+              }
+              $salida['act'] = json_encode($rback);
+            }
+
           }else{
-            require_once '_config/mysqlDB.php';
-            $base = new DBClass();
-
-            $rs = $base->ejecutar('call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')');
-            if (isset($rs->num_rows)) {
-                $salida['rs'] = $rs->fetch_all();
-            }else
-                $salida['error'] = $rs;
-            
-            $salida['sql'] = 'call sp_rgetAll("'.$_POST['ced'].'",'.$_POST['isp'].')';
+            $salida['rs'] = $rs;
           }
           break;
         case 5: //GUARDAR EN HACIENDA
@@ -362,7 +381,7 @@ if (isset($_POST['respuestaXml'])) {
             $base = new DBClass();
             $client = $_POST['client'];
 
-            $rs = $base->ejecutar('call krattos("",172,"1,0,\"\",\"\",\"'.$client['nombre'].'\",\"'.$client['cedula'].'\",'.$client['tp'].',1,0,0,0,0,8,1,\"\",0,0,\"\",0,0,@idclie,1,0,0,\"\"")');
+            $rs = $base->ejecutar('call krattos("",172,"1,0,\"\",\"\",\"'.$client['nombre'].'\",\"'.$client['cedula'].'\",'.$client['tp'].',1,0,0,0,0,8,1,\"'.$client['fantasia'].'\",0,0,\"\",0,0,@idclie,1,0,0,\"\"")');
 
             if(isset($rs->num_rows)){
               $rs = $rs->fetch_all()[0][0];
@@ -389,6 +408,43 @@ if (isset($_POST['respuestaXml'])) {
             }
           }
           break;
+        case 10: //AUTENTICAR
+          require_once '_config/mysqlDB.php';
+          $db = new DBClass();
+          
+          $_POST['usr'] = isset($_POST['usr']) ? $_POST['usr'] : '';
+          $_POST['pswd'] = isset($_POST['pswd']) ? $_POST['pswd'] : '';
+          
+          $rs = $db->ejecutar('call krattos("",215,"\''.$_POST['usr'].'\',\''.$_POST['pswd'].'\'")');
+          
+          if(isset($rs->num_rows)){
+            $rs = $rs->fetch_all();
+            if (sizeof($rs) == 1) {
+              $salida['succed'] = 1;
+              $salida['rs'] = $rs; 
+            }else{
+              $salida['succed'] = 0;
+              $salida['rs'] = $rs[0][0];
+            }
+          }else{
+            $salida = getError($rs);
+          }
+
+          break;
+        case 11: //CHECHEADOR MANUAL
+          require_once '_config/mysqlDB.php';
+          $db = new DBClass();
+
+          switch ($_POST['acc']) {
+            case 1:
+              $salida['rs'] = $db->ejecutar('call krattos("valor",15,"descr = \"versionbms\"")')->fetch_all();
+              break;
+            
+            default:
+              # code...
+              break;
+          }
+          break;
         default:
            $salida['msj'] = 'WSDL APSY SEND A REQUEST';
            $salida['error'] = 1;
@@ -401,4 +457,32 @@ if (isset($_POST['respuestaXml'])) {
 function getError($msj){
   return  array('msj' => $msj, 'error' => 1);
 }
+
+function llenado_masivo(&$salida,$tbl,&$base,$where){
+  $tbln = $base->ejecutar('call krattos("nombre",70,"id = '.$tbl.'")')->fetch_all()[0][0];
+
+  array_push($salida, ['acc' => "0","tbl" => $tbl, "row" => 0,"bdy" => ""]);
+
+  $line = $base->ejecutar('call krattos("*",'.$tbl.',"'.$where.'")')->fetch_all();
+  $lstr = 'insert into '.$tbln.' values(';
+  foreach ($line as $ll) {
+    $lstr .= substr(substr(json_encode($ll),1),0,-1).' ),(';  
+  }
+
+  array_push($salida, ['acc' => "4","tbl" => 0, "row" => 0,"bdy" => substr($lstr,0,-2) ]);
+}
+
+function actualizador(&$salida,$tbl,&$base,$where){
+  $tbln = $base->ejecutar('call krattos("nombre",70,"id = '.$tbl.'")')->fetch_all()[0][0];
+  $line = $base->ejecutar('call krattos("*",'.$tbl.',"id = '.$where.'")')->fetch_all();
+  $cls = $base->ejecutar('describe '.$tbln)->fetch_all();
+  $act_str = '';
+  foreach ($cls as $key => $value) {
+    $act_str .= $value[0].' = "'.addslashes($line[0][$key]).'", ';
+  }
+
+  array_push($salida, ['acc' => "2","tbl" => $tbl, "row" => $where,"bdy" => substr($act_str,0,-2)]);
+
+}
+
 ?>

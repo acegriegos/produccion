@@ -287,8 +287,9 @@ $(document).on("click",".pdf",function(){
 
     var $toastContent = $('<span style="width: 500px" id="shpdf">Generando PDF:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent);
+    var filtros = $(this).attr('filtro') == undefined ? '' : $(this).attr('filtro');
 
-    $.get('login',{accion:8,arreglo:{sel:'',tbl:resultado.vtbl,where:resultado.vattr,mic:1,tit:$("#titrep").html(),arch:$(this).attr('arch')}})
+    $.get('login',{accion:8,arreglo:{sel:'',tbl:resultado.vtbl,where:resultado.vattr,mic:1,filtro:filtros,tit:$("#titrep").html(),arch:$(this).attr('arch')}})
         .done(function(data){
            $("#shpdf").html('PDF Generado')
            $(".expect").removeClass('progress');

@@ -3,11 +3,13 @@ var mesa;
 var ipbebidas = '';
 var ipcomidas = '';
 var tipo_cmd;
+var config;
 
 $(function(){
     $("#ffacturas .zelda").data()['idmesa'] = 0;
     $("#ffacturas .zelda").data()['idbarra'] = 0;
 
+    config = getDatos('',42,'@@impresa',0,0)[0][0];
     tipo_cmd = getDatos('valor',809,'descr="PER_CMD"')[0][0][0];
 
     var impresoras = getDatos('ip,port,cola,tipo',288,'idsucursal = @@impresa',0,0,0);
@@ -53,7 +55,7 @@ $(function(){
 
         if($(".ciclos").length){
             $(".ciclos").each(function(){
-                insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,"","",6,"'+$(this).data('triforce')['vcomodin']+'"');
+                insertar(260,'','null,'+idfactura+','+$(this).attr('strid')+','+$(this).attr('strcol')+',null,'+$(this).find('.clinea').val()+','+$(this).data('triforce')['vprecio']+',0,0,0,"",1,'+$(this).attr('iva')+',"",6,"'+$(this).data('triforce')['vcomodin']+'"');
             });
 
             vdata = generarComanda(id);
@@ -75,7 +77,7 @@ $(function(){
 
     $(".barra").click(function(){
        $("#modal-barra").modal('open');
-       $("#btit").html($("strong b",this).html());
+       $("#btit").html($("strong b",this).html() == '' ? 'Llevar' : $("strong b",this).html());
        var idbarra = $(this).attr('id').substr(1);
        var clientes = getDatos('',805,'2,'+idbarra+',""',0,0,0)[0];
 
@@ -115,6 +117,19 @@ $(function(){
         Materialize.toast("Orden Cancelada Correctamente",4000,'green');
     });
 
+    $("#dofact").click(function(){
+        var isbarra = parseInt($(".zelda").data('triforce')['vidtipopago']);
+        if(isbarra){
+            var idfactura = getDatos('id',261,'idtipopago = '+isbarra)[0][0][0];
+        }
+        else{
+            var id = $("#ffacturas .zelda").data('triforce')['vidtipo'];
+            var idfactura = getDatos('id',261,'idtipo = '+id)[0][0][0];
+        }
+        window.open('facturacion?id=-'+idfactura+'&au=0&ebd=1','_blank');
+        $("#modal-mesa").modal('close')
+    });
+
     $("#abarra").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13) {
@@ -142,11 +157,13 @@ $(function(){
         $("#saveOrder").removeClass('saveOrder');
         $("#printOrder").removeClass('hide')
         $("#cancOrder").removeClass('hide');
+        $("#dofact").removeClass('hide');
         $(".zelda").data('triforce')['vidtipopago'] = 0;
 
         $("#total_mesa").html('0.00');
         $("#total_mesa_d").html('0.00');
         mesa = id;
+        $("#sprod").val('');
         switch(estado){
             case 5:
             case 1:
@@ -156,6 +173,7 @@ $(function(){
                 
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
                 $(".zelda").data('triforce')['vcomodin'] = $(this).attr('nmesa');
+                $(".zelda").data('triforce')['videstado'] = $(this).attr('estado')
 
                 $("#modal-mesa").modal('open');
                 /mobile/i.test(navigator.userAgent) && document.documentElement.scrollTop === 0 && !pageYOffset && !location.hash && setTimeout(function () {
@@ -170,6 +188,7 @@ $(function(){
                 $("#saveOrder").addClass('add');
                 $("#cancOrder").addClass('hide');
                 $("#printOrder").addClass('hide');
+                $("#dofact").addClass('hide');
 
                 $("#lfam").change();
                 actualizar(800,'idtipoocupado=5','id='+id);
@@ -194,7 +213,7 @@ $(function(){
                     var flag  = '<i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i>';
                     t_mesa += total;
 
-                    mstr = '<section strid="'+idproducto+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+                    mstr = '<section strid="'+idproducto+'" iva="'+imp+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
                     $("#fdetallefacturas").prepend(mstr);
                     
@@ -216,6 +235,8 @@ $(function(){
             default:
                 break;
         }
+
+        $("#sprod").focus();
         
     });
     
@@ -337,7 +358,7 @@ $(function(){
     function addline(tfila,tcolor){
 
         var elem = $("[strid="+tfila+"][strcol="+tcolor+"]");
-        console.log(tcolor)
+
         if(elem.length){
             var cactual = parseFloat(elem.find('.clinea').val());
             elem.find('.clinea').val(cactual+1)
@@ -371,15 +392,16 @@ $(function(){
                 break;
         }
         var precio = $("[trid="+tfila+"]").find('.cprod').html().replace(/,/g,'');
+        var iva = $("[trid="+tfila+"]").attr('iva')
         var cantidad = 1;
         var total = parseFloat(precio)*cantidad;
         var flag  = tcolor == -1 ? '' : '<i class="mdi mdi-flag-variant pbtn der" style="color:'+color+';"></i>';
 
-        var linea = '<section strid="'+tfila+'" strcol="'+tcolor+'" nuevo="0" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+$("[trid="+tfila+"]").find('.nprod').html()+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="1">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> '+flag+' <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+        var linea = '<section strid="'+tfila+'" iva="'+iva+'" strcol="'+tcolor+'" nuevo="0" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+$("[trid="+tfila+"]").find('.nprod').html()+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="1">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> '+flag+' <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
         $("#"+seccion).append(linea);
 
-        $("[strid="+tfila+"][strcol="+tcolor+"]").data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : tfila,vcantidad : cantidad,vprecio : parseFloat(precio).formatMoney(5,'.',''),vdesc : 0,vtotal : (total).formatMoney(5,'.',''),vidinventario : 6,vidodt : 0,vimv : 0,vcomodin : "",vidunidad : 1,vidimpuestos:13,viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:1,vcomision : tcolor,videxoneracion:''});
+        $("[strid="+tfila+"][strcol="+tcolor+"]").data('triforce',{vaccion : 0,vid : -1,vidfactura : '?',videntrada : tfila,vcantidad : cantidad,vprecio : parseFloat(precio).formatMoney(5,'.',''),vdesc : 0,vtotal : (total).formatMoney(5,'.',''),vidinventario : 6,vidodt : 0,vimv : 0,vcomodin : "",vidunidad : 1,vidimpuestos:iva,viddescuentos:'',exoneracion:0,vdescuento : 0,idimv:1,vcomision : tcolor,videxoneracion:''});
 
         totalizar();
     }
@@ -393,6 +415,7 @@ $(function(){
     });
 
     $(document).on('click','.comida',function(){
+        $("#sprod").focus().select();
         addline($(this).attr('trid'),$(this).attr('trcol'));
     });
 
@@ -441,7 +464,7 @@ $(document).on("click",".delb",function(){
 
 $(document).on("click",".cdb",function(){
 
-    $("#tit").html('Orden de '+$(this).html()+', Barra '+$("#btit").html());
+    $("#tit").html('Orden de '+$(this).html()+', '+$("#btit").html());
     var id = parseFloat($("#modal-barra").attr('bnumber'));
     var idcliente = $(this).attr('id').substr(1);
 
@@ -466,7 +489,7 @@ $(document).on("click",".cdb",function(){
             var total = parseFloat((precio+cimp)*cantidad);
             t_mesa += total;
 
-            mstr = '<section strid="'+idproducto+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+            mstr = '<section strid="'+idproducto+'" iva="'+imp+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
             $("#fdetallefacturas").prepend(mstr);
                     
             $("[strid="+idproducto+"][strcol=0]").data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][11],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0,videxoneracion:'',idtipo:1});
@@ -478,18 +501,21 @@ $(document).on("click",".cdb",function(){
         $("#saveOrder").addClass('saveOrder').removeClass('add');
         $("#cancOrder").removeClass('hide');
         $("#printOrder").removeClass('hide');
+        $("#dofact").removeClass('hide')
     }else{
         $("#detfactmsj").show();
         $("#fdetallefacturas .ciclos").remove();
         $("#saveOrder").addClass('add').removeClass('saveOrder');
         $("#cancOrder").addClass('hide');
         $("#printOrder").addClass('hide');
+        $("#dofact").addClass('hide')
     }
 
 
     $(".zelda").data('triforce')['vidtipo'] = id*-1;
     $(".zelda").data('triforce')['vidtipopago'] = idcliente;
-    $(".zelda").data('triforce')['vcomodin'] = $(this).html()+', Barra '+$("#btit").html();
+    $(".zelda").data('triforce')['videstado'] = 0;
+    $(".zelda").data('triforce')['vcomodin'] = $(this).html()+', '+$("#btit").html();
 
     $("#modal-mesa").modal('open');
     $("#ffacturas .zelda").data()['idbarra'] = id;
@@ -575,6 +601,7 @@ function endDetail(vid,vacc,vmodulo) {
     $("#saveOrder").addClass('saveOrder');
     $("#cancOrder").removeClass('hide');
     $("#printOrder").removeClass('hide');
+    $("#dofact").removeClass('hide');
 };
 
 function totalizar(){
@@ -722,12 +749,13 @@ function generarComanda(idfactura){
 }
 
 function cargarProdList(){
-    var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'"',0,0,0);
+    var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'",'+$("#lfam option:selected").val(),0,0,0);
 
     var epp = '';
     var str = '';
     var isbebida = 1;
     var btns = '';
+    var tfoto = getDatos('valor',809,'descr="FT_SZ"')[0][0];
 
     for(var i = 0; i < productos[0].length; i++){
         if(parseInt(productos[0][i][4]) != 4){
@@ -738,8 +766,15 @@ function cargarProdList(){
             btns = '';
         }
 
-        str += '<div class="comida" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
-    }
+        switch(parseInt(tfoto)){
+            case 1:
+                str += '<div class="comida" iva="'+productos[0][i][5]+'" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 50px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span>          </div>'
+                break;
+            default:
+                str += '<div class="comida" iva="'+productos[0][i][5]+'" trid="'+productos[0][i][0]+'" trcol="'+productos[0][i][4]+'" isbebida="'+isbebida+'" style=" width: 100px;height: 100px;border: 1px solid #e2e2e2;margin-bottom: 1%; margin-right: 1%;position: relative;display: inline-block;cursor: pointer;">              <span style="background-color: #e2e2e2;z-index: 999;position: absolute;top: 0;right: 0">¢<span class="cprod">'+productos[0][i][2]+'</span></span>              <span style="position: absolute;bottom: 0;width:100%;font-size: 10px;;white-space: nowrap;overflow:hidden;    font-weight: bold;" class="nprod">'+productos[0][i][1]+'</span> '+btns+' <img src="'+productos[0][i][3]+'" height="90%" width="90%;">            </div>'
+                break;
+        }
 
+    }
     $("#test1").html(str)
 }
