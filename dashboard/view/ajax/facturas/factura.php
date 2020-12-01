@@ -220,7 +220,7 @@
                       if ($obj[49] > 0) {
                         echo '<tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen">Servicio Mesero</td>
-                      <td style="padding: 0px !important" class="right-align sinborde margen"><span>'.$datos[15].number_format($datos[49],2)..'></span></td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span>'.$datos[15].number_format($datos[49],2).'</span></td>
                     </tr>';
                       }
 
