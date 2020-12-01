@@ -353,6 +353,12 @@ $html .= '<table style="width: 100%" style="font-size:9px">';
 
   $html .= '<tr>
     <td></td>
+    <td align="right">Servicio Mesero:</td>
+    <td align="right">'.$datos[0][15].$datos[0][49].'</td>
+  </tr>';
+
+  $html .= '<tr>
+    <td></td>
     <td align="right">Descuento:</td>
     <td align="right">'.$datos[0][15].$datos[0][6].'</td>
   </tr>';
