@@ -218,6 +218,13 @@ $(function(){
 	    $("#ecouser").focus();
 	}else
 		arr('login',6,'',182,guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
+
+	$("#isdet").change(function(){
+		if($(this).is(':checked'))
+			$("#listafacturas").removeClass('hide')
+		else
+			$("#listafacturas").addClass('hide')
+	})
 });
 
 $(document).on("click","#chkcierre",function(){
@@ -353,6 +360,10 @@ $(document).on("keyup","#vfecha",function(e){
 	if (code == 13) {
 		var fecha = $(this).val();
 		var dates = arr('login',6,'contador,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));
+		if($("#isdet").is(':checked'))
+			$("#listafacturas").removeClass('hide')
+		else
+			$("#listafacturas").addClass('hide')
 		$("#vfecha").focus();
 	}
 });

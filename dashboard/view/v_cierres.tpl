@@ -48,7 +48,14 @@
           <ul class="collection with-header" id="listacierrespendientes" style="font-size: 12px"></ul>
         </div>
         <div class="col s9 m9 l9 per7301 hide">
-          <h4>Facturas</h4>
+          <h4>Facturas</h4><div class="switch" align="center">
+                  <label>
+                    Resumido
+                    <input type="checkbox" name="tp" id="isdet" checked="checked">
+                    <span class="lever"></span>
+                    Detallado
+                  </label>
+                </div>
           <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
             <thead>
                 <tr>

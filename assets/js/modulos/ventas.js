@@ -1736,7 +1736,7 @@ function totalizar(){
 
         vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
         cantidad    = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
-        precio      = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio'])/(param == 2 ? 1 : divisa);
+        precio      = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']).toFixed(5)/(param == 2 ? 1 : divisa);
         
         if(config['tp_rest'] != undefined){
             switch(parseInt(config['tp_rest'])){

@@ -87,7 +87,7 @@
                     <li><a class="optns" href="#!" fltr="2">Razón Social o Cédula</a></li>
                     <li><a class="optns" href="#!" fltr="3">Fecha</a></li>
                   </ul>
-                  <input type="text" id="search_facturas" maxlength="100" num="v158" var="0,1" filtro="1">
+                  <input type="text" id="search_facturas" maxlength="100" num="v158" var="0,1" filtro="1" autocomplete="off">
                   <label class="truncate" for="search_facturas">Buscar Factura por <span>Número</span></label>
                 </div>
                 <div class="col m2 hide-on-small"></div>
