@@ -121,7 +121,7 @@
 
           <div class="col s5 input-field">
             <a class="btn-floating blue prefix" id="addclient"><i class="mdi mdi-24px mdi-plus"></i></a>
-            <input type="text" id="abarra" maxlength="40"> 
+            <input type="text" id="abarra" maxlength="40" autocomplete="off"> 
             <label for="abarra">Agregar Cliente</label>
           </div>
         </div>

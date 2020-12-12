@@ -1556,7 +1556,7 @@ $(document).on("click",".mover",function(){
 })
 
 function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,comodin,desgloce,vstrimp,vexo,vmobil) {
-
+    cant = parseFloat(cant).toFixed(3);
     var isiva = $("[for=iva]:visible").length ? $("#iva").is(":checked") : config[6];
 
     if(config[0] == '0'){//simplificado
