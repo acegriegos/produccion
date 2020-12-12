@@ -239,7 +239,10 @@
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
         <label for="teclado" class="isfast"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
-        
+
+
+        <input type="checkbox" id="cxp" hclk="0">
+        <label for="cxp" class="hide trCompra" style="float: left;margin-right: 5px">CXP</label>
         <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea" style="margin-left: 5px;"><i class="mdi mdi-plus mdi-16px"></i></a>
             
     </section>

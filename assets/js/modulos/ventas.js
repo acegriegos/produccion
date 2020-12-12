@@ -1833,6 +1833,7 @@ function totalizar(){
                         simv = parseFloat(tmpdesc*(rimv/100)).toFixed(5);
                     }
                     dimv =  simv
+                    console.log(gravado)
                     impuesto += parseFloat(dimv);
 
                     $("#fd"+vidlinea).data('triforce')['vimv'] = parseFloat(dimv).toFixed(5);
@@ -2321,7 +2322,7 @@ function cargarProducto(kbrota,elemento) {
     var cod = arr('login',4,'',43,'"'+ kbrota.replace(/"/g,"\\\"") +'",@@impresa,'+$("#ffacturas .zelda").data('triforce')['vidcliente']+','+param+','+$("#invgeneral").val(),0,0,0);
    
     if (cod[0][0] != undefined) {
-
+    
         cod = cod[0][0];
         var char1 = cod[0].substring(0,1);
         var tabla = char1 == '+' ? 58 : char1 == '-' ? 16 : 11;
@@ -2525,6 +2526,8 @@ function endDetail(vid,vacc,vmodulo) {
                        }
                    }
                 });
+                    if($("#cxp").is(':checked'))
+                        getDatos('',300,'1,0,1,1,'+vid[0][0]+',@@usr,'+$("#tot").html().replace(/,/g,'')+','+$("#tot").html().replace(/,/g,'')+',0,0,0,"",@@impresa,"",'+$("#monedas").val()+','+$("#monedas option:selected").attr('dv')+',null');
                     break;
                 case 1:
                 case 7:
@@ -2562,6 +2565,10 @@ function endDetail(vid,vacc,vmodulo) {
                     if(config[29] != '' && config[29] != '99'){
                         insertar(338,'','null,'+vid[0][0]+',64,1,"idfactura=$1,65,291,336,327^factura=$1,279^idfila=$1 and idtabla=$2",0,@@impresa');
                     }
+                    break;
+                case 9:
+                    if($("#cxp").is(':checked'))
+                        getDatos('',300,'1,0,1,1,'+vid[0][0]+',@@usr,'+$("#tot").html().replace(/,/g,'')+','+$("#tot").html().replace(/,/g,'')+',0,0,0,"",@@impresa,"",'+$("#monedas").val()+','+$("#monedas option:selected").attr('dv')+',null');
                     break;
                 default:
                     break;
