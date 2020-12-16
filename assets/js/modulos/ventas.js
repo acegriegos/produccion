@@ -67,6 +67,16 @@ $(function(){
     cargarImpuestos(0,'11,2');
     cargarDescuentos(0,'2',undefined,1);
 
+    $("#cxp").change(function(){
+        if($(this).is(":checked")){
+            $(".cre").removeClass('hide')
+            $("#vplazo").focus().select()
+        }else{
+            $(".cre").addClass('hide')
+            $("#vplazo").val(0)
+        }
+    });
+
     $("#lproductos").click(function(){
         $("#modal-productos").modal('open');
         $("#bproductos").val($("#descp").val()).focus().select().keyup();
@@ -523,7 +533,7 @@ $(function(){
             $("#username").parent().parent().removeClass('hide')
         }
     }else{
-        if (parseInt(config[11]) == 3 && param.toString().match(new RegExp(/\b1\b|\b6\b|\b7\b|\b8\b/g)) && $(".zelda").attr('tipo') != 1){
+        if ((parseInt(config[11]) == 3 || parseInt(config[11]) == 4) && param.toString().match(new RegExp(/\b1\b|\b6\b|\b7\b|\b8\b/g)) && $(".zelda").attr('tipo') != 1){
             $("#modal-usuario").modal('open');
         }   
     }
@@ -2526,8 +2536,10 @@ function endDetail(vid,vacc,vmodulo) {
                        }
                    }
                 });
-                    if($("#cxp").is(':checked'))
+                    if($("#cxp").is(':checked')){
+                        actualizar(64,'idtipo=2','id='+vid[0][0])
                         getDatos('',300,'1,0,1,1,'+vid[0][0]+',@@usr,'+$("#tot").html().replace(/,/g,'')+','+$("#tot").html().replace(/,/g,'')+',0,0,0,"",@@impresa,"",'+$("#monedas").val()+','+$("#monedas option:selected").attr('dv')+',null');
+                    }
                     break;
                 case 1:
                 case 7:
@@ -2567,8 +2579,10 @@ function endDetail(vid,vacc,vmodulo) {
                     }
                     break;
                 case 9:
-                    if($("#cxp").is(':checked'))
+                    if($("#cxp").is(':checked')){
+                        actualizar(64,'idtipo=2','id='+vid[0][0])
                         getDatos('',300,'1,0,1,1,'+vid[0][0]+',@@usr,'+$("#tot").html().replace(/,/g,'')+','+$("#tot").html().replace(/,/g,'')+',0,0,0,"",@@impresa,"",'+$("#monedas").val()+','+$("#monedas option:selected").attr('dv')+',null');
+                    }
                     break;
                 default:
                     break;

@@ -45,13 +45,18 @@ $(function(){
     
     switch(parseInt(config[11])){
         case 1:
-            inicial = $("#codp");
+            inicial = pril = $("#codp");
             break;
         case 2:
-            inicial = pril =$("#descp");
+            inicial = pril = $("#descp");
             break;
         case 3:
             inicial = $("#ecouser");
+            pril = $("#codp");
+            break;
+        case 4:
+            inicial = $("#ecouser");
+            pril = $("#descp");
             break;
         default:
             break;
@@ -117,8 +122,6 @@ $(function(){
             cargarVentas();
             break;
     }
-
-    pril = parseInt(config[11]) == 2 ? $("#descp") : $("#codp");; 
     cargarGlobal();
 
     var vidp = getParameterByName('id');
