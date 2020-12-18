@@ -234,6 +234,7 @@ $(function(){
 
     $(".mesa").click(function(){
         
+        $("#sprod").val('')
         var estado = parseInt($(this).attr('estado'));
         var id = $(this).attr('id').substr(1);
         $("#saveOrder").removeClass('add');
@@ -247,6 +248,10 @@ $(function(){
         $("#total_mesa_d").html('0.00');
         mesa = id;
         $("#sprod").val('');
+        $('#usr').val('00');
+        $("#username").html('');
+        var e = jQuery.Event("keyup");
+        e.which = 13;
         switch(estado){
             case 5:
             case 1:
@@ -283,7 +288,8 @@ $(function(){
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
                 $(".zelda").data('triforce')['vcomodin'] = 'MESA '+$(this).attr('nmesa');
                 var t_mesa = 0;
-
+                $('#usr').val(detalle[0][0][12]);
+                $("#usr").trigger(e);
                 for (var i = 0; i < detalle[0].length; i++){
 
                     var imp = detalle[0][i][7];
@@ -579,6 +585,7 @@ $(document).on("click",".cdb",function(){
             $("#fdetallefacturas").prepend(mstr);
                     
             $("[strid="+idproducto+"][strcol=0]").data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idproducto,vcantidad : cantidad,vprecio : (precio).formatMoney(5,'.',''),vdesc : 0,vtotal : total.formatMoney(5,'.',''),vidinventario : hinv,vidodt : 0,vimv : cimp.formatMoney(5,'.',''),vcomodin : detalle[0][i][11],vidunidad : 1,vidimpuestos:imp,viddescuentos:'',exoneracion:0,vdescuento : 0,ocantidad: cantidad,idimv:imp,vcomision : 0,videxoneracion:'',idtipo:1});
+
         };
 
         $("#total_mesa").html(t_mesa.formatMoney(2,'.',','));

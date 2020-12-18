@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="181" modulo="reporteCliente" bisprov="0"></div>
+      <div class="filtros row" elem="" sp="181" entrefechas modulo="reporteCliente" bisprov="0"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -44,6 +44,7 @@
         <td class="white-text blue sinborde " style="text-align: center"><b>Descuento Máximo</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Crédito</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Plazo</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Ventas</b></td>
       </tr>
       </thead>
       <tbody class="detrep"></tbody>
@@ -52,6 +53,6 @@
   </div>
   {$SCR}
   <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9"></script>
-  <script src="../assets/js/modulos/reportes/clientes.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/reportes/clientes.js?v=10.3.0.9-1"></script>
 </body>
 </html>
