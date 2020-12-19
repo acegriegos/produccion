@@ -283,6 +283,11 @@ $(function(){
                 break;
             case 2:
                 var detalle = getDatos('',803,mesa+',0',0,0,0);
+                if(!detalle[0].length){
+                    console.log(actualizar(800,'idtipoocupado=1','id='+mesa));
+                    Materialize.toast('Actualziando Mesa',4000,'green');
+                    return false;
+                }
                 var mstr = '';
                 $("#fdetallefacturas .ciclos").remove();
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
