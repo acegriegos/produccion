@@ -50,8 +50,8 @@ $(function(){
     });
 
     $(document).on('click',".saveOrder",function(){
-        var cusr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
-        if(cusr == '@@usr' && auth == '1'){
+        var cusr = $("#username").html();
+        if(cusr == '' && auth == '1'){
             Materialize.toast('Usuario sin Autenticar',4000,'red');
             $("#usr").focus().select();
             return false;
@@ -166,9 +166,9 @@ $(function(){
 
     $("#cancOrder").click(function(){
         var isbarra = parseInt($(".zelda").data('triforce')['vidtipopago']);
-        var cusr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
+        var cusr = $("#username").html();
 
-        if(cusr == '@@usr' && auth == '1'){
+        if(cusr == '' && auth == '1'){
             Materialize.toast('Usuario sin Autenticar',4000,'red');
             $("#usr").focus().select();
             return false;
@@ -193,8 +193,8 @@ $(function(){
     });
 
     $("#dofact").click(function(){
-        var cusr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
-        if(cusr == '@@usr' && auth == '1'){
+        var cusr = $("#username").html();
+        if(cusr == '' && auth == '1'){
             $("#usr").focus().select();
             Materialize.toast('Usuario sin Autenticar',4000,'red');
             return false;
@@ -673,8 +673,8 @@ function validarFactura() {
         return "No se Han Ingresado Productos en Detalle";
     }
 
-    var cusr = $("#ffacturas .zelda").data('triforce')['vidusuario'] == '' ? '@@usr' : $("#ffacturas .zelda").data('triforce')['vidusuario'];
-    if(cusr == '@@usr' && auth == '1'){
+    var cusr = $("#username").val()
+    if(cusr == '' && auth == '1'){
         $("#usr").focus().select();
         return 'Usuario sin Autenticar';
     }

@@ -1997,7 +1997,7 @@ function validarproductos() {
 	if($("#fproductos .zelda").attr('inventariado') != undefined){
 		if (isNaN($("#vcantidad").val()) ) {
 			$("#vcantidad").focus();
-			return 'Cantida Requerida';
+			return 'Cantidad Requerida';
 		}
 
 		if($("#goldinventariado").is(":checked")){
@@ -2005,6 +2005,11 @@ function validarproductos() {
 		}else{
 			$("#visinventariado").val(0)
 		}
+	}
+
+	if(!$("#vcabys").val().length){
+		$("#vcabys").focus()	
+		return 'CABYS Requerido';
 	}
 
 	$("#fproductos .zelda").data('triforce')['vexoneracion'] = $("#vimpiva option:selected").attr('num');

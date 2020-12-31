@@ -1566,7 +1566,7 @@ function cargarMoneda(idmoneda,elemento){
                 tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals);
             }else
                 tot = parseFloat($(this).attr('base'));
-
+            console.log($(this).attr('id')+' '+tot)
             if ($(this).is("input"))
                 $(this).val(tot.formatMoney(2,'.',','));
             else{

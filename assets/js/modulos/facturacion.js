@@ -1261,8 +1261,8 @@ function cargarGlobal(){
     $(".chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
         $(".gen").addClass('hide');
-        $(".zelda").data('triforce')['vidtipo'] = value;
-
+        $("#ffacturas .zelda").data('triforce')['vidtipo'] = value;
+        
         switch(value){
             case 1: //CREDITO
                 $(".con").removeClass('hide');

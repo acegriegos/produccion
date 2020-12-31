@@ -165,14 +165,22 @@
           <li class="tab col s6"><a class="white-text">Caja inicial <span id="totcashier">0.00</span></a></li>
           </ul>
           <div class="row">
-            <input type="hidden" id="stot" value="0">
-            {section name=LE loop=$TMON}
-            <div class="input-field col s4 m4 l4">
-              <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}">
-              <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
+            <div class="row col s8">
+              <input type="hidden" id="stot" value="0">
+              {section name=LE loop=$TMON}
+              <div class="input-field col s4 m4 l4">
+                <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
+                <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
+              </div>
+              {/section}  
             </div>
-            {/section}
-            <div class="row">
+            
+            <div class="col s4" style="text-align: right;">
+              <h3>Dinero en Caja</h3>
+              <hr>
+              {section name=LE loop=$MON}
+                <span class="gmoneda" id="tc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
+              {/section}
                 <div class="col s4 input-field hide">
                   <input type="text" id="vcuentacierre" autocomplete="off">
                   <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>
@@ -181,13 +189,6 @@
                 <div class="col s4 input-field hide">
                   <input type="text" id="vdoccierre" autocomplete="off">
                   <label for="vdoccierre">Documento de Depósito</label>
-                </div>
-
-                <div class="col s12 m6">
-                  <h2>Dinero en caja:</h2>
-                </div>
-                <div class="col s12 m6">
-                  <span id="tcaja" style="font-size: 44px;;color: black">0.00</span>
                 </div>
             </div>
            
@@ -212,6 +213,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.3.0.9"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.3.0.9-2"></script>
   </body>
 </html>

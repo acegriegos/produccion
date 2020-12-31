@@ -323,7 +323,7 @@
 </div>
 
   <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 75%; width: 50%">
-    <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo</div>
+    <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo <i style="float: right;cursor: pointer;" class="mdi mdi-magnify button-collapse" id="shflujo" title="Ver Entradas y Salidas" data-activates="gextra"></i></div>
     <div class="modal-content">
       <div class="row">
 
@@ -388,7 +388,6 @@
 
     </div>
     <div class="modal-footer">
-        <i class="mdi mdi-eye button-collapse pbtn hide" data-activates="gextra" title="Ver Entradas y Salidas" id="shflujo"></i>
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
         <a class="modal-action waves-effect waves-green btn-flat" id="doflujo">Aceptar</a>
     </div>
