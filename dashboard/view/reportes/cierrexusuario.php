@@ -193,11 +193,14 @@
       <?php if($cierre[22] > 0) echo 'Abonos Líquidos Cliente:<span style="float: right;">'.$cierre[22].'</span><br>'; ?>
       <?php if($cierre[23] > 0) echo 'Abonos Líquidos Proveedores: <span style="float: right;">'.$cierre[23].'</span><br>'; ?>
       Caja Inicial:<span style="float: right;"><?php echo number_format($cierre[14],2); ?></span><br>
+      <?php if($cierre[27] > 0) echo 'Caja Inicial $: <span style="float: right;">'.number_format($cierre[27],2).'</span><br>'; ?>
       Caja Reportada: <span style="float: right;"><?php echo number_format($cierre[12],2); ?></span><br>
+      <?php if($cierre[28] > 0) echo 'Caja Reportada $: <span style="float: right;">'.number_format($cierre[28],2).'</span><br>'; ?>
       <!-- Caja Reportada-Inicial: <span style="float: right;"><?php $rep = $cierre[12]-$cierre[14]/* > 0 ? $cierre[12]-$cierre[14] : $cierre[12]*/; echo number_format($rep,2); ?></span><br> -->
       Caja del Sistema: <span style="float: right;"><?php echo number_format($cierre[13],2); ?></span><br>
-      Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14],2); ?></span><br>
+      Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29],2); ?></span><br>
       <br>
+      <?php if($cierre[29] > 0) echo 'Tipo Cambio $: <span style="float: right;">'.number_format($cierre[29],2).'</span><br>'; ?>
       <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[3])),2).'</span><br>'; ?>
     </div>
      

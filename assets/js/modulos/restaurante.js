@@ -673,7 +673,7 @@ function validarFactura() {
         return "No se Han Ingresado Productos en Detalle";
     }
 
-    var cusr = $("#username").val()
+    var cusr = $("#username").html()
     if(cusr == '' && auth == '1'){
         $("#usr").focus().select();
         return 'Usuario sin Autenticar';

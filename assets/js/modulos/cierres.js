@@ -267,7 +267,7 @@ $(document).on("click","#totalizar",function(){
 	else{ //GUARDDAR INICIO DE CAJA
 		$("#mcierre").val(valor)
 		var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0,'+$("#BUSS").attr('idcaja'));
-		if(parseInt(valord)>0)
+		//if(parseInt(valord)>0)
 			console.log(insertar(343,'','null,'+lcinic[0][0][0]+','+valord+',0,'+$("#tc2").attr('valor')));
 
 		guardarMonedas(0,lcinic[0][0][0])
