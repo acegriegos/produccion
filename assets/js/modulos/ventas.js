@@ -2032,15 +2032,17 @@ function validarServicios() {
 function validarDetalleFactura(){
     var ciclos = $("#fdetallefacturas .ciclos");
     var fila;
-    var cantidad = ciclos.length;
+    /*var cantidad = ciclos.length;]*/
     var divisa = parseFloat($("#monedas option:selected").attr('dv'));
 
-    for (var i = 1; i <= cantidad; i++) {
-        fila = $("#fd"+i);
-        if (fila.data() == undefined) {
+    /*for (var i = 1; i <= cantidad; i++) {]*/
+    ciclos.each(function(index){
+        index = $(this).attr('id').substr(2)
+        fila = $(this)
+        /*if (fila.data() == undefined) {
             cantidad++;
             continue;
-        }
+        }*/
         if(fila.data('triforce')['vcomodin'] == "1")
             fila.data('triforce')['vcomodin'] = $("#desc"+i).html();
 
@@ -2056,9 +2058,13 @@ function validarDetalleFactura(){
             fila.data('triforce')['montoExo'] = parseFloat(fila.data('triforce')['montoExo'])*divisa;
         }
 
-        if(fila.data('triforce')['videxoneracion'] != '')
+        var isexo = $("#se"+index+":visible").length ? $("#se"+index).is(':checked') ? 1 : 0 : 0;
+        if(isexo)
             fila.data('triforce')['videxoneracion'] += '^'+fila.data('triforce')['montoExo'];
-    }
+        else
+            fila.data('triforce')['videxoneracion'] = '';
+            
+    });
 
     return false;
 }
