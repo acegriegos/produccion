@@ -60,10 +60,10 @@ $(function(){
             break;
         case 5:
             inicial = $("#ncli");
-            focus = $("#codp");
+            pril = $("#codp");
         default:
             inicial = $("#ncli");
-            focus = $("#descp");
+            pril = $("#descp");
             break;
     }
 
