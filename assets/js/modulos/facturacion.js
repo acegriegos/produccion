@@ -47,6 +47,7 @@ $(function(){
         case 1:
             inicial = pril = $("#codp");
             break;
+        case 0:
         case 2:
             inicial = pril = $("#descp");
             break;
