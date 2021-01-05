@@ -2044,7 +2044,7 @@ function validarDetalleFactura(){
             continue;
         }*/
         if(fila.data('triforce')['vcomodin'] == "1")
-            fila.data('triforce')['vcomodin'] = $("#desc"+i).html();
+            fila.data('triforce')['vcomodin'] = $("#desc"+index).html();
 
         if(param == 6)
             fila.data('triforce')['vid'] = -1;
