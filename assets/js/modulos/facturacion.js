@@ -47,7 +47,6 @@ $(function(){
         case 1:
             inicial = pril = $("#codp");
             break;
-        case 0:
         case 2:
             inicial = pril = $("#descp");
             break;
@@ -59,7 +58,12 @@ $(function(){
             inicial = $("#ecouser");
             pril = $("#descp");
             break;
+        case 5:
+            inicial = $("#ncli");
+            focus = $("#codp");
         default:
+            inicial = $("#ncli");
+            focus = $("#descp");
             break;
     }
 
