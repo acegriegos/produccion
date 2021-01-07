@@ -592,6 +592,7 @@ function getData(vmodulo){
 }
 
 function loadpool(vmodulo,vid,vvarias){
+    
     vmodulo = cargar(vmodulo,vid);
     if (vmodulo['sel'] == undefined){
         Materialize.toast(vmodulo,4000,'red');

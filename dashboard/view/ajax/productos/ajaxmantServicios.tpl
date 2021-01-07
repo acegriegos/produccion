@@ -165,6 +165,8 @@
                             <input type="text" id="vcabys" maxlength="13" class="eder" autocomplete="off">
                             <label for="vcabys">Codigo Cabys</label>
                         </div>
+
+                        <label id="ncabys"></label>
                     </div>
 
                     <div class="input-field col s12 m5 precio" >

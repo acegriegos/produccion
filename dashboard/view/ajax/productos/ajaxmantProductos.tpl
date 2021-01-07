@@ -149,6 +149,8 @@
                         <label for="vcabys">Codigo Cabys</label>
                     </div>
 
+                    <label id="ncabys"></label>
+
                 </div>
                 
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px">

@@ -1449,6 +1449,7 @@ $(document).on("click","#addproduct",function(){
     $("select").material_select();
     $("#lcabys").html('')
     $("#scabys").val('')
+    $("#ncabys").html('')
     setTimeout(function(){$("#vnombre").focus();},500);
     cargarUnidades(1);
 });
@@ -1481,6 +1482,7 @@ $(document).on("click","#addservice",function(){
     $('select').material_select();
     $("#lcabys").html('')
     $("#scabys").val('')
+    $("#ncabys").html('')
     if(config[0] == '0'){
 		$("#vimpiva").val(1).attr('disabled',true);
 		$("#vimpiva").material_select('update');
@@ -1538,6 +1540,7 @@ $(document).on("keyup","#voptServ",function(){
 $(document).on("click",".rcabys",function(){
     $("#vcabys").val($(this).attr('cod'));
     $("#vimpiva").val($(this).attr('iva')).material_select('update')
+    $("#ncabys").html($(this).html())
 });
 
 $(document).on("click","#isinventariado",function(){
@@ -2154,6 +2157,12 @@ function endDetail(id, acc, modulo) {
 		return false;
 	}
 
+	if(acc == 1 && $("#lcabys:visible").length){
+		$("#lcabys").html('')
+		$("#scabys").html('')
+		$("#ncabys").html('')
+	}
+
 	switch(modulo){
 		case 'producto':
 
@@ -2254,6 +2263,7 @@ function endDetail(id, acc, modulo) {
 			if(config[29] != ''){
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"idproducto=$1,97,299",0,-1');
 			}
+
 			break;
 		case 'servicio':
 			if (acc == 1) {
@@ -2303,6 +2313,7 @@ function addlineCliente(preccli) {
 }
 
 function postload(vmodulo){
+	
 	switch(vmodulo){
 		case 'producto':
 			$("#lcabys").html('')
@@ -2363,6 +2374,18 @@ function postload(vmodulo){
 		    	}
 		    }
 
+		    $("#vimpiva").val($("#fproductos .zelda").data('triforce')['vtimv']).material_select('update');
+		    var extra = getDatos('estante,fila,columna,cabys',299,'idproducto='+$("#fproductos .zelda").data('triforce')['vid'])[0][0];
+		    var ncabys = getDatos('nombre',337,'codigo='+extra[3]+' and numero = 8 limit 1');
+
+		    $("#vestante").val(extra[0])
+		    $("#vfila").val(extra[1])
+		    $("#vcolumna").val(extra[2])
+		    $("#vcabys").val(extra[3])
+		    $("#ncabys").html(ncabys[0][0][0])
+		    Materialize.updateTextFields();
+
+
 		    $("#pu").prop('checked',false).change()
 		    $(".precunidad").each(function(){
 		    	var id = $(this).attr('idf');
@@ -2390,18 +2413,12 @@ function postload(vmodulo){
 		    else
 				$("#vcosto").removeAttr('dimension');
 
-		    $("#vimpiva").val($("#fproductos .zelda").data('triforce')['vtimv']).material_select('update');
-		    var extra = getDatos('estante,fila,columna,cabys',299,'idproducto='+$("#fproductos .zelda").data('triforce')['vid'])[0][0];
-		    console.log(extra)
-		    $("#vestante").val(extra[0])
-		    $("#vfila").val(extra[1])
-		    $("#vcolumna").val(extra[2])
-		    $("#vcabys").val(extra[3])
-		    Materialize.updateTextFields();
 			break;
 		case 'servicio':
 			$("#lcabys").html('')
     		$("#scabys").val('')
+    		var ncabys = getDatos('nombre',337,'codigo='+$("#vcabys").val()+' and numero = 8 limit 1')
+    		$("#ncabys").html('')
 			break;
 		default:
 			break;
