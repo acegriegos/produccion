@@ -71,8 +71,8 @@ $html .= '<strong>Cédula:</strong> '.$miscelaneos[1].'<br>'.
 $miscelaneos[6].'</div>';
 $html .= '</td></tr></table>';
 
-$html .= '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14].
-         '<br><b>Consecutivo N°</b>'.$datos[0][1].
+$html .= $datos[0][14] != '' ? '<br><br><b>'.$datos[0][9].' N°</b>'.$datos[0][14] : '<br><br><b>'.$datos[0][9].'</b>'; 
+$html .= '<br><b>Consecutivo N°</b>'.$datos[0][1].
          '<br><b>Factura de Referencia N°</b>'.$datos[0][13].'<br><br>'.
          '<table><tr><td>'.
          '<b>Cliente: </b>'.$datos[0][4].'<br>'.

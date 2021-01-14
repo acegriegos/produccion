@@ -1327,8 +1327,11 @@
 
             if (isset($_REQUEST['clave'])) {
                 $clave = $_REQUEST['clave'];
-            }else
+            }else{
+                if(!isset($this->info['Clave']))
+                    return false;
                 $clave = $this->info['Clave'];
+            }
 
             if ($this->credenciales[2] == 1) 
                 $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/recepcion/".$clave);

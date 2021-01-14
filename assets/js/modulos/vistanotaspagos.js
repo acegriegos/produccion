@@ -59,6 +59,36 @@ $(document).on("change","input[name=tventa]",function(){
     
 });
 
+$(document).on("click",".pdf",function(){
+    var vid = $(this).attr('id').substr(1);
+    var tventa_ = parseInt($("[name=tventa]:checked").attr('id').substring(2));
+    var vbody = [];
+    switch(tventa_){
+        case 3:
+        case 4:
+            vbody[3] = 'Abono';
+            vbody[2] = getDatos('lpad(consecutivo,10,0)',301,'id='+vid)[0][0][0];
+            vbody[1] = getDatos('if(pfisico="",nombre,pfisico)',39,'id=@@impresa')[0][0][0];
+            break;
+        case 7:
+            vbody[3] = 'Abono Multiple';
+            vbody[2] = getDatos('lpad(consecutivo,10,0)',301,'id='+vid)[0][0][0];
+            vbody[1] = getDatos('if(pfisico="",nombre,pfisico)',39,'id=@@impresa')[0][0][0];
+            break;
+        case 9:
+            vbody[3] = 'Anulacion';
+            vbody[2] = getDatos('lpad(consecutivo,10,0)',301,'id='+vid)[0][0][0];
+            vbody[1] = getDatos('if(pfisico="",nombre,pfisico)',39,'id=@@impresa')[0][0][0];
+            break;
+        default:
+            vbody = getDatos('',73,'"-'+vid+'"',0,0)[0][0]
+            break;
+    }
+    mantenimiento('login',8,{arch:'recibo-notas-pagos',id:vid,mic:1,tit:vbody[3],sel:'',tbl:186,where:vid},1);
+    console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
+    $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf');
+});
+
 $(document).on("click",".print",function(){
     var id = $(this).attr('id').substr(1);
     var tp = $("#tps").is(":checked") ? 0 : 1;

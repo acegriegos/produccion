@@ -2857,11 +2857,13 @@ function retrasarFocus(vinput){
 function calcVuelto(){
     var paga = parseFloat($("#pcon").val().replace(/,/g,''));
     var totalfact = parseFloat($(".totalfact").text().replace(/,/g,'')) //Math.ceil(parseFloat( $(".totalfact").text().replace(/,/g,'') )/5)*5;
-    var cambio = Math.ceil(((paga - totalfact)*parseFloat($("#monedas option:selected").attr('dv')))/5)*5;
+    var cambio = Math.ceil(((paga - totalfact)*parseFloat($("#monedas option:selected").attr('dv'))))/5;
+    var dcambio = Math.abs(cambio -parseInt(cambio));
+    cambio = dcambio >= 0.5 ? cambio*5 : parseInt(cambio)*5;
 
-   $("#pcam").text( (cambio).formatMoney(0,'.',','));
+    $("#pcam").text( (cambio).formatMoney(0,'.',','));
 
-   if (cambio > 0) {
+    if (cambio > 0) {
         $("#pcam").css('color','#2196F3');
     }else{
         $("#pcam").css('color','#F3213F');
