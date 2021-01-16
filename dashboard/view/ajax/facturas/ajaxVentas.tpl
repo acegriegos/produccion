@@ -21,7 +21,7 @@
 <div class="card z-depth-3 movil p1 ps" style="margin-bottom: 0px;">
 <div class="card-header center head1 white-text">
   <a href="#!" class="green btn per1111 hide"  title="Realizar Factura en Espera" style="float: left;" id="prefact" vid="0">PRE-FACTURA</a>
-  <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
+  <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
   {if $smarty.session.CAJA gt 0}
   <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" id="cargarfact" idcaja="{$smarty.session.CAJA}"><span class="white-text" id="cantFact"></span></a>
@@ -1265,4 +1265,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.3.0.9-7"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.3.0.9-8"></script>

@@ -3076,8 +3076,10 @@ function postSendmail() {
                 setTimeout(function(){
                     if(getParameterByName('ebd') == '1')
                         window.close();
-                    else
+                    else{
+                        //CUALQUIER TECLA RELOAD
                         location.reload();
+                    }
                 },4000);
             }else
                 setTimeout(function(){

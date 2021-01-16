@@ -119,11 +119,15 @@ $(function(){
                 else{
                     Materialize.toast('Usuario no Valido',4000,'red');
                     $("#usr").focus().select();
+                    $("#username").html('')
+                    $("#ffacturas .zelda").data('triforce')['vidusuario'] = '';
 
                 }
             }else{
                 Materialize.toast('Usuario no Valido',4000,'red');
                  $("#usr").focus().select();
+                 $("#username").html('')
+                 $("#ffacturas .zelda").data('triforce')['vidusuario'] = '';
             }
         }
      });
@@ -261,7 +265,7 @@ $(function(){
                 
                 $(".zelda").data('triforce')['vidtipo'] = mesa;
                 $(".zelda").data('triforce')['vcomodin'] = $(this).attr('nmesa');
-                $(".zelda").data('triforce')['videstado'] = $(this).attr('estado')
+                $(".zelda").data('triforce')['videstado'] = esatdo == 5 ? 1 : $(this).attr('estado')
 
                 $("#modal-mesa").modal('open');
                 /mobile/i.test(navigator.userAgent) && document.documentElement.scrollTop === 0 && !pageYOffset && !location.hash && setTimeout(function () {
@@ -285,7 +289,7 @@ $(function(){
                 var detalle = getDatos('',803,mesa+',0',0,0,0);
                 if(!detalle[0].length){
                     console.log(actualizar(800,'idtipoocupado=1','id='+mesa));
-                    Materialize.toast('Actualziando Mesa',4000,'green');
+                    Materialize.toast('Actualizando Mesa',4000,'green');
                     return false;
                 }
                 var mstr = '';
@@ -860,7 +864,7 @@ function generarComanda(idfactura){
 
 function cargarProdList(){
     var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'",'+$("#lfam option:selected").val(),0,0,0);
-
+    console.log(productos)
     var epp = '';
     var str = '';
     var isbebida = 1;

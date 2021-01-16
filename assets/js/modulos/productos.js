@@ -99,7 +99,7 @@ $(function () {
 			    	if(salir)
 			    		$("#modal-dimensiones").modal('close');
 			    });
-			    arr('login',6,'',14,'0,0,",@@impresa,0,'+$("#mystock").val()+'","0,10"',0,1,$("#listaproductos"));
+			    arr('login',6,'',14,'0,0,"'+$("#search_productos").val()+',@@impresa,'+$("#mystock").val()+'","0,10"',0,1,$("#listaproductos"));
 			    
 				$("#data-table-productos").DataTable({
 					bFilter: false,
@@ -126,8 +126,8 @@ $(function () {
 					info: false
 				});
 
-				if($(".per11.hide").length)
-					$(".per11").addClass('hide');
+				if($(".per11:visible").length)
+					$(".per11").removeClass('hide');
 
 				break;
 			case 2:
@@ -175,7 +175,7 @@ $(function () {
 
 		$("#mystock").change(function(){
 			thorload($("ul.pagination").attr('vtbl') == '14' ? 'producto' : 'servicio');
-			paginate($("ul.pagination").attr('vtbl'),undefined,',@@impresa,'+$(this).val());
+			paginate($("ul.pagination").attr('vtbl'),undefined,$("#search_productos").val()+',@@impresa,'+$("#mystock option:selected").val());
 		});
 
 		// if(config[29] == '99')
@@ -744,7 +744,7 @@ $(document).on("click", ".delprod", function () {
 $(document).on("click", ".accept", function () {
 	var id = $(this).attr('id').substr(3);
 	arr('login',4,'',78,'3,'+id+',"","","",0,0,0,0,0,0,0,0,0,0,0,@@usr,0,@@impresa,""','',0,'');
-	arr('login',6,'',14,'0,0,",@@impresa,'+$("#mystock").val()+'","0,10"',0,1,$("#listaproductos"));
+	arr('login',6,'',14,'0,0,"'+$("#search_productos").val()+',@@impresa,'+$("#mystock").val()+'","0,10"',0,1,$("#listaproductos"));
 	paginate(14);
 	$('#toast-container').remove();
 	Materialize.toast('Producto Eliminado Correctamente', 6000, 'red');
@@ -1821,7 +1821,7 @@ function addprod(prod, cant, uni, sim) {
 		
 	}else{
 		// con unidad
-		var precio = arr('login',4,'',14,info[0]+',0,",@@impresa","0,1"',0,0,0)[0][0];
+		var precio = arr('login',4,'',14,info[0]+',0,"'+$("#mystock").val()+',@@impresa,'+$("#mystock").val()+'","0,1"',0,0,0)[0][0];
 		ptotal = convert(info[0],cant,uni,precio[9]);
 	}
 	
@@ -2010,7 +2010,7 @@ function validarproductos() {
 		}
 	}
 
-	if(!$("#vcabys").val().length){
+	if(!$("#vcabys").val().length && $("#vidinventario option:selected").val() == '6'){
 		$("#vcabys").focus()	
 		return 'CABYS Requerido';
 	}
@@ -2109,13 +2109,13 @@ function cargarSintax(vtabla) {
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 14;
-			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa,0,'+$("#mystock").val()+'","0,10"';
+			arr['where'] = '0,0,"'+$("#search_productos").val()+',@@impresa,'+$("#mystock").val()+'","0,10"';
 			break;
 		case 'servicios':
 			var arr = {};
 			arr['sel'] = '';
 			arr['tbl'] = 13;
-			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa,0,'+$("#mystock").val()+'","0,10"';
+			arr['where'] = '0,0,"'+$("#search_servicios").val()+',@@impresa,'+$("#mystock").val()+'","0,10"';
 			break;
 		case 'paquetes':
 			var arr = {};

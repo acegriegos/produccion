@@ -160,7 +160,7 @@ function postExcecute(vid,p){
     return false;
 }
 
-function postSendmail() {
+function postSendmail(vid) {
     switch(parseInt(vid)){
         default:
             Materialize.toast('Correo Enviado',4000,'green')

@@ -625,7 +625,7 @@ $(document).on("click",".menu3",function(){
 	            bPaginate: false,
 	            info: false
 			});
-			$("#frestaurantes-mesas .zelda").data('triforce',{vid:0,vnombre:'',vunion:'',vbisbarra:0,vidusuario:'',vidsucursal:''});
+			$("#frestaurantes-mesas .zelda").data('triforce',{vid:0,vnombre:'',vunion:'',vbisbarra:0,vidusuario:'',vidsucursal:'',vidtipoocupado:0,vidseccion:0});
 			$("#frestaurantes-secciones .zelda").data('triforce',{vid:0,vnombre:''});
 			thorload('restaurantes-mesa');
 			paginate($("ul.pagination").attr('vtbl'),undefined,',0,0');

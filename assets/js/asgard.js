@@ -1588,6 +1588,22 @@ function mostrar_cargar(){
 function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
+    var textra = [];
+    $("._extra").each(function(){
+        if($(this).attr('typ') != undefined )
+        switch($(this).attr('typ')){
+            case '1':
+                textra[$(this).attr('num')] = $('option:selected',this).val();
+                break;
+            default:
+                textra[$(this).attr('num')] = $(this).val()
+                break;
+        } 
+    });
+    if(textra.length){
+        textra = textra.filter(n=>n)        
+        h += ','+textra.toString();
+    }
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
     $("#data-table-"+b).DataTable({
         bFilter: false,
@@ -1865,10 +1881,26 @@ $(document).on('click','.loadRefBussiness',function(){
 function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     $("#data-table-"+modulo).append('<tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody>');
     $("#lista"+modulo).addClass('hide');
+    var textra = [];
+    $("._extra").each(function(){
+        if($(this).attr('typ') != undefined )
+        switch($(this).attr('typ')){
+            case '1':
+                textra[$(this).attr('num')] = $('option:selected',this).val();
+                break;
+            default:
+                textra[$(this).attr('num')] = $(this).val()
+                break;
+        } 
+    });
+    if(textra.length){
+        textra = textra.filter(n=>n)        
+        filtro_sp += ','+textra.toString();
+    }
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-    console.log('0,0,"'+filtro_sp+'","'+limit+'"')
+    //console.log('0,0,"'+filtro_sp+'","'+limit+'"')
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,

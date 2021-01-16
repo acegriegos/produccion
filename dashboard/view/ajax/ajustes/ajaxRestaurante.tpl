@@ -22,10 +22,6 @@
                         <div class="col s3">
                             <input type="checkbox" id="vbarra" class="with-gap">
                             <label for="vbarra">Barra</label>
-    
-                            <select id="vidseccion" type="select">
-                                <option value="0" selected disabled>Sección</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -35,7 +31,6 @@
                         <thead>
                         <tr>
                             <th class="tab1" style="border: 0; border-radius: 0px !important;">Nombre</th>
-                            <th class="tab1" style="border: 0; border-radius: 0px !important; width: 100%">Sección</th>
                             <th class="tab1" style="border: 0; border-radius: 0px !important;">Barra</th>
                             <th class="tab1" style="border: 0; border-radius: 0px !important; width: 100%">Acciones</th>
                         </tr>
@@ -53,7 +48,7 @@
 </li>
 
 <li>
-<div class="collapsible-header"><i class="small mdi mdi-table"></i><h5>Secciones</h5></div>
+<div class="collapsible-header hide"><i class="small mdi mdi-table"></i><h5>Secciones</h5></div>
 <div class="collapsible-body pequeño card" id="frestaurantes-secciones">
     <input type="hidden" class="zelda">
     <div class="class-block">

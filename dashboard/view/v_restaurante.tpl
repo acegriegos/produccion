@@ -133,7 +133,7 @@
       </div>
     </div>
     <div id="modal-mesa" class="modal modal-fixed-footer comanda">
-      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section>  <input type="text" id="usr" value="00" class="browser-default usr"> <span class="center">Atiende: <span id="username"></span> </span>  <input type="text" id="cusr" value="00" class="browser-default usr"> <span class="center">Cajero: <span id="cusername"></span> </span> <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
+      <div class="modal-header head3" style="height: 36px;padding-left: 1%;padding-right: 1%"><section id="clientes" style=" float: left;"> <span id="tit">Mesa</span> </section>  <input type="text" id="usr" value="00" class="browser-default usr"> <span class="center">Atiende: <span id="username"></span> </span>  <i class="mdi mdi-account-plus mdi-24px pbtn der" id="agcliente" title="Agregar Persona"></i> </div>
 
       <div class="modal-content" style="padding: 0px; overflow: hidden;" id="ffacturas">
         <input type="hidden" class="zelda">
@@ -155,9 +155,10 @@
                 <option value="1">Entrada</option>
                 <option value="2">Plato Fuerte</option>
                 <option value="3">Postre</option>
-                <option value="4">Bebida</option>
+                <option value="4">Bebidas Frías</option>
+                <option value="6">Bebidas Calientes</option>
+                <option value="8">Bebidas Alcohólicas</option>
                 <option value="5">Desayuno</option>
-                <option value="4">Bebida</option>
                 <option value="7">Extra</option>
               </select>
               <input type="text" placeholder="Buscar Producto" class="der col s8" style="width: 50%" id="sprod" autocomplete="off">
@@ -218,6 +219,6 @@
             </div>
 
     {$SCR}
-    <script src="../assets/js/modulos/restaurante.js?v=10.3.0.9-1"></script>
+    <script src="../assets/js/modulos/restaurante.js?v=10.3.0.9-2"></script>
   </body>
 </html>
