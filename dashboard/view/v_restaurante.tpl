@@ -25,10 +25,10 @@
       </div>
 
       <div class="row center head1" style="margin-bottom: 0px;background-color: #01579b;">
-        <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span>
+        <p class="flow-text" style="margin: 0%;"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"> </span> 
       </div>
       
-     {if $BARRAS.length}
+     {if $BARRAS|@count}
       <div class="row ">
         <h6 class="col s6 m2 center head3" style="margin-top: 0;padding-top: 0.8%;padding-bottom: 0.8%;background-color: #0277bd ">BARRAS</h6>
       </div>
