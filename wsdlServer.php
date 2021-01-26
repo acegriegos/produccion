@@ -258,7 +258,7 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
+          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and find_in_set('.$_POST['vsucursal'].',concat(idsucursal,"-1"))');
 
           if(isset($rs->num_rows)){
             $salida['rs'] = [];
@@ -357,10 +357,8 @@ if (isset($_POST['respuestaXml'])) {
 
                   $obj->bdy->$mrow = null;
                   $arg = substr(substr(json_encode(array_values((array)$obj->bdy)),1),0,-1);
-                  file_put_contents('debug_sincro', "\r\n".'insert into '.$tbl.' values('.$arg.')',FILE_APPEND);
                   $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
                   if(!$obj->memory){
-                    file_put_contents('debug_sincro', "\r\n".$mrs,FILE_APPEND);
                     if($mrs == 1){
                       $memory = $base->ejecutar('select max(id) from '.$tbl)->fetch_all()[0][0];
                       array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);

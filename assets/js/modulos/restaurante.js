@@ -864,7 +864,7 @@ function generarComanda(idfactura){
 
 function cargarProdList(){
     var productos = getDatos('',807,'@@impresa,"'+$("#sprod").val().trim()+'",'+$("#lfam option:selected").val(),0,0,0);
-    console.log(productos)
+    
     var epp = '';
     var str = '';
     var isbebida = 1;

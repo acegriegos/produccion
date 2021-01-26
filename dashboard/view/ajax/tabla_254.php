@@ -25,7 +25,7 @@
     ?>
 
     <tr id="<?php echo $obj[13]; ?>" metrica="<?php echo $obj[14]; ?>">
-        <td style=" padding: 1px;text-align: left;"><?php echo $obj[2] ?></td>
+        <td style=" padding: 1px;text-align: left;"><input type="text" class="browser-default focus7" style="border: 0px;width: 150px" maxlength="150" value="<?php echo $obj[2]; ?>"></td>
         <td style=" padding: 1px;text-align: left;"><input type="text" class="eder browser-default focus6" style="border: 0px;width: 110px" maxlength="13" value="<?php echo $obj[26]; ?>"></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus" style="border: 0px;width: 70px;" value="<?php echo number_format($obj[6],2,'.','') ?>" rval="<?php echo $obj[6] ?>"></td> 
         <td style=" padding: 1px;">
@@ -189,6 +189,16 @@
             actualizar(299,'cabys = "'+ml+'"','idproducto = '+tr.attr('id'));
             $(this).next('.focus').focus().select();
             Materialize.toast('Código CABYS Cambiado Correctamente',4000,'green');
+        }
+    });
+
+    $(".focus7").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var ml = $(this).val();
+            actualizar(11,'nombre="'+ml+'"','id='+tr.attr('id'));
+            Materialize.toast('Nombre Cambiado Correctamente',4000,'green');
         }
     });
 
