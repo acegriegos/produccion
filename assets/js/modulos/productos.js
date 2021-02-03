@@ -2427,6 +2427,7 @@ function postload(vmodulo){
 
 function cargarCategorias(nombre){
 	var cats = getDatos('nombre,case iva when 0 then 1 when 1 then 2 when 2 then 3 when 4 then 4 when 13 then 8 end as iva,codigo',337,'numero = 8 and nombre like "%'+nombre+'%"');
+	console.log(cats)
 	var list = '';
 	for (var i = 0; i < cats[0].length; i++) {
 		list += '<p iva="'+cats[0][i][1]+'" cod="'+cats[0][i][2]+'" style="cursor:pointer;" class="rcabys">'+cats[0][i][0]+'</p>';

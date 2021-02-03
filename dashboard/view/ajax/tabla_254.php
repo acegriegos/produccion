@@ -2,6 +2,7 @@
 <table class="table striped pequeño  bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
     <thead>
        <tr>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Código</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Artículo</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>CBABYS</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Existencia</b></td>
@@ -25,6 +26,7 @@
     ?>
 
     <tr id="<?php echo $obj[13]; ?>" metrica="<?php echo $obj[14]; ?>">
+        <td style=" padding: 1px;text-align: left;"><?php echo $obj[0] ?></td>
         <td style=" padding: 1px;text-align: left;"><input type="text" class="browser-default focus7" style="border: 0px;width: 150px" maxlength="150" value="<?php echo $obj[2]; ?>"></td>
         <td style=" padding: 1px;text-align: left;"><input type="text" class="eder browser-default focus6" style="border: 0px;width: 110px" maxlength="13" value="<?php echo $obj[26]; ?>"></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus" style="border: 0px;width: 70px;" value="<?php echo number_format($obj[6],2,'.','') ?>" rval="<?php echo $obj[6] ?>"></td> 

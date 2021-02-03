@@ -1,4 +1,5 @@
 <?php 
+	ini_set('display_errors','off');
 	$path_info = parse_path();
 	$modulo = $path_info['call_parts'][0];
 	
