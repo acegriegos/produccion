@@ -518,11 +518,19 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $db = new DBClass();
 
-          switch ($_POST['acc']) {
+          switch ($_REQUEST['acc']) {
             case 1:
-              $salida['rs'] = $db->ejecutar('call krattos("valor",15,"descr = \"versionbms\"")')->fetch_all();
+              $salida['rs'] = $db->ejecutar('call krattos("valor",15,"descr = \"versionbase\"")')->fetch_all();
+              //EMPAQUETAR ARCHIVOS
+              $full = '';
+              $num = $_REQUEST['aver'];
+              while ($num < $salida['rs'][0][0]) {
+                $file = 'v'.(int)$num.'.sql';
+                $full .= shell_exec('cat /var/www/pagina/descargas/actualizaciones/'.$file);
+                $num++;
+              }
+              $salida['file'] = base64_encode($full);
               break;
-            
             default:
               # code...
               break;

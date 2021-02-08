@@ -330,6 +330,7 @@
 
             <script src="assets/js/jquery.js?v=10.0.0.29"></script>
             <script src="assets/js/materialize.min.js?v=10.0.0.29"></script>
+            <script src="assets/js/asgard.js?v=10.3.0.9"></script>
             <script type="text/javascript">
 
                 $(window).keydown(function(e){
@@ -345,6 +346,26 @@
 
                 $('.tooltipped').tooltip({delay: 50});
                 $('select').material_select();
+
+                $("#db").click(function(){
+                    $("#consoleText").html('')
+                    $("#consoleText").append('Actualizando Base de Datos<br>Cargando Ultima Version....<span id="lver">##</span><br>Version Actual....<span id="aver">##</span><br>');
+                    var _aver = getDatos('valor',15,'descr="versionbase"')[0][0][0];
+
+                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:11,acc:1,aver:_aver})
+                        .done(function(data){
+
+                            $("#aver").html(_aver);
+                            $("#lver").html(data.rs[0])
+                            $("#consoleText").append('Descargando Archivos...<br>')
+                            $.post('update.php',{tupdate:3,file:data.file})
+                                .done(function(data){
+                                    console.log(data)
+                                    $("#consoleText").append('BASE ACTUALIZADA<br>')
+                            })
+                    })
+
+                });
 
                 $(".instalar").click(function(){
                     var id = $(this).attr('id');
@@ -365,7 +386,6 @@
 
                     $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
                         .done(function(data){
-                            console.log(data.rs[0][0])
                             if(data.succed && data.rs.length == 1){
                                 if (data.rs[0][3] != 1) {
                                     $(".valid").attr('disabled',false);
@@ -374,7 +394,7 @@
                                     $(".credentials").attr('disabled','true');
                                     $("#unom").html(data.rs[0][2]);
                                     $(".isvalid").removeClass('hide');
-                                    $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+p['rs'][0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
+                                    $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+data.rs[0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
                                 }
                                 
                             }else{
@@ -475,6 +495,19 @@
             
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
+            break;
+        case 3:
+            require_once '_config/mysqlDB.php';
+            fclose(fopen('./assets/update/update.log','w'));
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $port = $db->getPort();
+
+            file_put_contents('mysqlfile', base64_decode($_REQUEST['file']));
+            print_r(shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < mysqlfile >> ./assets/update/update.log 2>&1"));
+            unlink('mysqlfile');
             break;
         case 12:
             echo json_encode($update->ubicaciones());
