@@ -512,6 +512,8 @@ $(document).on("keyup","[id^=search_]",function(e){
             var j = elem.attr('filtro') == undefined ? 1 : elem.attr('filtro');
             var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
 
+            var textra = [];
+
             $("._extra").each(function(){
                 if($(this).attr('typ') != undefined )
                 switch($(this).attr('typ')){
@@ -527,7 +529,7 @@ $(document).on("keyup","[id^=search_]",function(e){
                 textra = textra.filter(n=>n)        
                 h += ','+textra.toString();
             }
-    
+
             var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
             
             filltable(h,b,c,g);
@@ -1605,7 +1607,7 @@ function mostrar_cargar(){
 function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
-    var textra = [];
+    
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
     $("#data-table-"+b).DataTable({
         bFilter: false,
