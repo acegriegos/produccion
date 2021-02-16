@@ -1,4 +1,4 @@
-<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa');?>
+<?php include_once '../assets/libs/qr/barcode.php'; $generator = new barcode_generator(); $config = $kakaroto->kamehameha('',42,'@@impresa');  $tmpfact = $kakaroto->kamehameha('(select nombre from usuarios where id = idusuario)',327,'factura='.$_REQUEST['id']); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,18 +124,18 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>
 </table>
 <table style="width: 100% !important;">
-  <tr>
+  <tr class="fe">
     <td align="left" colspan="4">Documento Electrónico, Clave N°</td>
   </tr>
   <tr>
-    <td align="left" colspan="4" >'.$transaccion[0][32].'</td>
+    <td align="left" colspan="4" style="word-break: break-all;">'.$transaccion[0][32].'</td>
   </tr>
   <tr style="display:none"><td colspan="4"><br></td></tr>
   <tr>
     <td align="center">'.$datos[25].' de '.$datos[1].' N°</td>
   </tr>
   <tr>
-    <td align="center"><span class="fe hide"> '.$datos[0].' </span></td>
+    <td align="center"><span> '.$datos[0].' </span></td>
   </tr>
 </table>
 
@@ -153,8 +153,15 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>';
   }
   
+  if (isset($tmpfact[0])) {
+    echo '<tr>
+      <td width="50%">Atendido por: </td>
+      <td width="50%">'.$tmpfact[0][0].'</td>
+    </tr>';    
+  }
+
   echo '<tr '.$ocultar.'>
-    <td width="50%">Vendedor: </td>
+    <td width="50%">Facturado por: </td>
     <td width="50%">'.$datos[16].'</td>
   </tr>';
 
@@ -198,8 +205,8 @@ switch($config[0][10]) {
  echo '<table  style="width: 100% !important;">
   <tr>
     <td align="center" width="15%">CANT</td>
-    <td align="center" width="45%">ARTICULO</td>
     <td align="center" width="20%">P.UNIT</td>
+    <td align="center" width="45%">ARTICULO</td>
     <td align="center" width="20%">PRECIO</td>
   </tr>
   <tr>
@@ -208,8 +215,8 @@ switch($config[0][10]) {
   foreach ($transaccion as $obj) {
       echo '<tr>
         <td align="center" width="15%">'.$obj[29].number_format($obj[18],3).'</td>
-        <td align="center" width="45%">'.$obj[19].'</td>
         <td align="center" width="20%">'.$obj[20].'</td>
+        <td align="center" width="45%">'.$obj[19].'</td>
         <td align="center" width="20%">'.number_format(str_replace(',', '', $obj[20])*str_replace(',', '', $obj[18]),2).'</td></tr>';
     }
 
@@ -347,19 +354,20 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.2.0.91"></script>
- <script src="../assets/js/materialize.min.js?v=10.2.0.91"></script>
- <script src="../assets/js/asgard.js?v=10.2.0.91"></script>
+ <script src="../assets/js/jquery.js?v=10.3.0.9"></script>
+ <script src="../assets/js/materialize.min.js?v=10.3.0.9"></script>
+ <script src="../assets/js/asgard.js?v=10.3.0.9"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
       var d56 = parseInt($("#d56").val());
-      var resol = "AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
+      var resol = "REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
         resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
-      }
+      }else
+        $(".fe").hide()
 
       $("#resolucion").html('<span class="ncontado" style="display:none">Renuncio mi domicilio y los trámites de juicio ejectivo. Al mismo tiempo doy por aceptadas las condiciones del codigo del comercio según artículo 460. Todo reclamo debe hacerse antes de 5 días hábiles. Acepto ser incluído en la red nacional de créditos</span>'+resol);
 

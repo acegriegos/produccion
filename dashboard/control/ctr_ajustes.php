@@ -36,7 +36,7 @@ if (!isset($_REQUEST['accion'])) {
 	   			break;
 	   		case 2:
 	   			$pagina = 1;
-			   	$smarty->assign('DESCF',$kakaroto->kamehameha('valor',15,'descr = "descuentoVenta"')[0][0]);
+			   	$smarty->assign('DESCF',30);
 			   	$smarty->assign('CICLOS',$kakaroto->kamehameha('*',90,'1 order by id'));
 			   	$smarty->display('ajax/ajustes/ajaxDescuentos.tpl');
 	   			

@@ -42,10 +42,10 @@
                 case 2:
                 case 3:
                   $caja = $log->kamehameha('',253,'"'.str_replace(' ', '', $_SERVER['REMOTE_ADDR']).'"');
-
+                  
                   if ($caja[0][0]) {
                     if ($caja[0][1]) {
-                      $_SESSION['CAJA']    = 1;
+                      $_SESSION['CAJA']    = $caja[0][1];
                       $mod = 'facturacion';
                     }else{
                       $_SESSION['CAJA']    = 0;
@@ -201,7 +201,7 @@
         if(!isset($_SESSION['IMPRESA']) && isset($_REQUEST['arreglo']['empresaid'])){
           $_SESSION['IMPRESA'] = $_REQUEST['arreglo']['empresaid'] ;
         }
-        $arch = $_REQUEST['arreglo']['archivo'];
+        $arch = str_replace('^', '#', $_REQUEST['arreglo']['archivo']);
         $save = $_REQUEST['arreglo']['save'];
         $tit = $_REQUEST['arreglo']['tit'];
         $tit2 = isset($_REQUEST['arreglo']['tit2']) ? $_REQUEST['arreglo']['tit2'] : '' ;
@@ -459,13 +459,16 @@
               $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"');
 
               if (!sizeof($compra)) {
-                 $log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$idproveedor.'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'"');
+                echo "FACTURA<br>";
+                 print_r($log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$idproveedor.'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'"'));
                  $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"')[0][0];
               }else{
                   $compra = $compra[0][0];
               }
 
+              echo 'DET FACTURA<br>';
               $rs = $log->genkidama(1,263,'','null,"'.$compra.'","'.$obj[31].'",'.$obj[52].','.$obj[51].',"'.$obj[32].'","'.$obj[33].'","'.$obj[34].'",0,"'.$obj[35].'","'.str_replace('"', '\"', $obj[30]).'","'.$obj[36].'","'.$obj[50].'","",0');
+              print_r($rs);
           }
       }
     }

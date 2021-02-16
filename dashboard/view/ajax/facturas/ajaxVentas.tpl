@@ -23,8 +23,8 @@
   <a href="#!" class="green btn per1111 hide"  title="Realizar Factura en Espera" style="float: left;" id="prefact" vid="0">PRE-FACTURA</a>
   <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
-  {if $smarty.session.CAJA eq 1}
-  <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" id="cargarfact"><span class="white-text" id="cantFact"></span></a>
+  {if $smarty.session.CAJA gt 0}
+  <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" id="cargarfact" idcaja="{$smarty.session.CAJA}"><span class="white-text" id="cantFact"></span></a>
   {/if}
 </p>
   
@@ -207,6 +207,8 @@
     <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
 
     <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
+
+    <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
     {/if}
 
     <a class="mdi mdi-xml tooltipped mdi-24px white-text der hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh" style="position: absolute;top: 0;right: 108px;"></a>
@@ -872,7 +874,7 @@
 
   <div class="row">
     {section name=LE loop=$TPAGO}
-        <input type="radio" value="{if $TPAGO[LE][0] eq 5}-1{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
+        <input type="radio" value="{if $TPAGO[LE][0] eq 5}5{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
         <label for="tpg{$TPAGO[LE][0]}" class="col s4 l2">{$TPAGO[LE][1]}</label>
     {/section}
   </div>
@@ -883,7 +885,7 @@
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
     <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <input type="text" class="form-control form-control-sm center numeric vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
@@ -971,6 +973,11 @@
           <label for="montoefect">Efectivo</label>
       </div>
 
+      <div class="col s12 input-field">
+          <input type="text" id="pconm" value="0.00" class="eder vextra" tp="1" autocomplete="off">
+          <label for="pconm">Paga Con</label>
+      </div>
+
        <div class="col s12 input-field">
             <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2" autocomplete="off">
             <label for="montotar">Tarjeta</label>
@@ -980,6 +987,8 @@
         <input type="text" id="ntarjmixto" maxlength="4" class="eder">
         <label for="ntarjmixto">Número de Tarjeta</label>
       </div>
+
+      <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons">0.00</span></h3>
 
       <hr style="border:1px dashed #e2e2e2">
 
@@ -1252,4 +1261,4 @@
 </ul>
 
 
-<script src="../assets/js/modulos/ventas.js?v=10.2.0.91"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.3.0.9"></script>

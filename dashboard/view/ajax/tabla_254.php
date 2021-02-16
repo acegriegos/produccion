@@ -3,6 +3,7 @@
     <thead>
        <tr>
         <td class="white-text blue sinborde " style="text-align: center"><b>Artículo</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>CBABYS</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Existencia</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Unidad</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Costo</b></td>
@@ -25,7 +26,8 @@
 
     <tr id="<?php echo $obj[13]; ?>" metrica="<?php echo $obj[14]; ?>">
         <td style=" padding: 1px;text-align: left;"><?php echo $obj[2] ?></td>
-        <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus" style="border: 0px" value="<?php echo number_format($obj[6],2,'.','') ?>" rval="<?php echo $obj[6] ?>"></td> 
+        <td style=" padding: 1px;text-align: left;"><input type="text" class="eder browser-default focus6" style="border: 0px;width: 110px" maxlength="13" value="<?php echo $obj[26]; ?>"></td>
+        <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus" style="border: 0px;width: 70px;" value="<?php echo number_format($obj[6],2,'.','') ?>" rval="<?php echo $obj[6] ?>"></td> 
         <td style=" padding: 1px;">
             <select class="browser-default um" style="border: 0px;">
                 <?php if($obj[20]){
@@ -42,7 +44,7 @@
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus3" style="border: 0px" value="<?php echo number_format($obj[16],2,'.','') ?>"/></td>
         <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[24],2,'.',',') ?></td>
         <td style=" padding: 1px;text-align: right;"><input type="number" class="eder browser-default focus4" style="border: 0px" value="<?php echo number_format($obj[17],2,'.','') ?>"/></td>
-        <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[15],2,'.',',') ?></td>
+        <td style=" padding: 1px;text-align: right;"><?php echo number_format($obj[25],2,'.',',') ?></td>
         <td style=" padding: 1px;text-align: right;"> <!-- <input type="text" class="eder browser-default focus5" style="border: 0px" value="<?php echo $obj[18]; ?>"/> --> <span class="notasprod" name="<?php echo $obj[2] ?>" tbl="11" row="<?php echo $obj[13]; ?>" style="cursor: pointer;"><?php echo $obj[18] ? $obj[18] : '---'; ?></span> </td>
        
     </tr>
@@ -67,7 +69,6 @@
 
     $(function(){
         var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso = (select id from permisos where codigo = 9999)')[0][0][0];
-        console.log(allow)
         if(allow != '1'){
             $(".detrep input").attr('readonly',true);
         }
@@ -171,6 +172,26 @@
         }
     });
 
+    $(".focus6").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var ml = $(this).val();
+            if(ml.length != 13){
+                Materialize.toast('Código CABYS Inválido',4000,'red');    
+                return false
+            }
+            var ce = getDatos('vid',337,'codigo="'+ml+'" and numero = 8');
+            if(ce[0][0] == undefined){
+                Materialize.toast('Código CABYS Inválido',4000,'red');    
+                return false   
+            }
+
+            actualizar(299,'cabys = "'+ml+'"','idproducto = '+tr.attr('id'));
+            $(this).next('.focus').focus().select();
+            Materialize.toast('Código CABYS Cambiado Correctamente',4000,'green');
+        }
+    });
 
     $(".um").change(function(){
         var tr = $(this).parent().parent();

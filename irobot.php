@@ -50,8 +50,8 @@
         }else
             exit(0); 
     }
-    
-    $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Tiriyo: ' . imap_last_error());
+
+    $inbox = imap_open($hostname,$username,$password) or die('Cannot connect: ' . imap_last_error());
     
     $emails = imap_search($inbox,'UNSEEN');
     

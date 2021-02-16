@@ -371,11 +371,10 @@ function removeHacienda(file){
 }
 
 function xmlCargar(file,response){
-    console.log(response)
     try{
         response = JSON.parse(response);
         var mced = getDatos('replace(cedula,"-","")',39,'id = @@impresa',0,0,0)[0][0][0];
-
+        console.log({accion:10,id:file['name'],hclave:$("#myclave").val(),ced:mced})
         $.get('../wsdlClient.php',{accion:10,id:file['name'],hclave:$("#myclave").val(),ced:mced})
             .done(function(data){
                 var p;

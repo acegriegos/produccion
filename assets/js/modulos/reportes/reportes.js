@@ -146,18 +146,21 @@ $(function(){
             var tipos = $(".principal .filtros").attr('tipos').split(",");
             var active = $(".principal .filtros").attr('tpactive') == undefined ? '' : $(".principal .filtros").attr('tpactive').split(',');
             var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? '' : $(".principal .filtros").attr('tfiltar').split(',');
+            var vsel = $(".principal .filtros").attr('tsel') == undefined ? '' : $(".principal .filtros").attr('tsel').split(';');
             var inc = 0;
             var filtro = 5;
             var type = stractive = '';
             var strwhere;
             var opts;
             var stropts;
+            var sel;
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
                 stractive = active[i] == '1' ? 'checked' : '';
                switch(parseInt(vtype[i])){
                     case 1://para select
-                    opts = getDatos('id,nombre',vtbl[i],'id > 0',0,0,0);
+                    sel = vsel[i] == undefined ? 'id,nombre' : vsel[i] == '' ? 'id,nombre' : vsel[i]; 
+                    opts = getDatos(sel,vtbl[i],'id > 0');
                     stropts = '';
                     for(var j = 0;j<opts[0].length;j++)
                         stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
@@ -273,12 +276,11 @@ $(document).on("click","#sndcrr",function(){
 });
 
 $(document).on("click",".excel",function(){
-    var sucursal = getDatos('if(pfisico <> "",pfisico,nombre)',39,"id=@@impresa",0,0,0)[0][0][0];
+    var sucursal = getDatos('replace(if(pfisico <> "",pfisico,nombre),"#","^")',39,"id=@@impresa",0,0,0)[0][0][0];
     
     var resultado = rexcel()
 
     window.location = "login?accion=11&arreglo[sel]=&arreglo[tbl]="+resultado['tbl']+"&arreglo[where]="+resultado['vatr']+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'];
-    //console.log("login?accion=11&arreglo[sel]=&arreglo[tbl]="+resultado['tbl']+"&arreglo[where]="+resultado['vatr']+"&arreglo[save]=0&arreglo[vista]="+$(".excel").data('parametros')['vista']+"&arreglo[tit]="+$("#titrep").html()+"&arreglo[archivo]="+$("#titrep").html()+", "+sucursal+"&arreglo[conteo]=1&arreglo[suma]="+$(".excel").data('parametros')['suma'])
 });
 
 $(document).on("click",".pdf",function(){

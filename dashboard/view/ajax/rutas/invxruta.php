@@ -1,8 +1,8 @@
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.2.0.91">
-<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.2.0.91">
-<link href="../assets/css/modulos/style-factura.css?v=10.2.0.91">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.9">
+<link rel="stylesheet" type="text/css" href="../assets/fonts/material-icons.css?v=10.3.0.9">
+<link href="../assets/css/modulos/style-factura.css?v=10.3.0.9">
 <title>Inventario por ruta</title>
 <body class="grey darken-4" style="font-size: 1.1em;">
   <div class="row" style="padding-top: 8%">
@@ -139,9 +139,9 @@
 </section>
 </div>
 
-<script src="../assets/js/jquery.js?v=10.2.0.91"></script>
+<script src="../assets/js/jquery.js?v=10.3.0.9"></script>
 
-<script src="../assets/js/materialize.min.js?v=10.2.0.91"></script>
-<script src="../assets/js/asgard.js?v=10.2.0.91"></script>
+<script src="../assets/js/materialize.min.js?v=10.3.0.9"></script>
+<script src="../assets/js/asgard.js?v=10.3.0.9"></script>
 
 </body>

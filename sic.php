@@ -19,7 +19,7 @@
         $salida['ap1'] = "";
         $salida['ap2'] = "";
         $salida['nom'] = $data['nombre'];
-        $salida['ced'] = substr($consulta, 0,10);
+        $salida['ced'] = $data['tipoIdentificacion'] == 3 ? $consulta :substr($consulta, 0,10);
         $salida['tip'] = $data['tipoIdentificacion'];
         $salida['succed'] = 1;
     }else{

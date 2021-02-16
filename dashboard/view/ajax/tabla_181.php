@@ -9,6 +9,7 @@
 			<td style="text-align: center">'.$obj[10].'</td>
 			<td style="text-align: center">'.$obj[8].'</td>
 			<td style="text-align: center">'.$obj[9].'</td>
+			<td style="text-align: right">'.number_format($obj[11],2).'</td>
 		</tr>';
 ?>
 <?php } ?>

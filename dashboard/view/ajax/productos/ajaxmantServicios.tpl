@@ -44,7 +44,7 @@
                 </tbody>
             </table>
             <ul class="left showing" modulo="13"><small></small></ul>
-            <ul class="pagination right" vtbl="13" modulo="productos"></ul>
+            <ul class="pagination right" vtbl="13" modulo="servicioos"></ul>
         </div>
     </div>
 </div><br><br>

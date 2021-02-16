@@ -29,6 +29,8 @@
 
             <li class="tr"><a class="center mdi mdi-24px mdi-content-duplicate clone tooltipped" data-tooltip="Clonar" data-position="left" id="f<?php echo $obj[0] ?>"></a></li>
 
+            <li class="tr trSpecial"><a class="center mdi mdi-24px mdi-close red tooltipped delete-view" data-tooltip="Eliminar" data-position="left" id="k<?php echo $obj[0] ?>"></a></li>
+
             <li class="tr trVenta trCot trOCompra trExportacion"><a class="center mdi mdi-24px mdi-send send tooltipped" data-tooltip="Enviar por Correo" data-position="left" id="d<?php echo $obj[0] ?>"></a></li>
             <!-- tr trVenta trCot trOCompra trPedido -->
         </ul>

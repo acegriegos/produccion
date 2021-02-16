@@ -109,6 +109,11 @@
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
+
+<div class="col s6 m3 l2 per11 hide center-align">
+<a class="report pbtn" rep="servrest"><i class="mdi-48px mdi mdi-glass-wine"></i></a>
+<p>Servicio Restaurante</p>
+</div>
  
 </div>
 
@@ -157,7 +162,7 @@ Inventario <hr>
 
 </div>
 
-<div class="row">
+<div class="row per15 hide">
 Contabilidad <hr>
 
 <div class="col s6 m3 l2 center-align">
@@ -165,7 +170,7 @@ Contabilidad <hr>
 <p>Declaraciones Informativas</p>
 </div>
 
-<div id="conta">
+<div>
 
 <div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="contabilidad" tf="catalogo"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
@@ -199,6 +204,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.2.0.91"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.3.0.9"></script>
 </body>
 </html>

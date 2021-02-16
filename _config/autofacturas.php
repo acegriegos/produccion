@@ -72,15 +72,16 @@
     }
 
     if(!isset($_COOKIE['AUTO'])){
+        session_write_close();
         setcookie("AUTO",1, time()+10);
-        ob_end_clean();
+        /*ob_end_clean();
         ignore_user_abort();
         ob_start();
         header("Connection: close");
         echo json_encode(['success'=>1]);
         header("Content-Length: " . ob_get_length());
         ob_end_flush();
-        flush();
+        flush();*/
     }else{
         echo "AUTO ACTIVADO";
         exit(0);
@@ -111,7 +112,8 @@
                         /*if ($obj[2] == 0 && $obj[3]) # EVIOCORREO NORMAL
                             enviocorreoauto($db,$obj[0],$obj[1],0,$fe->info,$fe->titulo,64);
                         elseif ($obj[2] == 2 && $obj[3]) #ENVIAR SOLO RH
-                            enviocorreoauto($db,$obj[0],$obj[1],1,$fe->info,$fe->titulo,64); */
+
+                            enviocorreoauto($db,$obj[0],$obj[1],1,$fe->info,$fe->titulo,64);*/ 
                         break;
                     case 'rechazado':
                         $nesatdo = 3;
@@ -176,7 +178,7 @@
                 $salida['PROCESS']['COMPRAS'][$obj[0]] = $estado['estado'];
             }
         }
-    }
+    }*/
 
     //NC ND
 
@@ -214,7 +216,7 @@
                 $salida['PROCESS']['CUENTAS'][$obj[0]] = $estado['estado'];
             }
         }
-    }*/
+    }
 
 //ESTADO SIN ENVIAR, SIN INTERNET
     //TIQUETES Y FACTURAS
@@ -235,7 +237,7 @@
     }
 
     //A A-P R
-    $lista = $db->ejecutar('select id from facturas where feestado in(0,7) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and char_length(referencia) = 50 order by id desc limit 10');
+    /*$lista = $db->ejecutar('select id from facturas where feestado in(0,7) and id > 1 and idsucursal = '.$_SESSION['IMPRESA'].' and char_length(referencia) = 50 order by id desc limit 10');
     if(isset($lista->num_rows)){
         $lista = $lista->fetch_all();
         foreach ($lista as $obj) {
@@ -243,7 +245,7 @@
             $rs = $fe->recepcion();
             $salida['SEND']['COMPRAS'][$obj[0]] = 'done compra';
         }
-    }
+    }*/
 
     //NC ND
     $lista = $db->ejecutar('select a.id from estadoscuentas a join facturas b on b.id = a.idfactura and b.idsucursal = '.$_SESSION['IMPRESA'].' where a.feestado in(0,7) and a.idtipo in(5,6) order by id desc limit 10');
@@ -264,9 +266,6 @@
         }
     }
 
-
-    $sucursal = $log->kamehameha('cedula,isprueba',39,'id=@@impresa')[0];
-    //compras($config[18],$sucursal[0],$sucursal[1],$log,$salida);
     echo json_encode($salida);
     unset($_SESSION['AUTO']);
 }//NORMAL

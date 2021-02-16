@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
-    <title>Proyectos</title>
-    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-proyectos.css?v=10.3.0.9">
+    <title></title>
+   {$STY}
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-bmi.css?v=10.3.0.9">
   </head>
   <body>
+  <br>
     {$NAV}
     <div class="bdy">
 
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/proyectos.js?v=10.3.0.9"></script>
+    <script src="../assets/js/modulos/bmi.js?v=10.3.0.9"></script>
   </body>
 </html>

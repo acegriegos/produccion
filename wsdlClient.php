@@ -146,6 +146,7 @@
                     $db = new DBClass();
                     $xml = file_get_contents('./assets/xml/'.$id);
                     $fe->loadXML_FILE($xml,$salida,$db,$_REQUEST['ced']);
+                    touch('./assets/xml/'.$id);
                 }
 
                 echo json_encode($salida);
@@ -360,8 +361,18 @@
                 
                 break;
             case 13: //REFRESCAR TOKEN
-                if (isset($_SESSION['IMPRESA']))
+                if (isset($_SESSION['IMPRESA'])){
+                    ob_end_clean();
+                    ignore_user_abort();
+                    ob_start();
+                    header("Connection: close");
+                    header("Content-Encoding: none");
+                    echo json_encode(['rs'=>'Token ACT']);
+                    header("Content-Length: " . ob_get_length());
+                    ob_end_flush();
+                    flush();
                     echo $fe->refresh();
+                }
                 else
                     echo "NO HAY LOG IN";
                 break;
@@ -458,7 +469,7 @@
                 ob_end_flush();
                 flush();
                 $db = new DBClass();
-                $fact = $db->ejecutar('select substring(clave,22,20) from integraciones where factura = "'.$_REQUEST['cons'].'"')->fetch_all()[0][0];
+                $fact = $db->ejecutar('select substring(clave,22,20) from integraciones where substring(clave,30,2)*1 in(1,3) and factura = "'.$_REQUEST['cons'].'"')->fetch_all()[0][0];
                 $xml = file_get_contents('./assets/xml/'.$_REQUEST['ruta'].'/'.$fact.'.xml');
                 $axml =  $fe->XMLtoArray($xml);
                 $llave = key($axml);
@@ -832,7 +843,7 @@
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl,CURLINFO_HEADER_OUT,true);
             curl_setopt($curl, CURLOPT_POST, false);
-            curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/x-www-form-urlencoded','Authorization: bearer '.$this->bearer]);
+            curl_setopt($curl, CURLOPT_HTTPHEADER,['Content-Type: application/json','Authorization: bearer '.$this->bearer]);
 
             $json_response = curl_exec($curl);
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -1076,10 +1087,10 @@
                 }
                 if ($idfact) {
 
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
+                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,"")');
 
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0)');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,"")');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');1
                         return false;
@@ -1294,7 +1305,7 @@
                     $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$_exento.')');
                     
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.')');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$_exento.')');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');
                         return false;
@@ -1302,6 +1313,7 @@
 
                 }
             }
+
         }
 
         function estado()
@@ -1315,8 +1327,11 @@
 
             if (isset($_REQUEST['clave'])) {
                 $clave = $_REQUEST['clave'];
-            }else
+            }else{
+                if(!isset($this->info['Clave']))
+                    return false;
                 $clave = $this->info['Clave'];
+            }
 
             if ($this->credenciales[2] == 1) 
                 $curl = curl_init("https://".$this->pagina."/recepcion-sandbox/v1/recepcion/".$clave);
@@ -1472,7 +1487,7 @@
                         break;
                     default :
                         $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
-                        if ( $tmcedula != 10)
+                        if ( $tmcedula != 12)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }
@@ -1567,7 +1582,8 @@
                         $detalle['Codigo'] = $value[2];//$codigo;
                         $detalle['Cantidad'] = $value[3];
                         $detalle['UnidadMedida'] = $value[4];
-                        $detalle['UnidadMedidaComercial'] = $value[5];
+                        if($value[5])
+                            $detalle['UnidadMedidaComercial'] = $value[5];
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];

@@ -83,6 +83,21 @@ $(document).ready(function(){
     permisos(1110,1110)
 });
 
+$(document).on("click",".delete-view",function(){
+
+    if ($(this).attr('cnt') == undefined) {
+        if(!$("#_DEL").length){
+            var id = $(this).attr('id');
+            $(this).attr('mbg',$(this).parent().parent().css('background-color'));
+            var $toastContent = $('<span id="_DEL" >Desea Eliminar Este Registro? </span>').add($('<a class="btn red" style="margin:2px" id="deldef" inid="'+id+'">Elminar</a> <a class="btn btn-default" id="delcan" inid="'+id+'">Cancelar</a>'));
+            Materialize.toast($toastContent,10000,'',function(){if($("#"+id) != undefined) $("#"+id).parent().parent().parent().parent().css('background-color',$("#"+id).attr('mbg'))});
+            $(this).parent().parent().parent().parent().css('background-color','#ed5249');
+        }
+    }else{
+        deleterow($(this))
+    }
+});
+
 
 $(document).on("click",".mh",function(){
     var vid = $(this).attr('id').substr(1);

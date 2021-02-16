@@ -1,6 +1,6 @@
 <div class="pequeño" id="mantProd" >
     <div class="row">
-        <div class="input-field col s10 m8 l5">
+        <div class="input-field col s12 m5">
             <a class="prefix dropdown-button tooltipped small mdi mdi-magnify pbtn"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"></a>
             <ul id='filtr_1' class='dropdown-content' style="width: auto;">
                 <li><a class="optns" tipo="codigo,codigointerno,nombre" href="#!" fltr="1">Código, Notas o Nombre</a></li>
@@ -13,7 +13,20 @@
             <label class="truncate" for="search_productos">Buscar Producto por Código, Notas o Nombre</label>
         </div>
 
-        <div class="col s2 m4 l7">
+        <div class="col s12 m3">
+            {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
+            <div class="input-field">
+                <select id="mystock">
+                {section name=LE loop=$INV}
+                    <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
+                {/section}
+                </select>
+                <label for="mystock">Inventario</label>
+            </div>
+            {/if}
+        </div>
+
+        <div class="col s2 m4">
 
             <a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger per4102" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
 
@@ -65,7 +78,7 @@
                         <label for="vfamilia">Familia</label>
                     </div>
 
-                    <div class="input-field marginzero col s12 hide">
+                    <div class="input-field marginzero col s12">
                         <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
                         <label for="vtipo">Tipo</label>
                     </div>
@@ -75,6 +88,8 @@
                         <label for="vmarca">Marca</label>
                     </div>
 
+                    <input type="hidden" id="vidheredado" value="0">
+
                     <div class="col s12">
                         <div class="input-field">
                             <i class="mdi mdi-24px mdi-magnify prefix"></i>
@@ -82,7 +97,7 @@
                             <label for="scabys">Buscar Código CABYS</label>
                         </div>
 
-                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 10px" id="lcabys"></div>
+                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 16px" id="lcabys"></div>
                     </div>
 
                     <!-- <div class="col s6">
@@ -179,7 +194,7 @@
                         </div>
                     {/if}
 
-                    <div class="input-field marginzero col s12 per11">
+                    <div class="input-field marginzero col s12 per11 hide">
                         <select id="vidvarios" type="select">
                             <option value="0" selected>N/A</option>   
                             <option value="1">Entrada</option>
@@ -200,7 +215,7 @@
                           Producto Variable
                         </label>
                     </div>
-                    <div class="col s12 switch hide">
+                    <div class="col s12 switch">
                         <label>
                           <input type="checkbox" id="pesaje">
                           <span class="lever tooltipped " data-tooltip="Define si el Producto varía por el Peso" data-position="button"></span>
@@ -216,6 +231,14 @@
                         </label>
                     </div>
                 {/if}
+
+                <div class="col s12 switch">
+                        <label>
+                          <input type="checkbox" id="adescuento" checked>
+                          <span class="lever tooltipped " data-tooltip="Aplicar Descuento en Facturación" data-position="button"></span>
+                          Aplicar Descuento
+                        </label>
+                    </div>
 
                 </div>
 
@@ -285,8 +308,6 @@
                     <div class="col s4 m2 l2">
                         <input type="checkbox" id="visheredado" class="filled-in">
                         <label for="visheredado">Heredado</label>
-                        <input type="hidden" id="vidheredado" value="">
-                        <input type="hidden" id="vinvheredado" value="">
                     </div>
                     <div class="input-field col s4 m4 l4">
                         <input type="text" id="prodher" class="autocomplete" disabled autocomplete="off" value="0">
@@ -312,8 +333,6 @@
                 </div>
             </div>
 
-            <input type="hidden" id="vidheredado" value="0">
-
         </div>
 
         <div id="financiero" class="row hide" style="padding: 10px 10px 0 0px"> 
@@ -334,7 +353,9 @@
                     
                 </div>
                 <input type="checkbox" id="pu" >
-                    <label for="pu" class="col s6" style="padding: 0px; padding-left: 25px; margin-left: 2%;">Por Unidad</label>
+                    <label for="pu" style="padding: 0px; padding-left: 25px; margin-left: 2%;">Por Unidad</label>
+
+                    <label style="padding-left: 25px;">Max. Descuento: <span id="mdesc">0.00</span>% </label>
             <br><br>
             <div class="row" style="margin: 0;margin-top:20px;">
 

@@ -4,9 +4,16 @@ var guser = '@@usr';
 $(function(){
 	 config = getDatos('',42,'@@impresa',0,0)[0][0];
 	
-	var hascaja = getDatos('monto',404,'fmonto is null and idusuario = @@usr and idsucursal = @@impresa',0,0,0);
+	var hascaja = getDatos('monto',404,'fmonto is null and caja = '+$("#BUSS").attr('idcaja')+' and idsucursal = @@impresa',0,0,0);
 	if(hascaja[0].length){
 		$("#mcierre").val(parseFloat(hascaja[0][0][0]).formatMoney(2,'.',',')).attr('readonly',true);
+	}else{
+		if($("#BUSS").attr('ccierre') == '0'){
+			$("#mcierre").focus().select()
+		}
+		else
+			$("#modal-tipomonedas").modal('open')
+
 	}
 
 	$("#tpc").change(function(){
@@ -103,7 +110,7 @@ $(function(){
 	});
 
 	if (parseInt($("#BUSS").val()) != 1) {
-		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d")',0,0,0)[0][0];
+		var monto = arr('login',4,'monto',404,'idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") and caja = '+$("#BUSS").attr('idcaja'),0,0,0)[0][0];
 		if (monto == undefined) {
 			$(".tt").removeAttr('id')
 			$(".tt").addClass('tooltipped')
@@ -112,13 +119,6 @@ $(function(){
 			$(".tt").attr('id','chkcierre');
 		}
 	}
-	
-	$("#ecouser").keyup(function(e){
-        var code = e.wich || e.keyCode;
-
-        if (code == 13)
-            $("#accecouser").click();
-    });
 
 	$("#mcierre").keyup(function(e){
 		var code = e.wich || e.keyCode
@@ -129,58 +129,35 @@ $(function(){
 	});
 
 	$("#iniciarcaja").click(function(){
-		var valor = $("#mcierre").val()
+		var valor = $("#mcierre").val().replace(/,/g,'')
 
 		if($("#mcierre").attr('readonly') != undefined){
 			Materialize.toast('Caja Iniciada',4000,'red')
 			return false;
 		}
 
-		if(isNaN(valor)){
-			Materialize.toast('Valor Debe ser Numérico',4000,'red')
-			$("#mcierre").focus().select();
-			return false;
-		}
+		if($("#BUSS").attr('ccierre') == '1'){
+			$("#totalizar").attr('tp',2);
+			$("#totcashier").html(parseInt(valor).formatMoney(2,'.',','))
+			$("#modal-tipomonedas").modal('open');
+		}else{
+			if(isNaN(valor)){
+				Materialize.toast('Valor Debe ser Numérico',4000,'red')
+				$("#mcierre").focus().select();
+				return false;
+			}
 
-		if(valor <= 0){
-			Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
-			$("#mcierre").focus().select();
-			return false;
-		}
+			if(valor <= 0){
+				Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
+				$("#mcierre").focus().select();
+				return false;
+			}
 
-		insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0');
-		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
-		$("#mcierre").attr('readonly',true);
+			var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0,'+$("#BUSS").attr('idcaja'));
+			Materialize.toast('Caja Iniciada Correctamente',4000,'green');
+			$("#mcierre").attr('readonly',true);
+		}
 	});
-
-    $("#exitcouser").click(function(){
-        $("#modal-usuario").modal('close');
-        $("#shcierre").attr('disabled',true);
-        $("#chkcierre").attr('disabled',true)
-    });
-
-     $("#accecouser").click(function(){
-
-        var cod =  $("#ecouser").val();
-        var rs = getDatos('',137,'"'+cod+'"',0,0,0);
-        console.log(rs);
-        if(parseInt(rs['succed'])){
-            if (rs[0].length){
-                //$("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
-                arr('login',6,'',182,rs[0][0][0],0,1,$("#listacierrespendientes"));
-                $("#modal-usuario").modal('close');
-                guser = rs[0][0][0];
-            }
-            else{
-                Materialize.toast('Usuario no Valido',4000,'red');
-                $("#ecouser").focus().select();
-
-            }
-        }else{
-            Materialize.toast('Usuario no Valido',4000,'red');
-             $("#ecouser").focus().select();
-        }
-     });
 
 	$('.chips').material_chip();
 
@@ -232,70 +209,21 @@ $(function(){
 
 	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
 
-	/*if (parseInt(config[11]) == 3){
+	if (parseInt(config[11]) == 3){
         
         $("#modal-usuario").modal({
 	        dismissible:false
 	    });
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
-	}else*/
-		arr('login',6,'',182,guser+',@@impresa',0,1,$("#listacierrespendientes"));
-});
-
-$(document).on("click","#refresh",function(){
-	var tabla1 = $("#data-table-facturas").DataTable();
-	var tabla2 = $("#data-table-estadocuenta").DataTable();
-	tabla1.destroy();
-	tabla2.destroy();
-	arr('login',6,'',182,guser,0,1,$("#listacierrespendientes"));
-	$("#data-table-facturas").DataTable({
-	    bFilter: false,
-	    bScrollInfinite: true,
-	    bSort: false,
-	    bLengthChange: false,
-	    order: [],
-	    bPaginate: false,
-	    info: false
-	});
-	$("#data-table-estadocuenta").DataTable({
-        bFilter: false,
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
-    });
-	$("#tcontado").text('0.00');
-	$("#tcredito").text('0.00');
-	$("#tabono").text('0.00');
-	$("#tnotcre").text('0.00');
-	$("#tnotdeb").text('0.00');
-	$("#chkcierre").removeAttr('vfecha');
-	$(".tt").removeClass('modal-trigger');
+	}else
+		arr('login',6,'',182,guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
 });
 
 $(document).on("click","#chkcierre",function(){
-/*
-	var cajainicial
-	if (parseInt($("#BUSS").val()) != 1 ) {
-		cajainicial = arr('login',4,'monto',404,'idusuario ='+guser+' and idsucursal=@@impresa and fmonto is null',0,0,0,0)[0][0][0];
-	}else
-		cajainicial = 0;
-	*/
-	$("#totcashier").text(0);
-
-	/*if (!$(this).hasClass('tooltipped')) {
-		if ($(this).attr('vfecha') == undefined) {
-			Materialize.toast('Seleccione un cierre', 4000, 'green');
-		}else{*/
-			$(this).addClass('modal-trigger');
-			$("#modal-tipomonedas").modal('open');
-			$("#totalizar").attr('vfecha',$(this).attr('vfecha'));
-		/*}
-	}*/
-	
+	$("#totcashier").html(parseInt($("#mcierre").val().replace(/,/g,'')).formatMoney(2,'.',','))
+	$("#modal-tipomonedas").modal('open');
+	$("#totalizar").attr('tp',1);
 });
 
 
@@ -322,10 +250,23 @@ $(document).on("blur",".mnd",function(){
 
 $(document).on("click","#totalizar",function(){
 	// chkcierre
-	//if ($(this).attr('vfecha') != undefined)
+	var valor = $("#tcaja").html().replace(/,/g,'');
+	if(parseInt(valor) <= 0 && $("#BUSS").attr('ccierre') == '1'){
+		Materialize.toast('Debe Incluir un Desgloce de Monedas',4000,'red');
+		return false
+	}
+
+
+	if ($(this).attr('tp') == '1')
 		Materialize.toast('Desea realmente ejecutar el cierre de caja? <button type="button" class="waves-effect waves-light btn blue accept" id="docierre" vfecha="'+$(this).attr('vfecha')+'"><i class="mdi mdi-check"></i></button><button type="button" class="waves-effect waves-light btn red cancel"><i class="mdi mdi-close"></i></button>', 10000, 'rounded');
-	/*else
-		Materialize.toast('Seleccione un cierre', 4000, 'green');*/
+	else{ //GUARDDAR INICIO DE CAJA
+		$("#mcierre").val(valor)
+		var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0,'+$("#BUSS").attr('idcaja'));
+		guardarMonedas(0,lcinic[0][0][0])
+		Materialize.toast('Caja Iniciada Correctamente',4000,'green');
+		$("#modal-tipomonedas").modal('close')
+		$("#mcierre").attr('readonly',true);
+	}
 });
 
 $(document).on("click","#docierre",function(){
@@ -335,13 +276,14 @@ $(document).on("click","#docierre",function(){
 
 	/*if (total == 0)
 		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');*/
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#vdoccierre").val()+'"',0,0,0)
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#BUSS").attr('idcaja')+'"',0,0,0);
+	console.log(idcierre)
 	idcierre = idcierre[0][0][0];
 	$(".cancel").parent().remove()
 	
 	if(parseInt(idcierre)){
 		$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
-
+		guardarMonedas(idcierre,0);
 		window.open('cierres?accion=1&id='+idcierre);
 		location.reload();
 	}else{
@@ -362,7 +304,7 @@ $(document).on("click",".getfacturas",function(){
 	var tabla = $("#data-table-facturas").DataTable();
 	tabla.destroy();
    
-    arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa',0,1,$("#listafacturas"));
+    arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
 
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
@@ -404,16 +346,6 @@ var tabono = arr('login',4,'format(sum(valor),2) as total',301,'idtipo = 3 and i
 
 $(document).on("click","#filtro",function(){
 	$(".inv").show();
-});
-
-$(document).on("click","#order",function(){
-	if ($(this).attr('value') == 1) {
-		arr('login',6,'contador,fecha',182,'idusuario = '+guser+' order by fecha asc',0,1,$("#listacierrespendientes"));
-		$("#order").attr('value',2);
-	}else{
-		arr('login',6,'contador,fecha',182,'idusuario = '+guser+' order by fecha desc',0,1,$("#listacierrespendientes"));
-		$("#order").attr('value',1);
-	}
 });
 
 $(document).on("keyup","#vfecha",function(e){
@@ -545,6 +477,15 @@ function cargar(vmodulo,vid) {
 	return vmodulo;
 }
 
+function guardarMonedas(vidc,vidi){
+	$(".mnd").each(function(i){
+		if(parseInt($(this).val()) > 0 && $(this).attr('id').substr(1) != undefined){
+			console.log(insertar(340,'','null,'+vidc+','+vidi+','+$(this).attr('id').substr(1)+','+$(this).val()));
+		}
+	});
+	return 'false';
+}
+
 function cargarSintax(){
 	var arr = {}
 
@@ -553,4 +494,20 @@ function cargarSintax(){
 	arr['where'] = '';
 
 	return arr;
+}
+
+function acceuser(rs){
+	arr('login',6,'',182,rs[0][0][0]+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
+    guser = rs[0][0][0];
+    $("#uname").removeClass('hide');
+    if($("#mcierre").val() == '0'){
+    	$("#totalizar").attr('tp',2);
+		$("#totcashier").html(parseInt(0).formatMoney(2,'.',','))
+		$("#modal-tipomonedas").modal('open');
+    }
+}
+
+function exitcouser(){
+    $("#shcierre").attr('disabled',true);
+    $("#chkcierre").attr('disabled',true)
 }

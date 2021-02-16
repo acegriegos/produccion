@@ -8,8 +8,10 @@ $(function(){
   param = param == '' || param == 1 ? 7 : parseInt(param) ;
 
   config = getDatos('',42,'@@impresa',0,0)[0][0];
-  if($(".per11:visible").length)
+  if($(".per11:visible").length){
     config['tp_rest'] = getDatos('valor',809,'descr="SIC_TP"')[0][0][0];
+    config['ch_rest'] = getDatos('valor',809,'descr="PER_CMD"')[0][0][0];
+  }
 
   $("#mfacturacion").html(mantenimiento('facturacion',1,param));
 
