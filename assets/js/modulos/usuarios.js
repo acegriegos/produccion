@@ -499,14 +499,7 @@ pg += '/>'+
 	function postload(modulo) {
 		switch(modulo) {
 			case 'usuario':
-				if($("#vruta").length){
-					var lruta = getDatos('idruta',217,'idfila_enc = '+$("#fusuarios #vid").val(),0,0,0);
-					if(lruta[0].length){
-						$("#vruta").val(lruta[0][0][0]).material_select('update');
-					}else{
-						$("#vruta").val(0).material_select('update');
-					}
-				}
+				$("#vidsucursal").attr('orig',$("#vidsuc").val())
 				
 				break;
 			default:
@@ -536,8 +529,14 @@ pg += '/>'+
                 	insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,@@impresa');
                 else{
                 	acc = acc == 3 ? 3:1;
-                	console.log(insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,"'+$("#vidsuc").val()+'"'));
-                }
+                	insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,"'+$("#vidsuc").val()+'"');
+                	if($("#vidsucursal").val() != $("#vidsucursal").attr('orig')){
+                		var a = $("#vidsucursal").attr('orig').split(',')
+                		var b = $("#vidsucursal").val().split(',')
+                		var c = a.filter(x=>!b.includes(x))
+                		insertar(338,'','null,'+id[0][0]+',1,3,"",0,"'+c+'"');
+                	}
+                }	
             }
 			break;
 		}

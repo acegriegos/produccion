@@ -214,7 +214,7 @@
             <div class="input-field col s12 cre hide per1004">
               <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
               <label for="vplazo">Plazo en Días</label>
-              <input type="number" class="eder " id="vplazo" value="0" autocomplete="off">
+              <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
             </div>
             <div class="input-field col s12 cre hide per1004">
               <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
