@@ -111,7 +111,7 @@ $(function () {
 					info: false
 				});
 
-				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:'',vidheredado: 0,visvariable:0,visgravamen:0,vexoneracion:13,vtimv : 8})
+				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:config[29] == '99'?'-1':'',vidheredado: 0,visvariable:0,visgravamen:0,vexoneracion:13,vtimv : 8})
 
 				if($("#goldinventariado").length)
                     $("#fproductos .zelda").attr('inventariado',1);
@@ -2260,7 +2260,7 @@ function endDetail(id, acc, modulo) {
 			$("#vidunidad").material_select('update');
 			$("#tb1").click();
 			
-			if(config[29] != ''){
+			if(config[29] == '99'){
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"idproducto=$1,97,299",0,-1');
 			}
 

@@ -465,6 +465,10 @@ function validarcierres() {
 
 function endDetail(vid,vacc,modulo){
 
+	if(config[29] == '99'){
+		var dinic = getDatos('dinicio',314,'id='+vid[0][0][0])
+		//insertar(338,'','null,'+vid[0][0]+',314,'+acc+',"idproducto=$1,97,299",0,-1');
+	}
     return false;
 }
 

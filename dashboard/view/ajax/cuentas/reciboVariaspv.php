@@ -134,8 +134,13 @@ echo '<tr>
    <tr>
     <td width="50%">MONTO DE ABONO:</td>
     <td width="50%">'.$transaccion[sizeof($transaccion)-1][10].'</td>
-  </tr>
-</table>
+  </tr>';
+  if($transaccion[0][14])
+   echo '<tr><td></td><td></td></tr><tr>
+    <td width="50%">COMENTARIO:</td>
+    <td width="50%">'.$transaccion[0][14].'</td>
+  </tr>';
+echo '</table>
   <br>
 <table  style="width: 100% !important;">
   <tr>

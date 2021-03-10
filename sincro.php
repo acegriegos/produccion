@@ -127,12 +127,15 @@
 
             switch($obj->tbl){
               case 1:
-                $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\" and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
+                $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\" and find_in_set('.$_SESSION['IMPRESA'].',\"'.$obj->bdy->idsucursal.'\") ")')->fetch_all();
 
                 if (is_array($val)) {
-                  if (isset($val[0][0]) && $obj->acc == 1) {
-                    $obj->acc = 2;
-                  }
+                    
+                    if (isset($val[0][0])) {
+                        $obj->acc = 2;
+                        $obj->row = $val[0][0];
+                        $obj->bdy->id = $obj->acc == 3 ? $obj->bdy->id*-1 : $obj->bdy->id;
+                    }
                 }
 
                 break;

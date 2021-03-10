@@ -534,7 +534,8 @@ pg += '/>'+
                 		var a = $("#vidsucursal").attr('orig').split(',')
                 		var b = $("#vidsucursal").val().split(',')
                 		var c = a.filter(x=>!b.includes(x))
-                		insertar(338,'','null,'+id[0][0]+',1,3,"",0,"'+c+'"');
+                		if(c.length)
+                			insertar(338,'','null,'+id[0][0]+',1,3,"",0,"'+c+'"');
                 	}
                 }	
             }
