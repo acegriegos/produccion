@@ -201,7 +201,7 @@
       Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29],2); ?></span><br>
       <br>
       <?php if($cierre[28] > 0) echo 'Tipo Cambio $: <span style="float: right;">'.number_format($cierre[29],2).'</span><br>'; ?>
-      <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[20])+str_replace(',', '', $cierre[3])),2).'</span><br>'; ?>
+      <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[3])),2).'</span><br>'; ?>
     </div>
      
       <!-- /INFO CONTACTO -->
