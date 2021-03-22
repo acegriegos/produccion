@@ -114,7 +114,7 @@ $(function(){
                     $("#ffacturas .zelda").data('triforce')['vidusuario'] = rs[0][0][0];
                     $("#username").html(rs[0][0][1])
                     $("#sprod").focus();
-                    $(this).val(rs[0][0][0])
+                    $(this).attr('idusr',rs[0][0][0])
                 }
                 else{
                     Materialize.toast('Usuario no Valido',4000,'red');

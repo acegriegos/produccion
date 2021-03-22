@@ -258,7 +258,7 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and find_in_set('.$_POST['vsucursal'].',concat(idsucursal,"-1"))');
+          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and (find_in_set('.$_POST['vsucursal'].',idsucursal) or idsucursal like "%-1%")');
 
           if(isset($rs->num_rows)){
             $salida['rs'] = [];
