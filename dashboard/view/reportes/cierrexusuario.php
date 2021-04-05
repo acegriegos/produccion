@@ -198,7 +198,7 @@
       <?php if($cierre[28] > 0) echo 'Caja Reportada $: <span style="float: right;">'.number_format($cierre[28],2).'</span><br>'; ?>
       <!-- Caja Reportada-Inicial: <span style="float: right;"><?php $rep = $cierre[12]-$cierre[14]/* > 0 ? $cierre[12]-$cierre[14] : $cierre[12]*/; echo number_format($rep,2); ?></span><br> -->
       Caja del Sistema: <span style="float: right;"><?php echo number_format($cierre[13]+(str_replace(',', '', $cierre[22])),2); ?></span><br>
-      Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29],2); ?></span><br>
+      Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29]-str_replace(',', '', $cierre[22]),2); ?></span><br>
       <br>
       <?php if($cierre[28] > 0) echo 'Tipo Cambio $: <span style="float: right;">'.number_format($cierre[29],2).'</span><br>'; ?>
       <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[3]))+(str_replace(',', '', $cierre[2])+(str_replace(',', '', $cierre[22]))),2).'</span><br>'; ?>
