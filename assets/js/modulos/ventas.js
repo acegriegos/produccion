@@ -2307,7 +2307,6 @@ function cargarProducto(kbrota,elemento) {
         var r_decimales = r_peso[2];
         r_peso = $("#codp").val().trim().substr(r_peso[0],r_peso[1]);
         r_precio = romana[3] == '' ? 0 : romana[3].split(',');
-
         $("#codp").val(((r_peso*1/(Math.pow(10,r_decimales)))+'*'+r_codigo*1));
 
         // if(r_precio != 0){

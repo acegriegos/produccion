@@ -48,7 +48,7 @@
           <ul class="collection with-header" id="listacierrespendientes" style="font-size: 12px"></ul>
         </div>
         <div class="col s9 m9 l9 per7301 hide">
-          <h4>Facturas</h4><div class="switch" align="center">
+          <h4 id="fcierre"></h4><div class="switch" align="center">
                   <label>
                     Resumido
                     <input type="checkbox" name="tp" id="isdet" checked="checked">
@@ -59,8 +59,8 @@
           <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
             <thead>
                 <tr>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Faltante</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
-                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Fecha</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Pago</th>
@@ -68,7 +68,7 @@
                     <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
                 </tr>
             </thead>
-            <tbody id="listafacturas"></tbody>
+            <tbody id="listafacturas" style="font-size: 12px;font-weight: bold;"></tbody>
         </table>
         <div class="row marginzero">
           <div class="col s3 m3 l3">

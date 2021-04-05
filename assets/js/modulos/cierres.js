@@ -311,7 +311,7 @@ $(document).on("click",".getfacturas",function(){
 
 	var tabla = $("#data-table-facturas").DataTable();
 	tabla.destroy();
-   
+   	$("#fcierre").html(fecha)
     arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
 
 	$("#tcontado").text($("#hidet").attr('tcon'));
@@ -356,6 +356,42 @@ $(document).on("click","#filtro",function(){
 	$(".inv").show();
 });
 
+$(document).on("change",".ctip",function(){
+	switch($(this).parent().attr('tp')){
+		case '1':
+		case '3':
+			var act = actualizar(64,'idtipopago='+$(this).val(),'id='+$(this).parent().attr('rid'));
+			break;
+		default:
+			break;
+	}
+
+	arr('login',6,'',183,'"'+$("#fcierre").html()+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
+	$("#tcontado").text($("#hidet").attr('tcon'));
+	$("#tcredito").text($("#hidet").attr('tcre'));
+	$("#tefectivo").text($("#hidet").attr('tefe'));
+	$("#ttarjeta").text($("#hidet").attr('ttar'));
+	
+});
+
+$(document).on("click",".cestado",function(){
+	var paren = $(this).parent().parent().find('.rtp');
+	switch(paren.attr('tp')){
+		case '1':
+			var act = actualizar(64,'idestado=2','id='+paren.attr('rid'));
+			break;
+		default:
+			break;
+	}
+
+	arr('login',6,'',183,'"'+$("#fcierre").html()+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
+	$("#tcontado").text($("#hidet").attr('tcon'));
+	$("#tcredito").text($("#hidet").attr('tcre'));
+	$("#tefectivo").text($("#hidet").attr('tefe'));
+	$("#ttarjeta").text($("#hidet").attr('ttar'));
+	
+});
+
 $(document).on("keyup","#vfecha",function(e){
 	var code = e.which || e.keyCode;
 	if (code == 13) {
@@ -369,6 +405,7 @@ $(document).on("keyup","#vfecha",function(e){
 	}
 });
 var valor = arr('login',4,'id,valor',405,'id > 0',0,0,0)[0];
+
 $(document).on("change","#vfecha",function(e){
 	var fecha = $(this).val();
 	arr('login',6,'contador,fecha',182,'fecha = "'+fecha+'" or date_format(fecha,"%d/%m/%Y") = "'+fecha+'"',0,1,$("#listacierrespendientes"));

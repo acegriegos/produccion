@@ -789,6 +789,8 @@ function generarComanda(idfactura){
                      strl = "\n"+lcant.toString().padEnd(6,' ')+$(this).find('.lpname').html().trim(); 
                      break;
                 case 4:
+                case 6:
+                case 8:
                     if(listarefresco[color] == undefined)
                         listarefresco[color] = {str:'',nombre:'BEBIDAS'};
 
