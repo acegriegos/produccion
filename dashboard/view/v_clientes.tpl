@@ -211,23 +211,24 @@
               <label for="vdescuentom">Descuento Máximo</label>
             </div>
 
-            <div class="input-field col s12 cre hide">
+            <div class="input-field col s12 cre hide per1004">
               <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
               
               <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
               <label for="vplazo">Plazo en Días</label>
+
             </div>
-            <div class="input-field col s12 cre hide">
+            <div class="input-field col s12 cre hide per1004">
               <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
               <label for="vcredito">Máximo Crédito</label>
-              <input type="number" class="eder per1004" id="vcredito" value="0" autocomplete="off">
+              <input type="number" class="eder " id="vcredito" value="0" autocomplete="off">
             </div>
 
           </div>
 
           <div class="subclie row" id="xmlotros">
             <div class="input-field col s6">
-              <input type="text" id="xo-etiqueta">
+              <input type="text" id="xo-etiqueta">v_pro
               <label for="xo-etiqueta">Etiqueta</label>
             </div>
 
@@ -483,6 +484,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.3.0.9"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.3.0.9-4"></script>
 </body>
 </html>

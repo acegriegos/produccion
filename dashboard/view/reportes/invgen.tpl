@@ -18,8 +18,8 @@
 
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0,0" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos,CABYS" types="0,3,3,3,3,3,3" portipo="varios" tfiltrar=""></div>
 
+      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0,0,11" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos,CABYS,Por Código" types="0,3,3,3,3,3,3,0" portipo="varios" vids="0,0,0,0,0,0,0,vcodigo"></div>
       <input type="hidden" id="tuser" value="{$smarty.session.TIPO}">
       <!-- HEADER -->
     <div class="row header">
@@ -84,7 +84,7 @@
 </div>
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9-1"></script>
   <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.9"></script>
 </body>
 </html>

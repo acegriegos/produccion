@@ -511,6 +511,25 @@ $(document).on("keyup","[id^=search_]",function(e){
             var g = elem.attr('cambio') != undefined ? elem.attr('cambio') : 0;
             var j = elem.attr('filtro') == undefined ? 1 : elem.attr('filtro');
             var h = $("ul.pagination").attr('filtro_sp') == undefined ? a+',@@impresa' : $("ul.pagination").attr('filtro_sp').replace('?',a).replace('^',j);
+
+            var textra = [];
+
+            $("._extra").each(function(){
+                if($(this).attr('typ') != undefined )
+                switch($(this).attr('typ')){
+                    case '1':
+                        textra[$(this).attr('num')] = $('option:selected',this).val();
+                        break;
+                    default:
+                        textra[$(this).attr('num')] = $(this).val()
+                        break;
+                } 
+            });
+            if(textra.length){
+                textra = textra.filter(n=>n)        
+                h += ','+textra.toString();
+            }
+
             var i = arr('login',4,'',c,e+',"'+h+'",""',0,0,0)[0][0];
             
             filltable(h,b,c,g);
@@ -592,6 +611,7 @@ function getData(vmodulo){
 }
 
 function loadpool(vmodulo,vid,vvarias){
+    
     vmodulo = cargar(vmodulo,vid);
     if (vmodulo['sel'] == undefined){
         Materialize.toast(vmodulo,4000,'red');
@@ -1566,7 +1586,7 @@ function cargarMoneda(idmoneda,elemento){
                 tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals);
             }else
                 tot = parseFloat($(this).attr('base'));
-
+            console.log($(this).attr('id')+' '+tot)
             if ($(this).is("input"))
                 $(this).val(tot.formatMoney(2,'.',','));
             else{
@@ -1587,6 +1607,7 @@ function mostrar_cargar(){
 function filltable(h,b,c,g) {
     var tabla = $("#data-table-"+b).DataTable();
     tabla.destroy();
+    
     arr('login',6,'',c,'0,0,"'+h+'","0,10"',g,1,$("#lista"+b));
 
     $("#data-table-"+b).DataTable({
@@ -1865,10 +1886,26 @@ $(document).on('click','.loadRefBussiness',function(){
 function llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio){
     $("#data-table-"+modulo).append('<tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody>');
     $("#lista"+modulo).addClass('hide');
+    var textra = [];
+    $("._extra").each(function(){
+        if($(this).attr('typ') != undefined )
+        switch($(this).attr('typ')){
+            case '1':
+                textra[$(this).attr('num')] = $('option:selected',this).val();
+                break;
+            default:
+                textra[$(this).attr('num')] = $(this).val()
+                break;
+        } 
+    });
+    if(textra.length){
+        textra = textra.filter(n=>n)        
+        filtro_sp += ','+textra.toString();
+    }
     var tabla = $("#data-table-"+modulo).DataTable();
     tabla.destroy();
     arr('login',6,'',vtbl,'0,0,"'+filtro_sp+'","'+limit+'"', cambio, 1, $("#lista"+modulo));
-    console.log('0,0,"'+filtro_sp+'","'+limit+'"')
+    //console.log('0,0,"'+filtro_sp+'","'+limit+'"')
     $("#data-table-"+modulo).DataTable({
         bFilter: false,
         bScrollInfinite: true,

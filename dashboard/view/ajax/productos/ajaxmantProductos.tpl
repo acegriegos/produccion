@@ -16,13 +16,15 @@
         <div class="col s12 m3">
             {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
             <div class="input-field">
-                <select id="mystock">
+                <select id="mystock" num="1" typ="1" class="_extra">
                 {section name=LE loop=$INV}
                     <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
                 {/section}
                 </select>
                 <label for="mystock">Inventario</label>
             </div>
+            {else}
+                <input type="hidden" num="1" typ="0" class="_extra" value="6">
             {/if}
         </div>
 
@@ -149,6 +151,8 @@
                         <label for="vcabys">Codigo Cabys</label>
                     </div>
 
+                    <label id="ncabys"></label>
+
                 </div>
                 
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px">
@@ -180,15 +184,15 @@
                             <input type="number" id="vmaximo" class="formprod validate eder" value="" min="0" focus="1vmaxdescuento" autocomplete="off" tabindex="8">
                             <label for="vmaximo">Máximo</label>
                         </div>
-                        <div class="input-field marginzero col s6">
+                        <div class="input-field marginzero col s6 per4121 hide">
                             <input type="text" id="vestante" class="eder" value="" autocomplete="off" tabindex="7">
                             <label for="vestante">Estante</label>
                         </div>
-                        <div class="input-field marginzero col s3">
+                        <div class="input-field marginzero col s3 per4121 hide">
                             <input type="text" id="vfila" class="eder" value="" autocomplete="off">
                             <label for="vfila">Fila</label>
                         </div>
-                        <div class="input-field marginzero col s3">
+                        <div class="input-field marginzero col s3 per4121 hide">
                             <input type="text" id="vcolumna" class="eder" value="" autocomplete="off">
                             <label for="vcolumna">Columna</label>
                         </div>
@@ -196,13 +200,14 @@
 
                     <div class="input-field marginzero col s12 per11 hide">
                         <select id="vidvarios" type="select">
-                            <option value="0" selected>N/A</option>   
+                            <option value="0">Todos</option>
                             <option value="1">Entrada</option>
                             <option value="2">Plato Fuerte</option>
                             <option value="3">Postre</option>
-                            <option value="4">Bebida</option>
+                            <option value="4">Bebidas Frías</option>
+                            <option value="6">Bebidas Calientes</option>
+                            <option value="8">Bebidas Alcohólicas</option>
                             <option value="5">Desayuno</option>
-                            <option value="4">Bebida</option>
                             <option value="7">Extra</option>
                         </select>
                         <label for="vidvarios">Tipo Plato</label>
@@ -263,9 +268,9 @@
                         <label for="vidmoneda">Moneda</label>
                     </div>
 
-                    <div class="input-field marginzero col s12">
+                    <div class="input-field marginzero col s12 per4122">
                         <input type="text" id="vcomision" value="0" noClear="1" class="eder" autocomplete="off">
-                        <label>Comision de Venta</label>
+                        <label>Comisión de Venta</label>
                     </div>
 
                     {if $smarty.session.BUSS eq 3}

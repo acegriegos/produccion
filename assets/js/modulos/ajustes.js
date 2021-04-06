@@ -162,7 +162,7 @@ $(document).on("click",".menu3",function(){
 				}
 
 				var ps = $("#vprintsale").is(':checked')?1:0;
-				console.log(actualizar(39,'pass_atv="'+$("#vpass_atv").val()+'",user_atv="'+$("#vuser_atv").val()+'",pass_n="'+$("#vpass_n").val()+'",pfisico="'+$("#vpfisico").val()+'",printSale='+ps,'id=@@impresa'));
+				actualizar(39,'pass_atv="'+$("#vpass_atv").val()+'",user_atv="'+$("#vuser_atv").val()+'",pass_n="'+$("#vpass_n").val()+'",pfisico="'+$("#vpfisico").val()+'",printSale='+ps,'id=@@impresa');
 
 				var num = 1;
 				while ($("#slideTelefono").data()['fila'+num] != undefined) {
@@ -204,7 +204,7 @@ $(document).on("click",".menu3",function(){
 
 				//SAN AJUSTES
 
-				console.log(actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked"),'idsucursal=@@impresa'));
+				actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked"),'idsucursal=@@impresa');
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 
@@ -625,7 +625,7 @@ $(document).on("click",".menu3",function(){
 	            bPaginate: false,
 	            info: false
 			});
-			$("#frestaurantes-mesas .zelda").data('triforce',{vid:0,vnombre:'',vunion:'',vbisbarra:0,vidusuario:'',vidsucursal:''});
+			$("#frestaurantes-mesas .zelda").data('triforce',{vid:0,vnombre:'',vunion:'',vbisbarra:0,vidusuario:'',vidsucursal:'',vidtipoocupado:0,vidseccion:0});
 			$("#frestaurantes-secciones .zelda").data('triforce',{vid:0,vnombre:''});
 			thorload('restaurantes-mesa');
 			paginate($("ul.pagination").attr('vtbl'),undefined,',0,0');
@@ -2326,7 +2326,7 @@ function removep12(a,b){
 function loadIMG(a,b){
 	var myDropzone = Dropzone.forElement("#registro-upload");
 	myDropzone.removeFile(a)
-	
+	console.log(b)
 	try{
 		b = JSON.parse(b);
 		$("#vlogo").attr('src','')

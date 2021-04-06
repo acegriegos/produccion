@@ -323,7 +323,7 @@
 </div>
 
   <div class="modal modal-fixed-footer" id="modal-flujo" style="height: 75%; width: 50%">
-    <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo</div>
+    <div class="modal-header head3 center" style="font-size: 22px;">Entradas y Salidas de Efectivo <i style="float: right;cursor: pointer;" class="mdi mdi-magnify button-collapse" id="shflujo" title="Ver Entradas y Salidas" data-activates="gextra"></i></div>
     <div class="modal-content">
       <div class="row">
 
@@ -350,7 +350,7 @@
         <div class="row">
 
         <div class="col s6 input-field">
-          <input type="text" id="gvalor" class="eder numeric" value="0.00">
+          <input type="text" id="gvalor" class="eder numeric" value="0.00" autocomplete="off">
           <label for="gvalor">Monto</label>  
         </div>
 
@@ -365,22 +365,22 @@
         <div class="row">
 
         <div class="col s12 input-field hide gres po" tr="1">
-          <input type="text" id="gproveedor" value="">
+          <input type="text" id="gproveedor" value="" autocomplete="off">
           <label for="gproveedor">Proveedor</label>  
         </div>
 
         <div class="col s12 input-field hide gres us" tr="2">
-          <input type="text" id="guser" value="">
+          <input type="text" id="guser" value="" autocomplete="off">
           <label for="guser">Usuario</label>  
         </div>
 
         <div class="col s12 input-field hide gres vo" tr="3">
-          <input type="text" id="gvoucher" value="">
+          <input type="text" id="gvoucher" value="" autocomplete="off">
           <label for="gvoucher">Voucher</label>  
         </div>
 
         <div class="col s12 input-field">
-          <input type="text" id="gcomentario" value="">
+          <input type="text" id="gcomentario" value="" autocomplete="off">
           <label for="gcomentario">Comentario</label>  
         </div>
 
@@ -388,7 +388,6 @@
 
     </div>
     <div class="modal-footer">
-        <i class="mdi mdi-eye button-collapse pbtn hide" data-activates="gextra" title="Ver Entradas y Salidas" id="shflujo"></i>
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
         <a class="modal-action waves-effect waves-green btn-flat" id="doflujo">Aceptar</a>
     </div>

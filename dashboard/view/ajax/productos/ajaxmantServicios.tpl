@@ -44,7 +44,7 @@
                 </tbody>
             </table>
             <ul class="left showing" modulo="13"><small></small></ul>
-            <ul class="pagination right" vtbl="13" modulo="servicioos"></ul>
+            <ul class="pagination right" vtbl="13" modulo="servicios"></ul>
         </div>
     </div>
 </div><br><br>
@@ -159,12 +159,14 @@
                             <label for="scabys">Buscar Código CABYS</label>
                         </div>
 
-                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 10px" id="lcabys"></div>
+                        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 16px" id="lcabys"></div>
 
                         <div class="input-field">
                             <input type="text" id="vcabys" maxlength="13" class="eder" autocomplete="off">
                             <label for="vcabys">Codigo Cabys</label>
                         </div>
+
+                        <label id="ncabys"></label>
                     </div>
 
                     <div class="input-field col s12 m5 precio" >

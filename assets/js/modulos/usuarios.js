@@ -393,6 +393,8 @@ function validarusuarios() {
 		}
 	}
 
+	$("#vidsucursal").val($("#vidsuc").val())
+
 	if ($('#vidTipoUsuario option:selected').val() != 1) {
 		if ($('#vlimite').val() == '') {
 			$('#vlimite').focus();
@@ -532,8 +534,10 @@ pg += '/>'+
 			if(config[29] != ''){
 				if(config[29] != '99')
                 	insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,@@impresa');
-                else
-                	console.log(insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,'+$("#vidsuc").val()));
+                else{
+                	acc = acc == 3 ? 3:1;
+                	console.log(insertar(338,'','null,'+id[0][0]+',1,'+acc+',"",0,"'+$("#vidsuc").val()+'"'));
+                }
             }
 			break;
 		}

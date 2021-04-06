@@ -661,6 +661,11 @@ function validarvehiculo() {
 
 function validarclientes() {
 
+	/*if(parseInt($("#slideDireccion").data('idbarrio')) == 0 || isNaN($("#slideDireccion").data('idbarrio'))){
+        $("#slideDireccion").click();
+        return 'Ubicacion sin Asignar';
+    }*/
+
 	if ($("#vnombre").val() == '') { $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == '') {	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
 		
@@ -688,7 +693,7 @@ function validarclientes() {
 			return 'Credito Debe ser Numérico';
 		}
 
-		if (parseFloat($("#vcredito").val()) == 0) {
+		if (parseFloat($("#vcredito").val()) == 0 && $("#fclientes .zelda").data('triforce')['vbisproveedor'] == '0') {
 			$("#vcredito").focus();
 			return 'Credito Debe ser Mayor a Cero';
 		}
@@ -799,7 +804,7 @@ function postload(modulo) {
 			var idtipo = $("#vidtipocliente").val();
 			$("[tipoclie = "+idtipo+"]").prop('checked', true);
 
-			if (parseFloat($("#vcredito").val()) != 0){
+			if (parseFloat($("#vcredito").val()) != 0 || parseFloat($("#vplazo").val()) != 0 ){
 				$("#tipocliente").prop('checked',true).change();
 			}else{
 				$("#tipocliente").prop('checked',false).change();

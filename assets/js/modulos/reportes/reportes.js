@@ -147,6 +147,7 @@ $(function(){
             var active = $(".principal .filtros").attr('tpactive') == undefined ? '' : $(".principal .filtros").attr('tpactive').split(',');
             var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? '' : $(".principal .filtros").attr('tfiltar').split(',');
             var vsel = $(".principal .filtros").attr('tsel') == undefined ? '' : $(".principal .filtros").attr('tsel').split(';');
+            var vids = $(".principal .filtros").attr('vids') == undefined ? '' : $(".principal .filtros").attr('vids').split(','); 
             var inc = 0;
             var filtro = 5;
             var type = stractive = '';
@@ -154,9 +155,15 @@ $(function(){
             var opts;
             var stropts;
             var sel;
+            var mid;
             for (var i = 0, len = vtbl.length; i < len; i++) {
                 inc += 1;
                 stractive = active[i] == '1' ? 'checked' : '';
+                mdi = 'vidtipo'+inc;
+                console.log(vids[i])
+                if(vids != '')
+                    mdi = vids[i] == '0' ? mdi : vids[i];
+
                switch(parseInt(vtype[i])){
                     case 1://para select
                     sel = vsel[i] == undefined ? 'id,nombre' : vsel[i] == '' ? 'id,nombre' : vsel[i]; 
@@ -165,15 +172,15 @@ $(function(){
                     for(var j = 0;j<opts[0].length;j++)
                         stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
 
-                    type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos" ttbl="'+vtbl[i]+'">'+stropts+'</select>';
+                    type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'">'+stropts+'</select>';
 
                     break;
                     case 2: //para numero
-                        type = '<input type="number" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px"><label for="vidtipo'+inc+'" str="1">'+tipos[i]+'</label>';
+                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                     case 3: //solo check
-                        type = '<input type="hidden" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" value="-1" str="1">';
+                        type = '<input type="hidden" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px" value="-1" str="1">';
                         break;
                     case 4: //select create
                         var options = $(".principal .filtros").attr('options').split(",");
@@ -183,16 +190,16 @@ $(function(){
                             stroptions += '<option value="'+optionsval[j]+'">'+options[j]+'</option>';
                         }
 
-                        type = '<select type="select" id="vidtipo'+inc+'" class="inpreport tipos">'+stroptions+'</select>';
+                        type = '<select type="select" id="'+mdi+'" class="inpreport tipos">'+stroptions+'</select>';
                         break;
                     case 5: //para fecha unica
-                        type = '<input type="date" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px" str="1">'
+                        type = '<input type="date" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px" str="1">'
                         break;
                     case 6: //para fecha de mes
-                        type = '<input type="month" id="vidtipo'+inc+'" class="validate inpreport tipos" style="margin:0px;border:0px;" str="1">';
+                        type = '<input type="month" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px;border:0px;" str="1">';
                         break;
                     default://para texto
-                    type = '<input type="text" id="vidtipo'+inc+'" class="validate inpreport tipos eder" style="margin:0px"><label for="vidtipo'+inc+'" str="1">'+tipos[i]+'</label>';
+                    type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                 }

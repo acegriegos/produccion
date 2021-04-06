@@ -258,7 +258,7 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $base = new DBClass();
 
-          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and idsucursal in('.$_POST['vsucursal'].', -1)');
+          $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where id > '.$_POST['vid'].' and find_in_set('.$_POST['vsucursal'].',concat(idsucursal,"-1"))');
 
           if(isset($rs->num_rows)){
             $salida['rs'] = [];
@@ -298,19 +298,26 @@ if (isset($_POST['respuestaXml'])) {
               $memory = 0;
 
               foreach ($marr as $obj) {
+
                 $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
                 switch($obj->tbl){
                   case 1:
-                    $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\"")')->fetch_all();
+                    $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\" and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
                     break;
                   case 2:
                     $val = $base->ejecutar('call krattos("id",2,"cedula = \"'.$obj->bdy->cedula.'\" and bisproveedor = '.$obj->bdy->bisproveedor.'")')->fetch_all();
                     break;
-                  case 291:
-                    $val = $base->ejecutar('call krattos("id",291,"idfactura = '.$memory.')')->fetch_all();
-                    break;
                   case 64:
                     $val = $base->ejecutar('call krattos("id",64,"idsucursal='.$obj->bdy->idsucursal.' and consecutivo = \"'.$obj->bdy->consecutivo.'\" and idtipoventa = '.$obj->bdy->idtipoventa.'")')->fetch_all();
+                    break;
+                  case 65:
+                    $val = $memory ? 0 : 1;
+                    break;
+                  case 279:
+                    $val = $base->ejecutar('call krattos("id",279,"idfila = '.$obj->bdy->idfila.' and idtabla = '.$obj->bdy->idtabla.' and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
+                    break;
+                  case 291:
+                    $val = $base->ejecutar('call krattos("id",291,"idfactura = '.$memory.'")')->fetch_all();
                     break;
                   default:
                     $val = 0;
@@ -327,13 +334,18 @@ if (isset($_POST['respuestaXml'])) {
                 }
 
                 if($obj->idusuario != ''){
-                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\"")')->fetch_all();
+                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\" and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
                   if(isset($obj->bdy->idusuario[0][0]))
                     $obj->bdy->idusuario = $obj->bdy->idusuario[0][0];
                 }
 
                 if($obj->idcliente != ''){
-                  $obj->bdy->idcliente = $base->ejecutar('call krattos("id",2,"!bisproveedor and replace(cedula,\"-\",\"\")=\"'.$obj->idcliente.'\"")')->fetch_all()[0][0];
+                  $obj->bdy->idcliente = $base->ejecutar('call krattos("id",2,"!bisproveedor and replace(cedula,\"-\",\"\")=\"'.$obj->idcliente.'\"")')->fetch_all();
+                  if(isset($obj->bdy->idcliente[0][0]))
+                    $obj->bdy->idcliente = $obj->bdy->idcliente[0][0];
+                  else{
+                    $pass = 0;
+                  }
                 }
 
                 if ($obj->acc == 1 && !$val && $pass) {
@@ -345,20 +357,24 @@ if (isset($_POST['respuestaXml'])) {
 
                   $obj->bdy->$mrow = null;
                   $arg = substr(substr(json_encode(array_values((array)$obj->bdy)),1),0,-1);
-                  
                   $mrs = $base->ejecutar('insert into '.$tbl.' values('.$arg.')');
                   if(!$obj->memory){
-                    $memory = $base->ejecutar('select max(id) from '.$tbl)->fetch_all()[0][0];
-                    if($mrs == 1)
+                    if($mrs == 1){
+                      $memory = $base->ejecutar('select max(id) from '.$tbl)->fetch_all()[0][0];
                       array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
-                    else
+                    }
+                    else{
+                      $memory = 0;
                       array_push($rback,$mrs.' --- ARG: '.$arg.' --- SQL: '.'insert into '.$tbl.' values('.$arg.')');
+                    }
                   }else
                     if($mrs != 1)
                       array_push($rback,$mrs.' --- ARG: '.$arg.' --- SQL: '.'insert into '.$tbl.' values('.$arg.')');
-                }else
+                }else{
+                  $memory = 0;
                   if(!$obj->memory){
                     array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
+                }
               }
               $salida['act'] = json_encode($rback);
                 }
@@ -502,11 +518,19 @@ if (isset($_POST['respuestaXml'])) {
           require_once '_config/mysqlDB.php';
           $db = new DBClass();
 
-          switch ($_POST['acc']) {
+          switch ($_REQUEST['acc']) {
             case 1:
-              $salida['rs'] = $db->ejecutar('call krattos("valor",15,"descr = \"versionbms\"")')->fetch_all();
+              $salida['rs'] = $db->ejecutar('call krattos("valor",15,"descr = \"versionbase\"")')->fetch_all();
+              //EMPAQUETAR ARCHIVOS
+              $full = '';
+              $num = $_REQUEST['aver'];
+              while ($num < $salida['rs'][0][0]) {
+                $file = 'v'.(int)$num.'.sql';
+                $full .= shell_exec('cat /var/www/pagina/descargas/actualizaciones/'.$file);
+                $num++;
+              }
+              $salida['file'] = base64_encode($full);
               break;
-            
             default:
               # code...
               break;

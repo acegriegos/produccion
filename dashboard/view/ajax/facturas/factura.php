@@ -215,6 +215,17 @@
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[7]; ?></span></td>
                     </tr>
 
+                    <?php 
+
+                      if ($obj[49] > 0) {
+                        echo '<tr>
+                      <td style="padding: 0px !important" class="left-align sinborde margen">Servicio Mesero</td>
+                      <td style="padding: 0px !important" class="right-align sinborde margen"><span>'.$datos[15].number_format($datos[49],2).'</span></td>
+                    </tr>';
+                      }
+
+                     ?>
+
                     <tr>
                       <td style="padding: 0px !important" class="left-align sinborde margen">Descuento</td>
                       <td style="padding: 0px !important" class="right-align sinborde margen"><span id="fimv"><?php echo $datos[15].$datos[6]; ?></span></td>

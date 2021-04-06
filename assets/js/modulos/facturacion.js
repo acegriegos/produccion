@@ -45,15 +45,25 @@ $(function(){
     
     switch(parseInt(config[11])){
         case 1:
-            inicial = $("#codp");
+            inicial = pril = $("#codp");
             break;
         case 2:
-            inicial = pril =$("#descp");
+            inicial = pril = $("#descp");
             break;
         case 3:
             inicial = $("#ecouser");
+            pril = $("#codp");
             break;
+        case 4:
+            inicial = $("#ecouser");
+            pril = $("#descp");
+            break;
+        case 5:
+            inicial = $("#ncli");
+            pril = $("#codp");
         default:
+            inicial = $("#ncli");
+            pril = $("#descp");
             break;
     }
 
@@ -117,8 +127,6 @@ $(function(){
             cargarVentas();
             break;
     }
-
-    pril = parseInt(config[11]) == 2 ? $("#descp") : $("#codp");; 
     cargarGlobal();
 
     var vidp = getParameterByName('id');
@@ -1258,8 +1266,8 @@ function cargarGlobal(){
     $(".chg_tipo").change(function(){
         var value = parseInt($(this).attr('val'));
         $(".gen").addClass('hide');
-        $(".zelda").data('triforce')['vidtipo'] = value;
-
+        $("#ffacturas .zelda").data('triforce')['vidtipo'] = value;
+        
         switch(value){
             case 1: //CREDITO
                 $(".con").removeClass('hide');

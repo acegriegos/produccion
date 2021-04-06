@@ -15,7 +15,8 @@ $(function(){
 			arr('login',6,'',214,2+',0,'+idclie+',0,2,@@impresa',0,1,$("#listaCuentasx"));
 			gtipo = 2;
 			$("#gtit").html("Cuentas por Pagar");
-			$("#shabonos").attr('href','vistanotaspagos?tp=1&tf=3');
+			$("#shabonos").attr('href','vistanotaspagos?tp=1');
+			$("#vidtipo").val(4)
 			break;
 
 		default:
@@ -23,7 +24,7 @@ $(function(){
 			gtipo = 1;
 			arr('login',6,'',214,1+',0,'+idclie+',0,2,@@impresa',0,1,$("#listaCuentasx"));
 			$("#gtit").html("Cuentas por Cobrar");
-			$("#shabonos").attr('href','vistanotaspagos?tp=0&tf=3');
+			$("#shabonos").attr('href','vistanotaspagos');
 			break;
 	};
 
@@ -249,6 +250,7 @@ $(document).on("click","#btnPagar",function(){
 
 		var idfactura = val = vmonto = idestadocuenta = 0;
 		var saldo = $("#saldo").html().replace(/,/g,'');
+		var idtipo = gtipo==2 ? 8 : 7;
 
 		if (!$(".factclie").length) {
 			Materialize.toast('No hay Facturas que Cancelar',4000,'red');
@@ -270,12 +272,12 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,'+idtipo+',1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 					console.log(idestadocuenta)
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,'+idtipo+',1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 					console.log(idestadocuenta)
 					return false;
 				}	
@@ -288,11 +290,11 @@ $(document).on("click","#btnPagar",function(){
 				monto -= val;
 				if(monto > 0){
 					vmonto = val;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,'+idtipo+',1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 				}
 				else{
 					vmonto = val-monto*-1;
-					idestadocuenta = arr('login',4,'',300,'1,0,7,1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
+					idestadocuenta = arr('login',4,'',300,'1,0,'+idtipo+',1,'+idfactura+',@@usr,'+vmonto+',0,'+vmonto+','+idpag+','+$("#idtipopagopagar").val()+',"'+$("#comentario").val()+'",@@impresa,"'+$("#referencia").val()+'",'+vidmoneda+','+divisa+',"'+fechabol+'"',0,0,0);
 					return false;
 				}
 			});

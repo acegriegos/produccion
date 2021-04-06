@@ -21,7 +21,7 @@
 <div class="card z-depth-3 movil p1 ps" style="margin-bottom: 0px;">
 <div class="card-header center head1 white-text">
   <a href="#!" class="green btn per1111 hide"  title="Realizar Factura en Espera" style="float: left;" id="prefact" vid="0">PRE-FACTURA</a>
-  <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
+  <p class="flow-text" style="margin: 0%;" id="previews"><span id="titfact"></span> <span id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span> <span class="hide"> [0 de 50 Documentos]</span>
     <a class="mdi mdi-magnify pbtn mdi-24px tooltipped der white-text" data-position="bottom" data-tooltip="Ver Facturas" onclick="verfacturas();"></a>
   {if $smarty.session.CAJA gt 0}
   <a class="trVenta hide btn btn3 tooltipped der white-text" data-position="bottom" data-tooltip="Cargar Facturas" id="cargarfact" idcaja="{$smarty.session.CAJA}"><span class="white-text" id="cantFact"></span></a>
@@ -41,7 +41,7 @@
       <div class="col s12 m{$column} l{$column} concre movil hide trVenta" align="center" id="tpagos">
         <input type="radio" name="tipofactura" class="chg_tipo with-gap per1104" val="1" id="chg_tipo1" checked>
         <label for="chg_tipo1" >Contado</label>
-        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="2" id="chg_tipo2">
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" disabled val="2" id="chg_tipo2">
         <label for="chg_tipo2" class="per1105-">Crédito</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="3" id="chg_tipo3" disabled>
         <label for="chg_tipo3" class="per1106 hide">Consignación</label>
@@ -51,6 +51,8 @@
         <label for="chg_tipo5" class="tooltipped per1108 hide" data-tooltip="Arrendamiento con Opción de Compra">Leasing</label>
         <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="6" id="chg_tipo6" disabled>
         <label for="chg_tipo6" class="tooltipped per1109 hide" data-tooltip="Arrendamiento en Función Financiera">Financiero</label>
+        <input type="radio" name="tipofactura" class="chg_tipo with-gap" val="98" id="chg_tipo98">
+        <label for="chg_tipo98" class="tooltipped per1112 hide" data-tooltip="Venta por Subsidio">Subsidio</label>
       </div>
     <div class="col s12 m3 l3 cre gen hide" align="center">
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
@@ -239,7 +241,10 @@
 
         <input class="with-gap" name="modselected" type="radio" value="1" id="teclado"/>
         <label for="teclado" class="isfast"><i class="mdi mdi-keyboard mdi-18px tooltipped" data-tooltip="Ejecute esta opción si el ingreso de los productos va a realizarse por medio de Teclado" data-position="bottom" style="font-size: 1.4em"></i></label>
-        
+
+
+        <input type="checkbox" id="cxp" hclk="0">
+        <label for="cxp" class="hide trCompra" style="float: left;margin-right: 5px">CXP</label>
         <a class="btn btn-floating btn2 tooltipped der addline" tr="1" data-position="bottom" data-tooltip="Ingresar Línea" style="margin-left: 5px;"><i class="mdi mdi-plus mdi-16px"></i></a>
             
     </section>
@@ -1260,5 +1265,4 @@
 
 </ul>
 
-
-<script src="../assets/js/modulos/ventas.js?v=10.3.0.9"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.3.0.9-8"></script>

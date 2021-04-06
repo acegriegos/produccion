@@ -256,20 +256,23 @@ $html .= '* Línea Exenta<br>'.
 '<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>Cantidad</strong>'.
 '</td>'.
-'<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="10%">'.
+'<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="11%">'.
+'<strong>CABYS</strong>'.
+'</td>'.
+'<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>Código</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="26%">'.
+'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="18%">'.
 '<strong>Descripción</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="15%">'.
+'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="13%">'.
 '<strong>P. Unitario</strong>'.
 '</td>'.
 '<td valign="top" style="<font-size: 12px;text-align: center;color: white;font-family: Helvetica;" align="center" width="6%">'.
 '<strong>Unidad</strong>'.
 '</td>'.
 '<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
-'<strong>Descuento</strong>'.
+'<strong>DESC.</strong>'.
 '</td>'.
 '<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="5%">'.
 '<strong>IVA</strong>'.
@@ -299,19 +302,21 @@ foreach ($datos as $obj) {
   $html .= '<tr><td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="9%">'.
 $obj[29].$obj[18].
 '</td>'.
-'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="10%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="11%">'.
+$obj[59].
+'</td>'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="9%">'.
 $obj[36].
 '</td>'.
-'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="26%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="18%">'.
 $obj[19].
 '</td>'.
-'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="15%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="13%">'.
 $obj[20].
 '</td>'.
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="6%">'.
 $obj[23].
 '</td>'.
-
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="9%">'.
 $obj[21].
 '</td>'.
@@ -349,6 +354,12 @@ $html .= '<table style="width: 100%" style="font-size:9px">';
     <td></td>
     <td align="right">Exonerado:</td>
     <td align="right">'.$datos[0][15].$datos[0][7].'</td>
+  </tr>';
+
+  $html .= '<tr>
+    <td></td>
+    <td align="right">Servicio Mesero:</td>
+    <td align="right">'.$datos[0][15].number_format($datos[0][49],2).'</td>
   </tr>';
 
   $html .= '<tr>

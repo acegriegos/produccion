@@ -125,6 +125,32 @@
         foreach ($json_arr['rs'] as $obj) {
             $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
 
+            switch($obj->tbl){
+              case 1:
+                $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\" and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
+
+                if (is_array($val)) {
+                  if (isset($val[0][0]) && $obj->acc == 1) {
+                    $obj->acc = 2;
+                  }
+                }
+
+                break;
+              case 2:
+                $val = $base->ejecutar('call krattos("id",2,"cedula = \"'.$obj->bdy->cedula.'\" and bisproveedor = '.$obj->bdy->bisproveedor.'")')->fetch_all();
+                if (is_array($val)) {
+                  if (isset($val[0][0]) && $obj->acc == 1) {
+                    $obj->acc = 5;
+                  }
+                }
+
+                break;
+              default:
+                $val = 0;
+                break;
+            }
+
+
             if($obj->idusuario != ''){
               $obj->bdy->idsucursal = $_SESSION['IMPRESA'];
             }

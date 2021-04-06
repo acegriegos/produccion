@@ -11,7 +11,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57" tipos="Tipo Factura,Tipo Pago,Tipo Documento" tfiltar="0,0,1&7&10&102&103" elem='0,"1&7&10"' sp="167" modulo="reporteFactura" types="1,1,1" bisprov="0"></div>
+           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57" tipos="Tipo Factura,Tipo Pago,Tipo Documento" tfiltar="0,0,1&7&8&10&102&103" elem='0,"1&7&8&10"' sp="167" modulo="reporteFactura" types="1,1,1" bisprov="0"></div>
 
       <!-- HEADER -->
     <input type="hidden" id="vdetalle" value="1" change="2">
@@ -61,6 +61,6 @@
   </div>
   {$SCR}
   <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.3.0.9-1"></script>
 </body>
 </html>

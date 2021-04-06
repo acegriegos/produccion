@@ -53,7 +53,7 @@
                     <li><a class="optns" href="#!" fltr="2">Razón Social o Cédula</a></li>
                     <li><a class="optns" href="#!" fltr="3">Fecha</a></li>
                   </ul>
-                  <input type="text" id="search_facturas" maxlength="100" num="v187" var="0,1" filtro="1">
+                  <input type="text" id="search_facturas" maxlength="100" num="v187" var="0,1" filtro="1" autocomplete="off">
                   <label class="truncate" for="search_facturas">Buscar Documento por <span>Número</span></label>
             </div>
 
@@ -79,7 +79,6 @@
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">N° Factura</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Cliente</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Total</th>
-                                 <!-- <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Comentario</th> -->
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; ">Acciones</th>
                             </tr>
                         </thead>

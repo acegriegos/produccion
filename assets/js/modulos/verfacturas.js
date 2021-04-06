@@ -103,7 +103,7 @@ $(document).on("click",".mh",function(){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     var rs = mantenimiento('login',14,{id:vid,sucursal:vbody[1]},1);
-    
+    console.log(rs)
     if(rs["succed"])
         $(this).attr('href',rs["arhivo"]); 
 });
@@ -112,7 +112,7 @@ $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vbody[3],sel:'',tbl:72,where:vid},1);
-    console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
+    //console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
     $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf'); 
 });
 

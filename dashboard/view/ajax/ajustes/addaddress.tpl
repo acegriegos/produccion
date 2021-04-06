@@ -49,6 +49,7 @@
         if($("#slideDireccion").data('idfila') != $("#_idfila").val()){
 
             var direccion = getDatos('',92,$("#_idfila").val()+","+$("#_idtabla").val(),0,0,0);
+            console.log(direccion)
             $("#slideDireccion").data('idfila',$("#_idfila").val());
             if(direccion[0].length)
               $("#slideDireccion").data('fila1',{vaccion:2,vidubicacion:direccion[0][0][0],vdireccion:direccion[0][0][1],vidbarrio:direccion[0][0][2],iddistrito:direccion[0][0][4],idcanton:direccion[0][0][6],idprovincia:direccion[0][0][8],vlatitud:direccion[0][0][12],vlongitud:direccion[0][0][13]});

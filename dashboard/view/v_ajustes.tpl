@@ -41,6 +41,6 @@
   </div>
   {$SCR}
   <script src="../assets/js/dropzone.js?v=10.3.0.9"></script>
-  <script src="../assets/js/modulos/ajustes.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/ajustes.js?v=10.3.0.9-1"></script>
 </body>
 </html>

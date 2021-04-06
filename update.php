@@ -223,9 +223,9 @@
                         <div class="col s4">
                             <a href="#" class="btn btn-info dropdown-button" data-activates='dropdown2'>Actualizacion</a>
                             <ul id='dropdown2' class='dropdown-content'>
-                                <li><a href="#!" id="db">Base de Datos</a></li>
-                                <li><a href="#!" id="bm">BMS</a></li>
-                                <li><a href="#!" id="bm">Archivo de Configuración</a></li>
+                                <li><a id="db">Base de Datos</a></li>
+                                <li><a id="bms">BMS</a></li>
+                                <li><a id="conf">Archivo de Configuración</a></li>
                             </ul>
                         </div>
 
@@ -330,6 +330,7 @@
 
             <script src="assets/js/jquery.js?v=10.0.0.29"></script>
             <script src="assets/js/materialize.min.js?v=10.0.0.29"></script>
+            <script src="assets/js/asgard.js?v=10.3.0.9"></script>
             <script type="text/javascript">
 
                 $(window).keydown(function(e){
@@ -345,6 +346,32 @@
 
                 $('.tooltipped').tooltip({delay: 50});
                 $('select').material_select();
+
+                $("#db").click(function(){
+                    $("#consoleText").html('')
+                    $("#consoleText").append('Actualizando Base de Datos<br>Cargando Ultima Version....<span id="lver">##</span><br>Version Actual....<span id="aver">##</span><br>');
+                    var _aver = getDatos('valor',15,'descr="versionbase"')[0][0][0];
+
+                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:11,acc:1,aver:_aver})
+                        .done(function(data){
+
+                            $("#aver").html(_aver);
+                            $("#lver").html(data.rs[0])
+                            $("#consoleText").append('Descargando Archivos...<br>')
+                            $.post('update.php',{tupdate:3,file:data.file})
+                                .done(function(data){
+                                    $("#consoleText").append('BASE ACTUALIZADA<br>')
+                            })
+                    })
+
+                });
+
+                $("#bms").click(function(){
+                    $.post('update.php',{tupdate:4})
+                        .done(function(data){
+                            $("#consoleText").append('SISTEMA ACTUALIZADO<br>')
+                    })
+                });
 
                 $(".instalar").click(function(){
                     var id = $(this).attr('id');
@@ -365,7 +392,6 @@
 
                     $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
                         .done(function(data){
-                            console.log(data.rs[0][0])
                             if(data.succed && data.rs.length == 1){
                                 if (data.rs[0][3] != 1) {
                                     $(".valid").attr('disabled',false);
@@ -374,7 +400,7 @@
                                     $(".credentials").attr('disabled','true');
                                     $("#unom").html(data.rs[0][2]);
                                     $(".isvalid").removeClass('hide');
-                                    $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+p['rs'][0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
+                                    $(".valid").data('usr',(parseInt(Math.random()*1000)+' '+data.rs[0][0]+' '+parseInt(Math.random()*1000)).replace(/ /g,''))
                                 }
                                 
                             }else{
@@ -476,27 +502,52 @@
             if(filesize("assets/update/update.log"))
                 $salida['CONF'] = "ERROR";
             break;
-        case 12:
-            echo json_encode($update->ubicaciones());
+        case 3: //DB PART2
+            require_once '_config/mysqlDB.php';
+            fclose(fopen('./assets/update/update.log','w'));
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $port = $db->getPort();
+
+            file_put_contents('mysqlfile', base64_decode($_REQUEST['file']));
+            print_r(shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < mysqlfile >> ./assets/update/update.log 2>&1"));
+            unlink('mysqlfile');
             break;
-        case 13:
-            echo json_encode($update->isConfigFile());
-            break;
-        case 14:
-            echo json_decode($update->cargarConfigFile());
-            break;
-        case 4: //CONFIGURAION LOGINTECH
-            $user = isset($_REQUEST['user']) ? $_REQUEST['user'] : '';
-            $salida = [];
+        case 4: //BMS PART 1
+
+            fclose(fopen('./assets/update/update.git','w'));
+
+            shell_exec('git config --global user.name "APSY"');
+            shell_exec('git config --global user.email "info@apsycr.com"');
+
+            shell_exec('git commit -a -m"sync"');
+            shell_exec('git pull >> ./assets/update/update.git 2>&1');
+            shell_exec('git reset --hard HEAD~1');
+            shell_exec('git pull >> ./assets/update/update.git 2>&1');
+            break;  
+        case 5: //full auto
+            require_once '_config/mysqlDB.php';
+            fclose(fopen('./assets/update/update.log','w'));
+            $db = new DBClass();
+            $mdb = $db->getDB();
+            $user = $db->getUSR();
+            $pass = $db->getPSS();
+            $port = $db->getPort();
 
             $source = "http://sistema.apsycr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_SSLVERSION,false);
+            curl_setopt($curl, CURLOPT_POST, true);
+
+            $_aver = $db->ejecutar('select valor from ajustes where descr="versionbase"')[0][0];
             $params = array(
-              "client_id" => $user,
-              "cmd" => "1");
+              "cmd" => 11,
+              "acc" => 1,
+              "aver" => $_aver);
 
             $postData = "";
 
@@ -507,50 +558,14 @@
 
             $postData = rtrim($postData, '&');
 
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
             $data = curl_exec ($ch);
             $error = curl_error($ch);
-
             curl_close ($ch);
 
-            if ($error){
-                $salida['PERMISOS'] = $error;
-            }
-            else{
-                $salida['PERMISOS'] = $data;
-
-                require_once '_config/mysqlDB.php';
-            
-                $db = new DBClass();
-                //$db->ejecutar('delete from permisosLogintech where id > 0');
-                $db->ejecutar('truncate permisosLogintech');
-
-                //$db->ejecutar('delete from permisosCliente where id > 0');
-                $db->ejecutar('truncate permisosCliente');
-
-                //$db->ejecutar('delete from permisos where id > 0');
-                $db->ejecutar('truncate permisos');
-                $str = 'INSERT INTO permisosLogintech values';
-
-                $data = json_decode($data);
-                
-                foreach ($data->permisos as $row) {
-                    $row[4] = !strlen($row[4]) ? 'null' : $row[4];
-                    $str .= "(".$row[0].",'".$row[1]."',".$row[2].",".$row[3].",".$row[4]."),";
-                }
-
-                print_r($db->ejecutar(substr($str, 0, strlen($str)-1)));
-
-            }
-            break; 
-        case 6:
-            require_once '_config/mysqlDB.php';
-
-            $db = new DBClass();
-            $act = new updated();
-
-            /*fclose(fopen('./assets/update/update.git','w'));
+            file_put_contents('mysqlfile', base64_decode($data));
+            print_r(shell_exec("mysql -u".$user." -p".$pass." -P".$port." -f ".$mdb." < mysqlfile >> ./assets/update/update.log 2>&1"));
+            unlink('mysqlfile');
 
             shell_exec('git config --global user.name "APSY"');
             shell_exec('git config --global user.email "info@apsycr.com"');
@@ -558,35 +573,9 @@
             shell_exec('git commit -a -m"sync"');
             shell_exec('git pull >> ./assets/update/update.git 2>&1');
             shell_exec('git reset --hard HEAD~1');
-            shell_exec('git pull >> ./assets/update/update.git 2>&1');*/
+            shell_exec('git pull >> ./assets/update/update.git 2>&1');
 
-            $vbase = $db->ejecutar('select if(count(valor),valor,0) from ajustes where descr= "versionbase"')->fetch_all();
-            if(!$vbase[0][0][0]){ //CARGAR TODO Y VERSION 0
-                //TRAER VERSION 0
-                //ACTUALIZAR AJUSTES
-                //ACTUALIZAR VERSION
-                $cu = $act->getCurl('http://logintechcr.com/descargas/actualizaciones/v0.sql','');
-                $destination = "./assets/update/act.sql";
-
-                $rte = $act->getCurl('http://logintechcr.com/descargas/RTE.sql','');
-
-                $file = fopen($destination, "w+");
-                fputs($file, $cu);
-                fputs($file, '\n'.$rte);  
-                fclose($file);
-
-
-                // $archivo = file_get_contents('./assets/update/update.sql');
-                // $archivo = preg_replace('/`root`/', `".$user."`, $archivo);
-                // $archivo = preg_replace('/`%`/', `localhost`, $archivo);
-                // $archivo = preg_replace('/developer/', $rdb, $archivo);
-                // file_put_contents($destination, $archivo);
-            }else{
-                //WHILE A LA ULTIMA VERSION
-                //ACTUALIZAR VERSION
-                echo "while";
-            }
-            break;     
+            break;   
         default:
             break;
     }

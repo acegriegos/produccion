@@ -167,6 +167,10 @@ h3 {
     #segundo{
       display: block !important;
     }
+
+    #tercero{
+      display: block !important;
+    }
 /*  footer {
     width: 100%;
     text-align: center !important;
