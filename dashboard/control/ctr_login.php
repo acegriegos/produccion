@@ -110,7 +110,7 @@
 
         if(isset($transaccion[0][7])){
           if ($transaccion[0][7] == 1)
-            cambioDia($log,$transaccion);
+           $transaccion['tp'] = cambioDia($log,$transaccion);
         }
         break;
       case 4:
@@ -269,14 +269,15 @@
         break;
       case 17: //INIDACADORES ECONOMICOS
         $pagina = 1;
-        ob_end_clean();
+        /*ob_end_clean();
         ignore_user_abort();
         ob_start();
         header("Connection: close");
         echo json_encode('LOAD INDICACORES...');
         header("Content-Length: " . ob_get_length());
         ob_end_flush();
-        flush();
+        flush();*/
+        echo "inicio<br>";
         indicadores($log);
         break;
       default:
@@ -328,6 +329,7 @@
 
     function cambioDia($log,&$transaccion)
      {  
+        $salida = '';
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $actual_link = str_replace('ctr_login.php','/dashboard/login', $actual_link);
 
@@ -372,6 +374,8 @@
             }
           }
         }*/
+
+        return $salida;
      } 
 
      function indicadores($log){
@@ -408,9 +412,43 @@
         curl_close($curl);
         $uno = strpos($json_response, '<NUM_VALOR>');
         $dos = strpos($json_response, '</NUM_VALOR>');
-        $json_response = str_replace('<NUM_VALOR>', '', substr($json_response,$uno,$dos-$uno));
+        $venta = str_replace('<NUM_VALOR>', '', substr($json_response,$uno,$dos-$uno));
 
-        $log->genkidama(2,54,'valor='.number_format($json_response,2),'codigo="USD"');
+        $param_salida = array();
+        $param_salida['Indicador'] = 317;
+        $param_salida['FechaInicio'] = date('d/m/Y');
+        $param_salida['FechaFinal'] = date('d/m/Y');
+        $param_salida['Nombre'] = 'apsy';
+        $param_salida['SubNiveles'] = 'N';
+        $param_salida['CorreoElectronico'] = 'info@apsycr.com';
+        $param_salida['Token'] = '5PSCRPNR0F';
+
+        $curl = curl_init('https://gee.bccr.fi.cr/Indicadores/Suscripciones/WS/wsindicadoreseconomicos.asmx/ObtenerIndicadoresEconomicos');
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
+
+        $postData = "";
+
+        foreach($param_salida as $k => $v)
+        {
+           $postData .= $k . '='.urlencode($v).'&';
+        }
+
+        $postData = rtrim($postData, '&');
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+
+        $json_response = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        curl_close($curl);
+        $uno = strpos($json_response, '<NUM_VALOR>');
+        $dos = strpos($json_response, '</NUM_VALOR>');
+        $compra = str_replace('<NUM_VALOR>', '', substr($json_response,$uno,$dos-$uno));
+
+        $log->genkidama(2,54,'valor=if(wsdl=1,'.number_format($venta,2).',valor),compra='.number_format($compra,2).',venta='.number_format($venta,2),'codigo="USD" and wsdl');
      }  
 
     function getCompras($url,$ced,$isp,&$log){

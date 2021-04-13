@@ -1708,11 +1708,15 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             $("#fdetallefacturas").prepend('<div id="fd'+id+'" '+rpago+' xtr="'+$("#ffacturas .zelda").data('triforce')['idcliente']+'" idprod="'+idprod+'" class="ciclos row col s12"> <div style="padding: 0 !important;" class="col s2 center-align" id="codprod'+id+'">'+codedg+cod+'</div> <div style="padding: 0 !important;" class="col s3 center-align" id="desc'+id+'">'+desc+'</div> '+strprec+' <div style="padding: 0 !important;" class="col s1 center-align" id="unitprod'+id+'">'+uni+'</div> <div id="divcnt" style="padding: 0 !important;" class="col s1 center-align"><span id="cant'+id+'">'+cant+'</span></div> <div style="padding: 0 !important;" class="col s1 center-align totp divisa" id="tota'+id+'">'+tot+'</div> <div class="right"> <a href="#modal-edit" id="edit'+id+'" visible="0" class="mdi mdi-pencil modal-trigger pbtn black-text fedit" style="padding="0"></a><a href="#" id="del'+id+'" style="color: #D9534F" title="Eliminar Fila" class="mdi mdi-close pbtn black-text delf" style="padding="0"></a> <span id="mdesc'+id+'"></span></div> </div>')
             break;
         }
-
+        var divisa = parseFloat($("#monedas option:selected").attr('dv'));
+        precio = precio.toFixed(5);
         $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento'],iva:isiva,isinventariado : inventariado,vcomision : comision,videxoneracion : vexo == 0 ? '' : $("#ffacturas .zelda").data('triforce')['videxoneracion'],timv : vtimv,partida_arancelaria:'',montoExo : 0});
 
-        if (parseInt($("#monedas option:selected").attr('dv')) != 1)
+        if (parseInt($("#monedas option:selected").attr('dv')) != 1){
             $("#prec"+id).attr('base',precio);
+            $("#fake"+id).attr('base',precio);
+            $("#tota"+id).attr('base',precio);
+        }
 
         $("#fd"+id).attr('vaccion',1);
     }
@@ -1763,8 +1767,9 @@ function totalizar(){
         if(config['tp_rest'] != undefined){
             switch(parseInt(config['tp_rest'])){
                 case 0:
-                    if($("#fd"+vidlinea).data('triforce')['vorig'] == undefined)
-                        $("#fd"+vidlinea).data('triforce')['vorig'] = precio
+                    if($("#fd"+vidlinea).data('triforce')['vorig'] == undefined){
+                        $("#fd"+vidlinea).data('triforce')['vorig'] = precio;
+                    }
                     else
                         precio = $("#fd"+vidlinea).data('triforce')['vorig'];
 
@@ -1838,7 +1843,7 @@ function totalizar(){
                 if(tmpdesc && parseInt(eimv) > 0){ 
                     //PRODUCTOS O CLIENTES GRAVADOS
                     if(parseInt(exov) && parseInt(eimv) > 0){
-                        orig = tmpdesc;
+                        orig = precio;
                         var rexov = exov > rimv ? rimv : exov;
 
                         dimve = parseFloat(orig*(rimv/100)); //.toFixed(5)
@@ -2057,13 +2062,13 @@ function validarDetalleFactura(){
         if (divisa != 1) { 
             if(param == 2)
                 fila.data('triforce')['vprecio'] = parseFloat(fila.data('triforce')['vprecio'])*divisa;
-            fila.data('triforce')['vimv'] = parseFloat(fila.data('triforce')['vimv'])*divisa;
-            fila.data('triforce')['vdescuento'] = parseFloat(fila.data('triforce')['vdescuento'])*divisa;
-            fila.data('triforce')['vexonerado'] = parseFloat(fila.data('triforce')['vexonerado'])*divisa;
-            fila.data('triforce')['montoExo'] = parseFloat(fila.data('triforce')['montoExo'])*divisa;
+                fila.data('triforce')['vimv'] = parseFloat(fila.data('triforce')['vimv'])*divisa;
+                fila.data('triforce')['vdescuento'] = parseFloat(fila.data('triforce')['vdescuento'])*divisa;
+                fila.data('triforce')['vexonerado'] = parseFloat(fila.data('triforce')['vexonerado'])*divisa;
+                fila.data('triforce')['montoExo'] = parseFloat(fila.data('triforce')['montoExo'])*divisa;
         }
 
-        var isexo = $("#se"+index+":visible").length ? $("#se"+index).is(':checked') ? 1 : 0 : 0;
+        var isexo = !$("[for=se1]").hasClass('hide') ? $("#se"+index).is(':checked') ? 1 : 0 : 0;
         if(isexo)
             fila.data('triforce')['videxoneracion'] += '^'+fila.data('triforce')['montoExo'];
         else

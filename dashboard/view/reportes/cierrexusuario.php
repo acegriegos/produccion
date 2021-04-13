@@ -31,9 +31,9 @@
         <tbody>';
         foreach ($cierreg as $obj) {
           $lista .= ' <tr class="tr" >
-            <td ><span id="con" >'.$obj[11].'</span></td>
-            <td ><span id="pag" >'.$obj[15].'</span></td>
-            <td align="right"><span  >'.number_format($obj[16],2).'</span></td>
+            <td ><span id="con" >'.$obj[30].'</span></td>
+            <td ><span id="pag" >'.$obj[31].'</span></td>
+            <td align="right"><span  >'.number_format($obj[32],2).'</span></td>
           </tr>';
         }
         $lista .= '</tbody>

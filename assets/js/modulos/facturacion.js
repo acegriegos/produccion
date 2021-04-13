@@ -1079,20 +1079,20 @@ function cargarVentas(){
 
     $("#ncli").attr('placeholder',"Nombre o Cédula del Cliente");
 
+    $(document).on("blur","#precp",function(){
+
+        if ( $(this).attr('readonly') == undefined) {
+            $("#valores").data('elemento')['hprec'] = parseFloat($(this).val().replace(/,/g,''))*parseFloat($("#monedas option:selected").attr('dv'));
+            $("#totp").val((parseFloat($(this).val().replace(/,/g,''))*1).formatMoney(2,'.',','))
+        }
+        
+    });
+
     $(document).on("keyup","#precp",function(e){
          var code = e.which || e.keyCode;
          if (code == 13) {
             var nm = isNaN( $("#cantp").val() ) ? 1 :  parseFloat($("#cantp").val().replace(/,/g,'')) != 0 ?  $("#cantp").val() : 1;
             $("#cantp").val(nm).focus().select();
-            $(this).blur()
-         }
-    });
-
-
-    $(document).on("keyup","#precp",function(e){
-         var code = e.which || e.keyCode;
-         if (code == 13) {
-            $("#cantp").val(1).focus().select();
             $(this).blur()
          }
     });

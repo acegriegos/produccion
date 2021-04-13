@@ -108,6 +108,59 @@ $(function(){
 		}
 	}
 
+	$("#cmixto").click(function(){
+		var mefe = $("#mxtefe").val()
+		mefe = isNaN(mefe) ? 0 : parseFloat(mefe);
+
+		var mtar = $("#mxteta").val()
+		mtar = isNaN(mtar) ? 0 : parseFloat(mtar);
+
+		var mdep = $("#mxtede").val()
+		mdep = isNaN(mdep) ? 0 : parseFloat(mdep);
+
+		var suma = (mefe+mtar+mdep);
+
+		if(suma != parseFloat($("#modal-mxt").attr('tot')) && suma != 0){
+			Materialize.toast('Montos no Suman el Total de la Factura',4000,'red');
+			return false;
+		}
+
+		if(suma > 0){
+			var e_efe = getDatos('total',336,'idpago = 1 and idfactura = '+$("#modal-mxt").attr('rid'))
+			var e_tar = getDatos('total',336,'idpago = 2 and idfactura = '+$("#modal-mxt").attr('rid'))
+			var e_dep = getDatos('total',336,'idpago = 3 and idfactura = '+$("#modal-mxt").attr('rid'))
+
+			if(e_efe[0].length)
+				actualizar(336,'total='+mefe,'idpago = 1 and idfactura = '+$("#modal-mxt").attr('rid'))
+			else{
+				if(mefe)
+					insertar(336,'','null,'+$("#modal-mxt").attr('rid')+',1,"",'+mefe);
+			}
+
+			if(e_tar[0].length)
+				actualizar(336,'total='+mefe,'idpago = 2 and idfactura = '+$("#modal-mxt").attr('rid'))
+			else{
+				if(mtar)
+					insertar(336,'','null,'+$("#modal-mxt").attr('rid')+',2,"",'+mtar);
+			}
+
+			if(e_dep[0].length)
+				actualizar(336,'total='+mefe,'idpago = 3 and idfactura = '+$("#modal-mxt").attr('rid'))
+			else{
+				if(mdep)
+					insertar(336,'','null,'+$("#modal-mxt").attr('rid')+',3,"",'+mdep);
+			}
+
+			var act = actualizar(64,'idtipopago=5','id='+$("#modal-mxt").attr('rid'));
+			arr('login',6,'',183,'"'+$("#fcierre").html()+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
+			$("#tcontado").text($("#hidet").attr('tcon'));
+			$("#tcredito").text($("#hidet").attr('tcre'));
+			$("#tefectivo").text($("#hidet").attr('tefe'));
+			$("#ttarjeta").text($("#hidet").attr('ttar'));
+
+		}
+	});
+
 	$("#mcierre").keyup(function(e){
 		var code = e.wich || e.keyCode
 		if (code == 13){
@@ -204,8 +257,10 @@ $(function(){
 	    });
 	    $("#modal-usuario").modal('open');
 	    $("#ecouser").focus();
-	}else
+	}else{
 		arr('login',6,'',182,guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listacierrespendientes"));
+		$(".getfacturas").first().click()
+	}
 
 	$("#isdet").change(function(){
 		if($(this).is(':checked'))
@@ -313,7 +368,6 @@ $(document).on("click",".getfacturas",function(){
 	tabla.destroy();
    	$("#fcierre").html(fecha)
     arr('login',6,'',183,'"'+fecha+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
-
 	$("#tcontado").text($("#hidet").attr('tcon'));
 	$("#tcredito").text($("#hidet").attr('tcre'));
 	$("#tefectivo").text($("#hidet").attr('tefe'));
@@ -357,6 +411,23 @@ $(document).on("click","#filtro",function(){
 });
 
 $(document).on("change",".ctip",function(){
+
+	if($(this).val() == '5'){
+		var mxtdat = getDatos('sum(if(idpago = 1,total,0)) as efe,sum(if(idpago = 2,total,0)) as tar,sum(if(idpago = 3,total,0)) as dep',336,'idfactura = '+$(this).parent().attr('rid')+' group by idfactura') 
+		if(mxtdat[0].length){
+			$("#mxtefe").val(mxtdat[0][0][0])
+			$("#mxteta").val(mxtdat[0][0][1])
+			$("#mxtede").val(mxtdat[0][0][2])
+		}
+		$("#modal-mxt").attr('rid',$(this).parent().attr('rid'))
+		$("#modal-mxt").attr('tot',$(this).parent().attr('tot'))
+
+		$("#mxttot").html(parseFloat($(this).parent().attr('tot')).formatMoney(2,'.',','))
+		$("#modal-mxt").modal('open')
+		$("#mxtefe").focus().select()
+		return false;
+	}
+
 	switch($(this).parent().attr('tp')){
 		case '1':
 		case '3':
@@ -365,6 +436,7 @@ $(document).on("change",".ctip",function(){
 		default:
 			break;
 	}
+	eliminar(336,'idfactura='+$(this).parent().attr('rid'))
 
 	arr('login',6,'',183,'"'+$("#fcierre").html()+'",'+guser+',@@impresa,'+$("#BUSS").attr('idcaja'),0,1,$("#listafacturas"));
 	$("#tcontado").text($("#hidet").attr('tcon'));

@@ -211,6 +211,40 @@
       </div>
     </div>
 
+    <div id="modal-mxt" class="modal modal-fixed-footer" style="width: 50%">
+        <div class="modal-content" style="padding: 0px;">
+          <ul class="tabs white-text" style="background-color:#0B3861">
+          <li class="tab col s6"><a class="white-text">Pagos Mixtos</a></li>
+          </ul>
+
+          <div class="container">
+            <br>
+            <span>TOTAL FACTURA: </span> <span class="red-text" id="mxttot">0.00</span>
+            <br>
+
+            <div class="input-field">
+              <input type="number" class="eder" id="mxtefe" value="0.00">
+              <label for="mxtefe">Efectivo</label>
+            </div>
+
+            <div class="input-field">
+              <input type="number" class="eder" id="mxteta" value="0.00">
+              <label for="mxteta">Tarjeta</label>
+            </div>
+
+            <div class="input-field">
+              <input type="number" class="eder" id="mxtede" value="0.00">
+              <label for="mxtede">Depósito</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="waves-effect waves-green btn-flat" id="cmixto">Guardar</button>
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
 
     {$SRC}
     <script src="../assets/js/modulos/cierres.js?v=10.3.0.9-4"></script>

@@ -308,13 +308,13 @@ $(document).on("click",".pdf",function(){
             link.download = data;
             link.dispatchEvent(new MouseEvent('click'));
             
-           setTimeout(function(){ 
+           //setTimeout(function(){ 
                 $("#shpdf").parent().remove();
                 $.get('login',{accion:17,arreglo:{file:'../assets/pdf/'+data}})
                 .done(function(data){
                     console.log(data);
                 })
-            }, 3000);
+            //}, 3000);
            
         })
 });

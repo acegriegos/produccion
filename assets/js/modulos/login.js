@@ -179,6 +179,7 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
+
     console.log(p)
     switch(p[0].length){
         case 2:

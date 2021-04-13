@@ -345,15 +345,15 @@
                 <div class="row" style="padding: 0px;float: right;margin: 0px;">
                     
                     <label class="col s3 red-text"><b>IVA:</b></label>
-                    <select id="vimpiva" class="col s9" style="margin: 0px" num="4">
-                        <option selected value="1" num="0">Exento 0%</option>
-                        <option selected value="2" num="1">Reducido 1%</option>
-                        <option selected value="3" num="2">Reducido 2%</option>
-                        <option selected value="4" num="4">Reducido 4%</option>
-                        <option selected value="5" num="0">Transitorio 0%</option>
-                        <option selected value="6" num="4">Transitorio 4%</option>
-                        <option selected value="7" num="8">Transitorio 8%</option>
-                        <option selected value="8" num="13">General 13%</option>
+                    <select id="vimpiva" class="col s9" style="margin: 0px">
+                        <option  value="1" num="0">Exento 0%</option>
+                        <option  value="2" num="1">Reducido 1%</option>
+                        <option  value="3" num="2">Reducido 2%</option>
+                        <option  value="4" num="4">Reducido 4%</option>
+                        <option  value="5" num="0">Transitorio 0%</option>
+                        <option  value="6" num="4">Transitorio 4%</option>
+                        <option  value="7" num="8">Transitorio 8%</option>
+                        <option  value="8" num="13">General 13%</option>
                     </select>
                     
                 </div>
