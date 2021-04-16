@@ -1709,6 +1709,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
             break;
         }
         var divisa = parseFloat($("#monedas option:selected").attr('dv'));
+
         precio = precio.toFixed(5);
         $("#fd"+id).data('triforce',{vaccion : 0,vid : 0,vidfactura : '?',videntrada : idprod,vcantidad : cant,vprecio : precio,vdesc : 0,vtotal : 0,vidinventario : hinv,vidodt : 0,vimv : 0,vcomodin : comodin,vidunidad : $("#uni").val(),vidimpuestos:'',viddescuentos:'',strimp : vstrimp,exoneracion:vexo,max: mdcs,iddesc:dcs['iddescuento'],vdescuento : dcs['descuento'],iva:isiva,isinventariado : inventariado,vcomision : comision,videxoneracion : vexo == 0 ? '' : $("#ffacturas .zelda").data('triforce')['videxoneracion'],timv : vtimv,partida_arancelaria:'',montoExo : 0});
 
@@ -1768,16 +1769,14 @@ function totalizar(){
             switch(parseInt(config['tp_rest'])){
                 case 0:
                     if($("#fd"+vidlinea).data('triforce')['vorig'] == undefined){
-                        $("#fd"+vidlinea).data('triforce')['vorig'] = precio;
+                        $("#fd"+vidlinea).data('triforce')['vorig'] = precio*divisa;
                     }
                     else
-                        precio = $("#fd"+vidlinea).data('triforce')['vorig'];
-
-                    precio = precio/parseFloat($("#monedas option:selected").attr('dv'));
+                        precio = $("#fd"+vidlinea).data('triforce')['vorig']/divisa;
 
                     precio = $("#impm").is(':checked') ? (precio*(1+(parseFloat($("#fd"+vidlinea).data('triforce')['exoneracion'])/100)) )/(1.1+((parseFloat($("#fd"+vidlinea).data('triforce')['exoneracion'])/100)) ) : precio;
-
-                    $("#fd"+vidlinea).data('triforce')['vprecio'] = precio;
+                    
+                    $("#fd"+vidlinea).data('triforce')['vprecio'] = precio*divisa;
                     break;
                 default:
                     break;
@@ -2060,12 +2059,12 @@ function validarDetalleFactura(){
             fila.data('triforce')['vid'] = -1;
 
         if (divisa != 1) { 
-            if(param == 2)
-                fila.data('triforce')['vprecio'] = parseFloat(fila.data('triforce')['vprecio'])*divisa;
-                fila.data('triforce')['vimv'] = parseFloat(fila.data('triforce')['vimv'])*divisa;
-                fila.data('triforce')['vdescuento'] = parseFloat(fila.data('triforce')['vdescuento'])*divisa;
-                fila.data('triforce')['vexonerado'] = parseFloat(fila.data('triforce')['vexonerado'])*divisa;
-                fila.data('triforce')['montoExo'] = parseFloat(fila.data('triforce')['montoExo'])*divisa;
+            //if(param == 2)
+                //fila.data('triforce')['vprecio'] = parseFloat(fila.data('triforce')['vprecio'])*divisa;
+            fila.data('triforce')['vimv'] = parseFloat(fila.data('triforce')['vimv'])*divisa;
+            fila.data('triforce')['vdesc'] = parseFloat(fila.data('triforce')['vdesc'])*divisa;
+            fila.data('triforce')['vexonerado'] = parseFloat(fila.data('triforce')['vexonerado'])*divisa;
+            fila.data('triforce')['montoExo'] = parseFloat(fila.data('triforce')['montoExo'])*divisa;
         }
 
         var isexo = !$("[for=se1]").hasClass('hide') ? $("#se"+index).is(':checked') ? 1 : 0 : 0;

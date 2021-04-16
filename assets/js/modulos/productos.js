@@ -1430,8 +1430,9 @@ $(document).on("click","#agInvSerPqts",function(){
 $(document).on("click","#addproduct",function(){
 
 	if(config[0] == '0'){
-		$("#vimpiva").val(1).attr('disabled',true);
+		$("#vimpiva").val(1);
 		$("#vimpiva").material_select('update');
+		$("#vimpiva").attr('disabled',true);
 	}else
 		$("#vimpiva").val('8').material_select('update');
     $("#agProd").removeClass('edit');

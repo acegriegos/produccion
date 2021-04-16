@@ -16,7 +16,7 @@
 	
 <tr>
 	<td style="padding: 10px;"> <?php echo $chk ?> </td>
-	<td style="padding: 10px;"><?php echo $obj[1]?></td>
+	<td style="padding: 10px;color: <?php echo $obj[16]; ?>;"><?php echo $obj[1]?></td>
 	<td style="padding: 10px;"><?php echo $obj[3]?></td>
 	<td style="padding: 10px;"><?php echo $obj[4]?></td>
 	<td style="padding: 10px;" class="rtp" rtp="<?php echo $obj[13]?>" rid="<?php echo $obj[0]?>" tp="<?php echo $obj[15]?>" tot="<?php echo str_replace(',', '', $obj[6]); ?>"><?php echo $obj[14] == 1 ? $strpagos : $obj[5]?></td>
@@ -35,4 +35,4 @@
 	    	$(this).val($(this).parent().attr('rtp'))
 	    })
 	})
-</script>
+</script>	
