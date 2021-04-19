@@ -247,6 +247,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.3.0.9-4"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.3.0.9-5"></script>
   </body>
 </html>

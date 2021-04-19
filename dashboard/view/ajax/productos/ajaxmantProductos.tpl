@@ -24,7 +24,7 @@
                 <label for="mystock">Inventario</label>
             </div>
             {else}
-                <input type="hidden" num="1" typ="0" class="_extra" value="6">
+                <input type="hidden" num="1" typ="0" class="_extra" id="mystock" value="6">
             {/if}
         </div>
 
