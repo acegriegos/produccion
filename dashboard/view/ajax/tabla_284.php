@@ -1,3 +1,5 @@
+<?php if($transaccion[0][0] != 1) {?>
+
 <table class="table striped pequeño  bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
     <thead>
        <tr>
@@ -18,7 +20,7 @@
     ?>
 
     <tr>
-        <td style=" padding: 1px;text-align: left"><?php echo $obj[0] ?></td>
+        <td style=" padding: 1px;text-align: left"><?php echo $obj[8] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[1] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td> 
         <td style=" padding: 1px;"><?php echo $obj[7] ?></td> 
@@ -41,3 +43,41 @@
     ?>
 </tbody>
 </table>
+
+<?php }else {?>
+
+<table class="table striped pequeño  bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
+    <thead>
+       <tr>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Producto</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Movimiento</b></td>
+        <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad</b></td>
+      </tr>
+    </thead>
+    <tbody>
+        <?php 
+        if(sizeof($transaccion)){
+        foreach ($transaccion as $obj) {
+    ?>
+
+    <tr>
+        <td style=" padding: 1px;text-align: left"><?php echo $obj[1] ?></td>
+        <td style=" padding: 1px;"><?php echo $obj[2] ?></td>
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[3],2) ?></td> 
+    </tr>
+
+    <?php }
+        }else{
+    ?>
+    <tr>
+        <td style=" padding: 1px;" colspan="6">No Hay Datos</td>
+       
+    </tr>
+    <?php 
+    
+        }
+    ?>
+    </tbody>
+</table>
+
+<?php } ?>

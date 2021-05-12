@@ -112,7 +112,6 @@ $(function(){
         tmfech = !tmfech ? 1 : tmfech;
         for(var i = 1 ;i <= tmfech;i++){
             vl = i == 1 ? '' : i;
-            console.log(vl)
             html += '<div class="row col s12 m6 l6 rous" style="margin:0"><div class="col s4"><input type="checkbox" id="xfec'+vl+'" value="1" class="repcheck"><label for="xfec'+vl+'" class="pbtn">Entre Fechas</label></div><div class="col s8" id="fltr1"><div class="col s6"><input type="date" class="validate init inpreport" id="vdesde'+vl+'" value="" str="1"></div><div class="col s6"><input type="date" class="validate inpreport" id="vhasta'+vl+'" value="" str="1"></div></div></div>';
         }
         $(".principal .filtros").append(html);
@@ -160,7 +159,6 @@ $(function(){
                 inc += 1;
                 stractive = active[i] == '1' ? 'checked' : '';
                 mdi = 'vidtipo'+inc;
-                console.log(vids[i])
                 if(vids != '')
                     mdi = vids[i] == '0' ? mdi : vids[i];
 
@@ -172,7 +170,7 @@ $(function(){
                     for(var j = 0;j<opts[0].length;j++)
                         stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
 
-                    type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'">'+stropts+'</select>';
+                    type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
 
                     break;
                     case 2: //para numero

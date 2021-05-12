@@ -1436,7 +1436,7 @@ function cargarGlobal(){
         $("#ecantidad").val($("#fd"+id).data('triforce')['vcantidad']);
 
         $("#edescuento").val(descuento);
-        $("#eunitario").val(($("#fd"+id).data('triforce')['vprecio']).formatMoney(5,'.',','));
+        $("#eunitario").val(parseFloat($("#fd"+id).data('triforce')['vprecio']).formatMoney(5,'.',','));
         $(".ename").addClass('hide');
         $(".eiva").addClass('hide');
 

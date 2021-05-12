@@ -75,19 +75,22 @@
         <div id="datosproductos" style="padding: 20px 10px 0 10px">
             <div class="row" style="margin: 0px">
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px;margin-bottom: 15px;">
-                    <div class="input-field marginzero col s12 hide">
-                        <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off" tabindex="1">
+                    <div class="input-field marginzero col s12 hide per4123">
+                        <input id="vfamilia" type="text" list="lfam">
                         <label for="vfamilia">Familia</label>
+                        <datalist id="lfam"></datalist>
                     </div>
 
                     <div class="input-field marginzero col s12">
-                        <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
+                        <input id="vtipo" type="text" list="ltip">
                         <label for="vtipo">Tipo</label>
+                        <datalist id="ltip"></datalist>
                     </div>
 
                     <div class="input-field marginzero col s12">
-                        <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
+                        <input id="vmarca" type="text" list="lmarc">
                         <label for="vmarca">Marca</label>
+                        <datalist id="lmarc"></datalist>
                     </div>
 
                     <input type="hidden" id="vidheredado" value="0">

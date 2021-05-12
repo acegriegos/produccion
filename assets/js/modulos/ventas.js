@@ -809,6 +809,7 @@ $(document).on("change","#impm",function(){
 });
 
 $(document).on("click","#fdev",function(){
+    $(this).prop('disabled',true)
     if($(this).attr('dodev') == '0'){
         return false;
     }
@@ -828,9 +829,9 @@ $(document).on("click","#fdev",function(){
             lcant = $("#r"+idf).find('.cdev').val();
             insertar(407,'','null,'+iddev+','+idf+','+lcant+','+$("#r"+idf).find('.trazon').val()+','+$("#r"+idf).find('.tcmb').val());
         });
-
+        console.log(iddev)
         var idnota = getDatos('',276,iddev+',@@impresa')
-        
+        console.log(idnota)
         idnota = idnota[0][0][0];
         actualizar(252,'devoluciones='+idcons,'idsucursal=@@impresa');
         var tmpparam = param;
@@ -844,6 +845,8 @@ $(document).on("click","#fdev",function(){
     }else {
         Materialize.toast('No hay Productos que Devolver',4000,'red')
     }
+
+    $(this).prop('disabled',false)
 })
 
 $(document).on("click","#fext",function(){
@@ -1839,6 +1842,8 @@ function totalizar(){
                     tmpdesc = 0;
                 }
 
+                $("#fd"+vidlinea).data('triforce')['montoExo'] = 0;
+                $("#fd"+vidlinea).data('triforce')['videxoneracion'] = '';
                 if(tmpdesc && parseInt(eimv) > 0){ 
                     //PRODUCTOS O CLIENTES GRAVADOS
                     if(parseInt(exov) && parseInt(eimv) > 0){
@@ -1853,7 +1858,7 @@ function totalizar(){
                         $("#fd"+vidlinea).data('triforce')['montoExo'] = (dimve-simv).toFixed(5);
                         dimve = dimve-simv;
                         var lexo = $("#fd"+vidlinea).data('triforce')['videxoneracion'];
-                        $("#fd"+vidlinea).data('triforce')['videxoneracion'] = lexo.substr(0,(lexo.lastIndexOf('^')))+'^'+parseFloat(rexov).toFixed(0);
+                        $("#fd"+vidlinea).data('triforce')['videxoneracion'] = lexo == '' ? '' : lexo.substr(0,(lexo.lastIndexOf('^')))+'^'+parseFloat(rexov).toFixed(0);
                     }
                     else{
                         gravado += precio;
@@ -2067,8 +2072,9 @@ function validarDetalleFactura(){
             fila.data('triforce')['montoExo'] = parseFloat(fila.data('triforce')['montoExo'])*divisa;
         }
 
-        var isexo = !$("[for=se1]").hasClass('hide') ? $("#se"+index).is(':checked') ? 1 : 0 : 0;
-        if(isexo)
+        var isexo = !$("[for=se"+index+"]").hasClass('hide') ? $("#se"+index).is(':checked') ? 1 : 0 : 0;
+    
+        if(isexo && fila.data('triforce')['montoExo'] != '0' )
             fila.data('triforce')['videxoneracion'] += '^'+fila.data('triforce')['montoExo'];
         else
             fila.data('triforce')['videxoneracion'] = '';

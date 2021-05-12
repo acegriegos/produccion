@@ -269,14 +269,14 @@
         break;
       case 17: //INIDACADORES ECONOMICOS
         $pagina = 1;
-        /*ob_end_clean();
+        ob_end_clean();
         ignore_user_abort();
         ob_start();
         header("Connection: close");
         echo json_encode('LOAD INDICACORES...');
         header("Content-Length: " . ob_get_length());
         ob_end_flush();
-        flush();*/
+        flush();
         echo "inicio<br>";
         indicadores($log);
         break;

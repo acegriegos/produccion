@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256" tipos="Movimiento" types="1" portipo="varios"></div>
+      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256,0,20" tipos="Movimiento,Agrupado,Por Familia" types="1,3,1" portipo="varios"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">

@@ -1090,7 +1090,7 @@
                     $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',8,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,"")');
 
                     if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,"")');
+                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,0)');
                         $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
                         //$db->ejecutar('call sp_rrollback('.$idfact.')');1
                         return false;
@@ -1427,25 +1427,26 @@
             }else{
                 $data[] = $this->info;
 
-                if($this->opcion != 3){
-                    $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
+                
+                $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
+                if($data['DetalleServicio'] != 1){
                     $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
                     if (!$tdetalle && $this->opcion < 5) 
                         return ['error'=>'No hay Detalle'];
-                }
-                
+                }else
+                    unset($data['DetalleServicio']);
+                    
                 $ocargos = $this->getJSON('call fe_getOtrosCargos("'.$this->id.'")');
                 if($ocargos)
                     $data['OtrosCargos'] = $ocargos; 
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
-
                 $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
                 $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
                 $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
                 
-                /*if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
-                     return ['error'=>'Descuentos Difieren'];*/
+                if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
+                     return ['error'=>'Descuentos Difieren'];
 
                 /*if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']+(isset($data['ResumenFactura']['TotalExonerado']) ? $data['ResumenFactura']['TotalExonerado'] : 0)) != round($data['ResumenFactura']['TotalVenta'])) 
                      return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];*/

@@ -83,7 +83,7 @@
 			$arreglo['modulo'] = $posicion ? substr($arreglo['modulo'], $posicion+1) : $arreglo['modulo'];
 			
 			$this->sql = "SELECT PARAMETER_NAME,DTD_IDENTIFIER FROM information_schema.PARAMETERS where SPECIFIC_NAME = 'sp_mant".$arreglo['modulo']."s' and SPECIFIC_SCHEMA = '".$schema."'";
-
+			
 			$rs = $this->ejecutarSelect();
 			if (!isset($rs->num_rows)) {
 				$err = $posicion ? "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s&schema=".substr($schema,0,strlen($schema)-1)."' target='new'>AGREGARLO</a>" : "No existe SP asociado: ".$arreglo['modulo']."s, <a style='color: black;' href='../DB.php?tabla=".$arreglo['modulo']."s' target='new'>AGREGARLO</a>";
