@@ -1763,7 +1763,6 @@ function totalizar(){
         var isexo = $("#se"+vidlinea+":visible").length ? $("#se"+vidlinea).is(':checked') ? 1 : 0 : 0;
 
         exov = $("#fd"+vidlinea).data('triforce')['videxoneracion'] == '' ? 0 : isexo ? parseInt($("#fd"+vidlinea).data('triforce')['videxoneracion'].substring(($("#fd"+vidlinea).data('triforce')['videxoneracion'].lastIndexOf('^'))+1)) : 0;
-
         vid = $("#fd"+vidlinea).data('triforce')['videntrada'];
         cantidad    = parseFloat($("#fd"+vidlinea).data('triforce')['vcantidad']);
         precio      = parseFloat($("#fd"+vidlinea).data('triforce')['vprecio']).toFixed(5)/(param == 2 ? 1 : divisa);
@@ -1843,18 +1842,19 @@ function totalizar(){
                 }
 
                 $("#fd"+vidlinea).data('triforce')['montoExo'] = 0;
-                $("#fd"+vidlinea).data('triforce')['videxoneracion'] = '';
+                //$("#fd"+vidlinea).data('triforce')['videxoneracion'] = '';
                 if(tmpdesc && parseInt(eimv) > 0){ 
                     //PRODUCTOS O CLIENTES GRAVADOS
                     if(parseInt(exov) && parseInt(eimv) > 0){
                         orig = precio;
                         var rexov = exov > rimv ? rimv : exov;
 
-                        dimve = parseFloat(orig*(rimv/100)); //.toFixed(5)
+                        dimve = parseFloat(tmpdesc*(rimv/100)); //.toFixed(5)
 
-                        exonerado += parseFloat(orig*(rexov/rimv));//.toFixed(5));
+                        var _exo = parseFloat(orig*(rexov/rimv));
+                        exonerado += _exo;//.toFixed(5));
                         gravado += parseFloat(orig*(1-(rexov/rimv)));//.toFixed(5)));
-                        simv = parseFloat(orig*(1-(rexov/rimv)/*.toFixed(5)*/))*(rimv/100);
+                        simv = parseFloat(orig*(1-(rexov/rimv)/*.toFixed(5)*/))* (1-(desc/100)) *(rimv/100);
                         $("#fd"+vidlinea).data('triforce')['montoExo'] = (dimve-simv).toFixed(5);
                         dimve = dimve-simv;
                         var lexo = $("#fd"+vidlinea).data('triforce')['videxoneracion'];
@@ -2539,7 +2539,6 @@ function endDetail(vid,vacc,vmodulo) {
     switch(vmodulo){
         case 'factura':
             var factura = getDatos('lpad(consecutivo,6,0),fe_getclave(id)',64,'id = '+vid[0][0],0,0);
-            console.log(factura);
             factura = factura[0][0];
             rclave = factura[1];
             factura = factura[0];

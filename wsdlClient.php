@@ -1444,7 +1444,13 @@
                 $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
                 $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
                 $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
-                
+
+                $data['ResumenFactura']['TotalGravado'] = number_format($data['ResumenFactura']['TotalServGravados'] + $data['ResumenFactura']['TotalMercanciasGravadas'],5,'.','');
+
+                $data['ResumenFactura']['TotalExento'] = number_format($data['ResumenFactura']['TotalServExentos'] + $data['ResumenFactura']['TotalMercanciasExentas'],5,'.','');
+
+                $data['ResumenFactura']['TotalExonerado'] = number_format($data['ResumenFactura']['TotalServExonerado'] + $data['ResumenFactura']['TotalMercExonerada'],5,'.','');
+
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 

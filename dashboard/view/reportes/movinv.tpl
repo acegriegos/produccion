@@ -36,7 +36,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9-1"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.9-1"></script>
 </body>
 </html>
