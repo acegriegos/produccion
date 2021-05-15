@@ -1203,17 +1203,20 @@
             $fact['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
             $fact['exento']    = isset($fact['exento'][0]) ? $fact['exento'][0] : 0;
             $fact['exonerado']    = (array) $inv_xml->ResumenFactura->TotalExonerado;
-            $fact['exonerado']    = isset($fact['exento'][0]) ? $fact['exento'][0] : 0;
+            $fact['exonerado']    = isset($fact['exonerado'][0]) ? $fact['exonerado'][0] : 0;
             $fact['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
             $fact['descuento'] = isset($fact['descuento'][0]) ? $fact['descuento'][0]: 0;
             $fact['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
             $fact['impuesto']  = isset($fact['impuesto'][0]) ? $fact['impuesto'][0] : 0 ;
             $fact['cedula'] = (array) $inv_xml->Receptor->Identificacion->Numero;
             $fact['cedula'] = $fact['cedula'][0];
+            $fact['oc']  = (array) $inv_xml->ResumenFactura->TotalOtrosCargos;
+            $fact['oc']  = isset($fact['oc'][0]) ? $fact['oc'][0] : 0;
+            
             $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
             $ireferencia = isset($inv_xml->InformacionReferencia) ? $inv_xml->InformacionReferencia->Numero : '';
 
-            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.',0,'.$fact['plazo'].',"'.$ireferencia.'","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.','.$fact['oc']*$_divisa.','.$fact['plazo'].',"'.$ireferencia.'","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
 
             if(isset($idfact->num_rows)){
                 $idfact = $idfact->fetch_all()[0][0];
@@ -1296,7 +1299,7 @@
                             }
                         }
                     }
-                    $pexo = isset($key->Impuesto->Exoneracion->MontoExoneracion) ? (array)$key->Impuesto->Exoneracion->MontoExoneracion : 0;
+                    $pexo = isset($key->Impuesto->Exoneracion->PorcentajeExoneracion) ? (array)$key->Impuesto->Exoneracion->PorcentajeExoneracion : 0;
                     $pexo = is_array($pexo) ? $pexo[0] : $pexo; 
                     $dcodigo =  is_array($dcodigo) ? $dcodigo[0] : $dcodigo;
                     $ddescuento = is_array($ddescuento) ? $ddescuento[0] : $ddescuento;
