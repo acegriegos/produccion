@@ -130,7 +130,8 @@ $(function () {
 					$(".per11").removeClass('hide');
 
 				cargarFamilias()
-
+				cargarTipos(0)
+				cargarMarcas(0)
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -524,12 +525,13 @@ $(document).on("change","#vmarca",function(){
 		$("#scabys").focus();
 	}
 	else{
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
 		if($(this).val().length){
 			var $toastContent = $('<span>Marca no Existente</span>').add($('<button class="btn-flat toast-action green white-text mrcNotFound" tp="1">Agregarla</button>'));
     		Materialize.toast($toastContent, 5000);
     		$(".mrcNotFound").focus();
     	}
-		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+		
 	}
 });
 
@@ -581,8 +583,10 @@ $(document).on("click",".mrcNotFound",function(){
 	if(!ex[0].length){
 		insertar(22,'','null,"'+$("#vmarca").val()+'",'+$("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa')
 		Materialize.toast('Marca Agregada Correctamente',4000,'green');
-		var ifa = $("#lmarc option").filter(function(){ return $(this).html().toUpperCase() === $("#vmarca").val().toUpperCase() }).attr('val');
 		cargarMarcas($("#fproductos .zelda").data('triforce')["vidtipo"])
+		var ifa = $("#lmarc option").filter(function(){ return $(this).html().toUpperCase() === $("#vmarca").val().toUpperCase() }).attr('val');
+		console.log(ifa)
+		
 		$("#fproductos .zelda").data('triforce')["vidmarca"] = ifa;
 		$("#scabys").focus();
 	}else{
