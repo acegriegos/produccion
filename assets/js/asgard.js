@@ -1430,7 +1430,6 @@ function rreport(){
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        console.log(datos[i][0])
         if ($("#"+datos[i][0]).val() != undefined) {
             search[i] = '"'+$("#"+datos[i][0]).val()+'"';
         }
