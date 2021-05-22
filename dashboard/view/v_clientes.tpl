@@ -188,11 +188,11 @@
     <ul id="slide-cliente" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntitc"></span></a></div></li><li><div class="divider"></div></li><li>
 
           <div class="subclie row" id="financiero">
-            <div class="col s12">
+            <div class="col s12 per1005 hide">
                 <div class="switch" align="center">
                   <label>
                     Contado
-                    <input type="checkbox" tp="1" name="tipocliente" id="tipocliente" class="per1004">
+                    <input type="checkbox" tp="1" name="tipocliente" id="tipocliente">
                     <span class="lever"></span>
                     Crédito
                   </label>
@@ -211,12 +211,12 @@
               <label for="vdescuentom">Descuento Máximo</label>
             </div>
 
-            <div class="input-field col s12 cre hide per1004">
+            <div class="input-field col s12 cre hide">
               <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
               <label for="vplazo">Plazo en Días</label>
-              <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
+              <input type="number" class="eder" id="vplazo" value="0" autocomplete="off">
             </div>
-            <div class="input-field col s12 cre hide per1004">
+            <div class="input-field col s12 cre hide">
               <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
               <label for="vcredito">Máximo Crédito</label>
               <input type="number" class="eder " id="vcredito" value="0" autocomplete="off">
@@ -482,6 +482,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.3.0.9-1"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.3.0.9-7"></script>
 </body>
 </html>
