@@ -7,7 +7,7 @@
         <meta http-equiv="Cache-Control" content="max-age=86400"/>
         <title>Taller</title>
         {$STY}
-        <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.3.0.9">
+        <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-taller.css?v=10.3.0.20">
     </head>
     
     <body>
@@ -322,6 +322,6 @@
         </div>
 
         {$SCR}
-        <script src="../assets/js/modulos/taller.js?v=10.3.0.9"></script>
+        <script src="../assets/js/modulos/taller.js?v=10.3.0.20"></script>
     </body>
 </html>                                         
