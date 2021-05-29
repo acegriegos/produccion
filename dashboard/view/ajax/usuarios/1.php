@@ -10,7 +10,7 @@
   <form id="fusuarios">
     <div class="row" style="margin: 0px">
       <div class="input-field col s12  m6 l4" style="margin-bottom: 0 !important">
-        <input id="vuser" type="text" class="validate">
+        <input id="vuser" type="text" class="validate" autocomplete="off">
         <input type="hidden" id="vid" value="0">
         <input type="hidden" id="vidusuario" value="">
         <input type="hidden" id="vidsucursal" value="">
@@ -22,7 +22,7 @@
       </div>
 
       <div class="input-field col s12 m6 l4" style="margin-bottom: 0 !important">
-        <input id="vcedula" type="text" class="validate">
+        <input id="vcedula" type="text" class="validate" autocomplete="off">
         <label for="vcedula">Cédula del Usuario</label>
         
       </div>
@@ -48,19 +48,6 @@
 
         </select>
       </div>
-      <?php if ($_SESSION['BUSS'] == 5){?>
-      <div class="input-field col s12 m6 l4">
-        <select id="vruta" style="margin-bottom: 0 !important">
-          <option value="0" selected disabled>Seleccione una Ruta</option>
-          <?php  
-          $rut = $kakaroto->kamehameha('id,nombre',208,'id > 0');
-          foreach ($rut as $obj) { ?>
-          <option value="<?php echo $obj[0]; ?>"><?php echo $obj[1]; ?></option>
-          <?php } ?>
-
-        </select>
-      </div>
-      <?php } ?>
 
       <div class="input-field col s12 m6 l4">
         <input id="vclave" type="password" class="validate" autocomplete="new-password">
@@ -83,6 +70,11 @@
         <i class="prefix mdi mdi-whatsapp mdi-24px green-text"></i>
         <input id="vnum" type="text" class="">
         <label for="vnum">Numero Whatsapp</label>
+      </div>
+
+      <div class="col s4">
+        <input type="checkbox" id="cplog">
+        <label for="cplog">Cambar Contraseña al Iniciar Sesión</label>
       </div>
     </div>
 

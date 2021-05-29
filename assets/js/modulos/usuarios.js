@@ -82,8 +82,10 @@ $(function(){
 				$("#aguser").removeClass('edit').addClass('add');
 				$("[type=text]").val('');
 				$("[type=time]").val('');
+				$("[type=password]").val('');
 				$("#vidTipoUsuario").val(0).material_select('update')
 				$("#vidsuc").val("").material_select('update')
+				$("#cplog").prop('checked',false)
 				Materialize.updateTextFields();
 			});
 
@@ -381,16 +383,9 @@ function validarusuarios() {
 		}
 	}
 	
-	if($("#vruta").length){
-
-		if(parseInt($("#vruta option:selected").val()) == 0){
-			return 'Ruta Requerida';
-		}
-	}else{
-		if ($('#vidsuc').val() == '') {
-			$('#vidsuc').focus();
-			return 'Seleccione una Sucursal';
-		}
+	if ($('#vidsuc').val() == '') {
+		$('#vidsuc').focus();
+		return 'Seleccione una Sucursal';
 	}
 
 	$("#vidsucursal").val($("#vidsuc").val())
@@ -409,6 +404,9 @@ function validarusuarios() {
 		$('#vlimite').val('00:00')
 		$('#vlimite2').val('00:00')
 	}
+
+	if($("#cplog").is(':checked'))
+		$("#vcodigo").val(-1);
 }
 
 function cargar(vmodulo,vid) {
@@ -520,6 +518,8 @@ pg += '/>'+
 			}
 			deadclear(modulo);
 			thorload(modulo);
+			$("#cplog").prop('checked','false');
+			$("#vcodigo").val('')
 			$(".validate").css('border-bottom', '1px solid #9e9e9e');
 			$(".validate").css('box-shadow', 'none');
 

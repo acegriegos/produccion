@@ -300,9 +300,11 @@ if (isset($_POST['respuestaXml'])) {
               foreach ($marr as $obj) {
 
                 $tbl = $base->ejecutar('call krattos("nombre",70,"id = '.$obj->tbl.'")')->fetch_all()[0][0];
+                $post_ex = 0;
+
                 switch($obj->tbl){
                   case 1:
-                    $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\" and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
+                    $val = $base->ejecutar('call krattos("id",1,"user = \"'.$obj->bdy->user.'\" and idsucursal like \"%'.$obj->bdy->idsucursal.'%\" ")')->fetch_all();
                     break;
                   case 2:
                     $val = $base->ejecutar('call krattos("id",2,"cedula = \"'.$obj->bdy->cedula.'\" and bisproveedor = '.$obj->bdy->bisproveedor.'")')->fetch_all();
@@ -319,6 +321,13 @@ if (isset($_POST['respuestaXml'])) {
                   case 291:
                     $val = $base->ejecutar('call krattos("id",291,"idfactura = '.$memory.'")')->fetch_all();
                     break;
+                  case 314:
+                    $val = $base->ejecutar('call krattos("id",314,"consecutivo = '.$obj->bdy->consecutivo.' and idsucursal = '.$obj->bdy->idsucursal.' ")')->fetch_all();
+                    $post_ex = 'update facturas set isregistrada = 1 where idsucursal = '.$obj->bdy->idsucursal;
+                    break;
+                  case 404:
+                    $post_ex = 'update cierrecajas a join cajainicialusuarios b on a.fecha between b.fecha and b.ffecha set a.idinicio = b.id  where  a.idsucursal = '.$obj->bdy->idsucursal.' and b.id = ?';
+                    break;
                   default:
                     $val = 0;
                     break;
@@ -334,7 +343,7 @@ if (isset($_POST['respuestaXml'])) {
                 }
 
                 if($obj->idusuario != ''){
-                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\" and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();
+                  $obj->bdy->idusuario = $base->ejecutar('call krattos("id",1,"user=\"'.$obj->idusuario.'\" and idsucursal like \"%'.$obj->bdy->idsucursal.'%\" ")')->fetch_all();
                   if(isset($obj->bdy->idusuario[0][0]))
                     $obj->bdy->idusuario = $obj->bdy->idusuario[0][0];
                 }
@@ -362,6 +371,8 @@ if (isset($_POST['respuestaXml'])) {
                     if($mrs == 1){
                       $memory = $base->ejecutar('select max(id) from '.$tbl)->fetch_all()[0][0];
                       array_push($rback,'update sincro set issync = 1 where id = '.$obj->id);
+                      if($post_ex)
+                        $base->ejecutar(str_replace('?',$memory,$post_ex));
                     }
                     else{
                       $memory = 0;

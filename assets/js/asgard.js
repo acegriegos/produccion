@@ -599,6 +599,17 @@ function baseValidar(vaccion,vmodulo){
     return salida;
 }
 
+function addslashes(string) {
+    return string.replace(/\\/g, '\\\\').
+        replace(/\u0008/g, '\\b').
+        replace(/\t/g, '\\t').
+        replace(/\n/g, '\\n').
+        replace(/\f/g, '\\f').
+        replace(/\r/g, '\\r').
+        replace(/'/g, '\\\'').
+        replace(/"/g, '\\"');
+}
+
 function getData(vmodulo){
     var dt = mantenimiento('login',1,{modulo:vmodulo});
     if (dt['succed']) {
@@ -1430,7 +1441,6 @@ function rreport(){
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-
         if ($("#"+datos[i][0]).val() != undefined) {
             search[i] = '"'+$("#"+datos[i][0]).val().replace(/"/g,'\\"')+'"';
         }
@@ -1572,27 +1582,29 @@ function cargarMoneda(idmoneda,elemento){
         var valor = elemento.first().data("triforce")["valor"];
         
         divisas.each(function(){
-            var monto = pre = tot = 0;
+            var monto = pre = tot = real = decimals = 0;
             monto = parseFloat($(this).is("input") ? $(this).val().replace(/,/g,'') : $(this).html().replace(/,/g,''));  
             var pmonto = $(this).attr('mreal') == undefined ? parseFloat(moneda[2]) : parseFloat($(this).attr('mreal'));
 
             if (pmonto != 1){
-                $(this).attr('base',monto);
+                if($(this).attr('base') == undefined) 
+                    $(this).attr('base',monto);
 
                 pre = monto / pmonto; 
                 tot = parseFloat(pre * valor).toString().split(".");
                 decimals = tot[1] == undefined ? 0 : tot[1];
                 real = tot[0];
                 tot = decimals > 2 ? parseFloat(real+"."+decimals.substr(0,2))+0.01 : parseFloat(real+"."+decimals);
+                
             }else
                 tot = parseFloat($(this).attr('base'));
-            console.log($(this).attr('id')+' '+tot)
-            if ($(this).is("input"))
+
+            if ($(this).is("input")){
                 $(this).val(tot.formatMoney(2,'.',','));
+            }
             else{
                 $(this).html(tot.formatMoney(2,'.',','));
             }
-            
         })
     }
 

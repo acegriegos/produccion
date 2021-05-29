@@ -345,7 +345,6 @@ $(document).on("click",".detalle",function(){
 	var tabla = $("#data-table-cuentas-detalle").DataTable();
 	tabla.destroy();
 	arr('login',6,'',213,gtipo+','+id+',@@impresa',0,1,$("#listaCuentasxCDetalle"));
-	console.log(datos)
 	var dias = parseInt(datos[7]);
 	$("#ifac").text(datos[3]);
 	$("#vidfactura").val(datos[12]);
@@ -468,6 +467,7 @@ function validar (varreglo,vmodulo) {
 			break;
 	}
 	salida = odin(varreglo,"f"+vmodulo['modulo']+"s");
+	console.log(salida)
 	return salida;
 }
 

@@ -563,7 +563,7 @@
           </tr>
           <tr class="hide rest">
             <td>10% SERV.:</td>
-            <td style="float: right;"><b><span class="moneda"></span><span id="serv" type="html" value="0" class="otroscargos" porcentaje="10">0.00</span></b></td>
+            <td style="float: right;"><span class="moneda"></span><span id="serv" type="html" value="0" class="otroscargos" porcentaje="10">0.00</span></td>
           </tr>
         </thead>
 
@@ -1265,4 +1265,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.3.0.9-13"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.3.0.20"></script>

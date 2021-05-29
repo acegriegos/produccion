@@ -129,6 +129,9 @@ $(function () {
 				if($(".per11:visible").length)
 					$(".per11").removeClass('hide');
 
+				cargarFamilias()
+				cargarTipos(0)
+				cargarMarcas(0)
 				break;
 			case 2:
 				$("#mantProd").remove();
@@ -169,8 +172,10 @@ $(function () {
 
 		$("#scabys").keyup(function(e){
 			var code = e.which || e.keyCode
-			if(code == 13 && $(this).val().trim() != '')
-				cargarCategorias($(this).val())
+			if(code == 13 && $(this).val().trim() != ''){
+				var iserv = $(".per4101").hasClass('active') ? 1 : 0;
+				cargarCategorias($(this).val(),iserv)
+			}
 		});
 
 		$("#mystock").change(function(){
@@ -472,108 +477,171 @@ $(document).on("change","#unidimension1",function(){
 	cargarUnidades(id);
 });
 
-$(document).on("blur","#vfamilia",function() {
-	var nombre = $(this).val();
-	var idfamilia = arr('login',4,'id',20,'nombre = "'+nombre+'"',0,0,0)[0][0];
-	
-	if (idfamilia != undefined){
-		$("#fproductos .zelda").data('triforce')["vidfamilia"] = idfamilia[0];
-	}
-	else{
-		$("#fproductos .zelda").data('triforce')["vidfamilia"] = 0;
-		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
-		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
-	}
-});
+$(document).on("change","#vfamilia",function(){
+	var ifa = $("#lfam option").filter(function(){ return $(this).html().toUpperCase() === $("#vfamilia").val().toUpperCase() }).attr('val');
+	$("#vtipo").val('')
+	$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
+	$("#vmarca").val('')
+	$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
 
-$(document).on("blur","#vtipo",function() {
-	var nombre = $(this).val();
-	var idtipo = arr('login',4,'id',21,'nombre = "'+nombre+'" and idfamilia = '+$("#fproductos .zelda").data('triforce')["vidfamilia"],0,0,0)[0][0];
-	if (idtipo != undefined)
-		$("#fproductos .zelda").data('triforce')["vidtipo"] = idtipo[0];
-	else{
-		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
-		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
-	}
-});
-
-$(document).on("blur","#vmarca",function() {
-	var nombre = $(this).val();
-	var idmarca = arr('login',4,'id',22,'nombre = "'+nombre+'" and idtipo = '+$("#fproductos .zelda").data('triforce')["vidtipo"],0,0,0)[0][0];
-	if (idmarca != undefined)
-		$("#fproductos .zelda").data('triforce')["vidmarca"] = idmarca[0];
-	else{
-		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
-	}
-
-});
-
-$(document).on("keyup","#vfamilia",function(e) {
-	var charCode = e.which || e.keyCode;
-	if (charCode == 13)
+	if (ifa != undefined) {
+		$("#fproductos .zelda").data('triforce')["vidfamilia"] = ifa;
+		cargarTipos(ifa)
 		$("#vtipo").focus();
-});
-
-$(document).on("keydown","#vfamilia",function(e) {
-	if ($(this).hasClass('autocomplete') == true) {
-		var charCode = e.which || e.keyCode;
-		var charStr = String.fromCharCode(charCode);
-		if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-			$(".autocomplete-content").remove();
-			$("#vfamilia").autocomplete({
-				limit: 10,
-				data: arr('login',4,'nombre,null',20,'nombre like "%'+$("#vfamilia").val()+'%" and idsucursal = @@impresa limit 10',0,0,0,1)
-			});
-			$("#vfamilia").siblings($(".autocomplete-content")).css('width','25%');
-		}
+	}
+	else{
+		if($(this).val().length){
+			var $toastContent = $('<span>Familia no Existente</span>').add($('<button class="btn-flat toast-action green white-text famNotFound" tp="1">Agregarla</button>'));
+    		Materialize.toast($toastContent, 5000);
+    		$(".famNotFound").focus();
+    	}
+		$("#fproductos .zelda").data('triforce')["vidfamilia"] = 0;
 	}
 });
 
-$(document).on("keyup","#vtipo",function(e) {
+$(document).on("change","#vtipo",function(){
+	var ifa = $("#ltip option").filter(function(){ return $(this).html().toUpperCase() === $("#vtipo").val().toUpperCase() }).attr('val');
+	$("#vmarca").val('')
+	$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+	if (ifa != undefined) {
+		$("#fproductos .zelda").data('triforce')["vidtipo"] = ifa;
+		cargarMarcas(ifa)
+		$("#vmarca").focus();
+	}
+	else{
+		if($(this).val().length){
+			var $toastContent = $('<span>Tipo no Existente</span>').add($('<button class="btn-flat toast-action green white-text tipNotFound" tp="1">Agregarlo</button>'));
+    		Materialize.toast($toastContent, 5000);
+    		$(".tipNotFound").focus();
+    	}
+		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
+	}
+});
+
+$(document).on("change","#vmarca",function(){
+	var ifa = $("#lmarc option").filter(function(){ return $(this).html().toUpperCase() === $("#vmarca").val().toUpperCase() }).attr('val');
+	if (ifa != undefined) {
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = ifa;
+		$("#scabys").focus();
+	}
+	else{
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+		if($(this).val().length){
+			var $toastContent = $('<span>Marca no Existente</span>').add($('<button class="btn-flat toast-action green white-text mrcNotFound" tp="1">Agregarla</button>'));
+    		Materialize.toast($toastContent, 5000);
+    		$(".mrcNotFound").focus();
+    	}
+		
+	}
+});
+
+$(document).on("click",".famNotFound",function(){
+	$(this).parent().remove()
+	var ex = getDatos('id',20,'nombre = "'+ addslashes($("#vfamilia").val())+'" and id>0 and idsucursal = @@impresa');
+	if(!ex[0].length){
+		insertar(20,'','null,"'+addslashes($("#vfamilia").val())+'",@@impresa')
+		Materialize.toast('Familia Agregada Correctamente',4000,'green');
+		cargarFamilias();
+		var ifa = $("#lfam option").filter(function(){ return $(this).html().toUpperCase() === $("#vfamilia").val().toUpperCase() }).attr('val');
+		$("#fproductos .zelda").data('triforce')["vidfamilia"] = ifa;
+		$("#vtipo").val('')
+		$("#ltip").html('')
+		$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
+		$("#vmarca").val('')
+		$("#lmarc").html('')
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+
+		$("#vtipo").focus();
+	}else{
+		Materialize.toast('Familia Ya Existente',4000,'red');
+	}
+	
+})
+
+$(document).on("click",".tipNotFound",function(){
+	$(this).parent().remove()
+	var ex = getDatos('id',21,'nombre = "'+addslashes($("#vtipo").val())+'" and id>0 and idsucursal = @@impresa and idfamilia = '+$("#fproductos .zelda").data('triforce')["vidfamilia"]);
+	if(!ex[0].length){
+		insertar(21,'','null,"'+addslashes($("#vtipo").val())+'",'+$("#fproductos .zelda").data('triforce')["vidfamilia"]+',@@impresa')
+		Materialize.toast('Tipo Agregado Correctamente',4000,'green');
+		cargarTipos($("#fproductos .zelda").data('triforce')["vidfamilia"]);
+		var ifa = $("#ltip option").filter(function(){ return $(this).html().toUpperCase() === $("#vtipo").val().toUpperCase() }).attr('val');
+		$("#fproductos .zelda").data('triforce')["vidtipo"] = ifa;
+		$("#vmarca").val('')
+		$("#lmarc").html('')
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+		$("#vmarca").focus();
+	}else{
+		Materialize.toast('Tipo Ya Existente',4000,'red');
+	}
+	
+})
+
+$(document).on("click",".mrcNotFound",function(){
+	$(this).parent().remove()
+	var ex = getDatos('id',21,'nombre = "'+addslashes($("#vmarca").val())+'" and id>0 and idsucursal = @@impresa and idtipo = '+$("#fproductos .zelda").data('triforce')["vidtipo"]);
+	if(!ex[0].length){
+		insertar(22,'','null,"'+addslashes($("#vmarca").val())+'",'+$("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa')
+		Materialize.toast('Marca Agregada Correctamente',4000,'green');
+		cargarMarcas($("#fproductos .zelda").data('triforce')["vidtipo"])
+		var ifa = $("#lmarc option").filter(function(){ return $(this).html().toUpperCase() === $("#vmarca").val().toUpperCase() }).attr('val');
+		console.log(ifa)
+		
+		$("#fproductos .zelda").data('triforce')["vidmarca"] = ifa;
+		$("#scabys").focus();
+	}else{
+		Materialize.toast('Marca Ya Existente',4000,'red');
+	}
+	
+})
+
+function cargarFamilias(){
+	var lista = getDatos('id,nombre',20,'id>0 and idsucursal = @@impresa and nombre <> "" order by nombre');
+	var slista = '';
+	for (var i = 0; i < lista[0].length; i++) {
+		slista += '<option val="'+lista[0][i][0]+'">'+lista[0][i][1]+'</option>';
+	}
+	$("#lfam").html(slista);
+
+	$("#vtipo").val('')
+	$("#fproductos .zelda").data('triforce')["vidtipo"] = 0;
+	$("#vmarca").val('')
+	$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+}
+
+function cargarTipos(vid){
+	var lista = getDatos('id,nombre',21,'id>0 and idsucursal = @@impresa and nombre <> "" and idfamilia = '+vid+' order by nombre');
+	var slista = '';
+	for (var i = 0; i < lista[0].length; i++) {
+		slista += '<option val="'+lista[0][i][0]+'">'+lista[0][i][1]+'</option>';
+	}
+	$("#ltip").html(slista);
+
+	$("#vmarca").val('')
+	$("#fproductos .zelda").data('triforce')["vidmarca"] = 0;
+}
+
+function cargarMarcas(vid){
+	var lista = getDatos('id,nombre',22,'id>0 and idsucursal = @@impresa and nombre <> "" and idtipo = '+vid+' order by nombre');
+	var slista = '';
+	for (var i = 0; i < lista[0].length; i++) {
+		slista += '<option val="'+lista[0][i][0]+'">'+lista[0][i][1]+'</option>';
+	}
+	$("#lmarc").html(slista);
+}
+
+
+/*$(document).on("keyup","#vtipo",function(e) {
 	var charCode = e.which || e.keyCode;
 	if (charCode == 13)
 		$("#vmarca").focus();
-});
-
-$(document).on("keydown", "#vtipo", function (e) {
-	if ($(this).hasClass('autocomplete') == true) {
-		var charCode = e.which || e.keyCode;
-		var charStr = String.fromCharCode(charCode);
-		if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-			$(".autocomplete-content").remove();
-			$("#vtipo").autocomplete({
-				limit: 10,
-				data: arr('login', 4, 'nombre,null', 21, 'idfamilia = ' + $("#fproductos .zelda").data('triforce')["vidfamilia"] + ' and nombre like \"%' + $("#vtipo").val() + '%\" and idsucursal = @@impresa limit 10', 0, 0, 0, 1)
-			});
-			$("#vtipo").siblings($(".autocomplete-content")).css('width', '25%');
-		}
-	}
 });
 
 $(document).on("keyup", "#vmarca", function (e) {
 	var charCode = e.which || e.keyCode;
 	if (charCode == 13)
 		$("#vnombre").focus()
-});
-
-$(document).on("keydown", "#vmarca", function (e) {
-	if ($(this).hasClass('autocomplete') == true) {
-		var charCode = e.which || e.keyCode;
-		var charStr = String.fromCharCode(charCode);
-
-		if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
-			$(".autocomplete-content").remove();
-
-			$("#vmarca").autocomplete({
-				limit: 10,
-				data: arr('login', 4, 'nombre,null', 22, 'idtipo = ' + $("#fproductos .zelda").data('triforce')["vidtipo"] + ' and nombre like \"%' + $("#vmarca").val() + '%\" and idsucursal = @@impresa limit 10', 0, 0, 0, 1)
-			});
-
-			$("#vmarca").siblings($(".autocomplete-content")).css('width', '25%');
-		}
-	}
-
-});
+});*/
 
 $(document).on("click", ".menuP", function () {
 	var id = parseInt($(this).attr('id').substr(2));
@@ -1429,8 +1497,9 @@ $(document).on("click","#agInvSerPqts",function(){
 $(document).on("click","#addproduct",function(){
 
 	if(config[0] == '0'){
-		$("#vimpiva").val(1).attr('disabled',true);
+		$("#vimpiva").val(1);
 		$("#vimpiva").material_select('update');
+		$("#vimpiva").attr('disabled',true);
 	}else
 		$("#vimpiva").val('8').material_select('update');
     $("#agProd").removeClass('edit');
@@ -1449,7 +1518,7 @@ $(document).on("click","#addproduct",function(){
     $("#lcabys").html('')
     $("#scabys").val('')
     $("#ncabys").html('')
-	$("#financiero input").attr('disabled',false);	
+    $("#financiero input").attr('disabled',false);
 	$("#vcantidad").attr('readonly',false); 
     setTimeout(function(){$("#vnombre").focus();},500);
     cargarUnidades(1);
@@ -2325,7 +2394,7 @@ function postload(vmodulo){
 			$("#agProd").html('Editar');
 
 			var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso in (select id from permisos where codigo in(4124,4125)) order by id')[0];
-			
+
 		    if(allow[0][0] != '1'){
 		    	$("#financiero input").attr('disabled',true);
 		    }
@@ -2435,9 +2504,9 @@ function postload(vmodulo){
 	}
 }
 
-function cargarCategorias(nombre){
-	var cats = getDatos('nombre,case iva when 0 then 1 when 1 then 2 when 2 then 3 when 4 then 4 when 13 then 8 end as iva,codigo',337,'numero = 8 and nombre like "%'+nombre+'%"');
-	console.log(cats)
+function cargarCategorias(nombre,iserv){
+	iserv = iserv == 0 ? 'nombre like "SERVICIOS%"' : 'nombre not like "SERVICIOS%"';
+	var cats = getDatos('nombre,case iva when 0 then 1 when 1 then 2 when 2 then 3 when 4 then 4 when 13 then 8 end as iva,codigo',337,'numero = 8 and nombre like "%'+nombre+'%" and '+iserv);
 	var list = '';
 	for (var i = 0; i < cats[0].length; i++) {
 		list += '<p iva="'+cats[0][i][1]+'" cod="'+cats[0][i][2]+'" style="cursor:pointer;" class="rcabys">'+cats[0][i][0]+'</p>';

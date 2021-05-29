@@ -29,7 +29,7 @@
     $server = $base->ejecutar('select trim(valor) from ajustes where descr = "sincro"')->fetch_all()[0][0];
     $server = trim($server);
 
-    $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where !issync and idsucursal = '.$_SESSION['IMPRESA'].' limit 20')->fetch_all();
+    $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where !issync and idsucursal = '.$_SESSION['IMPRESA'].' limit 150')->fetch_all();
     
     if(isset($_REQUEST['debug'])){
         echo "RESPUETA BASE<hr><pre>";
@@ -135,7 +135,11 @@
                         $obj->acc = 2;
                         $obj->row = $val[0][0];
                         $obj->bdy->id = $obj->acc == 3 ? $obj->bdy->id*-1 : $obj->bdy->id;
+                    }else{
+                        $obj->bdy->id = 'null';
                     }
+                }else{
+                    $obj->bdy->id = 'null';
                 }
 
                 break;
@@ -161,7 +165,15 @@
             switch ($obj->acc) {
                 case 1:
                     echo "<br>INGRESANDO FILA ";
-                    print_r($base->ejecutar('insert into '.$tbl.' values('.substr(substr(json_encode(array_values((array)$obj->bdy),JSON_UNESCAPED_UNICODE),1),0,-1).')'));
+                    
+                    $isnull = '';
+                    if($obj->bdy->id == 'null'){
+                        $isnull = 'null,';
+                        unset($obj->bdy->id);
+                    }
+                    $base->ejecutar('alter table '.$tbl.' auto_increment 1;');
+                    //echo 'insert into '.$tbl.' values('.$isnull.substr(substr(json_encode(array_values((array)$obj->bdy),JSON_UNESCAPED_UNICODE),1),0,-1).')'.'<br>';
+                    print_r($base->ejecutar('insert into '.$tbl.' values('.$isnull.substr(substr(json_encode(array_values((array)$obj->bdy),JSON_UNESCAPED_UNICODE),1),0,-1).')'));
                     break;
                 case 2:
                     echo "<br>ACTUALIZANDO FILA ";

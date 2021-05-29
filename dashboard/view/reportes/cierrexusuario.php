@@ -130,7 +130,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.3.0.9">
+<link href="../assets/css/materialize.min.css?v=10.3.0.20">
 <style>
   *{
     font-size: 18px;
@@ -196,7 +196,6 @@
       <?php if($cierre[27] > 0) echo 'Caja Inicial $: <span style="float: right;">'.number_format($cierre[27],2).'</span><br>'; ?>
       Caja Reportada: <span style="float: right;"><?php echo number_format($cierre[12],2); ?></span><br>
       <?php if($cierre[28] > 0) echo 'Caja Reportada $: <span style="float: right;">'.number_format($cierre[28],2).'</span><br>'; ?>
-      <!-- Caja Reportada-Inicial: <span style="float: right;"><?php $rep = $cierre[12]-$cierre[14]/* > 0 ? $cierre[12]-$cierre[14] : $cierre[12]*/; echo number_format($rep,2); ?></span><br> -->
       Caja del Sistema: <span style="float: right;"><?php echo number_format($cierre[13]+(str_replace(',', '', $cierre[22])),2); ?></span><br>
       Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29]-str_replace(',', '', $cierre[22]),2); ?></span><br>
       <br>
@@ -232,8 +231,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.3.0.9"></script>
-    <script src="../assets/js/materialize.min.js?v=10.3.0.9"></script>
+    <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
+    <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
 
      <script type="text/javascript">
    $(function(){

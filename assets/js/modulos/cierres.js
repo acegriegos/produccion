@@ -236,7 +236,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('id,date_format(fecha,"%d-%m-%Y") as fecha',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) = 1,1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
+		var datos = getDatos('consecutivo,date_format(fecha,"%d-%m-%Y") as fecha',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) = 1,1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {
@@ -333,22 +333,23 @@ $(document).on("click","#totalizar",function(){
 });
 
 $(document).on("click","#docierre",function(){
-	//var total = $(".zelda").data('triforce')['vtotal'];
-	// var idfactura = arr('login',4,'id',64,'idtipoventa = 1 and idusuario = '+guser+' and date_format(fecha,"%Y-%m-%d") = "'+$(this).attr('vfecha')+'" and isregistrada = 0',0,0,0)[0];
-	// var idestadocuenta = arr('login',4,'id',191,'id > 0',0,0,0)[0];
-
-	/*if (total == 0)
-		Materialize.toast('Monto debe ser mayor a 0', 4000, 'green');*/
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tc1 .tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#BUSS").attr('idcaja')+'",'+$("#tc2 .tcaja").html().replace(/,/g,''),0,0,0);
-	console.log(idcierre)
-	idcierre = idcierre[0][0][0];
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tc1 .tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#BUSS").attr('idcaja')+'",'+$("#tc2 .tcaja").html().replace(/,/g,''),0,0,0)[0][0][0];
 	$(".cancel").parent().remove()
 	
 	if(parseInt(idcierre)){
 		$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 		guardarMonedas(idcierre,0);
-		window.open('cierres?accion=1&a4&id='+idcierre);
-		location.reload();
+
+		if(config[29] != '99' && config[29] != ''){
+			var dinic = getDatos('idinicio',314,'id='+idcierre)
+			console.log(dinic)
+			dinic = dinic[0][0][0];
+			insertar(338,'','null,'+idcierre+',314,1,"idcierre=$1,340,345",0,@@impresa');
+			insertar(338,'','null,'+dinic+',404,1,"idcajainicial=$1,343",0,@@impresa');
+		}
+
+		window.open('cierres?accion=1&id='+idcierre);
+		//location.reload();
 	}else{
 		Materialize.toast('Error Generando el Cierre',4000,'red')
 	}
@@ -573,11 +574,6 @@ function validarcierres() {
 }
 
 function endDetail(vid,vacc,modulo){
-
-	if(config[29] == '99'){
-		var dinic = getDatos('dinicio',314,'id='+vid[0][0][0])
-		//insertar(338,'','null,'+vid[0][0]+',314,'+acc+',"idproducto=$1,97,299",0,-1');
-	}
     return false;
 }
 

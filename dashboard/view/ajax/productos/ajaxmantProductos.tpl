@@ -24,7 +24,7 @@
                 <label for="mystock">Inventario</label>
             </div>
             {else}
-                <input type="hidden" num="1" typ="0" class="_extra" value="6">
+                <input type="hidden" num="1" typ="0" class="_extra" id="mystock" value="6">
             {/if}
         </div>
 
@@ -75,19 +75,22 @@
         <div id="datosproductos" style="padding: 20px 10px 0 10px">
             <div class="row" style="margin: 0px">
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px;margin-bottom: 15px;">
-                    <div class="input-field marginzero col s12 hide">
-                        <input id="vfamilia" type="text" class="validate autocomplete" autocomplete="off" tabindex="1">
+                    <div class="input-field marginzero col s12 hide per4123">
+                        <input id="vfamilia" type="text" list="lfam" autocomplete="off">
                         <label for="vfamilia">Familia</label>
+                        <datalist id="lfam"></datalist>
                     </div>
 
                     <div class="input-field marginzero col s12">
-                        <input id="vtipo" type="text" class="validate autocomplete" autocomplete="off" tabindex="2">
+                        <input id="vtipo" type="text" list="ltip" autocomplete="off">
                         <label for="vtipo">Tipo</label>
+                        <datalist id="ltip"></datalist>
                     </div>
 
                     <div class="input-field marginzero col s12">
-                        <input id="vmarca" type="text" class="validate autocomplete" autocomplete="off" tabindex="3">
+                        <input id="vmarca" type="text" list="lmarc" autocomplete="off">
                         <label for="vmarca">Marca</label>
+                        <datalist id="lmarc"></datalist>
                     </div>
 
                     <input type="hidden" id="vidheredado" value="0">
@@ -345,15 +348,15 @@
                 <div class="row" style="padding: 0px;float: right;margin: 0px;">
                     
                     <label class="col s3 red-text"><b>IVA:</b></label>
-                    <select id="vimpiva" class="col s9" style="margin: 0px" num="4">
-                        <option selected value="1" num="0">Exento 0%</option>
-                        <option selected value="2" num="1">Reducido 1%</option>
-                        <option selected value="3" num="2">Reducido 2%</option>
-                        <option selected value="4" num="4">Reducido 4%</option>
-                        <option selected value="5" num="0">Transitorio 0%</option>
-                        <option selected value="6" num="4">Transitorio 4%</option>
-                        <option selected value="7" num="8">Transitorio 8%</option>
-                        <option selected value="8" num="13">General 13%</option>
+                    <select id="vimpiva" class="col s9" style="margin: 0px">
+                        <option  value="1" num="0">Exento 0%</option>
+                        <option  value="2" num="1">Reducido 1%</option>
+                        <option  value="3" num="2">Reducido 2%</option>
+                        <option  value="4" num="4">Reducido 4%</option>
+                        <option  value="5" num="0">Transitorio 0%</option>
+                        <option  value="6" num="4">Transitorio 4%</option>
+                        <option  value="7" num="8">Transitorio 8%</option>
+                        <option  value="8" num="13">General 13%</option>
                     </select>
                     
                 </div>

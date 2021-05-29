@@ -197,6 +197,7 @@ $(function(){
 
 			if(!parseInt($("#videxoneracion").val())){
 				var ndoc = getDatos('id',285,'trim(ndoc)=trim('+$("#vnumdoc").val()+') and idcliente = '+$("#vid").val());
+
 				if(ndoc[0].length){
 					Materialize.toast('Número de Documento ya Existe',4000,'red');
 					$("#vnumdoc").focus().select();
