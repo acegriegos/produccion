@@ -349,7 +349,7 @@ $(document).on("click","#docierre",function(){
 		}
 
 		window.open('cierres?accion=1&id='+idcierre);
-		//location.reload();
+		location.reload();
 	}else{
 		Materialize.toast('Error Generando el Cierre',4000,'red')
 	}

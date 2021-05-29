@@ -340,6 +340,16 @@ function validarusuarios() {
 		$('#vuser').focus();
 		return 'Nombre de Usuario Requerido';
 	}
+	if ($('#vuser').val().length > 20) {
+		$('#vuser').focus().select();
+		return 'Nombre de Usuario No Debe Superar los 20 Caractéres';
+	}
+	if ($('#vuser').val().length != $('#vuser').val().replace(/ /g,'').length) {
+		$('#vuser').focus().select();
+		return 'Nombre de Usuario No Debe Llevar Espacios';
+	}
+
+
 	if ($('#vnombre').val() == '') {
 		$('#vnombre').focus();
 		return 'Nombre Requerido';
