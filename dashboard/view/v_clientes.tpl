@@ -216,7 +216,7 @@
               
               <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
               <label for="vplazo">Plazo en Días</label>
-
+              <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
             </div>
             <div class="input-field col s12 cre hide per1004">
               <div class="prefix"><i class="mdi mdi-24px mdi-credit-card-plus"></i></div>
@@ -484,6 +484,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.3.0.9-4"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.3.0.9-7"></script>
 </body>
 </html>

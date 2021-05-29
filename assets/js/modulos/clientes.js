@@ -69,13 +69,13 @@ $(function(){
             link.download = data;
             link.dispatchEvent(new MouseEvent('click'));
             
-           setTimeout(function(){ 
+           //setTimeout(function(){ 
                 $("#shpdf").parent().remove();
                 $.get('login',{accion:17,arreglo:{file:'../assets/pdf/'+data}})
                 .done(function(data){
                     console.log(data);
                 })
-            }, 3000);
+            //}, 3000);
            
         })
 
@@ -126,7 +126,7 @@ $(function(){
 		}
 	})
 
-	$("#addexo").click(function(){
+	/*$("#addexo").click(function(){
 		var id =  ($(".lstsrv").length+1)*-1;
 		var nxt  = new Date($("#s_fecha").val());
 		var tp = $("#s_tipo").val();
@@ -158,7 +158,7 @@ $(function(){
 		//$(".lstsrv[tp="+id+"]").data('triforce',{vid:0,vaccion:0,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});
 		acc = 1;
 		$("#modal-addserv").modal('close');
-	});
+	});*/
 
 	$("#addexo").click(function(){
 
@@ -196,7 +196,7 @@ $(function(){
 			var id =  ($(".lstexo").length+1)*-1;
 
 			if(!parseInt($("#videxoneracion").val())){
-				var ndoc = getDatos('id',285,'trim(ndoc)=trim('+$("#vnumdoc").val()+')');
+				var ndoc = getDatos('id',285,'trim(ndoc)=trim('+$("#vnumdoc").val()+') and idcliente = '+$("#vid").val());
 				if(ndoc[0].length){
 					Materialize.toast('Número de Documento ya Existe',4000,'red');
 					$("#vnumdoc").focus().select();

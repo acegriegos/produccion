@@ -123,9 +123,10 @@ $(document).ready(function(){
     var user = getCookie('userAPSY');
     if (user.length) {
         $("#user").val(user);
-        $("#pass").val(getCookie('pwd'));
+        //$("#pass").val(getCookie('pwd'));
         $("#remember").prop('checked',true);
         $("#pwd").click().focus();
+        $("#pass").focus()
     }
 
     Materialize.updateTextFields();
@@ -226,7 +227,7 @@ function getIn(){
         var usr = getCookie('userAPSY');
         if ($("#remember").is(':checked') && !usr){
             setCookie('userAPSY',p[0][0][1],365*24*60*60*1000)
-            setCookie('pwd',$("#pass").val(),365*24*60*60*1000)
+            //setCookie('pwd',$("#pass").val(),365*24*60*60*1000)
         }
         else if(!$("#remember").is(':checked'))
             deleteCookie('userAPSY');

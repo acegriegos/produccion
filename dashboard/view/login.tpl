@@ -238,7 +238,7 @@ Fecha de entrada en vigor: 28 de Junio de 2016.
 <script src="../assets/js/jquery.js?v=10.3.0.9"></script>
 <script src="../assets/js/materialize.min.js?v=10.3.0.9"></script>
 <script src="../assets/js/asgard.js?v=10.3.0.9"></script>
-<script src="../assets/js/modulos/login.js?v=10.3.0.9"></script>
+<script src="../assets/js/modulos/login.js?v=10.3.0.9-2"></script>
 <!-- https://texttospeech.responsivevoice.org/v1/text:synthesize
 <script src="../assets/js/responsivevoice.js?v=10.3.0.9"></script> -->
 </body>

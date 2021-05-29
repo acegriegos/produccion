@@ -55,7 +55,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.9"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.10"></script>
   <script src="../assets/js/modulos/reportes/cxc.js?v=10.3.0.9"></script>
 </body>
 </html>

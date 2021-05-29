@@ -453,7 +453,8 @@
                 if ($xml) {
                     $salida['succed'] = 1;
                     $salida['arhivo'] = "../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml";
-                    $salida['mfile'] = file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
+
+                    $salida['mfile'] = file_put_contents("./assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
                 }else
                     $salida['succed'] = 0;
                 echo json_encode($salida);
@@ -1428,18 +1429,23 @@
                 $data[] = $this->info;
 
                 $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
-                 $ocargos = $this->getJSON('call fe_getOtrosCargos("'.$this->id.'")');
+                if($data['DetalleServicio'] != 1){
+                    $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
+                    if (!$tdetalle && $this->opcion < 5) 
+                        return ['error'=>'No hay Detalle'];
+                }else
+                    unset($data['DetalleServicio']);
+                
+                $ocargos = $this->getJSON('call fe_getOtrosCargos("'.$this->id.'")');
                 if($ocargos)
                     $data['OtrosCargos'] = $ocargos; 
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
-                $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
-                if (!$tdetalle && $this->opcion < 5) 
-                    return ['error'=>'No hay Detalle'];
 
                 $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
                 $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
                 $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
+                
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
 
@@ -1487,7 +1493,7 @@
                         break;
                     default :
                         $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
-                        if ( $tmcedula != 12)
+                        if ( $tmcedula < 10 && $tmcedula > 12)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }

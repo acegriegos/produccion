@@ -111,7 +111,7 @@ $(function () {
 					info: false
 				});
 
-				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:'',vidheredado: 0,visvariable:0,visgravamen:0,vexoneracion:13,vtimv : 8})
+				$("#fproductos .zelda").data('triforce',{vid:0,vidmarca:0,vidfamilia:0,vidtipo:0,visinventariado:1,vidusuario:'',vidsucursal:config[29] == '99'?'-1':'',vidheredado: 0,visvariable:0,visgravamen:0,vexoneracion:13,vtimv : 8})
 
 				if($("#goldinventariado").length)
                     $("#fproductos .zelda").attr('inventariado',1);
@@ -1319,7 +1319,7 @@ $(document).on("blur",".calcvv",function(){
 	var num = $(this).attr('num') == undefined ? 0 : parseInt($(this).attr('num'));
 	var costo = parseFloat($("#vcosto").val().replace(/,/g,''))/parseFloat($("#vdivisa").val());
 	var impuestos = parseFloat($("#vimpiva option:selected").attr('num'));
-	console.log(num)
+	
 	if (parseInt(num) == 1) {
 		var tven = rven = 0;
 		$(".gan").each(function(i){
@@ -1335,7 +1335,6 @@ $(document).on("blur",".calcvv",function(){
 			
 			var ganancia = padre.find('.gan').val().replace(/,/g,'');
 			var ventaiva = padre.find('.veniva').val().replace(/,/g,'');
-			console.log(ventaiva+' '+impuestos+' '+costo)
 			tven = parseInt(ventaiva) ? (((ventaiva / (1+(impuestos/100)))/ costo) - 1)	 * 100 : 0;
 			rven = parseInt(ventaiva) ? ((ventaiva / (1+impuestos/100) ) - costo) : 0;
 			tven = isNaN(tven) ? 0 : tven;
@@ -1450,6 +1449,8 @@ $(document).on("click","#addproduct",function(){
     $("#lcabys").html('')
     $("#scabys").val('')
     $("#ncabys").html('')
+	$("#financiero input").attr('disabled',false);	
+	$("#vcantidad").attr('readonly',false); 
     setTimeout(function(){$("#vnombre").focus();},500);
     cargarUnidades(1);
 });
@@ -2261,7 +2262,7 @@ function endDetail(id, acc, modulo) {
 			$("#vidunidad").material_select('update');
 			$("#tb1").click();
 			
-			if(config[29] != ''){
+			if(config[29] == '99'){
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"idproducto=$1,97,299",0,-1');
 			}
 
@@ -2322,6 +2323,14 @@ function postload(vmodulo){
 			$("#agProd").removeClass('add');
 			$("#agProd").addClass('edit');
 			$("#agProd").html('Editar');
+
+			var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso in (select id from permisos where codigo in(4124,4125)) order by id')[0];
+			
+		    if(allow[0][0] != '1'){
+		    	$("#financiero input").attr('disabled',true);
+		    }
+		    if(allow[1][0] != '1')
+		    	$("#vcantidad").attr('readonly',true); 
 
 			if(parseInt($("#vidmoneda").val()) == 1)
 				$("#costodivisa").addClass('hide')

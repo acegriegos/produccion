@@ -30,8 +30,11 @@
 	   			$cierre = $cierreg[0];
 	   			// $facturas = $kakaroto->kamehameha('',183,'"'.$_REQUEST['fecha'].'",@@usr');
 	   			$estados = $kakaroto->kamehameha('',185,$_REQUEST['id']);
-	 
-   				require_once 'view/reportes/cierrexusuario.php';
+	 			
+	 			if(isset($_REQUEST['a4']))
+	 				require_once 'view/reportes/cierrexusuariog.php';
+	 			else
+   					require_once 'view/reportes/cierrexusuario.php';
 	   			break;
 	   	}
 		if(!$pagina){
