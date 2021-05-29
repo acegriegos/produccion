@@ -70,7 +70,8 @@
 <script type="text/javascript">
 
     $(function(){
-        if($("#tuser").val() != '1'){
+        var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso = (select id from permisos where codigo = 9999)')[0][0][0];
+        if(allow != '1'){
             $(".detrep input").attr('readonly',true);
         }
     });

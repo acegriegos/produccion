@@ -599,6 +599,17 @@ function baseValidar(vaccion,vmodulo){
     return salida;
 }
 
+function addslashes(string) {
+    return string.replace(/\\/g, '\\\\').
+        replace(/\u0008/g, '\\b').
+        replace(/\t/g, '\\t').
+        replace(/\n/g, '\\n').
+        replace(/\f/g, '\\f').
+        replace(/\r/g, '\\r').
+        replace(/'/g, '\\\'').
+        replace(/"/g, '\\"');
+}
+
 function getData(vmodulo){
     var dt = mantenimiento('login',1,{modulo:vmodulo});
     if (dt['succed']) {

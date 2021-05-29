@@ -76,19 +76,19 @@
             <div class="row" style="margin: 0px">
                 <div class="col s12 l4 row" style="margin:0px; padding: 0px;margin-bottom: 15px;">
                     <div class="input-field marginzero col s12 hide per4123">
-                        <input id="vfamilia" type="text" list="lfam">
+                        <input id="vfamilia" type="text" list="lfam" autocomplete="off">
                         <label for="vfamilia">Familia</label>
                         <datalist id="lfam"></datalist>
                     </div>
 
                     <div class="input-field marginzero col s12">
-                        <input id="vtipo" type="text" list="ltip">
+                        <input id="vtipo" type="text" list="ltip" autocomplete="off">
                         <label for="vtipo">Tipo</label>
                         <datalist id="ltip"></datalist>
                     </div>
 
                     <div class="input-field marginzero col s12">
-                        <input id="vmarca" type="text" list="lmarc">
+                        <input id="vmarca" type="text" list="lmarc" autocomplete="off">
                         <label for="vmarca">Marca</label>
                         <datalist id="lmarc"></datalist>
                     </div>

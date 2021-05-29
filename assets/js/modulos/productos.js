@@ -537,9 +537,9 @@ $(document).on("change","#vmarca",function(){
 
 $(document).on("click",".famNotFound",function(){
 	$(this).parent().remove()
-	var ex = getDatos('id',20,'nombre = "'+$("#vfamilia").val()+'" and id>0 and idsucursal = @@impresa');
+	var ex = getDatos('id',20,'nombre = "'+ addslashes($("#vfamilia").val())+'" and id>0 and idsucursal = @@impresa');
 	if(!ex[0].length){
-		insertar(20,'','null,"'+$("#vfamilia").val()+'",@@impresa')
+		insertar(20,'','null,"'+addslashes($("#vfamilia").val())+'",@@impresa')
 		Materialize.toast('Familia Agregada Correctamente',4000,'green');
 		cargarFamilias();
 		var ifa = $("#lfam option").filter(function(){ return $(this).html().toUpperCase() === $("#vfamilia").val().toUpperCase() }).attr('val');
@@ -560,9 +560,9 @@ $(document).on("click",".famNotFound",function(){
 
 $(document).on("click",".tipNotFound",function(){
 	$(this).parent().remove()
-	var ex = getDatos('id',21,'nombre = "'+$("#vtipo").val()+'" and id>0 and idsucursal = @@impresa and idfamilia = '+$("#fproductos .zelda").data('triforce')["vidfamilia"]);
+	var ex = getDatos('id',21,'nombre = "'+addslashes($("#vtipo").val())+'" and id>0 and idsucursal = @@impresa and idfamilia = '+$("#fproductos .zelda").data('triforce')["vidfamilia"]);
 	if(!ex[0].length){
-		insertar(21,'','null,"'+$("#vtipo").val()+'",'+$("#fproductos .zelda").data('triforce')["vidfamilia"]+',@@impresa')
+		insertar(21,'','null,"'+addslashes($("#vtipo").val())+'",'+$("#fproductos .zelda").data('triforce')["vidfamilia"]+',@@impresa')
 		Materialize.toast('Tipo Agregado Correctamente',4000,'green');
 		cargarTipos($("#fproductos .zelda").data('triforce')["vidfamilia"]);
 		var ifa = $("#ltip option").filter(function(){ return $(this).html().toUpperCase() === $("#vtipo").val().toUpperCase() }).attr('val');
@@ -579,9 +579,9 @@ $(document).on("click",".tipNotFound",function(){
 
 $(document).on("click",".mrcNotFound",function(){
 	$(this).parent().remove()
-	var ex = getDatos('id',21,'nombre = "'+$("#vmarca").val()+'" and id>0 and idsucursal = @@impresa and idtipo = '+$("#fproductos .zelda").data('triforce')["vidtipo"]);
+	var ex = getDatos('id',21,'nombre = "'+addslashes($("#vmarca").val())+'" and id>0 and idsucursal = @@impresa and idtipo = '+$("#fproductos .zelda").data('triforce')["vidtipo"]);
 	if(!ex[0].length){
-		insertar(22,'','null,"'+$("#vmarca").val()+'",'+$("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa')
+		insertar(22,'','null,"'+addslashes($("#vmarca").val())+'",'+$("#fproductos .zelda").data('triforce')["vidtipo"]+',@@impresa')
 		Materialize.toast('Marca Agregada Correctamente',4000,'green');
 		cargarMarcas($("#fproductos .zelda").data('triforce')["vidtipo"])
 		var ifa = $("#lmarc option").filter(function(){ return $(this).html().toUpperCase() === $("#vmarca").val().toUpperCase() }).attr('val');
@@ -1519,6 +1519,8 @@ $(document).on("click","#addproduct",function(){
     $("#lcabys").html('')
     $("#scabys").val('')
     $("#ncabys").html('')
+    $("#financiero input").attr('disabled',false);	
+	$("#vcantidad").attr('readonly',false); 
     setTimeout(function(){$("#vnombre").focus();},500);
     cargarUnidades(1);
 });
@@ -2390,6 +2392,14 @@ function postload(vmodulo){
 			$("#agProd").removeClass('add');
 			$("#agProd").addClass('edit');
 			$("#agProd").html('Editar');
+
+			var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso in (select id from permisos where codigo in(4124,4125)) order by id')[0];
+
+		    if(allow[0][0] != '1'){
+		    	$("#financiero input").attr('disabled',true);
+		    }
+		    if(allow[1][0] != '1')
+		    	$("#vcantidad").attr('readonly',true); 
 
 			if(parseInt($("#vidmoneda").val()) == 1)
 				$("#costodivisa").addClass('hide')
