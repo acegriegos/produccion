@@ -453,7 +453,7 @@
                 if ($xml) {
                     $salida['succed'] = 1;
                     $salida['arhivo'] = "../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml";
-                    $salida['mfile'] = file_put_contents("./assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
+                    $salida['mfile'] = file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
                 }else
                     $salida['succed'] = 0;
                 echo json_encode($salida);

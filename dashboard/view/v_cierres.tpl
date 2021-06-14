@@ -17,9 +17,9 @@
     <![endif]-->
   </head>
   <body> 
-  <br>
     {$NAV}
-    <div class="bdy">
+    <div class="bdy" style="">
+
       <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}" idcaja="{if $smarty.session.CAJA eq 0}1{else}{$smarty.session.CAJA}{/if}" ccierre="{$CCIERRE}">
       <div class="switch der hide">
           <label>
@@ -28,8 +28,11 @@
             <span class="lever"></span>Automático
           </label>
         </div>
-    <div class="row auto">
-       
+    <div class="row auto card">
+      <div class="card-header center white-text head1 col s12">
+          <p class="flow-text" style="font-size: 1.9em;margin: 0px;"> <span class="cghs"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
+      </div>
+      
       <div class="col s12 m12 l12">
         <div class="input-field col s4"  style="float:left;">
           <i class="mdi mdi-plus prefix" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>

@@ -19,7 +19,7 @@ $(function(){
 			$("#mn-tefectivo").focus().select();
 		}
 	});
-
+	loadmybussiness();
 	permisos(7301,7302);
 
 	$("#mn-fecha").change(function(){

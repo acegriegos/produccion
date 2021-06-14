@@ -26,7 +26,6 @@ $(function(){
             data: {accion:15,arreglo:1,server:config[18],ced:sucursal[0],isp:sucursal[1]}
         })
             .done(function(res){
-                console.log(res);
                 var str = '';
                 $("#data-table-compras").hide();
                 var tabla = $("#data-table-compras").DataTable();   

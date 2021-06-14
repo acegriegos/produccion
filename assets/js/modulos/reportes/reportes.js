@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12" id="fbtns"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12" id="fbtns"><h5>FILTROS DEL REPORTE</h5><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -164,13 +164,29 @@ $(function(){
 
                switch(parseInt(vtype[i])){
                     case 1://para select
-                    sel = vsel[i] == undefined ? 'id,nombre' : vsel[i] == '' ? 'id,nombre' : vsel[i]; 
-                    opts = getDatos(sel,vtbl[i],'id > 0');
+                    case 7:// multiple
+                    if(vwhere[i].startsWith('(')){
+                        vwhere[i] = vwhere[i].replace(/\(/g,'').replace(/\)/g,'').replace(/\^/g,',')
+                        let vsel = vwhere[i].substr(0,vwhere[i].indexOf(','))
+                        vwhere[i] = vwhere[i].substr(vwhere[i].indexOf(',')+1)
+                        let vtbl = vwhere[i].substr(0,vwhere[i].indexOf(','))
+                        vwhere[i] = vwhere[i].substr(vwhere[i].indexOf(',')+1)
+                        opts = getDatos(vsel,vtbl,vwhere[i]) 
+                        vwhere[i] = undefined;
+                    }
+                    else{
+                        sel = vsel[i] == undefined ? 'id,nombre' : vsel[i] == '' ? 'id,nombre' : vsel[i]; 
+                        opts = getDatos(sel,vtbl[i],'id > 0');
+                    }
+                    
                     stropts = '';
                     for(var j = 0;j<opts[0].length;j++)
                         stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
 
-                    type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
+                    if(vtype[i] == '7')
+                        type = '<select type="select" multiple id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
+                    else
+                        type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
 
                     break;
                     case 2: //para numero

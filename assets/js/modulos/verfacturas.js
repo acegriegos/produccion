@@ -88,7 +88,7 @@ $(document).on("click",".mh",function(){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     var rs = mantenimiento('login',14,{id:vid,sucursal:vbody[1]},1);
-    
+    console.log(rs)
     if(rs["succed"])
         $(this).attr('href',rs["arhivo"]); 
 });

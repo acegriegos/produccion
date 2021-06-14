@@ -29,9 +29,17 @@ $(function(){
             break;
 
       default:
+            var per = getDatos('',246,'@@usr,1110,1110');
+
+            if(per[0].length)
+                if(per[0][0][3] == '1'){
+                    $("#vidtipo3").append('<option value="8">Especial</option>');
+                    $("#vidtipo3").material_select('update')
+                }
+
             break;
     }
   
-  arr('login',6,'',167,'0,"'+tipo+'",@@impresa,0,0,1,"","",0,0,0',0,1,$(".detrep"));
+  arr('login',6,'',167,'0,"'+tipo+'",@@impresa,0,0,1,"","",0,0,"",0',0,1,$(".detrep"));
 
 });
