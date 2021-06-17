@@ -1,0 +1,50 @@
+td{
+	padding: 0px;
+}
+
+
+.mtbl tbody {
+  display: block;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.mtbl thead, .mtbl tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+thead{
+	text-align: center;
+}
+
+.mdiv .card{
+	height: 250px !important;
+}
+
+.mtit{
+  width: 100%;
+  text-align: center;
+  /*background-color: #0080C6;
+  color: white;*/
+  background-color: white;
+  font-size: 20px;
+  padding: 1%;
+  margin: 0px;
+  font-weight: bold;
+  border: 1px solid #e2e2e2;
+}
+
+.card{
+  margin-top: 0px;
+}
+
+.chip{
+  display: inherit;
+}
+
+#cpl .input{
+  text-align: right;
+  width: 100% !important;
+}

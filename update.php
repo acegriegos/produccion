@@ -178,6 +178,7 @@
             <!DOCTYPE html>
             <html>
             <head>
+                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
                 <link rel="icon" type="image/png" href="assets/img/favicon.ico">
                 <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.20">
                 <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.3.0.20">

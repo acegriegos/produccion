@@ -1,4 +1,5 @@
 <?php
+header("Content-Security-Policy: upgrade-insecure-requests");
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {  
     header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");  
@@ -535,10 +536,10 @@ if (isset($_POST['respuestaXml'])) {
               //EMPAQUETAR ARCHIVOS
               $full = '';
               $num = $_REQUEST['aver'];
-              while ($num < $salida['rs'][0][0]) {
+              while ($num*10 < $salida['rs'][0][0]*10) {
                 $file = 'v'.(int)$num.'.sql';
                 $full .= shell_exec('cat /var/www/pagina/descargas/actualizaciones/'.$file);
-                $num++;
+                $num = (int) $num+1;
               }
               $salida['file'] = base64_encode($full);
               break;

@@ -2512,7 +2512,11 @@ function endCargarProducto(exo,cod,pesaje){
             $("#cantp").trigger(e);
         }else{
             $("[for=iva]").removeClass('hide');
-            $("#iva").prop('checked',false);
+            if (parseInt(config[12])){
+                $("#iva").prop('checked',true)
+            }
+            else
+                $("#iva").prop('checked',false)
             $("#cantp").focus().select();
         }
         
