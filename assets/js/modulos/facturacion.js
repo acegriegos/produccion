@@ -481,7 +481,14 @@ function cargarCompras(){
     $("#descup").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13){
-            $("#totp").val((parseFloat($("#precp").val().replace(/,/g,''))*(1-(parseFloat($(this).val())/100))*parseFloat($("#cantp").val())).formatMoney(2,'.',','))
+            let c_desc = isNaN($(this).val()) ? 0 : $(this).val();
+            let c_prec = isNaN($("#precp").val().replace(/,/g,'')) ? 0 : $("#precp").val().replace(/,/g,'');
+            let c_cant = isNaN($("#cantp").val()) ? 1 : $("#cantp").val();
+            if(c_desc == ''){
+                $(this).val(0)
+                c_desc = 0;
+            }
+            $("#totp").val((parseFloat(c_prec)*(1-(parseFloat(c_desc)/100))*parseFloat(c_cant)).formatMoney(2,'.',','))
             if($(".ven2:visible").length){
                 cargarUtilidad();
                 $(".ven2:first").focus();    

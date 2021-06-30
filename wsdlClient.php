@@ -2033,7 +2033,7 @@
                     $linea['24'] = '1';
                     $linea['25'] = 'Venta';
                     $linea['30'] = 'Cliente';
-                    $linea['41'] =  $_xml[$this->tdoc]['Receptor']['CorreoElectronico'];
+                    $linea['41'] =  isset($_REQUEST['crr']) ? $_REQUEST['crr'] : $_xml[$this->tdoc]['Receptor']['CorreoElectronico'];
                 }else{
                     $linea['24'] = '7';
                     $linea['25'] = 'Tiquete';
