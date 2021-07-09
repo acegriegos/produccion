@@ -1,4 +1,10 @@
-<?php $config = $kakaroto->kamehameha('',42,'@@impresa');?>
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa'); 
+      $tcliente = []; 
+      $tcliente['nom'] = 'CLIENTE'; 
+      if($datos[22]){
+        $tcliente['nom'] = 'PROVEEDOR';
+      }  
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,7 +126,7 @@ echo '<tr align="center" >
 <br>
 <table>
   <tr >
-    <td colspan="2">CLIENTE:<br>'.$datos[4].'</td>
+    <td colspan="2">'.$tcliente['nom'].':<br>'.$datos[4].'</td>
   </tr>
   <tr >
     <td width="20%">USUARIO: </td>
@@ -189,7 +195,7 @@ echo '<tr>
     <td align="right"> '.$datos[11].$datos[6].'</td>
   </tr>
 </table><br>
-<b>SALDO DEL CLIENTE: </b>'.$datos[24].number_format($datos[20],2);
+<b>SALDO DEL '.$tcliente['nom'].': </b>'.$datos[24].number_format($datos[20],2);
 
 echo '<hr>
 <div style="text-align: center;" id="resolucion"></div><br><br><br>

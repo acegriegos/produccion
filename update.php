@@ -353,7 +353,7 @@
                     $("#consoleText").append('Actualizando Base de Datos<br>Cargando Ultima Version....<span id="lver">##</span><br>Version Actual....<span id="aver">##</span><br>');
                     var _aver = getDatos('valor',15,'descr="versionbase"')[0][0][0];
 
-                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:11,acc:1,aver:_aver})
+                    $.post('https://fe.logintechcr.com/wsdlServer.php',{cmd:11,acc:1,aver:_aver})
                         .done(function(data){
 
                             $("#aver").html(_aver);
@@ -391,7 +391,7 @@
                 $(".valid").click(function(){
                     $(this).attr('disabled',true);
 
-                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
+                    $.post('https://fe.logintechcr.com/wsdlServer.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
                         .done(function(data){
                             if(data.succed && data.rs.length == 1){
                                 if (data.rs[0][3] != 1) {
@@ -537,7 +537,7 @@
             $pass = $db->getPSS();
             $port = $db->getPort();
 
-            $source = "http://sistema.apsycr.com/wsdlServer.php";
+            $source = "https://fe.logintechcr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

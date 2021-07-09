@@ -29,7 +29,7 @@
     $server = $base->ejecutar('select trim(valor) from ajustes where descr = "sincro"')->fetch_all()[0][0];
     $server = trim($server);
 
-    $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where !issync and idsucursal = '.$_SESSION['IMPRESA'].' limit 150')->fetch_all();
+    $rs = $base->ejecutar('select id,idfila,idtabla,idestado,cmd from sincro where !issync and idfila is not null and idsucursal = '.$_SESSION['IMPRESA'].' limit 150')->fetch_all();
     
     if(isset($_REQUEST['debug'])){
         echo "RESPUETA BASE<hr><pre>";

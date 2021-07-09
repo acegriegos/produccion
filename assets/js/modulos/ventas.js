@@ -214,7 +214,7 @@ $(function(){
                 var ncons = getDatos('lpad(consecutivo+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
                 $("#titfact").html('FACTURAS')
                 $("#idfact").html(ncons);
-                parem = 1;
+                param = 1;
             }else{
                 $("#ffacturas .zelda").data('triforce')['vidtipoventa'] = 7;
                 var ncons = getDatos('lpad(consecutivo7+1,10,0)',252,'idsucursal = @@impresa and id>0',0,0)[0][0];
@@ -223,6 +223,8 @@ $(function(){
                 param = 7;
             }
         }
+
+        totalizar();
     });
 
     $("#codp").blur(function(){
@@ -1584,7 +1586,7 @@ function addline(idprod,cod,desc,cant,prec,tot,cntinv,dcs,mdcs,hinv,defi,uni,com
         $("#valores").data('elemento')['timv'] = 1;
     }
 
-    if(param.toString().match(new RegExp(/\b1\b|\b3\b|\b4\b|\b5\b|\b6\b|\b7\b/g)))
+    if(param.toString().match(new RegExp(/\b1\b|\b3\b|\b4\b|\b5\b|\b6\b|\b7\b|\b8\b/g)))
         $("[for=iva]").addClass('hide');
     else{
         isiva = 0;
@@ -1826,8 +1828,9 @@ function totalizar(){
 
                 if(parseInt(eimv) == 0 && $("#fd"+vidlinea+":visible").length || param == 8) { 
                     //PRODUCTOS O CLIENTES EXENTOS
-                    if(parseFloat(param)== 8){
+                    if(parseFloat(param) == 8){
                         tmpdesc = parseFloat(tmpdesc*(1+rimv/100));
+                        precio = tmpdesc;
                     }
                     $("#fd"+vidlinea).data('triforce')['vidimpuestos'] = '';
                     $("#fastVenta"+vidlinea).val(tmpdesc);
