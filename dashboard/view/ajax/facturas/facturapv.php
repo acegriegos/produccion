@@ -4,9 +4,11 @@
 <head>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <title>Factura</title>  
+  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.21"> -->
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.21">
 <style>
   *{font-size: 1em}
-
+  
 <?php if ($config[0][8] == 2) { ?>
 @media print {
   .print{
@@ -61,6 +63,35 @@
   <input type="hidden" id="config0" value="<?php echo $config[0][0]; ?>">
   <input type="hidden" id="config9" value="<?php echo $config[0][9]; ?>">
   <input type="hidden" id="d56" value="<?php echo $datos[56]; ?>">
+
+  <section class="print" style="display: none;left:100px;position:fixed;padding: 10px;top: 15%; font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0"">
+            <div class="col s12 m3 l3 white-text">
+              <div id="correosclie">
+               <input type="hidden" id="vid" value="<?php echo $datos[27]; ?>">
+             </div>
+             <label>Enviar factura por correo a:</label>
+             <div class="row">
+              <div class="s10 col">
+                <div class="chips chips-initial white-text" id="listcorreos" style="color: white;"></div>
+              </div>
+              <div class="s2 col">
+                <a href="#" id="lcorreos" class="right"><i class="small white-text mdi mdi-send"></i></a>
+              </div>
+            </div>
+            <div class="row">
+             <div class="s12 col" align="center">
+               <span id="smail"></span>
+             </div>
+           </div>
+
+         </div>
+
+       </section>
 <?php 
 $pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
 $vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
@@ -354,15 +385,59 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
+ <script src="../assets/js/jquery.js?v=10.3.0.21"></script>
+ <script src="../assets/js/materialize.min.js?v=10.3.0.21"></script>
+ <script src="../assets/js/asgard.js?v=10.3.0.21"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
       var d56 = parseInt($("#d56").val());
       var resol = "REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
+
+      $('.chips-initial').material_chip({
+        data: getCorreos(),
+     });
+
+     $(".chips .input").css("color","white");
+
+     Materialize.updateTextFields();
+
+     $('#lcorreos').click(function(){
+
+        $(this).prop('disabled','disabled');
+        mostrar_cargar();
+         var para = $('.chips-initial').material_chip('data');
+         $("#listcorreos").html("");
+  
+         for (var i = 0; i < para.length; i++) {
+            vpara += para[i].tag+',';
+         }
+         vpara=vpara.substring(0,vpara.length -1);
+         mid = getParameterByName('id');
+
+        var archivos = '';
+        var tipo = $("#fact").html();
+        mantenimiento('login',8,{arch:'recibo',id:mid,mic:1,tit:tipo+' Electrónica',sel:'',tbl:72,where:mid},1);
+        var vfactura = $("#numfact").html().trim();
+        vbody = getDatos('',73,mid,0,0)[0][0];
+        var vsucursal = vbody[1];
+
+        if (vfactura == mid)
+            archivos = 'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf';
+        else{
+            archivos = {0:'xml/'+tipo+' No'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf'}
+            mantenimiento('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
+        }
+        
+        var envio = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,1,mid,64);
+        vpara = vbody = "";
+        mid = 0;
+
+        $('.chips-initial').material_chip();
+        $(".chips .input").css("color","white");
+     });
+
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
         resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
@@ -405,7 +480,30 @@ echo '
       if(parseInt(param)){
         window.print();
       }
-   })
+   });
+
+   function postExcecute(vid,p){
+    switch(parseInt(vid)){
+        default:
+            break;
+    }
+}
+
+function getCorreos(){
+    var salida = "[";
+    var p= getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$('#vid').val(),0,0,0)[0];
+
+    for (var i = 0; i < p.length; i++) {
+        salida+='{"tag":"'+p[i][0]+'"},';
+    }
+
+    if (p.length > 0) {
+        return JSON.parse(salida.substring(0,salida.length -1)+"]");
+    }else
+        return '';
+
+    
+}
  </script>
  </body>
  </html>

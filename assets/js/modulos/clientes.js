@@ -34,17 +34,23 @@ $(function(){
 	$("#vcedula").keyup(function(e){
 		var code = e.wich || e.keyCode;
 		if(code == 13){
-			$.get('../sic.php?',{ced:$(this).val()})
-        	.done(function(data){
-        		var p = JSON.parse(data);
-            	if (p['succed']) {
-            		$("#vcedula").val(p['ced']);
-                	$("#vnombre").val(p['nom']);
-                	$("[name='tipoclie'][tipoClie="+parseInt(p['tip'])+"]").click();
-            	}else{
-            		 Materialize.toast(p['error'],4000,'red');
-            	}
-        	})
+			if($("#vidtipocliente").val() == '0'){
+				if($("#vnombre").val() == ''){
+					$("#vnombre").focus()
+				}
+			}else{
+				$.get('../sic.php?',{ced:$(this).val()})
+	        	.done(function(data){
+	        		var p = JSON.parse(data);
+	            	if (p['succed']) {
+	            		$("#vcedula").val(p['ced']);
+	                	$("#vnombre").val(p['nom']);
+	                	$("[name='tipoclie'][tipoClie="+parseInt(p['tip'])+"]").click();
+	            	}else{
+	            		 Materialize.toast(p['error'],4000,'red');
+	            	}
+	        	})
+	        }
 		}
 	});
 
@@ -86,7 +92,6 @@ $(function(){
 		if(code == 13){
 			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
         	.done(function(data){
-        		console.log(data)
         		var p = JSON.parse(data);
             	if (p['succed']) {
 					$("#vtipodoc").val(p['tipoDocumento']['codigo'])
@@ -97,10 +102,11 @@ $(function(){
 					$("#vtimeDoc").val(p['fechaEmision'].substring(p['fechaEmision'].indexOf('T')+1));
 					$("#vfechafin").val(p['fechaVencimiento'].substring(0,p['fechaVencimiento'].indexOf('T')));
 					Materialize.updateTextFields();
-					$("#vporcompra").focus().select();
+					$("#vporcompra").val(p['porcentajeExoneracion']).focus().select();
             	}else{
-            		 Materialize.toast(p['error'],4000,'red');
-            		 $("#videxoneracion").val(0);
+	        		Materialize.toast(p['error'],4000,'red');
+	        		$("#addexo").data('cabys','');
+	        		$("#videxoneracion").val(0);
 					$("#vtipodoc").val(0);
 					$("#vtipodoc").material_select('update');
 					$("#vnumdoc").focus().select();
@@ -344,6 +350,7 @@ $(function(){
 	});
 
 	$("#addnexo").click(function(){
+		$("#addexo").data('cabys','');
 		$("#addexo").attr('acc',1);
 		$("#videxoneracion").val(0);
 		$("#vtipodoc").val(0);
@@ -450,7 +457,7 @@ $(function(){
 function validares(){ return false };
 
 $(document).on("click",".lstexo",function(){
-	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),ffin,exoneracion',285,'id='+$(this).attr('tp'));
+	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),date_format(ffin,"%Y-%m-%d"),exoneracion',285,'id='+$(this).attr('tp'));
 
 	if (exoneraciones[0].length && !parseInt($(this).data('triforce')['vaccion']) ) {
 		$("#videxoneracion").val($(this).attr('tp'));
@@ -464,8 +471,9 @@ $(document).on("click",".lstexo",function(){
 		Materialize.updateTextFields();
 		$("#modal-addexo").modal('open').css('z-index',2000);
 		$("#vporcompra").val(exoneraciones[0][0][6]).focus().select();
+		//$("#addexo").data('cabys','');
 	}else{ 
-
+		$("#addexo").data('cabys','');
 		$("#videxoneracion").val($(this).data('triforce')['vid']);
 		$("#vtipodoc").val($(this).data('triforce')['vtdoc']);
 		$("#vtipodoc").material_select('update');
@@ -749,6 +757,7 @@ function endDetail(vid,vacc,modulo){
 					switch(parseInt(obj['vaccion'])){
 						case 1:
 							console.log(insertar(285,'','null,'+vid[0][0]+','+obj['vtdoc']+',"'+obj['vndoc']+'","'+obj['ventidad']+'","'+obj['vfechaDoc']+'",'+obj['vexo']+','+obj['vffin']));
+							//guardar exoneracion
 							break;
 						case 2:
 							actualizar(285,'tdoc = '+obj['vtdoc']+', ndoc = "'+obj['vndoc']+'",inst = "'+obj['ventidad']+'", femision = "'+obj['vfechaDoc']+'", exoneracion = '+obj['vexo']+',ffin = '+obj['vffin'],'id = '+obj['vid']);

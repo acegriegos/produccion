@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Administración de Negocio</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-bmi.css?v=10.3.0.9-0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-bmi.css?v=10.3.0.21">
   </head>
   <body>
 
@@ -139,6 +139,6 @@
     </div>   
 
     {$SCR}
-    <script src="../assets/js/modulos/bmi.js?v=10.3.0.9"></script>
+    <script src="../assets/js/modulos/bmi.js?v=10.3.0.21"></script>
   </body>
 </html>

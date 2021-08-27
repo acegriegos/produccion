@@ -3,6 +3,12 @@ var mid = 0;
 
 $(function(){
 
+     var fullmode = getParameterByName('fullmode');
+     if(fullmode){
+        $(".hideonprint").hide()
+        $(".fac").removeClass('m9 l9')
+     }
+
      $('.chips-initial').material_chip({
         data: getCorreos(),
      });

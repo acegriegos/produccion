@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.3.0.20">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.3.0.21">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -91,6 +91,12 @@
                           <p>
                             <input class="with-gap" name="tipoclie" type="radio" id="cdimex" tipoClie="4" />
                             <label for="cdimex">DIMEX</label>
+                          </p>
+                        </div>
+                        <div class="col s6 m3 l2">
+                          <p>
+                            <input class="with-gap" name="tipoclie" type="radio" id="cextranjero" tipoClie="0" />
+                            <label for="cextranjero">Extranjero</label>
                           </p>
                         </div>
                         <input type="hidden" id="vidtipocliente" value="1">
@@ -482,6 +488,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.3.0.20"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.3.0.21"></script>
 </body>
 </html>

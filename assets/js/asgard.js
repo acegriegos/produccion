@@ -44,6 +44,12 @@ $(window).keydown(function(e){
 });
 
 $(document).on('click','.notasprod',function(){
+    if($(this).attr('tbl') == '11'){
+        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select valor from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'))[0][0];
+        $("._proname").html(datosprod[0])
+        $("#npprec").html(datosprod[1])
+        $("#npcant").html(datosprod[2])
+    }
     arr('login',6,'',334,'@@impresa,'+$(this).attr('tbl')+','+$(this).attr('row'),0,1,$("#_listanotas"));
     $("#mntNotas").attr('idtabla',$(this).attr('tbl')).attr('idfila',$(this).attr('row'));
     $("#_proname").html($(this).attr('name'));
@@ -113,6 +119,18 @@ $(document).on("click","#vdireccion",function(){
     // $("#telefono_in").focus();
 });
 
+$(document).on("click","._ret",function(){
+    $("#"+$(this).attr('target')).sideNav('hide')
+});
+
+$(document).on("mouseover",".trlistaflujo",function(){
+   $('.acc',this).removeClass('hide');         
+});
+
+$(document).on("mouseout",".trlistaflujo",function(){
+   $('.acc',this).addClass('hide');         
+});
+
 $(document).on("click","#eslide",function(){
     if($("#direccion_in:visible").length){
         if($("#vidbarrio").val() != null && $("#direccion_in").val().trim() == ''){
@@ -137,6 +155,10 @@ $(document).on("click","#eslide",function(){
     }
 
     $("#slide-tc").sideNav('hide');
+});
+
+$(document).on("click","#retfact",function(){
+    $(".detextra").sideNav('hide')
 });
 
 $(document).on("click",".tc-show",function(){   
@@ -771,6 +793,10 @@ function insertar(vtabla,varg1,varg2){
 
 function eliminar(vtabla,varg1){
     return arr('login',7,3,vtabla,varg1,'',0,0,0);
+}
+
+function iaes_masivo(vtp,vtbl,vvalue){
+    return mantenimiento('login',18,{tp:vtp,tbl:vtbl});
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros = ''){

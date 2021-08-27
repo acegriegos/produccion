@@ -99,6 +99,15 @@ $(function(){
     paginate($("ul.pagination").attr('vtbl'),undefined,'1,1,@@impresa,0,0,0');
 });
 
+$(document).on("click",".clip",function(){
+    var tmp = $("<input>");
+    $("body").append(tmp);
+    tmp.val($(this).attr('clave')).select()
+    document.execCommand("copy");
+    tmp.remove();
+    Materialize.toast('Clave Copiada',2000,'green')
+});
+
 $(document).on("blur",".cxp",function(){
     var valor = $(this).val();
     var padre = $(this).parent().parent();

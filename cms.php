@@ -37,12 +37,12 @@
 
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/mask/jquery.mask.js"></script>
-    <script src="assets/js/materialize.js?v=10.3.0.20"></script>
-    <script src="assets/js/modulos/menu.js?v=10.3.0.20"></script>
+    <script src="assets/js/materialize.js?v=10.3.0.21"></script>
+    <script src="assets/js/modulos/menu.js?v=10.3.0.21"></script>
     <script src="assets/libs/charts/chart.js"></script>
     <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js"></script>
     <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js"></script>
-    <script src="assets/js/asgard.js?v=10.3.0.20"></script>
+    <script src="assets/js/asgard.js?v=10.3.0.21"></script>
     <script type="text/javascript">
         var tp = 0;
         var cobj = 0;

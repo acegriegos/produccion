@@ -280,6 +280,21 @@
         echo "inicio<br>";
         indicadores($log);
         break;
+      case 18: //MASIVA
+        $pagina = 1;
+        $tp = isset($_REQUEST['arreglo']['tp']) ? $_REQUEST['arreglo']['tp'] : 1;
+        switch($tp){
+          case 1:
+            $transaccion = $log->ins_mass($_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          default:
+            break;
+        } 
+        break;
       default:
         break;
 

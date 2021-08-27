@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Movimientos de Inventario</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.20">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.21">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
@@ -34,9 +34,15 @@
     <small id="leyenda"></small>
     <div class="detrep"></div>
   <br><br>
+
+  <ul id="extra" class="side-nav side-nav-conta1" >
+    <span id="retfact" class="pbtn"><i class="mdi mdi-keyboard-backspace mdi-24px" title="Salir"></i></span>
+    <i class="mdi mdi-refresh mdi-spin loader" style="font-size:65px;margin-left: 50%;"></i>
+    <iframe src="" id="extra-i" style="width: 100%;height: 100vh;" class="hide"></iframe>
+  </ul>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.21"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.21"></script>
 </body>
 </html>

@@ -90,7 +90,7 @@
             actualizar(97,'cantidad = '+ml,'idproducto = '+tr.attr('id'));
             var resta = parseFloat(ml) - parseFloat(cactual);
             if(resta){
-                insertar(298,'','null,2,'+resta+',now(),'+tr.attr('id')+',"",@@impresa,@@usr,'+ml);
+                insertar(298,'','null,2,'+resta+',now(),'+tr.attr('id')+',"",@@impresa,@@usr,'+ml6+',0,0');
             }
             $(this).next('.focus').focus().select();
             var nml = tr.find('.um').val() == 1 ? $(this).val() : parseFloat($(this).val())/parseFloat(tr.attr('metrica'));

@@ -4,7 +4,7 @@ var str_correos = '';
 $(document).ready(function(){
 	var tf = param = getParameterByName('tf');//parseInt($("input[name=tventa]:checked").attr('id').substr(2));
     config = getDatos('',42,'@@impresa',0,0)[0][0];
-
+    
     $(".tr").addClass('hide');
 
 	switch(tf) {

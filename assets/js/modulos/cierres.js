@@ -453,6 +453,9 @@ $(document).on("click",".cestado",function(){
 		case '1':
 			var act = actualizar(64,'idestado=2','id='+paren.attr('rid'));
 			break;
+		case '3':
+			var act = actualizar(64,'idestado=1','id='+paren.attr('rid'));
+			break;
 		default:
 			break;
 	}

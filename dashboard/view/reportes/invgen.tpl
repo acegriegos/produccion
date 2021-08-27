@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Inventarios</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.20">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.21">
   {literal}
   <style type="text/css">
     .detrep input{
@@ -46,8 +46,23 @@
   </div>
 
   <div class="modal modal-fixed-footer grandemodal" id="modal-notasprod">
-  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto <span class="_proname"></span></div>
+  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto</div>
   <div class="modal-content">
+
+      <div class="row">
+        <div class="col s4">
+          <b><span class="_proname"></span></b>
+        </div>
+
+        <div class="col s4">
+          Cantidad(UN): <span id="npcant">0</span>
+        </div>
+
+        <div class="col s4">
+          Precio(CRC): <span id="npprec">0</span>
+        </div>
+
+      </div>
 
       <div class="row">
         <div class="col s8 input-field">
@@ -81,9 +96,10 @@
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
   </div>
 </div>
+
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.21"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.21"></script>
 </body>
 </html>

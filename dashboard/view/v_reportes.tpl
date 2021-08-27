@@ -105,7 +105,7 @@
 <p>Histórico CxP</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
@@ -204,6 +204,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.3.0.20"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.3.0.21"></script>
 </body>
 </html>

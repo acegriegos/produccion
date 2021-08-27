@@ -144,7 +144,7 @@ $(function(){
             var vtype = JSON.parse("[" + $(".principal .filtros").attr('types') + "]");
             var tipos = $(".principal .filtros").attr('tipos').split(",");
             var active = $(".principal .filtros").attr('tpactive') == undefined ? '' : $(".principal .filtros").attr('tpactive').split(',');
-            var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? '' : $(".principal .filtros").attr('tfiltar').split(',');
+            var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? {} : $(".principal .filtros").attr('tfiltar').split(',');
             var vsel = $(".principal .filtros").attr('tsel') == undefined ? '' : $(".principal .filtros").attr('tsel').split(';');
             var vids = $(".principal .filtros").attr('vids') == undefined ? '' : $(".principal .filtros").attr('vids').split(','); 
             var inc = 0;
@@ -165,6 +165,8 @@ $(function(){
                switch(parseInt(vtype[i])){
                     case 1://para select
                     case 7:// multiple
+                    vwhere[i] = vwhere[i] == undefined ? '' : vwhere[i];
+
                     if(vwhere[i].startsWith('(')){
                         vwhere[i] = vwhere[i].replace(/\(/g,'').replace(/\)/g,'').replace(/\^/g,',')
                         let vsel = vwhere[i].substr(0,vwhere[i].indexOf(','))
