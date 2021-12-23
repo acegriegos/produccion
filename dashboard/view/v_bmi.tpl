@@ -16,6 +16,16 @@
 
       <ul id="slide-bmi" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntitc"></span></a></div></li><li><div class="divider"></div></li><li>
 
+          <div class="col s12 input-field">
+              <label for="_desde">Desde</label>
+              <input type="date" id="_desde" class="eder fch">
+            </div>
+
+            <div class="col s12 input-field">
+              <label for="_hasta">Hasta</label>
+              <input type="date" id="_hasta" class="eder fch">
+            </div>
+
           <div class="subbmi row" id="opts4">
             <div class="col s12 center">                     
               <input type="radio" id="3most" checked name="plist">
@@ -23,16 +33,6 @@
 
               <input type="radio" id="list" name="plist">
               <label for="list">Lista</label>
-            </div>
-
-            <div class="col s12 input-field">
-              <label for="_desde">Desde</label>
-              <input type="date" id="_desde" class="eder fch fo4">
-            </div>
-
-            <div class="col s12 input-field">
-              <label for="_hasta">Hasta</label>
-              <input type="date" id="_hasta" class="eder fch fo4">
             </div>
 
             <div class="col s12 hide" id="listc">
@@ -49,14 +49,16 @@
         </ul>
 
       <div class="row">
-        <div class="col s6 input-field">
+        <div class="col s5 input-field">
           <input type="date" id="vdesde0" value="" class="eder fch">
           <label for="vdesde0">Fecha Global Desde</label> 
         </div>
-        <div class="col s6 input-field">
+        <div class="col s5 input-field">
           <input type="date" id="vhasta0" value="" class="eder fch">
           <label for="vhasta0">Fecha Global Hasta</label> 
         </div>
+
+        <a class="col s2 btn mdi mdi-24px mdi-refresh" title="Refrescar" id="r_all">Refrescar</a>
       </div>
 
       <div class="row">
@@ -96,7 +98,30 @@
           </div>
           </div>
 
-        <div class="col s6">
+          <div class="col s6">
+          <h6 class="mtit" sid="4" dsd="" hst=""><span>5 Productos más Vendidos</span></h6>
+          <div style="background-color: white;height: 250px;">
+            <table class="tbl mtbl">
+                <thead>
+                    <tr>
+                        <th>SUCURSAL</th> 
+                        <th>PRODUCTO</th>
+                        <th>CANTIDAD</th>
+                    </tr> 
+                </thead> 
+                <tbody id="productos"></tbody>
+            </table>
+          </div>
+        </div>
+
+        
+
+        </div>
+
+        <div class="row">
+          
+
+          <div class="col s6 mdiv">
           <h6 class="mtit" sid="3" dsd="" hst="">Flujo Efectivo: <span id="tefectivo">0.00</span></h6>
           <div style="background-color: white;height: 250px;">
             <table class="tbl bordered">
@@ -114,25 +139,24 @@
           </div>
         </div>
 
-        </div>
 
-        <div class="row">
-          
-        <div class="col s6">
-          <h6 class="mtit" sid="4" dsd="" hst=""><span>5 Productos más Vendidos</span></h6>
+        <div class="col s6 mdiv">
+          <h6 class="mtit" sid="5" dsd="" hst="">Flujo Bancos: <span id="tbancos">0.00</span></h6>
           <div style="background-color: white;height: 250px;">
-            <table class="tbl mtbl">
+            <table class="tbl bordered">
                 <thead>
                     <tr>
                         <th>SUCURSAL</th> 
-                        <th>PRODUCTO</th>
-                        <th>CANTIDAD</th>
+                        <th>TARJETAS</th>
+                        <th>DEPOSITOS</th>
+                        <th>TOTAL</th> 
                     </tr> 
-                </thead> 
-                <tbody id="productos"></tbody>
+                </thead>
+                <tbody id="bancos" scol="3"></tbody> 
             </table>
           </div>
         </div>
+        
 
         </div>
       

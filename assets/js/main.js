@@ -1,8 +1,8 @@
 $(function(){
 
-    $("#bsse1").click(function(){
-        return false;
-    });
+    var ahora = now();
+    $("#gndesde").val(ahora)
+    $("#gnhasta").val(ahora)
 
     $("#movil").click(function(){
         $("#cpu").click()
@@ -171,6 +171,24 @@ $(function(){
 
     });
 
+    $(document).on("click","#bsse1",function(){
+        $(this).sideNav({
+                menuWidth: 700,
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true,
+                onOpen: function(el) { getListaNotificacion() }
+            }
+        );
+        
+        $(this).sideNav('show');
+    });
+
+    $(document).on("click",".not_stat",function(){
+        var datos_not = getDatos('',352,'1,0,0,'+$(this).attr('vid'))
+        console.log(datos_not)
+        $("#modal-display-not").modal('open')
+    })
+
     $(document).on("click","#shflujo",function(){
         $(this).sideNav({
                 menuWidth: 700,
@@ -182,7 +200,7 @@ $(function(){
         $(this).sideNav('show');
 
         if(!$("#glsuc option").length){
-            sucs = getDatos('idsucursal',1,'id=@@usr')[0][0][0];
+            var sucs = getDatos('idsucursal',1,'id=@@usr')[0][0][0];
             sucs = getDatos('id,pfisico,if(@@impresa=id,1,0)',39,'if('+sucs+' = -1,1,find_in_set('+sucs+',id))');
             var checked = '';
             var strsuc = '';
@@ -358,10 +376,10 @@ function sse_response(vid,p) {
             if (p['succed'] == undefined || p['succed'] == '')
                 location.reload();
             if (p[0][0][0] != 0) {
-                $(".sse_cnt").removeClass('hide');
+                $(".sse_cnt").parent().removeClass('hide');
                 $(".sse_cnt").html(p[0][0][0]);
             }else{
-                $(".sse_cnt").addClass('hide');
+                $(".sse_cnt").parent().addClass('hide');
             }
 
             if (parseInt(p[0][0][1])) {
@@ -466,6 +484,22 @@ function abrirFlujo(){
     $("#guser").val('');
     $("#gvoucher").val('')
     $("#tiporubro").prop('checked',false).change();
+}
+
+function getListaNotificacion(){
+
+    var listanot = getDatos('',352,'0,@@usr,0,@@impresa');
+    var strlista = '';
+    for (var i = 0; i < listanot[0].length; i++) {
+        strlista += '<div> <table>'+
+            '<tr> <td colspan="2">#'+listanot[0][i][0]+'</td></tr>'+
+            '<tr> <td>Fecha Creación</td> <td>'+listanot[0][i][1]+'</td></tr>'+
+            '<tr> <td>Tiempo Espera </td> <td>'+listanot[0][i][2]+'</td></tr>'+
+            '<tr> <td>Tipo          </td> <td>'+listanot[0][i][3]+'</td></tr>'+
+        '</table> </div>';
+    }
+
+    $("#listanotificaciones").html(strlista)
 }
 
 function getListaFlujo(){

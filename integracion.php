@@ -8,12 +8,12 @@
 
     <title>Integracion</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.3.0.21">
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.0.0.67">
 </head>
 <body style="margin-left: 3%; margin-right: 3%">
 
@@ -38,7 +38,7 @@
              <div class="col s12  m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf2" />
                 <label for="tf2">Notas de Debito</label>
-            </div>     
+            </div>    
                 
             </div>
 
@@ -84,18 +84,19 @@
             <br><br>
         </div>
 
-    <script src="assets/js/jquery.js?v=10.3.0.21"></script>
-    <script src="assets/js/materialize.min.js?v=10.3.0.21"></script>
-    <script src="assets/js/asgard.js?v=10.3.0.21"></script>
-    <script src="assets/js/main.js?v=10.3.0.21"></script>
-    <script src="assets/libs/charts/chart.js?v=10.3.0.21"></script>
-    <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.3.0.21"></script>
-    <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.3.0.21"></script>
+    <script src="assets/js/jquery.js?v=10.0.0.67"></script>
+    <script src="assets/js/materialize.min.js?v=10.0.0.67"></script>
+    <script src="assets/js/asgard.js?v=10.0.0.67"></script>
+    <script src="assets/js/main.js?v=10.0.0.67"></script>
+    <script src="assets/libs/charts/chart.js?v=10.0.0.67"></script>
+    <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.0.0.67"></script>
+    <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.0.0.67"></script>
 
     <script type="text/javascript">
         $(function(){
           arr('login',6,'',315,'0,0,"@@impresa,0","0,10"', 0, 1, $("#listaintegracion"));  
-          paginate($("ul.pagination").attr('vtbl'),undefined,'@@impresa,1') 
+          paginate($("ul.pagination").attr('vtbl'),undefined,'@@impresa,0') 
+          $(".pagination").attr('filtro_sp','@@impresa,0,^,?');
         });
 
         $(document).on('click','.print',function(){
@@ -107,17 +108,17 @@
             var cons = $(this).parent().parent().attr('fact');
             
             $.get( 'http://localhost/wsdlClient.php?accion=17&ruta=RICANO&cons='+cons+'&sucursal=0&sucname=RICANO&id=0', function( data ) {
-                console.log(data)
+              console.log(data)
               Materialize.toast('Correo Enviado',4000,'green')
             });
         });
 
         $("[name=tventa]").click(function(){
-            var id = $(this).attr('id').substr(2)
-            console.log(id)
+            var id = $(this).attr('id').substr(2);
             arr('login',6,'',315,'0,0,"@@impresa,'+id+'","0,10"', 0, 1, $("#listaintegracion"));  
             $("ul.pagination").attr('filtro_sp','@@impresa,'+id)
-            paginate($("ul.pagination").attr('vtbl'),undefined,'@@impresa,'+id)
+            paginate($("ul.pagination").attr('vtbl'),undefined,'@@impresa,'+id);
+             $(".pagination").attr('filtro_sp','@@impresa,'+id+',^,?');
         });
         
         $(document).on('click','.status',function(){

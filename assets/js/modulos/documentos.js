@@ -8,6 +8,16 @@ $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
     loadmybussiness();
 
+    $("#rcorreo").click(function(){
+        $(this).attr('disabled',true)
+
+        $.post(window.location.href.substring(0,window.location.href.indexOf('dashboard',))+'/irobot.php',{succ:$("#impresa").attr('imp')})
+                .done(function(data){
+                        console.log(data)
+                        $("#rcorreo").attr('disabled',false)
+                });
+    })
+
     $('[href="#modal-getxml"]').click(function(){
         $("#modal-getxml").modal('open')
     });

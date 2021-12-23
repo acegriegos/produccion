@@ -751,14 +751,14 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     return p;
 }
 
-function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
+function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson,vmore){
     var p;
-    var stack = new Error().stack || '';
+    /*var stack = new Error().stack || '';
     stack = stack.split('\n').map(function (line) { return line.trim(); });
     stack = stack.splice(stack[0] == 'Error' ? 2 : 1);
     if(stack.length <= 2){
         p = 'Get Lost';
-    }else{
+    }else{*/
         // source.close();
         if (vjson)
             varreglo['JSON'] = vjson
@@ -775,12 +775,17 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
             }
             catch(err){
                 p = data;
+                console.log(p)
             }
-            postExcecute(vid,p);
+            
+            postExcecute(vid,p,vmore);
+        })
+        .fail(function(x){
+            console.log(x)
         });
-    }
+    //}
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
-    return true;
+    return p;
 }
 
 function actualizar(vtabla,varg1,varg2){

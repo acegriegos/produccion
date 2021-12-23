@@ -336,8 +336,7 @@
                         <i class="mdi prefix">%</i>
                         <input type="number" id="vmaxdescuento" class="formprod validate" value="" min="0" focus="2vcosto" autocomplete="off">
                         <label class="active" for="vmaxdescuento">Descuento Máximo</label>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </div>
 

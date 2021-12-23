@@ -117,6 +117,13 @@
                     <label for="vdiaconta">Dia Envio al Contador</label>
                 </div>
 
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vdenymargen">
+                    <label for="vdenymargen">Denegar Margen Venta</label>
+                </div>
+
+                <hr class="col s12">
+                
                 <div class="switch col s6 m4">
                     <label>
                       

@@ -58,7 +58,7 @@ class myPDF extends TCPDF {
           if ($this->m2 != '')
             $html .= '<p style="font-size: 12px;"><b>'.$this->m2.'</b></p>';
 
-          if ($this->fe != '') {
+          if ($this->fe != '' and $this->tfactura != 4) {
            $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
               <br>Versión API Hacienda: 4.3<br> 
               <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span>';

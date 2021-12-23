@@ -298,12 +298,17 @@
               <?php } ?>
               
               <div>
-                <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
-                  <br> 
-                  <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
-                </div>
-                <?php }else echo '<p class="center-align" style="font-size: 0.8em;">REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D<br>'.$msj.'</p>'; ?>
+                <?php if($datos[24] != 4){ ?>
+                  <?php if ($transaccion[0][32] != '') { ?>
+                    <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
+                    <br> 
+                  <?php }else { ?>
+                    <p class="center-align" style="font-size: 0.8em;">REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D
+                  <?php } ?>
+                <?php } ?>
+                <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
+              </div>
+                
               </footer>
 
               <div class="center <?php if ($transaccion[0][32] == '') echo 'hide';  ?>" style="width: 100%;">

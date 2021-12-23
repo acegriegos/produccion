@@ -461,7 +461,7 @@
         <a class="btn-floating btn2 tooltipped modal-trigger" data-position="top" data-tooltip="Ingresar Línea" href="#modal-addline" style="position: fixed; bottom: 0;right: 0;margin-bottom: 10%;margin-right: 2%;z-index: 998"><i class="mdi mdi-plus mdi-24px"></i></a>
         <div class="edetalle center">No se Han Ingresado Productos</div>
       </div>
-      <div vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" class="col s12">
+      <div vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" class="col s12" style="margin-bottom: 5px;">
       </div>
     </div>
 </div>

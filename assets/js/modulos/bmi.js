@@ -1,3 +1,5 @@
+var delaysTimer;
+
 $(function(){
 
 	$(".mtit").each(function(){
@@ -24,12 +26,9 @@ $(function(){
 		$(".mtit[sid=4] span").html('5 Productos más Vendidos')
 	});
 
-	$(".fo4").change(function(){
-		let acc = 4;
-		if($("#list").is(":checked"))
-			acc = 5
-		makeChart('','',344,acc+',0,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'","'+$("#_extra").val()+'"','productos','','','');
-	})
+	$("#r_all").click(function(){
+		actualizar();
+	});
 
 	makeChart('San Ramón','',344,'1,1,"","",""','c0','#ff6384','line')
 	makeChart('Grecia 1','',344,'1,2,"","",""','c1','#36a2eb','line')
@@ -39,11 +38,48 @@ $(function(){
 	makeChart('','',344,'2,0,"","",""','c4',['#ff6384','#36a2eb','#cc60fe','#ffce56'],'pie','tot')
 
 	makeChart('','',344,'3,0,"","",""','efectivo','','','tefectivo');
+	makeChart('','',344,'6,0,"","",""','bancos','','','tbancos');
 	makeChart('','',344,'4,0,"","",""','productos','','','');
 
 	/*setInterval(function() {
    		
  	}, 10000);*/
+});
+
+$(document).on("change",".fo4",function(){
+
+	clearTimeout(delaysTimer);
+    var elem = $(this);
+    delaysTimer = setTimeout(function() {
+		let acc = 4;
+		if($("#list").is(":checked"))
+			acc = 5
+		makeChart('','',344,acc+',0,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'","'+$("#_extra").val()+'"','productos','','','');
+	},700)
+});
+
+$(document).on("change",".fo1",function(){
+
+	clearTimeout(delaysTimer);
+    var elem = $(this);
+    delaysTimer = setTimeout(function() { 
+    	updateChart("c0",'',344,'1,1,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'",""',undefined)
+		updateChart("c1",'',344,'1,2,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'",""',undefined)
+		updateChart("c2",'',344,'1,3,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'",""',undefined)
+		updateChart("c3",'',344,'1,5,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'",""',undefined)
+		updateChart("c4",'',344,'2,0,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'",""','tot')
+    },700)
+
+});
+
+$(document).on("change",".fo2",function(){
+
+	clearTimeout(delaysTimer);
+    var elem = $(this);
+    delaysTimer = setTimeout(function() { 
+    	makeChart('','',344,'2,0,"'+$("#_desde").val()+'","'+$("#_hasta").val()+'",""','c4',['#ff6384','#36a2eb','#cc60fe','#ffce56'],'pie','tot')
+    },700)
+
 });
 
 
@@ -97,10 +133,25 @@ $(document).on("click",".s-bmi",function(){
 	        var titulo = cuerpo = '';
 	        $(".subbmi").addClass('hide');
 	        
+	        $("#_desde").removeClass (function (index, className) {
+			    return (className.match (/(^|\s)fo\S+/g) || []).join(' ');
+			});
+
+			$("#_hasta").removeClass (function (index, className) {
+			    return (className.match (/(^|\s)fo\S+/g) || []).join(' ');
+			});
+
 	        switch(code){
+	        	case 1:
+	        		titulo = 'Ventas x Hora';
+	        		$("#_desde").addClass('fo1');
+	        		$("#_hasta").addClass('fo1');
+	        		break;
 	        	case 4:
 	        		titulo = 'Productos';
 	        		$("#opts4").removeClass('hide');
+	        		$("#_desde").addClass('fo4');
+	        		$("#_hasta").addClass('fo4');
 	        		break;
 	        	default:
 	        		break;
@@ -108,6 +159,7 @@ $(document).on("click",".s-bmi",function(){
 
 	        $(".ntitc").html('<b>'+titulo+'</b>');
 	        
+	        $("#_desde").focus()
 	        Materialize.updateTextFields();
 	    }
 	});
@@ -140,14 +192,15 @@ function fillProd(val){
 }
 
 function actualizar(){
-	updateChart("c0",'',344,'1,1,"",""')
-	updateChart("c1",'',344,'1,2,"",""')
-	updateChart("c2",'',344,'1,3,"",""')
-	updateChart("c3",'',344,'1,5,"",""')
-	updateChart("c4",'',344,'2,0,"",""')
+	updateChart("c0",'',344,'1,1,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""',undefined)
+	updateChart("c1",'',344,'1,2,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""',undefined)
+	updateChart("c2",'',344,'1,3,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""',undefined)
+	updateChart("c3",'',344,'1,5,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""',undefined)
+	updateChart("c4",'',344,'2,0,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""','tot')
 
-	makeChart('','',344,'3,0,"",""','efectivo','','','tefectivo');
-	makeChart('','',344,'4,0,"",""','productos','','','');
+	makeChart('','',344,'3,0,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""','efectivo','','','tefectivo');
+	makeChart('','',344,'6,0,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""','bancos','','','tbancos');
+	makeChart('','',344,'4,0,"'+$("#vdesde0").val()+'","'+$("#vhasta0").val()+'",""','productos','','','');
 }
 
 function makeChart(vtit,vsel,vtbl,vwhr,velem,vcolor,vtipo,vsum){
@@ -155,14 +208,9 @@ function makeChart(vtit,vsel,vtbl,vwhr,velem,vcolor,vtipo,vsum){
 	mantenimiento_async('login',4,{sel:vsel,tbl:vtbl,where:vwhr },1,0,{tit:vtit,elem:velem,tipo:vtipo,color:vcolor,sum:vsum})	
 }
 
-function updateChart(chart,sel,tbl,whr){
-	var vdata = getDatos(sel,tbl,whr);
-	vdata = getOrder(vdata[0]);
-
-	chart = Chart.instances[$("#"+chart).attr('cid')]
-	chart.data.labels = vdata[0]
-	chart.data.datasets[0].data = vdata[1]
-	chart.update();
+function updateChart(chart,vsel,vtbl,vwhr,vsum){
+	$("#"+chart).html('<i class="mdi mdi-refresh mdi-48px mdi-spin center"></i>')
+	mantenimiento_async('login',4,{sel:vsel,tbl:vtbl,where:vwhr },1,0,{elem:chart,update:1,sum:vsum})
 }
 
 function getOrder(arr){
@@ -184,15 +232,32 @@ function getOrder(arr){
 }
 
 function postExcecute(vid,p,more){
+	var vdata;
 
 	if(p.succed){
 		var elem = more['elem'];
 		var vtipo = more['tipo'];
 
+		if(more['update'] != undefined){
+			
+			vdata = p;
+			vdata = getOrder(vdata[0]);
+			var chart = Chart.instances[$("#"+elem).attr('cid')]
+			chart.data.labels = vdata[0]
+			chart.data.datasets[0].data = vdata[1]
+			chart.update();
+
+			if(more['sum'] != undefined){
+				$("#"+more['sum']).html('CRC '+vdata['sum'].formatMoney(0,'.',','))
+			}
+
+			return false;
+		}
+
 		if(more['tipo'] != ''){
 			var tit = more['tit'];
 
-			var vdata = p;
+			vdata = p;
 			vdata = getOrder(vdata[0]);
 			var ctx = document.getElementById(elem).getContext('2d');
 			var myChart = new Chart(ctx, {
@@ -209,19 +274,30 @@ function postExcecute(vid,p,more){
 			        scales: {
 			            yAxes: [{
 			                ticks: {
-			                    beginAtZero: true
+			                    beginAtZero: true,
+			                    callback: function(label, index, labels) {
+			                        return Intl.NumberFormat().format(label);
+			                    }
 			                }
 			            }]
 			        }
-			        /*,
+			        ,
 			        tooltips: {
 				      callbacks: {
-				          label: function(tooltipItem, data) {
-				          	console.log(tooltipItem)
-		                    return parseInt(data.datasets[0]).formatMoney(0,'.',',');
-				          }
+				          label: function(tooltipItem, data,) {
+				          	var sl;
+
+				          	if(vtipo == 'pie'){
+				          		var index = tooltipItem.index;
+
+				          		sl =  data.labels[index]+': '+parseInt(data.datasets[0].data[index]).formatMoney(0,'.',',');
+				          	}else
+				          		sl = tooltipItem.yLabel.formatMoney(0,'.',',')
+
+			                return sl;
+			            }	
 				      }
-				  }*/
+				  }
 			    }
 			});
 

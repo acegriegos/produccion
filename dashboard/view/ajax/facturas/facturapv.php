@@ -363,7 +363,7 @@ echo '<tr>
 if ($pvuelto > 0 && $vuelto >= 0) {
   echo '<table width="100%">
   <tr>
-    <td align="center">Paga con: '.number_format($pvuelto,2,'.',',').'</td>
+    <td align="center">Paga con: '.$pvuelto.'</td>
   </tr>
   <tr>
     <td align="center">Vuelto: '.$vuelto.'</td>

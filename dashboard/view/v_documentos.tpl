@@ -83,6 +83,7 @@
             </div>
 
             <div class="col s3 m5 row">
+                <a id="rcorreo" class="btn btn-default tooltipped col s12 m3" data-position="bottom" data-tooltip="Leer Correo" style="margin-left: 5px">Leer Correo</a>
                 <a href="#modal-irobot" class="btn btn1 tooltipped col s12 m3" data-position="bottom" data-tooltip="Recepciones Automáticas" style="margin-left: 5px">Ver XML</a>
                 <a href="#modal-getxml" class="btn btn2 tooltipped hide-on-small" data-position="bottom" data-tooltip="Recepciones Manuales" style="margin-left: 5px">Subir XML</a>
                 <a id="actAuto" class="btn btn3 tooltipped hide-on-small hide" data-position="bottom" data-tooltip="Actualizar Estados" style="margin-bottom: 5px;margin-right: 5px">Actualizar Estados</a>

@@ -1,5 +1,6 @@
 var config;
 var guser = '@@usr';
+var arreglo = {0:[],1:[]};
 
 $(function(){
 	 config = getDatos('',42,'@@impresa',0,0)[0][0];
@@ -21,6 +22,21 @@ $(function(){
 	});
 	loadmybussiness();
 	permisos(7301,7302);
+
+	$(".mnd").each(function(){
+		var tmoneda = $(this).attr('id').substr(1);
+
+		arreglo[0][tmoneda] = 0;
+		arreglo[1][tmoneda] = 0;
+	});
+
+	$("[name=tcaja]").change(function(){
+
+		$.each(arreglo[$(this).attr('tp')],function(i,v){
+			$("#m"+i).val(v)
+		})
+	})
+	
 
 	$("#mn-fecha").change(function(){
 		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") and idfactura = facturas.id and idtipo = 5 ),0) as nc, ifnull(sum(if(idtipo = 2,(select valor from estadoscuentas where idfactura = facturas.id and idtipo = 5 and date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") ),0)),0) as nc_cre,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(3,7) ),0) as abonos,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(5) ),0) as rnc',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
@@ -248,7 +264,7 @@ $(function(){
 		$("#lista-cierres").html(str);
 	});
 
-	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
+	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0,vtots:0});
 
 	if (parseInt(config[11]) == 3){
         
@@ -294,6 +310,10 @@ $(document).on("click",".filacierre",function(){
 	window.open('cierres?accion=1&id='+id);
 });
 
+$(document).on("focus",".mnd",function(e){
+	$(this).select()
+});
+
 $(document).on("keyup",".mnd",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 13){
@@ -303,8 +323,18 @@ $(document).on("keyup",".mnd",function(e){
 
 $(document).on("blur",".mnd",function(){
 	var mn = $(this).attr('moneda');
-	var total = totalizar(mn);
-	$("#tc"+mn+' .tcaja').text(total.formatMoney(2,'.',','));
+
+	if($("#tcaja1").is(':checked')){
+		var total = totalizar(mn,'vtotal');
+		$("#tc"+mn+' .tcaja').text(total.formatMoney(2,'.',','));
+		arreglo[0][$(this).attr('id').substr(1)] = $(this).val();
+	}
+	else{
+		var total = totalizar(mn,'vtots');
+		console.log(total)
+		$("#stc"+mn+' .tcaja').text(total.formatMoney(2,'.',','));
+		arreglo[1][$(this).attr('id').substr(1)] = $(this).val();
+	}
 });
 
 $(document).on("click","#totalizar",function(){
@@ -534,13 +564,13 @@ function totalizar_mn(){
 	$("#mn-depositod").val((tdeposito-depositon).formatMoney(2,'.',','))
 }
 
-function totalizar(moneda) {
+function totalizar(moneda,spec) {
 	
 	var total = 0;
 	$(".mnd[moneda="+moneda+"]").filter(function(){return parseFloat(this.value) > 0}).each(function(){
 		total += parseFloat($(this).val())*parseFloat($(this).attr('vl'))
 	})
-	$(".zelda").data('triforce')['vtotal'] = total;
+	$(".zelda").data('triforce')[spec] = total;
 	return total;
 }
 

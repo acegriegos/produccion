@@ -150,7 +150,10 @@
                     $obj->acc = 5;
                   }
                 }
-
+                break;
+            case 97:
+                $val = 0;
+                $obj->bdy->id = $obj->acc == 1 ? 'null' : $obj->bdy->id;
                 break;
               default:
                 $val = 0;

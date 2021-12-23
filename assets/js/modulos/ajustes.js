@@ -35,11 +35,8 @@ $(document).on("click",".menu3",function(){
 		case 1:
 			var p = mantenimiento('ajustes',1,'');
 			$("#majustes").html(p);
-			var arr = {};
-			arr['sel'] = '';
-			arr['tbl'] = 50;
-			arr['where'] = '@@impresa';
-			var e = mantenimiento('login',4,arr)[0][0];
+		
+			var e = getDatos('',50,'@@impresa')[0][0];
 			$("#vid").val(e[9]);
 			$("#vnombre").val(e[0]);
 			$("#vcedula").val(e[1]);
@@ -54,8 +51,6 @@ $(document).on("click",".menu3",function(){
 			$("#vcorreo").val(e[4]);
 			$("#vtelefono").val(e[5]);
 			$("#vdireccion").val(e[6]);
-			$("#vfechainicio").val(e[7]);
-			$("#vfechafinal").val(e[8]);
 
 			if (e[20] == '')
 				$(".fe").addClass('hide');
@@ -69,6 +64,7 @@ $(document).on("click",".menu3",function(){
 			$("#vmsj2").val(e[25]);
 			$("#vcorreoconta").val(e[26]);
 			$("#vdiaconta").val(e[27]);
+			$("#vdenymargen").val(e[7]);
 
 			$("#vpv").prop('checked',parseInt(e[28]) ? true : false);
 			$("#vprintsale").prop('checked',parseInt(e[18]) ? true : false);
@@ -204,7 +200,10 @@ $(document).on("click",".menu3",function(){
 
 				//SAN AJUSTES
 
-				actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked"),'idsucursal=@@impresa');
+				var dmargen = $("#vdenymargen").val();
+				dmargen = isNaN(dmargen) ? 0 : dmargen;
+
+				actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked")+',deny_margen='+dmargen,'idsucursal=@@impresa');
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 

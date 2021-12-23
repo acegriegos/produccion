@@ -350,7 +350,7 @@
 
                 $("#db").click(function(){
                     $("#consoleText").html('')
-                    $("#consoleText").append('Actualizando Base de Datos<br>Cargando Ultima Version....<span id="lver">##</span><br>Version Actual....<span id="aver">##</span><br>');
+                    $("#consoleText").append('Actualizando Base de Datos<br>Version Actual....<span id="aver">##</span><br>Cargando Ultima Version....<span id="lver">##</span><br>');
                     var _aver = getDatos('valor',15,'descr="versionbase"')[0][0][0];
 
                     $.post('https://fe.logintechcr.com/pruebas/wsdlApsy.php',{cmd:11,acc:1,aver:_aver})

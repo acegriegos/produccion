@@ -1,7 +1,6 @@
 td{
-	padding: 0px;
+  padding: 0px;
 }
-
 
 .mtbl tbody {
   display: block;
@@ -16,11 +15,11 @@ td{
 }
 
 thead{
-	text-align: center;
+  text-align: center;
 }
 
 .mdiv .card{
-	height: 250px !important;
+  height: 295px !important;
 }
 
 .mtit{

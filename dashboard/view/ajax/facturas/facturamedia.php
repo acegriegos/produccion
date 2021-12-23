@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.21">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.21">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.3.0.21">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.20">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.20">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.3.0.20">
 
 <style type="text/css">
   html{
@@ -18,7 +18,7 @@
 <body class="grey darken-4 pequeño" style="font-size: 1.1em;">
 
   <div class="row">
-    <div class="col s12 m9 l9 fac">
+    <div class="col s12 m9 l9 fac" id="primero">
 
       <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
@@ -32,8 +32,8 @@
               $ldos = isset($nom[1]) ? substr($nom[1], 0,1) : substr($nom[0], 1,1);
               echo strtoupper($luno.$ldos);
             }?>
-            
           </div>
+
           <div class="col s4 center">
             <bR>
               <?php
@@ -61,14 +61,15 @@
           <div class="col s4 center" style="padding: 0px;">
             <?php if ($transaccion[0][32] != '') { ?>
               <b><bR><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
-            <?php } ?>
-            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> de <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+            <?php } else echo "<br>"; ?>
+            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe" style="color: red;"> <?php echo $datos[0]; ?> </span>
             <p style="margin-bottom: 0px"><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </span></p>
             <p style="margin: 0px"><b>Hora:</b>
                   <span><?php echo $datos[37]; ?> </span></p>
           </div>
+
         </div>
 
         <div class="row" style="padding: 0px">
@@ -338,8 +339,8 @@
           <div class="col s4 center" style="padding: 0px;">
             <?php if ($transaccion[0][32] != '') { ?>
               <b><br><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
-            <?php } ?>
-            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> de <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+            <?php }else echo '<br>' ?>
+            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe" style="color: red;"> <?php echo $datos[0]; ?> </span>
             <p style="margin-bottom: 0px"><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </span></p>
@@ -538,8 +539,9 @@
           </div>
 
      </div>
+   </div>
 
-     <div class="row salto" id="segundo" style="display: none">
+     <div class="row salto" id="tercero" style="display: none">
     <div class="col s12 m9 l9">
 
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
@@ -583,8 +585,8 @@
           <div class="col s4 center" style="padding: 0px;">
             <?php if ($transaccion[0][32] != '') { ?>
               <b><br><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
-            <?php } ?>
-            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> de <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+            <?php } else echo "<br>"; ?>
+            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe" style="color: red;"> <?php echo $datos[0]; ?> </span>
             <p style="margin-bottom: 0px"><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </span></p>
@@ -791,10 +793,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.3.0.21"></script>
-     <script src="../assets/js/materialize.min.js?v=10.3.0.21"></script>
-     <script src="../assets/js/asgard.js?v=10.3.0.21"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.3.0.21"></script>
+     <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
+     <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
+     <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.3.0.20"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

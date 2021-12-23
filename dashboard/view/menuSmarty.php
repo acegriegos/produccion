@@ -18,9 +18,14 @@
   </nav>
 </div>
 
+<div class="fixed-action-btn horizontal hide">
+  <a class="btn-floating btn-large red sse_cnt tooltipped button-collapse" id="bsse1" data-tooltip="Notificaciones" data-position="top" data-activates="gnotificaciones">
+  </a>
+</div>
+
 <a href="#" data-activates="slide" class="hide-on-med-and-down button-collapses z-depth-5 menu-btn" id="cpu" xyz="{$smarty.session.BUSS}">
-  <span class="new badge sse_cnt hide" id="bsse1" data-badge-caption="" style="top: -15%;margin-left: 0px; z-index: 5000"></span>
-  <br class="sse_cnt hide"><p class="white-text menu-txt">MENU</p></a>
+
+  <p class="white-text menu-txt">MENU</p></a>
   <a href="#" data-activates="detfacturag" class="button-collapses hide" id="btndetfact">DetalleFacturas</a>
 <!-- hide-on-med-and-down  -->
 
@@ -84,6 +89,7 @@
     <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
     <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 {php} break; case 3: {/php}
+  <li class="per14 hide"><a href="bmi"><i class="mdi mdi-chart-bubble right gtext" aria-hidden="true"; style="font-size: 2em !important "></i><span style="font-size: 1.2em !important">Administración</span></a></li>
   <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
   <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
   <li class="gtext">
@@ -469,6 +475,27 @@
   <iframe src="" id="extra-i" style="width: 100%;height: 100vh;" class="hide"></iframe>
 </ul>
 
+<ul id="gnotificaciones" class="side-nav side-nav-flujo" style="z-index: 2500 !important;">
+  <div class="card-header blue white-text center">
+    <i class="mdi mdi-keyboard-backspace _ret" target="shflujo"></i>  <h5 style="margin: 0px;">Notificaciones</h5>
+  </div>
+
+  <div class="row" style="margin: 0px;margin-top: 2%;">
+    <div class="col s4 input-field">
+      <label for="gndesde" class="active">Desde</label>
+      <input type="date" id="gndesde" class="browser-default gnchange" style="border: 0;outline: none;">
+    </div>
+
+    <div class="col s4 input-field">
+      <label for="gnhasta" class="active">Hasta</label>
+      <input type="date" id="gnhasta" class="browser-default gnchange" style="border: 0;outline:none;">
+    </div>
+  </div>
+
+  <div class="row" style="margin: 0px;margin-top: 2%;" id="listanotificaciones">
+  </div>
+</ul>
+
 <div id="modal-usuario" class="modal modal-fixed-footer mymodal">
   <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
     <h4 class="center">Autenticar Usuario</h4>
@@ -482,5 +509,20 @@
   <div class="modal-footer">
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
     <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  </div>
+</div>
+
+<div id="modal-display-not" class="modal modal-fixed-footer mymodal">
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
+    <h4 class="center">Autenticar Usuario</h4>
+   
+    <div class="input-field col s6 edescu container" style="width: 50%">
+        <input type="password" id="ecousera" autocomplete="new-password" maxlength="64" autosave="off">
+        <label for="ecousera">Código</label>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat modal-close">Salir</a>
   </div>
 </div>

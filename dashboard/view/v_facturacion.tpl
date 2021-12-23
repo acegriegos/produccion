@@ -109,6 +109,7 @@
       <div class="col s6 input-field">
         <select id="vtipodoc" class="validate tooltiped" type="select">
           <option value="0">Tipo de Documento</option>
+          <option value="-1">Disminución por Ley</option>
           {section name=LE loop=$EXOS}
           <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] neq 3 and $EXOS[LE][0] neq 1}disabled{/if}>{$EXOS[LE][1]}</option>
           {/section}

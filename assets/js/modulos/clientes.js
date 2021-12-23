@@ -89,7 +89,7 @@ $(function(){
 
 	$("#vnumdoc").keyup(function(e){
 		var code = e.wich || e.keyCode;
-		if(code == 13){
+		if(code == 13 && $("#vtipodoc").val() != '-1'){
 			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
         	.done(function(data){
         		var p = JSON.parse(data);
@@ -121,7 +121,7 @@ $(function(){
 	});
 
 	$("#vtipodoc").change(function(){
-		if(parseInt($(this).val()) == 3 || parseInt($(this).val()) == 1){
+		if(parseInt($(this).val()) == 3 || parseInt($(this).val()) == 1 || parseInt($(this).val()) == -1){
 			$("#ventidad").val('').prop('readonly',false)
 			$("#vfechaDoc").val('').prop('readonly',false)
 			$("#vtimeDoc").val('').prop('readonly',false)

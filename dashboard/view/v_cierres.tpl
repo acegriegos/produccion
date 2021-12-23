@@ -172,18 +172,27 @@
               <input type="hidden" id="stot" value="0">
               {section name=LE loop=$TMON}
               <div class="input-field col s4 m4 l4">
-                <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
+                <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="0" placeholder="0" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
                 <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
               </div>
               {/section}  
             </div>
             
             <div class="col s4" style="text-align: right;">
-              <h3>Dinero en Caja</h3>
+              <h3>  <input type="radio" name="tcaja" id="tcaja1" checked tp="0"> <label for="tcaja1" class="cspecial hidex" style="float: left;"></label> Dinero en Caja</h3>
               <hr>
               {section name=LE loop=$MON}
                 <span class="gmoneda" id="tc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
               {/section}
+
+              <section id="cspecial" class="hidex cspecial">
+                <h3> <input type="radio" name="tcaja" id="tcaja2" tp="1"> <label for="tcaja2" class="cspecial hidex" style="float: left;"></label> Caja Especial</h3>
+                <hr>
+                {section name=LE loop=$MON}
+                  <span class="gmoneda" id="stc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
+                {/section}
+              </section>
+
                 <div class="col s4 input-field hide">
                   <input type="text" id="vcuentacierre" autocomplete="off">
                   <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>

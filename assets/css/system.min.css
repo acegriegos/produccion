@@ -13,6 +13,22 @@ div > .modal {
   margin-top: 0 !important;
 }
 
+._wperm{
+  border: 1px dashed blue;
+}
+
+._wperm .totp{
+  display: none;
+}
+
+._wperm .not_stat{
+  display: all;
+}
+
+.ciclos .not_stat{
+  display: none;
+}
+
 .grandemodal {
   width: 70%;
   min-height: 90%;
