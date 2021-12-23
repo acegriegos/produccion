@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.21">
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.21">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.3.0.21"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.3.0.21">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.22">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.22">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.3.0.22"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.3.0.22">
 
 </head>
 <body>
@@ -24,7 +24,7 @@
         <input type="hidden" name="vdir" value="" id="vdir"> 
 
         <div class="login__check" align="center">
-          <img id="img" src="../assets/img/login/2.png?v=10.3.0.21" style="width: 80%">
+          <img id="img" src="../assets/img/login/2.png?v=10.3.0.22" style="width: 80%">
         </div>
         <div class="login__form" style="padding-top: 0;">
           <div class="input-field" style="margin-top: 0;">
@@ -235,11 +235,11 @@ Fecha de entrada en vigor: 28 de Junio de 2016.
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.3.0.21"></script>
-<script src="../assets/js/materialize.min.js?v=10.3.0.21"></script>
-<script src="../assets/js/asgard.js?v=10.3.0.21"></script>
-<script src="../assets/js/modulos/login.js?v=10.3.0.21"></script>
+<script src="../assets/js/jquery.js?v=10.3.0.22"></script>
+<script src="../assets/js/materialize.min.js?v=10.3.0.22"></script>
+<script src="../assets/js/asgard.js?v=10.3.0.22"></script>
+<script src="../assets/js/modulos/login.js?v=10.3.0.22"></script>
 <!-- https://texttospeech.responsivevoice.org/v1/text:synthesize
-<script src="../assets/js/responsivevoice.js?v=10.3.0.21"></script> -->
+<script src="../assets/js/responsivevoice.js?v=10.3.0.22"></script> -->
 </body>
 </html>

@@ -8,12 +8,12 @@
 
     <title>Integracion</title>
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.0.0.67">
-    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.0.0.67">
-    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.0.0.67">
-    <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.0.0.67">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.css?v=10.0.0.67">
-    <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.0.0.67">
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/fonts/materialdesignicons/materialdesignicons.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.3.0.22">
 </head>
 <body style="margin-left: 3%; margin-right: 3%">
 
@@ -84,13 +84,13 @@
             <br><br>
         </div>
 
-    <script src="assets/js/jquery.js?v=10.0.0.67"></script>
-    <script src="assets/js/materialize.min.js?v=10.0.0.67"></script>
-    <script src="assets/js/asgard.js?v=10.0.0.67"></script>
-    <script src="assets/js/main.js?v=10.0.0.67"></script>
-    <script src="assets/libs/charts/chart.js?v=10.0.0.67"></script>
-    <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.0.0.67"></script>
-    <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.0.0.67"></script>
+    <script src="assets/js/jquery.js?v=10.3.0.22"></script>
+    <script src="assets/js/materialize.min.js?v=10.3.0.22"></script>
+    <script src="assets/js/asgard.js?v=10.3.0.22"></script>
+    <script src="assets/js/main.js?v=10.3.0.22"></script>
+    <script src="assets/libs/charts/chart.js?v=10.3.0.22"></script>
+    <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.3.0.22"></script>
+    <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.3.0.22"></script>
 
     <script type="text/javascript">
         $(function(){

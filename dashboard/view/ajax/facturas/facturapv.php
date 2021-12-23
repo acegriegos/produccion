@@ -4,8 +4,8 @@
 <head>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <title>Factura</title>  
-  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.21"> -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.21">
+  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.22"> -->
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.22">
 <style>
   *{font-size: 1em}
   
@@ -385,9 +385,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.21"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.21"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.21"></script>
+ <script src="../assets/js/jquery.js?v=10.3.0.22"></script>
+ <script src="../assets/js/materialize.min.js?v=10.3.0.22"></script>
+ <script src="../assets/js/asgard.js?v=10.3.0.22"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
