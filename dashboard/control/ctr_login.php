@@ -108,10 +108,10 @@
         $log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
         $transaccion = $log->autenticar();
 
-        if(isset($transaccion[0][7])){
-          if ($transaccion[0][7] == 1)
+        //if(isset($transaccion[0][7])){
+          //if ($transaccion[0][7] == 1 && $transaccion[0][11])
            $transaccion['tp'] = cambioDia($log,$transaccion);
-        }
+        //}
         break;
       case 4:
         $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
@@ -215,7 +215,7 @@
         break;
       case 12: //IMPRESION EXTERNA FIJA
         $pagina = 1;
-        error_reporting(E_ALL);
+        /*error_reporting(E_ALL);
 
         $pagina = 1;
         error_reporting(E_ALL);
@@ -228,7 +228,15 @@
         $lpr->setPort($_REQUEST['arreglo']['port']);
         $lpr->setData(htmlspecialchars($_REQUEST['arreglo']['data']));//utf8_encode()
 
-        $lpr->printJob($_REQUEST['arreglo']['cola']);
+        $lpr->printJob($_REQUEST['arreglo']['cola']);*/
+        $random = date('YmdHis');
+        $archivo = 'C:\\logintech\\'.$random.'.txt';
+        file_put_contents($archivo, $_REQUEST['arreglo']['data']);
+
+        //print_r(exec('COPY /B '.$archivo.' \\\\'.$_REQUEST['arreglo']['ip'].'\\'.$_REQUEST['arreglo']['cola']));
+
+        touch($archivo);
+
         break;
       case 13: //FORKING
         $pagina = 1;
@@ -295,6 +303,29 @@
             break;
         } 
         break;
+      case 19:
+        $pagina = 1;
+        ob_end_clean();
+        ignore_user_abort();
+        ob_start();
+        header("Connection: close");
+        echo json_encode('LOAD FUNCIONES...');
+        header("Content-Length: " . ob_get_length());
+        ob_end_flush();
+        flush();
+        echo "inicio<br>";
+
+        $log->kamehameha('',146,$_REQUEST['empresa']);
+
+        $datos_correo_conta = $log->kamehameha('if(dia_rep_cont = date_format(curdate(),"%d"),1,0),correoconta',40,'idsucursal='.$_REQUEST['empresa'])[0];
+
+        correocontador($datos_correo_conta[0],$_REQUEST['nombre'],$datos_correo_conta[1],$log);
+
+        validarNube($log,$_REQUEST['empresa']);
+
+        indicadores($log);
+
+        break;
       default:
         break;
 
@@ -343,55 +374,85 @@
    }
 
     function cambioDia($log,&$transaccion)
-     {  
-        $salida = '';
-        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $actual_link = str_replace('ctr_login.php','/dashboard/login', $actual_link);
-
-        $curl = curl_init($actual_link);
-        curl_setopt($curl, CURLOPT_HEADER, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_HEADER,'Content-Type: application/x-www-form-urlencoded');
-
-        $params = array(
-          "accion" => 17
-        );
-
-        $postData = "";
-
-        foreach($params as $k => $v)
-        {
-           $postData .= $k . '='.urlencode($v).'&';
-        }
-
-        $postData = rtrim($postData, '&');
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-
-        $json_response = curl_exec($curl);
-        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-        curl_close($curl);
-
-        $log->kamehameha('',146,$transaccion[0][5]);
-
-        /*$tserv = $log->kamehameha('valor',15,'descr = "24/7"')[0][0];
-        $sysmod = $log->kamehameha('sysmod,cedula,isprueba,idsucursal,idtipocliente',39,'id='.$transaccion[0][5])[0];
-        if($tserv == 0 && !$sysmod[2]){
-          if($sysmod[0] == ''){
-            $transaccion = [0=>'CLIENTE NO REGISTRADO',1=>99,2=>$transaccion[0][5]];
-          }else{
-            $rsvr = (array) json_decode(verificar($log,$sysmod[1],$sysmod[0],$sysmod[3],$sysmod[4]));
-            $transaccion = $rsvr;
-            if($rsvr['error']){
-              $transaccion = [0=>$rsvr['msj'],1=>99,2=>$transaccion[0][5]];
-            }
-          }
-        }*/
+     { 
+        #PASAR LA LECTURA DEL SERVIDOR DIARIA A CASE 19
+        $log->getCURL($actual_link,['accion'=>19,'empresa'=>$transaccion[0][5],'nombre'=>$transaccion[0][4]]);
 
         return $salida;
      } 
+
+
+     function validarNube($log,$suc){
+      $cliente = $log->kamehameha('',50,$suc)[0];
+
+        $cliente = [
+          'nombre'    => $cliente[0],
+          'cedula'    => $cliente[1],
+          'fantasia'    => $cliente[2],
+          'tp'      => $cliente[10],
+          'correo'    => $cliente[4],
+          'tel'     => $cliente[5],
+          'servicio'    => 1,
+          'fcorte'    => date('Y-m-28'),
+          'valor'     => 15000,
+          'prueba'    => $cliente[19],
+          'simplificado'  => $cliente[16]
+        ];
+        
+        $cliente = json_encode($cliente);
+        $rs = (array) json_decode($log->getCURL('https://sistema.apsycr.com/api.php',['cmd'=>1,'cliente'=>base64_encode($cliente)])['rs']);
+
+        if(isset($rs['akey']))
+          $log->genkidama(2,39,'sysmod="'.$rs['akey'].'"','id=0');
+     }
+
+     function correocontador($_dia,$sname,$crr,$log){        
+        if($_dia){
+
+          $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+          $actual_link = str_replace('ctr_login.php','/dashboard/login', $actual_link);
+
+          $monthStart = (new DateTime("first day of last month"))->format('Y-m-d');
+          $monthEnd = (new DateTime("last day of last month"));
+          $monthName = $monthEnd->format('m-Y');
+          $narchivo = 'VENTAS DEL MES '.$monthName.' '.$sname;
+          $carchivo = 'COMPRAS DEL MES '.$monthName.' '.$sname;
+
+          $params = array(
+            "accion" => 11,
+            "arreglo[sel]" => '',
+            "arreglo[tbl]" => 167,
+            "arreglo[where]" => '0,"1,7,10",@@impresa,"0","0","1","'.$monthStart.'","'.$monthEnd->format('Y-m-d').'","0","0","","0"',
+            'arreglo[vista]' => '0,1,2,3,4,5,8,10,13,14,15,16,17,18,19,20,21,22,23,12,24,25,26,27,28,29,30,31,32,33,34,35,40,36',
+            'arreglo[conteo]' => 1,
+            'arreglo[suma]' => ',8,10,13,14,15,16,17,18,19,20,21,22,23,12,24,25,26,27,28,29,30,31,32,33,34,35,40,36,',
+            'arreglo[tit]' => 'VENTAS DEL MES '.$monthName,
+            'arreglo[archivo]' => $narchivo,
+            'arreglo[save]' => 1,
+            'arreglo[empresaid]' => 0
+          );
+
+          $log->getCURL($actual_link,$params);
+
+          $params['arreglo[where]'] = '0,"2,9",@@impresa,"0","0",2,"2022-01-01","2022-03-01","0","0","0","undefined"';
+          $params['arreglo[archivo]'] = $carchivo;
+          $params['arreglo[tit]'] = 'COMPRAS DEL MES '.$monthName;
+
+          $log->getCURL($actual_link,$params);
+
+          //ENVIAR POR CORREO
+          require_once '../_config/correo.php';
+          $_SESSION['IMPRESA'] = $_REQUEST['empresa'];
+          $_SESSION['EMPRESA'] = $_REQUEST['nombre'];
+          $_SESSION['BUSS']    = 0;
+          $_SESSION['CRR']     = '';
+          $_SESSION['NOM']     = '';
+          
+          $correo = new correo($crr,'ARCHIVOS DEL MES '.$monthName,"Se adjuntan los archivos correspondientes.",'../');
+          $correo->enviar_adjunto(['excel/'.$narchivo.'.xlsx','excel/'.$carchivo.'.xlsx']);
+
+        }
+     }
 
      function indicadores($log){
 

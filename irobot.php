@@ -27,8 +27,7 @@
         $check = 0;
         $cedula = '';
     }
-    
-    $hostname='{imap.gmail.com:993/debug/imap/ssl/novalidate-cert}INBOX';
+
 
     if($check){
        $arroba = strrpos($username, '@');
@@ -37,6 +36,9 @@
             $point = strrpos($p1, '.');
             $final = substr($p1, 0,$point);
             switch($final){
+                case 'gmail':
+                    $hostname='{imap.gmail.com:993/debug/imap/ssl/novalidate-cert}INBOX';
+                    break;
                 case 'hotmail':
                 case 'outlook':
                     $hostname = '{imap-mail.outlook.com:993/imap/ssl/novalidate-cert}INBOX';
@@ -45,6 +47,7 @@
                     $hostname = "{imap.mail.yahoo.com:993/imap/ssl/novalidate-cert}INBOX";
                     break;
                 default:
+                    $hostname = '{mail.'.$final.'.com:993/imap/ssl/novalidate-cert}INBOX';
                     break;
             }
         }else

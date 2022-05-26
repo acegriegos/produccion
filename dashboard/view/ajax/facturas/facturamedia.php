@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.22">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.22">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.3.0.22">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.20">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.20">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.3.0.20">
 
 <style type="text/css">
   html{
@@ -18,7 +18,7 @@
 <body class="grey darken-4 pequeño" style="font-size: 1.1em;">
 
   <div class="row">
-    <div class="col s12 m9 l9 fac" id="primero">
+    <div class="col s12 m9 l9" id="tercero" style="display: none">
 
       <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
@@ -112,7 +112,7 @@
               <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; } ?>
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
-              <b style="padding-left: 5%; color: red">ORIGINAL</b>
+              <b style="padding-left: 5%; color: red">ARCHIVO</b>
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -244,6 +244,9 @@
               case 4:
               $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
+              case 106:
+                $msj = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+                break;
               default:
               $msj = '';
               break;
@@ -519,6 +522,9 @@
               case 4:
               $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
+              case 106:
+                $msj = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+                break;
               default:
               $msj = '';
               break;
@@ -541,8 +547,8 @@
      </div>
    </div>
 
-     <div class="row salto" id="tercero" style="display: none">
-    <div class="col s12 m9 l9">
+     <div class="row salto" >
+    <div class="col s12 m9 l9 fac" id="primero">
 
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
         <div class="row" style="margin: 0px;">
@@ -634,7 +640,7 @@
               <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; ?>
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
-              <b style="padding-left: 5%; color: red">ARCHIVO</b>
+              <b style="padding-left: 5%; color: red">ORIGINAL</b>
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -772,6 +778,9 @@
               case 4:
               $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
+              case 106:
+                $msj = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+                break;
               default:
               $msj = '';
               break;
@@ -793,10 +802,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.3.0.22"></script>
-     <script src="../assets/js/materialize.min.js?v=10.3.0.22"></script>
-     <script src="../assets/js/asgard.js?v=10.3.0.22"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.3.0.22"></script>
+     <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
+     <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
+     <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.3.0.20"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

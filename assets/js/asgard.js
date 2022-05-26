@@ -45,7 +45,7 @@ $(window).keydown(function(e){
 
 $(document).on('click','.notasprod',function(){
     if($(this).attr('tbl') == '11'){
-        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select valor from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'))[0][0];
+        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select if(valor,valor,1) from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'))[0][0];
         $("._proname").html(datosprod[0])
         $("#npprec").html(datosprod[1])
         $("#npcant").html(datosprod[2])
@@ -468,6 +468,11 @@ $(document).on("blur",".buscarNom",function(e){
                 // $("#c-ap2").val(p['ap2']);
                 $("#c-nom").val(p['nom']);
                 $("#c-nom").attr('tipo',p['tip']);
+                if(p['correo']){
+                    $("#slideCorreo").data('idfila',0)
+                    $("#slideCorreo").data('fila1',{vaccion:1,vidcorreo:0,vcorreo:p['correo']})
+                }
+
             }else
                 Materialize.toast(p['error'],4000,'red');
 
@@ -851,7 +856,7 @@ function validarCorreo(valor) {
     }
 }
 
-function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
+function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla,topost=undefined) {
 
    $.ajax({
         url: '../_config/correoAjax.php',
@@ -869,7 +874,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtab
         }
         
         try{
-            postSendmail();
+            postSendmail(topost);
         }catch(e){
         } 
     })

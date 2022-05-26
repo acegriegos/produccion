@@ -298,14 +298,20 @@
               <?php } ?>
               
               <div>
-                <?php if($datos[24] != 4){ ?>
-                  <?php if ($transaccion[0][32] != '') { ?>
+                <?php if($datos[32] != ''){ ?>
+                  
+                  <?php if($datos[24] != 4) {?>
                     <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
-                    <br> 
-                  <?php }else { ?>
+                  <?php }?>
+
+                <?php } else {?>
+                  <?php if($datos[24] == 106) {?>
+                    <p class="center-align" style="font-size: 0.8em;">ESTE COMPROBANTE NO PUEDE SER UTILIZADO PARA FINES TRIBUTARIOS, POR LO CUAL NO SE PERMITIRÁ SU USO PARA RESPALDO DE CRÉDITOS O GASTOS
+                  <?php }else{ ?>
                     <p class="center-align" style="font-size: 0.8em;">REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D
                   <?php } ?>
                 <?php } ?>
+                <br> 
                 <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
               </div>
                 

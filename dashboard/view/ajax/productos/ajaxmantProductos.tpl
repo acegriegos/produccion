@@ -378,7 +378,7 @@
                           <span class="lever tooltipped " data-tooltip="Define si el Costo Actualiza el Monto de Divisa Original" data-position="button"></span>
                           Cambiar Monto de Divisa
                         </label>
-                        <input type="hidden" id="vdivisa" value="1">
+                        <input type="hidden" id="vdivisa" value="1" hv="1">
                     </div>
                 </div>
 

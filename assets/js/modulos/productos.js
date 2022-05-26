@@ -1395,7 +1395,7 @@ $(document).on("blur",".calcvv",function(){
 
 			var padre = $(this).parent().parent();
 
-			if ($("#vcosto").attr('dimension') != undefined){ //&& $(":visible",this).length
+			if ($("#vcosto").attr('dimension') != undefined && $("#vcosto").attr('dimension') != undefined && padre.attr('idf') != undefined && parseInt($("#vcosto").attr('dimension')) > 1){
 				costo = costo/parseFloat($("#vldimension1").val())
 				costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 			}
@@ -1467,6 +1467,12 @@ $(document).on("blur",".calcvv",function(){
 	Materialize.updateTextFields();
 });	
 
+$(document).on("change","#costodivisa",function(){
+	var tmp = $("#vdivisa").attr('hv')
+	$("#vdivisa").attr('hv',$("#vdivisa").val())
+	$("#vdivisa").val(tmp)
+	$("#vcosto").blur()
+});
 
 $(document).on("click","#agInvProPqts",function(){
     var prodStr = $("#descrP").val();
@@ -2084,7 +2090,7 @@ function validarproductos() {
 		}
 	}
 
-	if(!$("#vcabys").val().length && $("#vidinventario option:selected").val() == '6'){
+	if(!$("#vcabys").val().length && $("#vidinventario option:selected").val() == '6' && config[0] != '0'){
 		$("#vcabys").focus()	
 		return 'CABYS Requerido';
 	}
@@ -2338,14 +2344,15 @@ function endDetail(id, acc, modulo) {
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"idproducto=$1,97,299",0,-1');
 			}
 
-			$("#lcabys").html('')
-    		$("#scabys").val('')
-    		$("#ncabys").html('')
+    		if(acc == 1){ 
+    			var lastcodigo = getDatos('lpad(codigo+1,2,0)',11,'idsucursal = @@impresa and idmarca = '+$("#fproductos .zelda").data('triforce')['vidmarca']+' order by id desc limit 1')[0][0][0];
 
-    		var lastcodigo = getDatos('lpad(codigo+1,2,0)',11,'idsucursal = @@impresa and idmarca = '+$("#fproductos .zelda").data('triforce')['vidmarca']+' order by id desc limit 1')[0][0][0];
-
-    		$("#vcodigo").val(lastcodigo)
-    		$("[for=vcodigo").addClass('active')
+    			$("#vcodigo").val(lastcodigo)
+    			$("[for=vcodigo").addClass('active')
+    			$("#lcabys").html('')
+	    		$("#scabys").val('')
+	    		$("#ncabys").html('')
+	    	}
 
     		$("#vnombre").focus();
 

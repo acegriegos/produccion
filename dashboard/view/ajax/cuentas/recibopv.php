@@ -31,11 +31,18 @@
   }
 
   @page {
-    margin: 0;
+    size:  auto;
+    margin: 0mm; 
   }
 }
 <?php }else{ ?>
 @media print {
+
+  @page {
+    size:  auto;
+    margin: 0mm; 
+  }
+
   .print{
     display: none;
   }

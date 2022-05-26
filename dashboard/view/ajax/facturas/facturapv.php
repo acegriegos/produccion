@@ -23,11 +23,20 @@
   }
 
   @page {
-    margin: 0;
+    size:  auto;
+    margin-top: 0mm;
+    margin-bottom: 0mm; 
   }
 }
 <?php }else{ ?>
 @media print {
+
+  @page {
+    size:  auto;
+    margin-top: 0mm;
+    margin-bottom: 0mm; 
+  }
+
   .print{
     display: none;
   }
@@ -63,13 +72,14 @@
   <input type="hidden" id="config0" value="<?php echo $config[0][0]; ?>">
   <input type="hidden" id="config9" value="<?php echo $config[0][9]; ?>">
   <input type="hidden" id="d56" value="<?php echo $datos[56]; ?>">
+  <input type="hidden" id="_param" value="<?php echo $datos[24]; ?>">
 
   <section class="print" style="display: none;left:100px;position:fixed;padding: 10px;top: 15%; font-weight: 600;
     font-size: 20px;
     color: #ffffff;
     background-color: #1883ba;
     border-radius: 6px;
-    border: 2px solid #0016b0"">
+    border: 2px solid #0016b0">
             <div class="col s12 m3 l3 white-text">
               <div id="correosclie">
                <input type="hidden" id="vid" value="<?php echo $datos[27]; ?>">
@@ -393,6 +403,7 @@ echo '
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
       var d56 = parseInt($("#d56").val());
+      var _param = parseInt($("#_param").val());
       var resol = "REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
 
       $('.chips-initial').material_chip({
@@ -440,7 +451,12 @@ echo '
 
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        if(_param == 106){
+          resol = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+          $(".fe").hide()
+        }
+        else
+          resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }else
         $(".fe").hide()
 

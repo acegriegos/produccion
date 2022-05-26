@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Mapa del Sistema</title>
+	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.3.0.22">
+    <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.3.0.22">
+</head>
+<body>
+	<div class="card" style="margin-top: 0px">
+		<div class="card-header center head1" style="font-size: 20px;">Documentación Sistema SION</div>
+		<div class="card-header center" style="font-size: 20px;">
+			<a href="#" class="btn">Procesos</a>
+			<a href="#" class="btn">Modulos</a>
+			<a href="#" class="btn">Tablas</a>
+			<a href="#" class="btn">Procesos DB</a>
+			<a href="#" class="btn">Permisos</a>
+		</div>
+		<div class="card-content" id="procesos">
+			<ul id="raiz">
+			</ul>
+		</div>
+	</div>
+
+	<script src="assets/js/jquery.js?v=10.3.0.22"></script>
+    <script src="assets/js/materialize.min.js?v=10.3.0.22"></script>
+    <script src="assets/js/asgard.js?v=10.3.0.22"></script>
+    <script src="assets/js/main.js?v=10.3.0.22"></script>
+
+    <script type="text/javascript">
+    	$(function(){
+    		$("#raiz").append(desplegarLista(0));
+    	});
+
+    	$(document).on('click','.etapa',function(){
+    		if($(this).attr('size') == '0'){
+    			$(this).after(desplegarLista($(this).attr('nivel')))
+    			$(this).attr('size',1)
+    			$(this).css('color','green')
+    		}else{
+    			$(this).empty()
+    			$(this).css('color','#039be5')
+    			$(this).attr('size',0)
+    		}
+    		
+    	});
+
+    	function desplegarLista(nivel){
+    		var etapa1 = '';
+    		nivel = parseInt(nivel);
+    		var arreglo = []; //[[1,'PROCESO 1'],[2,'PROCESO 2']]
+    		
+    		var nm = Math.floor(Math.random() * 10);
+    		var rn = 0;
+    		var tit = nivel ? 'SUBPROCESO' : 'PROCESO';
+    		for (var i = 0; i < nm; i++) {
+    			rn = nivel ? nivel+'-'+(i+1) : i+1;
+    			arreglo.push([rn,tit+' '+rn])
+    		}
+
+    		var primero = "";
+    		
+    		for (var i = 0; i < arreglo.length; i++) {
+
+    			/*if(nivel && arreglo[i][0] == 1){
+    				console.log('primero')
+    			}*/
+
+    			etapa1 += '<li style="border-left: 1px solid #039be5; margin-left: '+(nivel+5)+'px"><a href="#" class="etapa" nivel="'+(nivel+1)+'" size="0" vid="'+arreglo[i][0]+'">&nbsp'+arreglo[i][1]+'</a></li>';
+    		}
+    		return etapa1;
+    	}
+    </script>
+</body>
+</html>

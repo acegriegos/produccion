@@ -5,6 +5,16 @@ $(function(){
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	$("#fclientes").submit(function(){return false});
+	$('.chips').material_chip();
+	$('.chips-autocomplete').material_chip({
+		placeholder: 'Enter a tag',
+	    secondaryPlaceholder: '+Tag',
+	    autocompleteOptions: {
+	      data: getDatos('nombre,null',354,'idtabla = 2',0,0,1),
+	      limit: Infinity,
+	      minLength: 1
+	    }
+	  });
 	loadmybussiness();
 	
 	var param = getParameterByName('is');
@@ -441,7 +451,7 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vapellido1:'',vapellido2:'',videstado:1,vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
+	$(".zelda").data('triforce',{vid:0,vapellido1:'',vapellido2:'',vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
@@ -493,12 +503,6 @@ $(document).on("blur",".onblur",function(){
 
 	if (id == 'vnombre') /*{*/
 		$("#infvnombre0").html($("#vnombre").val());
-
-	 if (id == 'vapellido1') /*{*/
-	 	$("#infvapellido0").html($("#vapellido1").val()); 
-
-	 if (id == 'vapellido2') /*{*/
-	 	$("#infvapellido1").html($("#vapellido2").val());
 
 	 if (id == 'vcedula') /*{*/
 	 	$("#infcedula1").html($("#vcedula").val());
@@ -786,6 +790,15 @@ function endDetail(vid,vacc,modulo){
 				})
 			}
 
+			var tags = $('.chips-autocomplete').material_chip('data');
+	  		var stag = '';
+
+	        for (var i = 0; i < tags.length; i++) {
+	        	stag += tags[i].tag+','; 
+	        	//GUARDAR ETIQUETAS SI NO EXISTE
+	        	//GUARDAR ETIQUETAS AL CLIENTE
+	        }
+
 			var config = getDatos('',42,'@@impresa',0,0)[0][0];
 			if(config[29] != '' && config[29] != '99'){
                 insertar(338,'','null,'+vid[0][0]+',2,'+vacc+',"idfila=$1 and idtabla=$2,17:idcorreo,238:idtelefono,239:idubicacion",0,@@impresa');
@@ -835,7 +848,25 @@ function postload(modulo) {
             	xolista += '<tr class="_xmlotros" label="'+gxmlotros[0][i][1]+'" id="'+gxmlotros[0][i][0]+'" value="'+gxmlotros[0][i][2]+'" factura="'+gxmlotros[0][i][3]+'" accion="2"> <td style="padding: 0px;">'+gxmlotros[0][i][1]+'</td> <td style="padding: 0px;">'+gxmlotros[0][i][2]+'</td> <td style="padding: 0px;"> <i class="mdi mdi-pencil xo-edit pbtn" title="Ediar XML-OTRO"></i> <i class="mdi mdi-close xo-delete pbtn" title="Eliminar XML-OTRO"></i> </td> </tr>';
             }
             $("#xo-lista").html(xolista);
+
+            //var etiquetas = ;
+            $('.chips-autocomplete').material_chip({
+		        data: getEtiquetas(),
+		    });
             
+            var servicios = getDatos('',357,'4,0,'+$("#vid").val()+',0');
+            var sislista = '';
+            for (var i = 0; i < servicios[0].length; i++){
+            	sislista += '<tr class="_servicios" id="'+servicios[0][i][0]+'" accion="2"> '+
+            		'<td style="padding: 0px;">'+servicios[0][i][1]+'</td>'+
+            		'<td style="padding: 0px;"> <i class="mdi mdi-pencil si-edit pbtn" title="Editar Servicio"></i> <i class="mdi mdi-close si-delete pbtn" title="Eliminar Servicio"></i> </td> </tr>'+
+            		'<tr><td style="padding: 0px;">'+servicios[0][i][2]+'</td>'+ 
+            		'<td style="padding: 0px;">'+servicios[0][i][3]+'</td>'+
+            		'<td style="padding: 0px;">'+servicios[0][i][4]+'</td>';
+
+            }
+            $("#servlist").html(sislista);
+
 		break;
 	}
 }
@@ -860,3 +891,17 @@ $(document).on('click','.xo-delete',function(){
 	$(this).parent().parent().addClass('hide');
 	$(this).parent().parent().attr('accion',3)
 })
+
+function getEtiquetas(){
+    var salida = "[";
+    var p=getDatos('',356,'4,0,"",2,'+$("#vid").val())[0];
+
+    for (var i = 0; i < p.length; i++) {
+        salida+='{"tag":"'+p[i][1]+'"},';
+    }
+
+    if (p.length > 0) {
+        return JSON.parse(salida.substring(0,salida.length -1)+"]");
+    }else
+        return '';
+}

@@ -243,6 +243,8 @@ if (isset($_POST['respuestaXml'])) {
                         $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,exp_p12,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://fe.logintechcr.com/wsdlServer.php')");
                         if(isset($_POST['referencia']))
                           $db->ejecutar('update usuarios set idsucursal = concat(idsucursal,",'.$rs.'") where id = '.$_POST['referencia'].' and id in(246);');
+
+                        //LEER Y GUARDAR LA INFO DE CONTRIBUYENTE
                     }else{
                         $salida['error'] = 14;
                     }
@@ -468,40 +470,7 @@ if (isset($_POST['respuestaXml'])) {
           $salida['rs'] = $rs;
 
           break;
-        case 9: //INCLUIR CLIENTE
-          if(!isset($_POST['client'])){
-            $salida = getError('Variable no Valida');
-          }else{
-            require_once '_config/mysqlDB.php';
-            $base = new DBClass();
-            $client = $_POST['client'];
-
-            $rs = $base->ejecutar('call krattos("",172,"1,0,\"\",\"\",\"'.$client['nombre'].'\",\"'.$client['cedula'].'\",'.$client['tp'].',1,0,0,0,0,8,1,\"'.$client['fantasia'].'\",0,0,\"\",0,0,@idclie,1,0,0,\"\"")');
-
-            if(isset($rs->num_rows)){
-              $rs = $rs->fetch_all()[0][0];
-
-              $correo = $base->ejecutar('call shadow(1,17,"","null,'.$rs.',2,\"'.$client['correo'].'\"")');
-              $telefono = $base->ejecutar('call shadow(1,238,"","null,3,\"'.$client['tel'].'\",2,'.$rs.',52")');
-
-              $serv = $base->ejecutar('call shadow(1,320,"idcliente,idservicio,next_fecha,fecha,monto,idtipo,tipofactura,nactualiza,nbase,variacion","'.$rs.','.$client['servicio'].',\"'.$client['fcorte'].'\",now(),'.$client['valor'].',1,1,0,0,0")');
-
-              if(!isset($serv->num_rows))
-                $salida = getError('SERVICIO-CLIENTES: '.$serv);
-              else{
-                $salida['rs'] = $base->ejecutar('call krattos("",80,"'.$rs.','.$client['servicio'].',\"'.$client['fcorte'].'\",0,\"\"")')->fetch_all()[0][0];
-              }
-            }
-            else{
-              if($client['issuc']){
-                $idcliente = $base->ejecutar('id',2,'trim(replace(cedula,"-","")) = "'.$client['cedula'].'"');
-                //$salida['rs'] = $idcliente;
-                $salida = getError($client['issuc']);
-              }
-              else
-                $salida = getError($rs);
-            }
-          }
+        case 9: //LIBERADO PASO A API.PHP
           break;
         case 10: //AUTENTICAR
           require_once '_config/mysqlDB.php';

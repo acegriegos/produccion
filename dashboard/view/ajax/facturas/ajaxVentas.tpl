@@ -97,6 +97,8 @@
       </select>
     </div>
 
+    <small id="msj_small" class="hide trVenta col s12" style="color: #621313"></small>
+
     <div class="col s12 m3 hide trCompra">
       <input type="checkbox" id="celectronica" {if $smarty.session.BUSS eq 1} checked disabled {/if}>
       <label for="celectronica">Compra Electrónica</label>
@@ -211,6 +213,11 @@
     <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
 
     <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
+    
+    {else}
+
+    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
+
     {/if}
 
     <a class="mdi mdi-xml tooltipped mdi-24px white-text der hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh" style="position: absolute;top: 0;right: 108px;"></a>
@@ -483,7 +490,7 @@
       <!-- <label for="monedas">Divisa</label> -->
 
       <section class="hide">
-        <span class="truncate"><b>Usuario:</b> <span id="username"></span></span>
+        <span class="truncate"><b>Usuario:</b> <span id="username">{$smarty.session.NOM|upper}</span></span>
       </section>
 
       <div class="input-field">
@@ -509,9 +516,13 @@
 
     <div class="col s12 m12 l12">
 
-        <div class="col s12 m12 l12 input-field">
+        <div class="col s12 input-field">
           <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="180"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
+        </div>
+        <div class="col s12 input-field hide" id="_razon">
+          <span style="text-align: left;"><b class="pbtn">Productos con Margen Inferior</b> <br> <b>Justifique Venta</b> </span>
+          <textarea id="razonventa" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="180"> </textarea>
         </div>
         <table style="margin-top: 100px">
           <tr class="hide trCompra trVenta">
@@ -864,19 +875,6 @@
 
 <div id="modal-tpagos" class="modal modal-fixed-footer grandemodal" gfort="0" align="center" style="width: 70%; height: 100vh !important;">
 
-  <!-- <div class="modal-content" style="padding: 0px"> -->
-   <!--  <hr style="border: 1px solid #F0F0F0">
-    <span>TOTAL:</span><br>
-    <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
-      <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
-    </div>
-    <br>
-    <span>SU CAMBIO ES DE:</span><br>
-    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
-  </div> -->
-
   <div class="row">
     {section name=LE loop=$TPAGO}
         <input type="radio" value="{if $TPAGO[LE][0] eq 5}5{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
@@ -890,11 +888,11 @@
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
     <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <input type="text" class="form-control form-control-sm center vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
-    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
+    <span type="text" id="pcam" class="cambio" style="font-size: 5em !important;">0.00</span>
   </div>
 
 </section>
@@ -993,7 +991,7 @@
         <label for="ntarjmixto">Número de Tarjeta</label>
       </div>
 
-      <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons">0.00</span></h3>
+      <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons" class="cambio">0.00</span></h3>
 
       <hr style="border:1px dashed #e2e2e2">
 

@@ -123,7 +123,7 @@ ul.pagination > li.active {
   height: auto;
   overflow-y: scroll; }
 
-.chip {
+.collection .chip {
   display: block !important;
   font-size: 0.8em !important; }
 

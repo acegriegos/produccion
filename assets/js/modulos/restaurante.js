@@ -307,7 +307,7 @@ $(function(){
                     var flag  = '<i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i>';
                     t_mesa += total;
 
-                    mstr = '<section strid="'+idproducto+'" iva="'+imp+'" strcol="0" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
+                    mstr = '<section strid="'+idproducto+'" iva="'+imp+'" strcol="'+detalle[0][i][12]+'" nuevo="'+cantidad+'" style="border-bottom: 1px solid #e2e2e2;" class="ciclos"><b class="lpname">'+detalle[0][i][0]+'</b><span class="der">¢<span class="tprod">'+total.formatMoney(2,'.',',')+'</span></span> <br> <input type="number" class="browser-default eder clinea" style="border: 0;width: 20%;" value="'+cantidad+'">a '+parseFloat(precio).formatMoney(2,'.',',')+'/Und <i class="mdi mdi-close pbtn der dellinea" title="Eliminar Línea"></i> <i class="mdi mdi-flag-variant pbtn der" style="color:black;"></i> <i class="der mdi mdi-calendar-text pbtn coment" title="Comentarios del Artículo"></i><br></section';
 
                     $("#fdetallefacturas").prepend(mstr);
                     

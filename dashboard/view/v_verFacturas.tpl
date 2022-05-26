@@ -74,7 +74,12 @@
             <div class="col s6 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf104" {if $TF eq 104}checked{/if}/>
                 <label for="tf104">Compra Manual</label>
-            </div>         
+            </div>  
+
+            <div class="col s6 m2">
+                <input name="tventa" class="with-gap" type="radio" id="tf106" {if $TF eq 106}checked{/if}/>
+                <label for="tf106">Factura de Contingencia</label>
+            </div>          
                 
             </div>
 

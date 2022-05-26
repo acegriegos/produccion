@@ -27,7 +27,7 @@
 
             <li class="tr trCot trManual trPedido trOCompra"><a class="center mdi mdi-24px mdi-pencil fedit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
 
-            <li class="tr"><a class="center mdi mdi-24px mdi-content-duplicate clone tooltipped" data-tooltip="Clonar" data-position="left" id="f<?php echo $obj[0] ?>"></a></li>
+            <li class="tr trVenta trSpecial trTiquete"><a class="center mdi mdi-24px mdi-content-duplicate process tooltipped" data-tooltip="Clonar" data-position="left" id="f<?php echo $obj[0] ?>"></a></li>
 
             <li class="tr trVenta trCot trOCompra trExportacion"><a class="center mdi mdi-24px mdi-send send tooltipped" data-tooltip="Enviar por Correo" data-position="left" id="d<?php echo $obj[0] ?>"></a></li>
             <!-- tr trVenta trCot trOCompra trPedido -->

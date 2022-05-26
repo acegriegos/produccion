@@ -152,9 +152,22 @@
                           <label for="vidnivel">Categoría del Cliente</label>
                         </div>
 
+                        <div class="input-field ncliente col s12 m6 l4 ">
+                          <select type="select" id="videstado">
+                            <option value="0">Seleccione un Estado</option>
+                            {section name=LE loop=$ESTCLIE}
+                            <option value="{$ESTCLIE[LE][0]}" {if $ESTCLIE[LE][0] eq 1} selected {/if}>{$ESTCLIE[LE][1]}</option>
+                            {/section}
+                          </select>
+                          <label for="videstado">Estado del Cliente</label>
+                        </div>
+
                         <div class="input-field col s12 ncliente">
                           <input type="text" id="vmensaje">
                           <label for="vmensaje">Mensaje Adicional</label>
+                        </div>
+
+                        <div class="chips chips-autocomplete col s12">
                         </div>
 
                       </div>
@@ -278,7 +291,11 @@
             <i class="mdi mdi-plus der pbtn" id="addnserv" title="Agregar Servicio" ></i> <br>
             <table cellspacing="0" cellpadding="0" class="tbl striped">
               <thead>
-                <tr style="border-bottom: 1px solid black;"><th style="padding: 0px;">Servicio</th><th style="padding: 0px;">Monto</th><th style="padding: 0px;">Sig.Pago</th><th>Tipo</th></tr>
+                <tr>
+                  <th style="padding: 0px;">Servicio</th>
+                  <th>Acciones</th>
+                </tr>
+                <tr style="border-bottom: 1px solid black;"><th style="padding: 0px;">Monto</th><th style="padding: 0px;">Sig.Pago</th><th>Tipo</th></tr>
               </thead>
               <tbody id="servlist"></tbody>
             </table>

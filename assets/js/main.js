@@ -382,7 +382,7 @@ function sse_response(vid,p) {
                 $(".sse_cnt").parent().addClass('hide');
             }
 
-            if (parseInt(p[0][0][1])) {
+            //if (parseInt(p[0][0][1])) {
                 //REFRESH TOKEN
                 
                 $.ajax({
@@ -392,7 +392,7 @@ function sse_response(vid,p) {
                 })
                 .done(function(data) { //REFRESH DATA
               });
-            }
+            //}
 
             if ($("#cantFact:visible").length)
                 $("#cantFact").html(p[0][0][2]);
@@ -400,11 +400,6 @@ function sse_response(vid,p) {
             if(parseInt(p[0][0][3])){ //RECURSIVIDAD 20MIN
                 $.post('../_config/autofacturas.php')
                     .done(function(data){ });
-            }
-
-            if(parseInt(p[0][0][5])){ //ENVIO AL CONTADOR
-                $.post('../_config/sendcontador.php')
-                    .done(function(data){ console.log(data)});
             }
 
             if(p[0][0][6] != '' && parseInt(p[0][0][7])){ //SINCRONIZADOR
@@ -491,12 +486,12 @@ function getListaNotificacion(){
     var listanot = getDatos('',352,'0,@@usr,0,@@impresa');
     var strlista = '';
     for (var i = 0; i < listanot[0].length; i++) {
-        strlista += '<div> <table>'+
-            '<tr> <td colspan="2">#'+listanot[0][i][0]+'</td></tr>'+
-            '<tr> <td>Fecha Creación</td> <td>'+listanot[0][i][1]+'</td></tr>'+
-            '<tr> <td>Tiempo Espera </td> <td>'+listanot[0][i][2]+'</td></tr>'+
-            '<tr> <td>Tipo          </td> <td>'+listanot[0][i][3]+'</td></tr>'+
-        '</table> </div>';
+        strlista += '<tr>'+
+            '<td>'+listanot[0][i][1]+'</td>'+
+            '<td>'+listanot[0][i][4]+'</td>'+
+            '<td>'+listanot[0][i][2]+'</td>'+
+            '<td> <i class="not_stat mdi mdi-24px mdi-information blue-text" title="Ver Solicitud"></i> </td>'+
+        '</tr>';
     }
 
     $("#listanotificaciones").html(strlista)

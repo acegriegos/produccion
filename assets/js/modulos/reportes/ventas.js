@@ -1,4 +1,4 @@
-var tipo = '1,7,10';
+var tipo = '1,7,10,106';
 var param;
 
 $(function(){

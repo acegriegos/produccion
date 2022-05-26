@@ -100,6 +100,8 @@
         <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
         <li class="per2200"><a href="facturacion?tf=3">Orden de Compra</a></li>
         <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
+        <li class="divider"></li>
+        <li><a href="facturacion?accion=8&tf=1">Ver Facturas</a></li>
       </ul>
 
     </li>
@@ -492,7 +494,17 @@
     </div>
   </div>
 
-  <div class="row" style="margin: 0px;margin-top: 2%;" id="listanotificaciones">
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th>Fecha Creación</th>
+        <th>Usuario</th>
+        <th>Tipo</th>
+        <th>Acciones</th>
+      </tr>  
+    </thead>
+    <tbody id="listanotificaciones"></tbody>
+  </table>
   </div>
 </ul>
 

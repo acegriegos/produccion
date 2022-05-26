@@ -73,6 +73,4 @@ function getCorreos(){
         return JSON.parse(salida.substring(0,salida.length -1)+"]");
     }else
         return '';
-
-    
 }
