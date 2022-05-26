@@ -108,10 +108,17 @@
         $log->ini($_POST['arreglo']['user'],$_POST['arreglo']['pss']);
         $transaccion = $log->autenticar();
 
-        //if(isset($transaccion[0][7])){
-          //if ($transaccion[0][7] == 1 && $transaccion[0][11])
-           $transaccion['tp'] = cambioDia($log,$transaccion);
-        //}
+        if(isset($transaccion[0][7])){
+          if ($transaccion[0][7] == 1 && !$transaccion[0][11])
+            cambioDia($log,$transaccion);
+
+          if(!$transaccion[0][11]){ //SOLO LOCAL
+            $transaccion['tp'] = validarNube($log,$transaccion[0][5]);
+            if($transaccion['tp'].is_array())
+              $transaccion = [0=>$transaccion['tp']];
+
+          }
+        }
         break;
       case 4:
         $transaccion = $log->kamehameha($_REQUEST['arreglo']['sel'],$_REQUEST['arreglo']['tbl'],$_REQUEST['arreglo']['where']);
@@ -321,8 +328,6 @@
 
         correocontador($datos_correo_conta[0],$_REQUEST['nombre'],$datos_correo_conta[1],$log);
 
-        validarNube($log,$_REQUEST['empresa']);
-
         indicadores($log);
 
         break;
@@ -375,8 +380,10 @@
 
     function cambioDia($log,&$transaccion)
      { 
-        #PASAR LA LECTURA DEL SERVIDOR DIARIA A CASE 19
-        $log->getCURL($actual_link,['accion'=>19,'empresa'=>$transaccion[0][5],'nombre'=>$transaccion[0][4]]);
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $actual_link = str_replace('ctr_login.php','/dashboard/login', $actual_link);
+
+        $salida = $log->getCURL($actual_link,['accion'=>19,'empresa'=>$transaccion[0][5],'nombre'=>$transaccion[0][4]]);
 
         return $salida;
      } 
@@ -403,7 +410,11 @@
         $rs = (array) json_decode($log->getCURL('https://sistema.apsycr.com/api.php',['cmd'=>1,'cliente'=>base64_encode($cliente)])['rs']);
 
         if(isset($rs['akey']))
-          $log->genkidama(2,39,'sysmod="'.$rs['akey'].'"','id=0');
+          $log->genkidama(2,39,'sysmod="'.$rs['akey'].'"','id='.$suc);
+
+        if($rs['rs'] != 1)
+          return ['0'=>'CUENTA INACTIVA','1'=>1];
+
      }
 
      function correocontador($_dia,$sname,$crr,$log){        

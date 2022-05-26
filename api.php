@@ -32,12 +32,12 @@
 
 			$cliente = (array) json_decode(base64_decode($_REQUEST['cliente']));
 
-			$consulta = $db->ejecutar('select count(*) from '.$sch.'clientes where cedula = "'.$cliente['cedula'].'" and !bisproveedor')->fetch_all();
+			$consulta = $db->ejecutar('select count(*) from '.$sch.'clientes where cedula = "'.$cliente['cedula'].'" and !bisproveedor and id > 0')->fetch_all();
 
 			if($consulta[0][0]){
-				$salida['rs'] = $db->ejecutar('select idestado from '.$sch.'clientes where cedula = "'.$cliente['cedula'].'" and !bisproveedor')->fetch_all()[0][0];
+				$salida['rs'] = $db->ejecutar('select idestado from '.$sch.'clientes where cedula = "'.$cliente['cedula'].'" and !bisproveedor and id > 0')->fetch_all()[0][0];
 
-				$db->ejecutar('update '.$sch.'clientes set apellido1 = now() where cedula = "'.$cliente['cedula'].'" and !bisproveedor');
+				$db->ejecutar('update '.$sch.'clientes set apellido1 = now() where cedula = "'.$cliente['cedula'].'" and !bisproveedor and id > 0');
 
 				if(isset($cliente['sucursal'])){
 					//agregar servicio nuevo por la sucursal

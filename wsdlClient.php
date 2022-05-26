@@ -529,12 +529,12 @@
     <head>
         <title>Mensaje Hacienda</title>
         <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-        <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.22">
-        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.3.0.22">
-        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.3.0.22">
-        <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.3.0.22">
-        <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.22">
-        <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.3.0.22">
+        <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.4.0.0">
+        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.0">
+        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.0">
+        <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.4.0.0">
+        <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.0">
+        <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.4.0.0">
     </head>
     <body>
         
@@ -560,12 +560,12 @@
 
         <div class="center" style="bottom: 15%;left:auto;">Documento Electrónico Emitido por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a>, +(506) 6105-6852</div>
 
-        <script src="assets/js/jquery.js?v=10.3.0.22"></script>
-        <script src="assets/js/jquery.mask.min.js?v=10.3.0.22"></script>
-        <script src="assets/js/materialize.min.js?v=10.3.0.22"></script>
-        <script src="assets/libs/charts/chart.js?v=10.3.0.22"></script>
-        <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.3.0.22"></script>
-        <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.3.0.22"></script>
+        <script src="assets/js/jquery.js?v=10.4.0.0"></script>
+        <script src="assets/js/jquery.mask.min.js?v=10.4.0.0"></script>
+        <script src="assets/js/materialize.min.js?v=10.4.0.0"></script>
+        <script src="assets/libs/charts/chart.js?v=10.4.0.0"></script>
+        <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.0.0"></script>
+        <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.0.0"></script>
         <script type="text/javascript">
             $(function(){
                 $('.tooltipped').tooltip({delay: 50});

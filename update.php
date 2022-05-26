@@ -180,8 +180,8 @@
             <head>
                 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
                 <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-                <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.22">
-                <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.3.0.22">
+                <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.4.0.0">
+                <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.4.0.0">
                 <title>APSY</title>
             </head>
             <body>
@@ -329,9 +329,9 @@
                 </div>
             </div>
 
-            <script src="assets/js/jquery.js?v=10.3.0.22"></script>
-            <script src="assets/js/materialize.min.js?v=10.3.0.22"></script>
-            <script src="assets/js/asgard.js?v=10.3.0.22"></script>
+            <script src="assets/js/jquery.js?v=10.4.0.0"></script>
+            <script src="assets/js/materialize.min.js?v=10.4.0.0"></script>
+            <script src="assets/js/asgard.js?v=10.4.0.0"></script>
             <script type="text/javascript">
 
                 $(window).keydown(function(e){
