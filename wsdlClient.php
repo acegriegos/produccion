@@ -602,6 +602,9 @@
         var $sumadescuentos = 0;
         var $sumaexonerados = 0;
         var $sumagravados = 0;
+        var $totGr = 0;
+        var $totEx = 0;
+        var $totEo = 0;
         var $exo = 0;
         var $idtabla = 64;
         var $titulo = 'Factura';
@@ -1444,6 +1447,7 @@
                     $data['OtrosCargos'] = $ocargos; 
                 $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
 
+
                 $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
                 $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
                 $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
@@ -1462,9 +1466,6 @@
 
                 if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
                      return ['error'=>'Descuentos Difieren'];
-
-                /*if (round($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento']+(isset($data['ResumenFactura']['TotalExonerado']) ? $data['ResumenFactura']['TotalExonerado'] : 0)) != round($data['ResumenFactura']['TotalVenta'])) 
-                     return ['error'=>'Inconsistencia en Precios, '.($data['ResumenFactura']['TotalGravado']+$data['ResumenFactura']['TotalExento'])." - ".$data['ResumenFactura']['TotalVenta']];*/
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
@@ -1609,6 +1610,7 @@
                         $detalle['Detalle'] = $value[6];
                         $detalle['PrecioUnitario'] = $value[7];
                         $detalle['MontoTotal'] = $value[8];
+
                         if ($value[9] > 0) {
                             $this->sumadescuentos += $value[9];
                             $detalle['Descuento']['MontoDescuento'] = $value[9];
@@ -1634,7 +1636,7 @@
                                         $exoneracion =   ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[20], 'MontoExoneracion' => $value[21]];
 
                                         $this->sumaexonerados += $value[11];//$sub_array[2];
-                            
+                                        $this->totEo += $value[8];
                                         $impuesto['Exoneracion'] = $exoneracion;
                                         
                                         $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
@@ -1643,11 +1645,13 @@
                                     }else{
                                         $this->sumagravados += $value[11];
                                         $sum_imp += $sub_array[2];
+                                        $this->totGr += $value[8];
                                     }
 
                                     $this->sumaimpuestos += $sub_array[2];
                                     array_push($detalle, ['Impuesto' => $impuesto]);
-                                }
+                                }else
+                                    $this->totEx += $value[8];
                             // }
 
                         }

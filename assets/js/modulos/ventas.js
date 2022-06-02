@@ -1257,6 +1257,9 @@ $(document).on("keyup",".fventa",function(e){
 
 $(document).on("change","#uni",function(){
 
+     if($(this).val() == '0')
+        return false;
+    
      punidad = parseFloat($('option:selected',this).attr('cant'));
 
      switch(parseInt($(this).val())){
@@ -1272,10 +1275,6 @@ $(document).on("change","#uni",function(){
                 nprecio = getDatos('venta,exoneracion,round((ganancia/costo)*100,0) as utilidad,costo,(select margenventa from msproductos where idproducto = '+$("#valores").data('elemento')['idp']+') as mx',11,'id = '+$("#valores").data('elemento')['idp'],0,0,0);
             break;
      }
-     console.log(nprecio)
-     $("#valores").data('elemento')['mxmargen'] = nprecio[0][0][4];
-     $("#valores").data('elemento')['costo'] = nprecio[0][0][3];
-     $("#valores").data('elemento')['margen'] = nprecio[0][0][2];
 
      if(nprecio[0].length){
         if(!$("#iva").is(":checked") && $("#iva:visible").length)
@@ -1286,7 +1285,16 @@ $(document).on("change","#uni",function(){
         $("#valores").data('elemento')['hprec'] = pfinal;
         $("#cantp").focus().select();
         $("#totp").val(parseFloat(pfinal).formatMoney(2,'.',','))
+
+        $("#valores").data('elemento')['mxmargen'] = nprecio[0][0][4];
+        $("#valores").data('elemento')['costo'] = nprecio[0][0][3];
+        $("#valores").data('elemento')['margen'] = nprecio[0][0][2];
      }else{
+
+        $("#valores").data('elemento')['mxmargen'] = 0;
+        $("#valores").data('elemento')['costo'] = 0;
+        $("#valores").data('elemento')['margen'] = 0;
+        
         if($(this).attr('old') != undefined){
             var pfinal = getDatos('(select ('+$("#valores").data('elemento')['hprec']+'/a.cantidad)*b.cantidad from unidades a join unidades b on b.id = '+$(this).val()+' where a.id = '+$(this).attr('old')+')',0,'',0,0,0)[0][0][0];
             $("#precp").val(parseFloat(pfinal).formatMoney(2,'.',','));
