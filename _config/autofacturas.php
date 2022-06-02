@@ -73,7 +73,7 @@
 
     if(!isset($_COOKIE['AUTO'])){
         session_write_close();
-        /*setcookie("AUTO",1, time()+10);
+        setcookie("AUTO",1, time()+10);
         ob_end_clean();
         ignore_user_abort();
         ob_start();
@@ -81,7 +81,7 @@
         echo json_encode(['success'=>1]);
         header("Content-Length: " . ob_get_length());
         ob_end_flush();
-        flush();*/
+        flush();
     }else{
         echo "AUTO ACTIVADO";
         exit(0);
