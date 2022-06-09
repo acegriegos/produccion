@@ -2807,7 +2807,7 @@ function endDetail(vid,vacc,vmodulo) {
             if($("#razonventa:visible").length && param.toString().match(new RegExp(/\b1\b|\b7\b|\b10\b/g))){
                 var envio = getDatos('(select mail from usuarios where id = notificaciones_usuarios.idusuario) as correo,date_format(now(),"%d-%m-%Y %H:%i:%s")',353,'');
                 var cliente = $("#ncli").val().trim() == '' ? 'TIQUETE' : $("#ncli").val();
-                var _tp = $("#ffacturas .zelda").data('triforce')['vidtipoventa'] == '7' ? 'Tiquete N°' : 'Factura N°';
+                var _tp = $("#ffacturas .zelda").data('triforce')['vidtipoventa'] == '7' ? 'Tiquete No' : 'Factura No';
                 _tp += factura;
                 var bdy = '<span style="text-align: center;color: red">'+_tp+'</span><br><b>Usuario:</b> '+$("#username").html()+' <br><b>Fecha:</b> '+envio[0][0][1]+' <br> <b>Cliente: </b>'+cliente+' <br> <b>Razón Venta: </b>'+$("#razonventa").val().trim()+'<br><br><hr>Mg = Margen<table style="width:100%;"> <thead> <tr> <th style="width:20%;">PRODUCTO</th> <th style="width:20%;">Mg Venta</th> <th style="width:20%;">Mg Minimo</th> <th style="width:20%;">Mg Actual</th> <th style="width:20%;">Venta</th> </tr> </thead>';
 
@@ -3071,7 +3071,7 @@ function calcVuelto(){
     if(paga == 0)
         return true
 
-    var totalfact = parseFloat($(".totalfact").text().replace(/,/g,'')) 
+    var totalfact = parseInt($(".totalfact").text().replace(/,/g,'')) 
 
     var cambio = parseInt((totalfact-paga)/5)*5;
     //var cambio = Math.ceil(((paga - totalfact)*parseFloat($("#monedas option:selected").attr('dv'))))/5;

@@ -31,6 +31,7 @@
 
     if($check){
        $arroba = strrpos($username, '@');
+       
         if($arroba){
             $p1 = substr($username, $arroba+1);
             $point = strrpos($p1, '.');
@@ -45,6 +46,9 @@
                     break;
                 case 'yahoo':
                     $hostname = "{imap.mail.yahoo.com:993/imap/ssl/novalidate-cert}INBOX";
+                    break;
+                case 'aol':
+                    $hostname = "{imap.aol.com:993/imap/ssl/novalidate-cert}INBOX";
                     break;
                 default:
                     $hostname = '{mail.'.$final.'.com:993/imap/ssl/novalidate-cert}INBOX';

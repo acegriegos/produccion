@@ -403,7 +403,7 @@
           'fcorte'    => date('Y-m-28'),
           'valor'     => 15000,
           'prueba'    => $cliente[19],
-          'simplificado'  => $cliente[16]
+          'simplificado'  => $cliente[40]
         ];
         
         $cliente = json_encode($cliente);

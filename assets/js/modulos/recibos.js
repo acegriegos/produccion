@@ -44,7 +44,7 @@ $(function(){
             mantenimiento('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
         }
         
-        var envio = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,1,mid,64);
+        var envio = enviarCorreo(3,vpara,tipo+" No "+vfactura,vbody[0],archivos,1,mid,64);
         vpara = vbody = "";
         mid = 0;
 
