@@ -707,7 +707,7 @@ class SMTP
      * @return bool
      */
     public function data($msg_data)
-    {
+    {   
         //This will use the standard timelimit
         if (!$this->sendCommand('DATA', 'DATA', 354)) {
             return false;
@@ -734,7 +734,7 @@ class SMTP
         if (!empty($field) && strpos($field, ' ') === false) {
             $in_headers = true;
         }
-
+        
         foreach ($lines as $line) {
             $lines_out = [];
             if ($in_headers && $line === '') {

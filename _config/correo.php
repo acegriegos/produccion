@@ -1,8 +1,8 @@
 <?php
 
-  use PHPMailer\PHPMailer\PHPMailer;
+ /* use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\SMTP;
-  use PHPMailer\PHPMailer\Exception;
+  use PHPMailer\PHPMailer\Exception;*/
 
 $ubi = '../';
 if (isset($url2)){
@@ -19,9 +19,10 @@ if (isset($url2)){
   }
 }
 
-  require_once $ubi.'assets/libs/phpmailer/PHPMailer.php';
-  require_once $ubi.'assets/libs/phpmailer/SMTP.php';
-  require_once $ubi.'assets/libs/phpmailer/Exception.php';
+require_once $ubi.'assets/libs/phpmailer/PHPMailer.php';
+require_once $ubi.'assets/libs/phpmailer/SMTP.php';
+require_once $ubi.'assets/libs/phpmailer/Exception.php';
+
 
 class correo 
 {
@@ -45,19 +46,22 @@ class correo
         
         $msj = $this->getBody($msj,$no_replay);
 
-        $this->mail = new PHPMailer(true);
-        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $this->mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        $this->mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_OFF;
         $this->mail->isSMTP();
         $this->mail->Host       = $res[2];
         $this->mail->SMTPAuth   = true;
         $this->mail->Username   = $res[1];
         $this->mail->Password   = $res[0];
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $this->mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
         $this->mail->Port       = $res[3]; 
 
         $empresa = isset($_SESSION['EMPRESA']) ? $_SESSION['EMPRESA'] : 'APSY';
         $this->mail->setFrom($res[1], $empresa);
-        $this->mail->addAddress($pr); //AGREGAR NOMBRE A QUIEN VA EL CORREO
+        $marray = explode(',', $pr);
+        foreach ($marray as $_correo) {
+          $this->mail->addAddress($_correo); //AGREGAR NOMBRE A QUIEN VA EL CORREO
+        }
         
         $this->mail->isHTML(true);
         $this->mail->Subject = $tit;
@@ -87,13 +91,14 @@ class correo
 
     function enviar_adjunto($vAdjunto){
 
-      if ($vAdjunto == '')
+      if ($vAdjunto == ''){
         return 1;
+      }
     
       if(is_array($vAdjunto)){
         for ($i=0; $i < sizeof($vAdjunto); $i++) { 
           if (file_exists($this->ubi.'assets/'.$vAdjunto[$i]))
-            $this->mail->addAttachment($this->ubi.'assets/'.$vAdjunto[$i]);
+            $rs = $this->mail->addAttachment($this->ubi.'assets/'.$vAdjunto[$i]);
           else
             echo $this->ubi.'assets/'.$vAdjunto[$i];
         }

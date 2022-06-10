@@ -345,11 +345,11 @@
                         $salida["Integracion"] = $fe->integracion($xml,$db,$_REQUEST['sucursal']);
                         $salida['cliente'] = $cliente;
                         if ($cliente) {
-                            $cbody = $db->ejecutar("select concat('<b>Factura Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$tid."'")->fetch_all()[0][0];
+                            $cbody = $db->ejecutar("select concat('<b>Factura Electrónica No ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>') from integraciones a join sucursales b on a.idsucursal = b.id where a.factura = '".$tid."'")->fetch_all()[0][0];
 
                             if($intpdf){
                                 $salida["PDF"] = $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
-                                $salida["Mail"] = $fe->enviarCorreo($rxml[$tiqueta]['Receptor']['CorreoElectronico'],$tp." N° ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf'],$fe->info['Clave'],$db);
+                                $salida["Mail"] = $fe->enviarCorreo($rxml[$tiqueta]['Receptor']['CorreoElectronico'],$tp." No ".$fe->info['NumeroConsecutivo'],$cbody,[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf'],$fe->info['Clave'],$db);
                             }
                             unlink('./assets/pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf');
                         }
@@ -479,11 +479,11 @@
                     $tp = 'Factura';
                 }
 
-                 $cbody = $db->ejecutar("select concat('<b>Factura Electrónica N° ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>'),b.pfisico from integraciones a join sucursales b on a.idsucursal = b.id where a.clave = '".$axml[$llave]['Clave']."'")->fetch_all()[0];
+                 $cbody = $db->ejecutar("select concat('<b>Factura Electrónica No ',".$fe->info['NumeroConsecutivo'].",'</b>','<br><br>Emisor: ',b.nombre,', ced.',b.cedula,'<br>Receptor: ',a.cliente,', ced.',a.cedula,'<br><br> <a href=\"https://fe.logintechcr.com/wsdlClient.php?ref=',hex(aes_encrypt(concat(".$fe->info['Clave'].",',',b.isPrueba,',',b.user_atv,',',b.pass_atv),'salvenawilly')),'\">Verificar Mensaje Hacienda</a>'),b.pfisico from integraciones a join sucursales b on a.idsucursal = b.id where a.clave = '".$axml[$llave]['Clave']."'")->fetch_all()[0];
                 $_REQUEST['sucname'] = $cbody[1];
                 $para = isset($_REQUEST['crr']) ? $_REQUEST['crr'] : $axml[$llave]['Receptor']['CorreoElectronico'];
                 $salida["PDF"] = $fe->procesarPDF($xml,$db,$_REQUEST['sucursal']);
-                $salida["Mail"] = $fe->enviarCorreo($para,$llave." N° ".$fe->info['NumeroConsecutivo'],$cbody[0],[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf'],$fe->info['Clave'],$db);
+                $salida["Mail"] = $fe->enviarCorreo($para,$llave." No ".$fe->info['NumeroConsecutivo'],$cbody[0],[0=>'xml/'.$_REQUEST['ruta'].'/'.$fe->info['NumeroConsecutivo'].'.xml',1=>'pdf/'.$tp.' No'.$fe->info['NumeroConsecutivo'].', '.$_REQUEST['sucname'].'.pdf'],$fe->info['Clave'],$db);
 
                 print_r($salida);
 
@@ -2118,7 +2118,7 @@
             $_POST['accion'] = 3;
             $_POST['body'] = $cnf[0];
             $_POST['idfila'] = $id;
-            $_POST['subject'] = substr($id,0,1) == '^' ? $cnf[3]." del Consecutivo ".$cnf[4] : $cnf[3]." N° ".$num;
+            $_POST['subject'] = substr($id,0,1) == '^' ? $cnf[3]." del Consecutivo ".$cnf[4] : $cnf[3]." No ".$num;
             $_POST['to'] = $to;
             $_POST['idtabla'] = $this->idtabla;
 

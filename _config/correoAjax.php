@@ -23,13 +23,14 @@ ob_end_flush();
 flush();
 
 $con_con = isset($_REQUEST['con_con']) ? $_REQUEST['con_con'] : $_POST['con_con'];
+
 if($con_con){
     $caccion = $_POST['accion'];
     $_REQUEST['accion'] = 99;
 
     require_once $ubi.'wsdlClient.php';
     include_once 'mysqlDB.php';
-    sleep(10);
+    //sleep(2);
     $pre = '';
     if(isset($_POST['idtabla'])){
         switch ($_POST['idtabla']) {
@@ -41,7 +42,7 @@ if($con_con){
                 # code...
                 break;
         }
-    } 
+    }
     $fe = new facturaElectronica($pre.$_POST['idfila']);
     $estado = $fe->estado();
 
@@ -96,7 +97,7 @@ if($con_con){
         print_r($estado);
     }
     
-    $correo->enviar_adjunto($_POST['adjunto']);
+    $rs = $correo->enviar_adjunto($_POST['adjunto']);
 
 }else{
     switch ($_POST['accion']) {

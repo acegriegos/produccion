@@ -1496,7 +1496,7 @@ class PHPMailer
             if (!$this->preSend()) {
                 return false;
             }
-
+            
             return $this->postSend();
         } catch (Exception $exc) {
             $this->mailHeader = '';
@@ -1654,6 +1654,7 @@ class PHPMailer
     {
         try {
             //Choose the mailer and send through it
+
             switch ($this->Mailer) {
                 case 'sendmail':
                 case 'qmail':
@@ -2006,7 +2007,7 @@ class PHPMailer
             $this->setError($this->lang('from_failed') . $smtp_from . ' : ' . implode(',', $this->smtp->getError()));
             throw new Exception($this->ErrorInfo, self::STOP_CRITICAL);
         }
-
+        
         $callbacks = [];
         //Attempt to send to all recipients
         foreach ([$this->to, $this->cc, $this->bcc] as $togroup) {
@@ -2029,7 +2030,7 @@ class PHPMailer
         }
 
         $smtp_transaction_id = $this->smtp->getLastTransactionID();
-
+        
         if ($this->SMTPKeepAlive) {
             $this->smtp->reset();
         } else {
