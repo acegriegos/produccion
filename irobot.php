@@ -23,7 +23,7 @@
         $check = 1;
     }else{
         $username = 'fe.recepcionelectronica@gmail.com';
-        $password  = 'Login2Help';
+        $password  = 'qmhxuzuuffhqrjrd';
         $check = 0;
         $cedula = '';
     }
