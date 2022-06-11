@@ -22,6 +22,7 @@
         $cedula = $db->ejecutar('select replace(cedula,"-","") from sucursales where id = '.$_REQUEST['succ'])->fetch_all()[0][0];
         $check = 1;
     }else{
+        $hostname = '{imap.gmail.com:993/debug/imap/ssl/novalidate-cert}INBOX';
         $username = 'fe.recepcionelectronica@gmail.com';
         $password  = 'qmhxuzuuffhqrjrd';
         $check = 0;
@@ -31,7 +32,7 @@
 
     if($check){
        $arroba = strrpos($username, '@');
-       
+
         if($arroba){
             $p1 = substr($username, $arroba+1);
             $point = strrpos($p1, '.');
