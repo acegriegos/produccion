@@ -66,6 +66,11 @@ $(document).on("click",".menu3",function(){
 			$("#vdiaconta").val(e[27]);
 			$("#vdenymargen").val(e[7]);
 
+			$("#vbotmail").val(e[41]);
+			$("#vbotpswd").val(e[42]);
+			$("#vsmtp").val(e[43]);
+			$("#vsmtpc").val(e[44]);
+
 			$("#vpv").prop('checked',parseInt(e[28]) ? true : false);
 			$("#vprintsale").prop('checked',parseInt(e[18]) ? true : false);
 			$("#vcba").prop('checked',parseInt(e[29]) ? true : false);
@@ -203,7 +208,7 @@ $(document).on("click",".menu3",function(){
 				var dmargen = $("#vdenymargen").val();
 				dmargen = isNaN(dmargen) ? 0 : dmargen;
 
-				actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked")+',deny_margen='+dmargen,'idsucursal=@@impresa');
+				console.log(actualizar(40,'msj1="'+$("#vmsj1").val()+'",msj2="'+$("#vmsj2").val()+'",correoconta="'+$("#vcorreoconta").val()+'",dia_rep_cont='+$("#vdiaconta").val()+',pv='+$("#vpv").is(':checked')+',cbarras='+$("#vcba").is(':checked')+',isivi='+$("#vivi").is(':checked')+',ivafact='+$("#viva").is(':checked')+',ininvc='+$("#vininvc").is(':checked')+',autoacept='+$("#vautoacept").is(':checked')+',lastmemory='+$("#vlastmemory").is(':checked')+',recibo='+$("#vrecibo").is(':checked')+',invauto='+$("#vinvauto").is(":checked")+',deny_margen='+dmargen+',botmail="'+$("#vbotmail").val()+'",botpswd="'+$("#vbotpswd").val()+'",smtp="'+$("#vsmtp").val()+'",smtpc=hex(aes_encrypt("'+$("#vsmtpc").val()+'","Login2Help"))','idsucursal=@@impresa'));
 
 				Materialize.toast('Datos Actualizados Correctamente',4000,'green');
 

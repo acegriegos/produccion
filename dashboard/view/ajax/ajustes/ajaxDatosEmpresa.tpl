@@ -122,6 +122,30 @@
                     <label for="vdenymargen">Denegar Margen Venta</label>
                 </div>
 
+                <div class="col s12">
+                </div>
+
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vbotmail">
+                    <label for="vbotmail">Correo IMAP</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vbotpswd">
+                    <label for="vbotpswd">Contraseña IMAP</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vsmtp">
+                    <label for="vsmtp">Correo SMTP</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <input type="text" id="vsmtpc">
+                    <label for="vsmtpc">Contraseña SMTP</label>
+                </div>
+
                 <hr class="col s12">
                 
                 <div class="switch col s6 m4">
