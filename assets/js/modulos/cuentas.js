@@ -61,6 +61,7 @@ $(function(){
 							$("#saldo").html('0.00')
 						}else{
 							var p = arr('login',4,'',214,gtipo+',0,'+id[0][0][0]+',0,0,@@impresa',0,0,0);
+							console.log(gtipo+',0,'+id[0][0][0]+',0,0,@@impresa')
 							var tabla = $("#listaCuentasPm");
 							tabla.html('');
 							for (var i = 0; i < p[0].length; i++) {

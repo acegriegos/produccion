@@ -602,10 +602,6 @@
         var $sumadescuentos = 0;
         var $sumaexonerados = 0;
         var $sumagravados = 0;
-        var $totGr = 0;
-        var $totEx = 0;
-        var $totEo = 0;
-        var $exo = 0;
         var $idtabla = 64;
         var $titulo = 'Factura';
 
@@ -1440,10 +1436,13 @@
             if ($this->xmldoc == 'mensajeReceptor') {
                 $data[] = $this->getJSON('call fe_recepcion("'.$this->id.'")');
             }else{
+
                 $data[] = $this->info;
 
+                //$data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
+                $schemaXML = $this->getXMLSchema($this->id);
+                $data['DetalleServicio'] = $schemaXML['det'];
                 
-                $data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
                 if($data['DetalleServicio'] != 1){
                     $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
                     if (!$tdetalle && $this->opcion < 5) 
@@ -1454,27 +1453,25 @@
                 $ocargos = $this->getJSON('call fe_getOtrosCargos("'.$this->id.'")');
                 if($ocargos)
                     $data['OtrosCargos'] = $ocargos; 
-                $data['ResumenFactura'] = $this->getJSON('call fe_getResumen("'.$this->id.'")');
+                $data['ResumenFactura'] = $schemaXML['res'];//$this->getJSON('call fe_getResumen("'.$this->id.'")');
 
 
-                $data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
+                /*$data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
                 $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
                 $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
 
                 $data['ResumenFactura']['TotalGravado'] = number_format($data['ResumenFactura']['TotalServGravados'] + $data['ResumenFactura']['TotalMercanciasGravadas'],5,'.','');
 
-                $data['ResumenFactura']['TotalExento'] = number_format($data['ResumenFactura']['TotalServExentos'] + $data['ResumenFactura']['TotalMercanciasExentas'],5,'.','');
-
-                if($this->opcion != 9)
-                    $data['ResumenFactura']['TotalExonerado'] = number_format($data['ResumenFactura']['TotalServExonerado'] + $data['ResumenFactura']['TotalMercExonerada'],5,'.','');
-                else{
+                $data['ResumenFactura']['TotalExento'] = number_format($data['ResumenFactura']['TotalServExentos'] + $data['ResumenFactura']['TotalMercanciasExentas'],5,'.','');*/
+    
+                if($this->opcion == 9){
                     unset($data['ResumenFactura']['TotalExonerado']);
                     unset($data['ResumenFactura']['TotalServExonerado']);
                     unset($data['ResumenFactura']['TotalMercExonerada']);
                 }
 
-                if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
-                     return ['error'=>'Descuentos Difieren'];
+                /*if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
+                     return ['error'=>'Descuentos Difieren'];*/
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
@@ -1592,6 +1589,148 @@
              }
         }
 
+        function getXMLSchema($id){
+            $db = new DBClass();
+            $rs = $db->ejecutar('call fe_getDetalle("'.$this->id.'")');
+
+            $salida = ['det'=>[],'res'=>[
+                'CodigoTipoMoneda'          => ['CodigoMoneda'=>'--','TipoCambio'=>1], 
+                'TotalServGravados'         => '0.00000',
+                'TotalServExentos'          => '0.00000',
+                'TotalServExonerado'        => '0.00000',
+                'TotalMercanciasGravadas'   => '0.00000',    
+                'TotalMercanciasExentas'    => '0.00000',     
+                'TotalMercExonerada'        => '0.00000',
+                'TotalGravado'              => '0.00000',
+                'TotalExento'               => '0.00000',
+                'TotalExonerado'            => '0.00000',
+                'TotalVenta'                => '0.00000',
+                'TotalDescuentos'           => '0.00000',
+                'TotalVentaNeta'            => '0.00000',
+                'TotalImpuesto'             => '0.00000',
+                'TotalOtrosCargos'          => '0.00000',
+                'TotalComprobante'          => '0.00000'
+            ]];
+
+            if (isset($rs->num_rows)) {
+               foreach ($rs->fetch_all() as $key => $linea) {
+                    $det                            = ['NumeroLinea' => ($key+1)];
+                    $det['Codigo']                  = $linea[2];
+
+                    if($linea[22])
+                    $det['CodigoComercial']         = ['Tipo'=>'03','Codigo'=>$linea[22]];
+                    
+                    $det['Cantidad']                = $linea[3];
+                    $det['UnidadMedida']            = $linea[4];
+                    
+                    if($linea[5])
+                    $det['UnidadMedidaComercial']   = $linea[5];
+                    
+                    $det['Detalle']                 = $linea[6];
+                    $det['PrecioUnitario']          = $linea[7];
+                    $det['MontoTotal']              = $linea[8];
+                    
+                    if ($linea[9] > 0) {
+                    $salida['res']['TotalDescuentos'] += $linea[9];
+                    $det['Descuento']['MontoDescuento'] = $linea[9];
+                    $det['Descuento']['NaturalezaDescuento'] = $linea[10];
+                    }
+
+                    $det['SubTotal'] = $linea[11];
+
+                    $sum_imp = 0;
+                    $tipo_linea = 1;
+
+                    if ($linea[12] != '') {
+                            
+                        $obj = $linea[12];
+                        $sub_array = explode(',', $obj);
+
+                        if (strlen($sub_array[0])) {
+                            
+                            $impuesto = ['Codigo'       => str_pad($sub_array[0],2,0,STR_PAD_LEFT),
+                                         'CodigoTarifa' => str_pad($sub_array[3],2,0,STR_PAD_LEFT),
+                                         'Tarifa'       => number_format($sub_array[1],0),
+                                         'Monto'        => $sub_array[2]
+                                        ];
+
+                            if ($linea[16] != '' && $linea[21] > 0){
+                                /*EXONERADO*/
+                                $exoneracion = ['TipoDocumento'         => $linea[16],
+                                                'NumeroDocumento'       => $linea[17],
+                                                'NombreInstitucion'     => $linea[18],
+                                                'FechaEmision'          => $linea[19],
+                                                'PorcentajeExoneracion' => $linea[20],
+                                                'MontoExoneracion'      => $linea[21]
+                                               ];
+
+                                $impuesto['Exoneracion'] = $exoneracion;
+                                $tipo_linea = 2;
+                                $sum_imp += $sub_array[2]-$linea[21];
+                            }else{
+                                /*GRAVADO*/
+                                $tipo_linea = 3;
+                                $sum_imp += $sub_array[2];
+                            }
+
+                            array_push($det, ['Impuesto' => $impuesto]);
+                        }
+                    }
+
+                    $det['ImpuestoNeto'] = number_format($sum_imp,5,'.','');
+                    $det['MontoTotalLinea'] = number_format($linea[15] + $sum_imp,5,'.','');
+
+                    $salida['res']['TotalImpuesto'] += $det['ImpuestoNeto'];
+
+                    switch ($tipo_linea.$linea[1]) {
+                        case 101: //EXENTO_SERVICIO
+                            $salida['res']['TotalServExentos']          += number_format( $linea[8] ,5,'.','');
+                            break;
+                        case 104: //EXENTO_PRODUCTO
+                            $salida['res']['TotalMercanciasExentas']    += number_format( $linea[8] ,5,'.','');
+                            break;
+                        case 201: //EXONERADO_SERVICIO
+                            $salida['res']['TotalServGravados']         += number_format( $linea[8]*(1-($linea[20]/$sub_array[1])) ,5,'.','');
+                            $salida['res']['TotalServExonerado']        += number_format( $linea[8]*(($linea[20]/$sub_array[1])) ,5,'.','');
+                            break;
+                        case 204: //EXONERADO_PRODUCTO
+                            $salida['res']['TotalMercanciasGravadas']   += number_format( $linea[8]*(1-($linea[20]/$sub_array[1])) ,5,'.','');
+                            $salida['res']['TotalMercExonerada']        += number_format( $linea[8]*(($linea[20]/$sub_array[1])) ,5,'.','');
+                            break;
+                        case 301: //GRAVADO_SERVICIO
+                            $salida['res']['TotalServGravados']         += number_format( $linea[8] ,5,'.','');
+                            break;
+                        case 304: //GRAVADO_PRODUCTO
+                            $salida['res']['TotalMercanciasGravadas']   += number_format( $linea[8] ,5,'.','');
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    array_push($salida['det'], ['LineaDetalle'=>$det]);
+               }
+            }else
+                $salida = $rs;
+
+            $salida['res']['TotalGravado']      = number_format( $salida['res']['TotalMercanciasGravadas']+$salida['res']['TotalServGravados'] ,5,'.','');
+            $salida['res']['TotalExento']       = number_format( $salida['res']['TotalMercanciasExentas']+$salida['res']['TotalServExentos'] ,5,'.','');
+            $salida['res']['TotalExonerado']    = number_format( $salida['res']['TotalMercExonerada']+$salida['res']['TotalServExonerado'] ,5,'.','');
+
+            $salida['res']['TotalVenta']        = number_format( $salida['res']['TotalGravado']+$salida['res']['TotalExento']+$salida['res']['TotalExonerado'] ,5,'.','');
+
+            $salida['res']['TotalVentaNeta']    = number_format( $salida['res']['TotalVenta']-$salida['res']['TotalDescuentos'] ,5,'.','');
+
+            $rest = $db->ejecutar('select b.codigo,a.divisa,e.mesero from facturas a join monedas b on b.id = a.idmoneda join ( (select id,0 as mesero from facturas where id not in(select idfactura from msfacturas where idfactura = '.$this->id.') and id = '.$this->id.') union (select a.id,ifnull(b.servmesero,0) from facturas a join msfacturas b on b.idfactura = a.id where a.id = '.$this->id.') ) e on e.id = a.id  where a.id = '.$this->id.';')->fetch_all();
+
+            $salida['res']['CodigoTipoMoneda']['CodigoMoneda']  = $rest[0][0];
+            $salida['res']['CodigoTipoMoneda']['TipoCambio']    = $rest[0][1];
+            $salida['res']['TotalOtrosCargos']                  = $rest[0][2];
+
+            $salida['res']['TotalComprobante']  = number_format( $salida['res']['TotalVentaNeta']+$salida['res']['TotalImpuesto']+$salida['res']['TotalOtrosCargos'] ,5,'.','');
+
+            return $salida;
+        }
+
         function getDetalle($query)
         {
             $db = new DBClass();
@@ -1640,12 +1779,10 @@
                                     $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>number_format($sub_array[1],0),'Monto'=>$sub_array[2]];
 
                                     if ($value[16] != '' && $value[21] > 0){
-                                        $this->exo = 1;
 
                                         $exoneracion =   ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[20], 'MontoExoneracion' => $value[21]];
 
                                         $this->sumaexonerados += $value[11];//$sub_array[2];
-                                        $this->totEo += $value[8];
                                         $impuesto['Exoneracion'] = $exoneracion;
                                         
                                         $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
@@ -1654,13 +1791,11 @@
                                     }else{
                                         $this->sumagravados += $value[11];
                                         $sum_imp += $sub_array[2];
-                                        $this->totGr += $value[8];
                                     }
 
                                     $this->sumaimpuestos += $sub_array[2];
                                     array_push($detalle, ['Impuesto' => $impuesto]);
-                                }else
-                                    $this->totEx += $value[8];
+                                }
                             // }
 
                         }
@@ -2128,9 +2263,9 @@
                 $actual_link = str_replace('wsdlClient.php','/dashboard/login', $actual_link);
 
                 if(substr($id,0,1) == '^')
-                    $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.xml'];
+                    $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.' '.$_SESSION['EMPRESA'].'.xml'];
                 else{
-                $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' No'.$num.', '.$_SESSION['EMPRESA'].'.pdf'];
+                $_POST['adjunto'] = [0=>'xml/'.$tit.' No'.$num.' '.$_SESSION['EMPRESA'].'.xml',1=>'pdf/'.$tit.' No'.$num.' '.$_SESSION['EMPRESA'].'.pdf'];
                 //MAKE ARCHIVOS
                 //PDF
                 $_arch = isset($_REQUEST['arch']) ? $_REQUEST['arch'] : 'recibo';

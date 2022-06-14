@@ -44,6 +44,7 @@ $(document).on("change","input[name=tventa]",function(){
     var tabla = $("#data-table-facturas").DataTable();
     tabla.destroy();
     arr('login',6,'',187,'0,0,"'+id+'|'+param+'|@@impresa","0,10"',0,1,$("#listafacturas"));
+    console.log('0,0,"'+id+'|'+param+'|@@impresa","0,10"')
     $("#data-table-facturas").dataTable({
         bFilter: false,
         bScrollInfinite: true,
@@ -150,7 +151,7 @@ function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
 
     archivos = {0:'xml/'+vestado+' No'+vnota+', '+vsucursal+'.xml',1:'pdf/'+vestado+' No'+vnota+', '+vsucursal+'.pdf'}
     mantenimiento_async('login',9,{id:vidnota,factura:vnota,sucursal:vsucursal,restado:vestado},1);
-
+    console.log(vsucursal+' 1')
     return archivos;
 }
 

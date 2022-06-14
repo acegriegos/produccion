@@ -66,6 +66,7 @@ class correo
         $this->mail->isHTML(true);
         $this->mail->Subject = $tit;
         $this->mail->Body    = $msj;
+        $this->mail->CharSet = 'UTF-8';
 
         if (isset($_SESSION['BUSS'])) 
           if ($_SESSION['BUSS'] == 1)
@@ -103,7 +104,7 @@ class correo
             echo $this->ubi.'assets/'.$vAdjunto[$i];
         }
       }else
-        $this->$mail->addAttachment($this->ubi.'assets/'.$vAdjunto);      
+        $this->mail->addAttachment($this->ubi.'assets/'.$vAdjunto);      
 
 
       $salida = ['success'=>1];

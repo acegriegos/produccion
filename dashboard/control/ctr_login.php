@@ -188,7 +188,7 @@
           $estado = isset($_REQUEST['arreglo']['restado']) ? $_REQUEST['arreglo']['restado'] : 'Factura';
           require_once '../wsdlClient.php';
           $xml = new facturaElectronica($_REQUEST['arreglo']['id']);
-          $archivo = fopen('../assets/xml/'.$estado.' No'.$_REQUEST['arreglo']['factura'].', '.$_REQUEST['arreglo']['sucursal'].'.xml', "w+");
+          $archivo = fopen('../assets/xml/'.$estado.' No'.$_REQUEST['arreglo']['factura'].' '.$_REQUEST['arreglo']['sucursal'].'.xml', "w+");
           fwrite($archivo, $xml->getXMLRecepcion());
           fclose($archivo); 
         break;

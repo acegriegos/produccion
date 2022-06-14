@@ -44,17 +44,30 @@ $(window).keydown(function(e){
 });
 
 $(document).on('click','.notasprod',function(){
+
     if($(this).attr('tbl') == '11'){
         var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select if(valor,valor,1) from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'))[0][0];
+        console.log(datosprod)
         $("._proname").html(datosprod[0])
         $("#npprec").html(datosprod[1])
         $("#npcant").html(datosprod[2])
     }
     arr('login',6,'',334,'@@impresa,'+$(this).attr('tbl')+','+$(this).attr('row'),0,1,$("#_listanotas"));
-    $("#mntNotas").attr('idtabla',$(this).attr('tbl')).attr('idfila',$(this).attr('row'));
+
+    if($(this).attr('no-pass') != undefined){
+       $("._enota").addClass('hide')
+       $("._dnota").addClass('hide')
+       $("#mntNotas").unbind();
+       $("#mntNotas").addClass('disabled')
+    }else{
+        $("#mntNotas").attr('idtabla',$(this).attr('tbl')).attr('idfila',$(this).attr('row'));
+        $("#_vnota").focus();
+    }
+
     $("#_proname").html($(this).attr('name'));
     $("#modal-notasprod").modal('open')
-    $("#_vnota").focus();
+
+    
 });
 
 $(document).on('click','._enota',function(){

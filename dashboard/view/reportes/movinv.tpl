@@ -6,11 +6,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Movimientos de Inventario</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.0">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.20">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256,0,20" tipos="Movimiento,Agrupado,Por Familia" types="1,3,1" portipo="varios"></div>
+      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256,0,20,-1" tipos="Movimiento,Agrupado,Por Familia,Comodin" types="1,3,1,0" portipo="varios"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -42,7 +42,7 @@
   </ul>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.0"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.0.0"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20-2"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20-1"></script>
 </body>
 </html>

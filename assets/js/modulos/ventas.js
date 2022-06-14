@@ -3224,6 +3224,7 @@ function sendVMail(factura,clave,vid){
             }
             break;
     }
+   
     if (str_correos != '') {
         var vbody = getDatos('',73,vid,0,0)[0][0];
         var ntipo = getDatos('if(id=1,"Factura",nombre)',57,'id='+param,0,0)[0][0][0];
@@ -3268,9 +3269,9 @@ function makeArchivos(vfactura,vclave,vid,vsucursal,ntipo){
     var vtit = param == 1 ? 'Factura Electrónica' : ntipo;
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vtit,sel:'',tbl:72,where:vid},1);
     if (vclave == vid || (param != 1 && param != 7))
-        archivos = 'pdf/'+ntipo+' No'+vfactura+', '+vsucursal+'.pdf';
+        archivos = 'pdf/'+ntipo+' No'+vfactura+' '+vsucursal+'.pdf';
     else{
-        archivos = {0:'xml/Factura No'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura No'+vfactura+', '+vsucursal+'.pdf'}
+        archivos = {0:'xml/Factura No'+vfactura+' '+vsucursal+'.xml',1:'pdf/Factura No'+vfactura+' '+vsucursal+'.pdf'}
         mantenimiento('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     }
     return archivos;

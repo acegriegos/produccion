@@ -97,8 +97,7 @@ $(document).on("click",".pdf",function(e){
     var vid = $(this).attr('id').substr(1);
     var vbody = getDatos('',73,'"'+vid+'"',0,0)[0][0];
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:vbody[3],sel:'',tbl:72,where:vid},1);
-    //console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
-    $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf'); 
+    $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+' '+vbody[1]+'.pdf'); 
 });
 
 $(document).on("click",".fedit",function(){
@@ -383,7 +382,7 @@ $(document).on("click",".xml",function(){
     //         break;
     // }    
 	mantenimiento('login',9,{restado:vbody[3],factura:vbody[2],sucursal:vbody[1],id:vid},1);
-    $(this).attr('href','../assets/xml/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.xml'); 
+    $(this).attr('href','../assets/xml/'+vbody[3]+' No'+vbody[2]+' '+vbody[1]+'.xml'); 
 });
 
 
@@ -414,7 +413,7 @@ function endDetail(vid,vacc,vmodulo) {
 function makeArchivos(vfactura,vclave,vid,vsucursal,vestado){
     var archivos = '';
 
-    archivos = {0:'xml/Factura No'+vfactura+', '+vsucursal+'.xml',1:'pdf/Factura No'+vfactura+', '+vsucursal+'.pdf'}
+    archivos = {0:'xml/Factura No'+vfactura+' '+vsucursal+'.xml',1:'pdf/Factura No'+vfactura+' '+vsucursal+'.pdf'}
     mantenimiento('login',8,{arch:'recibo',id:vid,mic:1,tit:'Factura Electrónica',sel:'',tbl:72,where:vid},1);
     mantenimiento('login',9,{id:vid,factura:vfactura,sucursal:vsucursal},1);
     

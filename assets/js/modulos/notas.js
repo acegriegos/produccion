@@ -31,6 +31,7 @@ $(function(){
 
     })
     
+
     $("#ncli").keydown(function(e){
         var charCode = e.which || e.keyCode;
         var charStr = String.fromCharCode(charCode);
