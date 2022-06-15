@@ -82,9 +82,12 @@
 	                $salida['akey'] = $rs; //devolver el akey
 	                $salida['rs'] = 1;
 	              }
+	              $salida['ins'] = 1;
+	          	}else{
+	          		$salida['ins'] = $rs;
 	          	}
 
-				$salida['ins'] = 1;
+				
 				
 			}
 

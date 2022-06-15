@@ -1031,6 +1031,17 @@ $("#pconm").keyup(function(e){
         }
 });
 
+$("#carddigito").keyup(function(e){
+    var code = e.wich || e.keyCode
+    if(code == 13){
+        var elimprimir = $("#factrealp");
+        elimprimir = parseInt(config[4]) ? elimprimir : $("#factreal");
+        elimprimir.focus();
+    }
+});
+
+
+
 $("#pconm").blur(function(){
     if(parseFloat($(this).val()) > 0){
         var tot = parseFloat($("#montoefect").val().replace(/,/g,''));
