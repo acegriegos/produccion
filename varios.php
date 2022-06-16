@@ -56,15 +56,15 @@
 <head>
  <title>VISTA USUARIOS NUBE</title>
  <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.0">
-<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.0">
-<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.0">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.0">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.1">
 
-<script src="../assets/js/jquery.js?v=10.4.0.0"></script>
-<script src="../assets/js/materialize.min.js?v=10.4.0.0"></script>
-<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.0.0"></script>
-<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.0.0"></script>
+<script src="../assets/js/jquery.js?v=10.4.0.1"></script>
+<script src="../assets/js/materialize.min.js?v=10.4.0.1"></script>
+<script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.0.1"></script>
+<script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.0.1"></script>
  <script type="text/javascript">
   $(function(){
   

@@ -636,6 +636,20 @@
 </div>
  <!-- bdy -->
 
+<div class="modal modal-fixed-footer per7302 hide" id="modal-docaja">
+   <div class="modal-header head3 center" style="font-size: 22px;">Iniciar Caja</div>
+  <div class="modal-content">
+    <div class="input-field">
+      <input type="text" id="_valor_caja" value="0.00" class="eder numeric">
+      <label for="_valor_caja">Valor de Caja</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action waves-effect waves-green btn-flat" id="_docaja">Aceptar</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
 <div class="modal modal-fixed-footer" id="modal-addline" style="height: 400px;">
   <div class="modal-content">
     <div class="trVenta hide trsec hide-on-large-only"> <!-- MOBIL -->
@@ -1263,4 +1277,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.4.0.0"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.4.0.1"></script>

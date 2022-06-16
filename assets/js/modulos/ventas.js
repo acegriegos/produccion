@@ -51,6 +51,7 @@ $(function(){
     $('.tooltipped').tooltip({delay: 50});
     $('.dropdown-button').dropdown();
     $('#vcomentario').characterCounter();
+    $(".modal").modal();
 
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
@@ -321,8 +322,6 @@ $(function(){
     });
 
     $("#ffacturas .zelda").data('triforce',{vidtipo:1, vidtipoventa:param, vid:0, vidsucursal:'', videstado:1, visregistrada:0,vreferencia:'', vidmoneda:1, vbisproveedor:0, vidcliente:0, vsubtotal:0, vdescuento:0, vimv:0, vcomodin:'', vextra : '',vextrapagos : 0, vdivisa : 0,vidusuario:'',vidtipopago:1,vidodt:0,vexonerado : 0,voc:'', idline:0,  saldo : 0, notific : 0,tmpcorreo:'',videxoneracion:'',vidagente:0,margenes:0,vterminal:config[26],xmlotros:0});
-
-    $(".modal").modal();
 
     $("#modal-noticia").modal({
         dismissible:false
@@ -816,6 +815,35 @@ $(function(){
     if(config[32] != 0 && param.toString().match(new RegExp(/\b1\b|\b4\b|\b5\b|\b6\b|\b7\b|\b8\b|\b10\b|\b106\b/g))){
         cargarNotificaciones();
     }
+
+    if(config[33] != 0){
+        permisos(7302,7302)
+        Materialize.toast('Caja sin Inicializar',4000,'red')
+        $('#facturar').prop('disabled',true)
+        $('#facturar').attr('title','Caja sin Inicializar')
+        $('#facturar').addClass('disabled')
+        $('#facturar').prop('id','no-facturar')
+
+        if(!$('.per7302').hasClass('hide')){
+            $("#modal-docaja").modal('open')
+            $("#_valor_caja").focus().select()
+        }
+
+        $("#_docaja").click(function(){
+            var valor = $("#_valor_caja").val().replace(/,/g,'');
+            if(parseInt(valor) <= 0){
+                Materialize.toast('Valor debe ser Mayor a Zero',4000,'red')
+                $("#_valor_caja").focus().select()
+                return false;
+            }
+
+            var caja = $("#cargarfact").attr('idcaja') != undefined ? parseInt($("#cargarfact").attr('idcaja')) : 1;
+
+            var lcinic = insertar(404,'','null,@@usr,'+valor+',now(),null,null,@@impresa,0,'+caja);
+            Materialize.toast('Caja Iniciada Correctamente',4000,'green');
+            setTimeout(function(){location.reload();},2000)
+        })
+    }
     
 })//READY
 
@@ -1039,8 +1067,6 @@ $("#carddigito").keyup(function(e){
         elimprimir.focus();
     }
 });
-
-
 
 $("#pconm").blur(function(){
     if(parseFloat($(this).val()) > 0){

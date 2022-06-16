@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.0">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.0">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.0">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.1">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.1">
 
 <style type="text/css">
   html{
@@ -802,10 +802,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.4.0.0"></script>
-     <script src="../assets/js/materialize.min.js?v=10.4.0.0"></script>
-     <script src="../assets/js/asgard.js?v=10.4.0.0"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.4.0.0"></script>
+     <script src="../assets/js/jquery.js?v=10.4.0.1"></script>
+     <script src="../assets/js/materialize.min.js?v=10.4.0.1"></script>
+     <script src="../assets/js/asgard.js?v=10.4.0.1"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.4.0.1"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

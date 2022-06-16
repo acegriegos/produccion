@@ -21,7 +21,7 @@ $(function(){
 		}
 	});
 	loadmybussiness();
-	permisos(7301,7302);
+	permisos(7301,7303);
 
 	$(".mnd").each(function(){
 		var tmoneda = $(this).attr('id').substr(1);
@@ -185,8 +185,42 @@ $(function(){
 			
 	});
 
+	$("#editarcaja").click(function(){
+		var valor = $("#mcierre").val().replace(/,/g,'');
+
+		if($("#mcierre").attr('readonly') != undefined){
+			$("#mcierre").removeAttr('readonly').focus().select()
+			$("#iniciarcaja").attr('dont',1);
+		}else{
+			$("#iniciarcaja").click();
+		}
+
+	});
+
 	$("#iniciarcaja").click(function(){
 		var valor = $("#mcierre").val().replace(/,/g,'')
+
+		if($(this).attr('dont') != undefined){
+			$("#iniciarcaja").removeAttr('dont');
+
+			if(isNaN(valor)){
+				Materialize.toast('Valor Debe ser Numérico',4000,'red')
+				$("#mcierre").focus().select();
+				return false;
+			}
+
+			if(valor <= 0){
+				Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
+				$("#mcierre").focus().select();
+				return false;
+			}
+
+			var lcinic = actualizar(404,'monto='+valor,'idsucursal=@@impresa and fmonto is null and date_format(fecha,"%Y-%m-%d") = curdate()');
+			console.log(lcinic)
+			Materialize.toast('Caja Actualizada Correctamente',4000,'green');
+			$("#mcierre").attr('readonly',true);
+			return false;
+		}
 
 		if($("#mcierre").attr('readonly') != undefined){
 			Materialize.toast('Caja Iniciada',4000,'red')

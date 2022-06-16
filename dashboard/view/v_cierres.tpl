@@ -7,13 +7,13 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.4.0.0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.4.0.1">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.4.0.0"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.4.0.0"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.4.0.1"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.4.0.1"></script>
     <![endif]-->
   </head>
   <body> 
@@ -34,8 +34,9 @@
       </div>
       
       <div class="col s12 m12 l12">
+        <i class="mdi mdi-pencil mdi-24px per7303 hide" title="Editar Caja" style="cursor: pointer;" id="editarcaja"></i>
+        <i class="mdi mdi-plus mdi-24px" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
         <div class="input-field col s4"  style="float:left;">
-          <i class="mdi mdi-plus prefix" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
           <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
           <label for="mcierre">Inicio de Caja</label>
         </div>
@@ -85,6 +86,11 @@
           </div>
           <div class="col s3 m3 l3">
             Total Tarjeta: <span id="ttarjeta"></span>
+          </div>
+        </div>
+        <div class="row marginzero">
+          <div class="col s12 der">
+            <b>TOTAL EFECTIVO+TARJETAS:</b> <span id="ttot"></span>
           </div>
         </div>
         <h4 class="hide">Notas y abonos</h4>
@@ -259,6 +265,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.4.0.0"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.4.0.1"></script>
   </body>
 </html>
