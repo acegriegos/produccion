@@ -195,7 +195,11 @@
       <br>
       <?php if($cierre[28] > 0) echo 'Tipo Cambio $: <span style="float: right;">'.number_format($cierre[29],2).'</span><br>'; ?>
       <?php echo 'TOTAL: <span style="float: right;">'.number_format($cierre[7]+$cierre[8]+$cierre[9]+$cierre[19],2).'</span><br>'; ?>
-      <?php }else{ ?>
+      <?php }elseif ($config[13] == 5) {
+        foreach ($cierreg as $obj) {
+          echo '<b>'.$obj[2].':</b> <span style="float: right;">'.number_format($obj[3],2,'.',',').'</span> <br>';
+        }
+      }else{ ?>
 
       <?php if($cierre[7] > 0) echo 'Ventas en Efectivo: <span style="float: right;">'.$cierre[7].'</span><br>'; ?>
       <?php if($cierre[8] > 0) echo 'Ventas con Tárjetas: <span style="float: right;">'.$cierre[8].'</span><br>'; ?>

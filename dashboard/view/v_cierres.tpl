@@ -181,7 +181,14 @@
                 <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="0" placeholder="0" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
                 <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
               </div>
-              {/section}  
+              {/section} 
+              
+              {section name=LE loop=$TEXT}
+              <div class="input-field col s4 m4 l4">
+                <input type="number" id="d{$TEXT[LE][0]}" class="ext eder" value="0" placeholder="0">
+                <label for="d{$TEXT[LE][0]}">{$TEXT[LE][1]}</label>
+              </div>
+              {/section}
             </div>
             
             <div class="col s4" style="text-align: right;">

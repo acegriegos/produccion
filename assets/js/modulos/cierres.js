@@ -403,6 +403,7 @@ $(document).on("click","#docierre",function(){
 	if(parseInt(idcierre)){
 		$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 		guardarMonedas(idcierre,0);
+		guardarExtras(idcierre);
 
 		if(config[29] != '99' && config[29] != ''){
 			var dinic = getDatos('idinicio',314,'id='+idcierre)
@@ -437,6 +438,7 @@ $(document).on("click",".getfacturas",function(){
 	$("#tcredito").text($("#hidet").attr('tcre'));
 	$("#tefectivo").text($("#hidet").attr('tefe'));
 	$("#ttarjeta").text($("#hidet").attr('ttar'));
+	$("#ttot").text($("#hidet").attr('ttot'));
 	
 	$("#data-table-facturas").DataTable({
 	    bFilter: false,
@@ -666,6 +668,13 @@ function guardarMonedas(vidc,vidi){
 		if(parseInt($(this).val()) > 0 && $(this).attr('id').substr(1) != undefined){
 			insertar(340,'','null,'+vidc+','+vidi+','+$(this).attr('id').substr(1)+','+$(this).val());
 		}
+	});
+	return 'false';
+}
+
+function guardarExtras(vidc){
+	$(".ext").each(function(i){
+		insertar(362,'','null,'+vidc+','+$(this).attr('id').substr(1)+','+$(this).val().replace(/,/g,''));
 	});
 	return 'false';
 }
