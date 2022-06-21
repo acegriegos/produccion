@@ -816,7 +816,7 @@ $(function(){
         cargarNotificaciones();
     }
 
-    if(config[33] != 0){
+    if(config[33] != 0 && param.toString().match(new RegExp(/\b1\b|\b7\b|\b8\b/g))){
         permisos(7302,7302)
         Materialize.toast('Caja sin Inicializar',4000,'red')
         $('#facturar').prop('disabled',true)

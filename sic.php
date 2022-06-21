@@ -1,6 +1,6 @@
 <?php 
     $consulta = str_replace('-', '', str_replace(' ', '', $_REQUEST['ced']));
-    /*$source = "https://api.hacienda.go.cr/fe/ae?identificacion=".$consulta;
+    $source = "https://api.hacienda.go.cr/fe/ae?identificacion=".$consulta;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -45,9 +45,9 @@
     }else{
         $salida['error'] = 'Cédula no Existente';
         $salida['succed'] = 0;
-    }*/
+    }
 
-    $source = "https://apis.gometa.org/cedulas/".$consulta;
+    /*$source = "https://apis.gometa.org/cedulas/".$consulta;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -72,7 +72,7 @@
     }else{
         $salida['error'] = 'Cédula no Existente';
         $salida['succed'] = 0;
-    }
+    }*/
 
     echo json_encode($salida);
     
