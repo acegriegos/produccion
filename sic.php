@@ -13,7 +13,7 @@
 
     curl_close ($ch);
 
-    $source = "https://api.hacienda.go.cr/fe/mifacturacorreo?identificacion=".$consulta;
+    /*$source = "https://api.hacienda.go.cr/fe/mifacturacorreo?identificacion=".$consulta;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -24,14 +24,14 @@
     $error = curl_error($ch);
     $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-    curl_close ($ch);
+    curl_close ($ch);*/
     
     $data = (array)json_decode($data);
-    $correo = (array)json_decode($correo);
+    /*$correo = (array)json_decode($correo);
         
     if(isset($correo['Resultado']))
         $correo = $correo['Resultado']->Correo;
-    else    
+    else*/    
         $correo = '';
 
     if (isset($data['nombre'])) {

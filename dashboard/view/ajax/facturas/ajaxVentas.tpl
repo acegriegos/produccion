@@ -218,6 +218,8 @@
 
     <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
 
+    <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
+
     {/if}
 
     <a class="mdi mdi-xml tooltipped mdi-24px white-text der hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh" style="position: absolute;top: 0;right: 108px;"></a>
