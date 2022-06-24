@@ -109,7 +109,7 @@
 		}
 
 		function getCURL($url,$param,$post=true){
-			set_error_handler("warning_handler", E_WARNING);
+			//set_error_handler("warning_handler", E_WARNING);
             $fP = fSockOpen("ssl://google.com", 443, $errno, $errstr, 10);
             if (!$fP) { return json_encode(["rs"=>'Sin Internet',"erno"=>1]); }
 

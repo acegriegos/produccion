@@ -14,16 +14,47 @@
     {$NAV}
     <div class="bdy">
       <div class="row">
-        <div class="input-field col s4">
-          <input type="text" id="porrazon">
+        <div class="input-field col s3">
+          <input type="text" id="porrazon" placeholder="[ ---TODOS--- ]">
           <label for="porrazon">Razón Social, Cédula o Nombre Fantasia</label>
         </div>
 
-        <div class="input-field col s4">
-          <input type="text" id="porrazon">
-          <label for="porrazon">Razón Social</label>
+        <div class="input-field col s3">
+          <select id="porservicio" class="default-browser" multiple>
+            <option value="0" selected>Todos</option>
+            <option value="1">Uno</option>
+          </select>
+          <label for="porservicio">Servicio</label>
         </div>
+
+        <div class="input-field col s3">
+          <a class="prefix dropdown-button tooltipped pbtn"  data-activates='filtr_1' data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-equal mdi-24px" id="logo"></i></a>
+              <ul id='filtr_1' class='dropdown-content'>
+                <li><a class="optns" tipo="mdi-equal" href="#!" fltr="1">Igual</a></li>
+                <li><a class="optns" tipo="mdi-greater-than" href="#!" fltr="2">Mayor</a></li>
+                <li><a class="optns" tipo="mdi-greater-than-or-equal" href="#!" fltr="3">Mayor e Igual</a></li>
+                <li><a class="optns" tipo="mdi-less-than" href="#!" fltr="4">Menor</a></li>
+                <li><a class="optns" tipo="mdi-less-than-or-equal" href="#!" fltr="5">Menor e Igual</a></li>
+              </ul>
+          <input type="text" id="pormonto" class="eder numeric" value="0.00">
+          <label for="pormonto">Monto Servicio</label>
+        </div>
+
+        <i class="mdi mdi-magnify mdi-24px pbtn der" title="Buscar"></i>
+
       </div>
+
+      <table class="tbl striped bordered">
+        <thead>
+          <th>
+            <td>Razon Social</td>
+            <td>Servicio</td>
+            <td>Periodo</td>
+            <td>Monto</td>
+            <td>Acciones</td>
+          </th>
+        </thead>
+      </table>
     </div>
     {$SCR}
     <script src="../assets/js/modulos/servicios.js"></script>

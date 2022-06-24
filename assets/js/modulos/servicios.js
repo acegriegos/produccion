@@ -1,15 +1,40 @@
 $(function(){
-	$("#data-table-servicioss").dataTable({
-        bFilter: false,
-        bScrollInfinite: true,
-        bSort: false,
-        bLengthChange: false,
-        order: [],
-        bPaginate: false,
-        info: false
-    });
+	
+	$(".optns").click(function(){
+		$("#logo").removeAttr('class')
+		$("#logo").addClass('mdi '+$(this).attr('tipo')+' mdi-24px')
+		$("#pormonto").focus().select()
+	});
+
+	doAjax('login',4,{sel:'*',tbl:320,where:'idsucursal=@@impresa'});
 
 });
+
+function doAjax(vmodulo,vaccion,varreglo){
+
+    $.ajax({
+        url: '../dashboard/'+vmodulo,
+        type: 'POST',
+        data: {accion: vaccion,arreglo : varreglo}
+    })
+    .done(function(data) {
+        
+       /* try {
+            p = JSON.parse(data);
+        }
+        catch(err){
+            p = data;
+            console.log(p)
+        }
+        
+        postExcecute(vid,p,vmore);*/
+        console.log(data)
+    })
+    .fail(function(x){
+        console.log(x)
+    });
+
+}
 
 function validar (varreglo,vmodulo) {
 	
