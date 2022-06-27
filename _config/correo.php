@@ -104,7 +104,7 @@ class correo
             echo $this->ubi.'assets/'.$vAdjunto[$i];
         }
       }else
-        $this->mail->addAttachment($this->ubi.'assets/'.$vAdjunto);      
+        $this->mail->addAttachment($this->ubi.'assets/'.$vAdjunto);
 
       $salida = ['success'=>1];
 

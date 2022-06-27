@@ -154,7 +154,7 @@
                 <div class="row" style="margin: 0;padding: 0">
                     <div class="col s12 m4">
                         <div class="input-field">
-                            <i class="mdi mdi-24px mdi-magnify prefix"></i>
+                            <i class="mdi mdi-24px mdi-magnify prefix scabys"></i>
                             <input type="text" id="scabys" autocomplete="off">
                             <label for="scabys">Buscar Código CABYS</label>
                         </div>

@@ -170,6 +170,11 @@ $(function () {
 				break;
 		}
 
+		$(".scabys").click(function(){
+			var iserv = $(".per4101").hasClass('active') ? 1 : 0;
+			cargarCategorias($("#scabys").val(),iserv)
+		});
+
 		$("#scabys").keyup(function(e){
 			var code = e.which || e.keyCode
 			if(code == 13 && $(this).val().trim() != ''){

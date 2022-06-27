@@ -357,7 +357,7 @@ function cargarCompras(){
 
             $(this).autocomplete({
                 limit: 20,
-                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where compraprocesada) having nombre like "%'+busqueda+'%"',0,0,0,1),
+                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where compraprocesada) and datediff(fecha,curdate()) > -370 having nombre like "%'+busqueda+'%"',0,0,0,1),
                 onAutocomplete: function(val){
                     
                     var ref = val.substr(0,val.indexOf('-'));
@@ -369,6 +369,7 @@ function cargarCompras(){
                     var datos = getDatos('id,idcliente,truncate(substring(referencia,32,10),0) as ref,(select nombre from clientes where id = facturas.idcliente) as client',64,'truncate(substring(referencia,32,10),0) = '+ref+' having client = "'+client+'"');
                     var vidfact = datos[0][0][0];
                     $("#ffacturas .zelda").data('triforce')['vidcliente'] = datos[0][0][1];
+                    console.log(vidfact+' '+'truncate(substring(referencia,32,10),0) = '+ref+' having client = "'+client+'"')
                     $("#fdetallefacturas").html(mantenimiento('facturacion',11,{idfact:vidfact,idtp:1}));
                     $(".autocomplete").autocomplete();
                 }
