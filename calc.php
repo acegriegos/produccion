@@ -5,11 +5,11 @@
  	<title>Calculadora</title>
 
 	<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="./assets/css/materialize.min.css?v=10.4.0.1">
-	<link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.1">
-	<link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.1">
-	<link rel="stylesheet" type="text/css" href="./assets/css/modulos/style-menu.css?v=10.4.0.1">
-	<link rel="stylesheet" type="text/css" href="./assets/css/materialdesignicons.min.css?v=10.4.0.1">
+	<link rel="stylesheet" type="text/css" href="./assets/css/materialize.min.css?v=10.4.0.2">
+	<link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.2">
+	<link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.2">
+	<link rel="stylesheet" type="text/css" href="./assets/css/modulos/style-menu.css?v=10.4.0.2">
+	<link rel="stylesheet" type="text/css" href="./assets/css/materialdesignicons.min.css?v=10.4.0.2">
 
 	<style type="text/css">
 		label, span{
@@ -91,10 +91,10 @@
 
  	</div>
  	
- 	<script src="./assets/js/jquery.js?v=10.4.0.1"></script>
-	<script src="./assets/js/materialize.min.js?v=10.4.0.1"></script>
-	<script src="./assets/js/asgard.js?v=10.4.0.1"></script>
-	<script src="./assets/js/main.js?v=10.4.0.1"></script>
-	<script src="./assets/js/calc.js?v=10.4.0.1"></script>
+ 	<script src="./assets/js/jquery.js?v=10.4.0.2"></script>
+	<script src="./assets/js/materialize.min.js?v=10.4.0.2"></script>
+	<script src="./assets/js/asgard.js?v=10.4.0.2"></script>
+	<script src="./assets/js/main.js?v=10.4.0.2"></script>
+	<script src="./assets/js/calc.js?v=10.4.0.2"></script>
  </body>
  </html>

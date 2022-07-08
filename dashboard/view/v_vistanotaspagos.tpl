@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Movimientos Estados</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.4.0.1">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.4.0.2">
   </head>
   <body>
   <br>
@@ -92,6 +92,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.4.0.1"></script>
+    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.4.0.2"></script>
   </body>
 </html>

@@ -1279,4 +1279,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.4.0.1"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.4.0.2"></script>
