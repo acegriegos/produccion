@@ -778,7 +778,7 @@ $(function(){
                             actualizar(97,'cantidad = cantidad+'+elemt['vcantidad'],'idproducto = '+idpr);
                             var cante = getDatos('cantidad',97,'idproducto =  '+idpr,0,0,0);
 
-                            insertar(298,'','null,9,'+parseFloat(elemt['vcantidad'])+',now(),'+idpr+',"",@@impresa,@@usr,'+cante[0][0][0]);
+                            insertar(298,'','null,9,'+parseFloat(elemt['vcantidad'])+',now(),'+idpr+',"",@@impresa,@@usr,'+cante[0][0][0]+',"'+elemt['vcomodin']+'"');
                         }
 
                         insertar(65,'','NULL,'+vidp+','+idpr+','+idsr+',"'+elemt['vexonerado']+'",'+elemt['vcantidad']+','+elemt['vprecio']+','+elemt['vdescuento']+',0,'+elemt['vimv']+',"'+elemt['vcomodin']+'",'+elemt['vidunidad']+',"'+elemt['vidimpuestos']+'","'+elemt['viddescuentos']+'",6,0');
@@ -788,7 +788,7 @@ $(function(){
                             actualizar(97,'cantidad = cantidad-'+$(this).attr('rcant'),'idproducto = '+idpr);
                             var cante = getDatos('cantidad',97,'idproducto =  '+idpr,0,0,0);
 
-                            insertar(298,'','null,9,'+$(this).attr('rcant')+',now(),'+idpr+',"",@@impresa,@@usr,'+cante[0][0][0]);
+                            insertar(298,'','null,9,'+$(this).attr('rcant')+',now(),'+idpr+',"",@@impresa,@@usr,'+cante[0][0][0]+',"'+elemt['vcomodin']+'"');
                         }
 
                         eliminar(65,'id='+$(this).attr('rid'));
@@ -799,7 +799,7 @@ $(function(){
                             actualizar(97,'cantidad = cantidad+'+resta,'idproducto = '+idpr);
                             var cante = getDatos('cantidad',97,'idproducto =  '+idpr,0,0,0);
 
-                            insertar(298,'','null,9,'+resta+',now(),'+idpr+',"",@@impresa,@@usr,'+cante[0][0][0]);
+                            insertar(298,'','null,9,'+resta+',now(),'+idpr+',"",@@impresa,@@usr,'+cante[0][0][0]+',"'+elemt['vcomodin']+'"');
                         }
 
                         actualizar(65,'idexoneracion = "'+elemt['vexonerado']+'", cantidad='+elemt['vcantidad']+',precio = '+elemt['vprecio']+',descuento='+elemt['vdescuento']+',imv='+elemt['vimv']+',comodin="'+elemt['vcomodin']+'",idunidad='+elemt['vidunidad']+',idimpuestos="'+elemt['vidimpuestos']+'",iddescuentos="'+elemt['viddescuentos']+'"','id='+$(this).attr('rid'));
@@ -1060,6 +1060,15 @@ $("#pconm").keyup(function(e){
 });
 
 $("#carddigito").keyup(function(e){
+    var code = e.wich || e.keyCode
+    if(code == 13){
+        var elimprimir = $("#factrealp");
+        elimprimir = parseInt(config[4]) ? elimprimir : $("#factreal");
+        elimprimir.focus();
+    }
+});
+
+$("#ndeposito").keyup(function(e){
     var code = e.wich || e.keyCode
     if(code == 13){
         var elimprimir = $("#factrealp");
@@ -2254,6 +2263,18 @@ function validarDetalleFactura(){
             fila.data('triforce')['videxoneracion'] += '^'+fila.data('triforce')['montoExo'];
         else
             fila.data('triforce')['videxoneracion'] = '';
+
+        if(param.toString().match(new RegExp(/\b9\b|\b104\b/g)) && parseInt(fila.data('triforce')['videntrada']) > 0){
+            var ppro = getDatos('id',104,'idproveedor = '+$("#ffacturas .zelda").data('triforce')['vidcliente']+' and idproducto = '+fila.data('triforce')['videntrada'],0,0,0);
+
+            if(ppro[0].length){
+                actualizar(104,'venta = '+fila.data('triforce')['vprecio']+', ultimafecha = now()','id = '+ppro[0][0][0]);
+            }else{
+                var cpp = fila.data('triforce')['vcodigo'];
+
+                insertar(104,'','null,'+fila.data('triforce')['videntrada']+','+$("#ffacturas .zelda").data('triforce')['vidcliente']+',"'+cpp+'",'+fila.data('triforce')['vprecio']+',0,now(),1,0');
+            }
+        }
             
     });
 

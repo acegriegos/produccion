@@ -18,7 +18,7 @@
 
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" modulo="reporteinventario" tbltipos="11,0,0,0,0,0,0,11" tipos="Por Producto,Variable,Inventariado,Gravado,Existencia,Negativos,CABYS,Por Código" types="0,3,3,3,3,3,3,0" portipo="varios" vids="0,0,0,0,0,0,0,vcodigo"></div>
+      <div class="filtros row" elem="6" sp="254" porCliente bisprov="1" modulo="reporteinventario" tbltipos="11,0,0,0,0,0,0,11" tipos="Producto,Variable,Inventariado,Gravado,Existencia,Negativo,CABYS,Código" types="0,3,3,3,3,3,3,0" portipo="varios" vids="vproducto,vvariable,visinventariado,vgravado,vexistencia,vnegativo,vcabys,vcodigo"></div>
       <input type="hidden" id="tuser" value="{$smarty.session.TIPO}">
       <!-- HEADER -->
     <div class="row header">

@@ -1443,7 +1443,7 @@
                 $schemaXML = $this->getXMLSchema($this->id);
                 $data['DetalleServicio'] = $schemaXML['det'];
                 
-                if($data['DetalleServicio'] != 1){
+                if($data['DetalleServicio'] != ''){
                     $tdetalle = isset($data['DetalleServicio']) ? sizeof($data['DetalleServicio']) : 0;
                     if (!$tdetalle && $this->opcion < 5) 
                         return ['error'=>'No hay Detalle'];
@@ -1453,25 +1453,13 @@
                 $ocargos = $this->getJSON('call fe_getOtrosCargos("'.$this->id.'")');
                 if($ocargos)
                     $data['OtrosCargos'] = $ocargos; 
-                $data['ResumenFactura'] = $schemaXML['res'];//$this->getJSON('call fe_getResumen("'.$this->id.'")');
-
-
-                /*$data['ResumenFactura']['TotalImpuesto'] = str_replace(',', '', number_format($this->sumaimpuestos,5));
-                $totoc = isset($data['ResumenFactura']['TotalOtrosCargos']) ? $data['ResumenFactura']['TotalOtrosCargos'] : 0;
-                $data['ResumenFactura']['TotalComprobante'] = str_replace(',', '', number_format($data['ResumenFactura']['TotalComprobante'] + $this->sumaimpuestos+$totoc,5));
-
-                $data['ResumenFactura']['TotalGravado'] = number_format($data['ResumenFactura']['TotalServGravados'] + $data['ResumenFactura']['TotalMercanciasGravadas'],5,'.','');
-
-                $data['ResumenFactura']['TotalExento'] = number_format($data['ResumenFactura']['TotalServExentos'] + $data['ResumenFactura']['TotalMercanciasExentas'],5,'.','');*/
+                $data['ResumenFactura'] = $schemaXML['res'];
     
                 if($this->opcion == 9){
                     unset($data['ResumenFactura']['TotalExonerado']);
                     unset($data['ResumenFactura']['TotalServExonerado']);
                     unset($data['ResumenFactura']['TotalMercExonerada']);
                 }
-
-                /*if (round($this->sumadescuentos - $data['ResumenFactura']['TotalDescuentos'],5) != 0) 
-                     return ['error'=>'Descuentos Difieren'];*/
 
                 if ($this->ref) {
                     $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
@@ -1482,8 +1470,7 @@
                 $otros = $this->getJSON('call fe_getOtros('.$this->id.')');
 
                 if ($otros)
-                    array_push($data,$otros);
-                
+                    array_push($data,$otros);                
                 
             }
 
@@ -1511,6 +1498,7 @@
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                     case '02':
+                    case '03':
                         if (strlen($this->info['Receptor']['Identificacion']['Numero']) != 10)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
@@ -1709,8 +1697,9 @@
                     
                     array_push($salida['det'], ['LineaDetalle'=>$det]);
                }
-            }else
-                $salida = $rs;
+            }else{
+                return ['det' => '', 'res' => $this->getJSON('call fe_getResumen("'.$this->id.'")')];
+            }
 
             $salida['res']['TotalGravado']      = number_format( $salida['res']['TotalMercanciasGravadas']+$salida['res']['TotalServGravados'] ,5,'.','');
             $salida['res']['TotalExento']       = number_format( $salida['res']['TotalMercanciasExentas']+$salida['res']['TotalServExentos'] ,5,'.','');

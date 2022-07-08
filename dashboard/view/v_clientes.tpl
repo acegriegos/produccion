@@ -167,7 +167,7 @@
                           <label for="vmensaje">Mensaje Adicional</label>
                         </div>
 
-                        <div class="chips chips-autocomplete col s12">
+                        <div class="chips chips-autocomplete col s12 hide">
                         </div>
 
                       </div>

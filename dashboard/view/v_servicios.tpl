@@ -46,14 +46,19 @@
 
       <table class="tbl striped bordered">
         <thead>
-          <th>
-            <td>Razon Social</td>
-            <td>Servicio</td>
-            <td>Periodo</td>
-            <td>Monto</td>
-            <td>Acciones</td>
-          </th>
+          <tr>
+            <th>Razon Social</th>
+            <th>Servicio</th>
+            <th>Periodo</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
+        <tbody id="bservicios">
+          <tr>
+            <td id="init" colspan="100%" style="text-align: center;"></td>
+          </tr>
+        </tbody>
       </table>
     </div>
     {$SCR}

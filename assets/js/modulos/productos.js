@@ -2324,7 +2324,7 @@ function endDetail(id, acc, modulo) {
 				var resta = parseFloat(cnt)-parseFloat(cante);
 				if(resta != 0){
 					var tpmov = acc == 1 ? 8 : 3;
-					insertar(298,'','null,'+tpmov+','+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt);
+					insertar(298,'','null,'+tpmov+','+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt+',""');
 				}
 			}
 

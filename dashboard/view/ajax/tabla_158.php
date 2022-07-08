@@ -37,19 +37,19 @@
 
         <i class="print tooltipped mdi mdi-36px mdi-printer" data-tooltip="Visualizar" data-position="left" id="z<?php echo $obj[0] ?>"></i>
 
-        <!-- <i class="mdi mdi-24px mdi-file-pdf pdf tooltipped" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="y<?php echo $obj[0] ?>" data-tooltip=""></i>
+         <i class="mdi mdi-36px mdi-file-pdf pdf tooltipped" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="y<?php echo $obj[0] ?>" data-tooltip=""></i>
 
-        <i class="tr trVenta trTiquete trExportacion trFECompra  mdi mdi-24px mdi-file-xml xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="x<?php echo $obj[0] ?>" data-tooltip=""></i>
+        <i class="tr trVenta trTiquete trExportacion trFECompra  mdi mdi-36px mdi-file-xml xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="x<?php echo $obj[0] ?>" data-tooltip=""></i>
 
-        <i data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="w<?php echo $obj[0] ?>" data-tooltip=""></i>
+        <i class="tr trVenta trTiquete trExportacion trFECompra mdi mdi-36px mdi-xml mh tooltipped" data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="w<?php echo $obj[0] ?>" data-tooltip=""></i>
 
-        <i class="mdi mdi-24px mdi-settings process tooltipped tr trCot hide" data-tooltip="Procesar Factura" data-position="left" id="v<?php echo $obj[0] ?>"></i>
+        <i class="mdi mdi-36px mdi-settings process tooltipped tr trCot hide" data-tooltip="Procesar Factura" data-position="left" id="v<?php echo $obj[0] ?>"></i>
 
-        <i class="mdi mdi-24px mdi-pencil edit tooltipped  tr trCot trCompra trPedido hide" data-tooltip="Editar" data-position="left" id="u<?php echo $obj[0] ?>" ></i>
+        <i class="mdi mdi-36px mdi-pencil edit tooltipped  tr trCot trCompra trPedido hide" data-tooltip="Editar" data-position="left" id="u<?php echo $obj[0] ?>" ></i>
 
-        <i class="mdi mdi-24px mdi-content-duplicate clone tooltipped tr hide" data-tooltip="Clonar" data-position="left" id="t<?php echo $obj[0] ?>" style="cursor: pointer;"></i> -->
+        <i class="mdi mdi-36px mdi-content-duplicate clone tooltipped tr hide" data-tooltip="Clonar" data-position="left" id="t<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
 
-        <i class="mdi mdi-24px mdi-send send tooltipped tr trVenta trCot trOCompra trExportacion " data-tooltip="Enviar por Correo" data-position="left" id="s<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
+        <i class="mdi mdi-36px mdi-send send tooltipped tr trVenta trCot trOCompra trExportacion " data-tooltip="Enviar por Correo" data-position="left" id="s<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
 
         </div>
 </td>

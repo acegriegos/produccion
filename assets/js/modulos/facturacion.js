@@ -1077,6 +1077,7 @@ function cargarCompras(){
        cargarUtilidad();
        $(".ven2").focus()
     });
+
 }//cargar COMPRAS
 
 function cargarVentas(){
