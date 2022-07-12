@@ -103,8 +103,15 @@
 
        </section>
 <?php 
-$pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
-$vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
+$pvuelto = 0;
+$vuelto = 0;
+
+if(($transaccion[0][24] == 7 || $transaccion[0][24] == 1 || $transaccion[0][24] == 8) && $transaccion[0][17] && $transaccion[0][2] == 'Efectivo'){
+  $extra = explode('^', $transaccion[0][17]);
+  $pvuelto = $extra[0];
+  $vuelto = $extra[1];
+}
+
 // $transaccion;
 // $miscelaneos;
 // $datos;  padding: 0% 37.5% 0% 37.5%

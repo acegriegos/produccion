@@ -49,23 +49,40 @@ function cath_error(vid, msj){
 }
 
 function cargarLista(p){
-	lista = '';
-	
-	if(p.length)
+	let lista = '';
+	let sum = 0;
+
+	if(p.length){
 		p.forEach(function(v){
+			let vl = parseFloat(v[4]);
 			lista += '<tr>'+
 						'<td>'+v[1]+'</td>'+
 						'<td>'+v[2]+'</td>'+
 						'<td>'+v[3]+'</td>'+
-						'<td>'+v[4]+'</td>'+
+						'<td> <input class="fedit" sid="'+v[0]+'" type="text" value="'+ vl.formatMoney(2,'.',',')+'"> </td>'+
 						'<td> <i class="mdi mdi-pencil mdi-24px eserv" rid="'+v[0]+'"></i></td>'+
 					 '</tr>';
+			sum += vl;
 		})
+
+	}
 	else
 		lista = '<tr><td colspan="100%" class="center">No hay Datos</td></tr>';
 
 	$("#bservicios").html(lista);
+	$("#tot").html(sum.formatMoney(2,'.',','))
 }
+
+$(document).on('keyup','.fedit',function(e){
+    var code = e.wich || e.keyCode;
+    if(code == 13)
+        $(this).blur()
+});
+
+$(document).on('blur','.fedit',function(){
+    actualizar(320,'monto = '+$(this).val().replace(/,/g),'id='+$(this).attr('sid'))
+    doAjax('login',4,{sel:'',tbl:357,where:'6,0,0,0'},cargarLista,$('#init'));
+});
 
 function validar (varreglo,vmodulo) {
 	

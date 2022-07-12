@@ -2853,7 +2853,7 @@ function endDetail(vid,vacc,vmodulo) {
                 var _vextra;
                 switch(parseInt($("#ffacturas .zelda").data('triforce')['vidtipopago'])){
                     case 1:
-                        _vextra = parseInt($(".vextra:visible").val()) ? $(".vextra:visible").val()+'^'+$(".cambio:visible").html()+'^'+(parseInt($(".cambio:visible").val().replace(/,/g,''))-parseInt($(".vextra:visible").html().replace(/,/g,''))) : 0;
+                        _vextra = parseInt($(".vextra:visible").val()) ? $(".vextra:visible").val()+'^'+$(".cambio:visible").html()+'^'+(parseInt(parseInt($(".vextra:visible").val().replace(/,/g,''))-$(".cambio:visible").html().replace(/,/g,'')) ) : 0;
                         break;
                     default:
                         _vextra = $(".vextra:visible").val();

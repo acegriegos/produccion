@@ -43,7 +43,7 @@
         <i class="mdi mdi-magnify mdi-24px pbtn der" title="Buscar"></i>
 
       </div>
-
+      Total Mes: <span id="tot">0.00</span>
       <table class="tbl striped bordered">
         <thead>
           <tr>

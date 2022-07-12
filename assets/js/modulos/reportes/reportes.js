@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12" id="fbtns"><h5>FILTROS DEL REPORTE</h5><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12" id="fbtns"><span style="font-weight: bold;font-size: 20px;">FILTROS DEL REPORTE</span><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -192,7 +192,7 @@ $(function(){
 
                     break;
                     case 2: //para numero
-                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                     case 3: //solo check
@@ -214,8 +214,11 @@ $(function(){
                     case 6: //para fecha de mes
                         type = '<input type="month" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px;border:0px;" str="1">';
                         break;
+                    case 8: //PARA FILTRO AÑADIDO
+                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        break;
                     default://para texto
-                    type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                 }
@@ -241,6 +244,44 @@ $(function(){
             }
             $('select').material_select();
         }
+    }
+
+    var dt_filtro = $(".filtros").data('filtros');
+    if(dt_filtro){
+        html = '<div class="row col s4" id="nselects"></div> <div class="row col s4" id="selects"></div> <div class="row col s3" id="checks"></div>'
+        $(".principal .filtros").append(html);
+        
+        $.each(dt_filtro,function(v,i){
+            let name = v;
+            let type = dt_filtro[v]['tipo'] == undefined ? 0 : dt_filtro[v]['tipo'];
+            let text = dt_filtro[v]['texto'] == undefined ? '' : dt_filtro[v]['texto'];
+            let item = '';
+
+            switch(type){
+                case 3: //CHECK
+                    item = '<input type="checkbox" id="'+v+'" value="'+filtro+'"><label for="'+v+'" class="pbtn">'+text+'</label>';
+                    break;
+                case 2: //NUMBER
+                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="number" id="'+v+'" class="eder" style="margin:0px">';
+                    break;
+                case 1: //INPUT TEXT
+                default:
+                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="text" id="'+v+'" class="eder" style="margin:0px">';
+                    break;
+            }
+
+            switch(type){
+                case 1:
+                case 2:
+                    $("#nselects").append('<div class="input-field" style="margin:0px;">'+item+'</div>');
+                    break;
+                case 3:
+                    $("#checks").append(item);
+                    break;
+                default:
+                    break;
+            }
+        })
     }
 
     $("[id^=fltr]").hide();
@@ -452,11 +493,8 @@ function getCorreos(){
         return JSON.parse(salida.substring(0,salida.length -1)+"]");
     }else
         return '';
-
-    
 }
 
 function postSendmail() {
     etTimeout(function(){$(".toast").remove();},1000)
-    
 }

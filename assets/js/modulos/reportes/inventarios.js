@@ -2,7 +2,7 @@ $(function(){
     var param = getParameterByName('rep');
     switch(param){
         case 'invgen':
-            arr('login',6,'',254,'6,@@impresa,"",-1,-1,-1,-1,-1,-1,"",0','',1,$(".detrep")); 
+            arr('login',6,'',254,'6,@@impresa,"",-1,-1,-1,-1,"",0','',1,$(".detrep")); 
             
             $(".excel").data('parametros')['vista'] = '2,6,12,15';
             $(".excel").data('parametros')['conteo'] = 1;

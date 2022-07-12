@@ -18,7 +18,7 @@
 
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" porCliente bisprov="1" modulo="reporteinventario" tbltipos="11,0,0,0,0,0,0,11" tipos="Producto,Variable,Inventariado,Gravado,Existencia,Negativo,CABYS,Código" types="0,3,3,3,3,3,3,0" portipo="varios" vids="vproducto,vvariable,visinventariado,vgravado,vexistencia,vnegativo,vcabys,vcodigo"></div>
+      <div class="filtros row" elem="6" sp="254" porCliente bisprov="1" tbltipos="11,-1,0,0,0,0,11"  tipos="Producto,Existencia,Variable,Inventariado,Gravado,CABYS,Código" types="0,7,3,3,3,3,0" portipo="varios" vids="vproducto,vexistencia,vvariable,visinventariado,vgravado,vcabys,vcodigo" modulo="reporteinventario"></div>
       <input type="hidden" id="tuser" value="{$smarty.session.TIPO}">
       <!-- HEADER -->
     <div class="row header">
@@ -99,6 +99,40 @@
 
   {$SCR}
 
+  {literal}
+  <script type="text/javascript">
+    $(function(){
+      $("._filtros").data('filtros',{
+      "vvariable":{
+        "tipo":3,
+        "texto":"Variable"
+      },
+      "vproducto":{
+        "tipo":1,
+        "texto":"Producto"
+      },
+      "vexistencia":{
+        "tipo":2,
+        "texto": "Existencia",
+        "pre":{
+          "tipo":1,
+          "opciones": {
+            0 :{
+              "id":1,
+              "name":"<a class=\"optns\" tipo=\"mdi-equal\" fltr=\"1\">Igual</a>"
+            },
+            1 :{
+              "id":2,
+              "name":"<a class=\"optns\" tipo=\"mdi-greater-than-or-equal\" fltr=\"2\">Mayor o Igual</a>"
+            }
+          }
+        }
+      }
+    }
+    )
+    }) 
+  </script>
+  {/literal}
   <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.2"></script>
   <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.0.2"></script>
 </body>

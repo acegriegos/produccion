@@ -858,8 +858,8 @@ function postload(modulo) {
             var sislista = '';
             for (var i = 0; i < servicios[0].length; i++){
             	sislista += '<tr class="_servicios" id="'+servicios[0][i][0]+'" accion="2"> '+
-            		'<td style="padding: 0px;">'+servicios[0][i][1]+'</td>'+
-            		'<td style="padding: 0px;"> <i class="mdi mdi-pencil si-edit pbtn" title="Editar Servicio"></i> <i class="mdi mdi-close si-delete pbtn" title="Eliminar Servicio"></i> </td> </tr>'+
+            		'<td style="padding: 0px;" colspan="100%">'+servicios[0][i][1]+' <i class="mdi mdi-pencil si-edit pbtn der" title="Editar Servicio"></i> <i class="mdi mdi-close si-delete pbtn der" title="Eliminar Servicio"></i> </td>'+
+            		'</tr>'+
             		'<tr><td style="padding: 0px;">'+servicios[0][i][2]+'</td>'+ 
             		'<td style="padding: 0px;">'+servicios[0][i][3]+'</td>'+
             		'<td style="padding: 0px;">'+servicios[0][i][4]+'</td>';

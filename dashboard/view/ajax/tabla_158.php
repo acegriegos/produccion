@@ -13,7 +13,7 @@
 <td style="width: 10%"><?php echo $obj[8] ?></td>
 <td style="width: 10%">
     <a class="dropdown-button btn btn-default hide-on-med-and-down" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones<?php echo $obj[0];?>'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
-        <ul id="acciones<?php echo $obj[0];?>" class='dropdown-content'>
+        <ul id="acciones<?php echo $obj[0];?>" class='dropdown-content hide-on-med-and-down'>
 
             <li><a class="center print tooltipped mdi mdi-24px mdi-printer" data-tooltip="Visualizar" data-position="left" id="a<?php echo $obj[0] ?>"></a></li>
 
@@ -37,11 +37,11 @@
 
         <i class="print tooltipped mdi mdi-36px mdi-printer" data-tooltip="Visualizar" data-position="left" id="z<?php echo $obj[0] ?>"></i>
 
-         <i class="mdi mdi-36px mdi-file-pdf pdf tooltipped" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="y<?php echo $obj[0] ?>" data-tooltip=""></i>
+        <a class="center mdi mdi-36px mdi-file-pdf pdf tooltipped black-text" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="c<?php echo $obj[0] ?>" data-tooltip=""></a>
 
-        <i class="tr trVenta trTiquete trExportacion trFECompra  mdi mdi-36px mdi-file-xml xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="x<?php echo $obj[0] ?>" data-tooltip=""></i>
+        <a class="center mdi mdi-36px mdi-cloud-download-outline xml tooltipped black-text" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g<?php echo $obj[0] ?>" data-tooltip=""></a>
 
-        <i class="tr trVenta trTiquete trExportacion trFECompra mdi mdi-36px mdi-xml mh tooltipped" data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="w<?php echo $obj[0] ?>" data-tooltip=""></i>
+        <a class="center mdi mdi-36px mdi-xml mh tooltipped black-text" data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="h<?php echo $obj[0] ?>" data-tooltip=""></a>
 
         <i class="mdi mdi-36px mdi-settings process tooltipped tr trCot hide" data-tooltip="Procesar Factura" data-position="left" id="v<?php echo $obj[0] ?>"></i>
 

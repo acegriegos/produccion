@@ -162,7 +162,7 @@
                           <label for="videstado">Estado del Cliente</label>
                         </div>
 
-                        <div class="input-field col s12 ncliente">
+                        <div class="input-field col s12 ncliente hide">
                           <input type="text" id="vmensaje">
                           <label for="vmensaje">Mensaje Adicional</label>
                         </div>
@@ -289,13 +289,16 @@
 
           <div class="subclie row" id="servicios">
             <i class="mdi mdi-plus der pbtn" id="addnserv" title="Agregar Servicio" ></i> <br>
-            <table cellspacing="0" cellpadding="0" class="tbl striped">
+            <table cellspacing="0" cellpadding="0" class="tbl striped" style="font-size: 12px">
               <thead>
                 <tr>
-                  <th style="padding: 0px;">Servicio</th>
-                  <th>Acciones</th>
+                  <th style="padding: 0px;" colspan="100%">Servicio</th>
                 </tr>
-                <tr style="border-bottom: 1px solid black;"><th style="padding: 0px;">Monto</th><th style="padding: 0px;">Sig.Pago</th><th>Tipo</th></tr>
+                <tr style="border-bottom: 1px solid black;">
+                  <th style="padding: 0px;">Monto</th>
+                  <th style="padding: 0px;">Sig.Pago</th>
+                  <th style="padding: 0px;">Tipo</th>
+                </tr>
               </thead>
               <tbody id="servlist"></tbody>
             </table>
