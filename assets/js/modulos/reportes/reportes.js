@@ -256,17 +256,56 @@ $(function(){
             let type = dt_filtro[v]['tipo'] == undefined ? 0 : dt_filtro[v]['tipo'];
             let text = dt_filtro[v]['texto'] == undefined ? '' : dt_filtro[v]['texto'];
             let item = '';
+            let spre = '';
+            let tpre = 0;
+
+            if(dt_filtro[v]['pre'] != undefined){
+                let pre = dt_filtro[v]['pre'];
+                let lpre = '';
+
+                switch(parseInt(pre['tipo'])){
+                    case 1:
+                    default:
+                        $.each(pre['opciones'],function(x,y){
+                            lpre += '<li>'+y['name']+'</li>';
+                        });
+                        spre = '<a class="dropdown-button tooltipped pbtn" data-activates="_'+pre['id']+'" data-position="button" data-tooltip="Cambiar Filtro" style="position:absolute;top:15">'+pre['default']+'</a>'+
+                            '<ul id="_'+pre['id']+'" class="dropdown-content">'+lpre+'</ul>';
+                          tpre = 1;
+                        break;
+                }
+            }
 
             switch(type){
                 case 3: //CHECK
-                    item = '<input type="checkbox" id="'+v+'" value="'+filtro+'"><label for="'+v+'" class="pbtn">'+text+'</label>';
+                    let checked = dt_filtro[v]['checked'] == undefined ? '' : 'checked';
+
+                    item = '<input type="checkbox" id="'+v+'" '+checked+'><label for="'+v+'" class="pbtn">'+text+'</label>';
                     break;
                 case 2: //NUMBER
-                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="number" id="'+v+'" class="eder" style="margin:0px">';
+                    item = '<span class="prefix" style="font-size:16px;">'+text+spre+'</span><input type="number" id="'+v+'" class="eder" style="margin:0px" placeholder="--">';
                     break;
                 case 1: //INPUT TEXT
                 default:
-                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="text" id="'+v+'" class="eder" style="margin:0px">';
+                    let auto = "";
+                    let hd = "";
+                    let eclass = "";
+                    let eattr = "";
+
+                    if(dt_filtro[v]['autocomplete'] != undefined){
+                        auto = "autocomplete"
+                        hd = '<input type="hidden" id="'+dt_filtro[v]['autocomplete']['id']+'" value="0" />'
+                    }
+
+                    if(dt_filtro[v]['class'] != undefined){
+                        eclass = dt_filtro[v]['class']
+                    }
+
+                    if(dt_filtro[v]['attr'] != undefined){
+                        eattr = dt_filtro[v]['attr']
+                    } 
+
+                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="text" id="'+v+'" class="eder '+auto+' '+eclass+'" '+eattr+' style="margin:0px" placeholder="--" autocomplete="off">'+hd;
                     break;
             }
 
@@ -276,12 +315,27 @@ $(function(){
                     $("#nselects").append('<div class="input-field" style="margin:0px;">'+item+'</div>');
                     break;
                 case 3:
-                    $("#checks").append(item);
+                    $("#checks").append('<div class="col s6" style="margin:0px;">'+item+'</div>');
+                    if(dt_filtro[v]['indeterminate'] != undefined)
+                        $("#"+v).prop('indeterminate',true).addClass('_justChange').val(-1)
                     break;
                 default:
                     break;
             }
+
+            if($("#"+v).attr('vl') != undefined)
+                $("#"+v).val($("#"+v).attr('vl'))
         })
+
+        $('.dropdown-button').dropdown();
+        $('.tooltipped').tooltip({delay: 50,duration:1000});
+
+        if(!$("#selects").children().length)
+            $("#selects").remove()
+        if(!$("#nselects").children().length)
+            $("#nselects").remove()
+        if(!$("#checks").children().length)
+            $("#checks").remove()
     }
 
     $("[id^=fltr]").hide();
@@ -289,7 +343,14 @@ $(function(){
     $("[id^=fltr].auto").prev().children().children().prop('checked',true);
 });
 
-$(document).on("click",".justChange",function(e){
+$(document).on("click",".optnsflt",function(){
+    var elem = $("#"+$(this).parent().parent().attr('id').substr(1));
+    elem.removeAttr('class')
+    elem.addClass('mdi '+$(this).attr('tipo')+' mdi-24px')
+    elem.val($(this).attr('fltr'));
+});
+
+$(document).on("click",".justChange",function(){
 
     var id =  $(this).attr('id').substr(7)
     var valor = 0;
@@ -316,6 +377,60 @@ $(document).on("click",".justChange",function(e){
     }
     
     $("#vidtipo"+id).val(valor)
+    $(this).attr('stat',status);
+});
+
+$(document).on("keydown",".cliente",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    var elem = $(this);
+    var prov = elem.attr('bisprov') == undefined ? '': 'and bisproveedor';
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        elem.autocomplete({
+            limit: 10,
+            data: arr('login',4,'concat(nombre,", ",cedula),null',2,'id > 0 '+prov+' and nombre like \"%'+elem.val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
+            onAutocomplete: function(val){
+                var id = arr('login',4,'id',2,'concat(nombre,", ",cedula) like "%'+elem.val()+'%" and id > 0 '+prov+'  and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+
+                    if (id != undefined){
+                        $("#vidcliente").val(id);
+                        doreport();
+                    }
+                    else
+                        $("#vidcliente").val(0);
+            }
+        });
+        elem.siblings($(".autocomplete-content")).css('width','25%');
+    }
+});
+
+$(document).on("click","._justChange",function(){
+    var valor = 0;
+    var status = $(this).attr('stat') == undefined ? 1 : $(this).attr('stat');
+
+    switch(parseInt(status)){
+        case 1: //check
+            $(this).prop('checked',true)
+            valor = 1;
+            status = 2;
+            break;
+        case 2: //uncheck
+            $(this).prop('checked',false)
+            valor = 0;
+            status = 3;
+            break;
+        case 3: //itermediate
+            $(this).prop('indeterminate',true)
+            valor = -1;
+            status = 1;
+            break;
+        default:
+            break;
+    }
+    
+    $(this).val(valor)
     $(this).attr('stat',status);
 });
 

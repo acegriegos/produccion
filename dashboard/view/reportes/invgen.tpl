@@ -18,7 +18,7 @@
 
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="6" sp="254" porCliente bisprov="1" tbltipos="11,-1,0,0,0,0,11"  tipos="Producto,Existencia,Variable,Inventariado,Gravado,CABYS,Código" types="0,7,3,3,3,3,0" portipo="varios" vids="vproducto,vexistencia,vvariable,visinventariado,vgravado,vcabys,vcodigo" modulo="reporteinventario"></div>
+      <div class="filtros row" elem="6" sp="254"  modulo="reporteinventario"></div>
       <input type="hidden" id="tuser" value="{$smarty.session.TIPO}">
       <!-- HEADER -->
     <div class="row header">
@@ -102,10 +102,38 @@
   {literal}
   <script type="text/javascript">
     $(function(){
-      $("._filtros").data('filtros',{
+
+      /*porCliente bisprov="1" tbltipos="11,-1,0,0,0,0,11"  tipos="Producto,Existencia,Variable,Inventariado,Gravado,CABYS,Código" types="0,7,3,3,3,3,0" portipo="varios" vids="vproducto,vexistencia,vvariable,visinventariado,vgravado,vcabys,vcodigo"*/
+
+      $(".filtros").data('filtros',{
       "vvariable":{
         "tipo":3,
+        "indeterminate" : 1,
         "texto":"Variable"
+      },
+      "visinventariado":{
+        "tipo":3,
+        "indeterminate" : 1,
+        "texto":"Inventariado"
+      },
+      "vgravado":{
+        "tipo":3,
+        "indeterminate" : 1,
+        "texto":"Gravado"
+      },
+      "vcabys":{
+        "tipo":3,
+        "indeterminate" : 1,
+        "texto":"Cabys"
+      },
+      "ncliente":{
+        "tipo":1,
+        "texto":"Proveedor",
+        "class" : "cliente",
+        "attr" : "bisprov",
+        "autocomplete" : {
+          "id" : "vidcliente"
+        }
       },
       "vproducto":{
         "tipo":1,
@@ -116,14 +144,28 @@
         "texto": "Existencia",
         "pre":{
           "tipo":1,
+          "id" : "vcodigo",
+          "default" : "<i class=\"mdi mdi-equal mdi-24px\" vl=\"1\" id=\"vcodigo\"></i>",
           "opciones": {
             0 :{
               "id":1,
-              "name":"<a class=\"optns\" tipo=\"mdi-equal\" fltr=\"1\">Igual</a>"
+              "name":"<a class=\"optnsflt\" tipo=\"mdi-equal\" fltr=\"1\">Igual</a>"
             },
             1 :{
               "id":2,
-              "name":"<a class=\"optns\" tipo=\"mdi-greater-than-or-equal\" fltr=\"2\">Mayor o Igual</a>"
+              "name":"<a class=\"optnsflt\" tipo=\"mdi-greater-than-or-equal\" fltr=\"2\">Mayor o Igual</a>"
+            },
+            2 :{
+              "id":3,
+              "name":"<a class=\"optnsflt\" tipo=\"mdi-greater-than\" fltr=\"3\">Mayor</a>"
+            },
+            3 :{
+              "id":4,
+              "name":"<a class=\"optnsflt\" tipo=\"mdi-less-than-or-equal\" fltr=\"4\">Menor o Igual</a>"
+            },
+            4 :{
+              "id":5,
+              "name":"<a class=\"optnsflt\" tipo=\"mdi-less-than\" fltr=\"5\">Menor</a>"
             }
           }
         }

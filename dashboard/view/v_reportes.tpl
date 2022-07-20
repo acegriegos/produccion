@@ -145,7 +145,7 @@ Inventario <hr>
 <p>Movimiento de Costos-Ventas</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic hide">
+<div class="col s6 m3 l2 center-align basic ">
 <a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Kardex</p>
 </div>

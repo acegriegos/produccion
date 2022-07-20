@@ -1301,7 +1301,7 @@ $(document).on("keyup",".fventa",function(e){
     
 });
 
-$(document).on("change","#uni",function(){
+/*$(document).on("change","#uni",function(){
 
      if($(this).val() == '0')
         return false;
@@ -1350,7 +1350,7 @@ $(document).on("change","#uni",function(){
         }
         $(this).attr('old',$(this).val())
      }      
-});
+});*/
 
 $(document).on("blur",".fventa",function(){
     var valor = $(this).val();

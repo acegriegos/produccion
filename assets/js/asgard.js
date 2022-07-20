@@ -1490,9 +1490,10 @@ function rreport(){
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        if ($("#"+datos[i][0]).val() != undefined) {
+        if ($("#"+datos[i][0]).val() != undefined)
             search[i] = '"'+$("#"+datos[i][0]).val()+'"';
-        }
+        else if($("#"+datos[i][0]).attr('vl') != undefined)
+            search[i] = '"'+$("#"+datos[i][0]).attr('vl')+'"';
         else if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
         else if (datos[i][0] == 'vidusuario')
