@@ -33,7 +33,7 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/usuarios.js?v=10.3.0.20"></script>
+<script src="../assets/js/modulos/usuarios.js?v=10.3.0.20-1"></script>
 
 </body>
 </html>

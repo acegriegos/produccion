@@ -103,13 +103,13 @@ for($i = 0; $i<sizeof($datos);$i++){
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Factura</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Fecha</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Vence</b></td>
-          <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Días</b></td>
+          <td align="center" width="6%" style="border: 1px solid #e2e2e2;"><b>Días</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Monto</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Abonos</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>NC</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>ND</b></td>
           <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Saldo</b></td>
-          <td align="center" width="10%" style="border: 1px solid #e2e2e2;"><b>Total</b></td>
+          <td align="center" width="14%" style="border: 1px solid #e2e2e2;"><b>Total CRC</b></td>
       </tr>';
   }
 
@@ -161,7 +161,7 @@ for($i = 0; $i<sizeof($datos);$i++){
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][4],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][5],2).'</td>
           <td style="border:1px solid #e2e2e2">'.number_format($datos[$i][6],2).'</td>
-          <td style="border:1px solid #e2e2e2">'.$datos[$i][13].number_format($suma,2).'</td>
+          <td style="border:1px solid #e2e2e2">'.number_format($suma,2).'</td>
       </tr>';
 }
 

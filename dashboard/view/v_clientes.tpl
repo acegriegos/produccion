@@ -93,6 +93,12 @@
                             <label for="cdimex">DIMEX</label>
                           </p>
                         </div>
+                        <div class="col s6 m3 l2">
+                          <p>
+                            <input class="with-gap" name="tipoclie" type="radio" id="cextranjero" tipoClie="0" />
+                            <label for="cextranjero">Extranjero</label>
+                          </p>
+                        </div>
                         <input type="hidden" id="vidtipocliente" value="1">
                       </div>
                       <br>
@@ -213,8 +219,6 @@
 
             <div class="input-field col s12 cre hide">
               <div class="prefix"><i class="mdi-calendar-question mdi mdi-24px"></i></div>
-              
-              <input type="number" class="eder per1004" id="vplazo" value="0" autocomplete="off">
               <label for="vplazo">Plazo en Días</label>
               <input type="number" class="eder" id="vplazo" value="0" autocomplete="off">
             </div>
@@ -297,7 +301,7 @@
                   <select id="vtipodoc" class="tooltiped" type="select">
                     <option value="0">Tipo de Documento</option>
                     {section name=LE loop=$EXOS}
-                    <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] neq 3 and $EXOS[LE][0] neq 1}disabled{/if}>{$EXOS[LE][1]}</option>
+                    <option value="{$EXOS[LE][0]}" >{$EXOS[LE][1]}</option>
                     {/section}
                   </select>
                 </div>
@@ -308,18 +312,18 @@
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="tooltiped" autocomplete="off" readonly>
+                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="tooltiped" autocomplete="off">
                   <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
                 </div>
 
                   <label class="col s12">Fecha y Hora de Emisión</label>
 
                   <div class="col s6">
-                    <input type="date" id="vfechaDoc" class="tooltiped" readonly>
+                    <input type="date" id="vfechaDoc" class="tooltiped">
                   </div>
 
                   <div class="col s6 input-field">
-                    <input type="time" id="vtimeDoc" class="tooltiped" step="1" readonly>
+                    <input type="time" id="vtimeDoc" class="tooltiped" step="1">
                   </div>
 
                 <div class="col s6 input-field">
@@ -484,6 +488,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.3.0.20"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.3.0.21-2"></script>
 </body>
 </html>

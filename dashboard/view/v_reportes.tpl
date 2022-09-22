@@ -80,6 +80,9 @@
 <p>Histórico CxC</p>
 </div>
 
+</div>
+
+<div class="row">
 <div class="col s6 m3 l2 center-align per1510 hide">
 <a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i></a>
 <p>Proveedores</p>
@@ -105,7 +108,7 @@
 <p>Histórico CxP</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align    5655555555555  666666 ">
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>

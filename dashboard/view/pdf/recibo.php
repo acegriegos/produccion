@@ -392,5 +392,5 @@ $pdf->lastPage();
 $sld = $datos[0][25] == 'Venta' ?  'Factura' : $datos[0][25];
 
 $ver = isset($_REQUEST['arreglo']['show']) ? 'I' : 'F';
-$pdf->Output($ubic.'assets/pdf/'.$sld.' No'.$datos[0][0].', '.strtoupper($fact).'.pdf',$ver);
+$pdf->Output($ubic.'assets/pdf/'.$sld.' No'.$datos[0][0].' '.strtoupper($fact).'.pdf',$ver);
 ?>

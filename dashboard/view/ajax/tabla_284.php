@@ -19,8 +19,8 @@
         foreach ($transaccion as $obj) {
     ?>
 
-    <tr>
-        <td style=" padding: 1px;text-align: left"><?php echo $obj[8] ?></td>
+    <tr style="cursor: pointer" class="detextra" fila="<?php echo $obj[10] ?>" tabla="<?php echo $obj[9] ?>"  data-activates="extra">
+        <td style=" padding: 1px;text-align: left;;"><?php echo $obj[8] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[1] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td> 
         <td style=" padding: 1px;"><?php echo $obj[7] ?></td> 

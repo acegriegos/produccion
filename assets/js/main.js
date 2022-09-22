@@ -70,6 +70,10 @@ $(function(){
         $("#modal-usuario").modal('close');
     });
 
+    $(".glchange").change(function(){
+       getListaFlujo()
+    });
+
     $("#accecouser").click(function(){
         var cod =  $("#ecouser").val();
         var rs = getDatos('',137,'"'+cod+'"',0,0,0);
@@ -176,18 +180,64 @@ $(function(){
         );
         //$("#gextra").html(123)
         $(this).sideNav('show');
+
+        if(!$("#glsuc option").length){
+            sucs = getDatos('idsucursal',1,'id=@@usr')[0][0][0];
+            sucs = getDatos('id,pfisico,if(@@impresa=id,1,0)',39,'if('+sucs+' = -1,1,find_in_set('+sucs+',id))');
+            var checked = '';
+            var strsuc = '';
+            $.each(sucs[0],function(){
+                checked = this[3] == '1' ? 'checked' : '';
+                strsuc += '<option '+checked+' value="'+this[0]+'">'+this[1]+'</option>';
+            })
+
+            $("#glsuc").append(strsuc)
+            var ahora = now();
+            $("#gldesde").val(ahora)
+            $("#glhasta").val(ahora)
+        }
+
+        getListaFlujo();
     });
 
     $(document).on("click",".detextra",function(){
-        $(this).sideNav({
+        var el = $(this);
+        
+        if(el.attr('tabla') == '0')
+            return false;
+
+        el.sideNav('destroy')
+
+        el.sideNav({
                 menuWidth: 700,
                 edge: 'right', // Choose the horizontal origin
-                closeOnClick: true// Closes side-nav on <a> clicks, useful for Angular/Meteor
+                closeOnClick: true,// Closes side-nav on <a> clicks, useful for Angular/Meteor
+                onClose: function(){
+                    $(".loader").removeClass('hide');
+                    $("#extra-i").addClass('hide');
+                    $("#extra-i").attr('src','');
+                    el.unbind()
+                }
             }
         );
 
-        $("#extra-i").attr('src','login?accion=8&arreglo[arch]=recibo&arreglo[sel]=&arreglo[tbl]=72&arreglo[where]='+$(this).attr('fila')+'&arreglo[mic]=1&arreglo[tit]=Vista del Recibo&arreglo[show]=1')
-        $(this).sideNav('show');
+        var direccion = '';
+
+        switch(el.attr('tabla')){
+            case '64':
+                direccion = 'facturacion?accion=6&id='+$(this).attr('fila')+'&tp=false&fullmode=1';
+                break;
+            default:
+                break;
+        }
+        $("#extra-i").attr('src',direccion);
+        el.sideNav('show');
+
+        console.log(setTimeout(function(){ 
+            $(".loader").addClass('hide');
+            $("#extra-i").removeClass('hide')
+        }, 1500));
+        
     })
 
     $("#tiporubro").change(function(){
@@ -416,4 +466,18 @@ function abrirFlujo(){
     $("#guser").val('');
     $("#gvoucher").val('')
     $("#tiporubro").prop('checked',false).change();
+}
+
+function getListaFlujo(){
+    var lista = getDatos('id,date_format(fecha,"%d/%m/%Y %H:%i:%s") as fecha,format(valor,2),comentario,idtipo,case idrubro when 1 then "Pago Proveedor" when 2 then "Depósito Banco" when 3 then "Vales" when 4 then "Reintegro" when 5 then "Otros" end as rubro',316,'date_format(fecha,"%Y-%m-%d") between "'+$("#gldesde").val()+'" and "'+$("#glhasta").val()+'" and idsucursal = '+$("#glsuc").val());
+
+    var strlista = color = '';
+    $("#listaflujo").html('');
+
+    $.each(lista[0],function(){
+        color = this[4] == '0' ? 'color:red;':'';
+        strlista += '<tr vid="'+this[0]+'" class="trlistaflujo"> <td>'+this[1]+'</td> <td style="'+color+'">'+this[2]+'</td> <td>'+this[3]+'</td> <td>'+this[5]+'</td> <td> <i class="mdi mdi-dots-vertical hide _acc pbtn"></i> </td> </tr>';
+    });
+
+    $("#listaflujo").html(strlista)
 }

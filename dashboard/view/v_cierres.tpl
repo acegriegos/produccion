@@ -144,7 +144,6 @@
     </div>
 
     </div>
-    
 
     
     <!-- Modal Structure -->

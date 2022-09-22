@@ -156,7 +156,9 @@ h3 {
 
   .hoja {
     background-color: black;
-    padding: 0 !important; }
+    padding: 0 !important; 
+    margin-top: 1%;
+  }
 
   .imprimirSINBOR {
     border: 0px !important;

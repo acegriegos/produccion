@@ -109,6 +109,13 @@ $(document).on("click",".sendm",function(){
     sendVMail(factura,clave,vclave);
 });
 
+$(document).on("click",".xml",function(){
+    var vid = $(this).attr('id').substr(1);
+    var vbody = getDatos('',73,'"-'+vid+'"',0,0)[0][0];
+    mantenimiento('login',9,{restado:vbody[3],factura:vbody[2],sucursal:vbody[1],id:'-'+vid},1);
+    $(this).attr('href','../assets/xml/'+vbody[3]+' No'+vbody[2]+' '+vbody[1]+'.xml'); 
+});
+
 function sendVMail(idfact,idnota,cnota){
     var archivos = '';
     var idcliente = getDatos('idcliente,fe_getnumeracion(id),fe_getclave(id)',64,'id='+idfact,0,0);
@@ -149,7 +156,7 @@ function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
     var archivos = '';
     mantenimiento_async('login',8,{arch:'recibo-notas-pagos',id:vidnota*-1,mic:1,tit:vestado,sel:'',tbl:186,where:vidnota*-1},1);
 
-    archivos = {0:'xml/'+vestado+' No'+vnota+', '+vsucursal+'.xml',1:'pdf/'+vestado+' No'+vnota+', '+vsucursal+'.pdf'}
+    archivos = {0:'xml/'+vestado+' No'+vnota+' '+vsucursal+'.xml',1:'pdf/'+vestado+' No'+vnota+' '+vsucursal+'.pdf'}
     mantenimiento_async('login',9,{id:vidnota,factura:vnota,sucursal:vsucursal,restado:vestado},1);
     console.log(vsucursal+' 1')
     return archivos;

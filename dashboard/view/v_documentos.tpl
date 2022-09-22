@@ -184,7 +184,7 @@
             <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-compras" style="width: 100%">
                 <thead>
                     <tr>
-                        <th title="Generar Cuenta por Pagar" class="hide _cxp">CxP</th>
+                        <th title="Generar Cuenta por Pagar" class="_cxp">CxP</th>
                         <th>Proveedor</th>
                         <th>Fecha</th>
                         <th>Consecutivo</th>

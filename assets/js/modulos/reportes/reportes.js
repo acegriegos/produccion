@@ -55,7 +55,7 @@ $(function(){
                 $(".autocomplete-content").remove();
                 $("#productos").autocomplete({
                     limit: 10,
-                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
+                    data: arr('login',4,'nombre,null',11,'id >0 and nombre like \"%'+$("#productos").val().replace(/"/g,'\\\"')+'%\" and idsucursal in(-1,@@impresa) order by nombre limit 10',0,0,0,1),
                      onAutocomplete: function(val){
                         var id = arr('login',4,'id',11,'nombre = "'+$("#productos").val().replace(/"/g,'\\"')+'" and id > 0  and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
                             if (id != undefined){
@@ -85,7 +85,7 @@ $(function(){
                     limit: 10,
                     data: arr('login',4,'nombre,null',1,'nombre like \"%'+$("#usuario").val()+'%\" or user like \"%'+$("#usuario").val()+'%\" and find_in_set(@@impresa,idsucursal) limit 10',0,0,0,1),
                      onAutocomplete: function(val){
-                           var id = arr('login',4,'id',1,'(nombre = "'+$("#usuario")+'" or user = "'+$("#usuario")+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
+                           var id = arr('login',4,'id',1,'(nombre = "'+$("#usuario").val()+'" or user = "'+$("#usuario").val()+'") and id > 0 and find_in_set(@@impresa,idsucursal)',0,0,0)[0][0];
                             if (id != undefined)
                                 $("#vidusuario").val(id);
                             else

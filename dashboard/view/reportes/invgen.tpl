@@ -47,8 +47,23 @@
   </div>
 
   <div class="modal modal-fixed-footer grandemodal" id="modal-notasprod">
-  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto <span class="_proname"></span></div>
+  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto</div>
   <div class="modal-content">
+
+      <div class="row">
+        <div class="col s12">
+          <b><span class="_proname"></span></b>
+        </div>
+
+        <div class="col s4">
+          Cantidad(UN): <span id="npcant">0</span>
+        </div>
+
+        <div class="col s4">
+          Precio(CRC): <span id="npprec">0</span>
+        </div>
+
+      </div>
 
       <div class="row">
         <div class="col s8 input-field">
@@ -85,6 +100,6 @@
   {$SCR}
 
   <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20-2"></script>
 </body>
 </html>

@@ -72,10 +72,18 @@
         <label for="vnum">Numero Whatsapp</label>
       </div>
 
-      <div class="col s4">
+      <div class="row">
+        <div class="col s4">
         <input type="checkbox" id="cplog">
         <label for="cplog">Cambar Contraseña al Iniciar Sesión</label>
       </div>
+
+      <div class="col s4">
+        <input type="checkbox" id="nfact">
+        <label for="nfact">No Facturador</label>
+      </div>
+      </div>
+      
     </div>
 
     <br>

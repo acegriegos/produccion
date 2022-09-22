@@ -10,7 +10,7 @@
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256,0,20" tipos="Movimiento,Agrupado,Por Familia" types="1,3,1" portipo="varios"></div>
+      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256,0,20,-1" tipos="Movimiento,Agrupado,Por Familia,Comodin" types="1,3,1,0" portipo="varios"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -34,9 +34,15 @@
     <small id="leyenda"></small>
     <div class="detrep"></div>
   <br><br>
+
+  <ul id="extra" class="side-nav side-nav-conta1" >
+    <span id="retfact" class="pbtn"><i class="mdi mdi-keyboard-backspace mdi-24px" title="Salir"></i></span>
+    <i class="mdi mdi-refresh mdi-spin loader" style="font-size:65px;margin-left: 50%;"></i>
+    <iframe src="" id="extra-i" style="width: 100%;height: 100vh;" class="hide"></iframe>
+  </ul>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20-2"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.3.0.20-1"></script>
 </body>
 </html>

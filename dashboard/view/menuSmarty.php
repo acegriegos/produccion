@@ -286,8 +286,23 @@
 </div>
 
 <div class="modal modal-fixed-footer grandemodal" id="modal-notasprod">
-  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto <span class="_proname"></span></div>
+  <div class="modal-header head2 center" style="font-size: 22px;">Notas Producto</div>
   <div class="modal-content">
+
+      <div class="row">
+        <div class="col s4">
+          <b><span class="_proname"></span></b>
+        </div>
+
+        <div class="col s4">
+          Cantidad(UN): <span id="npcant">0</span>
+        </div>
+
+        <div class="col s4">
+          Precio(CRC): <span id="npprec">0</span>
+        </div>
+
+      </div>
 
       <div class="row">
         <div class="col s8 input-field">
@@ -415,26 +430,43 @@
 
 <ul id="gextra" class="side-nav side-nav-flujo" style="z-index: 2500 !important;">
   <div class="card-header blue white-text center">
-    <h5 style="margin: 0px;">Lista Entradas y Salidas</h5>
+    <i class="mdi mdi-keyboard-backspace _ret" target="shflujo"></i>  <h5 style="margin: 0px;">Lista Entradas y Salidas</h5>
   </div>
 
   <div class="row" style="margin: 0px;margin-top: 2%;">
     <div class="col s4 input-field">
       <label for="gldesde" class="active">Desde</label>
-      <input type="date" id="gldesde" class="browser-default" style="border: 0;">
+      <input type="date" id="gldesde" class="browser-default glchange" style="border: 0;outline: none;">
     </div>
 
     <div class="col s4 input-field">
       <label for="glhasta" class="active">Hasta</label>
-      <input type="date" id="glhasta" class="browser-default" style="border: 0;">
+      <input type="date" id="glhasta" class="browser-default glchange" style="border: 0;outline:none;">
+    </div>
+
+    <div class="col s4">
+      <label for="glsuc" class="active">Sucursal</label>
+      <select id="glsuc" class="browser-default glchange">
+      </select>
     </div>
   </div>
+
+  <table class="tbl hovered">
+    <thead>
+      <th>Fecha</th>
+      <th>Valor</th>
+      <th>Comentario</th>
+      <th>Rubro</th>
+      <th></th>
+    </thead>
+    <tbody id="listaflujo"></tbody>
+  </table>
 
 </ul>
 
 <ul id="extra" class="side-nav side-nav-conta1" >
-<iframe src="" id="extra-i" style="width: 100%;height: 100vh;"></iframe>
-
+  <i class="mdi mdi-refresh mdi-spin loader" style="font-size:65px;margin-left: 50%;"></i>
+  <iframe src="" id="extra-i" style="width: 100%;height: 100vh;" class="hide"></iframe>
 </ul>
 
 <div id="modal-usuario" class="modal modal-fixed-footer mymodal">

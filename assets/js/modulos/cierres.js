@@ -22,6 +22,7 @@ $(function(){
 
 	permisos(7301,7302);
 
+
 	$("#mn-fecha").change(function(){
 		var info = getDatos('ifnull(sum(if(idtipo = 2,subtotal+exento+exonerado+imv-descuento,0)),0) as credito,ifnull(sum(subtotal+exento+exonerado+imv-descuento),0) as total,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") and idfactura = facturas.id and idtipo = 5 ),0) as nc, ifnull(sum(if(idtipo = 2,(select valor from estadoscuentas where idfactura = facturas.id and idtipo = 5 and date_format(fecha,"%Y-%m-%d") = date_format(facturas.fecha,"%Y-%m-%d") ),0)),0) as nc_cre,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(3,7) ),0) as abonos,ifnull((select sum(valor) from estadoscuentas where date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'" and idtipo in(5) ),0) as rnc',64,'idsucursal = @@impresa and date_format(fecha,"%Y-%m-%d") = "'+$(this).val()+'"');
 	
@@ -236,7 +237,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('consecutivo,date_format(fecha,"%d-%m-%Y") as fecha',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) = 1,1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
+		var datos = getDatos('consecutivo,date_format(fecha,"%d-%m-%Y") as fecha',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) in(1,2),1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {
@@ -333,7 +334,9 @@ $(document).on("click","#totalizar",function(){
 });
 
 $(document).on("click","#docierre",function(){
-	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tc1 .tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#BUSS").attr('idcaja')+'",'+$("#tc2 .tcaja").html().replace(/,/g,''),0,0,0)[0][0][0];
+	var idcierre = arr('login',4,'',189,''+guser+',@@impresa,'+$("#tc1 .tcaja").html().replace(/,/g,'')+',"'+$("#vcuentacierre").val()+'","'+$("#BUSS").attr('idcaja')+'",'+$("#tc2 .tcaja").html().replace(/,/g,'')+',"'+$("#fcierre").html()+'"',0,0,0)
+	console.log(idcierre)
+	idcierre = idcierre[0][0][0];
 	$(".cancel").parent().remove()
 	
 	if(parseInt(idcierre)){
@@ -348,7 +351,7 @@ $(document).on("click","#docierre",function(){
 			insertar(338,'','null,'+dinic+',404,1,"idcajainicial=$1,343",0,@@impresa');
 		}
 
-		window.open('cierres?accion=1&id='+idcierre);
+		window.open('cierres?accion=1&a4&id='+idcierre);
 		location.reload();
 	}else{
 		Materialize.toast('Error Generando el Cierre',4000,'red')
@@ -411,6 +414,13 @@ $(document).on("click","#filtro",function(){
 	$(".inv").show();
 });
 
+$(document).on("click",".do_vuelto",function(){
+	var total = $(this).parent().find('.totalsp').html();
+	$("#modal-vuelto").modal('open')
+	$("#vuelto_tot").html(total)
+	$("#vuelto_pcon").val('0.00').focus().select();
+});
+
 $(document).on("change",".ctip",function(){
 
 	if($(this).val() == '5'){
@@ -452,6 +462,9 @@ $(document).on("click",".cestado",function(){
 	switch(paren.attr('tp')){
 		case '1':
 			var act = actualizar(64,'idestado=2','id='+paren.attr('rid'));
+			break;
+		case '3':
+			var act = actualizar(64,'idestado=1','id='+paren.attr('rid'));
 			break;
 		default:
 			break;

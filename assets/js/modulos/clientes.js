@@ -34,17 +34,23 @@ $(function(){
 	$("#vcedula").keyup(function(e){
 		var code = e.wich || e.keyCode;
 		if(code == 13){
-			$.get('../sic.php?',{ced:$(this).val()})
-        	.done(function(data){
-        		var p = JSON.parse(data);
-            	if (p['succed']) {
-            		$("#vcedula").val(p['ced']);
-                	$("#vnombre").val(p['nom']);
-                	$("[name='tipoclie'][tipoClie="+parseInt(p['tip'])+"]").click();
-            	}else{
-            		 Materialize.toast(p['error'],4000,'red');
-            	}
-        	})
+			if($("#vidtipocliente").val() == '0'){
+				if($("#vnombre").val() == ''){
+					$("#vnombre").focus()
+				}
+			}else{
+				$.get('../sic.php?',{ced:$(this).val()})
+	        	.done(function(data){
+	        		var p = JSON.parse(data);
+	            	if (p['succed']) {
+	            		$("#vcedula").val(p['ced']);
+	                	$("#vnombre").val(p['nom']);
+	                	$("[name='tipoclie'][tipoClie="+parseInt(p['tip'])+"]").click();
+	            	}else{
+	            		 Materialize.toast(p['error'],4000,'red');
+	            	}
+	        	})
+	        }
 		}
 	});
 
@@ -114,7 +120,7 @@ $(function(){
 		}
 	});
 
-	$("#vtipodoc").change(function(){
+	/*$("#vtipodoc").change(function(){
 		if(parseInt($(this).val()) == 3 || parseInt($(this).val()) == 1){
 			$("#ventidad").val('').prop('readonly',false)
 			$("#vfechaDoc").val('').prop('readonly',false)
@@ -124,7 +130,7 @@ $(function(){
 			$("#vfechaDoc").html('').prop('readonly',true)
 			$("#vtimeDoc").html('').prop('readonly',true)
 		}
-	})
+	})*/
 
 	/*$("#addexo").click(function(){
 		var id =  ($(".lstsrv").length+1)*-1;

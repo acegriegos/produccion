@@ -129,6 +129,11 @@ $(function () {
 				if($(".per11:visible").length)
 					$(".per11").removeClass('hide');
 
+				var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso = (select id from permisos where codigo = 9999)')[0][0][0];
+		        if(allow != '1'){
+		            $(".notasprod").attr('no-pass',1)
+		        }
+
 				cargarFamilias()
 				cargarTipos(0)
 				cargarMarcas(0)
@@ -1395,7 +1400,7 @@ $(document).on("blur",".calcvv",function(){
 
 			var padre = $(this).parent().parent();
 
-			if ($("#vcosto").attr('dimension') != undefined && padre.attr('idf') != undefined){ //&& $(":visible",this).length
+			if ($("#vcosto").attr('dimension') != undefined && padre.attr('idf') != undefined && parseInt($("#vcosto").attr('dimension')) > 1){ //&& $(":visible",this).length
 				costo = costo/parseFloat($("#vldimension1").val())
 				costo = getDatos(costo+'*cantidad*(select cantidad from unidades where id = '+padre.attr('idf')+')',107,'id = '+$("#unidimension1").val(),0,0,0)[0][0][0];
 			}
@@ -2310,7 +2315,7 @@ function endDetail(id, acc, modulo) {
 				var resta = parseFloat(cnt)-parseFloat(cante);
 				if(resta != 0){
 					var tpmov = acc == 1 ? 8 : 3;
-					insertar(298,'','null,'+tpmov+','+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt);
+					insertar(298,'','null,'+tpmov+','+resta+',now(),'+id[0][0]+',"",@@impresa,@@usr,'+cnt+',""');
 				}
 			}
 

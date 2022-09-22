@@ -3,6 +3,12 @@ var mid = 0;
 
 $(function(){
 
+    var fullmode = getParameterByName('fullmode');
+     if(fullmode){
+        $(".hideonprint").hide()
+        $(".fac").removeClass('m9 l9')
+     }
+
      $('.chips-initial').material_chip({
         data: getCorreos(),
      });
@@ -32,13 +38,13 @@ $(function(){
         var vsucursal = vbody[1];
 
         if (vfactura == mid)
-            archivos = 'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf';
+            archivos = 'pdf/'+tipo+' No'+vfactura+' '+vsucursal+'.pdf';
         else{
-            archivos = {0:'xml/'+tipo+' No'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf'}
+            archivos = {0:'xml/'+tipo+' No'+vfactura+' '+vsucursal+'.xml',1:'pdf/'+tipo+' No'+vfactura+' '+vsucursal+'.pdf'}
             mantenimiento('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
         }
         
-        var envio = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,1,mid,64);
+        var envio = enviarCorreo(3,vpara,tipo+" No "+vfactura,vbody[0],archivos,1,mid,64);
         vpara = vbody = "";
         mid = 0;
 
