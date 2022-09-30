@@ -20,7 +20,7 @@
             $("#slideCorreo").data('idfila',$("#_idfila").val());
 
             for (var i = 0; i < correos[0].length; i++) {
-                str += '<div id="cgl'+(i+1)+'" class="chpcrr chip ciclos" gid="'+correos[0][i][0]+'"><span class="vcoo" id="c0_'+(i+1)+'">'+correos[0][i][3]+'}</span><i id="cd_'+(i+1)+'" class="close close_mail mdi mdi-close"></i></div> ';
+                str += '<div id="cgl'+(i+1)+'" class="chpcrr chip ciclos" gid="'+correos[0][i][0]+'"><span class="vcoo" id="c0_'+(i+1)+'" style="font-size: 16px;font-weight: bold;">'+correos[0][i][3]+'}</span><i id="cd_'+(i+1)+'" class="close close_mail mdi mdi-close"></i></div> ';
 
                 $("#slideCorreo").data('fila'+(i+1),{vaccion:2,vidcorreo:correos[0][i][0],vcorreo:correos[0][i][3]});   
             }
@@ -30,7 +30,7 @@
             var num = 1;
             var cstr = '';
             while($("#slideCorreo").data('fila'+num) != undefined){
-                cstr += '<div id="cgl'+num+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+num+'">'+$("#slideCorreo").data('fila'+num)['vcorreo']+'</span><i id="cd_'+num+'" class="close close_mail mdi mdi-close"></i></div>';
+                cstr += '<div id="cgl'+num+'" class="chpcrr chip ciclos"><span class="vcoo" id="c0_'+num+'" style="font-size: 16px;font-weight: bold;">'+$("#slideCorreo").data('fila'+num)['vcorreo']+'</span><i id="cd_'+num+'" class="close close_mail mdi mdi-close"></i></div>';
                 num++;
             }
             $("#fcorreos").html(cstr);

@@ -130,7 +130,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.3.0.20">
+<link href="../assets/css/materialize.min.css?v=10.4.0.3">
 <style>
   *{
     font-size: 18px;
@@ -177,8 +177,32 @@
     
     <div>
       <br>
+      <?php if($config[13] == 4){ ?>
+
+
+      <?php if($cierre[7] > 0) echo 'Efectivo: <span style="float: right;">'.number_format($cierre[7],2).'</span><br>'; ?>
+      <?php if($cierre[8] > 0) echo 'Tarjetas: <span style="float: right;">'.number_format($cierre[8],2).'</span><br>'; ?>
+      <?php if($cierre[9] > 0) echo 'Depósitos: <span style="float: right;">'.number_format($cierre[9],2).'</span><br>'; ?> 
+      <?php if($cierre[19] > 0) echo 'Entradas de Efectivo: <span style="float: right;">'.number_format($cierre[19],2).'</span><br>'; ?>
+      <?php if($cierre[20] > 0) echo 'Salidas de Efectivo: <span style="float: right;">'.number_format($cierre[20],2).'</span><br>'; ?>
+      <br>
+      Caja Inicial:<span style="float: right;"><?php echo number_format($cierre[14],2); ?></span><br>
+      <?php if($cierre[27] > 0) echo 'Caja Inicial $: <span style="float: right;">'.number_format($cierre[27],2).'</span><br>'; ?>
+      Caja Reportada: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[14] < 0 ? 0 : $cierre[12]-$cierre[14],2); ?></span><br>
+      <?php if($cierre[28] > 0) echo 'Caja Reportada $: <span style="float: right;">'.number_format($cierre[28],2).'</span><br>'; ?>
+      Caja del Sistema: <span style="float: right;"><?php echo number_format($cierre[13]+(str_replace(',', '', $cierre[22])),2); ?></span><br>
+      Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29]-str_replace(',', '', $cierre[22]),2); ?></span><br>
+      <br>
+      <?php if($cierre[28] > 0) echo 'Tipo Cambio $: <span style="float: right;">'.number_format($cierre[29],2).'</span><br>'; ?>
+      <?php echo 'TOTAL: <span style="float: right;">'.number_format($cierre[7]+$cierre[8]+$cierre[9]+$cierre[19],2).'</span><br>'; ?>
+      <?php }elseif ($config[13] == 5) {
+        foreach ($cierreg as $obj) {
+          echo '<b>'.$obj[2].':</b> <span style="float: right;">'.number_format($obj[3],2,'.',',').'</span> <br>';
+        }
+      }else{ ?>
+
       <?php if($cierre[7] > 0) echo 'Ventas en Efectivo: <span style="float: right;">'.$cierre[7].'</span><br>'; ?>
-      <?php if($cierre[8] > 0) echo 'Ventas con Tárjetas: <span style="float: right;">'.$cierre[8].'</span><br>'; ?>
+      <?php if($cierre[8] > 0) echo 'Ventas con Tarjetas: <span style="float: right;">'.$cierre[8].'</span><br>'; ?>
       <?php if($cierre[9] > 0) echo 'Ventas con Depósitos: <span style="float: right;">'.$cierre[9].'</span><br>'; ?>
       <?php if($cierre[3] > 0) echo 'Total Ventas a Contado: <span style="float: right;">'.$cierre[3].'</span><br>'; ?>
       <?php if($cierre[2] > 0) echo 'Total Ventas a Crédito: <span style="float: right;">'.$cierre[2].'</span><br>'; ?>
@@ -200,8 +224,9 @@
       Diferencia: <span style="float: right;"><?php echo number_format($cierre[12]-$cierre[13]-$cierre[14]+$cierre[28]*$cierre[29]-str_replace(',', '', $cierre[22]),2); ?></span><br>
       <br>
       <?php if($cierre[28] > 0) echo 'Tipo Cambio $: <span style="float: right;">'.number_format($cierre[29],2).'</span><br>'; ?>
-      <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[3]))+(str_replace(',', '', $cierre[2])+(str_replace(',', '', $cierre[22]))),2).'</span><br>'; ?>
+      <?php echo 'TOTAL: <span style="float: right;">'.number_format((str_replace(',', '', $cierre[7]))+(str_replace(',', '', $cierre[8])+str_replace(',', '', $cierre[9])+str_replace(',', '', $cierre[19])+str_replace(',', '', $cierre[22])),2).'</span><br>'; ?>
     </div>
+  <?php } ?>
      
       <!-- /INFO CONTACTO -->
       <!-- DETALLE FACT -->
@@ -231,8 +256,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
-    <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
+    <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+    <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
 
      <script type="text/javascript">
    $(function(){

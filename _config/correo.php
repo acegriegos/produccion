@@ -38,10 +38,10 @@ class correo
         session_write_close();
         $this->ubi = $ubi;
         $this->borrar = $borrar;
-        $base = new DBClass();
+		    $base = new DBClass();
 
         $gcrr = isset($_SESSION['IMPRESA']) ? $_SESSION['IMPRESA'] : 0;
-        $res = $base->ejecutar('call sp_getGeneralMail('.$gcrr.')')->fetch_all()[0];
+    		$res = $base->ejecutar('call sp_getGeneralMail('.$gcrr.')')->fetch_all()[0];
         $no_replay = $res[1] == 'correos.logintechcr@gmail.com' || $res[1] == 'facturacion@apsycr.com' ? 'Esta dirección de correo electrónico no admite respuestas. Para obtener más información, visita el sitio' : '';
         
         $msj = $this->getBody($msj,$no_replay);
@@ -104,8 +104,7 @@ class correo
             echo $this->ubi.'assets/'.$vAdjunto[$i];
         }
       }else
-        $this->$mail->addAttachment($this->ubi.'assets/'.$vAdjunto);      
-
+        $this->mail->addAttachment($this->ubi.'assets/'.$vAdjunto);
 
       $salida = ['success'=>1];
 

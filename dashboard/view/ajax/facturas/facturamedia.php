@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.20">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.20">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.3.0.20">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.3">
 
 <style type="text/css">
   html{
@@ -129,13 +129,13 @@
         <table class=" bordered  dt-responsive nowrap " style="border: 0px;" id="detalle">
           <thead class=" margen">
             <tr>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th2">Código</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th3">Descripción</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th4">P. Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th5">Tipo</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th6">Descuento</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th7">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Cantidad</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Código</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Descripción</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Peso</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">P. Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
@@ -143,13 +143,13 @@
           
             foreach ($transaccion as $obj) {?>
               <tr class="tr" >
-                <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span id="desc1"><?php echo $obj[36]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span id="desc"><?php echo $obj[19]; ?></span></td>
-                <td class="flista3 td center-align" style="padding: 0px"><span id="punit"><?php echo $obj[20]; ?></span></td>
-                <td class="flista4 td center-align" style="padding: 0px"><span id="desc2"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align" style="padding: 0px"><span id="desc3"><?php echo $obj[21]; ?></span></td>
-                <td class="flista6 td right-align" style="padding: 0px"><span id="import" ><?php echo $obj[22]; ?></span></td>
+                <td class="flista1 td center-align" style="padding: 0px"><span><?php echo $obj[29].$obj[18]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[36]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[19]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo 'KG' ?></span></td>
+                <td class="flista3 td center-align" style="padding: 0px"><span><?php echo $obj[20]; ?></span></td>
+                <td class="flista4 td center-align" style="padding: 0px"><span><?php echo $obj[23]; ?></span></td>
+                <td class="flista6 td right-align" style="padding: 0px"><span><?php echo number_format($obj[22],2); ?></span></td>
               </tr>
 
              <?php } ?>
@@ -244,6 +244,9 @@
               case 4:
               $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
+              case 106:
+                $msj = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+                break;
               default:
               $msj = '';
               break;
@@ -404,26 +407,26 @@
         <table class=" bordered  dt-responsive nowrap " style="border: 0px;" id="detalle">
           <thead class=" margen">
             <tr>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th2">Código</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th3">Descripción</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th4">P. Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th5">Tipo</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th6">Descuento</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th7">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Cantidad</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Código</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Descripción</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Peso</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">P. Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
             <?php 
             foreach ($transaccion as $obj) {?>
               <tr class="tr" >
-                <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span id="desc1"><?php echo $obj[36]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span id="desc"><?php echo $obj[19]; ?></span></td>
-                <td class="flista3 td center-align" style="padding: 0px"><span id="punit"><?php echo $obj[20]; ?></span></td>
-                <td class="flista4 td center-align" style="padding: 0px"><span id="desc2"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align" style="padding: 0px"><span id="desc3"><?php echo $obj[21]; ?></span></td>
-                <td class="flista6 td right-align" style="padding: 0px"><span id="import" ><?php echo $obj[22]; ?></span></td>
+                <td class="flista1 td center-align" style="padding: 0px"><span  ><?php echo $obj[29].$obj[18]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[36]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[19]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo 'KG' ?></span></td>
+                <td class="flista3 td center-align" style="padding: 0px"><span><?php echo $obj[20]; ?></span></td>
+                <td class="flista4 td center-align" style="padding: 0px"><span><?php echo $obj[23]; ?></span></td>
+                <td class="flista6 td right-align" style="padding: 0px"><span><?php echo number_format($obj[22],2); ?></span></td>
               </tr>
 
               <?php } ?>
@@ -519,6 +522,9 @@
               case 4:
               $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
+              case 106:
+                $msj = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+                break;
               default:
               $msj = '';
               break;
@@ -651,13 +657,13 @@
         <table class=" bordered  dt-responsive nowrap " style="border: 0px;" id="detalle">
           <thead class=" margen">
             <tr>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th1">Cantidad</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th2">Código</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th3">Descripción</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th4">P. Unit</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th5">Tipo</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th6">Descuento</th>
-              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;" id="th7">Importe</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Cantidad</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Código</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Descripción</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Peso</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">P. Unit</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Tipo</th>
+              <th class="center-align sinborde" style="border-radius: 0px !important; padding: 0;">Importe</th>
             </tr>
           </thead>
           <tbody id="ftbody">
@@ -665,13 +671,13 @@
             foreach ($transaccion as $obj) { ?>
 
               <tr class="tr" >
-                <td class="flista1 td center-align" style="padding: 0px"><span id="cant"><?php echo $obj[29].$obj[18]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span id="desc1"><?php echo $obj[36]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span id="desc"><?php echo $obj[19]; ?></span></td>
-                <td class="flista3 td center-align" style="padding: 0px"><span id="punit"><?php echo $obj[20]; ?></span></td>
-                <td class="flista4 td center-align" style="padding: 0px"><span id="desc2"><?php echo $obj[23]; ?></span></td>
-                <td class="flista5 td center-align" style="padding: 0px"><span id="desc3"><?php echo $obj[21]; ?></span></td>
-                <td class="flista6 td right-align" style="padding: 0px"><span id="import" ><?php echo $obj[22]; ?></span></td>
+                <td class="flista1 td center-align" style="padding: 0px"><span><?php echo $obj[29].$obj[18]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[36]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[19]; ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo 'KG' ?></span></td>
+                <td class="flista3 td center-align" style="padding: 0px"><span><?php echo $obj[20]; ?></span></td>
+                <td class="flista4 td center-align" style="padding: 0px"><span><?php echo $obj[23]; ?></span></td>
+                <td class="flista6 td right-align" style="padding: 0px"><span><?php echo number_format($obj[22],2); ?></span></td>
               </tr>
 
               <?php } ?>
@@ -772,6 +778,9 @@
               case 4:
               $msj = 'La presente Proforma tiene una durabilidad de OCHO días. <br>';
               break;
+              case 106:
+                $msj = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+                break;
               default:
               $msj = '';
               break;
@@ -793,10 +802,10 @@
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
-     <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
-     <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.3.0.20-2"></script>
+     <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+     <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
+     <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.4.0.3"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

@@ -4,9 +4,11 @@
 <head>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <title>Factura</title>  
+  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3"> -->
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
 <style>
   *{font-size: 1em}
-
+  
 <?php if ($config[0][8] == 2) { ?>
 @media print {
   .print{
@@ -21,11 +23,20 @@
   }
 
   @page {
-    margin: 0;
+    size:  auto;
+    margin-top: 0mm;
+    margin-bottom: 0mm; 
   }
 }
 <?php }else{ ?>
 @media print {
+
+  @page {
+    size:  auto;
+    margin-top: 0mm;
+    margin-bottom: 0mm; 
+  }
+
   .print{
     display: none;
   }
@@ -61,9 +72,50 @@
   <input type="hidden" id="config0" value="<?php echo $config[0][0]; ?>">
   <input type="hidden" id="config9" value="<?php echo $config[0][9]; ?>">
   <input type="hidden" id="d56" value="<?php echo $datos[56]; ?>">
+  <input type="hidden" id="_param" value="<?php echo $datos[24]; ?>">
+
+  <section class="print" style="display: none;left:100px;position:fixed;padding: 10px;top: 15%; font-weight: 600;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0">
+            <div class="col s12 m3 l3 white-text">
+              <div id="correosclie">
+               <input type="hidden" id="vid" value="<?php echo $datos[27]; ?>">
+             </div>
+             <label>Enviar factura por correo a:</label>
+             <div class="row">
+              <div class="s10 col">
+                <div class="chips chips-initial white-text" id="listcorreos" style="color: white;"></div>
+              </div>
+              <div class="s2 col">
+                <a href="#" id="lcorreos" class="right"><i class="small white-text mdi mdi-send"></i></a>
+              </div>
+            </div>
+            <div class="row">
+             <div class="s12 col" align="center">
+               <span id="smail"></span>
+             </div>
+           </div>
+
+         </div>
+
+       </section>
 <?php 
-$pvuelto = isset($_REQUEST['pvuelto']) ? $_REQUEST['pvuelto'] : 0;
-$vuelto = isset($_REQUEST['vuelto']) ? $_REQUEST['vuelto'] : 0;
+$pvuelto = 0;
+$vuelto = 0;
+$pvueltom = '';
+$vueltom = '';
+
+if(($transaccion[0][24] == 7 || $transaccion[0][24] == 1 || $transaccion[0][24] == 8) && $transaccion[0][17] && $transaccion[0][2] == 'Efectivo'){
+  $extra = explode('^', $transaccion[0][17]);
+  $pvuelto = $extra[0];
+  $vuelto = $extra[1];
+  $pvueltom = $extra[3];
+  $vueltom = $extra[4];
+}
+
 // $transaccion;
 // $miscelaneos;
 // $datos;  padding: 0% 37.5% 0% 37.5%
@@ -166,16 +218,30 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>';
 
   if($datos[2] == 'Mixto'){
-    $mxt = $kakaroto->kamehameha('format(total,2),idpago',336,'idfactura='.$_REQUEST['id'].' order by idpago');
-    $mxt_efect = $mxt[0][1] == 1 ? '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr>' : '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr>';
+    $mxt = $kakaroto->kamehameha('sum(if(idpago = 1,extra,0)) as efectivo,sum(if(idpago = 2,total,0)) as tarjeta,sum(if(idpago = 3,total,0)) as deposito,round(sum(if(idpago = 1,extra-total,0))/5,0)*5 as vuelto',336,'idfactura='.$_REQUEST['id'].' group by idfactura');
+    
+    $mxt_efect = '';
+    if($mxt[0][0]>0){
+      if($mxt[0][3]>0){
+        $vuelto = number_format($mxt[0][3],2);
+        $pvuelto = number_format($mxt[0][0],2);
+        $mxt_efect = '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;"></td> </tr>';
+      }
+      else 
+        $mxt_efect = '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.number_format($mxt[0][0],2).'</td> </tr>';
+    }
 
     $mxt_tar = '';
-    if(isset($mxt[1]))
-      $mxt_tar = '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[1][0].'</td> </tr>';
+    if($mxt[0][1]>0)
+      $mxt_tar = '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.number_format($mxt[0][1],2).'</td> </tr>';
+
+    $mxt_dep = '';
+    if($mxt[0][2]>0)
+      $mxt_dep = '<tr> <td style="padding:0px;">Depósito</td> <td style="padding:0px;text-align: right;">'.number_format($mxt[0][2],2).'</td> </tr>';
 
     echo '<tr>
       <td width="50%">T. Pago:</td>
-      <td width="50%"> <table style="width: 100%;"> '.$mxt_efect.$mxt_tar.' </table> </td>
+      <td width="50%"> <table style="width: 100%;"> '.$mxt_efect.$mxt_tar.$mxt_dep.' </table> </td>
     </tr>';
   }else
     echo '<tr '.$ocultar.'>
@@ -332,10 +398,10 @@ echo '<tr>
 if ($pvuelto > 0 && $vuelto >= 0) {
   echo '<table width="100%">
   <tr>
-    <td align="center">Paga con: '.$pvuelto.'</td>
+    <td align="center">Paga con: '.$pvueltom.$pvuelto.'</td>
   </tr>
   <tr>
-    <td align="center">Vuelto: '.$vuelto.'</td>
+    <td align="center">Vuelto: '.$vueltom.$vuelto.'</td>
   </tr>
 </table>';
 }
@@ -354,18 +420,68 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
+ <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+ <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
+ <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
       var config9 = parseInt($("#config9").val());
       var d56 = parseInt($("#d56").val());
+      var _param = parseInt($("#_param").val());
       var resol = "REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D";
+
+      $('.chips-initial').material_chip({
+        data: getCorreos(),
+     });
+
+     $(".chips .input").css("color","white");
+
+     Materialize.updateTextFields();
+
+     $('#lcorreos').click(function(){
+
+        $(this).prop('disabled','disabled');
+        mostrar_cargar();
+         var para = $('.chips-initial').material_chip('data');
+         $("#listcorreos").html("");
+  
+         for (var i = 0; i < para.length; i++) {
+            vpara += para[i].tag+',';
+         }
+         vpara=vpara.substring(0,vpara.length -1);
+         mid = getParameterByName('id');
+
+        var archivos = '';
+        var tipo = $("#fact").html();
+        mantenimiento('login',8,{arch:'recibo',id:mid,mic:1,tit:tipo+' Electrónica',sel:'',tbl:72,where:mid},1);
+        var vfactura = $("#numfact").html().trim();
+        vbody = getDatos('',73,mid,0,0)[0][0];
+        var vsucursal = vbody[1];
+
+        if (vfactura == mid)
+            archivos = 'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf';
+        else{
+            archivos = {0:'xml/'+tipo+' No'+vfactura+', '+vsucursal+'.xml',1:'pdf/'+tipo+' No'+vfactura+', '+vsucursal+'.pdf'}
+            mantenimiento('login',9,{id:mid,factura:vfactura,sucursal:vsucursal,restado:tipo},1);
+        }
+        
+        var envio = enviarCorreo(3,vpara,tipo+" N° "+vfactura,vbody[0],archivos,1,mid,64);
+        vpara = vbody = "";
+        mid = 0;
+
+        $('.chips-initial').material_chip();
+        $(".chips .input").css("color","white");
+     });
+
       if (parseInt(config0)){
         $(".fe").removeClass('hide');
-        resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
+        if(_param == 106){
+          resol = "Este comprobante no puede ser utilizado para fines tributarios, por lo cual no se permitirá su uso para respaldo de créditos o gastos";
+          $(".fe").hide()
+        }
+        else
+          resol = "AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019";//"ESTE DOCUMENTO NO TIENE VALIDEZ TRIBUTARIA";
       }else
         $(".fe").hide()
 
@@ -405,7 +521,30 @@ echo '
       if(parseInt(param)){
         window.print();
       }
-   })
+   });
+
+   function postExcecute(vid,p){
+    switch(parseInt(vid)){
+        default:
+            break;
+    }
+}
+
+function getCorreos(){
+    var salida = "[";
+    var p= getDatos("correo",17,"idcorreo>0 and idtabla=2 and idfila="+$('#vid').val(),0,0,0)[0];
+
+    for (var i = 0; i < p.length; i++) {
+        salida+='{"tag":"'+p[i][0]+'"},';
+    }
+
+    if (p.length > 0) {
+        return JSON.parse(salida.substring(0,salida.length -1)+"]");
+    }else
+        return '';
+
+    
+}
  </script>
  </body>
  </html>

@@ -3,7 +3,7 @@ var mid = 0;
 
 $(function(){
 
-    var fullmode = getParameterByName('fullmode');
+     var fullmode = getParameterByName('fullmode');
      if(fullmode){
         $(".hideonprint").hide()
         $(".fac").removeClass('m9 l9')
@@ -73,6 +73,4 @@ function getCorreos(){
         return JSON.parse(salida.substring(0,salida.length -1)+"]");
     }else
         return '';
-
-    
 }

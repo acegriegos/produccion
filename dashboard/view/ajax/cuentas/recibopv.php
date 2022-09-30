@@ -1,4 +1,10 @@
-<?php $config = $kakaroto->kamehameha('',42,'@@impresa');?>
+<?php $config = $kakaroto->kamehameha('',42,'@@impresa'); 
+      $tcliente = []; 
+      $tcliente['nom'] = 'CLIENTE'; 
+      if($datos[22]){
+        $tcliente['nom'] = 'PROVEEDOR';
+      }  
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,11 +31,18 @@
   }
 
   @page {
-    margin: 0;
+    size:  auto;
+    margin: 0mm; 
   }
 }
 <?php }else{ ?>
 @media print {
+
+  @page {
+    size:  auto;
+    margin: 0mm; 
+  }
+
   .print{
     display: none;
   }
@@ -120,7 +133,7 @@ echo '<tr align="center" >
 <br>
 <table>
   <tr >
-    <td colspan="2">CLIENTE:<br>'.$datos[4].'</td>
+    <td colspan="2">'.$tcliente['nom'].':<br>'.$datos[4].'</td>
   </tr>
   <tr >
     <td width="20%">USUARIO: </td>
@@ -189,7 +202,7 @@ echo '<tr>
     <td align="right"> '.$datos[11].$datos[6].'</td>
   </tr>
 </table><br>
-<b>SALDO DEL CLIENTE: </b>'.$datos[24].number_format($datos[20],2);
+<b>SALDO DEL '.$tcliente['nom'].': </b>'.$datos[24].number_format($datos[20],2);
 
 echo '<hr>
 <div style="text-align: center;" id="resolucion"></div><br><br><br>
@@ -200,9 +213,9 @@ echo '<hr>
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
- <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
- <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
+ <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+ <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
+ <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

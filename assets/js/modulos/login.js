@@ -179,16 +179,17 @@ function getIn(){
         return false;
     }
 
-    var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})
+    var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})[0]
 
-    console.log(p)
     switch(p[0].length){
+        case 1:
         case 2:
             Materialize.toast(p[0][0], 4000, 'red');
             $('#pass').select();
             salida = false;
             break;
         case 3:
+            p = p[0];
             Materialize.toast(p[0][0], 4000, 'red');
             var dsucursal = getDatos('',50,p[0][2])[0][0]
             $("#n_rzocial").val(dsucursal[0])
@@ -233,7 +234,8 @@ function getIn(){
         else if(!$("#remember").is(':checked'))
             deleteCookie('userAPSY');
     }else
-        $("#vdir").val('')    
+        $("#vdir").val('')
+
     return salida;
 }
 

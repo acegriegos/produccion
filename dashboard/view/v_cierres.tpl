@@ -7,19 +7,19 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Cierre Caja</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.3.0.20">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.4.0.3">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.3.0.20"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.3.0.20"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.4.0.3"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.4.0.3"></script>
     <![endif]-->
   </head>
   <body> 
-  <br>
     {$NAV}
-    <div class="bdy">
+    <div class="bdy" style="">
+
       <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}" idcaja="{if $smarty.session.CAJA eq 0}1{else}{$smarty.session.CAJA}{/if}" ccierre="{$CCIERRE}">
       <div class="switch der hide">
           <label>
@@ -28,11 +28,15 @@
             <span class="lever"></span>Automático
           </label>
         </div>
-    <div class="row auto">
-       
+    <div class="row auto card">
+      <div class="card-header center white-text head1 col s12">
+          <p class="flow-text" style="font-size: 1.9em;margin: 0px;"> <span class="cghs"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
+      </div>
+      
       <div class="col s12 m12 l12">
+        <i class="mdi mdi-pencil mdi-24px per7303 hide" title="Editar Caja" style="cursor: pointer;" id="editarcaja"></i>
+        <i class="mdi mdi-plus mdi-24px" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
         <div class="input-field col s4"  style="float:left;">
-          <i class="mdi mdi-plus prefix" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
           <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
           <label for="mcierre">Inicio de Caja</label>
         </div>
@@ -82,6 +86,11 @@
           </div>
           <div class="col s3 m3 l3">
             Total Tarjeta: <span id="ttarjeta"></span>
+          </div>
+        </div>
+        <div class="row marginzero">
+          <div class="col s12 der">
+            <b>TOTAL EFECTIVO+TARJETAS:</b> <span id="ttot"></span>
           </div>
         </div>
         <h4 class="hide">Notas y abonos</h4>
@@ -168,18 +177,34 @@
               <input type="hidden" id="stot" value="0">
               {section name=LE loop=$TMON}
               <div class="input-field col s4 m4 l4">
-                <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="" placeholder="0.00" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
+                <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="0" placeholder="0" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
                 <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
               </div>
-              {/section}  
+              {/section} 
+              
+              {section name=LE loop=$TEXT}
+              <div class="input-field col s4 m4 l4">
+                <input type="number" id="d{$TEXT[LE][0]}" class="ext eder" value="0" placeholder="0">
+                <label for="d{$TEXT[LE][0]}">{$TEXT[LE][1]}</label>
+              </div>
+              {/section}
             </div>
             
             <div class="col s4" style="text-align: right;">
-              <h3>Dinero en Caja</h3>
+              <h3>  <input type="radio" name="tcaja" id="tcaja1" checked tp="0"> <label for="tcaja1" class="cspecial hidex" style="float: left;"></label> Dinero en Caja</h3>
               <hr>
               {section name=LE loop=$MON}
                 <span class="gmoneda" id="tc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
               {/section}
+
+              <section id="cspecial" class="hidex cspecial">
+                <h3> <input type="radio" name="tcaja" id="tcaja2" tp="1"> <label for="tcaja2" class="cspecial hidex" style="float: left;"></label> Caja Especial</h3>
+                <hr>
+                {section name=LE loop=$MON}
+                  <span class="gmoneda" id="stc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
+                {/section}
+              </section>
+
                 <div class="col s4 input-field hide">
                   <input type="text" id="vcuentacierre" autocomplete="off">
                   <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>
@@ -246,6 +271,6 @@
 
 
     {$SRC}
-    <script src="../assets/js/modulos/cierres.js?v=10.3.0.20"></script>
+    <script src="../assets/js/modulos/cierres.js?v=10.4.0.3"></script>
   </body>
 </html>

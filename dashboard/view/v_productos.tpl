@@ -7,7 +7,7 @@
 	<meta http-equiv="Cache-Control" content="max-age=86400"/>
 	<title>Productos y Servicios</title>
 	{$STY}
-	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.3.0.20">
+	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.4.0.3">
 </head>
 <body>
 {$NAV}
@@ -35,7 +35,7 @@
 		</div>
 	</div> <!-- END BDY -->
 {$SCR}
-<script src="../assets/js/modulos/productos.js?v=10.3.0.20-1"></script>
+<script src="../assets/js/modulos/productos.js?v=10.4.0.3"></script>
 
 </body>
 </html>

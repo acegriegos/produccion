@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.3.0.20">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.4.0.3">
   <body >
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
@@ -30,7 +30,7 @@
       <div id="mfacturacion"></div>
     </div>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.3.0.20"></script>
+  <script src="../assets/js/modulos/facturacion.js?v=10.4.0.3"></script>
 </html>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
@@ -110,6 +110,7 @@
       <div class="col s6 input-field">
         <select id="vtipodoc" class="validate tooltiped" type="select">
           <option value="0">Tipo de Documento</option>
+          <option value="-1">Disminución por Ley</option>
           {section name=LE loop=$EXOS}
           <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] neq 3 and $EXOS[LE][0] neq 1}disabled{/if}>{$EXOS[LE][1]}</option>
           {/section}

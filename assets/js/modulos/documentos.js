@@ -8,6 +8,16 @@ $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
     loadmybussiness();
 
+    $("#rcorreo").click(function(){
+        $(this).attr('disabled',true)
+
+        $.post(window.location.href.substring(0,window.location.href.indexOf('dashboard',))+'/irobot.php',{succ:$("#impresa").attr('imp')})
+                .done(function(data){
+                        console.log(data)
+                        $("#rcorreo").attr('disabled',false)
+                });
+    })
+
     $('[href="#modal-getxml"]').click(function(){
         $("#modal-getxml").modal('open')
     });
@@ -26,7 +36,6 @@ $(function(){
             data: {accion:15,arreglo:1,server:config[18],ced:sucursal[0],isp:sucursal[1]}
         })
             .done(function(res){
-                console.log(res);
                 var str = '';
                 $("#data-table-compras").hide();
                 var tabla = $("#data-table-compras").DataTable();   

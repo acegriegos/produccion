@@ -7,11 +7,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Ventas Totales</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.3.0.20">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.3">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57" tipos="Tipo Factura,Tipo Pago,Tipo Documento" tfiltar="0,0,1&7&8&10&102&103" elem='0,"1&7&8&10"' sp="167" modulo="reporteFactura" types="1,1,1" bisprov="0"></div>
+           <div class="filtros row" entrefechas porcliente porusuario portipo="varios" tbltipos="168,26,57,26" tipos="Tipo Factura,Tipo Pago,Tipo Documento,Actividad" tfiltar="0,0,1&7&10&102&103&106,(^346^@@impresa)" elem='0,"1&7&10&106"' sp="167" modulo="reporteFactura" types="1,1,7,1" bisprov="0"></div>
 
       <!-- HEADER -->
     <input type="hidden" id="vdetalle" value="1" change="2">
@@ -38,7 +38,7 @@
     </div>
     
     <small id="leyenda"></small>
-    F: Factura, T: Tickete<br>
+    F: Factura, T: Tickete, P: Provicional<br>
     <table class="table responsive-table centered bordered z-depth-3" id="data-table-ventas" cellspacing="0" width="100%" style="background-color: white;">
       <thead>
       <tr>
@@ -60,7 +60,7 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.3.0.20-1"></script>
-  <script src="../assets/js/modulos/reportes/ventas.js?v=10.3.0.20"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.3"></script>
+  <script src="../assets/js/modulos/reportes/ventas.js?v=10.4.0.3"></script>
 </body>
 </html>

@@ -40,7 +40,8 @@
                 echo '<a class="btn-color mdi mdi-24px mdi-cloud-download-outline xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g'.$obj[0].'" data-tooltip=""></a>';
             }
         ?>
-    </td>
+
+</td>
 </tr>
 
 <?php } ?>

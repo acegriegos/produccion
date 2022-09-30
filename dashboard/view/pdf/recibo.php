@@ -58,7 +58,7 @@ class myPDF extends TCPDF {
           if ($this->m2 != '')
             $html .= '<p style="font-size: 12px;"><b>'.$this->m2.'</b></p>';
 
-          if ($this->fe != '') {
+          if ($this->fe != '' and $this->tfactura != 4) {
            $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
               <br>Versión API Hacienda: 4.3<br> 
               <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span>';
@@ -178,6 +178,10 @@ if ($datos[0][1] != '') {
   $tipo .= '<strong>'.$datos[0][25].' de: </strong> '.$datos[0][1].'<br>';
 }
 
+$fint = '';
+if(isset($_REQUEST['fint']))
+  $fint = '<strong>Consecutivo Interno: </strong>'.$db->ejecutar('select substring(factura,2) from integraciones where clave="'.$datos[0][32].'"')->fetch_all()[0][0].'<br>';
+
 $cliente = '';
 if ($datos[0][4] != '') {
 $prov = '';
@@ -247,7 +251,7 @@ if(strlen($datos[0][33])){
   $exon .= '<span style="font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;"><br>Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',con fecha '.$fexo.'</span><br><br>';
 } 
 
-$html .= '<tr> <td width="65%">'.$clave.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="5%"></td> <td width="30%">'.$plazo.'</td> </tr> </table>';
+$html .= '<tr> <td width="65%">'.$clave.$fint.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="5%"></td> <td width="30%">'.$plazo.'</td> </tr> </table>';
 
 
 $html .= '* Línea Exenta<br>'.
@@ -269,7 +273,7 @@ $html .= '* Línea Exenta<br>'.
 '<strong>P. Unitario</strong>'.
 '</td>'.
 '<td valign="top" style="<font-size: 12px;text-align: center;color: white;font-family: Helvetica;" align="center" width="6%">'.
-'<strong>Unidad</strong>'.
+'<strong>Tipo</strong>'.
 '</td>'.
 '<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>DESC.</strong>'.

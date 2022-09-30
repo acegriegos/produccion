@@ -57,7 +57,11 @@
     <tbody>
         <?php 
         if(sizeof($transaccion)){
+            $count = 0;
+            $suma = 0;
         foreach ($transaccion as $obj) {
+            $count++;
+            $suma += $obj[3];
     ?>
 
     <tr>
@@ -78,6 +82,13 @@
         }
     ?>
     </tbody>
+    <tfoot>
+        <tr>
+            <td style=" padding: 1px;"><b>TOTAL</b></td>
+            <td style=" padding: 1px;"><?php echo $count; ?> Lineas</td>
+            <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($suma,2) ?></td>
+        </tr>
+    </tfoot>
 </table>
 
 <?php } ?>

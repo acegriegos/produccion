@@ -46,9 +46,8 @@ $(window).keydown(function(e){
 $(document).on('click','.notasprod',function(){
 
     if($(this).attr('tbl') == '11'){
-        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select if(valor,valor,1) from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'));
+        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select if(valor,valor,1) from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'))[0][0];
         console.log(datosprod)
-        var datosprod = datosprod[0][0];
         $("._proname").html(datosprod[0])
         $("#npprec").html(datosprod[1])
         $("#npcant").html(datosprod[2])
@@ -131,6 +130,18 @@ $(document).on("click","#vcorreo",function(){
 $(document).on("click","#vdireccion",function(){
     $(this).parent().find('a').click()
     // $("#telefono_in").focus();
+});
+
+$(document).on("click","._ret",function(){
+    $("#"+$(this).attr('target')).sideNav('hide')
+});
+
+$(document).on("mouseover",".trlistaflujo",function(){
+   $('.acc',this).removeClass('hide');         
+});
+
+$(document).on("mouseout",".trlistaflujo",function(){
+   $('.acc',this).addClass('hide');         
 });
 
 $(document).on("click","#eslide",function(){
@@ -470,6 +481,11 @@ $(document).on("blur",".buscarNom",function(e){
                 // $("#c-ap2").val(p['ap2']);
                 $("#c-nom").val(p['nom']);
                 $("#c-nom").attr('tipo',p['tip']);
+                if(p['correo']){
+                    $("#slideCorreo").data('idfila',0)
+                    $("#slideCorreo").data('fila1',{vaccion:1,vidcorreo:0,vcorreo:p['correo']})
+                }
+
             }else
                 Materialize.toast(p['error'],4000,'red');
 
@@ -753,14 +769,14 @@ function mantenimiento(vmodulo,vaccion,varreglo,vjson){
     return p;
 }
 
-function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
+function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson,vmore){
     var p;
-    var stack = new Error().stack || '';
+    /*var stack = new Error().stack || '';
     stack = stack.split('\n').map(function (line) { return line.trim(); });
     stack = stack.splice(stack[0] == 'Error' ? 2 : 1);
     if(stack.length <= 2){
         p = 'Get Lost';
-    }else{
+    }else{*/
         // source.close();
         if (vjson)
             varreglo['JSON'] = vjson
@@ -777,12 +793,17 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson){
             }
             catch(err){
                 p = data;
+                console.log(p)
             }
-            postExcecute(vid,p);
+            
+            postExcecute(vid,p,vmore);
+        })
+        .fail(function(x){
+            console.log(x)
         });
-    }
+    //}
     // setTimeout(function(){source = new EventSource("../sse.php")},5000);
-    return true;
+    return p;
 }
 
 function actualizar(vtabla,varg1,varg2){
@@ -795,6 +816,10 @@ function insertar(vtabla,varg1,varg2){
 
 function eliminar(vtabla,varg1){
     return arr('login',7,3,vtabla,varg1,'',0,0,0);
+}
+
+function iaes_masivo(vtp,vtbl,vvalue){
+    return mantenimiento('login',18,{tp:vtp,tbl:vtbl});
 }
 
 function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros = ''){
@@ -844,7 +869,7 @@ function validarCorreo(valor) {
     }
 }
 
-function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla) {
+function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla,topost=undefined) {
 
    $.ajax({
         url: '../_config/correoAjax.php',
@@ -862,7 +887,7 @@ function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtab
         }
         
         try{
-            postSendmail();
+            postSendmail(topost);
         }catch(e){
         } 
     })
@@ -1465,9 +1490,10 @@ function rreport(){
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        if ($("#"+datos[i][0]).val() != undefined) {
-            search[i] = '"'+$("#"+datos[i][0]).val().replace(/"/g,'\\"')+'"';
-        }
+        if ($("#"+datos[i][0]).val() != undefined)
+            search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+        else if($("#"+datos[i][0]).attr('vl') != undefined)
+            search[i] = '"'+$("#"+datos[i][0]).attr('vl')+'"';
         else if (datos[i][0] == 'vidsucursal')
             search[i] = '@@impresa';
         else if (datos[i][0] == 'vidusuario')

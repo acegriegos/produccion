@@ -5,7 +5,7 @@ $(function(){
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12" id="fbtns"><h3 align="center">FILTROS DEL REPORTE</h3><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12" id="fbtns"><span style="font-weight: bold;font-size: 20px;">FILTROS DEL REPORTE</span><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -144,7 +144,7 @@ $(function(){
             var vtype = JSON.parse("[" + $(".principal .filtros").attr('types') + "]");
             var tipos = $(".principal .filtros").attr('tipos').split(",");
             var active = $(".principal .filtros").attr('tpactive') == undefined ? '' : $(".principal .filtros").attr('tpactive').split(',');
-            var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? '' : $(".principal .filtros").attr('tfiltar').split(',');
+            var vwhere = $(".principal .filtros").attr('tfiltar') == undefined ? {} : $(".principal .filtros").attr('tfiltar').split(',');
             var vsel = $(".principal .filtros").attr('tsel') == undefined ? '' : $(".principal .filtros").attr('tsel').split(';');
             var vids = $(".principal .filtros").attr('vids') == undefined ? '' : $(".principal .filtros").attr('vids').split(','); 
             var inc = 0;
@@ -164,17 +164,35 @@ $(function(){
 
                switch(parseInt(vtype[i])){
                     case 1://para select
-                    sel = vsel[i] == undefined ? 'id,nombre' : vsel[i] == '' ? 'id,nombre' : vsel[i]; 
-                    opts = getDatos(sel,vtbl[i],'id > 0');
+                    case 7:// multiple
+                    vwhere[i] = vwhere[i] == undefined ? '' : vwhere[i];
+
+                    if(vwhere[i].startsWith('(')){
+                        vwhere[i] = vwhere[i].replace(/\(/g,'').replace(/\)/g,'').replace(/\^/g,',')
+                        let vsel = vwhere[i].substr(0,vwhere[i].indexOf(','))
+                        vwhere[i] = vwhere[i].substr(vwhere[i].indexOf(',')+1)
+                        let vtbl = vwhere[i].substr(0,vwhere[i].indexOf(','))
+                        vwhere[i] = vwhere[i].substr(vwhere[i].indexOf(',')+1)
+                        opts = getDatos(vsel,vtbl,vwhere[i]) 
+                        vwhere[i] = undefined;
+                    }
+                    else{
+                        sel = vsel[i] == undefined ? 'id,nombre' : vsel[i] == '' ? 'id,nombre' : vsel[i]; 
+                        opts = getDatos(sel,vtbl[i],'id > 0');
+                    }
+                    
                     stropts = '';
                     for(var j = 0;j<opts[0].length;j++)
                         stropts += '<option value="'+opts[0][j][0]+'">'+opts[0][j][1]+'</option>';
 
-                    type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
+                    if(vtype[i] == '7')
+                        type = '<select type="select" multiple id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
+                    else
+                        type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option><option value="-1">Todas</option>'+stropts+'</select>';
 
                     break;
                     case 2: //para numero
-                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                     case 3: //solo check
@@ -196,8 +214,11 @@ $(function(){
                     case 6: //para fecha de mes
                         type = '<input type="month" id="'+mdi+'" class="validate inpreport tipos" style="margin:0px;border:0px;" str="1">';
                         break;
+                    case 8: //PARA FILTRO AÑADIDO
+                        type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        break;
                     default://para texto
-                    type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                 }
@@ -225,12 +246,114 @@ $(function(){
         }
     }
 
+    var dt_filtro = $(".filtros").data('filtros');
+    if(dt_filtro){
+        html = '<div class="row col s4" id="nselects"></div> <div class="row col s4" id="selects"></div> <div class="row col s3" id="checks"></div>'
+        $(".principal .filtros").append(html);
+        
+        $.each(dt_filtro,function(v,i){
+            let name = v;
+            let type = dt_filtro[v]['tipo'] == undefined ? 0 : dt_filtro[v]['tipo'];
+            let text = dt_filtro[v]['texto'] == undefined ? '' : dt_filtro[v]['texto'];
+            let item = '';
+            let spre = '';
+            let pre_vl = 0;
+
+            if(dt_filtro[v]['pre'] != undefined){
+                let pre = dt_filtro[v]['pre'];
+                let lpre = '';
+                
+                switch(parseInt(pre['tipo'])){
+                    case 1:
+                    default:
+                        $.each(pre['opciones'],function(x,y){
+                            lpre += '<li>'+y['name']+'</li>';
+                        });
+                        spre = '<a class="dropdown-button tooltipped pbtn" data-activates="_'+pre['id']+'" data-position="button" data-tooltip="Cambiar Filtro" style="position:absolute;top:15">'+pre['default']+'</a>'+
+                            '<ul id="_'+pre['id']+'" class="dropdown-content">'+lpre+'</ul>';
+                            pre_vl = pre['value'] == undefined ? 0 : pre['value'];
+                        break;
+                }
+            }
+
+            switch(type){
+                case 3: //CHECK
+                    let checked = dt_filtro[v]['checked'] == undefined ? '' : 'checked';
+
+                    item = '<input type="checkbox" id="'+v+'" '+checked+'><label for="'+v+'" class="pbtn">'+text+'</label>';
+                    break;
+                case 2: //NUMBER
+                    item = '<span class="prefix" style="font-size:16px;">'+text+spre+'</span><input type="number" id="'+v+'" class="eder" style="margin:0px" placeholder="--">';
+                    break;
+                case 1: //INPUT TEXT
+                default:
+                    let auto = "";
+                    let hd = "";
+                    let eclass = "";
+                    let eattr = "";
+
+                    if(dt_filtro[v]['autocomplete'] != undefined){
+                        auto = "autocomplete"
+                        hd = '<input type="hidden" id="'+dt_filtro[v]['autocomplete']['id']+'" value="0" />'
+                    }
+
+                    if(dt_filtro[v]['class'] != undefined){
+                        eclass = dt_filtro[v]['class']
+                    }
+
+                    if(dt_filtro[v]['attr'] != undefined){
+                        eattr = dt_filtro[v]['attr']
+                    } 
+
+                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="text" id="'+v+'" class="eder '+auto+' '+eclass+'" '+eattr+' style="margin:0px" placeholder="--" autocomplete="off">'+hd;
+                    break;
+            }
+
+            switch(type){
+                case 1:
+                case 2:
+                    $("#nselects").append('<div class="input-field" style="margin:0px;">'+item+'</div>');
+                    break;
+                case 3:
+                    $("#checks").append('<div class="col s6" style="margin:0px;">'+item+'</div>');
+                    if(dt_filtro[v]['indeterminate'] != undefined)
+                        $("#"+v).prop('indeterminate',true).addClass('_justChange').val(-1)
+                    break;
+                default:
+                    break;
+            }
+
+            if($("#"+v).attr('vl') != undefined)
+                $("#"+v).val($("#"+v).attr('vl'))
+            
+            if(pre_vl != 0)
+                $("#"+dt_filtro[v]['pre']['id']).val(pre_vl)
+        })
+
+        $('.dropdown-button').dropdown();
+        $('.tooltipped').tooltip({delay: 50,duration:1000});
+
+        if(!$("#selects").children().length)
+            $("#selects").remove()
+        if(!$("#nselects").children().length)
+            $("#nselects").remove()
+        if(!$("#checks").children().length)
+            $("#checks").remove()
+    }
+
     $("[id^=fltr]").hide();
     $("[id^=fltr].auto").show();
     $("[id^=fltr].auto").prev().children().children().prop('checked',true);
 });
 
-$(document).on("click",".justChange",function(e){
+$(document).on("click",".optnsflt",function(){
+    var elem = $("#"+$(this).parent().parent().attr('id').substr(1));
+    elem.removeAttr('class')
+    elem.addClass('mdi '+$(this).attr('tipo')+' mdi-24px')
+    elem.val($(this).attr('fltr'));
+});
+
+$(document).on("click",".justChange",function(){
 
     var id =  $(this).attr('id').substr(7)
     var valor = 0;
@@ -257,6 +380,60 @@ $(document).on("click",".justChange",function(e){
     }
     
     $("#vidtipo"+id).val(valor)
+    $(this).attr('stat',status);
+});
+
+$(document).on("keydown",".cliente",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    var elem = $(this);
+    var prov = elem.attr('bisprov') == undefined ? '': 'and bisproveedor';
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        elem.autocomplete({
+            limit: 10,
+            data: arr('login',4,'concat(nombre,", ",cedula),null',2,'id > 0 '+prov+' and nombre like \"%'+elem.val()+'%\" and idsucursal in(-1,@@impresa) limit 10',0,0,0,1),
+            onAutocomplete: function(val){
+                var id = arr('login',4,'id',2,'concat(nombre,", ",cedula) like "%'+elem.val()+'%" and id > 0 '+prov+'  and idsucursal in(-1,@@impresa)',0,0,0)[0][0];
+
+                    if (id != undefined){
+                        $("#vidcliente").val(id);
+                        doreport();
+                    }
+                    else
+                        $("#vidcliente").val(0);
+            }
+        });
+        elem.siblings($(".autocomplete-content")).css('width','25%');
+    }
+});
+
+$(document).on("click","._justChange",function(){
+    var valor = 0;
+    var status = $(this).attr('stat') == undefined ? 1 : $(this).attr('stat');
+
+    switch(parseInt(status)){
+        case 1: //check
+            $(this).prop('checked',true)
+            valor = 1;
+            status = 2;
+            break;
+        case 2: //uncheck
+            $(this).prop('checked',false)
+            valor = 0;
+            status = 3;
+            break;
+        case 3: //itermediate
+            $(this).prop('indeterminate',true)
+            valor = -1;
+            status = 1;
+            break;
+        default:
+            break;
+    }
+    
+    $(this).val(valor)
     $(this).attr('stat',status);
 });
 
@@ -435,11 +612,8 @@ function getCorreos(){
         return JSON.parse(salida.substring(0,salida.length -1)+"]");
     }else
         return '';
-
-    
 }
 
 function postSendmail() {
     etTimeout(function(){$(".toast").remove();},1000)
-    
 }

@@ -34,6 +34,8 @@ $(function(){
 		var valor = $(this).val();
 		valor = isNaN(valor) ? 0 : valor;
 
+		$("#err_dia").addClass('hide');
+
 		if(!$(this).val() )
 			return false;
 
@@ -41,12 +43,17 @@ $(function(){
 			$("#choose").parent().remove()
 		}
 
-		var tot = getDatos('truncate(subtotal+imv+exonerado+exento-descuento,2),id,idtipo',64,'consecutivo = "'+$(this).val()+'" and idtipoventa = '+$("[name=tp]:checked").val());
+		var tot = getDatos('truncate(subtotal+imv+exonerado+exento-descuento,2),id,idtipo,datediff(curdate(),fecha),date_format(fecha,"%d-%m-%Y")',64,'consecutivo = "'+$(this).val()+'" and idtipoventa = '+$("[name=tp]:checked").val());
 
 		if(tot[0].length == '0'){
 			Materialize.toast($("[for=tp"+$("[name=tp]:checked").val()+"]").html()+' no Existente',4000,'red')
 			$(this).focus().select()
 			return false;
+		}
+
+		if(tot[0][0][3] != '0'){
+			$("#err_dia").removeClass('hide');
+			$("#err_dia_dato").html(tot[0][0][4])
 		}
 
 		if(tot[0][0][2] != 1){
@@ -155,13 +162,37 @@ $(function(){
 		var vvuelto = parseInt(tot-pinic);
 		$("#vuelto_").html( (vvuelto).formatMoney(2,'.',',') )
 		$("#_tar").val('0.00');
+
+		$("#_dep").val('0.00');
 		$("#proc_cierre").click();
 	});
 });
 
 $("#_tar").blur(function(){
+	var tot = $(this).val().replace(/,/g,'');
+	tot = isNaN(tot) ? 0 : tot;
+	tot = parseInt(tot);
+	var pinic = (Math.ceil(parseInt($("#vuelto_tot").html().replace(/,/g,''))/5))*5
+	var efect = parseInt($("#vuelto_pcon").val().replace(/,/g,''))
+	var _tot = pinic-efect-tot;
+	if(_tot > 0){
+		$("#_dep").val(_tot.formatMoney(2,'.',',')).focus().select()
+		$(this).val(tot.formatMoney(2,'.',','))
+		return false;
+	}
 	$("#proc_cierre").click()
 });
+
+	$("#_dep").keyup(function(e){
+		var code = e.keyCode || e.wich
+		if(code == 13){
+			$(this).blur()
+		}
+	});
+
+	$("#_dep").blur(function(){
+		$("#proc_cierre").click()
+	})
 
 $(document).on("click","#btnPagar",function(){
 
@@ -261,50 +292,71 @@ $(document).on("click",".cancel",function(){
 
 $("#proc_cierre").click(function(){
 	var tot = parseInt($("#vuelto_pcon").val().replace(/,/,''));
-	var tar = parseInt($("#_tar").val().replace(/,/,''));
+	var tar = parseFloat($("#_tar").val().replace(/,/,''));
+	var dep = parseFloat($("#_dep").val().replace(/,/,''));
 	var rmonto = (Math.ceil(parseInt($("#vuelto_tot").html().replace(/,/g,''))/5))*5;
+	
 	var tipo = 0;
+	var idpago = 1;
+	var factura = $("#vuelto_pcon").attr('idfactura');
+	tipo = tot>0? tipo+1 : tipo;
+	tipo = tar>0? tipo+1 : tipo;
+	tipo = dep>0? tipo+1 : tipo;
 
-	if(tot+tar < rmonto){
+	if(tot+tar+dep < rmonto){
 		Materialize.toast('Valor Debe ser Mayor al Total de Factura',4000,'red')
 		return false;
 	}
 
-	if(tot > 0)
-		tipo += 1;
+	eliminar(336,'idfactura='+factura);
 
-	if(tar > 0)
-		tipo += 2;
+	if(tipo > 1){
+		idpago = 5;
 
-	switch(tipo){
-		case 1:
-			console.log(getDatos('',349,$("#vuelto_pcon").attr('idfactura')+','+tot+','+$("#vuelto_").html().replace(/,/,'')));
-			setTimeout(function () {
-        		endProcesss()
-        	}, 3000);
-			break;
-		case 2:
-			actualizar(64,'idtipopago=2','id='+$("#vuelto_pcon").attr('idfactura'));
-			endProcesss()
-			break;
-		case 3:
-			setTimeout(function () {
-        		endProcesss()
-        	}, 3000);
-			break;
-		default:
-			break;
+		if(tot > 0){
+            insertar(336,'','null,'+factura+',1,"",'+tot)
+		}
+
+        if(tar > 0)
+            insertar(336,'','null,'+factura+',2,"",'+tar)
+
+        if(dep > 0)
+            insertar(336,'','null,'+factura+',3,"",'+dep)
+
+	}else{
+		if(tot > 0){
+			getDatos('',349,$("#vuelto_pcon").attr('idfactura')+','+tot+','+$("#vuelto_").html().replace(/,/,''));
+		}
+
+		if(tar > 0){
+			console.log(eliminar(363,'ifactura='+$("#vuelto_pcon").attr('idfactura')))
+			idpago = 2;
+		}
+
+		if(dep > 0){
+			eliminar(363,'ifactura='+$("#vuelto_pcon").attr('idfactura'))
+			idpago = 3;
+		}
 	}
+
+	actualizar(64,'idtipopago='+idpago,'id='+$("#vuelto_pcon").attr('idfactura'));
+
+	setTimeout(function () {
+		endProcesss()
+	}, 3000);
 });
 
 function endProcesss(){
 	cargarLista();
 	$("#fact").val('').focus().select();
 	$("#_tar").val('0.00');
+	$("#_dep").val('0.00');
 	$("#vuelto_pcon").val('0.00');
 	$("#vuelto_").html('0.00');
 	$("#vuelto_tot").html('0.00')
 	$("#vuelto_pcon").attr('idfactura',0)
+
+	$("#err_dia").addClass('hide');
 }
 
 $(document).on('click','#cn',function(){
@@ -364,9 +416,11 @@ $(document).on("click",".factclie",function(){
 });	
 
 function cargarLista(){
-	var lista = getDatos('',350,'"'+$("#fch").val()+'",@@usr');
+	var lista = '';
 	var vstr = vstrs = vtar = vtars = '';
 	var tfact = tsecp = tfact_tar = tspec_tar =  0;
+
+	lista = getDatos('',350,'"'+$("#fch").val()+'",@@usr');
 
 	for (var i = 0; i < lista[0].length; i++) {
 		

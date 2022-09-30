@@ -18,11 +18,12 @@
     </thead>
     <tbody>
     <?php 
-        $cant = $costo = $venta = $ventaiva = 0;
+        $cant = $costo = $venta = $ventaiva = $linea = 0;
 
         foreach ($transaccion as $obj) {
             $cant += $obj[6] > 0 ? $obj[6] : 0;
             $costo += $obj[6] > 0 ? $obj[6]*$obj[12] : 0;
+            $linea++;
     ?>
 
     <tr id="<?php echo $obj[13]; ?>" metrica="<?php echo $obj[14]; ?>">
@@ -54,11 +55,14 @@
     <?php }
      ?>
      <tr>
-         <td colspan="1">
+         <td colspan="">
              <b>Totales:</b>
          </td>
+         <td>
+             <?php echo $linea.' Líneas' ?>
+         </td>
          <td style="text-align: right;">
-             <?php echo number_format($cant,2); ?>
+             <?php echo number_format($cant,2).' Artículos'; ?>
          </td>
          <td colspan="2" style="text-align: right;">
              <?php echo number_format($costo,2); ?>
@@ -67,4 +71,4 @@
 </tbody>
 </table>
 
-<script type="text/javascript" src="../assets/js/modulos/254.js?v=10.3.0.20"></script>
+<script type="text/javascript" src="../assets/js/modulos/254.js?v=10.4.0.3"></script>

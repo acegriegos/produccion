@@ -288,6 +288,12 @@
 			return $salida;
 		}
 
+		function ins_mass($tbl,$values){
+			$tbl = $this->db->ejecutar('call krattos("nombre",70,"id='.$tbl.'")')[0];
+			$tbl = isset($tbl[0]) ? $this->db->ejecutar('insert into '.$tbl[0].' values('.$values.')') : '';
+			return $tbl;
+		}
+
 
 	}
 	

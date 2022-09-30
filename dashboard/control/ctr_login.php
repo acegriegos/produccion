@@ -409,11 +409,13 @@
         $cliente = json_encode($cliente);
         $rs = (array) json_decode($log->getCURL('https://sistema.apsycr.com/api.php',['cmd'=>1,'cliente'=>base64_encode($cliente)])['rs']);
 
-        if(isset($rs['akey']))
-          $log->genkidama(2,39,'sysmod="'.$rs['akey'].'"','id='.$suc);
+        if(sizeof($rs)){
+          if(isset($rs['akey']))
+            $log->genkidama(2,39,'sysmod="'.$rs['akey'].'"','id='.$suc);
 
-        if($rs['rs'] != 1)
-          return ['0'=>'CUENTA INACTIVA','1'=>1];
+          if($rs['rs'] != 1)
+            return ['0'=>'CUENTA INACTIVA','1'=>1];
+        }
 
      }
 

@@ -357,7 +357,7 @@ function cargarCompras(){
 
             $(this).autocomplete({
                 limit: 20,
-                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where compraprocesada) having nombre like "%'+busqueda+'%"',0,0,0,1),
+                data: arr('login',4,'concat(truncate(substring(referencia,32,10),0),"-",(select nombre from clientes where id = facturas.idcliente)) as nombre,null',64,'idtipoventa = 2 and referencia and id not in(select idfactura from msfacturas where compraprocesada) and datediff(fecha,curdate()) > -370 having nombre like "%'+busqueda+'%"',0,0,0,1),
                 onAutocomplete: function(val){
                     
                     var ref = val.substr(0,val.indexOf('-'));
@@ -369,6 +369,7 @@ function cargarCompras(){
                     var datos = getDatos('id,idcliente,truncate(substring(referencia,32,10),0) as ref,(select nombre from clientes where id = facturas.idcliente) as client',64,'truncate(substring(referencia,32,10),0) = '+ref+' having client = "'+client+'"');
                     var vidfact = datos[0][0][0];
                     $("#ffacturas .zelda").data('triforce')['vidcliente'] = datos[0][0][1];
+                    console.log(vidfact+' '+'truncate(substring(referencia,32,10),0) = '+ref+' having client = "'+client+'"')
                     $("#fdetallefacturas").html(mantenimiento('facturacion',11,{idfact:vidfact,idtp:1}));
                     $(".autocomplete").autocomplete();
                 }
@@ -481,7 +482,14 @@ function cargarCompras(){
     $("#descup").keyup(function(e){
         var code = e.which || e.keyCode;
         if (code == 13){
-            $("#totp").val((parseFloat($("#precp").val().replace(/,/g,''))*(1-(parseFloat($(this).val())/100))*parseFloat($("#cantp").val())).formatMoney(2,'.',','))
+            let c_desc = isNaN($(this).val()) ? 0 : $(this).val();
+            let c_prec = isNaN($("#precp").val().replace(/,/g,'')) ? 0 : $("#precp").val().replace(/,/g,'');
+            let c_cant = isNaN($("#cantp").val()) ? 1 : $("#cantp").val();
+            if(c_desc == ''){
+                $(this).val(0)
+                c_desc = 0;
+            }
+            $("#totp").val((parseFloat(c_prec)*(1-(parseFloat(c_desc)/100))*parseFloat(c_cant)).formatMoney(2,'.',','))
             if($(".ven2:visible").length){
                 cargarUtilidad();
                 $(".ven2:first").focus();    
@@ -1069,6 +1077,7 @@ function cargarCompras(){
        cargarUtilidad();
        $(".ven2").focus()
     });
+
 }//cargar COMPRAS
 
 function cargarVentas(){
@@ -1358,7 +1367,7 @@ function cargarGlobal(){
         
         if (/[a-zA-Z0-9-_.&, ]/i.test(charStr) || charCode == 8) {
             var busqueda = charCode == 8 ? $(this).val().slice(0,-1) : charStr == -1 ? $(this).val() : $(this).val()+charStr;
-            
+    
             $(".autocomplete-content").remove();
             $("#ncli").autocomplete({
                 limit: 20,
@@ -1584,7 +1593,7 @@ function cargarFactura(vidp,asoc){
         var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',64,'id='+vidp);
     
     facturah = facturah.length ? facturah[0][0] : '';
-    if(facturah[1] == '0' && facturah[0] != '')
+    if(facturah[0] != '')
         $("#ncli").val(facturah[0]);
     
     $("#vreferencia").val(facturah[3]);

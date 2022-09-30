@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.3.0.20">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.4.0.3">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -56,7 +56,7 @@
           <br>
         </div>
 <section id="fclientes">
-        <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
+        <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 90%; width: 75%">
           <div class="modal-header">
             <ul class="tabs tabs-fixed-width head3 center">
               <h5 class="center">Datos Informativos</h5>
@@ -152,9 +152,22 @@
                           <label for="vidnivel">Categoría del Cliente</label>
                         </div>
 
-                        <div class="input-field col s12 ncliente">
+                        <div class="input-field ncliente col s12 m6 l4 ">
+                          <select type="select" id="videstado">
+                            <option value="0">Seleccione un Estado</option>
+                            {section name=LE loop=$ESTCLIE}
+                            <option value="{$ESTCLIE[LE][0]}" {if $ESTCLIE[LE][0] eq 1} selected {/if}>{$ESTCLIE[LE][1]}</option>
+                            {/section}
+                          </select>
+                          <label for="videstado">Estado del Cliente</label>
+                        </div>
+
+                        <div class="input-field col s12 ncliente hide">
                           <input type="text" id="vmensaje">
                           <label for="vmensaje">Mensaje Adicional</label>
+                        </div>
+
+                        <div class="chips chips-autocomplete col s12 hide">
                         </div>
 
                       </div>
@@ -276,9 +289,16 @@
 
           <div class="subclie row" id="servicios">
             <i class="mdi mdi-plus der pbtn" id="addnserv" title="Agregar Servicio" ></i> <br>
-            <table cellspacing="0" cellpadding="0" class="tbl striped">
+            <table cellspacing="0" cellpadding="0" class="tbl striped" style="font-size: 12px">
               <thead>
-                <tr style="border-bottom: 1px solid black;"><th style="padding: 0px;">Servicio</th><th style="padding: 0px;">Monto</th><th style="padding: 0px;">Sig.Pago</th><th>Tipo</th></tr>
+                <tr>
+                  <th style="padding: 0px;" colspan="100%">Servicio</th>
+                </tr>
+                <tr style="border-bottom: 1px solid black;">
+                  <th style="padding: 0px;">Monto</th>
+                  <th style="padding: 0px;">Sig.Pago</th>
+                  <th style="padding: 0px;">Tipo</th>
+                </tr>
               </thead>
               <tbody id="servlist"></tbody>
             </table>
@@ -300,6 +320,7 @@
                   <input type="hidden" id="videxoneracion" value="0">
                   <select id="vtipodoc" class="tooltiped" type="select">
                     <option value="0">Tipo de Documento</option>
+                    <option value="-1">Disminución por Ley</option>
                     {section name=LE loop=$EXOS}
                     <option value="{$EXOS[LE][0]}" >{$EXOS[LE][1]}</option>
                     {/section}
@@ -488,6 +509,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.3.0.21-2"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.4.0.3"></script>
 </body>
 </html>

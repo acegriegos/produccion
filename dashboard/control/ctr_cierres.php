@@ -18,6 +18,7 @@
 	   	$smarty->assign('MON',$moneda);
 	   	$smarty->assign('CCIERRE',$kakaroto->kamehameha('ccierre',40,'idsucursal=@@impresa')[0][0]);
 	   	$smarty->assign('TMON',$kakaroto->kamehameha('id,nombre,idmoneda,valor',405,'id > 0'));
+	   	$smarty->assign('TEXT',$kakaroto->kamehameha('id,nombre',361,'id > 0'));
 	   	$smarty->display('v_cierres.tpl');
 	   }else{
 	   $pagina = 0;

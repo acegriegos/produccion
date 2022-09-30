@@ -26,7 +26,7 @@
 
 <?php } ?>
 
-<input type="hidden" id="hidet" tefe="<?php echo $transaccion[0][10]; ?>" ttar="<?php echo $transaccion[0][11]; ?>" tcre="<?php echo $transaccion[0][8]; ?>" tcon="<?php echo $transaccion[0][9]; ?>">
+<input type="hidden" id="hidet" tefe="<?php echo $transaccion[0][10]; ?>" ttar="<?php echo $transaccion[0][11]; ?>" tcre="<?php echo $transaccion[0][8]; ?>" tcon="<?php echo $transaccion[0][9]; ?>" ttot="<?php echo number_format($transaccion[0][17],2,'.',',') ?>">
 
 <script type="text/javascript">
 	$(function(){

@@ -158,7 +158,7 @@ function makeArchivos(vnota,vfactura,vidfactura,vidnota,vsucursal,vestado){
 
     archivos = {0:'xml/'+vestado+' No'+vnota+' '+vsucursal+'.xml',1:'pdf/'+vestado+' No'+vnota+' '+vsucursal+'.pdf'}
     mantenimiento_async('login',9,{id:vidnota,factura:vnota,sucursal:vsucursal,restado:vestado},1);
-    console.log(vsucursal+' 1')
+
     return archivos;
 }
 

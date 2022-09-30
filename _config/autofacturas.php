@@ -266,6 +266,9 @@
         }
     }
 
+    $db->ejecutar('call docontingencia('.$_SESSION['IMPRESA'].')');
+
+
     echo json_encode($salida);
     unset($_SESSION['AUTO']);
 }//NORMAL

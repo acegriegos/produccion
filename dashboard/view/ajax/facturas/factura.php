@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.3.0.20">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.3.0.20">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.3.0.20">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.3">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -133,12 +133,17 @@
                   <?php }else{ ?>
                     <p><b>Tipo de Pago: </b>
                       <?php if ($datos[2] == 'Mixto') { 
-                        $mxt = $kakaroto->kamehameha('format(total,2)',336,'idfactura='.$_REQUEST['id'].' order by idpago');
+                        $mxt = $kakaroto->kamehameha('sum(if(idpago = 1,total,0)) as efectivo,sum(if(idpago = 2,total,0)) as tarjeta,sum(if(idpago = 3,total,0)) as deposito',336,'idfactura='.$_REQUEST['id'].' group by idfactura');
                         ?>
                         <br>
                         <table style="color: white;">
-                          <tr> <td style="padding: 0px">Efectivo</td>  <td style="padding: 0px;text-align: right;"><?php echo $mxt[0][0]; ?></td> </tr>
-                          <tr> <td style="padding: 0px">Tarjeta</td>   <td style="padding: 0px;text-align: right;"><?php echo $mxt[1][0]; ?></td> </tr>
+                          <?php if($mxt[0][0]>0){ ?>
+                          <tr> <td style="padding: 0px">Efectivo</td>  <td style="padding: 0px;text-align: right;"><?php echo number_format($mxt[0][0],2); ?></td> </tr>
+                          <?php }if($mxt[0][1]>0){ ?>
+                          <tr> <td style="padding: 0px">Tarjeta</td>   <td style="padding: 0px;text-align: right;"><?php echo number_format($mxt[0][1],2); ?></td> </tr>
+                          <?php }if($mxt[0][2]>0){ ?>
+                          <tr> <td style="padding: 0px">Depósito</td>   <td style="padding: 0px;text-align: right;"><?php echo number_format($mxt[0][2],2); ?></td> </tr>
+                        <?php } ?>
                         </table>
                       <?php }else{ ?>
                       <span><?php echo $datos[2]; ?></span>
@@ -298,12 +303,23 @@
               <?php } ?>
               
               <div>
-                <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
-                  <br> 
-                  <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
-                </div>
-                <?php }else echo '<p class="center-align" style="font-size: 0.8em;">REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D<br>'.$msj.'</p>'; ?>
+                <?php if($datos[32] != ''){ ?>
+                  
+                  <?php if($datos[24] != 4) {?>
+                    <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019. V4.3
+                  <?php }?>
+
+                <?php } else {?>
+                  <?php if($datos[24] == 106) {?>
+                    <p class="center-align" style="font-size: 0.8em;">ESTE COMPROBANTE NO PUEDE SER UTILIZADO PARA FINES TRIBUTARIOS, POR LO CUAL NO SE PERMITIRÁ SU USO PARA RESPALDO DE CRÉDITOS O GASTOS
+                  <?php }else{ ?>
+                    <p class="center-align" style="font-size: 0.8em;">REGIMEN SIMPLIFICADO<br>AUTORIZADO MEDIANTE RESOLUCION No. 11-97 de la D.G.T.D
+                  <?php } ?>
+                <?php } ?>
+                <br> 
+                <span class="" style="font-size: 0.8em;"><?php echo $msj; ?></span></p><br>
+              </div>
+                
               </footer>
 
               <div class="center <?php if ($transaccion[0][32] == '') echo 'hide';  ?>" style="width: 100%;">
@@ -348,10 +364,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.3.0.20"></script>
-     <script src="../assets/js/materialize.min.js?v=10.3.0.20"></script>
-     <script src="../assets/js/asgard.js?v=10.3.0.20"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.3.0.20"></script>
+     <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+     <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
+     <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.4.0.3"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

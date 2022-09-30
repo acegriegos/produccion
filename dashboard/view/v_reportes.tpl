@@ -108,7 +108,7 @@
 <p>Histórico CxP</p>
 </div>
 
-<div class="col s6 m3 l2 center-align    5655555555555  666666 ">
+<div class="col s6 m3 l2 center-align">
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
@@ -148,7 +148,7 @@ Inventario <hr>
 <p>Movimiento de Costos-Ventas</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic hide">
+<div class="col s6 m3 l2 center-align basic ">
 <a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Kardex</p>
 </div>
@@ -207,6 +207,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.3.0.20"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.4.0.3"></script>
 </body>
 </html>

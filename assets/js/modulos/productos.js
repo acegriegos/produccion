@@ -175,6 +175,11 @@ $(function () {
 				break;
 		}
 
+		$(".scabys").click(function(){
+			var iserv = $(".per4101").hasClass('active') ? 1 : 0;
+			cargarCategorias($("#scabys").val(),iserv)
+		});
+
 		$("#scabys").keyup(function(e){
 			var code = e.which || e.keyCode
 			if(code == 13 && $(this).val().trim() != ''){
@@ -1471,6 +1476,12 @@ $(document).on("blur",".calcvv",function(){
 	Materialize.updateTextFields();
 });	
 
+$(document).on("change","#costodivisa",function(){
+	var tmp = $("#vdivisa").attr('hv')
+	$("#vdivisa").attr('hv',$("#vdivisa").val())
+	$("#vdivisa").val(tmp)
+	$("#vcosto").blur()
+});
 
 $(document).on("click","#agInvProPqts",function(){
     var prodStr = $("#descrP").val();
@@ -1518,13 +1529,16 @@ $(document).on("click","#addproduct",function(){
     $(".validate").css('box-shadow', 'none');
     $("#vidunidad").val(1)
     $("#vcantidad").val(0)
+    var lastcodigo = getDatos('lpad(codigo+1,2,0)',11,'idsucursal = @@impresa and idmarca = '+$("#fproductos .zelda").data('triforce')['vidmarca']+' order by id desc limit 1')[0][0][0];
+	$("#vcodigo").val(lastcodigo) 
     Materialize.updateTextFields();
     $("select").material_select();
     $("#lcabys").html('')
     $("#scabys").val('')
     $("#ncabys").html('')
-    $("#financiero input").attr('disabled',false);
-	$("#vcantidad").attr('readonly',false); 
+    $("#financiero input").attr('disabled',false);	
+	$("#vcantidad").attr('readonly',false);
+	
     setTimeout(function(){$("#vnombre").focus();},500);
     cargarUnidades(1);
 });
@@ -2085,7 +2099,7 @@ function validarproductos() {
 		}
 	}
 
-	if(!$("#vcabys").val().length && $("#vidinventario option:selected").val() == '6'){
+	if(!$("#vcabys").val().length && $("#vidinventario option:selected").val() == '6' && config[0] != '0'){
 		$("#vcabys").focus()	
 		return 'CABYS Requerido';
 	}
@@ -2293,17 +2307,18 @@ function endDetail(id, acc, modulo) {
 			$("[id^=vldimension]").each(function(){
 				var num = $(this).attr('id').substr(11);
 				var acc = parseInt($("#dimension"+num).attr('vid'));
-
-				if($("#vldimension"+num).val().trim().length > 0 && parseInt($("#vldimension"+num).val()) ){
+				
+				if($(this).val().trim().length > 0 && parseFloat($(this).val()) ){
 
 					if(acc == 0){
-						insertar(283,'','null,'+id[0][0]+','+$("#unidimension"+num).val()+',"",'+num+','+$("#vldimension"+num).val());
+						console.log(insertar(283,'','null,'+id[0][0]+','+$("#unidimension"+num).val()+',"",'+num+','+$("#vldimension"+num).val()));
 					}else{
 						actualizar(283,'idunidad = '+$("#unidimension"+num).val()+',valor = '+$("#vldimension"+num).val(),'id = '+acc);
 					}
 				}else if (acc != 0) {
 					actualizar(283,'valor = 0','id = '+acc);
 				}
+				
 			});
 
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
@@ -2327,6 +2342,8 @@ function endDetail(id, acc, modulo) {
 			var vcolumna = $("#vcolumna:visible").length ? $("#vcolumna").val().trim() : '';
 			var vfila = $("#vfila:visible").length ? $("#vfila").val().trim() : '';
 			var vadescuento = $("#adescuento").is(':checked') ? 1 : 0;
+			var peso = $("#vpeso:visible").length ? $("#vpeso").val() : 0;
+
 			actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'",adescuento='+vadescuento,'idproducto='+id[0][0])
 
 			thorload(modulo);
@@ -2339,6 +2356,18 @@ function endDetail(id, acc, modulo) {
 			if(config[29] == '99'){
 				insertar(338,'','null,'+id[0][0]+',11,'+acc+',"idproducto=$1,97,299",0,-1');
 			}
+
+    		if(acc == 1){ 
+    			var lastcodigo = getDatos('lpad(codigo+1,2,0)',11,'idsucursal = @@impresa and idmarca = '+$("#fproductos .zelda").data('triforce')['vidmarca']+' order by id desc limit 1')[0][0][0];
+
+    			$("#vcodigo").val(lastcodigo)
+    			$("[for=vcodigo").addClass('active')
+    			$("#lcabys").html('')
+	    		$("#scabys").val('')
+	    		$("#ncabys").html('')
+	    	}
+
+    		$("#vnombre").focus();
 
 			break;
 		case 'servicio':

@@ -97,6 +97,8 @@
       </select>
     </div>
 
+    <small id="msj_small" class="hide trVenta col s12" style="color: #621313"></small>
+
     <div class="col s12 m3 hide trCompra">
       <input type="checkbox" id="celectronica" {if $smarty.session.BUSS eq 1} checked disabled {/if}>
       <label for="celectronica">Compra Electrónica</label>
@@ -211,6 +213,13 @@
     <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
 
     <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
+    
+    {else}
+
+    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
+
+    <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
+
     {/if}
 
     <a class="mdi mdi-xml tooltipped mdi-24px white-text der hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh" style="position: absolute;top: 0;right: 108px;"></a>
@@ -461,7 +470,7 @@
         <a class="btn-floating btn2 tooltipped modal-trigger" data-position="top" data-tooltip="Ingresar Línea" href="#modal-addline" style="position: fixed; bottom: 0;right: 0;margin-bottom: 10%;margin-right: 2%;z-index: 998"><i class="mdi mdi-plus mdi-24px"></i></a>
         <div class="edetalle center">No se Han Ingresado Productos</div>
       </div>
-      <div vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" class="col s12">
+      <div vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" class="col s12" style="margin-bottom: 5px;">
       </div>
     </div>
 </div>
@@ -483,7 +492,7 @@
       <!-- <label for="monedas">Divisa</label> -->
 
       <section class="hide">
-        <span class="truncate"><b>Usuario:</b> <span id="username"></span></span>
+        <span class="truncate"><b>Usuario:</b> <span id="username">{$smarty.session.NOM|upper}</span></span>
       </section>
 
       <div class="input-field">
@@ -509,9 +518,13 @@
 
     <div class="col s12 m12 l12">
 
-        <div class="col s12 m12 l12 input-field">
+        <div class="col s12 input-field">
           <textarea id="vcomentario" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="180"></textarea>
           <label for="vcomentario">Comentario de Factura</label>
+        </div>
+        <div class="col s12 input-field hide" id="_razon">
+          <span style="text-align: left;"><b class="pbtn">Productos con Margen Inferior</b> <br> <b>Justifique Venta</b> </span>
+          <textarea id="razonventa" cols="25" class="materialize-textarea" type="textarea" style="min-height: 40px; max-height: 60px; height: 60px; min-width: 100%; max-width:100%; width: 100%;border: 1px solid #e2e2e2;margin: 0px;" data-length="180"> </textarea>
         </div>
         <table style="margin-top: 100px">
           <tr class="hide trCompra trVenta">
@@ -624,6 +637,20 @@
 <!-- ffacturas -->
 </div>
  <!-- bdy -->
+
+<div class="modal modal-fixed-footer per7302 hide" id="modal-docaja">
+   <div class="modal-header head3 center" style="font-size: 22px;">Iniciar Caja</div>
+  <div class="modal-content">
+    <div class="input-field">
+      <input type="text" id="_valor_caja" value="0.00" class="eder numeric">
+      <label for="_valor_caja">Valor de Caja</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action waves-effect waves-green btn-flat" id="_docaja">Aceptar</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
 
 <div class="modal modal-fixed-footer" id="modal-addline" style="height: 400px;">
   <div class="modal-content">
@@ -864,19 +891,6 @@
 
 <div id="modal-tpagos" class="modal modal-fixed-footer grandemodal" gfort="0" align="center" style="width: 70%; height: 100vh !important;">
 
-  <!-- <div class="modal-content" style="padding: 0px"> -->
-   <!--  <hr style="border: 1px solid #F0F0F0">
-    <span>TOTAL:</span><br>
-    <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
-      <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric " id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
-    </div>
-    <br>
-    <span>SU CAMBIO ES DE:</span><br>
-    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
-  </div> -->
-
   <div class="row">
     {section name=LE loop=$TPAGO}
         <input type="radio" value="{if $TPAGO[LE][0] eq 5}5{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
@@ -888,13 +902,23 @@
   <hr style="border: 1px solid #F0F0F0">
     <span>TOTAL:</span><br>
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
+    <div class="input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center numeric vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <input type="text" class="form-control form-control-sm center vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <select style="position: absolute;top:180px;outline: none; z-index: 180;width: 5%; border: 0;" class="browser-default" id="monedapago">
+        <option selected value="1">¢</option>
+        <option value="2">$</option>
+      </select>
+
+      <select style="position: absolute;top:360px;outline: none; z-index: 180;width: 5%; border: 0;" class="browser-default" id="monedavuelto">
+        <option selected value="1">¢</option>
+        <option value="2">$</option>
+      </select>
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
-    <span type="text" id="pcam" style="font-size: 5em !important;">0.00</span>
+    <span type="text" id="pcam" class="cambio" style="font-size: 5em !important;">0.00</span>
+
   </div>
 
 </section>
@@ -969,31 +993,64 @@
    
   <div class="modal-content row">
 
+    <div class="col s12 row hide" id="mxt_cliente">
+      <div class="col s2 input-field">
+        <input type="text" id="mxt_ced">
+        <label for="mxt_ced">Cédula</label>
+      </div>
+
+      <div class="col s4 input-field">
+        <input type="text" id="mxt_rz">
+        <label for="mxt_rz">Razón Social</label>
+      </div>
+
+      <div class="col s4 input-field">
+        <input type="text" id="mxt_mail">
+        <label for="mxt_mail">Correo</label>
+      </div>
+    </div>
+
     <div class="col s4 row">
       
       <H5>FORMA DE PAGO</H5>
       
-      <div class="col s12 input-field">
-          <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1" autocomplete="off">
-          <label for="montoefect">Efectivo</label>
+      <div class="row col s12" style="margin: 0px; padding: 0px;">
+        <div class="col s6 input-field">
+            <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1" autocomplete="off">
+            <label for="montoefect">Efectivo</label>
+        </div>
+
+        <div class="col s6 input-field">
+            <input type="text" id="pconm" value="0.00" class="eder vextra numeric" tp="1" autocomplete="off">
+            <label for="pconm">Paga Con</label>
+        </div>
       </div>
 
-      <div class="col s12 input-field">
-          <input type="text" id="pconm" value="0.00" class="eder vextra" tp="1" autocomplete="off">
-          <label for="pconm">Paga Con</label>
+      <div class="row col s12" style="margin: 0px; padding: 0px;">
+        <div class="col s6 input-field">
+          <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot numeric" tp="2" autocomplete="off">
+          <label for="montotar">Tarjeta</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="ntarjmixto" maxlength="4" class="eder vextra" tp="2" placeholder="0000">
+         <label for="ntarjmixto">Número de Tarjeta</label>
+        </div>
       </div>
 
-       <div class="col s12 input-field">
-            <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2" autocomplete="off">
-            <label for="montotar">Tarjeta</label>
+       <div class="row col s12" style="margin: 0px; padding: 0px;">
+        <div class="col s6 input-field">
+          <input type="text" id="montodep" value="0.00" class="eder mxt_val_tot numeric" tp="3" autocomplete="off">
+          <label for="montodep">Depósito</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="ndepmixto" maxlength="10" class="eder vextra" tp="3" placeholder="0000000000">
+         <label for="ndepmixto">Transacción</label>
+        </div>
       </div>
 
-       <div class="col s12 input-field">
-        <input type="text" id="ntarjmixto" maxlength="4" class="eder">
-        <label for="ntarjmixto">Número de Tarjeta</label>
-      </div>
-
-      <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons">0.00</span></h3>
+      <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons" class="cambio">0.00</span></h3>
 
       <hr style="border:1px dashed #e2e2e2">
 
@@ -1031,21 +1088,18 @@
     </div>
 
     <div class="col s4 lmp">
+      <label>LINEAS DE FACTURA</label>
       <div class="collection" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
-      </div>
-      <div class="input-field">
-        <input type="text" id="mxtot" readonly class="eder" subtotal="0" exento="0" descuento="0" imv="0">
-        <label for="mxtot">TOTAL FACTURA</label>
       </div>
     </div>
 
 
     <div class="col s4 lmp" id="scnl">
+      <label>TOTAL A CANCELAR</label>
       <div class="collection" id="lpc" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
         <input type="text" id="mxcan" value="0.00" readonly class="eder" subtotal="0" exento="0" descuento="0" imv="0">
-        <label for="mxcan">TOTAL A CANCELAR</label>
       </div>
     </div>
 
@@ -1265,4 +1319,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.3.0.20-12"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.4.0.3"></script>

@@ -312,7 +312,7 @@ $(document).on("click","#btnPagar",function(){
 		$("#saldo").html('0.00');
 		$("#comentario").val('');
 		$("#referencia").val('')
-		$("#idtipopagopagar").val(0).material_select('update');
+		$("#idtipopagopagar").val(1).material_select('update');
 
 		var tp = $("#p_vm").is(":checked") == true ? 1 : 2;
 		window.open('cuentas?accion=5&id='+idestadocuenta[0][0][1]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);

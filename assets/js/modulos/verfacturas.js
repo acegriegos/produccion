@@ -4,7 +4,7 @@ var str_correos = '';
 $(document).ready(function(){
 	var tf = param = getParameterByName('tf');//parseInt($("input[name=tventa]:checked").attr('id').substr(2));
     config = getDatos('',42,'@@impresa',0,0)[0][0];
-
+    
     $(".tr").addClass('hide');
 
 	switch(tf) {
@@ -320,6 +320,22 @@ $(document).on("change","input[name=tventa]",function(){
             break;
         case 104:
             var tabla = $("#data-table-facturas").DataTable();
+            tabla.destroy();
+            arr('login',6,'',158,'0,0,"'+id+',0,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
+            $("#data-table-facturas").dataTable({
+                bFilter: false,
+                bScrollInfinite: true,
+                bSort: false,
+                bLengthChange: false,
+                order: [],
+                bPaginate: false,
+                info: false
+            });
+            paginate($("ul.pagination").attr('vtbl'),undefined,id+',0,@@impresa,0,0');
+            $(".pagination").attr('filtro_sp',id+',0,@@impresa,^,?');
+            break;
+       case 106:
+       		var tabla = $("#data-table-facturas").DataTable();
             tabla.destroy();
             arr('login',6,'',158,'0,0,"'+id+',0,@@impresa,0,0","0,10"',0,1,$("#listafacturas"));
             $("#data-table-facturas").dataTable({

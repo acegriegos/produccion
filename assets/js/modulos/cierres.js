@@ -1,5 +1,6 @@
 var config;
 var guser = '@@usr';
+var arreglo = {0:[],1:[]};
 
 $(function(){
 	 config = getDatos('',42,'@@impresa',0,0)[0][0];
@@ -19,8 +20,23 @@ $(function(){
 			$("#mn-tefectivo").focus().select();
 		}
 	});
+	loadmybussiness();
+	permisos(7301,7303);
 
-	permisos(7301,7302);
+	$(".mnd").each(function(){
+		var tmoneda = $(this).attr('id').substr(1);
+
+		arreglo[0][tmoneda] = 0;
+		arreglo[1][tmoneda] = 0;
+	});
+
+	$("[name=tcaja]").change(function(){
+
+		$.each(arreglo[$(this).attr('tp')],function(i,v){
+			$("#m"+i).val(v)
+		})
+	})
+	
 
 
 	$("#mn-fecha").change(function(){
@@ -170,8 +186,42 @@ $(function(){
 			
 	});
 
+	$("#editarcaja").click(function(){
+		var valor = $("#mcierre").val().replace(/,/g,'');
+
+		if($("#mcierre").attr('readonly') != undefined){
+			$("#mcierre").removeAttr('readonly').focus().select()
+			$("#iniciarcaja").attr('dont',1);
+		}else{
+			$("#iniciarcaja").click();
+		}
+
+	});
+
 	$("#iniciarcaja").click(function(){
 		var valor = $("#mcierre").val().replace(/,/g,'')
+
+		if($(this).attr('dont') != undefined){
+			$("#iniciarcaja").removeAttr('dont');
+
+			if(isNaN(valor)){
+				Materialize.toast('Valor Debe ser Numérico',4000,'red')
+				$("#mcierre").focus().select();
+				return false;
+			}
+
+			if(valor <= 0){
+				Materialize.toast('Valor debe ser Mayor a 0',4000,'red');
+				$("#mcierre").focus().select();
+				return false;
+			}
+
+			var lcinic = actualizar(404,'monto='+valor,'idsucursal=@@impresa and fmonto is null and date_format(fecha,"%Y-%m-%d") = curdate()');
+			console.log(lcinic)
+			Materialize.toast('Caja Actualizada Correctamente',4000,'green');
+			$("#mcierre").attr('readonly',true);
+			return false;
+		}
 
 		if($("#mcierre").attr('readonly') != undefined){
 			Materialize.toast('Caja Iniciada',4000,'red')
@@ -241,7 +291,7 @@ $(function(){
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {
-			str += '<tr id="'+datos[i][0]+'" class="pbtn filacierre"><td>'+datos[i][0]+'</td><td>'+datos[i][1]+'</td></tr>'
+			str += '<tr id="'+datos[i][2]+'" class="pbtn filacierre"><td>'+datos[i][0]+'</td><td>'+datos[i][1]+'</td></tr>'
 		}
 
 		str += "</table>";
@@ -249,7 +299,7 @@ $(function(){
 		$("#lista-cierres").html(str);
 	});
 
-	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0 });
+	$(".zelda").data('triforce',{ vid:0,vidsucursal:'',vidusuario:'',vtotal:0,vtots:0});
 
 	if (parseInt(config[11]) == 3){
         
@@ -295,6 +345,10 @@ $(document).on("click",".filacierre",function(){
 	window.open('cierres?accion=1&a4&id='+id);
 });
 
+$(document).on("focus",".mnd",function(e){
+	$(this).select()
+});
+
 $(document).on("keyup",".mnd",function(e){
 	var code = e.which || e.keyCode;
 	if(code == 13){
@@ -304,8 +358,18 @@ $(document).on("keyup",".mnd",function(e){
 
 $(document).on("blur",".mnd",function(){
 	var mn = $(this).attr('moneda');
-	var total = totalizar(mn);
-	$("#tc"+mn+' .tcaja').text(total.formatMoney(2,'.',','));
+
+	if($("#tcaja1").is(':checked')){
+		var total = totalizar(mn,'vtotal');
+		$("#tc"+mn+' .tcaja').text(total.formatMoney(2,'.',','));
+		arreglo[0][$(this).attr('id').substr(1)] = $(this).val();
+	}
+	else{
+		var total = totalizar(mn,'vtots');
+		console.log(total)
+		$("#stc"+mn+' .tcaja').text(total.formatMoney(2,'.',','));
+		arreglo[1][$(this).attr('id').substr(1)] = $(this).val();
+	}
 });
 
 $(document).on("click","#totalizar",function(){
@@ -342,6 +406,7 @@ $(document).on("click","#docierre",function(){
 	if(parseInt(idcierre)){
 		$(".getfacturas[vfecha="+$(this).attr('vfecha')+"]").siblings().remove();
 		guardarMonedas(idcierre,0);
+		guardarExtras(idcierre);
 
 		if(config[29] != '99' && config[29] != ''){
 			var dinic = getDatos('idinicio',314,'id='+idcierre)
@@ -376,6 +441,7 @@ $(document).on("click",".getfacturas",function(){
 	$("#tcredito").text($("#hidet").attr('tcre'));
 	$("#tefectivo").text($("#hidet").attr('tefe'));
 	$("#ttarjeta").text($("#hidet").attr('ttar'));
+	$("#ttot").text($("#hidet").attr('ttot'));
 	
 	$("#data-table-facturas").DataTable({
 	    bFilter: false,
@@ -544,13 +610,13 @@ function totalizar_mn(){
 	$("#mn-depositod").val((tdeposito-depositon).formatMoney(2,'.',','))
 }
 
-function totalizar(moneda) {
+function totalizar(moneda,spec) {
 	
 	var total = 0;
 	$(".mnd[moneda="+moneda+"]").filter(function(){return parseFloat(this.value) > 0}).each(function(){
 		total += parseFloat($(this).val())*parseFloat($(this).attr('vl'))
 	})
-	$(".zelda").data('triforce')['vtotal'] = total;
+	$(".zelda").data('triforce')[spec] = total;
 	return total;
 }
 
@@ -612,6 +678,13 @@ function guardarMonedas(vidc,vidi){
 		if(parseInt($(this).val()) > 0 && $(this).attr('id').substr(1) != undefined){
 			insertar(340,'','null,'+vidc+','+vidi+','+$(this).attr('id').substr(1)+','+$(this).val());
 		}
+	});
+	return 'false';
+}
+
+function guardarExtras(vidc){
+	$(".ext").each(function(i){
+		insertar(362,'','null,'+vidc+','+$(this).attr('id').substr(1)+','+$(this).val().replace(/,/g,''));
 	});
 	return 'false';
 }

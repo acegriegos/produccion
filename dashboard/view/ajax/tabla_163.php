@@ -50,6 +50,9 @@ echo '<input type="hidden" id="indice" value="'.$index.'" clie="'.$transaccion[0
 
 <script type="text/javascript">
 	$(function(){
+		var _idclie = $("#indice").attr("clie") == undefined ? '' : $("#indice").attr("clie")
+		$("#indice").attr("clie",_idclie);
+		
 		if($("#indice").attr("clie") != ''){
 			$("#ncli").val($("#indice").attr("clie"));
 			$("#ncli").blur();	

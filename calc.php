@@ -5,11 +5,11 @@
     <title>Calculadora</title>
 
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="./assets/css/materialize.min.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="./assets/css/modulos/style-menu.css?v=10.3.0.21">
-    <link rel="stylesheet" type="text/css" href="./assets/css/materialdesignicons.min.css?v=10.3.0.21">
+    <link rel="stylesheet" type="text/css" href="./assets/css/materialize.min.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="./assets/css/modulos/style-menu.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="./assets/css/materialdesignicons.min.css?v=10.4.0.3">
 
     <style type="text/css">
         #calc label, #calc span{
@@ -91,7 +91,13 @@
             <input type="text" id="fact" maxlength="10"  style="font-size: 40px; text-align: center;">
             
             <span id="vuelto_tot" style="font-weight: bold;font-size: 18px">0.00</span> <span>CRC</span>
-          <br><br><br>
+
+            <div id="err_dia" class="red-text hide">
+            	<small>Documento pertenece al día </small>
+            	<small id="err_dia_dato">08-01-2022</small>
+            </div>
+
+          <br>
           </div>
 
         <div class="modal-content row" style="padding: 0px;">   
@@ -110,7 +116,7 @@
                 <input type="text" id="_tar" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
 
                 <span>Bancos:</span> <br>
-                <input type="text" id="_tar" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
+                <input type="text" id="_dep" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
 
             </div>
 
@@ -237,12 +243,12 @@
         </div>
     </ul>
     
-    <script src="./assets/js/jquery.js?v=10.3.0.21"></script>
-    <script src="./assets/js/materialize.min.js?v=10.3.0.21"></script>
-    <script src="./assets/js/asgard.js?v=10.3.0.21"></script>
-    <script src="./assets/js/main.js?v=10.3.0.21"></script>
-  <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.3.0.20"></script>
-  <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.3.0.20"></script>
-    <script src="./assets/js/calc.js?v=10.3.0.21-3"></script>
+    <script src="./assets/js/jquery.js?v=10.4.0.3"></script>
+    <script src="./assets/js/materialize.min.js?v=10.4.0.3"></script>
+    <script src="./assets/js/asgard.js?v=10.4.0.3"></script>
+    <script src="./assets/js/main.js?v=10.4.0.3"></script>
+    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.0.3"></script>
+    <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.0.3"></script>
+    <script src="./assets/js/calc.js?v=10.4.0.3"></script>
  </body>
  </html>

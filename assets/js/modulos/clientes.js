@@ -5,6 +5,16 @@ $(function(){
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	$("#fclientes").submit(function(){return false});
+	$('.chips').material_chip();
+	$('.chips-autocomplete').material_chip({
+		placeholder: 'Enter a tag',
+	    secondaryPlaceholder: '+Tag',
+	    autocompleteOptions: {
+	      data: getDatos('nombre,null',354,'idtabla = 2',0,0,1),
+	      limit: Infinity,
+	      minLength: 1
+	    }
+	  });
 	loadmybussiness();
 	
 	var param = getParameterByName('is');
@@ -89,10 +99,9 @@ $(function(){
 
 	$("#vnumdoc").keyup(function(e){
 		var code = e.wich || e.keyCode;
-		if(code == 13){
+		if(code == 13 && $("#vtipodoc").val() != '-1'){
 			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
         	.done(function(data){
-        		console.log(data)
         		var p = JSON.parse(data);
             	if (p['succed']) {
 					$("#vtipodoc").val(p['tipoDocumento']['codigo'])
@@ -103,10 +112,11 @@ $(function(){
 					$("#vtimeDoc").val(p['fechaEmision'].substring(p['fechaEmision'].indexOf('T')+1));
 					$("#vfechafin").val(p['fechaVencimiento'].substring(0,p['fechaVencimiento'].indexOf('T')));
 					Materialize.updateTextFields();
-					$("#vporcompra").focus().select();
+					$("#vporcompra").val(p['porcentajeExoneracion']).focus().select();
             	}else{
-            		 Materialize.toast(p['error'],4000,'red');
-            		 $("#videxoneracion").val(0);
+	        		Materialize.toast(p['error'],4000,'red');
+	        		$("#addexo").data('cabys','');
+	        		$("#videxoneracion").val(0);
 					$("#vtipodoc").val(0);
 					$("#vtipodoc").material_select('update');
 					$("#vnumdoc").focus().select();
@@ -120,8 +130,9 @@ $(function(){
 		}
 	});
 
+
 	/*$("#vtipodoc").change(function(){
-		if(parseInt($(this).val()) == 3 || parseInt($(this).val()) == 1){
+		if(parseInt($(this).val()) == 3 || parseInt($(this).val()) == 1 || parseInt($(this).val()) == -1){
 			$("#ventidad").val('').prop('readonly',false)
 			$("#vfechaDoc").val('').prop('readonly',false)
 			$("#vtimeDoc").val('').prop('readonly',false)
@@ -177,7 +188,7 @@ $(function(){
 
 			if(!$("#ventidad").val().trim().length){
 				Materialize.toast('Número de Documento no es Válido',4000,'red');
-				$("#vnumdoc").focus().select();
+				$("#ventidad").focus().select();
 				return false;
 			}
 
@@ -350,6 +361,7 @@ $(function(){
 	});
 
 	$("#addnexo").click(function(){
+		$("#addexo").data('cabys','');
 		$("#addexo").attr('acc',1);
 		$("#videxoneracion").val(0);
 		$("#vtipodoc").val(0);
@@ -440,7 +452,7 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vapellido1:'',vapellido2:'',videstado:1,vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
+	$(".zelda").data('triforce',{vid:0,vapellido1:'',vapellido2:'',vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
@@ -456,7 +468,7 @@ $(function(){
 function validares(){ return false };
 
 $(document).on("click",".lstexo",function(){
-	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),ffin,exoneracion',285,'id='+$(this).attr('tp'));
+	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),date_format(ffin,"%Y-%m-%d"),exoneracion',285,'id='+$(this).attr('tp'));
 
 	if (exoneraciones[0].length && !parseInt($(this).data('triforce')['vaccion']) ) {
 		$("#videxoneracion").val($(this).attr('tp'));
@@ -470,8 +482,9 @@ $(document).on("click",".lstexo",function(){
 		Materialize.updateTextFields();
 		$("#modal-addexo").modal('open').css('z-index',2000);
 		$("#vporcompra").val(exoneraciones[0][0][6]).focus().select();
+		//$("#addexo").data('cabys','');
 	}else{ 
-
+		$("#addexo").data('cabys','');
 		$("#videxoneracion").val($(this).data('triforce')['vid']);
 		$("#vtipodoc").val($(this).data('triforce')['vtdoc']);
 		$("#vtipodoc").material_select('update');
@@ -491,12 +504,6 @@ $(document).on("blur",".onblur",function(){
 
 	if (id == 'vnombre') /*{*/
 		$("#infvnombre0").html($("#vnombre").val());
-
-	 if (id == 'vapellido1') /*{*/
-	 	$("#infvapellido0").html($("#vapellido1").val()); 
-
-	 if (id == 'vapellido2') /*{*/
-	 	$("#infvapellido1").html($("#vapellido2").val());
 
 	 if (id == 'vcedula') /*{*/
 	 	$("#infcedula1").html($("#vcedula").val());
@@ -760,6 +767,7 @@ function endDetail(vid,vacc,modulo){
 					switch(parseInt(obj['vaccion'])){
 						case 1:
 							console.log(insertar(285,'','null,'+vid[0][0]+','+obj['vtdoc']+',"'+obj['vndoc']+'","'+obj['ventidad']+'","'+obj['vfechaDoc']+'",'+obj['vexo']+','+obj['vffin']));
+							//guardar exoneracion
 							break;
 						case 2:
 							actualizar(285,'tdoc = '+obj['vtdoc']+', ndoc = "'+obj['vndoc']+'",inst = "'+obj['ventidad']+'", femision = "'+obj['vfechaDoc']+'", exoneracion = '+obj['vexo']+',ffin = '+obj['vffin'],'id = '+obj['vid']);
@@ -787,6 +795,15 @@ function endDetail(vid,vacc,modulo){
 					}
 				})
 			}
+
+			var tags = $('.chips-autocomplete').material_chip('data');
+	  		var stag = '';
+
+	        for (var i = 0; i < tags.length; i++) {
+	        	stag += tags[i].tag+','; 
+	        	//GUARDAR ETIQUETAS SI NO EXISTE
+	        	//GUARDAR ETIQUETAS AL CLIENTE
+	        }
 
 			var config = getDatos('',42,'@@impresa',0,0)[0][0];
 			if(config[29] != '' && config[29] != '99'){
@@ -837,7 +854,25 @@ function postload(modulo) {
             	xolista += '<tr class="_xmlotros" label="'+gxmlotros[0][i][1]+'" id="'+gxmlotros[0][i][0]+'" value="'+gxmlotros[0][i][2]+'" factura="'+gxmlotros[0][i][3]+'" accion="2"> <td style="padding: 0px;">'+gxmlotros[0][i][1]+'</td> <td style="padding: 0px;">'+gxmlotros[0][i][2]+'</td> <td style="padding: 0px;"> <i class="mdi mdi-pencil xo-edit pbtn" title="Ediar XML-OTRO"></i> <i class="mdi mdi-close xo-delete pbtn" title="Eliminar XML-OTRO"></i> </td> </tr>';
             }
             $("#xo-lista").html(xolista);
+
+            //var etiquetas = ;
+            $('.chips-autocomplete').material_chip({
+		        data: getEtiquetas(),
+		    });
             
+            var servicios = getDatos('',357,'4,0,'+$("#vid").val()+',0');
+            var sislista = '';
+            for (var i = 0; i < servicios[0].length; i++){
+            	sislista += '<tr class="_servicios" id="'+servicios[0][i][0]+'" accion="2"> '+
+            		'<td style="padding: 0px;" colspan="100%">'+servicios[0][i][1]+' <i class="mdi mdi-pencil si-edit pbtn der" title="Editar Servicio"></i> <i class="mdi mdi-close si-delete pbtn der" title="Eliminar Servicio"></i> </td>'+
+            		'</tr>'+
+            		'<tr><td style="padding: 0px;">'+servicios[0][i][2]+'</td>'+ 
+            		'<td style="padding: 0px;">'+servicios[0][i][3]+'</td>'+
+            		'<td style="padding: 0px;">'+servicios[0][i][4]+'</td>';
+
+            }
+            $("#servlist").html(sislista);
+
 		break;
 	}
 }
@@ -862,3 +897,17 @@ $(document).on('click','.xo-delete',function(){
 	$(this).parent().parent().addClass('hide');
 	$(this).parent().parent().attr('accion',3)
 })
+
+function getEtiquetas(){
+    var salida = "[";
+    var p=getDatos('',356,'4,0,"",2,'+$("#vid").val())[0];
+
+    for (var i = 0; i < p.length; i++) {
+        salida+='{"tag":"'+p[i][1]+'"},';
+    }
+
+    if (p.length > 0) {
+        return JSON.parse(salida.substring(0,salida.length -1)+"]");
+    }else
+        return '';
+}

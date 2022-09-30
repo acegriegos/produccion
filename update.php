@@ -178,9 +178,10 @@
             <!DOCTYPE html>
             <html>
             <head>
+                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
                 <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-                <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.3.0.20">
-                <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.3.0.20">
+                <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.4.0.3">
+                <link rel="stylesheet" type="text/css" href="assets/css/materialdesignicons.min.css?v=10.4.0.3">
                 <title>APSY</title>
             </head>
             <body>
@@ -328,9 +329,9 @@
                 </div>
             </div>
 
-            <script src="assets/js/jquery.js?v=10.3.0.20"></script>
-            <script src="assets/js/materialize.min.js?v=10.3.0.20"></script>
-            <script src="assets/js/asgard.js?v=10.3.0.20"></script>
+            <script src="assets/js/jquery.js?v=10.4.0.3"></script>
+            <script src="assets/js/materialize.min.js?v=10.4.0.3"></script>
+            <script src="assets/js/asgard.js?v=10.4.0.3"></script>
             <script type="text/javascript">
 
                 $(window).keydown(function(e){
@@ -349,10 +350,10 @@
 
                 $("#db").click(function(){
                     $("#consoleText").html('')
-                    $("#consoleText").append('Actualizando Base de Datos<br>Cargando Ultima Version....<span id="lver">##</span><br>Version Actual....<span id="aver">##</span><br>');
+                    $("#consoleText").append('Actualizando Base de Datos<br>Version Actual....<span id="aver">##</span><br>Cargando Ultima Version....<span id="lver">##</span><br>');
                     var _aver = getDatos('valor',15,'descr="versionbase"')[0][0][0];
 
-                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:11,acc:1,aver:_aver})
+                    $.post('https://fe.logintechcr.com/pruebas/wsdlApsy.php',{cmd:11,acc:1,aver:_aver})
                         .done(function(data){
 
                             $("#aver").html(_aver);
@@ -390,7 +391,7 @@
                 $(".valid").click(function(){
                     $(this).attr('disabled',true);
 
-                    $.post('http://sistema.apsycr.com/wsdlServer.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
+                    $.post('https://fe.logintechcr.com/pruebas/wsdlApsy.php',{cmd:10,usr:$("#rusr").val(),pswd:$("#rpsw").val()})
                         .done(function(data){
                             if(data.succed && data.rs.length == 1){
                                 if (data.rs[0][3] != 1) {
@@ -408,8 +409,8 @@
                                 Materialize.toast(data.rs,4000,'red');
                             }
                         })
-                        .fail(function(x){
-                            console.log(x);
+                        .fail(function(x,y){
+                            console.log(y);
                         });
                 })
             </script>
@@ -536,7 +537,7 @@
             $pass = $db->getPSS();
             $port = $db->getPort();
 
-            $source = "http://sistema.apsycr.com/wsdlServer.php";
+            $source = "https://fe.logintechcr.com/wsdlServer.php";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $source);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
