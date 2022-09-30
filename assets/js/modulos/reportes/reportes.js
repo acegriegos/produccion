@@ -188,7 +188,7 @@ $(function(){
                     if(vtype[i] == '7')
                         type = '<select type="select" multiple id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option>'+stropts+'</select>';
                     else
-                        type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option><option value="-1">Todas<option/>'+stropts+'</select>';
+                        type = '<select type="select" id="'+mdi+'" class="inpreport tipos" ttbl="'+vtbl[i]+'"><option selected disbaled value="0">Seleccione una Opción</option><option value="-1">Todas</option>'+stropts+'</select>';
 
                     break;
                     case 2: //para numero
@@ -257,12 +257,12 @@ $(function(){
             let text = dt_filtro[v]['texto'] == undefined ? '' : dt_filtro[v]['texto'];
             let item = '';
             let spre = '';
-            let tpre = 0;
+            let pre_vl = 0;
 
             if(dt_filtro[v]['pre'] != undefined){
                 let pre = dt_filtro[v]['pre'];
                 let lpre = '';
-
+                
                 switch(parseInt(pre['tipo'])){
                     case 1:
                     default:
@@ -271,7 +271,7 @@ $(function(){
                         });
                         spre = '<a class="dropdown-button tooltipped pbtn" data-activates="_'+pre['id']+'" data-position="button" data-tooltip="Cambiar Filtro" style="position:absolute;top:15">'+pre['default']+'</a>'+
                             '<ul id="_'+pre['id']+'" class="dropdown-content">'+lpre+'</ul>';
-                          tpre = 1;
+                            pre_vl = pre['value'] == undefined ? 0 : pre['value'];
                         break;
                 }
             }
@@ -325,6 +325,9 @@ $(function(){
 
             if($("#"+v).attr('vl') != undefined)
                 $("#"+v).val($("#"+v).attr('vl'))
+            
+            if(pre_vl != 0)
+                $("#"+dt_filtro[v]['pre']['id']).val(pre_vl)
         })
 
         $('.dropdown-button').dropdown();

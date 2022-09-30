@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.4.0.2">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.4.0.3">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -56,7 +56,7 @@
           <br>
         </div>
 <section id="fclientes">
-        <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 100%; width: 75%">
+        <div class="modal modal-fixed-footer grandemodal" id="modal-clientes" style="height: 90%; width: 75%">
           <div class="modal-header">
             <ul class="tabs tabs-fixed-width head3 center">
               <h5 class="center">Datos Informativos</h5>
@@ -509,6 +509,6 @@
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.4.0.2"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.4.0.3"></script>
 </body>
 </html>

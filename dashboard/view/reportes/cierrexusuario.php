@@ -130,7 +130,7 @@
 <title>Cierres</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link href="../assets/css/materialize.min.css?v=10.4.0.2">
+<link href="../assets/css/materialize.min.css?v=10.4.0.3">
 <style>
   *{
     font-size: 18px;
@@ -181,7 +181,7 @@
 
 
       <?php if($cierre[7] > 0) echo 'Efectivo: <span style="float: right;">'.number_format($cierre[7],2).'</span><br>'; ?>
-      <?php if($cierre[8] > 0) echo 'Tárjetas: <span style="float: right;">'.number_format($cierre[8],2).'</span><br>'; ?>
+      <?php if($cierre[8] > 0) echo 'Tarjetas: <span style="float: right;">'.number_format($cierre[8],2).'</span><br>'; ?>
       <?php if($cierre[9] > 0) echo 'Depósitos: <span style="float: right;">'.number_format($cierre[9],2).'</span><br>'; ?> 
       <?php if($cierre[19] > 0) echo 'Entradas de Efectivo: <span style="float: right;">'.number_format($cierre[19],2).'</span><br>'; ?>
       <?php if($cierre[20] > 0) echo 'Salidas de Efectivo: <span style="float: right;">'.number_format($cierre[20],2).'</span><br>'; ?>
@@ -202,7 +202,7 @@
       }else{ ?>
 
       <?php if($cierre[7] > 0) echo 'Ventas en Efectivo: <span style="float: right;">'.$cierre[7].'</span><br>'; ?>
-      <?php if($cierre[8] > 0) echo 'Ventas con Tárjetas: <span style="float: right;">'.$cierre[8].'</span><br>'; ?>
+      <?php if($cierre[8] > 0) echo 'Ventas con Tarjetas: <span style="float: right;">'.$cierre[8].'</span><br>'; ?>
       <?php if($cierre[9] > 0) echo 'Ventas con Depósitos: <span style="float: right;">'.$cierre[9].'</span><br>'; ?>
       <?php if($cierre[3] > 0) echo 'Total Ventas a Contado: <span style="float: right;">'.$cierre[3].'</span><br>'; ?>
       <?php if($cierre[2] > 0) echo 'Total Ventas a Crédito: <span style="float: right;">'.$cierre[2].'</span><br>'; ?>
@@ -256,8 +256,8 @@
       <!-- FOOTER -->
       <!-- /FOOTER -->
     </div>
-    <script src="../assets/js/jquery.js?v=10.4.0.2"></script>
-    <script src="../assets/js/materialize.min.js?v=10.4.0.2"></script>
+    <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+    <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
 
      <script type="text/javascript">
    $(function(){

@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Servicio Restaurante</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.3">
 </head>
 
 <body class="black">
@@ -40,7 +40,7 @@
 
   {$SCR}
 
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.2"></script>
-  <script src="../assets/js/modulos/reportes/servrest.js?v=10.4.0.2"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.3"></script>
+  <script src="../assets/js/modulos/reportes/servrest.js?v=10.4.0.3"></script>
 </body>
 </html>

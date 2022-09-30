@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Inventarios</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.2">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.3">
   {literal}
   <style type="text/css">
     .detrep input{
@@ -145,7 +145,8 @@
         "pre":{
           "tipo":1,
           "id" : "vcodigo",
-          "default" : "<i class=\"mdi mdi-equal mdi-24px\" vl=\"1\" id=\"vcodigo\"></i>",
+          "default" : "<i class=\"mdi mdi-equal mdi-24px\" vl=\"1\" id=\"vcodigo\" val=\"1\"></i>",
+          "value" : 1,
           "opciones": {
             0 :{
               "id":1,
@@ -175,7 +176,7 @@
     }) 
   </script>
   {/literal}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.2"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.0.2"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.3"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.0.3"></script>
 </body>
 </html>

@@ -2303,17 +2303,18 @@ function endDetail(id, acc, modulo) {
 			$("[id^=vldimension]").each(function(){
 				var num = $(this).attr('id').substr(11);
 				var acc = parseInt($("#dimension"+num).attr('vid'));
-
-				if($("#vldimension"+num).val().trim().length > 0 && parseInt($("#vldimension"+num).val()) ){
+				
+				if($(this).val().trim().length > 0 && parseFloat($(this).val()) ){
 
 					if(acc == 0){
-						insertar(283,'','null,'+id[0][0]+','+$("#unidimension"+num).val()+',"",'+num+','+$("#vldimension"+num).val());
+						console.log(insertar(283,'','null,'+id[0][0]+','+$("#unidimension"+num).val()+',"",'+num+','+$("#vldimension"+num).val()));
 					}else{
 						actualizar(283,'idunidad = '+$("#unidimension"+num).val()+',valor = '+$("#vldimension"+num).val(),'id = '+acc);
 					}
 				}else if (acc != 0) {
 					actualizar(283,'valor = 0','id = '+acc);
 				}
+				
 			});
 
 			if($("#fproductos .zelda").attr('inventariado') != undefined){
@@ -2336,6 +2337,8 @@ function endDetail(id, acc, modulo) {
 			var vcolumna = $("#vcolumna:visible").length ? $("#vcolumna").val().trim() : '';
 			var vfila = $("#vfila:visible").length ? $("#vfila").val().trim() : '';
 			var vadescuento = $("#adescuento").is(':checked') ? 1 : 0;
+			var peso = $("#vpeso:visible").length ? $("#vpeso").val() : 0;
+
 			actualizar(299,'estante="'+vestante+'",fila="'+vfila+'",columna="'+vcolumna+'",cabys="'+$("#vcabys").val().trim()+'",adescuento='+vadescuento,'idproducto='+id[0][0])
 
 			thorload(modulo);

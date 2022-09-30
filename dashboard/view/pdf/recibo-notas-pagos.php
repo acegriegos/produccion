@@ -141,6 +141,6 @@ $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $ver = isset($_REQUEST['arreglo']['show']) ? 'I' : 'F';
-$pdf->Output('../assets/pdf/'.$datos[0][9].' No'.$datos[0][1].', '.$fact.'.pdf',$ver);
+$pdf->Output('../assets/pdf/'.$datos[0][9].' No'.$datos[0][1].' '.$fact.'.pdf',$ver);
 
 ?>

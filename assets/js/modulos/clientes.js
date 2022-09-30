@@ -187,7 +187,7 @@ $(function(){
 
 			if(!$("#ventidad").val().trim().length){
 				Materialize.toast('Número de Documento no es Válido',4000,'red');
-				$("#vnumdoc").focus().select();
+				$("#ventidad").focus().select();
 				return false;
 			}
 

@@ -19,6 +19,12 @@
 
     <a class="btn-color pbtn red-text delete-row mdi mdi-close mdi-24px hide blueh" id="d<?php echo $obj[0] ?>" modulo="estadocuenta" data-tooltip="Eliminar" data-position="bottom"></a>
 
+    <?php  
+        if($obj[8] == 5){
+            echo '<a class="btn-color mdi mdi-24px mdi-cloud-download-outline xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g'.$obj[0].'" data-tooltip=""></a>';
+        }
+    ?>
+
 </td>
 </tr>
 

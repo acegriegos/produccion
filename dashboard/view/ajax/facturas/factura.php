@@ -2,9 +2,9 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.2">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.2">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.2">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.3">
 
 
 <?php $hide = $datos[24] > 2 ? 'hide':'' ?>
@@ -133,12 +133,17 @@
                   <?php }else{ ?>
                     <p><b>Tipo de Pago: </b>
                       <?php if ($datos[2] == 'Mixto') { 
-                        $mxt = $kakaroto->kamehameha('format(total,2)',336,'idfactura='.$_REQUEST['id'].' order by idpago');
+                        $mxt = $kakaroto->kamehameha('sum(if(idpago = 1,total,0)) as efectivo,sum(if(idpago = 2,total,0)) as tarjeta,sum(if(idpago = 3,total,0)) as deposito',336,'idfactura='.$_REQUEST['id'].' group by idfactura');
                         ?>
                         <br>
                         <table style="color: white;">
-                          <tr> <td style="padding: 0px">Efectivo</td>  <td style="padding: 0px;text-align: right;"><?php echo $mxt[0][0]; ?></td> </tr>
-                          <tr> <td style="padding: 0px">Tarjeta</td>   <td style="padding: 0px;text-align: right;"><?php echo $mxt[1][0]; ?></td> </tr>
+                          <?php if($mxt[0][0]>0){ ?>
+                          <tr> <td style="padding: 0px">Efectivo</td>  <td style="padding: 0px;text-align: right;"><?php echo number_format($mxt[0][0],2); ?></td> </tr>
+                          <?php }if($mxt[0][1]>0){ ?>
+                          <tr> <td style="padding: 0px">Tarjeta</td>   <td style="padding: 0px;text-align: right;"><?php echo number_format($mxt[0][1],2); ?></td> </tr>
+                          <?php }if($mxt[0][2]>0){ ?>
+                          <tr> <td style="padding: 0px">Depósito</td>   <td style="padding: 0px;text-align: right;"><?php echo number_format($mxt[0][2],2); ?></td> </tr>
+                        <?php } ?>
                         </table>
                       <?php }else{ ?>
                       <span><?php echo $datos[2]; ?></span>
@@ -359,10 +364,10 @@
      </div>
 
 
-     <script src="../assets/js/jquery.js?v=10.4.0.2"></script>
-     <script src="../assets/js/materialize.min.js?v=10.4.0.2"></script>
-     <script src="../assets/js/asgard.js?v=10.4.0.2"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.4.0.2"></script>
+     <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+     <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
+     <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.4.0.3"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

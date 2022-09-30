@@ -1593,7 +1593,7 @@ function cargarFactura(vidp,asoc){
         var facturah = getDatos('if(comodin <> "",comodin,(select nombre from clientes where id = idcliente)),idcliente,consecutivo,referencia',64,'id='+vidp);
     
     facturah = facturah.length ? facturah[0][0] : '';
-    if(facturah[1] == '0' && facturah[0] != '')
+    if(facturah[0] != '')
         $("#ncli").val(facturah[0]);
     
     $("#vreferencia").val(facturah[3]);

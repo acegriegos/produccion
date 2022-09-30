@@ -16,12 +16,14 @@
         <div class="col s12 m3">
             {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
             <div class="input-field">
+                <i class="mdi mdi-dots-vertical prefix pbtn" id="admin_inv" title="Administración de Inventarios"></i>
                 <select id="mystock" num="1" typ="1" class="_extra">
                 {section name=LE loop=$INV}
                     <option value="{$INV[LE][0]}" {if $INV[LE][0] eq 6} selected {/if}>{$INV[LE][1]}</option>
                 {/section}
                 </select>
                 <label for="mystock">Inventario</label>
+
             </div>
             {else}
                 <input type="hidden" num="1" typ="0" class="_extra" id="mystock" value="6">
@@ -158,7 +160,7 @@
 
                 </div>
                 
-                <div class="col s12 l4 row" style="margin:0px; padding: 0px">
+                <div class="col s12 l4 row" style="margin:0px; padding: 0px;margin-bottom: 20px;">
 
                     <div class="input-field marginzero col s12">
                         <input type="text" id="vnombre" class="formprod validate" value="" focus="1vcodigo" autocomplete="off" tabindex="4">

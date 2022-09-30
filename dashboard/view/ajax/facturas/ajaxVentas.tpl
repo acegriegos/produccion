@@ -902,13 +902,23 @@
   <hr style="border: 1px solid #F0F0F0">
     <span>TOTAL:</span><br>
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
-    <div class="input-group input-group" style="width: 80%; font-size: 2em !important;">
+    <div class="input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
       <input type="text" class="form-control form-control-sm center vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <select style="position: absolute;top:180px;outline: none; z-index: 180;width: 5%; border: 0;" class="browser-default" id="monedapago">
+        <option selected value="1">¢</option>
+        <option value="2">$</option>
+      </select>
+
+      <select style="position: absolute;top:360px;outline: none; z-index: 180;width: 5%; border: 0;" class="browser-default" id="monedavuelto">
+        <option selected value="1">¢</option>
+        <option value="2">$</option>
+      </select>
     </div>
     <br>
     <span>SU CAMBIO ES DE:</span><br>
     <span type="text" id="pcam" class="cambio" style="font-size: 5em !important;">0.00</span>
+
   </div>
 
 </section>
@@ -983,28 +993,61 @@
    
   <div class="modal-content row">
 
+    <div class="col s12 row hide" id="mxt_cliente">
+      <div class="col s2 input-field">
+        <input type="text" id="mxt_ced">
+        <label for="mxt_ced">Cédula</label>
+      </div>
+
+      <div class="col s4 input-field">
+        <input type="text" id="mxt_rz">
+        <label for="mxt_rz">Razón Social</label>
+      </div>
+
+      <div class="col s4 input-field">
+        <input type="text" id="mxt_mail">
+        <label for="mxt_mail">Correo</label>
+      </div>
+    </div>
+
     <div class="col s4 row">
       
       <H5>FORMA DE PAGO</H5>
       
-      <div class="col s12 input-field">
-          <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1" autocomplete="off">
-          <label for="montoefect">Efectivo</label>
+      <div class="row col s12" style="margin: 0px; padding: 0px;">
+        <div class="col s6 input-field">
+            <input type="text" id="montoefect" value="0.00" class="eder mxt_val_tot" tp="1" autocomplete="off">
+            <label for="montoefect">Efectivo</label>
+        </div>
+
+        <div class="col s6 input-field">
+            <input type="text" id="pconm" value="0.00" class="eder vextra numeric" tp="1" autocomplete="off">
+            <label for="pconm">Paga Con</label>
+        </div>
       </div>
 
-      <div class="col s12 input-field">
-          <input type="text" id="pconm" value="0.00" class="eder vextra" tp="1" autocomplete="off">
-          <label for="pconm">Paga Con</label>
+      <div class="row col s12" style="margin: 0px; padding: 0px;">
+        <div class="col s6 input-field">
+          <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot numeric" tp="2" autocomplete="off">
+          <label for="montotar">Tarjeta</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="ntarjmixto" maxlength="4" class="eder vextra" tp="2" placeholder="0000">
+         <label for="ntarjmixto">Número de Tarjeta</label>
+        </div>
       </div>
 
-       <div class="col s12 input-field">
-            <input type="text" id="montotar" value="0.00" class="eder mxt_val_tot" tp="2" autocomplete="off">
-            <label for="montotar">Tarjeta</label>
-      </div>
+       <div class="row col s12" style="margin: 0px; padding: 0px;">
+        <div class="col s6 input-field">
+          <input type="text" id="montodep" value="0.00" class="eder mxt_val_tot numeric" tp="3" autocomplete="off">
+          <label for="montodep">Depósito</label>
+        </div>
 
-       <div class="col s12 input-field">
-        <input type="text" id="ntarjmixto" maxlength="4" class="eder">
-        <label for="ntarjmixto">Número de Tarjeta</label>
+        <div class="col s6 input-field">
+          <input type="text" id="ndepmixto" maxlength="10" class="eder vextra" tp="3" placeholder="0000000000">
+         <label for="ndepmixto">Transacción</label>
+        </div>
       </div>
 
       <h3 align="center"><b>Vuelto:</b> <br> <span style="color: red;" id="pcons" class="cambio">0.00</span></h3>
@@ -1045,21 +1088,18 @@
     </div>
 
     <div class="col s4 lmp">
+      <label>LINEAS DE FACTURA</label>
       <div class="collection" id="lmp" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
-      </div>
-      <div class="input-field">
-        <input type="text" id="mxtot" readonly class="eder" subtotal="0" exento="0" descuento="0" imv="0">
-        <label for="mxtot">TOTAL FACTURA</label>
       </div>
     </div>
 
 
     <div class="col s4 lmp" id="scnl">
+      <label>TOTAL A CANCELAR</label>
       <div class="collection" id="lpc" style="height: 380px;overflow-y: auto;margin-bottom: 0px;">
       </div>
       <div class="input-field">
         <input type="text" id="mxcan" value="0.00" readonly class="eder" subtotal="0" exento="0" descuento="0" imv="0">
-        <label for="mxcan">TOTAL A CANCELAR</label>
       </div>
     </div>
 
@@ -1279,4 +1319,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.4.0.2"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.4.0.3"></script>

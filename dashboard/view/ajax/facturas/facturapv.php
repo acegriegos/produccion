@@ -4,8 +4,8 @@
 <head>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <title>Factura</title>  
-  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.2"> -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.2">
+  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3"> -->
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
 <style>
   *{font-size: 1em}
   
@@ -105,11 +105,15 @@
 <?php 
 $pvuelto = 0;
 $vuelto = 0;
+$pvueltom = '';
+$vueltom = '';
 
 if(($transaccion[0][24] == 7 || $transaccion[0][24] == 1 || $transaccion[0][24] == 8) && $transaccion[0][17] && $transaccion[0][2] == 'Efectivo'){
   $extra = explode('^', $transaccion[0][17]);
   $pvuelto = $extra[0];
   $vuelto = $extra[1];
+  $pvueltom = $extra[3];
+  $vueltom = $extra[4];
 }
 
 // $transaccion;
@@ -214,16 +218,30 @@ echo '<br> '.$miscelaneos[4].' <br> '.$miscelaneos[6].'
   </tr>';
 
   if($datos[2] == 'Mixto'){
-    $mxt = $kakaroto->kamehameha('format(total,2),idpago',336,'idfactura='.$_REQUEST['id'].' order by idpago');
-    $mxt_efect = $mxt[0][1] == 1 ? '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr>' : '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[0][0].'</td> </tr>';
+    $mxt = $kakaroto->kamehameha('sum(if(idpago = 1,extra,0)) as efectivo,sum(if(idpago = 2,total,0)) as tarjeta,sum(if(idpago = 3,total,0)) as deposito,round(sum(if(idpago = 1,extra-total,0))/5,0)*5 as vuelto',336,'idfactura='.$_REQUEST['id'].' group by idfactura');
+    
+    $mxt_efect = '';
+    if($mxt[0][0]>0){
+      if($mxt[0][3]>0){
+        $vuelto = number_format($mxt[0][3],2);
+        $pvuelto = number_format($mxt[0][0],2);
+        $mxt_efect = '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;"></td> </tr>';
+      }
+      else 
+        $mxt_efect = '<tr> <td style="padding:0px;">Efectivo</td> <td style="padding:0px;text-align: right;">'.number_format($mxt[0][0],2).'</td> </tr>';
+    }
 
     $mxt_tar = '';
-    if(isset($mxt[1]))
-      $mxt_tar = '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.$mxt[1][0].'</td> </tr>';
+    if($mxt[0][1]>0)
+      $mxt_tar = '<tr> <td style="padding:0px;">Tarjeta</td> <td style="padding:0px;text-align: right;">'.number_format($mxt[0][1],2).'</td> </tr>';
+
+    $mxt_dep = '';
+    if($mxt[0][2]>0)
+      $mxt_dep = '<tr> <td style="padding:0px;">Depósito</td> <td style="padding:0px;text-align: right;">'.number_format($mxt[0][2],2).'</td> </tr>';
 
     echo '<tr>
       <td width="50%">T. Pago:</td>
-      <td width="50%"> <table style="width: 100%;"> '.$mxt_efect.$mxt_tar.' </table> </td>
+      <td width="50%"> <table style="width: 100%;"> '.$mxt_efect.$mxt_tar.$mxt_dep.' </table> </td>
     </tr>';
   }else
     echo '<tr '.$ocultar.'>
@@ -380,10 +398,10 @@ echo '<tr>
 if ($pvuelto > 0 && $vuelto >= 0) {
   echo '<table width="100%">
   <tr>
-    <td align="center">Paga con: '.$pvuelto.'</td>
+    <td align="center">Paga con: '.$pvueltom.$pvuelto.'</td>
   </tr>
   <tr>
-    <td align="center">Vuelto: '.$vuelto.'</td>
+    <td align="center">Vuelto: '.$vueltom.$vuelto.'</td>
   </tr>
 </table>';
 }
@@ -402,9 +420,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.4.0.2"></script>
- <script src="../assets/js/materialize.min.js?v=10.4.0.2"></script>
- <script src="../assets/js/asgard.js?v=10.4.0.2"></script>
+ <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
+ <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
+ <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
