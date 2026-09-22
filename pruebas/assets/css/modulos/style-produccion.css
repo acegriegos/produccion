@@ -1,0 +1,173 @@
+.head1 {
+  background: #0080C6;
+  color: #fff; }
+
+.head2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.head3 {
+  background: #F58345;
+  color: #fff; }
+
+.head4 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn1 {
+  background: #0080C6;
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
+
+.btn2 {
+  background: #F58345;
+  color: #fff; }
+
+.btn2:hover {
+  background: #c94e0b !important; }
+
+.btn3 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
+
+.btn5 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
+
+.tab1 {
+  background: #0080C6;
+  color: #fff; }
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.tab3 {
+  background: #F58345;
+  color: #fff; }
+
+.tab4 {
+  background: #45b97c;
+  color: #fff; }
+
+.bg1 {
+  background: #4D4D4D; }
+
+.danger:hover {
+  color: #EC545A !important; }
+
+.bgtransparent {
+  background: transparent; }
+
+.gtext {
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
+
+.tamLetra {
+  font-size: 1.2em !important; }
+
+.flow-text {
+  margin: 0; }
+
+.input-field {
+  /*margin-top: 0 !important;*/ }
+
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; }
+
+#groupprodcts {
+  font-size: 1.4em; }
+
+.raddreceta {
+  margin-bottom: 0 !important; }
+
+#vestimado {
+  margin: 0 !important; }
+
+.gastos {
+  margin-top: 6px !important; }
+
+.padbotzero {
+  padding-bottom: 0 !important; }
+
+.modal-content {
+  padding: 0 !important; }
+
+.modal-bdy {
+  padding: 18px 10px 0 10px; }
+
+#alrdyisprdct {
+  width: 80%;
+  height: 50px;
+  padding-top: 10px;
+  margin-left: 10%;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  border-radius: 12px; }
+
+#mantproduccion {
+  padding: 15px 10px 15px 10px; }
+
+.nopadding {
+  padding: 0 !important; }
+
+.tasks {
+  background-color: #fff;
+  margin-bottom: 0 !important; }
+
+.mbutton {
+  margin-top: 10px; }
+
+#modal-search {
+  padding: 10px 28px 10px 28px; }
+
+.namereceta {
+  padding: 0 !important;
+  margin-top: 5px !important; }
+
+#dtableline {
+  padding-left: 20%;
+  padding-right: 20%; }
+
+.reloj {
+  font-size: 60px; }
+
+tr.prodlines > td {
+  padding: 10px 10px; }
+
+#vnomlinea {
+  margin-bottom: 0 !important; }
+
+label[for=atarea], label[for=btarea], label[for=ctarea], label[for=cprod] {
+  width: 100% !important; }
+
+/*
+ul.autocomplete-content > li{
+    min-height: 40px;
+    height: 40px;
+}*/
+ul.pagination > li.active {
+  background-color: #2196F3 !important; }
+
+/*# sourceMappingURL=style-produccion.css.map */

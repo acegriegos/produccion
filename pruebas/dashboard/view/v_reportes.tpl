@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="max-age=86400"/>
+<title>Reportes</title>
+{$STY}
+{literal}
+<style type="text/css">
+</style>
+{/literal}
+</head>
+{$NAV}
+<body>
+<div class="bdy pequeño"  style="font-size: 1.2em !important" >
+<div class="card pequeño z-depth-5">
+
+<div class="card-header center head1">
+<p class="flow-text" style="font-size: 1.9em; margin-bottom: 0.3% !important">Reportes</p>
+</div>
+
+<div class="card-content">
+
+<div class="row hide">
+<div class="input-field col s12 m6 l5">
+<a  class="prefix dropdown-button tooltipped"  data-activates="filtr_1" data-position="button" data-tooltip="Cambiar Filtro"><i class="mdi mdi-magnify mdi-24px"></i></a>
+<input type="text" id="search_clientes" maxlength="100" num="v29" var="nombre">
+<label class="truncate" for="search_clientes">Buscar Reporte por Nombre</label>
+</div>
+</div>
+
+Área Comercial y de Operaciones <hr>
+
+<div class="row">
+
+<div class="col s6 m3 l2 center-align per1501 hide">
+<a class="report pbtn" rep="clientes"><i class="mdi mdi-account-multiple  mdi-48px"></i></a>
+<p>Clientes</p>
+</div>
+
+<div class="col s6 m3 l2 center-align per1502 hide">
+<a class="report pbtn" rep="ventas"><i class="mdi-48px mdi mdi-chart-areaspline"></i></a>
+<p>Ventas</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="gananciasdtf"><i class="mdi mdi-chart-line  mdi-48px"></i></a>
+<p>Ganancias Detallada Por Facturas</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="gananciaspf"><i class="mdi mdi-google-analytics  mdi-48px"></i></a>
+<p>Ganancias Por Facturas </p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="gananciasdxp"><i class="mdi mdi-elevator  mdi-48px"></i></a>
+<p>Ganancias Por Productos </p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="cotizaciones"><i class="mdi-clipboard-outline mdi-48px mdi"></i></a>
+<p>Cotizaciones</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="pedidos"><i class="mdi-48px mdi mdi-cube-send"></i></a>
+<p>Pedidos</p>
+</div>
+
+<div class="col s6 m3 l2 center-align per1503 hide">
+<a class="report pbtn" rep="cuentasxcobrar"><i class="mdi-48px mdi mdi-account"></i></a>
+<p>Cuentas por Cobrar</p>
+</div>
+
+<div class="col s6 m3 l2 center-align per1504 hide">
+<a class="report pbtn" rep="cuentasxcobrar&tp=2"><i class="mdi-48px mdi mdi-history"></i></a>
+<p>Histórico CxC</p>
+</div>
+
+</div>
+
+<div class="row">
+<div class="col s6 m3 l2 center-align per1510 hide">
+<a class="report pbtn" rep="proveedores"> <i class="mdi-48px mdi mdi-account-switch"></i></a>
+<p>Proveedores</p>
+</div>
+
+<div class="col s6 m3 l2 center-align per1509 hide">
+<a class="report pbtn"  rep="compras"><i class="mdi-48px mdi mdi-chart-pie"></i></a>
+<p>Compras</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn"><i class="mdi-48px mdi mdi-cart-plus"></i></a>
+<p>Ordenes de Compras</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic per1505 hide">
+<a class="report pbtn" rep="cuentasxcobrar&tp=1"><i class="mdi-48px mdi mdi-clipboard-account"></i></a>
+<p>Cuentas por Pagar</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic per1506 hide">
+<a class="report pbtn" rep="cuentasxcobrar&tp=3"><i class="mdi-48px mdi mdi-clock"></i></a>
+<p>Histórico CxP</p>
+</div>
+
+<div class="col s6 m3 l2 center-align per1522 hie">
+<a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
+<p>Utilidades</p>
+</div>
+
+<div class="col s6 m3 l2 center-align per1502">
+<a class="report pbtn" rep="oc"><i class="mdi-48px mdi mdi-chart-bell-curve-cumulative"></i></a>
+<p>Ordenes de Compra</p>
+</div>
+
+<div class="col s6 m3 l2 per25 hide center-align">
+<a class="report pbtn" rep="servrest"><i class="mdi-48px mdi mdi-glass-wine"></i></a>
+<p>Servicio Restaurante</p>
+</div>
+ 
+</div>
+
+Inventario <hr>
+
+<div class="row">
+    <div class="col s6 m3 l2 center-align per1508 hide">
+<a class="report pbtn" rep="invgen"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
+<p>Inventarios General</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="costoinv"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
+<p>Costo Inventario</p>
+</div>
+
+<div class="col s6 m3 l2 center-align hide">
+<a class="report pbtn" rep="mventa"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
+<p>Más Vendido</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic per1511 hide">
+<a class="report pbtn" rep="movinv"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
+<p>Movimientos de Inventario</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic hide">
+<a class="report pbtn" rep="movcost"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
+<p>Movimiento de Costos-Ventas</p>
+</div>
+
+<div class="col s6 m3 l2 center-align basic hide">
+<a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
+<p>Kardex</p>
+</div>
+
+</div>
+
+<div class="row hide">
+	Cierres <hr>
+
+	<div class="col s6 m3 l2 center-align">
+	<a class="report pbtn" rep="cierre"><i class="mdi-48px mdi mdi-chart-arc"></i></a>
+	<p>Cierre General</p>
+	</div>
+
+</div>
+
+<div class="row per26 hide">
+Contabilidad <hr>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="d151"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Declaraciones Informativas</p>
+</div>
+
+<div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="catalogo"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Catalogo de Cuentas</p>
+</div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="balancecomprobacion"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Balance de Comprobación de Saldos</p>
+</div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="asientos"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Asientos Contables</p>
+</div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="estadoresultados"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Estado Resultados</p>
+</div>
+
+<div class="col s6 m3 l2 center-align">
+<a class="report pbtn" rep="contabilidad" tf="balancegeneral"><i class="mdi-48px mdi mdi-chart-bar"></i></a>
+<p>Balance General</p>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+{$SCR}
+<script src="../assets/js/modulos/reportes.js?v=10.4.1.0"></script>
+</body>
+</html>

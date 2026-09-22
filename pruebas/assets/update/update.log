@@ -1,0 +1,23 @@
+ERROR 1062 (23000) at line 1045: Duplicate entry 'Venta Subsidio' for key 'nombre_UNIQUE'
+ERROR 1062 (23000) at line 1046: Duplicate entry '98' for key 'PRIMARY'
+ERROR 1060 (42S21) at line 1047: Duplicate column name 'consecutivo'
+ERROR 1062 (23000) at line 1049: Duplicate entry '13' for key 'PRIMARY'
+ERROR 1050 (42S01) at line 1050: Table 'cajainicialmonedas' already exists
+ERROR 1062 (23000) at line 1051: Duplicate entry '343' for key 'PRIMARY'
+ERROR 1062 (23000) at line 2022: Duplicate entry 'Estantería' for key 'nombre_UNIQUE'
+ERROR 1062 (23000) at line 2023: Duplicate entry 'Comisión Venta' for key 'nombre_UNIQUE'
+ERROR 1062 (23000) at line 4194: Duplicate entry '344' for key 'PRIMARY'
+ERROR 1062 (23000) at line 5670: Duplicate entry 'Editar Precios' for key 'nombre_UNIQUE'
+ERROR 1062 (23000) at line 5671: Duplicate entry 'Editar Cantidades' for key 'nombre_UNIQUE'
+ERROR 1062 (23000) at line 5968: Duplicate entry 'Crédito Clientes' for key 'nombre_UNIQUE'
+ERROR 1050 (42S01) at line 7346: Table 'exoneracioncabys' already exists
+ERROR 1062 (23000) at line 7347: Duplicate entry '347' for key 'PRIMARY'
+ERROR 1060 (42S21) at line 8121: Duplicate column name 'ccabys'
+ERROR 1062 (23000) at line 8684: Duplicate entry '348' for key 'PRIMARY'
+ERROR 1060 (42S21) at line 8685: Duplicate column name 'idtabla'
+ERROR 1050 (42S01) at line 11422: Table 'vueltos' already exists
+ERROR 1062 (23000) at line 11423: Duplicate entry '349' for key 'PRIMARY'
+ERROR 1062 (23000) at line 11424: Duplicate entry '350' for key 'PRIMARY'
+ERROR 1062 (23000) at line 15932: Duplicate entry '363' for key 'PRIMARY'
+ERROR 1060 (42S21) at line 15933: Duplicate column name 'comodin'
+ERROR 1062 (23000) at line 16111: Duplicate entry '363' for key 'PRIMARY'

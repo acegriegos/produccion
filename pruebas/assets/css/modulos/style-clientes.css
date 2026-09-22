@@ -1,0 +1,139 @@
+.head1 {
+  background: #0080C6;
+  color: #fff; }
+
+.head2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.head3 {
+  background: #F58345;
+  color: #fff; }
+
+.head4 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn1 {
+  background: #0080C6;
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
+
+.btn2 {
+  background: #F58345;
+  color: #fff; }
+
+.btn2:hover {
+  background: #c94e0b !important; }
+
+.btn3 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
+
+.btn5 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
+
+.tab1 {
+  background: #0080C6;
+  color: #fff; }
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.tab3 {
+  background: #F58345;
+  color: #fff; }
+
+.tab4 {
+  background: #45b97c;
+  color: #fff; }
+
+.bg1 {
+  background: #4D4D4D; }
+
+.danger:hover {
+  color: #EC545A !important; }
+
+.bgtransparent {
+  background: transparent; }
+
+.gtext {
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
+
+.input-field {
+  margin: 0px; }
+
+.delete:hover {
+  color: #EC545A; }
+
+.sinborde {
+  border-radius: 0px !important; }
+
+.tamLetra {
+  font-size: 1.2em !important; }
+
+ul.pagination > li.active {
+  background-color: #0080C6 !important; }
+
+.autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; }
+
+.placeh {
+  color: rgba(0, 0, 0, 0.2); }
+
+.corad {
+  display: block; }
+
+#infcorreo2 {
+  width: 100%;
+  max-width: 100%;
+  max-height: 50px;
+  height: auto;
+  overflow-y: scroll; }
+
+.icorr, .iphone {
+  height: 50px; }
+
+#inftelefono4 {
+  width: 100%;
+  max-width: 100%;
+  max-height: 50px;
+  height: auto;
+  overflow-y: scroll; }
+
+.collection .chip {
+  display: block !important;
+  font-size: 0.8em !important; }
+
+.chpcrr {
+  background: rgba(3, 155, 229, 0.1) !important; }
+
+.chpphone {
+  background: rgba(3, 184, 229, 0.1) !important; }
+
+ul.pagination > li.active {
+  background-color: #0080C6 !important; }
+
+/*# sourceMappingURL=style-clientes.css.map */

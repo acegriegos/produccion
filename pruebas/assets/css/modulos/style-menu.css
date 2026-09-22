@@ -1,0 +1,195 @@
+.head1 {
+  background: #0080C6;
+  color: #fff; }
+
+.head2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.head3 {
+  background: #F58345;
+  color: #fff; }
+
+.head4 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn1 {
+  background: #0080C6;
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
+
+.btn2 {
+  background: #F58345;
+  color: #fff; }
+
+.btn2:hover {
+  background: #c94e0b !important; }
+
+.btn3 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
+
+.btn5 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
+
+.tab1 {
+  background: #0080C6;
+  color: #fff; }
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.tab3 {
+  background: #F58345;
+  color: #fff; }
+
+.tab4 {
+  background: #45b97c;
+  color: #fff; }
+
+.bg1 {
+  background: #4D4D4D; }
+
+.danger:hover {
+  color: #EC545A !important; }
+
+.bgtransparent {
+  background: transparent; }
+
+.gtext {
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
+
+.dmnenu {
+  width: 100%;
+  height: 5px;
+  background: #fbdb65 !important; }
+
+.menu-btn {
+  position: fixed;
+  top: 40%;
+  left: -20px;
+  padding: 3em 0em 3em 0.8em;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  background-color: #343222; }
+
+.tamLetra {
+  font-size: 1.2em !important; }
+
+.background {
+  background: #0080C6; }
+
+span.badge {
+  margin-top: -40% !important; }
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: black; }
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: black;
+  opacity: 1; }
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: black;
+  opacity: 1; }
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black; }
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: black; }
+
+.let {
+  color: black; }
+
+.transac-menu {
+  padding: 0 !important;
+  padding-left: 6% !important;
+  margin-bottom: 0;
+  margin-top: -35px; }
+
+.side-nav {
+  overflow: none !important; }
+.side-nav .userView {
+  padding: 2% 3% !important; 
+  position: fixed;
+  width: 100%;
+}
+.side-nav a {
+    font-size: 12px !important;
+    width: 100% !important; }
+.side-nav .options{
+  margin-top: 110px;
+  overflow-y: auto;
+}
+.side-nav .options li a{
+  padding-right: 3% !important;
+}
+.side-nav .options li a i{
+  margin: 0px;
+}
+
+.selectusr ul li span {
+  /*color: white !important;*/ }
+
+header, main, footer {
+  padding-left: 400px; }
+
+html {
+  font-family: GillSans, Calibri, Trebuchet !important, sans-serif; }
+
+@media only screen and (max-width: 992px) {
+  header, main, footer {
+    padding-left: 0; } }
+.accion {
+  background-color: transparent;
+  color: black;
+  box-shadow: none; }
+  .accion:hover {
+    background-color: gray; }
+
+.menu-txt {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+  font-weight: 500;
+  z-index: 1500; }
+
+.drag-target {
+  width: 0px; }
+
+.rellenomenu {
+  height: 40px; }
+
+/*# sourceMappingURL=style-menu.css.map */

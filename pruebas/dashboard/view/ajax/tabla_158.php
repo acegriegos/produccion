@@ -1,0 +1,72 @@
+<?php 
+    
+    foreach ($transaccion as $obj) {
+?>
+
+<tr>
+<td><?php echo $obj[1] ?></td>
+<td><?php echo $obj[16] ?></td>
+<td class="tr trCompra"><?php echo $obj[2] ?></td>
+<td class="tr trCompra trVenta trCot"><?php echo $obj[4] ?></td>
+<td><?php echo $obj[5] ?></td>
+<td title="<?php echo $obj[6]; ?>"><?php echo substr($obj[6],0,20)   ?></td>
+<td><?php echo $obj[7] ?></td>
+<td><?php echo $obj[8] ?></td>
+<td>
+    <a class="dropdown-button btn btn-default hide-on-med-and-down" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones<?php echo $obj[0];?>'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
+        <ul id="acciones<?php echo $obj[0];?>" class='dropdown-content hide-on-med-and-down'>
+
+            <li><a class="center print tooltipped mdi mdi-24px mdi-printer" data-tooltip="Visualizar" data-position="left" id="a<?php echo $obj[0] ?>"></a></li>
+
+            <li><a class="center mdi mdi-24px mdi-file-pdf pdf tooltipped" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="c<?php echo $obj[0] ?>" data-tooltip=""></a></li>
+
+            <li class="tr trVenta trTiquete trExportacion trFECompra"><a class="center mdi mdi-24px mdi-cloud-download-outline xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g<?php echo $obj[0] ?>" data-tooltip=""></a></li>
+
+            <li class="tr trVenta trTiquete trExportacion trFECompra"><a class="center mdi mdi-24px mdi-xml mh tooltipped" data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="h<?php echo $obj[0] ?>" data-tooltip=""></a></li>
+
+            <li class="tr trCot"><a class="center mdi mdi-24px mdi-cog process tooltipped" data-tooltip="Procesar Factura" data-position="left" id="b<?php echo $obj[0] ?>"></a></li>
+
+            <li class="tr trCot trManual trPedido"><a class="center mdi mdi-24px mdi-pencil fedit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
+
+            <li class="tr trVenta trSpecial trTiquete"><a class="center mdi mdi-24px mdi-content-duplicate process tooltipped" data-tooltip="Clonar" data-position="left" id="f<?php echo $obj[0] ?>"></a></li>
+
+            <li class="tr trVenta trCot trOCompra trExportacion"><a class="center mdi mdi-24px mdi-send send tooltipped" data-tooltip="Enviar por Correo" data-position="left" id="d<?php echo $obj[0] ?>"></a></li>
+
+            <li class="tr trSpecial trApartado trCot trOCompra"><a class="center mdi mdi-24px mdi-close red tooltipped delete-view" justificar="<?php echo $obj[15] ?>" data-tooltip="Eliminar" data-position="left" id="k<?php echo $obj[0] ?>"></a></li>
+            <!-- tr trVenta trCot trOCompra trPedido -->
+        </ul>
+        
+        <div class="hide-on-large-only" style="margin: 0px">
+
+        <i class="print tooltipped mdi mdi-36px mdi-printer" data-tooltip="Visualizar" data-position="left" id="z<?php echo $obj[0] ?>"></i>
+
+        <a class="center mdi mdi-36px mdi-file-pdf pdf tooltipped black-text" data-tooltip="Descargar PDF" data-position="left" download target="_blank" id="c<?php echo $obj[0] ?>" data-tooltip=""></a>
+
+        <a class="center mdi mdi-36px mdi-cloud-download-outline xml tooltipped black-text" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g<?php echo $obj[0] ?>" data-tooltip=""></a>
+
+        <a class="center mdi mdi-36px mdi-xml mh tooltipped black-text" data-tooltip="Descargar Mensaje de Hacienda" data-position="left" download target="_blank" id="h<?php echo $obj[0] ?>" data-tooltip=""></a>
+
+        <i class="mdi mdi-36px mdi-settings process tooltipped tr trCot hide" data-tooltip="Procesar Factura" data-position="left" id="v<?php echo $obj[0] ?>"></i>
+
+        <i class="mdi mdi-36px mdi-pencil edit tooltipped  tr trCot trCompra trPedido hide" data-tooltip="Editar" data-position="left" id="u<?php echo $obj[0] ?>" ></i>
+
+        <i class="mdi mdi-36px mdi-content-duplicate clone tooltipped tr hide" data-tooltip="Clonar" data-position="left" id="t<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
+
+        <i class="mdi mdi-36px mdi-send send tooltipped tr trVenta trCot trOCompra trExportacion " data-tooltip="Enviar por Correo" data-position="left" id="s<?php echo $obj[0] ?>" style="cursor: pointer;"></i>
+
+        </div>
+</td>
+</tr>
+
+<?php }
+
+ ?>
+
+ <script type="text/javascript">
+    $(function(){
+        cargarTipo();
+        $('.tooltipped').tooltip({delay: 50});
+        $('.dropdown-button').dropdown();
+
+    });
+ </script>

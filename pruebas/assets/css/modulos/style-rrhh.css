@@ -1,0 +1,252 @@
+.fixed_body{
+	 width: 100%;
+   border-collapse: collapse;
+}
+
+.fixed_body tbody{
+	display: block;
+ 	height: 70vh;
+  overflow-y: auto;
+}
+
+.fixed_body thead{
+	display: block;
+  width: calc( 100% - 1em );
+}
+
+.fixed_body thead,.fixed_body tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+
+.fixed_body tfoot tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+
+input.browser-default{
+	border: 0px;
+	border-bottom: 1px solid black;
+}
+
+input.browser-default:focus{
+	outline: none;
+}
+
+.rline{
+	display: block;
+}
+
+.rline select{
+	display: inline;
+	width: 20%;
+}
+
+.collection-item{
+	cursor: pointer;
+}
+
+.mn2.active{
+	background-color: lightcyan;
+	color: black;
+}
+
+table{
+	border: 1px solid #e2e2e2;
+}
+
+table td{
+	border: 1px solid #e2e2e2;
+	padding: 0px;
+}
+
+table.no-border td{
+	border: 0px !important;
+}
+
+#sucname{
+	color: black !important;
+}
+
+
+.organigrama * {
+  margin: 0px;
+  padding: 0px;
+}
+
+.organigrama ul {
+	padding-top: 20px;
+  position: relative;
+}
+
+.organigrama li {
+	float: left;
+  text-align: center;
+	list-style-type: none;
+	padding: 20px 5px 0px 5px;
+  position: relative;
+}
+
+.organigrama li::before, .organigrama li::after {
+	content: '';
+	position: absolute;
+  top: 0px;
+  right: 50%;
+	border-top: 1px solid black;
+	width: 50%;
+  height: 20px;
+}
+
+.organigrama li::after{
+	right: auto;
+  left: 50%;
+	border-left: 1px solid black;
+}
+
+.organigrama li:only-child::before, .organigrama li:only-child::after {
+	display: none;
+}
+
+.organigrama li:only-child {
+  padding-top: 0;
+}
+
+.organigrama li:first-child::before, .organigrama li:last-child::after{
+	border: 0 none;
+}
+
+.organigrama li:last-child::before{
+	border-right: 1px solid #f80;
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+	border-radius: 0 5px 0 0;
+}
+
+.organigrama li:first-child::after{
+	border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+}
+
+.organigrama ul ul::before {
+	content: '';
+	position: absolute;
+  top: 0;
+  left: 50%;
+	border-left: 1px solid black;
+	width: 0;
+  height: 20px;
+}
+
+.organigrama li a {
+	border: 1px solid black;
+	text-decoration: none;
+	color: #333;
+  background-color: rgba(255,255,255,0.5);
+	font-family: arial, verdana, tahoma;
+	font-size: 0.85em;
+	display: inline-block;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  transition: all 500ms;
+  position: relative;
+	padding: 20px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.organigrama li a:hover {
+	border: 1px solid #fff;
+	color: #ddd;
+	display: inline-block;
+}
+
+.organigrama > ul > li > a {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+td input{
+	width: 100%;
+}
+
+th{
+	text-align: center;
+}
+
+.cl-day{
+	height: 80px;
+	font-size: 14px;
+	position: relative;
+	border: 1px solid lightcyan;
+	cursor: pointer;
+}
+
+.cl-num{
+	position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.cl-label{
+  position: absolute;
+  margin-top: 25px;
+  border: 1px solid lightcyan;
+  background-color: lightcoral;
+  color: white;
+  padding: 1px;
+  width: 100%;
+  text-align: center;
+}
+
+.inc_bar{
+  position:relative;
+  height:18px;
+  background:#e0e0e0;
+  border-radius:4px;
+  overflow:hidden;
+}
+
+.inc_fill{
+  height:100%;
+  background:linear-gradient(90deg,#ff9800,#f44336);
+}
+
+.inc_text{
+  position:absolute;
+  left:6px;
+  top:0;
+  font-size:11px;
+  color:#fff;
+  line-height:18px;
+  font-weight:bold;
+}
+
+span.badge{
+	margin-top: 0 !important;
+	color: black;
+}
+
+.celda-hora {
+  cursor: pointer;
+  text-align: center;
+}
+
+.hora-texto {
+  font-size: 13px;
+}
+
+.hora-edit input {
+  width: 100%;
+  text-align: center;
+}
+
+.modo.active{
+	background-color: blue;
+	color: white;
+	font-weight: bold;
+}

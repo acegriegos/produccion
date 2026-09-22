@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="max-age=86400"/>
+    <title>Facturación</title>
+  </head>
+  {$STY}
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.4.1.0-1">
+  <body >
+  {$NAV}
+    <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
+
+        <ul id="margenes" class="side-nav" style="min-width: 700px !important; font-size: 1.2em !important;width: 700px !important  ;overflow-y: scroll;">
+          <li>
+
+            <div id="marbdy" style="line-height: 22px;">
+              HOLA
+            </div>
+          </li>
+        </ul>
+
+    <!-- <div id="shnotas" style="background-color: white; z-index: 2500; width: 25%; height: 80px;overflow-y: auto;">
+      <i class="mdi mdi-24px mdi-close der red-text"></i>
+    </div> -->
+        
+    <div class="bdy pequeño movil" >
+      <div id="mfacturacion"></div>
+    </div>
+  {$SCR}
+  <script src="../assets/js/modulos/facturacion.js?v=10.4.1.0-10"></script>
+</html> 
+
+<div id="modal-cambio" class="modal modal-fixed-footer">
+  <div class="modal-content">
+
+    <h4 id="titmod" class="center">Cambiar Producto</h4>
+    <div class="center"> <b> <span id="change_prod_name"></span> </b> </div>
+    <div class="row">
+
+      <div class="col s6">
+        <span>Cambiar Producto por:</span>
+
+        <input type="text" id="_prod_cambiar" class="autocomplete fastProduct" autocomplete="off">
+
+        <a class=" btn green" id="_changeprod">Aceptar</a>
+      </div>
+
+      <div>
+        <a class="btn" id="change_move_stock">Agregar a Inventario</a>
+      </div>
+      
+
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
+
+<div id="modal-edit" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4 id="titmod" class="center">Modal Header</h4>
+    
+    <div class="row">
+
+      <div class="input-field col s6 ecant hide">
+        <input type="text" id="ecantidad">
+        <label for="ecantidad">Cantidad</label>
+      </div>
+
+      <div class="input-field col s6 eunit">
+        <input type="text" id="eunitario" class="numeric eder">
+        <label for="eunitario">Precio Unitario</label>
+      </div>
+      
+      <div class="input-field col s6 eunidad">
+        <select id="uniadl" >
+        </select>
+        <label for="uniadl">Unidad</label>
+      </div>
+
+      <div class="input-field col s6 ename">
+        <input type="text" id="descpl">
+        <label for="descpl">Descripción</label>
+      </div>
+
+      <div class="input-field col s6 edescu">
+        <tr>
+          <td><label>Descuento</label></td>
+          <td>
+            <select id="tdescuentol" class="eder tdesc trVenta hide" tp="2">
+            </select>
+            <input type="text" id="edescuento" class="hide trCompra" tdesc="2">
+          </td>
+        </tr>
+      </div>
+
+      <div class="input-field col s6 export hide">
+        <input type="text" id="parancel" maxlength="12">
+        <label for="parancel">Partida Arancelaria</label>
+      </div>
+
+      <div class="input-field col s6 eimp">
+        <input type="text" id="eimpuesto">
+        <label for="eimpuesto">Impuesto</label>
+      </div>
+
+      <div class="input-field col s6 eexct hide">
+        <input type="text" id="texct">
+        <label for="texct">Exento</label>
+      </div>
+
+      <div class="input-field col s6 eiva hide">
+        <input type="checkbox" id="ival">
+        <label for="ival">IVI</label>
+      </div>
+
+      <div class="col s6 hide tcabys">
+        <div class="input-field">
+          <input type="text" id="textcabys" haschange="0">
+          <label for="textcabys">Cabys</label>
+        </div>
+        
+        <table>
+          <tbody id="lista_cabys" style="display: block; overflow: auto; height: 20vh;"></tbody>
+        </table>
+      </div>
+
+      <input type="hidden" id="hdnprd" value="0">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="editprod">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
+
+<div id="modal-exo" class="modal modal-fixed-footer grandemodal">
+  <div class="modal-content">
+    <h4>Exoneración</h4>
+    
+    <div class="row">
+
+      <div class="col s6 input-field">
+        <select id="vtipodoc" class="validate tooltiped" type="select">
+          <option value="0">Tipo de Documento</option>
+          <option value="-1">Disminución por Ley</option>
+          {section name=LE loop=$EXOS}
+          <option value="{$EXOS[LE][0]}" {if $EXOS[LE][0] neq 3 and $EXOS[LE][0] neq 1}disabled{/if}>{$EXOS[LE][1]}</option>
+          {/section}
+        </select>
+        <label for="vtipodoc">Tipo de Documento</label>
+      </div>
+
+     <!-- 4.4 -->
+     <div class="col s6 input-field">
+                  <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class=" tooltiped" autocomplete="off">
+                  <label for="vnumdoc">Número de Documento</label>
+                </div>
+
+                <div class="col s12 input-field">
+                  <select type="select" id="ventidad">
+                    {section name=LE loop=$ENTIDADES}
+                    <option value="{$ENTIDADES[LE][0]}">{$ENTIDADES[LE][1]}</option>
+                    {/section}
+                  </select>
+                  <label for="ventidad">Nombre Institución que Emitió la Exoneración_</label>
+                </div>
+
+                  <label class="col s12">Fecha y Hora de Emisión</label>
+
+                  <div class="col s6">
+                    <input type="date" id="vfechaDoc" class="tooltiped" readonly>
+                  </div>
+
+                  <div class="col s6 input-field">
+                    <input type="time" id="vtimeDoc" class="tooltiped" step="1" readonly>
+                  </div>
+
+                  <div class="col s6 carti input-field">
+                    <input type="number" id="varticulo" maxlength="6" data-position="bottom" data-tooltip="Número de artículo que establece la exoneración o autorización" class="tooltiped eder" value="0" autocomplete="off">
+                    <label for="varticulo">Número de artículo</label>
+                  </div>
+
+                  <div class="col s6 carti input-field">
+                    <input type="number" id="vinciso" maxlength="6" data-position="bottom" data-tooltip="Número de inciso que establece la exoneración o autorización" class="tooltiped eder" value="0" autocomplete="off">
+                    <label for="vinciso">Número de inciso</label>
+                  </div>
+
+                <div class="col s6 input-field">
+                  <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class=" tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
+                  <label for="vporcompra">Porcentaje de Exoneración</label>
+                </div>                
+
+                <div class="col s6 input-field">
+                  <label for="vfechafin" class="active">Fecha Fin</label>
+                  <input type="date" id="vfechafin" class="tooltiped">
+                </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="editExo">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer grandemodal" id="addClie" style="height: 80%; width: 75%">
+    <div class="modal-header center">
+      Ingresar Cliente
+    </div>
+    <div class="modal-content">
+      <section id="fclientes">
+        <input type="hidden" class="zelda">
+
+        <div class="row" style="margin: 0px">
+          <div class="col s6 m3 l2">
+            <p>
+              <input class="with-gap" name="tipoclie" type="radio" id="cfisico" tipoClie="1" checked="checked" principal="1"/>
+              <label for="cfisico">Físico</label>
+            </p>
+          </div>
+          <div class="col s6 m3 l2">
+            <p>
+              <input class="with-gap" name="tipoclie" type="radio" id="cjuridico" tipoClie="2" />
+              <label for="cjuridico">Jurídico</label>
+            </p>
+          </div>
+          <div class="col s6 m3 l2">
+            <p>
+              <input class="with-gap" name="tipoclie" type="radio" id="cnite" tipoClie="3" />
+              <label for="cnite">NITE</label>
+            </p>
+          </div>
+          <div class="col s6 m3 l2">
+            <p>
+              <input class="with-gap" name="tipoclie" type="radio" id="cdimex" tipoClie="4" />
+              <label for="cdimex">DIMEX</label>
+            </p>
+          </div>
+          </div>
+        <div class="card-title pequeño" id="titInfo" align="center"><b>Datos Personales</b></div><br>
+          <div class="row ">
+            <div class="input-field col s12 m6 l4 pequeño">
+              <label id="nomClie" for="vnombre">Nombre</label>
+              <input type="text" class="validate onblur" id="vnombre" autocomplete="off">
+              <input type="hidden" id="vid" value="0">
+              <input type="hidden" id="vbisproveedor" value="0">
+              <input type="hidden" id="vidsucursal" value="">
+            </div>
+            <div class="input-field col s12 m6 l4 hid">
+              <label for="vapellido1">Primer Apellido</label>
+              <input type="text" class="validate onblur" id="vapellido1" autocomplete="off">
+            </div>
+            <div class="input-field col s12 m6 l4 hid">
+              <label for="vapellido2">Segundo Apellido</label>
+              <input type="text" class="validate onblur" id="vapellido2" autocomplete="off">
+            </div>
+            <div class="input-field col s12 m6 l4">
+              <label for="vcedula">Cédula del Cliente</label>
+              <input type="text" class="validate onblur" id="vcedula">
+            </div>
+          </div>
+          <div class="row">
+              <div class="input-field col s12 m12 l4">
+                <div>
+                  <div class="prefix"><i class="mdi mdi-email mdi-24px"></i></div>
+                  <input type="email" class="validateMail" id="correo_in">
+                  <label for="correo_in">Ingresar Correo</label>
+                <ul class="collection" vtabla="correo" id="fcorreos" hasTabla="1" tp="4" style="border: 0;"></ul>
+              </div>
+            </div>
+            <div class="col s12 m7 l8">
+              <div class="ciclos" style="background-color: white;">
+                <div class="row ">
+                  <!-- <div class="col s6 m3 input-field">
+                    <div class="prefix"><i class="mdi-phone mdi mdi-24px"></i></div>
+                    <input type="text" id="pais" class="autocomplete">
+                    <input type="hidden" id="vidpais" value="52">
+                    <label for="pais">País</label>
+                  </div> -->
+                  <div class="input-field col s4 m4">
+                    <!-- <div class="prefix"><i class="fa fa-phone"></i></div> -->
+                    <select type="select" id="tptel">
+                      <option value="" disabled selected>Seleccione Tipo de Tel.</option>
+                      {section name=LE loop=$TPTEL}
+                      <option value="{$TPTEL[LE][0]}">{$TPTEL[LE][1]}</option>
+                      {/section}
+                    </select>
+                    <label for="tptel">Tipo Teléfono</label>
+                    <input type="hidden" id="htipo">
+                  </div>
+                  <div class="input-field col s12 m5">
+                    <input type="text" class="validate" id="telefono_in" data-mask="9999-9999">
+                    <input type="hidden" id="vtelefono" fill="19">
+                    <label class="truncate" for="telefono_in">Ingresar Teléfono</label>
+                  <ul class="collection" vtabla="telefono" id="ftelefonos" hasTabla="1" tp="4" style="border: 0;"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </section>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="waves-effect waves-green btn-flat add" modulo="cliente" varias="1">Guardar</button>
+      <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+    </div>
+  </div>

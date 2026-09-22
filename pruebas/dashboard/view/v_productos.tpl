@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="max-age=86400"/>
+	<title>Productos y Servicios</title>
+	{$STY}
+	<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-productos.css?v=10.4.1.0">
+</head>
+<body>
+{$NAV}
+	<div class="bdy pequeño">
+		<div class="card z-depth-5 pequeño">
+        	<div class="card-header center white-text head1">
+          		<p class="flow-text" style="font-size: 1.9em;">Productos y Servicios <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
+        	</div>
+			<nav class="navbar navbar-dark head2 z-depth-1" style="margin-top: -25px;">
+				<ul class="nav navbar-nav">
+					<li class="nav-item menu3 active per4101" id="m1">
+						<a class="nav-link" href="#" title="Productos">Productos</a>
+					</li>
+					<li class="nav-item menu3 per4110" id="m2">
+						<a class="nav-link" href="#" title="Servicios">Servicios</a>
+					</li>
+					
+					<li class="nav-item menu3 per4114000 hide" id="m3">
+						<a class="nav-link" href="#" title="Paquetes">Paquetes</a>
+					</li>
+				</ul>
+			</nav>
+			<br>
+			<div id="bdymantInventario"></div>
+		</div>
+	</div> <!-- END BDY -->
+{$SCR}
+<script src="../assets/js/modulos/productos.js?v=10.4.1.0-1"></script>
+
+</body>
+</html>

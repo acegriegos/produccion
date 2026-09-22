@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="max-age=86400"/>
+    <title>Cierre Caja</title>
+   {$STY}
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-cierres.css?v=10.4.1.0">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?v=10.4.1.0"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js?v=10.4.1.0"></script>
+    <![endif]-->
+  </head>
+  <body> 
+    {$NAV}
+    <div class="bdy" style="">
+
+      <input type="hidden" id="BUSS" value="{$smarty.session.BUSS}" idcaja="{if $smarty.session.CAJA eq 0}1{else}{$smarty.session.CAJA}{/if}" ccierre="{$CCIERRE}">
+      <div class="switch der hide">
+          <label>
+            <span class="hide-on-small">Manual</span>
+            <input type="checkbox" id="tpc" checked>
+            <span class="lever"></span>Automático
+          </label>
+        </div>
+    <div class="row auto card">
+      <div class="card-header center white-text head1 col s12">
+          <p class="flow-text" style="font-size: 1.9em;margin: 0px;"> <span class="cghs"></span> <span class="hide-on-med-and-down" id="loadMyBussiness" impresa="{$smarty.session.IMPRESA}"></span></p>
+      </div>
+      
+      <div class="col s12 m12 l12">
+        <i class="mdi mdi-pencil mdi-24px per7303 hide" title="Editar Caja" style="cursor: pointer;" id="editarcaja"></i>
+        <i class="mdi mdi-plus mdi-24px" title="Iniciar Caja" style="cursor: pointer;" id="iniciarcaja"></i>
+        <div class="input-field col s4"  style="float:left;">
+          <input type="text" id="mcierre" value="0" class="eder" autocomplete="off" autosave="off">
+          <label for="mcierre">Inicio de Caja</label>
+        </div>
+
+        <strong class="hide" id="uname">Usuario: <b id="username"></b></strong>
+
+        <a class="waves-effect waves-light btn blue right" href="#modal-tipomonedas" data-position="bottom" data-delay="50" id="chkcierre">Realizar Cierre</a>
+        <a class="waves-effect waves-light btn blue right modal-trigger" style="margin-right:10px" href="#modal-cierres" data-position="bottom" data-delay="50" id="shcierre">Ver Cierres</a>
+        <input type="hidden" class="zelda">
+      </div>
+      <div class="row">
+        <div class="col s3 m3 l3">
+          <ul class="collection with-header" id="listacierrespendientes" style="font-size: 12px"></ul>
+        </div>
+        <div class="col s9 m9 l9 per7301 hide">
+          <h4 id="fcierre"></h4><div class="switch" align="center">
+                  <label>
+                    Resumido
+                    <input type="checkbox" name="tp" id="isdet" checked="checked">
+                    <span class="lever"></span>
+                    Detallado
+                  </label>
+                </div>
+          <table class="table responsive-table centered striped bordered highlight z-depth-5" id="data-table-facturas" cellspacing="0" width="100%" >
+            <thead>
+                <tr>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Faltante</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Pago</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Total</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
+                </tr>
+            </thead>
+            <tbody id="listafacturas" style="font-size: 12px;font-weight: bold;"></tbody>
+        </table>
+        <div class="row marginzero">
+          <div class="col s3 m3 l3">
+            Total Contado: <span id="tcontado"></span>
+          </div>
+          <div class="col s3 m3 l3">
+            Total Crédito: <span id="tcredito"></span>
+          </div>
+          <div class="col s3 m3 l3">
+            Total Efectivo: <span id="tefectivo"></span>
+          </div>
+          <div class="col s3 m3 l3">
+            Total Tarjeta: <span id="ttarjeta"></span>
+          </div>
+        </div>
+        <div class="row marginzero">
+          <div class="col s12 der">
+            <b>TOTAL EFECTIVO+TARJETAS:</b> <span id="ttot"></span>
+          </div>
+        </div>
+        <h4 class="hide">Notas y abonos</h4>
+          <table class="table responsive-table centered striped bordered highlight z-depth-5 hide" id="data-table-estadocuenta" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Consecutivo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Nota/Abono</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Fecha</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Cliente</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Tipo Pago</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Saldo</th>
+                    <th class="white-text blue" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="listanotasabonos"></tbody>
+          </table>
+          <div class="row marginzero hide">
+            <div class="col s4 m4 l4">
+              Total Abonos Cliente: <span id="tabono"></span>
+            </div>
+            <div class="col s4 m4 l4">
+              Total Notas Crédito Cliente: <span id="tnotcre"></span>
+            </div>
+            <div class="col s4 m4 l4 ">
+              Total Notas Débito Cliente: <span id="tnotdeb"></span> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container manu hide center white" style="height: 90vh">
+      <h3 id="jstprint">Cierre de Caja <br> {$smarty.session.EMPRESA}</h3>
+
+      <div class="der">
+        <label for="mn-fecha"><b>Fecha: </b></label>  
+        <input type="date" class="browser-default" id="mn-fecha" style="border: 0px;">
+      </div> 
+
+      <table id="mn-tbl">
+        <tr><td style="text-align: right;"><label><b>Total Efectivo:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tefectivo" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Crédito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-credito" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Cheques:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-cheque" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Tarjeta:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tarjeta" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Compras Totales:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-compra" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Otros:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-otros" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Documentos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tdoc" value="0.00"  style="color: red;"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Abonos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tabo" value="0.00"  style="color: red;"><td></tr>
+        <!-- <tr><td style="text-align: right;"><label><b>Total Notas Crédito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tncre" value="0.00"  style="color: red;"><td></tr> -->
+        <tr><td style="text-align: right"><label><b>Total Documentos + Efectivo + Abonos:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-tocefe" value="0.00" style="color: red;"><td></tr>
+        <tr><td style="text-align: right"><label><b>Venta del Dia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-vdia" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Diferencia:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-dif" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Total Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-deposito" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Monto Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositom" value="0.00"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Número Depósito:</b></label> </td><td> <input type="text" class="browser-default eder" id="mn-depositon" value="0"><td></tr>
+        <tr><td style="text-align: right;"><label><b>Diferencia Depósito:</b></label> </td><td> <input type="text" class="browser-default numeric eder" id="mn-depositod" value="0.00"><td></tr>
+      </table>
+      <a class="btn" id="print-cierre"><i class="mdi mdi-printer mdi-24px"></i> Imprimir Cierre</a>
+    </div>
+
+    </div>
+
+    
+    <!-- Modal Structure -->
+    <div id="modal-cierres" class="modal modal-fixed-footer">
+        <div class="modal-content" style="padding: 0px;" id="lista-cierres">
+          
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal-tipomonedas" class="modal modal-fixed-footer grandemodal" style="height: 85%; width: 90%">
+        <div class="modal-content" style="padding: 0px;">
+          <ul class="tabs white-text" style="background-color:#0B3861">
+          <li class="tab col s6"><a class="white-text">Caja inicial <span id="totcashier">0.00</span></a></li>
+          </ul>
+          <div class="row">
+            <div class="row col s8">
+              <input type="hidden" id="stot" value="0">
+              {section name=LE loop=$TMON}
+              <div class="input-field col s4 m4 l4">
+                <input type="number" id="m{$TMON[LE][0]}" class="mnd eder" value="0" placeholder="0" autofocus vl="{$TMON[LE][3]}" moneda="{$TMON[LE][2]}">
+                <label for="m{$TMON[LE][0]}">{$TMON[LE][1]}</label>
+              </div>
+              {/section} 
+              
+              {section name=LE loop=$TEXT}
+              <div class="input-field col s4 m4 l4">
+                <input type="number" id="d{$TEXT[LE][0]}" class="ext eder" value="0" placeholder="0">
+                <label for="d{$TEXT[LE][0]}">{$TEXT[LE][1]}</label>
+              </div>
+              {/section}
+            </div>
+            
+            <div class="col s4" style="text-align: right;">
+              <h3>  <input type="radio" name="tcaja" id="tcaja1" checked tp="0"> <label for="tcaja1" class="cspecial hidex" style="float: left;"></label> Dinero en Caja</h3>
+              <hr>
+              {section name=LE loop=$MON}
+                <span class="gmoneda" id="tc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
+              {/section}
+
+              <section id="cspecial" class="hidex cspecial">
+                <h3> <input type="radio" name="tcaja" id="tcaja2" tp="1"> <label for="tcaja2" class="cspecial hidex" style="float: left;"></label> Caja Especial</h3>
+                <hr>
+                {section name=LE loop=$MON}
+                  <span class="gmoneda" id="stc{$MON[LE][0]}" valor="{$MON[LE][2]}" style="font-size: 22px;color: black">{$MON[LE][1]} <span class="tcaja">0.00</span></span> <br>
+                {/section}
+              </section>
+
+                <div class="col s4 input-field hide">
+                  <input type="text" id="vcuentacierre" autocomplete="off">
+                  <label for="vcuentacierre">Cuenta Bancaria a Depositar</label>
+                </div>
+
+                <div class="col s4 input-field hide">
+                  <input type="text" id="vdoccierre" autocomplete="off">
+                  <label for="vdoccierre">Documento de Depósito</label>
+                </div>
+            </div>
+           
+            <!-- <div class="row">
+              <div class="col s12 m6">
+                <h2>Diferencia de caja: </h2>
+              </div>
+              <div class="col s12 m6">
+                <span id="sobrante" style="font-size: 44px;color: green">0.00</span>
+              </div>
+               
+             </div> -->
+            <br>
+            
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="waves-effect waves-green btn-flat" id="totalizar">Guardar</button>
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
+    <div id="modal-mxt" class="modal modal-fixed-footer" style="width: 50%">
+        <div class="modal-content" style="padding: 0px;">
+          <ul class="tabs white-text" style="background-color:#0B3861">
+          <li class="tab col s6"><a class="white-text">Pagos Mixtos</a></li>
+          </ul>
+
+          <div class="container">
+            <br>
+            <span>TOTAL FACTURA: </span> <span class="red-text" id="mxttot">0.00</span>
+            <br>
+
+            <div class="input-field">
+              <input type="number" class="eder" id="mxtefe" value="0.00">
+              <label for="mxtefe">Efectivo</label>
+            </div>
+
+            <div class="input-field">
+              <input type="number" class="eder" id="mxteta" value="0.00">
+              <label for="mxteta">Tarjeta</label>
+            </div>
+
+            <div class="input-field">
+              <input type="number" class="eder" id="mxtede" value="0.00">
+              <label for="mxtede">Depósito</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="waves-effect waves-green btn-flat" id="cmixto">Guardar</button>
+          <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+      </div>
+    </div>
+
+
+    {$SRC}
+    <script src="../assets/js/modulos/cierres.js?v=10.4.1.0"></script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+@charset "UTF-8";
+.mymodal{
+  height: 30% !important;
+}
+
+.head1 {
+  background: #0080C6;
+  color: #fff; }
+
+.head2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.head3 {
+  background: #F58345;
+  color: #fff; }
+
+.head4 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn1 {
+  background: #0080C6;
+  color: #fff; }
+
+.btn1:hover {
+  background: #003e60 !important; }
+
+.btn2 {
+  background: #F58345;
+  color: #fff; }
+
+#detalle .card-header a{
+  margin-left: 2%;
+  color: white;
+}
+
+.btn2:hover {
+  background: #c94e0b !important; }
+
+.btn3 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.btn3:hover {
+  background: #282828 !important; }
+
+.btn4 {
+  background: #A6CE39;
+  color: #fff; }
+
+.btn4:hover {
+  background: #678120 !important; }
+
+.btn5 {
+  background: #45b97c;
+  color: #fff; }
+
+.btn5:hover {
+  background: #296f4a !important; }
+
+.tab1 {
+  background: #0080C6;
+  color: #fff; }
+
+.tab2 {
+  background: #5B5B5B;
+  color: #fff; }
+
+.tab3 {
+  background: #F58345;
+  color: #fff; }
+
+.tab4 {
+  background: #45b97c;
+  color: #fff; }
+
+.bg1 {
+  background: #4D4D4D; }
+
+.danger:hover {
+  color: #EC545A !important; }
+
+.bgtransparent {
+  background: transparent; }
+
+.gtext {
+  color: #5A5A5A; }
+
+.padding1 {
+  padding: 1%; }
+
+.bdy {
+  font-size: 16px !important; }
+
+.mcancelar {
+  width: 40% !important; }
+
+.modal {
+  max-height: 85% !important; }
+
+.input-field {
+  margin-top: 0px; }
+
+.row {
+  margin: 0px; }
+
+html {
+  line-height: 1.5; }
+
+.tamLetra {
+  font-size: 1.2em !important; }
+
+.bdy {
+  margin-top: 0px; }
+
+td, th {
+  padding: 1px 7px; }
+
+.ciclos {
+  padding: 0% !important;
+  background: #F8F8F8;
+  border-bottom: 1px solid #E0E0E0; }
+
+.faccion {
+  padding: 0px 10px;
+  /*margin: 2px;*/ }
+
+#ncli + .autocomplete-content {
+  width: 30% !important; }
+
+.modcambio {
+  width: 30% !important;
+  height: 30% !important; }
+
+  .autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important;
+}
+
+input:not([type]), input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="tel"], input[type="number"], input[type="search"] {
+  height: 2.5em !important; }
+
+textarea.materialize-textarea {
+  height: 2.5em !important; }
+
+@media only screen and (max-width: 769px) {
+
+  hr{
+    margin: 0px;
+  }
+
+  .autocomplete-content {
+  z-index: 3000 !important;
+  position: absolute !important;
+  width: 100% !important; }
+
+  .movil {
+    margin: 0px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important
+  }
+
+  .ps{
+    margin-top: 10% !important;
+  }
+
+  .detalle {
+    font-size: 0.5em !important; }
+
+  #ncli + .autocomplete-content {
+    width: 100% !important; }
+
+  .tamañoimg {
+    font-size: 0.5em !important; }
+
+  .fs14 {
+    font-size: 14px !important; }
+
+  .tda {
+    width: 15% !important; }
+
+  .tdb {
+    width: 27% !important; }
+
+  .tdc {
+    width: 10% !important; }
+
+  .tdd {
+    width: 25% !important; } 
+}
+
+/*# sourceMappingURL=style-facturacion.css.map */
