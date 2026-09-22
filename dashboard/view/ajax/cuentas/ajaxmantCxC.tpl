@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.4.0.3">
+<link rel="stylesheet" href="../assets/css/modulos/style-cuentas.css?v=10.4.1.0">
 <div class="card z-depth-3">
 
 <div class="card-header center head1">
@@ -43,7 +43,7 @@
         <div class="card-block pequeño">
             <div class="row  pequeño">
                 <div class="col s12">      
-                    <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Multiple</a>
+                    <a data-activates="pagomultiples" class="btn-flat waves-light blue white-text pagomu" style="margin-bottom: 15px">Pago Múltiple</a>
                 </div>
                 <div class="col s12 pequeño">
                     <table id="data-table-cuentas-x" class="table centered striped bordered highlight z-depth-3 pequeño dt-responsive nowrap pbtns" cellspacing="0" width="100%" style="width: 100%">
@@ -210,16 +210,27 @@
     </ul>
     <ul id="pagomultiples" class="side-nav"  style="width: 60%;overflow-y: scroll;">
         <div class="card-header center pequeño head1" style="margin: 0 !important" >
-            <p class="flow-text">Pago Multiple</p>
+            <p class="flow-text">Pago Múltiple</p>
         </div>
         <div class="row">
-            <div class="input-field col s12 m7">
+            <div class="input-field col s12 m6">
                 <span id="buscarcli" class="prefix medium mdi-magnify mdi mdi-24px blue-text "></span>   
                 <input  type="text" id="ncli" maxlength="100" num="v29" var="nombre" autocomplete="off">
                 <input type="hidden" id="hclie" value="0">
                 <label for="ncli">Buscar Cliente</label>
             </div>
-            <div class="card-block pequeño">
+
+            <div class="input-field col s3">
+                <input type="number" id="vinteres" value="0" class="eder">
+                <label for="vinteres">Interés(%)</label>
+            </div>
+
+            <div class="input-field col s3">
+                <input type="number" id="vintp" value="0" class="eder">
+                <label for="vintp">Plazo Interés(Días)</label>
+            </div>
+
+            <div class="card-block pequeño col s12">
                 <div class="row  pequeño">
                     <div class="col s12 pequeño">
                         <table id="data-table-facturas" class="pequeño  table centered highlight bordered responsive-table z-depth-3 pbtns" style="max-height: 550px; overflow-y: auto">
@@ -237,7 +248,7 @@
                     </div>
                     <div class="col s12 m12">
                         <div class="input-field col s6">
-                            <input class="eder" min="0" id="monto" type="number" name="monto" autocomplete="off" style="margin: 0px">
+                            <input class="eder numric" id="monto" type="text" name="monto" autocomplete="off" style="margin: 0px">
                             <label for="monto">Digitar Monto</label>
                         </div>
                         <div class="input-field col s6">

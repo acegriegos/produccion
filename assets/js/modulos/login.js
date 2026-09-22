@@ -1,7 +1,9 @@
+
 var crr = '';
 var conteo = 1;
 
 $(document).ready(function(){
+
  $(".modal").modal();
  
  var animating = false,
@@ -24,8 +26,34 @@ $(document).ready(function(){
 
     setTimeout(function(){$("#user").focus();},100)
     
-    $("#logF").submit(function(){
+    /*$("#logF").submit(function(){
          return getIn();
+    });*/
+
+    $('#logF').on('submit', async function(e){
+        e.preventDefault();
+
+        let data = {
+            usr: $('#user').val(),
+            pss: $('#pass').val()
+        };
+
+        let res = await $.ajax({
+            url: 'dashboard/login',
+            method: 'POST',
+            data: data,
+            xhrFields: {
+                withCredentials: true // 🔥 clave
+            }
+        });
+        
+        let json = JSON.parse(res);
+        
+        if (json.ok) {
+            window.location.href = json.redirect;
+        } else {
+            Materialize.toast(json.msg,4000,'red');
+        }
     });
 
     $("#changepssw").click(function(){
@@ -65,6 +93,34 @@ $(document).ready(function(){
         }
     });
 
+    $("#n_ced").keyup(function(e){
+        let code = e.wich||e.keyCode
+        if(code == 13){
+            $.get('https://api.hacienda.go.cr/fe/ae?identificacion='+$(this).val())
+            .done(function(data){
+
+                $("#n_rzocial").val(data.nombre)
+                $("#n_ced").attr('tipo',data.tipoIdentificacion)
+                $("#n_ced").attr('regimen',data.regimen.codigo)
+
+                let actividades = []
+                $.each(data.actividades,function(){
+                    actividades.push($(this)[0]['codigo'])
+                })
+
+                if(!actividades.length)
+                    actividades.push('')
+
+                $("#n_rzocial").data('actividades',actividades)
+                $("#n_fant").focus()
+            })
+            .fail(function(){ 
+                Materialize.toast('Cédula no Existente',4000,'red');
+            })
+
+        }
+    })
+
     $("#n_tipo").change(function(){
         var val = $('option:selected',this).attr('value');
         switch(val){
@@ -73,7 +129,16 @@ $(document).ready(function(){
                 break;
             case '6':
                 $("#n_valor").val('16,950.00')
-                break;  
+                break;
+            case '7':
+                $("#n_valor").val('22,600.00')
+                break; 
+            case '10':
+                $("#n_valor").val('28,250.00')
+                break;
+            case '11':
+                $("#n_valor").val('39,550.00')
+                break;
             default:
                 $("#n_valor").val('0.00')
                 Materialize.toast('Opción no válida',4000,'red')
@@ -123,10 +188,9 @@ $(document).ready(function(){
     var user = getCookie('userAPSY');
     if (user.length) {
         $("#user").val(user);
-        //$("#pass").val(getCookie('pwd'));
+        $("#pass").val(getCookie('pwd'));
         $("#remember").prop('checked',true);
         $("#pwd").click().focus();
-        $("#pass").focus()
     }
 
     Materialize.updateTextFields();
@@ -180,43 +244,41 @@ function getIn(){
     }
 
     var p = mantenimiento('login',3,{user: "~"+$('#user').val(), pss: $('#pass').val()})[0]
-
+    
     switch(p[0].length){
         case 1:
         case 2:
             Materialize.toast(p[0][0], 4000, 'red');
             $('#pass').select();
             salida = false;
-            break;
-        case 3:
-            p = p[0];
-            Materialize.toast(p[0][0], 4000, 'red');
-            var dsucursal = getDatos('',50,p[0][2])[0][0]
-            $("#n_rzocial").val(dsucursal[0])
-            $("#n_rzocial").attr('rid',p[0][2]);
-            $("#n_ced").val(dsucursal[1])
-            $("#n_fant").val(dsucursal[2])
-            $("#n_rzocial").attr('tp',dsucursal[10]);
-            dsucursal[4] = dsucursal[4].indexOf('/') >= 0 ? dsucursal[4].substring(0,dsucursal[4].indexOf('/')) : dsucursal[4];
-            $("#n_mail").val(dsucursal[4])
-            dsucursal[5] = dsucursal[5].indexOf('/') >= 0 ? dsucursal[5].substring(0,dsucursal[5].indexOf('/')) : dsucursal[5];
-            $("#n_phone").val(dsucursal[5]);
+            if(p.length == 3)
+                if(p[1] == '4'){
+                    var dsucursal = getDatos('',50,p[2][0])[0][0]
+                    $("#n_rzocial").val(dsucursal[0])
+                    $("#n_rzocial").attr('rid',p[0][2]);
+                    $("#n_ced").val(dsucursal[1])
+                    $("#n_fant").val(dsucursal[2])
+                    $("#n_rzocial").attr('tp',dsucursal[10]);
+                    dsucursal[4] = dsucursal[4].indexOf('/') >= 0 ? dsucursal[4].substring(0,dsucursal[4].indexOf('/')) : dsucursal[4];
+                    $("#n_mail").val(dsucursal[4])
+                    dsucursal[5] = dsucursal[5].indexOf('/') >= 0 ? dsucursal[5].substring(0,dsucursal[5].indexOf('/')) : dsucursal[5];
+                    $("#n_phone").val(dsucursal[5]);
 
-            var fecha = new Date();
-            var dia = fecha.getDate();
-            var mes = parseInt(fecha.getMonth()+1);
-            if(parseInt(dia) > 15){
-                mes = mes+1;
-                dia = 1;
-            }else{
-                dia = 15;
-            }
-            
-            $("#n_date").val(fecha.getFullYear()+'-'+("0"+mes).slice(-2)+'-'+("0"+dia).slice(-2));
-            
-            Materialize.updateTextFields();
-            $('#modal2').modal('open');
-            salida = false;
+                    var fecha = new Date();
+                    var dia = fecha.getDate();
+                    var mes = parseInt(fecha.getMonth()+1);
+                    if(parseInt(dia) > 15){
+                        mes = mes+1;
+                        dia = 1;
+                    }else{
+                        dia = 15;
+                    }
+                    
+                    $("#n_date").val(fecha.getFullYear()+'-'+("0"+mes).slice(-2)+'-'+("0"+dia).slice(-2));
+                    
+                    Materialize.updateTextFields();
+                    $('#modal2').modal('open');
+                }
             break;
         default:
             break;
@@ -228,8 +290,8 @@ function getIn(){
         $("#vdir").val(direccion)
         var usr = getCookie('userAPSY');
         if ($("#remember").is(':checked') && !usr){
-            setCookie('userAPSY',p[0][0][1],365*24*60*60*1000)
-            //setCookie('pwd',$("#pass").val(),365*24*60*60*1000)
+            setCookie('userAPSY',$("#user").val(),365*24*60*60*1000)
+            setCookie('pwd',$("#pass").val(),365*24*60*60*1000)
         }
         else if(!$("#remember").is(':checked'))
             deleteCookie('userAPSY');
@@ -240,6 +302,24 @@ function getIn(){
 }
 
 // ----------------------------------------------------
+
+$("#down-pdf").click(function(){
+    generarPDF()
+})
+
+async function generarPDF() {
+
+    //const { jsPDF } = window.jspdf;
+    //const doc = new jsPDF();
+    const doc = new jspdf.jsPDF();
+    doc.html(document.getElementById("terminos"), {
+      callback: function (doc) {
+        doc.save("Contrato.pdf");
+      },
+      x: 10,
+      y: 10
+    });
+}
 
 $('.button .front').click(function() {
     $(this).parents('.flip').toggleClass('flipped');

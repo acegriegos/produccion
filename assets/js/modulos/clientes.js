@@ -2,20 +2,23 @@ var isprov = 0;
 var ntext = 'Cliente';
 
 $(function(){
+	$("#modal-clientes[main=1]").remove()
 	$('ul.tabs').tabs();
 	$('select').material_select();
 	$("#fclientes").submit(function(){return false});
 	$('.chips').material_chip();
-	$('.chips-autocomplete').material_chip({
-		placeholder: 'Enter a tag',
-	    secondaryPlaceholder: '+Tag',
+	$('.chips-hassh').material_chip({
+		placeholder: 'Agregar Etiqueta',
+	    secondaryPlaceholder: '+Etiqueta',
 	    autocompleteOptions: {
 	      data: getDatos('nombre,null',354,'idtabla = 2',0,0,1),
 	      limit: Infinity,
 	      minLength: 1
 	    }
 	  });
+
 	loadmybussiness();
+	cargarEntidadesExo()
 	
 	var param = getParameterByName('is');
 	if(param == "1"){
@@ -25,12 +28,14 @@ $(function(){
 		isprov = 1;
 		ntext = 'Proveedor';
 	}else {
+		$("#vapellido1").html('<option value="" selected>N/A</option>')
+		$(".vapellido1").addClass('hide')
 		$(".cgh").html('Cliente');
 		$(".cghs").html('Clientes');
 	}
 
 	arr('login',6,'',76,'0,0,",'+param+',@@impresa","0,10"',29,1,$("#listaclientes"));
-	console.log('0,0,",'+param+',@@impresa","0,10"')
+
 	$("#data-table-clientes").dataTable({
 		bFilter: false,
 		bScrollInfinite: true,
@@ -49,17 +54,20 @@ $(function(){
 					$("#vnombre").focus()
 				}
 			}else{
-				$.get('../sic.php?',{ced:$(this).val()})
-	        	.done(function(data){
-	        		var p = JSON.parse(data);
-	            	if (p['succed']) {
-	            		$("#vcedula").val(p['ced']);
-	                	$("#vnombre").val(p['nom']);
-	                	$("[name='tipoclie'][tipoClie="+parseInt(p['tip'])+"]").click();
-	            	}else{
-	            		 Materialize.toast(p['error'],4000,'red');
-	            	}
-	        	})
+				let cedula = $(this).val().trim().replace(/,/g,'')
+				$.get('https://api.hacienda.go.cr/fe/ae?identificacion='+cedula)
+			        .done(function(data){
+			            
+			            $(".c-st").addClass('hide');
+			            
+			            $("#vcedula").val(cedula);
+	                	$("#vnombre").val(data.nombre);
+	                	$("[name='tipoclie'][tipoClie="+parseInt(data.tipoIdentificacion)+"]").click();
+
+			            Materialize.updateTextFields();
+			        })
+			        .fail(function(){ Materialize.toast('Cédula no Existente',4000,'red'); });
+
 	        }
 		}
 	});
@@ -73,9 +81,9 @@ $(function(){
 		var $toastContent = $('<span style="width: 500px" id="shpdf">Generando PDF:</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
         Materialize.toast($toastContent);
 
-        $.get('login',{accion:8,arreglo:{sel:'',tbl:269,where:$(this).attr('id').substr(1)+',0,0,@@impresa,"","",""',mic:1,tit:'Estado de Cuenta',arch:'cxc'}})
+        $.get('login',{accion:8,arreglo:{sel:'',tbl:269,where:$(this).attr('id').substr(1)+',0,0,@@impresa,"","","","",""',mic:1,tit:'Estado de Cuenta',arch:'cxc'}})
         .done(function(data){
-        	console.log(data)
+
            $("#shpdf").html('PDF Generado')
            $(".expect").removeClass('progress');
            $(".expect").html("<i class='mdi mdi-24px mdi-check green-text'></i>");
@@ -85,13 +93,14 @@ $(function(){
             link.download = data;
             link.dispatchEvent(new MouseEvent('click'));
             
-           //setTimeout(function(){ 
+           setTimeout(function(){ 
                 $("#shpdf").parent().remove();
-                $.get('login',{accion:17,arreglo:{file:'../assets/pdf/'+data}})
+                console.log('../assets/pdf/'+data)
+                $.get('login',{accion:21,arreglo:{file:'../assets/pdf/'+data}})
                 .done(function(data){
                     console.log(data);
                 })
-            //}, 3000);
+            }, 3000);
            
         })
 
@@ -100,82 +109,47 @@ $(function(){
 	$("#vnumdoc").keyup(function(e){
 		var code = e.wich || e.keyCode;
 		if(code == 13 && $("#vtipodoc").val() != '-1'){
-			$.get('../exo.php?',{exo:$(this).val(),ced:$("#vcedula").val().replace(/-/g,'')})
-        	.done(function(data){
-        		var p = JSON.parse(data);
-            	if (p['succed']) {
+			try{
+			$.get("https://api.hacienda.go.cr/fe/ex?autorizacion="+$("#vnumdoc").val())
+        	.done(function(p){
 					$("#vtipodoc").val(p['tipoDocumento']['codigo'])
 					$("#vtipodoc").material_select('update');
 					$("#vnumdoc").val(p['numeroDocumento']);
-					$("#ventidad").val(p['nombreInstitucion']);
+					$("#ventidad").val(parseInt(p['CodigoInstitucion'])).material_select('update');
 					$("#vfechaDoc").val(p['fechaEmision'].substring(0,p['fechaEmision'].indexOf('T')));
 					$("#vtimeDoc").val(p['fechaEmision'].substring(p['fechaEmision'].indexOf('T')+1));
 					$("#vfechafin").val(p['fechaVencimiento'].substring(0,p['fechaVencimiento'].indexOf('T')));
 					Materialize.updateTextFields();
 					$("#vporcompra").val(p['porcentajeExoneracion']).focus().select();
-            	}else{
-	        		Materialize.toast(p['error'],4000,'red');
-	        		$("#addexo").data('cabys','');
-	        		$("#videxoneracion").val(0);
-					$("#vtipodoc").val(0);
-					$("#vtipodoc").material_select('update');
-					$("#vnumdoc").focus().select();
-					$("#ventidad").val('');
-					$("#vfechaDoc").val('');
-					$("#vtimeDoc").val('');
-					$("#vfechafin").val('');
-					$("#vporcompra").val(0);
-            	}
-        	})
+
+					//if(p['poseeCabys'])
+        	})}
+        	catch(e){
+        		Materialize.toast(p['error'],4000,'red');
+        		$("#addexo").data('cabys','');
+        		$("#videxoneracion").val(0);
+				$("#vtipodoc").val(0);
+				$("#vtipodoc").material_select('update');
+				$("#vnumdoc").focus().select();
+				$("#ventidad").val('01').material_select('update');
+				$("#vfechaDoc").val('');
+				$("#vtimeDoc").val('');
+				$("#vfechafin").val('');
+				$("#vporcompra").val(0);
+        	}
 		}
 	});
 
-
-	/*$("#vtipodoc").change(function(){
-		if(parseInt($(this).val()) == 3 || parseInt($(this).val()) == 1 || parseInt($(this).val()) == -1){
-			$("#ventidad").val('').prop('readonly',false)
-			$("#vfechaDoc").val('').prop('readonly',false)
-			$("#vtimeDoc").val('').prop('readonly',false)
+	$("#vtipodoc").change(function(){
+		let valor = parseInt($(this).val())
+		if(valor == 3 || valor == 2 || valor == 6 || valor == 7 || valor == 8){
+			$(".carti").removeClass('hide')
 		}else{
-			$("#ventidad").val('').attr('readonly',true)
-			$("#vfechaDoc").html('').prop('readonly',true)
-			$("#vtimeDoc").html('').prop('readonly',true)
+			$(".carti").addClass('hide')
+			$("#varticulo").val(0)
+			$("#vinciso").val(0)
 		}
-	})*/
-
-	/*$("#addexo").click(function(){
-		var id =  ($(".lstsrv").length+1)*-1;
-		var nxt  = new Date($("#s_fecha").val());
-		var tp = $("#s_tipo").val();
-		var stp = 'S/L';
-		switch(parseInt(tp)){
-			case 2:
-				stp = 'Mensual';
-				nxt.setDate(nxt.getMonth()+1);
-				break;
-			case 3:
-				stp = 'Diario';
-				nxt.setDate(nxt.getDate()+1);
-				break;
-			case 5:
-				stp = 'Anual';
-				nxt.setDate(nxt.getFullYear()+1);
-				break;
-			case 6:
-				stp == 'Quincenal';
-				nxt.setDate(nxt.getDate()+15);
-				break;
-			default:
-				nxt = 'N/A';
-				break;
-		}
-
-		$("#servlist").append('<tr><td style="padding:0px;cursor: pointer;" class="lstsrv" tp="'+id+'">'+$("#s_list").html()+'</td><td style="padding:0px;"><span class="_monto">'+$("#s_monto").val()+'</span></td><td style="padding:0px;"><span class="_fnxt">'+nxt+'</span></td> <td>'+stp+' <i class="mdi mdi-close red-text der delexo" style="cursor: pointer;"></i></td></tr>');
-
-		//$(".lstsrv[tp="+id+"]").data('triforce',{vid:0,vaccion:0,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});
-		acc = 1;
-		$("#modal-addserv").modal('close');
-	});*/
+	})
 
 	$("#addexo").click(function(){
 
@@ -183,12 +157,6 @@ $(function(){
 			if(!$("#vnumdoc").val().trim().length){
 				Materialize.toast('Número de Documento Requerido',4000,'red');
 				$("#vnumdoc").focus().select();
-				return false;
-			}
-
-			if(!$("#ventidad").val().trim().length){
-				Materialize.toast('Número de Documento no es Válido',4000,'red');
-				$("#ventidad").focus().select();
 				return false;
 			}
 
@@ -213,8 +181,8 @@ $(function(){
 			var id =  ($(".lstexo").length+1)*-1;
 
 			if(!parseInt($("#videxoneracion").val())){
-				var ndoc = getDatos('id',285,'trim(ndoc)=trim('+$("#vnumdoc").val()+') and idcliente = '+$("#vid").val());
-
+				var ndoc = getDatos('id',285,'trim(ndoc)=trim("'+$("#vnumdoc").val()+'") and idcliente = '+$("#vid").val());
+				
 				if(ndoc[0].length){
 					Materialize.toast('Número de Documento ya Existe',4000,'red');
 					$("#vnumdoc").focus().select();
@@ -238,9 +206,11 @@ $(function(){
 			$(".lstexo[tp="+id+"]").data('triforce')['vtdoc'] 		= $("#vtipodoc option:selected").val();
 			$(".lstexo[tp="+id+"]").data('triforce')['vndoc'] 		= $("#vnumdoc").val();
 			$(".lstexo[tp="+id+"]").data('triforce')['vfechaDoc'] 	= $("#vfechaDoc").val()+' '+$("#vtimeDoc").val()
-			$(".lstexo[tp="+id+"]").data('triforce')['ventidad'] 	= $("#ventidad").val(); 
+			$(".lstexo[tp="+id+"]").data('triforce')['ventidad'] 	= $("#ventidad option:selected").val(); 
 			$(".lstexo[tp="+id+"]").data('triforce')['vffin'] 		= $("#vfechafin").val()
 			$(".lstexo[tp="+id+"]").data('triforce')['vexo'] 		= $("#vporcompra").val()
+			$(".lstexo[tp="+id+"]").data('triforce')['vart'] 		= $("#varticulo").val()
+			$(".lstexo[tp="+id+"]").data('triforce')['vinc'] 		= $("#vinciso").val()
 		}
 
 		$("#modal-addexo").modal('close');
@@ -271,7 +241,7 @@ $(function(){
 		    closeOnClick: true,
 		    draggable: true,
 		    onOpen: function(){
-		        var titulo = cuerpo = '';
+		        var titulo = '';
 		        $(".subclie").addClass('hide');
 		        switch(code){
 		            case 1: 
@@ -289,7 +259,7 @@ $(function(){
 			                	for (var i = 0; i < exos[0].length; i++) {
 			                		$("#exolist").append('<tr><td style="padding:0px;cursor: pointer;" class="lstexo" tp="'+exos[0][i][0]+'">'+exos[0][i][1]+'</td><td style="padding:0px;"><span class="_exo">'+exos[0][i][2]+'</span>%</td><td style="padding:0px;"><span class="_ffin">'+exos[0][i][3]+'</span> <i class="mdi mdi-close red-text der delexo" style="cursor: pointer;"></i></td></tr>');
 
-			                		$(".lstexo[tp="+exos[0][i][0]+"]").data('triforce',{vid:0,vaccion:0,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0});
+			                		$(".lstexo[tp="+exos[0][i][0]+"]").data('triforce',{vid:0,vaccion:0,vtdoc:0,vndoc:0,vfechaDoc:'',ventidad:'',vffin:'',vexo:0,vart:0,vinc:0});
 			                	}
 			                }
 			            }
@@ -307,7 +277,7 @@ $(function(){
 		                $("#contactos").removeClass('hide');
 		                break;
 		            case 5:
-		            	titulo = 'Servicios';
+		            	titulo = 'Servicios Asociados';
 		            	$("#servicios").removeClass('hide');
 		            	break;
 		            default:
@@ -367,7 +337,7 @@ $(function(){
 		$("#vtipodoc").val(0);
 		$("#vtipodoc").material_select('update');
 		$("#vnumdoc").val('').prop('readonly',false);
-		$("#ventidad").val('');
+		$("#ventidad").val('01').material_select('update');
 		$("#vfechaDoc").val('');
 		$("#vtimeDoc").val('');
 		$("#vfechafin").val('');
@@ -377,11 +347,65 @@ $(function(){
 		$("#vnumdoc").focus()
 	});
 
+	$("#addncont").click(function(){
+		Materialize.updateTextFields();
+		$("#modal-addcnt").modal('open').css('z-index',2000);
+	});
+
 	$("#addnserv").click(function(){
-		var fecha = new Date();
+		let fecha = new Date();
 		fecha = fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+(fecha.getDate());
-		$("#s_fecha").pickadate().pickadate('picker').set('select', fecha);
-		$("#modal-addserv").modal('open').css('z-index',2000);
+		let pick = $("#s_fecha").pickadate().pickadate('picker');
+		pick.set({max:fecha,selectMonths:true,selectYears:-3});
+		
+		vaciarFormulario('f-servicios');
+		$("#s_list").change();
+
+		$("#addserv").attr('edit',0)
+		$("#modal-addserv").modal('open');
+		
+	});
+
+	$("#s_list").change(function(){
+		$("#s_monto").val(parseFloat($("#s_list option:selected").attr('valor')).formatMoney(2,'.',',')).focus().select()
+		$("#s_moneda").val($("#s_list option:selected").attr('moneda'))
+		$("#s_monto").focus().select();
+	});
+
+	$("#s_moneda").change(function(){
+		let valor = parseFloat($("#s_list option:selected").attr('valor'))
+		let divisa = parseFloat($("#s_moneda option:selected").attr('dv'));
+		$("#s_monto").val((valor/divisa).formatMoney(2,'.',','));
+		$("#s_monto").focus().select();
+	});
+
+	$("#addserv").click(function(){
+		let monto = parseFloat($("#s_monto").val().replace(/,/g,''))
+		if(monto <= 0){
+			Materialize.toast('Valor Debe Ser Mayor a Zero',4000,'red')
+			$("#s_monto").focus().select()
+			return false;
+		}
+		let _finic = $("#s_fecha").pickadate().pickadate('picker').get('select', 'yyyy-mm-dd');
+		let _acc = 2;
+
+		if($("#addserv").attr('edit') == '0'){
+			let nm = $(".servlist").length+1;
+			$("#servlist").append('<tr class="servlist" vid="-'+nm+'"><td colspan="100%">'+$("#s_list option:selected").html()+' <i class="mdi mdi-close si-delete red-text pbtn der" title="Eliminar Servicio"></i> <i class="mdi mdi-pencil si-edit pbtn der" title="Editar Servicio"></i> </td> </tr>  <tr style="border-bottom: 1px solid black;"> <td>'+$("#s_moneda option:selected").html()+$("#s_monto").val()+'</td> <td>'+$("#s_tipo option:selected").html()+'</td> <td>'+$("#s_pago option:selected").html()+'</td> <td>'+$("#s_corte option:selected").html()+'</td> </tr>');
+			$("#addserv").attr('vid','-'+nm)
+			_acc = 1;
+		}else{
+			$(".servlist[vid="+$("#addserv").attr('vid')+"]").html('<td colspan="100%">'+$("#s_list option:selected").html()+' <i class="mdi mdi-close si-delete red-text pbtn der" title="Eliminar Servicio"></i> <i class="mdi mdi-pencil si-edit pbtn der" title="Editar Servicio"></i> </td> </tr>');
+			$(".servlist[vid="+1+"]").next('tr').html('<td>'+$("#s_moneda option:selected").html()+$("#s_monto").val()+'</td> <td>'+$("#s_tipo option:selected").html()+'</td> <td>'+$("#s_pago option:selected").html()+'</td> <td>'+$("#s_corte option:selected").html()+'</td>')
+		}
+
+		$(".servlist[vid="+$("#addserv").attr('vid')+"]").data('triforce',{acc:_acc,idserv:$("#s_list option:selected").val(),valor:monto,finicio:_finic,dpago:$("#s_pago option:selected").val(),dcorte:$("#s_corte option:selected").val(),tfactura:$("#s_factura option:selected").val(),ciclo:$("#s_tipo option:selected").val(),moneda:$("#s_moneda option:selected").val()})
+
+		$("#modal-addserv").modal('close');
+	});
+
+	$("#getLegal").click(function(){
+		alert('CREAR CONTRATO EN SERVICIOS,CREAR CONTRATO EN PDF')
 	})
 
     $("#eslidec").click(function(e){
@@ -452,7 +476,7 @@ $(function(){
 		change_load('viddistrito',10,'id,nombre','id > 0 and idcanton = '+$('option:selected',this).val());
 	});
 
-	$(".zelda").data('triforce',{vid:0,vapellido1:'',vapellido2:'',vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
+	$(".zelda").data('triforce',{vid:0,vapellido2:'',vidcuenta:0,vbisnacional:1,vbisproveedor:isprov,vidusuario:'',vidsucursal:'',_sid:'@@@',vcomision:0});
 
 	var add = getParameterByName("add") //accesos
 	if (add) {
@@ -465,23 +489,58 @@ $(function(){
 
 });
 
+function cargarEntidadesExo(){
+	if(!$("#ventidad option").length){
+		let ent = getDatos('id,nombre',460,'id>0')[0]
+		let str_lista = ''
+		$.each(ent,function(){
+			str_lista += '<option value="'+$(this)[0]+'">'+$(this)[1]+'</option>'
+		})
+		$("#ventidad").html(str_lista).material_select('update')
+	}
+}
+
 function validares(){ return false };
 
+/*SERVICIOS_CLIENTES*/
+
+$(document).on("click",".si-edit",function(){
+
+	let info = $(this).parent().parent().data('triforce');
+	$("#s_list").val(info['idserv']).material_select('update')
+	$("#s_moneda").val(info['moneda']).material_select('update');
+	$("#s_monto").val(parseFloat(info['valor']).formatMoney(2,'.',','))
+	$("#s_fecha").pickadate().pickadate('picker').set('select', info['finicio']);
+	$("#s_pago").val(info['dpago']).material_select('update');
+	$("#s_corte").val(info['dcorte']).material_select('update');
+	$("#s_tipo").val(info['ciclo']).material_select('update');
+	$("#s_factura").val(info['tfactura']).material_select('update');
+
+	$("#addserv").attr('edit',1)
+	$("#addserv").attr('vid',$(this).parent().parent().attr('vid'))
+	$("#modal-addserv").modal('open');
+})
+
+/*SERVICIOS_CLIENTES*/
+
 $(document).on("click",".lstexo",function(){
-	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),date_format(ffin,"%Y-%m-%d"),exoneracion',285,'id='+$(this).attr('tp'));
+	var exoneraciones = getDatos('lpad(tdoc,2,0),ndoc,inst,date_format(femision,"%Y-%m-%d"),date_format(femision,"%H:%i:%s"),date_format(ffin,"%Y-%m-%d"),exoneracion,articulo,inciso',285,'id='+$(this).attr('tp'));
 
 	if (exoneraciones[0].length && !parseInt($(this).data('triforce')['vaccion']) ) {
 		$("#videxoneracion").val($(this).attr('tp'));
 		$("#vtipodoc").val(exoneraciones[0][0][0]).change();
 		$("#vtipodoc").material_select('update');
 		$("#vnumdoc").val(exoneraciones[0][0][1]);
-		$("#ventidad").val(exoneraciones[0][0][2]);
+		$("#ventidad").val(exoneraciones[0][0][2]).material_select('update');
 		$("#vfechaDoc").val(exoneraciones[0][0][3]);
 		$("#vtimeDoc").val(exoneraciones[0][0][4]);
 		$("#vfechafin").val(exoneraciones[0][0][5]);
+		$("#varticulo").val(exoneraciones[0][0][7]);
+		$("#vinciso").val(exoneraciones[0][0][8])
 		Materialize.updateTextFields();
 		$("#modal-addexo").modal('open').css('z-index',2000);
 		$("#vporcompra").val(exoneraciones[0][0][6]).focus().select();
+
 		//$("#addexo").data('cabys','');
 	}else{ 
 		$("#addexo").data('cabys','');
@@ -489,10 +548,12 @@ $(document).on("click",".lstexo",function(){
 		$("#vtipodoc").val($(this).data('triforce')['vtdoc']);
 		$("#vtipodoc").material_select('update');
 		$("#vnumdoc").val($(this).data('triforce')['vndoc']);
-		$("#ventidad").val($(this).data('triforce')['ventidad']);
+		$("#ventidad").val($(this).data('triforce')['ventidad']).material_select('update');
 		$("#vfechaDoc").val($(this).data('triforce')['vfechaDoc'].substring(0,$(this).data('triforce')['vfechaDoc'].indexOf(' ')));
 		$("#vtimeDoc").val($(this).data('triforce')['vfechaDoc'].substring($(this).data('triforce')['vfechaDoc'].indexOf(' ')+1));
 		$("#vfechafin").val($(this).data('triforce')['vffin']);
+		$("#varticulo").val($(this).data('triforce')['vart'])
+		$("#vinciso").val($(this).data('triforce')['vinc'])
 		Materialize.updateTextFields();
 		$("#modal-addexo").modal('open').css('z-index',2000);
 		$("#vporcompra").val($(this).data('triforce')['vexo']).focus().select();
@@ -675,11 +736,6 @@ function validarvehiculo() {
 
 function validarclientes() {
 
-	/*if(parseInt($("#slideDireccion").data('idbarrio')) == 0 || isNaN($("#slideDireccion").data('idbarrio'))){
-        $("#slideDireccion").click();
-        return 'Ubicacion sin Asignar';
-    }*/
-
 	if ($("#vnombre").val() == '') { $('#ln1').click(); $("#vnombre").focus(); return 'El campo Nombre es requerido';  };
 	if ($("#vcedula").val() == '') {	$('#ln1').click(); $("#vcedula").focus(); return 'El campo Cédula es requerida';  };
 		
@@ -735,11 +791,11 @@ function validarclientes() {
 			var arr = {}
 			switch(modulo) {
 				case 'clientes':
-					arr['sel'] = '';
-					arr['tbl'] = 76;
-					arr['where'] = '0,0,",'+isprov+',@@impresa","0,10"';
-					arr['cambio'] = 29;
-					break;
+						arr['sel'] = '';
+						arr['tbl'] = 76;
+						arr['where'] = '0,0,",'+isprov+',@@impresa","0,10"';
+						arr['cambio'] = 29;
+						break;
 				case 'vehiculos':
 					arr['sel'] = '';
 					arr['tbl'] = 504;
@@ -760,17 +816,35 @@ function endDetail(vid,vacc,modulo){
 			}
 
 			if(!isprov){
+
+				$(".servlist").each(function(){
+					let serv_obj = $(this).data('triforce');
+
+					switch(serv_obj['acc']){
+						case 1:
+							insertar(320,'','null,'+vid[0][0]+','+serv_obj['idserv']+',date_add(concat(year(curdate()),"-",month(curdate()),"-",'+serv_obj['dpago']+'),interval +1 month),"'+serv_obj['finicio']+'","",'+serv_obj['valor']+','+serv_obj['ciclo']+','+serv_obj['tfactura']+',"","",encryptar("0,0,0,N/A,'+serv_obj['dpago']+',N/A,N/A,0,0,0,'+serv_obj['dcorte']+',0",1),"",'+serv_obj['moneda']);
+							serv_obj[acc] = 2;
+							break;
+						case 2:
+							actualizar(320,'akey=encryptar("0,0,0,N/A,'+serv_obj['dpago']+',N/A,N/A,0,0,0,'+serv_obj['dcorte']+',0",1),idmoneda='+serv_obj['moneda']+',monto='+serv_obj['valor'],'id='+vid[0][0]);
+							break; 
+						default:
+							break;
+					}
+				});
+
 				$(".lstexo").each(function(){
 					var obj = $(this).data('triforce');
 					obj['vffin'] = !obj['vffin'].length ? null : '"'+obj['vffin']+'"';
 					
 					switch(parseInt(obj['vaccion'])){
 						case 1:
-							console.log(insertar(285,'','null,'+vid[0][0]+','+obj['vtdoc']+',"'+obj['vndoc']+'","'+obj['ventidad']+'","'+obj['vfechaDoc']+'",'+obj['vexo']+','+obj['vffin']));
+							console.log(insertar(285,'','null,'+vid[0][0]+','+obj['vtdoc']+',"'+obj['vndoc']+'","'+obj['ventidad']+'","'+obj['vfechaDoc']+'",'+obj['vexo']+','+obj['vffin']+','+obj['vart']+','+obj['vinc']));
+							obj['vaccion'] = 2;
 							//guardar exoneracion
 							break;
 						case 2:
-							actualizar(285,'tdoc = '+obj['vtdoc']+', ndoc = "'+obj['vndoc']+'",inst = "'+obj['ventidad']+'", femision = "'+obj['vfechaDoc']+'", exoneracion = '+obj['vexo']+',ffin = '+obj['vffin'],'id = '+obj['vid']);
+							actualizar(285,'tdoc = '+obj['vtdoc']+', ndoc = "'+obj['vndoc']+'",inst = "'+obj['ventidad']+'", femision = "'+obj['vfechaDoc']+'", exoneracion = '+obj['vexo']+',ffin = '+obj['vffin']+', articulo = '+obj['vart']+', inciso = '+obj['vinc'],'id = '+obj['vid']);
 							break;
 						case 3:
 							eliminar(285,'id ='+obj['vid'])
@@ -784,6 +858,7 @@ function endDetail(vid,vacc,modulo){
 					switch(parseInt($(this).attr('accion'))){
 						case 1:
 							insertar(331,'','null,2,'+vid[0][0]+',"'+$(this).attr('label')+'","'+$(this).attr('value')+'",'+$(this).attr('factura'));
+							$(this).attr('accion',2)
 							break;
 						case 2:
 							actualizar(331,'label="'+$(this).attr('label')+'",val="'+$(this).attr('value')+'",enfactura='+$(this).attr('factura'),'id='+$(this).attr('id'));
@@ -861,17 +936,15 @@ function postload(modulo) {
 		    });
             
             var servicios = getDatos('',357,'4,0,'+$("#vid").val()+',0');
-            var sislista = '';
-            for (var i = 0; i < servicios[0].length; i++){
-            	sislista += '<tr class="_servicios" id="'+servicios[0][i][0]+'" accion="2"> '+
-            		'<td style="padding: 0px;" colspan="100%">'+servicios[0][i][1]+' <i class="mdi mdi-pencil si-edit pbtn der" title="Editar Servicio"></i> <i class="mdi mdi-close si-delete pbtn der" title="Eliminar Servicio"></i> </td>'+
-            		'</tr>'+
-            		'<tr><td style="padding: 0px;">'+servicios[0][i][2]+'</td>'+ 
-            		'<td style="padding: 0px;">'+servicios[0][i][3]+'</td>'+
-            		'<td style="padding: 0px;">'+servicios[0][i][4]+'</td>';
+            let sislista = '';
+            $("#servlist").html('');
 
+            for (var i = 0; i < servicios[0].length; i++){
+            	sislista = '<tr class="servlist" vid="'+servicios[0][i][0]+'"><td colspan="90%">'+servicios[0][i][1]+' <i class="mdi mdi-close si-delete red-text pbtn der" title="Eliminar Servicio"></i> <i class="mdi mdi-pencil si-edit pbtn der" title="Editar Servicio"></i> </td> </tr> <tr style="border-bottom: 1px solid black;"> <td>'+servicios[0][i][2]+'</td> <td>'+servicios[0][i][4]+'</td> <td>'+servicios[0][i][5]+'</td> <td>'+servicios[0][i][6]+'</td>';
+
+            	$("#servlist").append(sislista);
+            	$(".servlist[vid="+servicios[0][i][0]+"]").data('triforce',{acc:2,idserv:servicios[0][i][7],valor:servicios[0][i][8],finicio:servicios[0][i][9],dpago:servicios[0][i][4],dcorte:servicios[0][i][5],tfactura:servicios[0][i][10],ciclo:servicios[0][i][11],moneda:servicios[0][i][12]})
             }
-            $("#servlist").html(sislista);
 
 		break;
 	}

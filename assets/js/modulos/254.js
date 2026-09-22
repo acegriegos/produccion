@@ -1,10 +1,16 @@
 $(function(){
-        var allow = getDatos('tipo',248,'idusuario=@@usr and idpermiso = (select id from permisos where codigo = 9999)')[0][0][0];
+        var allow = getDatos('if(idusuario=1,1,tipo)',248,'idusuario=@@usr and idpermiso = (select id from permisos where codigo = 9999)')[0][0][0];
         if(allow != '1'){
             $(".detrep input").attr('readonly',true);
             $(".focus6").attr('readonly',false)
             $(".notasprod").attr('no-pass',1)
         }
+
+        var peso = getDatos('tipo',248,'idusuario=@@usr and idpermiso = (select id from permisos where codigo = 4127)')[0][0][0];
+        if(peso != '1'){
+            $(".peso").attr('readonly',true);
+        }else
+            $(".peso").attr('readonly',false);
     });
 
     $(".focus").click(function(){
@@ -35,12 +41,15 @@ $(function(){
         if(code == 13){
             var tr = $(this).parent().parent();
             var ml = $(this).val();
-            var datosprod = getDatos('',335,tr.attr('id')+','+ml);
-            console.log(datosprod)
-            $(this).next('.focus1').focus().select();
+            var chcosto = getDatos('',335,tr.attr('id')+','+ml);
+            
             Materialize.toast('Costo Cambiado Correctamente',4000,'green');
-            $(this).parent().parent().find('.venta').html(datosprod[0][0][0]);
-            $(this).parent().parent().find('.seg').html(datosprod[0][0][1]);
+            let datosprod = getDatos('format(costo+ganancia,2),truncate(ganancia*100/costo,2)',11,'id='+tr.attr('id'))[0][0]
+            $(this).parent().parent().find('.focus3').val(datosprod[1]);
+            //$(this).parent().parent().find('.seg').html(datosprod[0][0][1]);
+            $(this).parent().parent().find('.venta').html(datosprod[0])
+
+            $(this).next('.focus1').focus().select();
         }
     });
 
@@ -65,6 +74,22 @@ $(function(){
         }
     });
 
+     $(".peso").keyup(function(e){
+        var code = e.wich || e.keyCode;
+        if(code == 13){
+            var tr = $(this).parent().parent();
+            var ml = $(this).val();
+            var mid = getDatos('id',283,'codigo = 2 and idproducto = '+tr.attr('id'),0,0,0)
+            if(mid[0].length){
+                actualizar(283,'valor = '+ml,'codigo = 2 and idproducto = '+tr.attr('id'));
+            }
+            else
+                insertar(283,'','null,'+tr.attr('id')+',2,"",2,'+ml);
+            $(this).next('.peso').focus().select();
+            Materialize.toast('Peso Cambiado Correctamente',4000,'green');
+        }
+    });
+
     $(".focus3").keyup(function(e){
         var code = e.wich || e.keyCode;
         if(code == 13){
@@ -74,6 +99,9 @@ $(function(){
             actualizar(11,'ganancia = '+ml+', venta='+(costo+ml)*1.13,'id = '+tr.attr('id'));
             $(this).next('.focus3').focus().select();
             Materialize.toast('Utilidad Unitaria Cambiada Correctamente',4000,'green');
+            //cargar si el negocio ocupa el iva
+            let gn = getDatos('format(costo+ganancia,2)',11,'id='+tr.attr('id'))[0][0][0]
+            $(this).parent().parent().find('.venta').html(gn)
         }
     });
 

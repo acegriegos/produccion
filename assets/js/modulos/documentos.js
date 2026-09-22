@@ -8,10 +8,34 @@ $(function(){
     config = getDatos('',42,'@@impresa',0,0)[0][0];
     loadmybussiness();
 
+    $("#c_facts").change(function(){
+        if($(this).is(':checked'))
+            $("._compras").removeClass('hide')
+        else
+            $("._compras").addClass('hide')
+    })
+
+    $("#c_nc").change(function(){
+        if($(this).is(':checked'))
+            $("._notas").removeClass('hide')
+        else
+            $("._notas").addClass('hide')
+    })
+
+    $("#fil_docs").keyup(function(e){
+        let valor = $(this).val();
+        if(valor != ''){
+            $("#bcompras").find('td').parent().addClass('hide')
+            let td = $("#bcompras").find('td')
+            td.filter(function(){ return $(this).html().indexOf(valor) >= 0 }).parent().removeClass('hide')
+        }else
+            $("#bcompras").find('td').parent().removeClass('hide')
+    })
+
     $("#rcorreo").click(function(){
         $(this).attr('disabled',true)
 
-        $.post(window.location.href.substring(0,window.location.href.indexOf('dashboard',))+'/irobot.php',{succ:$("#impresa").attr('imp')})
+        $.post(window.location.href.substring(0,window.location.href.indexOf('dashboard',))+'/irobot.php',{succ:$("#loadMyBussiness").attr('impresa')})
                 .done(function(data){
                         console.log(data)
                         $("#rcorreo").attr('disabled',false)
@@ -29,7 +53,7 @@ $(function(){
         $(".actin").removeClass('hide');
 
         var sucursal = getDatos('cedula,isprueba',39,'id=@@impresa',0,0,0)[0][0];
-        
+        //console.log('accion:15,arreglo:1,server:'+config[18]+',ced:'+sucursal[0]+',isp:'+sucursal[1])
         $.ajax({
             url: 'login',
             type: "post",
@@ -37,18 +61,18 @@ $(function(){
         })
             .done(function(res){
                 var str = '';
-                $("#data-table-compras").hide();
+                /*$("#data-table-compras").hide();
                 var tabla = $("#data-table-compras").DataTable();   
-                tabla.destroy();
+                tabla.destroy();*/
 
                 var temporal = arr('login',6,'',265,'@@impresa',0,1,$("#bcompras"),0);
 
-                setTimeout(function() { $("#data-table-compras").dataTable({
+                /*setTimeout(function() { $("#data-table-compras").dataTable({
                     LengthChange : false,
                     order : []
                 });
                 $("#data-table-compras").show()
-                },500)
+                },500)*/
                 
                 $(".act").removeClass('hide');
                 $(".actin").addClass('hide');
@@ -162,15 +186,28 @@ $(document).on("click",".msjh",function(){
       5=>PROPORCIONALIDAD*/
     var msjreceptor = $("#msjreceptor").val();
     var tipo = credito = gasto = plazo = 0;
+    let referencia = '';
 
     if ($(this).attr('xml') == undefined) {
         var padre = $(this).parent().parent();
         var idcomp = padre.attr('id').substr(2);
-        tipo = padre.find('.tcompra').val();
-        gasto = padre.find('.gs').html().replace(/,/g,'');
-        credito = padre.find('.imv').html().replace(/,/g,'');
-        plazo = padre.find('.cxp').val();
-        plazo = isNaN(plazo) ? 0 : plazo;
+
+        if(!padre.find('.findfact').length){
+            gasto = padre.find('.gs').html().replace(/,/g,'');
+            credito = padre.find('.imv').html().replace(/,/g,'');
+            tipo = padre.find('.tcompra').val();
+            plazo = padre.find('.cxp').val();
+            plazo = isNaN(plazo) ? 0 : plazo;
+        }else{
+            referencia = padre.find('.cxp').attr('referencia').trim()
+            if(referencia.length != '50' && tstado != '7'){
+                Materialize.toast('Referencia no Válida')
+                padre.find('.cxp').focus()
+                return false
+            }
+            gasto = 0
+            credito = 0
+        }
 
     }else{
        var idcomp = getDatos('',278,$(this).parent().attr('idcompra'),0,0,0)
@@ -178,9 +215,11 @@ $(document).on("click",".msjh",function(){
        tipo = $("#tipo").val();
        credito = $("#credito").val();
        gasto = $("#gasto").val();
-    }   
+    }  
 
-    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto+','+plazo,0,0,0);
+    var idfact = getDatos('',266,idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto+','+plazo+',"'+referencia+'"',0,0,0);
+    console.log(idcomp+',@@usr,@@impresa,'+tstado+',"'+msjreceptor+'",'+tipo+','+credito+','+gasto+','+plazo)
+    console.log(idfact)
     var crrprov = getDatos('correo',264,'vid = (select idcliente from tmpcompras where id ='+idcomp+')',0,0,0);
 
     crrprov = crrprov[0].length ? crrprov[0][0][0] : '';
@@ -197,8 +236,8 @@ $(document).on("click",".msjh",function(){
         var factura = getDatos('consecutivo,datediff(curdate(),fecha)',64,'id = '+idfact[0][0][0],0,0)[0][0];
         var tlimit = parseInt(factura[1]);
 
-        if(tstado != 5)
-            sendFE('^'+idfact[0][0][0],crrprov,64,titulo);
+        /*tstado != 5)
+            sendFE('^'+idfact[0][0][0],crrprov,64,titulo);*/
 
         if($(this).attr('xml') == undefined){
             var tabla = $("#data-table-facturas").DataTable();

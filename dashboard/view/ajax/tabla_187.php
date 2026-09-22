@@ -37,7 +37,8 @@
 
         <?php  
             if($obj[8] == 5){
-                echo '<a class="btn-color mdi mdi-24px mdi-cloud-download-outline xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g'.$obj[0].'" data-tooltip=""></a>';
+                echo '<a class="btn-color mdi mdi-24px mdi-cloud-download-outline xml tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="g'.$obj[0].'" data-tooltip="Descargar XML"></a>';
+                echo '<a class="btn-color mdi mdi-24px mdi-xml mh tooltipped" data-tooltip="Descargar XML" data-position="left" download target="_blank" id="h'.$obj[0].'" data-tooltip="Descargar Respuesta de Hacienda"></a>';
             }
         ?>
 

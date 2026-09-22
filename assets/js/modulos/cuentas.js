@@ -43,10 +43,10 @@ $(function(){
 			$(".autocomplete-content").remove();
 			$("#ncli").autocomplete({
 				limit: 20,
-				data: arr('login',4,'trim(concat(if(web <> "",web,nombre)," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'id > 0 and if('+gtipo+' = 1 ,!bisproveedor,bisproveedor)  and idsucursal = @@impresa having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1),
+				data: arr('login',4,'trim(concat(if(web <> "",nombre,nombre)," *",ifnull(replace(cedula,"-",""),""),"*")) as nom,null',2,'id > 0 and if('+gtipo+' = 1 ,!bisproveedor,bisproveedor)  and idsucursal = @@impresa having nom like "%'+$("#ncli").val()+'%" limit 20',0,0,0,1),
                 onAutocomplete: function(val){
 
-                    var sql = "id > 0 and if("+gtipo+" = 1 ,!bisproveedor,bisproveedor) and concat(if(web <> '',web,nombre),' *',replace(cedula, '-',''),'*') = '"+$("#ncli").val()+"' and idsucursal = @@impresa limit 1";
+                    var sql = "id > 0 and if("+gtipo+" = 1 ,!bisproveedor,bisproveedor) and concat(if(web <> '',nombre,nombre),' *',replace(cedula, '-',''),'*') = '"+$("#ncli").val()+"' and idsucursal = @@impresa limit 1";
 					var id = arr('login',4,'id,format(getsaldocliente(id,0),2),idmoneda',2,sql,0,0,0);
 					var tabla = $("#data-table-facturas").DataTable();
 					tabla.destroy();
@@ -86,7 +86,7 @@ $(function(){
 							$("#saldo").html(id[0][0][1])
 							$("#hclie").val(id[0][0][0]);
 							$("#monto").focus().select();
-							$("#monedas").val(id[0][0][2]).change()
+							$("#monedas").val(id[0][0][2]).material_select('update')
 						}
 					}
                 }
@@ -210,6 +210,7 @@ $(document).on("click",".pagomu",function(){
 $(document).on("keyup",".vabono",function(e){
 	var code = e.which || e.keyCode
 	if (code == 13) {
+		$(this).parent().parent().find('.factclie').prop('checked',true).change()
 		$(this).blur();
 	}
 })
@@ -218,57 +219,59 @@ $(document).on("keyup",".vabono",function(e){
 $(document).on("blur",".vabono",function(){
 	var id = $(this).attr('id').substr(2);
 	if($("#check"+id).is(":checked")){
-		var monto = parseFloat($("#check"+id).attr('vl'));
-		var mt = parseFloat($("#monto").val());
-		var nm = parseFloat($(this).val());
-		nm = isNaN(nm) ? 0 : nm;
-		var gm = mt-monto+nm;
-		$("#monto").val(parseFloat(gm).formatMoney(2,'.',''))
+		let monto = parseFloat($("#check"+id).attr('vl'));
+		let nm = parseFloat($(this).val());
+		if(nm > monto){
+			Materialize.toast('Valor es Superior al Monto de la Factura',4000,'red')
+			$(this).val().select()
+		}
 	}
 })
 
-$(document).on("click",".factclie",function(){
-	var mt = parseFloat($("#monto").val());
-	mt = isNaN(mt) ? 0 : mt;
-	var id = $(this).attr('id').substr(5);
-	var valor = parseFloat($("#ab"+id).val());
-	valor = isNaN(valor) ? 0 : valor;
+$(document).on("change",".factclie",function(){
+	let suma = 0;
+	let valores = $(".factclie").filter(function(){ return $(this).is(':checked')}).parent().parent().find('.vabono')
+	$.each(valores,function(){
+		suma += parseFloat($(this).val())
+	})
 
-	if ($(this).is(":checked")) {
-		mt += valor;
-	}else{
-		mt -= valor;
-	}
-	$("#monto").val(parseFloat(mt).formatMoney(2,'.',''))
+	$("#monto").val(parseFloat(suma).formatMoney(2,'.',','))
 });
 
 $(document).on("click","#btnPagar",function(){
+
+	if (!$(".factclie").length) {
+		Materialize.toast('No hay Facturas que Cancelar',4000,'red');
+		return false;
+	}
+
+	var monto = parseFloat($("#monto").val().replace(/,/g,''));
+
+	if(monto <= 0){
+		Materialize.toast('Monto Debe ser Mayor a Cero',4000,'red');
+		return false;
+	}
+
 	var validado = validarpago();
 
 	if (validado == false) {
-
-		var monto = $("#monto").val().replace(/,/g,'');
 
 		var idfactura = val = vmonto = idestadocuenta = 0;
 		var saldo = $("#saldo").html().replace(/,/g,'');
 		var idtipo = gtipo==2 ? 8 : 7;
 
-		if (!$(".factclie").length) {
-			Materialize.toast('No hay Facturas que Cancelar',4000,'red');
-			return false;
-		}
 		var vidmoneda = $("#monedas").val();
 		var divisa = $("#monedas option:selected").attr('dv');
 		var fechabol = $("#fecha").val();	
-		var idpag = getDatos('ec7+1',252,'idsucursal = @@impresa',0,0,0)[0][0][0];
+		var idpag = getDatos('ec'+idtipo+'+1',252,'idsucursal = @@impresa',0,0,0)[0][0][0];
 
-		actualizar(252,'ec7 = ec7+1','idsucursal = @@impresa')
+		actualizar(252,'ec'+idtipo+' = ec'+idtipo+'+1','idsucursal = @@impresa')
 
 		if ($(".factclie:checked").length) {
 
 			$(".factclie:checked").each(function(){
 				idfactura = $(this).val();
-				val = parseFloat($(this).attr('vl'));
+				val = parseFloat($(this).parent().parent().find('.vabono').val().replace(/,/g,''));
 
 				monto -= val;
 				if(monto > 0){
@@ -308,22 +311,20 @@ $(document).on("click","#btnPagar",function(){
 		$("#ncli").val('')
 		$("#listaCuentasPm").html('');
 		$("#hclie").val(0)
-		$("#monto").val('');
+		$("#monto").val('0.00');
 		$("#saldo").html('0.00');
 		$("#comentario").val('');
 		$("#referencia").val('')
 		$("#idtipopagopagar").val(1).material_select('update');
 
 		var tp = $("#p_vm").is(":checked") == true ? 1 : 2;
-		window.open('cuentas?accion=5&id='+idestadocuenta[0][0][1]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+		window.open('cuentas?accion=5&id='+idestadocuenta[0][0][1]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp+'&tipo='+gtipo);
 		
 	}else{
 		Materialize.toast(validado,4000,'red')
 	}
 
-	
 });
-
 function validarpago() {
 	//validar
 	/*if($("#idtipopagopagar option:selected").val() == 0){

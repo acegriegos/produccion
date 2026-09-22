@@ -20,7 +20,7 @@ $(function(){
     $(".excel").data('parametros')['conteo'] = 1;
     $(".excel").data('parametros')['suma'] = '';
     $(".excel").data('parametros')['original'] = 1;
-    arr('login',6,'',181,'@@impresa,'+tipo+',"'+$("#vdesde").val()+'","'+$("#vhasta").val()+'"',0,1,$(".detrep"));
+    arr('login',6,'',181,'@@impresa,'+tipo+',"'+$("#vdesde").val()+'","'+$("#vhasta").val()+'","",""',0,1,$(".detrep"));
     $("#vbisproveedor").val(tipo)
 
     });

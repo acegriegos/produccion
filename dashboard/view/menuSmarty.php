@@ -1,21 +1,266 @@
 <div class="navbar-fixed hide-on-large-only">
   <nav>
     <div class="center nav-wrapper blue-grey darken-2">
-      {if $smarty.session.BUSS eq 5}
-        {$smarty.session.NOM|upper}
-        <a href="#" id="movil" class="der"><i class="mdi mdi-dots-vertical mdi-16px"></i></a>
-        <a class="der mdi mdi-16px mdi-plus tooltipped" id="gingclie" data-position="bottom" data-tooltip="Agregar Cliente"></a>
-        <a href="#" class="der tooltipped mdi-
-        " id="flujo" data-position="bottom" data-tooltip="Gastos" style="margin-right: 5px"><i class="mdi mdi-24px mdi-recycle"></i></a>
-        <a href="#" class="der tooltipped mdi-
-        " id="shrutas" data-position="bottom" data-tooltip="Ruta" style="margin-right: 5px"><i class="mdi mdi-24px mdi-motorbike"></i></a>
-      {else}
         {$smarty.session.EMPRESA|upper}
-        <a href="#" id="movil" class="der"><i class="mdi mdi-dots-vertical mdi-16px"></i></a>
-      {/if}
-      
+        <a href="#" id="movil" class="der"><i class="mdi mdi-dots-vertical mdi-16px"></i></a>      
     </div>
   </nav>
+</div>
+
+<div class="apsy-header">
+
+    <div class="apsy-logo">
+        <img src="../assets/img/logos/logo.png" alt="">
+    </div>
+
+    <div class="apsy-search">
+        <input
+            type="text"
+            placeholder="Buscar módulos, clientes, productos..."
+            class="hide"
+            id="global_search">
+    </div>
+
+    <div class="apsy-actions">
+
+        <div class="apsy-process-wrapper">
+
+          <div class="apsy-process" id="open_process">
+              <i class="mdi mdi-clipboard-text-outline"></i>
+              <span class="apsy-badge hide" id="solicitudes_badge">0</span>
+          </div>
+
+
+          <!-- Dropdown de solicitudes -->
+          <div id="solicitudes_dropdown" class="apsy-process-dropdown">
+
+              <div class="apsy-process-dropdown-header">
+                  <span>Solicitudes</span>
+
+                  <button type="button" id="crear_solicitud">
+                      <i class="mdi mdi-plus"></i>
+                      Nueva solicitud
+                  </button>
+              </div>
+
+
+              <div class="apsy-process-columns">
+
+                  <!-- MIS SOLICITUDES -->
+                  <div class="apsy-process-column">
+
+                      <div class="apsy-process-column-title">
+                          <i class="mdi mdi-file-document-outline"></i>
+                          <span>Mis solicitudes</span>
+                      </div>
+
+                      <div class="apsy-process-list" id="mis_solicitudes"></div>
+
+                  </div>
+
+
+                  <!-- SOLICITUDES PENDIENTES -->
+                  <div class="apsy-process-column">
+
+                      <div class="apsy-process-column-title">
+                          <i class="mdi mdi-account-clock-outline"></i>
+                          <span>Pendientes de Realizar</span>
+
+                          <span
+                              class="apsy-process-column-badge"
+                              id="solicitudes_pendientes_badge">
+                              0
+                          </span>
+                      </div>
+
+                      <div class="apsy-process-list" id="solicitudes_pendientes"></div>
+
+                  </div>
+
+              </div> 
+
+            </div>
+
+        </div>
+
+        <div class="apsy-user dropdown-button"
+             data-activates="user_menu">
+
+            <i class="mdi mdi-account-circle"></i>
+
+            <div>
+                <div class="apsy-user-name">
+                    {$smarty.session.NOM}
+                </div>
+
+                <div class="apsy-company">
+                    {$smarty.session.EMPRESA}
+                </div>
+            </div>
+
+            <i class="mdi mdi-menu-down"></i>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="apsy-process-detail">
+
+    <div class="apsy-process-detail-header">
+
+        <div class="apsy-process-detail-title">
+            Flujo de solicitud
+        </div>
+
+        <button
+            class="apsy-process-detail-close"
+            id="apsy-process-detail-close">
+
+            <i class="mdi mdi-close"></i>
+
+        </button>
+
+    </div>
+
+    <div
+        class="apsy-process-detail-body"
+        id="apsy-process-detail-body">
+    </div>
+
+</div>
+
+<div class="apsy-sidebar hide" id="sidebar">
+
+    <div class="apsy-toggle tooltipped" id="toggle_sidebar" data-tooltip="Menú" data-position="top">
+        <i class="mdi mdi-menu"></i>
+    </div>
+
+    <a href="dashboard">
+        <i class="mdi mdi-view-dashboard"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="bmi">
+        <i class="mdi mdi-chart-bubble"></i>
+        <span>Administración</span>
+    </a>
+
+    <a href="facturacion?tf=1">
+        <i class="mdi mdi-cash-multiple"></i>
+        <span>Facturación</span>
+    </a>
+
+    <a href="clientes">
+        <i class="mdi mdi-account-group"></i>
+        <span>Clientes</span>
+    </a>
+
+    <a href="productos">
+        <i class="mdi mdi-package-variant"></i>
+        <span>Productos</span>
+    </a>
+
+    <a href="reportes">
+        <i class="mdi mdi-chart-line"></i>
+        <span>Reportes</span>
+    </a>
+
+    <a href="rrhh">
+        <i class="mdi mdi-account-tie"></i>
+        <span>RRHH</span>
+    </a>
+
+    <a href="ajustes">
+        <i class="mdi mdi-cog"></i>
+        <span>Configuración</span>
+    </a>
+
+</div>
+
+
+<div class="apsy-content">
+
+    <!-- CONTENIDO ACTUAL -->
+
+</div>
+
+<div id="modal_nueva_solicitud" class="modal apsy-modal-solicitud">
+
+    <div class="modal-content">
+
+        <div class="apsy-modal-header">
+
+            <div>
+                <h5>Nueva solicitud</h5>
+
+                <span>
+                    Seleccione el tipo de solicitud y agregue un comentario.
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="apsy-modal-body">
+
+            <!-- Tipo de solicitud -->
+            <div class="input-field">
+
+                <select id="solicitud_idtipo">
+                </select>
+
+                <label for="solicitud_idtipo">
+                    Tipo de solicitud
+                </label>
+
+            </div>
+
+
+            <!-- Comentario -->
+            <div class="input-field">
+
+                <textarea
+                    id="solicitud_comentario"
+                    class="materialize-textarea"
+                    maxlength="200"></textarea>
+
+                <label for="solicitud_comentario">
+                    Comentario
+                </label>
+
+                <span class="character-counter"></span>
+
+            </div>
+
+        </div>
+
+
+        <div class="apsy-modal-footer">
+
+            <button
+                type="button"
+                class="btn-flat modal-close">
+
+                Cancelar
+
+            </button>
+
+            <button
+                type="button"
+                class="btn waves-effect"
+                id="guardar_solicitud">
+
+                <i class="mdi mdi-send"></i>
+                Crear solicitud
+
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
 <div class="fixed-action-btn horizontal hide">
@@ -38,19 +283,20 @@
     <div class="userView">
       <div class="background"><!-- CSS --></div>
         <div class="col s12 center">
-         <p class="white-text" style="margin: 0px;font-size: 12px;max-width: 100%;word-break: break-all;white-space: normal;overflow-x: auto;max-height: 55px;overflow-y: hidden;">{$smarty.session.NOM}</p>
+         <p class="white-text" style="margin: 0px;font-size: 12px;max-width: 100%;word-break: break-all;white-space: normal;overflow-x: auto;max-height: 55px;overflow-y: hidden;" id="_user_name">{$smarty.session.NOM}</p>
          <ul class="collapsible collapsible-accordion">
           <li>
             <a class="collapsible-header white-text"><i class="mdi mdi-menu-down white-text"></i>Opciones</i></a>
             <div class="collapsible-body" style="z-index: 100; position: absolute; width: 94%;">
               <ul class="head2">
-                <li><a href="#!" value="2" class="otpmenu white-text hide" id="x2">Notificaciones</a></li>
-                <li class="per7100"><a href="usuarios" class="white-text {if $smarty.session.BUSS eq 0} hide {/if}"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true"></i> Usuario</a></li>
-                <li><a href="#!" value="5" class="otpmenu white-text" id="x5"><i class="mdi mdi-repeat mdi-24px right white-text" aria-hidden="true"></i>Flujo de Efectivo</a></li>
-                <li class="per7300"><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
-                <li class="per7200"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-cog mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
+                <li class="hide"><a href="#!" value="2" class="otpmenu white-text" id="x2">Notificaciones</a></li>
+                <li class="hide per100"><a href="usuarios" class="white-text"><i class="mdi mdi-account mdi-24px right white-text" aria-hidden="true"></i> Usuario</a></li>
+                <li class="hide per101"><a href="../bancos" value="6" class="otpmenu white-text" id="x6"><i class="mdi mdi-bank mdi-24px right white-text" aria-hidden="true"></i>Bancos</a></li>
+                <li class="hide per102"><a href="../calc" value="6" class="otpmenu white-text" id="x6"><i class="mdi mdi-calculator mdi-24px right white-text" aria-hidden="true"></i>Calculadora</a></li>
+                <li class="hide per103"><a href="#!" value="5" class="otpmenu white-text" id="x5"><i class="mdi mdi-repeat mdi-24px right white-text" aria-hidden="true"></i>Flujo de Efectivo</a></li>
+                <li class="hide per104"><a href="#!" value="3" class="otpmenu white-text" id="x3"><i class="mdi mdi-cash mdi-24px right white-text" aria-hidden="true"></i>Cierre de Caja</a></li>
+                <li class="hide per105"><a href="ajustes" class="otpmenu white-text"><i class="mdi mdi-cog mdi-24px right white-text" aria-hidden="true"></i>Ajustes</a></li>
                 <li><a href="#!" value="4" class="otpmenu white-text" id="x4"><i class="mdi mdi-information mdi-24px right white-text" aria-hidden="true"></i>Info Sistema</a></li>
-
               </ul>
             </div>
           </li>
@@ -67,141 +313,64 @@
     </div>
   </div>
 
-  <div class="options">
-  {php}
-    $muser = $_SESSION['BUSS'];
-    switch($muser){
-    case 0:
-  {/php}
+  <div class="options" tyle="overflow-y:hidden !important">
 
-    <li class="per1 gtext"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
-    <li class="per8 hide gtext"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
-    <li class="per9 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
-    <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
-    <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
-    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
-    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
-    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
-    <li class="per13 gtext hide"><a href="rrhh
-      "><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de RRHH</span></a></li>
-    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
-    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-{php} break; case 3: {/php}
-  <li class="per14 hide"><a href="bmi"><i class="mdi mdi-chart-bubble right gtext" aria-hidden="true"; style="font-size: 2em !important "></i><span style="font-size: 1.2em !important">Administración</span></a></li>
-  <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
-  <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
+  <li class="per27 hide"><a href="bmi"><i class="mdi mdi-chart-bubble right gtext" aria-hidden="true"; style="font-size: 2em !important "></i><span style="font-size: 1.2em !important">Administración</span></a></li>
+  
+  <li class="hide per26"><a href="contabilidad"><i class="mdi mdi-rename-box mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Contabilidad</span></a></li>
+
+  <li class="hide per25"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
+
+  <li class="hide per24"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
+
+  <li class="hide per23"><a href="medicina"><i class="mdi mdi-hospital-marker right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Salud</span></a></li>
+
+  <li class="hide per22"><a href="parquimetro"><i class="mdi mdi-car-brake-parking right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Parquímetro</span></a></li>
+
+  <li class="hide per21"><a href="rrhh"><i class="mdi mdi-human-greeting right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">RRHH</span></a></li>
+
   <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
+      <a class="collapsible-header dropdown-button hide per1" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
       <ul id='dropfact' class='dropdown-content'>
-        <li class="per1100"><a href="facturacion?tf=1">Ventas</a></li>
-        <li class="per1600"><a href="facturacion?tf=4">Proformas</a></li>
-        <li class="per2100"><a href="facturacion?tf=2">Compras</a></li>
-        <li class="per2200"><a href="facturacion?tf=3">Orden de Compra</a></li>
-        <li class="per1700"><a href="facturacion?tf=10">Exportaciones</a></li>
+        <li class="hide per2"><a href="facturacion?tf=1">Ventas</a></li>
+        <li class="hide per3"><a href="facturacion?tf=4">Proformas</a></li>
+        <li class="hide per4"><a href="facturacion?tf=2">Compras</a></li>
+        <li class="hide per5"><a href="facturacion?tf=3">Orden de Compra</a></li>
+        <li class="hide per6"><a href="facturacion?tf=10">Exportaciones</a></li>
+        <li class="hide per7"><a href="ahorros">  </a></li>
         <li class="divider"></li>
-        <li><a href="facturacion?accion=8&tf=1">Ver Facturas</a></li>
+        <li class="hide per8"><a href="facturacion?accion=8&tf=1">Ver Facturas</a></li>
+        <li class="hide per9"><a id="rastreo">Rastrear Factura</a></li>
       </ul>
 
     </li>
-    <li class="gtext">
+    <li class="gtext hide per10">
       <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a>
       <ul id='dropfact_0' class='dropdown-content'>
-        <li class="per1000"><a href="clientes?is=0">Mantenimiento</a></li>
-        <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
+        <li class="hide per10"><a href="clientes?is=0">Mantenimiento</a></li>
+        <li class="hide per11"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
       </ul>
 
     </li>
-    <li class="gtext">
-      <a class="collapsible-header dropdown-button per2000" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Proveedores</span></a>
+    <li class="gtext hide per12">
+      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_1'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Proveedores</span></a>
       <ul id='dropfact_1' class='dropdown-content'>
-        <li class="per2000"><a href="clientes?is=1">Mantenimiento</a></li>
-        <li class="per3300"><a href="cuentas?tf=2">Cuentas por Pagar</a></li>
+        <li class="hide per12"><a href="clientes?is=1">Mantenimiento</a></li>
+        <li class="hide per13"><a href="cuentas?tf=2">Cuentas por Pagar</a></li>
       </ul>
 
     </li>
-    <li class="gtext per4100"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
-    <li class="gtext per3400"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
-    <li class="gtext per15"><a href="contabilidad"><i class="mdi mdi-rename-box mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Contabilidad</span></a></li>
-    <li class="gtext per1500"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-    {literal}
-      <script type="text/javascript">
-        window.addEventListener('load', function () {
-          permisos(1100,1100);
-          permisos(1600,1600);
-          permisos(2100,2100);
-          permisos(1000,1000);
-          permisos(3200,3200);
-          permisos(2000,2000);
-          permisos(3300,3300);
-          permisos(4100,4100);
-          permisos(3400,3400);
-          permisos(1500,1500);
-          permisos(6100,6100);
-          permisos(7100,7100);
-          permisos(7200,7200);
-          permisos(7300,7300);
-        }, false);
-      </script>
-      {/literal}
-{php} break; case 1: {/php}
-    <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
-      <ul id='dropfact' class='dropdown-content'>
-        <li><a href="facturacion?tf=1">Ventas</a></li>
-        <li><a href="facturacion?tf=4">Proformas</a></li>
-        <li class="per2200"><a href="facturacion?tf=2">Compras</a></li>
-      </ul>
-    </li>
-    <li class="gtext"><a href="clientes?is=0"><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a></li>
-    <li class="gtext"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos y Servicios</span></a></li>
-    <li class="gtext"><a href="cuentas?tf=1"><i class="mdi mdi-checkbox-multiple-blank-outline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cuentas por Cobrar</span></a></li>
-    <li class="gtext"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
-    <li class="gtext"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-    
-{php} break; case 4: {/php}
-  <li class="per1 gtext"><a href="dashboard" class="black-text"><i class="mdi mdi-home-variant mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Inicio</span></a></li>
-    <li class="per8 hide gtext"><a href="medicina"><i class="mdi mdi-medical-bag right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Medicina</span></a></li>
-    <li class="per9 gtext hide"><a href="laboratorio"><i class="mdi mdi-test-tube right" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Laboratorios</span></a></li>
-    <li class="per10 hide"><a href="taller"><i class="mdi mdi-wrench right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Taller</span></a></li>
-    <li class="per11 hide"><a href="restaurante"><i class="mdi mdi-silverware-variant right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Área Restaurante</span></a></li>
-    <li class="per2 gtext"><a href="comercial"><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true" ></i><span style="font-size: 1.2em !important">Área Comercial</span></a></li>
-    <li class="per3 gtext"><a href="proveedor"><i class="mdi mdi-store mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Operaciones</span></a></li>
-    <li class="per4 gtext"><a href="financiero"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Financiera</span></a></li>
-    <li class="per5 gtext"><a href="inventario"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Inventarios</span></a></li>
-    <li class="per6 gtext hide"><a href="produccion"><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de Producción</span></a></li>
-    <li class="per13 gtext hide"><a href="rrhh
-      "><i class="mdi mdi-quality-high mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área de RRHH</span></a></li>
-    <li class="per7 gtext"><a href="administracion"><i class="mdi mdi-settings mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Área Administrativa</span></a></li>
-    <li class="hide gtext"><a href="reportes"><i class="mdi-google-analythics mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
-{php} break; case 5: {/php}
-  <li class=""><a href="arrendamiento"><i class="mdi mdi-cash-usd right gtext" aria-hidden="true"; style="font-size: 2em !important"></i><span style="font-size: 1.2em !important">Préstamos</span></a></li>
+    <li class="gtext hide per14"><a href="productos"><i class="mdi mdi-basket mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Productos</span></a></li>
+    <li class="gtext hide per15"><a href="productos?raiz=1"><i class="mdi mdi-feather mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Servicios</span></a></li>
 
-    <li class="gtext">
-      <a class="collapsible-header dropdown-button" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact_0'><i class="mdi mdi-account mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Clientes</span></a>
-      <ul id='dropfact_0' class='dropdown-content'>
-        <li class="per1000"><a href="clientes?is=0">Mantenimiento</a></li>
-        <li class="per3200"><a href="cuentas?tf=1">Cuentas por Cobrar</a></li>
-      </ul>
+    <li class="gtext hide per16"><a href="notas"><i class="mdi mdi-credit-card mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Notas de Crédito y Débito</span></a></li>
+    <li class="gtext hide per17"><a href="vistanotaspagos?tf=5"><i class="mdi mdi-credit-card-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Ver Notas</span></a></li>
 
-    </li>
+    <li class="gtext hide per18"><a href="reportes" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
 
-    <li class="gtext"><a href="rutas"><i class="mdi mdi-car-sports mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Rutas</span></a></li>
-    
-    <li class="gtext per1500"><a href="reportes?tr=5" target="_new"><i class="mdi mdi-chart-areaspline mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Reportes</span></a></li>
+    <li class="gtext hide per19"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
 
-    {literal}
-      <script type="text/javascript">
-        window.addEventListener('load', function () {
-          permisos(1500,1500);
-        }, false);
-      </script>
-      {/literal}
-{php} break; defualt: break;} {/php}
-  <li class="gtext per12"><a href="documentos"><i class="mdi mdi-file-document mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Documentos Electrónicos</span></a></li>
-
-  <li class="gtext hide" id="help"><a href="#" class="black-text"><i class="mdi mdi-lifebuoy mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Centro de Ayuda</span></a></li>
+    <li class="gtext hide per20" id="help"><a href="#" class="black-text"><i class="mdi mdi-lifebuoy mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important" >Centro de Ayuda</span></a></li>
   
   <li><a href="logout"><i class="mdi mdi-close mdi-24px right gtext" aria-hidden="true"></i><span style="font-size: 1.2em !important">Cerrar Sesión</span></a></li>
   </div>
@@ -472,6 +641,50 @@
 
 </ul>
 
+<ul id="slide-movprod" class="side-nav" style="width:65%">
+  <div class="row">
+    <div class="col s12 center">
+      <i class="mdi mdi-arrow-left salir-slide" slide-n="slide-movprod" style="float: left;"></i>
+      <span><b>Movimiento de Producto</b></span> <br>
+      <small id="movprod_name"></small>
+      <hr>
+      <br>
+    </div>
+
+    <div class="row s12">
+      <div class="col s4 input-field">
+        <input type="text" value="0" class="eder" id="movprod_cnt">
+        <label for="movprod_cnt">Unidades</label>
+      </div>
+
+      <div class="col s4 input-field hide">
+        <input type="text" value="0" class="eder" id="movprod_cnt_mts">
+        <label for="movprod_cnt_mts">Metros</label>
+      </div>
+      
+      <div class="col s4">
+        <a class="btn" id="movprod_update" vid="0" razon="1">Actualizar inventario</a>
+      </div>
+    </div>
+
+    <div class="col s12">
+      <table class="tbl bordered striped">
+        <thead>
+          <tr>
+            <th>Movimiento</th>
+            <th>Fecha</th>
+            <th>Usuario</th>
+            <th>Inicial</th>
+            <th>Cantidad</th>
+            <th>Final</th>
+          </tr>
+        </thead>
+        <tbody id="movprod_bdy"></tbody>
+      </table>
+    </div>
+  </div>
+</ul>
+
 <ul id="extra" class="side-nav side-nav-conta1" >
   <i class="mdi mdi-refresh mdi-spin loader" style="font-size:65px;margin-left: 50%;"></i>
   <iframe src="" id="extra-i" style="width: 100%;height: 100vh;" class="hide"></iframe>
@@ -508,33 +721,143 @@
   </div>
 </ul>
 
-<div id="modal-usuario" class="modal modal-fixed-footer mymodal">
+<div id="modal-rastreo" class="modal modal-fixed-footer grandemodal">
   <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
-    <h4 class="center">Autenticar Usuario</h4>
-   
-    <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="password" id="ecouser" autocomplete="new-password" maxlength="64" autosave="off">
-        <label for="ecouser">Código</label>
-    </div>
+    <h4 class="center">Rastreo de Factura</h4>
+    <hr>
 
+    <section id="r_pone">
+      <div class="center">
+        <input type="radio" name="rastreo" id="rfct" vid="1" checked>
+        <label for="rfct">Factura</label>
+
+        <input type="radio" name="rastreo" id="rtkt" vid="7">
+        <label for="rtkt">Tiquete</label>
+
+        <input type="radio" name="rastreo" id="rspc" vid="8">
+        <label for="rspc">Especial</label>
+
+        <input type="radio" name="rastreo" id="rcmp" vid="2">
+        <label for="rcmp">Compra</label>
+
+        <input type="radio" name="rastreo" id="rocm" vid="3">
+        <label for="rocm">Orden Compra</label>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col s8 input-field">
+          <input type="text" id="r_cons" style="text-align: center;" autocomplete="off">
+          <label for="r_cons" class="active">Consecutivo</label>
+        </div>
+        <div class="col s4" id="rastreo-estados" style="display: flex;flex-direction: column;">
+
+          <div style="display: flex;align-items: center;margin-bottom: 5px;">
+            <input type="checkbox" id="estado1">
+            <label for="estado1"></label>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section id="r_ptwo">
+    </section>
+   
   </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="accecouser">Aceptar</a>
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="exitcouser">Salir</a>
+  <div class="modal-footer" id="info-not">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat modal-close">Salir</a>
   </div>
 </div>
 
-<div id="modal-display-not" class="modal modal-fixed-footer mymodal">
+<div id="modal-referencias" class="modal modal-fixed-footer">
   <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
-    <h4 class="center">Autenticar Usuario</h4>
-   
-    <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="password" id="ecousera" autocomplete="new-password" maxlength="64" autosave="off">
-        <label for="ecousera">Código</label>
+    <h4 class="center" id="ref_prodname"></h4>
+    <h6 class="center">Referencia de Precios</h6>
+    <div class="row">
+      <div class="col s6 input-field">
+        <input type="text" class="fastClient" bisprov="1" idelem="1" id="ref_search" autocomplete="off">
+        <label for="ref_search">Buscar Proveedor</label>
+      </div>
+
+      <div class="col s4 input-field">
+        <input type="text" id="ref_precio" value="0.00" class="numeric eder">
+        <label for="ref_precio">Precio</label>
+      </div> 
+
+      <div class="col s2">
+        <a class="btn-floating" title="Agregar Referencia" id="agRef"> <i class="mdi mdi-plus "></i> </a>
+      </div>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <td>Proveedor</td>
+          <td>Costo</td>
+          <td>Fecha</td>
+          <td>Usuario</td>
+          <td>OC</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody id="listaref">
+        
+      </tbody> 
+    </table>
 
   </div>
   <div class="modal-footer">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="ref_ing">Aceptar</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
+
+<div id="modal-rastreo" class="modal modal-fixed-footer">
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
+    <h4 class="center">Rastreo de Factura</h4>
+    <hr>
+
+    <section id="r_pone">
+      <div class="center">
+        <input type="radio" name="rastreo" id="rfct" vid="1" checked>
+        <label for="rfct">Factura</label>
+
+        <input type="radio" name="rastreo" id="rtkt" vid="7">
+        <label for="rtkt">Tiquete</label>
+
+        <input type="radio" name="rastreo" id="rspc" vid="8">
+        <label for="rspc">Especial</label>
+
+        <input type="radio" name="rastreo" id="rcmp" vid="2">
+        <label for="rcmp">Compra</label>
+      </div>
+
+      <br>
+
+      <div class="input-field container">
+        <input type="text" id="r_cons" style="text-align: center;" autocomplete="off">
+        <label for="r_cons" class="active">Consecutivo</label>
+      </div>
+    </section>
+
+    <section id="r_ptwo">
+    </section>
+   
+  </div>
+  <div class="modal-footer" id="info-not">
+    <a href="#!" class="modal-action waves-effect waves-green btn-flat modal-close">Salir</a>
+  </div>
+</div>
+
+<div id="modal-display-not" class="modal modal-fixed-footer" style="height: 40%">
+  <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;" id="cuerpo-not">
+    
+
+  </div>
+  <div class="modal-footer" id="info-not">
+    <a href="#!" acc="1" class="modal-action waves-effect waves-blue btn-flat modal-close acc-not blue white-text">Aceptar</a>
+    <a href="#!" acc="2" class="modal-action waves-effect waves-red btn-flat modal-close acc-not red white-text">Denegar</a>
     <a href="#!" class="modal-action waves-effect waves-green btn-flat modal-close">Salir</a>
   </div>
 </div>

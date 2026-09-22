@@ -32,10 +32,28 @@
 	   			// $facturas = $kakaroto->kamehameha('',183,'"'.$_REQUEST['fecha'].'",@@usr');
 	   			$estados = $kakaroto->kamehameha('',185,$_REQUEST['id']);
 	 			
-	 			if(isset($_REQUEST['a4']))
+	 			if(isset($_REQUEST['a4'])){
+	 				if($_REQUEST['id']){
+	 					$datos = $kakaroto->kamehameha('consecutivo,date_format(fecha,"%d-%m-%Y %h:%i:%s %p"),(select nombre from usuarios where id = cierrecajas.idusuario),entradas,salidas,caja_inicial,caja_reportada',314,'id='.$_REQUEST['id'])[0];
+
+   						$detalle = $kakaroto->kamehameha('',370,$_REQUEST['id']);
+	 				}else{
+	 					$tp_usuario = $kakaroto->kamehameha('idtipousuario',1,'id = @@usr')[0][0];
+	 					$fecha=isset($_REQUEST['fecha'])?'"'.$_REQUEST['fecha'].'"':'curdate()';
+	 					$datos = $kakaroto->kamehameha('',372,'@@usr,@@impresa,1,'.$fecha)[0];
+	 					$detalle = $kakaroto->kamehameha('',372,'@@usr,@@impresa,0,'.$fecha);
+	 				}
+   					
+
 	 				require_once 'view/reportes/cierrexusuariog.php';
-	 			else
+   				}
+	 			else{
+	 				$cierreg = $kakaroto->kamehameha('',192,$_REQUEST['id']);
+		   			$cierre = $cierreg[0];
+		   			// $facturas = $kakaroto->kamehameha('',183,'"'.$_REQUEST['fecha'].'",@@usr');
+		   			$estados = $kakaroto->kamehameha('',185,$_REQUEST['id']);
    					require_once 'view/reportes/cierrexusuario.php';
+	 			}
 	   			break;
 	   	}
 		if(!$pagina){

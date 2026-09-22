@@ -15,7 +15,10 @@
 
         $user = $log->autenticar();
         if(sizeof($user) == 2){
-          header("Location: ../dashboard/login");
+           echo json_encode([
+                "ok" => 0,
+                "msg" => $user[0]
+            ]);
         }else if (sizeof($user) == 1)
         {
 
@@ -35,6 +38,32 @@
               $_SESSION['CRR']     = $user[0][8];
               $_SESSION['BUSS']    = $user[0][12] == 2 ? 3 : $user[0][12];
               $_SESSION['EXPR']    = $user[0][13];
+
+              $is_https =
+              (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+              || $_SERVER['SERVER_PORT'] == 443;
+
+              setcookie(
+                  "apsy_token",
+                  $user[0][15],
+                  time() + 3600,
+                  "/; samesite=Lax",
+                  "",
+                  $is_https,
+                  true
+              );
+
+              setcookie(
+                  "apsy_refresh",
+                  $user[0][16],
+                  time() + 86400,
+                  "/; samesite=Lax",
+                  "",
+                  $is_https,
+                  true
+              );
+
+
               $mod = 'facturacion';
 
               switch ($user[0][12]) {
@@ -62,13 +91,20 @@
                 case 5:
                   $mod = 'arrendamiento';
                   break;
+                case 7:
+                  $mod = 'cuentas?tf=2';
+                  break;
                 default:
                   $mod = 'facturacion';
                   break;
               }
               $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               
-              header("Location: ../dashboard/$vdir");
+              //header("Location: ../dashboard/$vdir");
+              echo json_encode([
+                  "ok" => 1,
+                  "redirect" => "../dashboard/$vdir"
+              ]);
            }
       }else{
         $mod = 'facturacion';
@@ -331,6 +367,11 @@
         indicadores($log);
 
         break;
+      case 20:
+        $pagina = 1;
+        echo $_REQUEST['arreglo']['file'];
+        unlink($_REQUEST['arreglo']['file']);
+        break;
       default:
         break;
 
@@ -352,7 +393,7 @@
         
         if (is_array($transaccion)){
           $marcas = $transaccion;
-          if ($tabla == 234) {
+          /*if ($tabla == 234) {
             $ahora = new DateTime('now');
             $reserved = $_SESSION['tuser'];
 
@@ -362,7 +403,7 @@
             }else
               $succed = 1;
             
-          }else
+          }else*/
             $succed = 1;
         }else{
           $marcas = array('ERROR'=>$transaccion);
@@ -541,6 +582,7 @@
      }  
 
     function getCompras($url,$ced,$isp,&$log){
+      
       $curl = curl_init($url);
       curl_setopt($curl, CURLOPT_HEADER, true);
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -568,7 +610,7 @@
 
       curl_close($curl);
       $json_response = json_decode($json_response);
-
+		
       if (isset($json_response->rs)) {
 
           foreach ($json_response->rs as $obj) {
@@ -587,7 +629,7 @@
 
               if (!sizeof($compra)) {
                 echo "FACTURA<br>";
-                 print_r($log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$idproveedor.'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'"'));
+                 print_r($log->genkidama(1,262,'','null,"'.$obj[1].'","'.$obj[2].'","'.$obj[3].'","'.$obj[4].'","'.$idproveedor.'","'.$obj[6].'","'.$obj[49].'","'.$obj[8].'","'.$obj[9].'","'.$obj[10].'","'.$obj[11].'","'.$obj[12].'","'.$obj[13].'","'.$obj[14].'","'.$obj[15].'","'.$obj[16].'","'.$obj[17].'","'.$obj[18].'","'.$obj[19].'","'.$obj[48].'","'.$obj[21].'","'.$obj[22].'","'.$obj[23].'","'.$obj[24].'","'.$obj[25].'","'.$obj[26].'","'.$obj[27].'","'.$obj[54].'"'));
                  $compra = $log->kamehameha('id',262,'referencia = "'.$obj[16].'"')[0][0];
               }else{
                   $compra = $compra[0][0];

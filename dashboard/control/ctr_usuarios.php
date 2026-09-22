@@ -31,13 +31,16 @@ if (!isset($_REQUEST['accion'])) {
 			}
 			else if ($_REQUEST['arreglo'] == 2) 
 				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1 and FIND_IN_SET(@@impresa,idsucursal)");
-			else{ 
+			else if ($_REQUEST['arreglo'] == 3){ 
 				$usr = $kakaroto->kamehameha('id,Nombre',1,"id > 1 and FIND_IN_SET(@@impresa,idsucursal)");
 				$acc = $kakaroto->kamehameha('id,nombre',305,"");
 				$log = $kakaroto->kamehameha('',304,$_REQUEST['arreglo']['where']);
 				if($_REQUEST['arreglo']['id'] == 2)
 					$tbl = 1;
 				$_REQUEST['arreglo'] = 3;
+			}
+			else{
+				$workflow = 'true';
 			}
 			if($_REQUEST['arreglo'] != 3) 
 				$tusr = $kakaroto->kamehameha('id,nombre',27,'id > 0 and id  <> 2');

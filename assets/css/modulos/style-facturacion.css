@@ -30,6 +30,11 @@
   background: #F58345;
   color: #fff; }
 
+#detalle .card-header a{
+  margin-left: 2%;
+  color: white;
+}
+
 .btn2:hover {
   background: #c94e0b !important; }
 

@@ -1,9 +1,9 @@
 $(function(){
 
-    if (!$(".per2000").length)
+    if (!$(".per12").length)
         $(".basic").addClass('hide')
 
-    if ($(".per15.hide").length || !$(".per15").length)
+    if ($(".per26.hide").length || !$(".per26").length)
         $("#conta").parent().addClass('hide')
 
 	$(".report").click(function(){

@@ -34,7 +34,6 @@
 			if (isset($rs->num_rows)) {
 				return $rs->fetch_all();
 			}else{
-
 				return $rs;	//." ".$this->sql;
 			}
 		}
@@ -91,6 +90,12 @@
 				$args2 = str_replace('@@impresa', $impresa, $args2);
 			}
 
+			if (strpos($args2,'@null'))
+				$args2 = str_replace('"@@null"', 'null', $args2);
+
+			if (strpos($args2,'@now'))
+				$args2 = str_replace('"@@now"', 'now()', $args2);
+
 			if (strpos($arg1,'@impresa')) {
 				$impresa = $_SESSION['IMPRESA'];
 				$arg1 = str_replace('@@impresa', $impresa, $arg1);
@@ -100,6 +105,12 @@
 				$usr = str_replace("\0","",base64_decode($_SESSION['USR']));
 				$arg1 = str_replace('@@usr', $usr, $arg1);
 			}
+
+			if (strpos($args1,'@null'))
+				$args1 = str_replace('"@@null"', 'null', $args1);
+
+			if (strpos($args1,'@now'))
+				$args1 = str_replace('"@@now"', 'now()', $args1);
 
 			$args2 = addslashes($args2);
 
@@ -183,7 +194,10 @@
 			$rs = $this->db->ejecutar("call krattos('$sel',$tabl,'$wher')");
 			
 			if (isset($rs->num_rows)) {
-				return $rs->fetch_all();
+				if(!isset($_REQUEST['assoc']))
+					return $rs->fetch_all();
+				else
+					return $rs->fetch_all(MYSQLI_ASSOC);
 			}else{
 				return $rs;//." call krattos('$sel',$tabl,'$wher')";
 			}

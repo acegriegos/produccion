@@ -30,6 +30,25 @@ $(function(){
 			$(this).blur()
 	});
 
+	$("#_saf").click(function(){
+		if($("#fact").val().trim() == ''){
+			Materialize.toast('Factura Requerida',4000,'red')
+			return false;
+		}
+		let saldos = getDatos('lpad(consecutivo,10,0),referencia as favor,if(comodin<>"",comodin,ifnull((select nombre from clientes where id = facturas.idcliente),"")) as cliente',64,'ididtipoventa in(1,7,10,8) and referencia <> "" and idtipo in(1,2)');
+		if(saldos[0].length){
+			let lista = '';
+			$.each(saldos[0],function(i,e){
+				lista += '<div class="col s12"> '+e[0]+' </div>';
+			})
+		}
+		$("#modal-saldo").modal('open')
+	})
+
+	$("#prevista").click(function(){
+		window.open('dashboard/cierres?accion=1&a4&id=0&tp=1');
+	})
+
 	$("#fact").blur(function(){
 		var valor = $(this).val();
 		valor = isNaN(valor) ? 0 : valor;
@@ -43,11 +62,20 @@ $(function(){
 			$("#choose").parent().remove()
 		}
 
-		var tot = getDatos('truncate(subtotal+imv+exonerado+exento-descuento,2),id,idtipo,datediff(curdate(),fecha),date_format(fecha,"%d-%m-%Y")',64,'consecutivo = "'+$(this).val()+'" and idtipoventa = '+$("[name=tp]:checked").val());
+		var tot = getDatos('truncate(subtotal+imv+exonerado+exento-descuento,2)-ifnull((select sum(if(idpago=1,pagacon-vuelto,total)) from pagosmixtos where idfactura = facturas.id and anulada is null),0)-ifnull((select sum(if(idtipo = 6,-1,1)*valor) from estadoscuentas where idtipo in(3,7,5,10,6) and idfactura = facturas.id and idestado = 1),0),id,idtipo,datediff(curdate(),fecha),date_format(fecha,"%d-%m-%Y")',64,'consecutivo = "'+$(this).val()+'" and idtipoventa = '+$("[name=tp]:checked").val());
+
+		console.log(tot)
 
 		if(tot[0].length == '0'){
 			Materialize.toast($("[for=tp"+$("[name=tp]:checked").val()+"]").html()+' no Existente',4000,'red')
 			$(this).focus().select()
+			return false;
+		}
+
+		if(parseFloat(tot[0][0][0]) <= 5){
+			Materialize.toast('Factura Cancelada',4000,'red')
+			$("#fact").val('')
+			$("#fact").focus();
 			return false;
 		}
 
@@ -57,10 +85,10 @@ $(function(){
 		}
 
 		if(tot[0][0][2] != 1){
-			 var $toastContent = $('<span id="choose" tot="'+tot[0][0][0]+'" pcn="'+tot[0][0][1]+'">'+$("[for=tp"+$("[name=tp]:checked").val()+"]").html()+' de Crédito desea Continuar?</span>').add($('<button class="btn-flat toast-action" id="cs">SI</button> <button class="btn-flat toast-action" id="cn">NO</button>'));
-  			Materialize.toast($toastContent)
-
-  			$("#choose").parent().css('background-color','green')
+  			Materialize.toast('Factura no es de Contado',4000,'red')
+  			$(this).parent().remove();
+			$("#fact").val('')
+			$("#fact").focus();
 		}else{
 			$("#vuelto_tot").html(parseFloat(tot[0][0][0]).formatMoney(2,'.',','));
 			$("#vuelto_pcon").focus().select();
@@ -148,6 +176,7 @@ $(function(){
 		var tot = $(this).val().replace(/,/g,'');
 		tot = isNaN(tot) ? 0 : tot;
 		tot = parseInt(tot)
+
 		if(!tot){
 			$("#_tar").val($("#vuelto_tot").html()).focus().select();
 			return false;
@@ -155,16 +184,18 @@ $(function(){
 		$(this).val(parseFloat(tot).formatMoney(2,'.',',') )
 
 		var pinic = (Math.ceil(parseInt($("#vuelto_tot").html().replace(/,/g,''))/5))*5
+		
+		var vvuelto = parseInt(tot-pinic);
+		vvuelto = vvuelto < 0 ? 0 :vvuelto
+		$("#vuelto_").html( (vvuelto).formatMoney(2,'.',',') )
 		if(pinic > tot){
 			$("#_tar").val(parseFloat(pinic-tot).formatMoney(2,'.',',')).focus().select();
 			return false;
 		}
-		var vvuelto = parseInt(tot-pinic);
-		$("#vuelto_").html( (vvuelto).formatMoney(2,'.',',') )
 		$("#_tar").val('0.00');
 
-		$("#_dep").val('0.00');
-		$("#proc_cierre").click();
+		
+		$("#proc_cierre").focus();
 	});
 });
 
@@ -172,26 +203,34 @@ $("#_tar").blur(function(){
 	var tot = $(this).val().replace(/,/g,'');
 	tot = isNaN(tot) ? 0 : tot;
 	tot = parseInt(tot);
-	var pinic = (Math.ceil(parseInt($("#vuelto_tot").html().replace(/,/g,''))/5))*5
+	var pinic = parseInt($("#vuelto_").html().replace(/,/g,''))
 	var efect = parseInt($("#vuelto_pcon").val().replace(/,/g,''))
 	var _tot = pinic-efect-tot;
+	
+	/*if(pinic > 0 && ){
+		let vuelto = pinic-tot
+		$("#vuelto_").html(vuelto.formatMoney(2,'.',','));
+	}*/
+
 	if(_tot > 0){
-		$("#_dep").val(_tot.formatMoney(2,'.',',')).focus().select()
-		$(this).val(tot.formatMoney(2,'.',','))
-		return false;
+		if($("#_cheq:visible").length){
+			$("#_cheq").val(_tot.formatMoney(2,'.',',')).focus().select()
+			$(this).val(tot.formatMoney(2,'.',','))
+			return false;
+		}
 	}
-	$("#proc_cierre").click()
+	$("#proc_cierre").focus()
 });
 
-	$("#_dep").keyup(function(e){
+	$("#_cheq").keyup(function(e){
 		var code = e.keyCode || e.wich
 		if(code == 13){
 			$(this).blur()
 		}
 	});
 
-	$("#_dep").blur(function(){
-		$("#proc_cierre").click()
+	$("#_cheq").blur(function(){
+		$("#proc_cierre").focus()
 	})
 
 $(document).on("click","#btnPagar",function(){
@@ -264,7 +303,7 @@ $(document).on("click","#btnPagar",function(){
 	$("#idtipopagopagar").val(0).material_select('update');
 
 	var tp = $("#p_vm").is(":checked") == true ? 1 : 2;
-	window.open('dashboard/cuentas?accion=5&id='+idestadocuenta[0][0][1]+'&tn='+$(".add[modulo=estadoscuenta]").attr('tipo')+'&tp='+tp);
+	window.open('dashboard/cuentas?accion=5&id='+idestadocuenta[0][0][1]+'&tipo=1&tp='+tp);
 	
 });
 
@@ -273,13 +312,13 @@ $("#do_cierre").click(function(){
 });
 
 $(document).on("click","#docierre",function(){
-	var idcierre = arr('login',4,'',189,'@@usr,@@impresa,0,"","1",0,""',0,0,0)
+	var idcierre = arr('login',4,'',189,'@@usr,@@impresa,0,"","1",0',0,0,0)
 	idcierre = idcierre[0][0][0];
 	$(".cancel").parent().remove();
 
 	if(parseInt(idcierre)){
 		var postcierre = getDatos();
-		window.open('dashboard/cierres?accion=1&a4=1&id='+idcierre);
+		window.open('dashboard/cierres?accion=1&a4=1&tp=1&id='+idcierre);
 		location.reload();
 	}else{
 		Materialize.toast('Error Generando el Cierre',4000,'red')
@@ -290,10 +329,35 @@ $(document).on("click",".cancel",function(){
     $(".cancel").parent().remove()
 });
 
+$(document).on("click",".dopendiente",function(){
+    $(this).parent().parent().hide()
+    var tot = parseInt($("#vuelto_pcon").val().replace(/,/g,''));
+    var tar = parseFloat($("#_tar").val().replace(/,/g,''));
+    var che = parseFloat($("#_cheq").val().replace(/,/g,''));
+    var factura = $("#vuelto_pcon").attr('idfactura');
+
+    if(tot > 0){
+        insertar(336,'','null,'+factura+',1,"",0,'+tot+','+$("#vuelto_").html().replace(/,/g,'')+',now(),0,null,@@usr,@@impresa,0,null,0')
+	}
+
+	if(tar > 0)
+    	insertar(336,'','null,'+factura+',2,"",'+tar+',0,0,now(),0,null,@@usr,@@impresa,0,null,0')
+
+    if(che > 0)
+    	insertar(336,'','null,'+factura+',4,"",'+che+',0,0,now(),0,null,@@usr,@@impresa,0,null,0')
+
+    actualizar(64,'idestado=3,idtipopago=5','id='+factura);
+
+    setTimeout(function () {
+		endProcesss()
+	}, 1000);
+
+});
+
 $("#proc_cierre").click(function(){
-	var tot = parseInt($("#vuelto_pcon").val().replace(/,/,''));
-	var tar = parseFloat($("#_tar").val().replace(/,/,''));
-	var dep = parseFloat($("#_dep").val().replace(/,/,''));
+	var tot = parseInt($("#vuelto_pcon").val().replace(/,/g,''));
+	var tar = parseFloat($("#_tar").val().replace(/,/g,''));
+	var che = parseFloat($("#_cheq").val().replace(/,/g,''));
 	var rmonto = (Math.ceil(parseInt($("#vuelto_tot").html().replace(/,/g,''))/5))*5;
 	
 	var tipo = 0;
@@ -301,45 +365,43 @@ $("#proc_cierre").click(function(){
 	var factura = $("#vuelto_pcon").attr('idfactura');
 	tipo = tot>0? tipo+1 : tipo;
 	tipo = tar>0? tipo+1 : tipo;
-	tipo = dep>0? tipo+1 : tipo;
+	tipo = che>0? tipo+1 : tipo;
 
-	if(tot+tar+dep < rmonto){
-		Materialize.toast('Valor Debe ser Mayor al Total de Factura',4000,'red')
+	if(tot+tar+che == 0){
+		var iszero = 1;
+		
+		if(iszero)
+			Materialize.toast('Valor Debe ser Mayor a Zero',4000,'red')
+		else{
+			 setTimeout(function () {
+				endProcesss()
+			}, 3000);
+		}
+
+		return false;
+		
+	}
+
+	if(tot+tar+che < rmonto){
+		var $toastContent = $('<span>Valor Inferior</span>').add($('<button class="btn-flat toast-action green white-text dopendiente" tp="1">Proceder</button>'));
+    	Materialize.toast($toastContent, 5000);
+		//Materialize.toast('Valor Debe ser Mayor al Total de Factura',4000,'red')
 		return false;
 	}
 
-	eliminar(336,'idfactura='+factura);
+	idpago = 5;
 
-	if(tipo > 1){
-		idpago = 5;
-
-		if(tot > 0){
-            insertar(336,'','null,'+factura+',1,"",'+tot)
-		}
-
-        if(tar > 0)
-            insertar(336,'','null,'+factura+',2,"",'+tar)
-
-        if(dep > 0)
-            insertar(336,'','null,'+factura+',3,"",'+dep)
-
-	}else{
-		if(tot > 0){
-			getDatos('',349,$("#vuelto_pcon").attr('idfactura')+','+tot+','+$("#vuelto_").html().replace(/,/,''));
-		}
-
-		if(tar > 0){
-			console.log(eliminar(363,'ifactura='+$("#vuelto_pcon").attr('idfactura')))
-			idpago = 2;
-		}
-
-		if(dep > 0){
-			eliminar(363,'ifactura='+$("#vuelto_pcon").attr('idfactura'))
-			idpago = 3;
-		}
+	if(tot > 0){
+        insertar(336,'','null,'+factura+',1,"",0,'+tot+','+$("#vuelto_").html().replace(/,/g,'')+',now(),0,null,@@usr,@@impresa,0,null,0')
 	}
 
-	actualizar(64,'idtipopago='+idpago,'id='+$("#vuelto_pcon").attr('idfactura'));
+    if(tar > 0)
+        insertar(336,'','null,'+factura+',2,"",'+tar+',0,0,now(),0,null,@@usr,@@impresa,0,null,0')
+
+    if(che > 0)
+        insertar(336,'','null,'+factura+',4,"",'+che+',0,0,now(),0,null,@@usr,@@impresa,0,null,0')
+
+	actualizar(64,'idestado=1,idtipopago='+idpago,'id='+factura);
 
 	setTimeout(function () {
 		endProcesss()
@@ -350,12 +412,12 @@ function endProcesss(){
 	cargarLista();
 	$("#fact").val('').focus().select();
 	$("#_tar").val('0.00');
-	$("#_dep").val('0.00');
+	$("#_cheq").val('0.00');
 	$("#vuelto_pcon").val('0.00');
 	$("#vuelto_").html('0.00');
 	$("#vuelto_tot").html('0.00')
 	$("#vuelto_pcon").attr('idfactura',0)
-
+	
 	$("#err_dia").addClass('hide');
 }
 
@@ -373,6 +435,34 @@ $(document).on('click','#cs',function(){
 
 	$(this).parent().remove();
 });
+
+$(document).on("click",".deltrans",function(){
+	if($("#tdel").length){
+		Materialize.Toast.removeAll();
+	}
+	let tipo = $(this).attr('tipo')
+	let id = $(this).attr('vid')
+	let idfact = $(this).attr('idfact')
+	let padre = $(this).parent().parent()
+	var $toastContent = $('<span id="tdel" >Desea Eliminar Este Registro? </span>').add($('<a class="btn red" style="margin:2px" id="delrg" inid="'+id+'" intip="'+tipo+'" idfact="'+idfact+'">Elminar</a> <a class="btn btn-default" id="delc">Cancelar</a>'));
+    Materialize.toast($toastContent,10000,'',function(){padre.css('background-color','white'); });
+	padre.css('background-color','red')
+})
+
+$(document).on("click","#delc",function(){
+	Materialize.Toast.removeAll();
+})
+
+$(document).on("click","#delrg",function(){
+	let id = $(this).attr('inid')
+	//let tipo = $(this).attr('intip')
+	let factura = $(this).attr('idfact')
+	
+	console.log(actualizar(336,'anulada=now(),idusuario_anular=@@usr','id='+id))
+	actualizar(64,'idestado=1','id='+idfact)
+	Materialize.Toast.removeAll();
+	cargarLista()
+})
 
 $(document).on("click",".pagomu",function(){
 		
@@ -417,21 +507,23 @@ $(document).on("click",".factclie",function(){
 
 function cargarLista(){
 	var lista = '';
-	var vstr = vstrs = vtar = vtars = '';
-	var tfact = tsecp = tfact_tar = tspec_tar =  0;
+	var vstr = vstrs = vtar = vtars = vcheq = vscheq = vsf = vssf = '';
+	var tfact = tsecp = tfact_tar = tspec_tar = tcheq = tscheq = tsf = tssf =  0;
 
-	lista = getDatos('',350,'"'+$("#fch").val()+'",@@usr');
+	lista = getDatos('',350,'"'+$("#fch").val()+'",@@usr,0');
+	let delbtn = '';
 
 	for (var i = 0; i < lista[0].length; i++) {
+		delbtn = lista[0][i][9] == '0' ? '' : '<i class="mdi mdi-close red-text deltrans" style="float:right;cursor:pointer" vid="'+lista[0][i][8]+'" tipo="'+lista[0][i][9]+'" idfact="'+lista[0][i][10]+'" title="Eliminar Registro"></i>'
 		
 		if(lista[0][i][5] == '8'){
 			if(lista[0][i][0])
-			vstrs += '<tr> <td colspan="3">'+lista[0][i][0]+'</td> </tr> <tr style="border-bottom: 1px dashed black;"> <td style="text-align: right;">'+lista[0][i][3]+'</td> <td style="text-align: right;">'+lista[0][i][1]+'</td> <td style="text-align: right;">'+lista[0][i][2]+'</td> </tr>';
+			vstrs += '<tr> <td colspan="3">'+lista[0][i][0]+'  '+lista[0][i][7]+' '+delbtn+'</td> </tr> <tr style="border-bottom: 1px dashed black;"> <td style="text-align: right;">'+lista[0][i][3]+'</td> <td style="text-align: right;">'+lista[0][i][1]+'</td> <td style="text-align: right;">'+lista[0][i][2]+'</td> </tr>';
 
 			tsecp += parseInt(lista[0][i][1].replace(/,/g,''))-parseInt(lista[0][i][2].replace(/,/g,''))
 		}
 		else{
-			vstr += '<tr> <td colspan="3">'+lista[0][i][0]+'</td> </tr> <tr style="border-bottom: 1px dashed black;"> <td style="text-align: right;">'+lista[0][i][3]+'</td> <td style="text-align: right;">'+lista[0][i][1]+'</td> <td style="text-align: right;">'+lista[0][i][2]+'</td> </tr>';
+			vstr += '<tr> <td colspan="3">'+lista[0][i][0]+'  '+lista[0][i][7]+' '+delbtn+'</td> </tr> <tr style="border-bottom: 1px dashed black;"> <td style="text-align: right;">'+lista[0][i][3]+'</td> <td style="text-align: right;">'+lista[0][i][1]+'</td> <td style="text-align: right;">'+lista[0][i][2]+' </td> </tr>';
 				
 			tfact += parseInt(lista[0][i][1].replace(/,/g,''))-parseInt(lista[0][i][2].replace(/,/g,''))
 		}
@@ -442,22 +534,63 @@ function cargarLista(){
 	$("#ttot").html(tfact.formatMoney(0,'.',','))
 	$("#stot").html(tsecp.formatMoney(0,'.',','))
 
-	lista = getDatos('concat(case idtipoventa when 1 then "F-" when 7 then "T-" else "S-" end,consecutivo),subtotal+imv+exonerado+exento-descuento,idtipoventa',64,'idtipopago = 2 and date_format(fecha,"%Y-%m-%d") = "'+$("#fch").val()+'"');
+	lista = getDatos('',350,'"'+$("#fch").val()+'",@@usr,1');
 
 	$.each(lista[0],function(v,e){
+
+		delbtn = e[6] == '0' ? '' : '<i class="mdi mdi-close red-text deltrans" style="float:right;cursor:pointer" vid="'+e[5]+'" tipo="'+e[6]+'" title="Eliminar Registro"></i>';
+
 		if(e[2] == '8'){
-			vtars += '<tr> <td>'+e[0]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+'</td> </tr>';
-			tspec_tar += parseFloat(e[1])
+			switch(e[4]){
+				case '2':
+				vtars += '<tr style="border-bottom: 1px dashed black;"> <td>'+e[0]+' '+e[3]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+' '+delbtn+'</td> </tr>';
+				tspec_tar += parseFloat(e[1])
+				break;
+				case '4':
+				vscheq += '<tr style="border-bottom: 1px dashed black;"> <td>'+e[0]+' '+e[3]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+' '+delbtn+'</td> </tr>';
+				tscheq += parseFloat(e[1])
+				break;
+				case '6':
+				vssf += '<tr style="border-bottom: 1px dashed black;"> <td>'+e[0]+' '+e[3]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+' '+delbtn+'</td> </tr>';
+				tssf += parseFloat(e[1])
+				break;
+				default:
+				break;
+			}
+			
 		}else{
-			vtar += '<tr> <td>'+e[0]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+'</td> </tr>';
-			tfact_tar += parseFloat(e[1])
+			switch(e[4]){
+				case '2':
+				vtar += '<tr style="border-bottom: 1px dashed black;"> <td>'+e[0]+' '+e[3]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+' '+delbtn+'</td> </tr>';
+				tfact_tar += parseFloat(e[1])
+				break;
+				case '4':
+				vcheq += '<tr style="border-bottom: 1px dashed black;"> <td>'+e[0]+' '+e[3]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+' '+delbtn+'</td> </tr>';
+				tcheq += parseFloat(e[1])
+				break;
+				case '6':
+				vsf += '<tr style="border-bottom: 1px dashed black;"> <td>'+e[0]+' '+e[3]+'</td> <td style="text-align: right;">'+parseFloat(e[1]).formatMoney(2,'.',',')+' '+delbtn+'</td> </tr>';
+				tsf += parseFloat(e[1])
+				default:
+				break;
+			}
+			
 		}
 	});
 
 	$("#listavueltos_tar").html(vtar)
 	$("#listavueltos_spec_tar").html(vtars)
+	$("#listavueltos_cheq").html(vcheq)
+	$("#listavueltos_spec_cheq").html(vscheq)
+	$("#listavueltos_cre").html(vsf)
+	$("#listavueltos_spec_cre").html(vssf)
+
 	$("#ttot_tar").html(tfact_tar.formatMoney(2,'.',','))
 	$("#stot_tar").html(tspec_tar.formatMoney(2,'.',','))
+	$("#ttot_cheq").html(tcheq.formatMoney(2,'.',','))
+	$("#stot_cheq").html(tscheq.formatMoney(2,'.',','))
+	$("#ttot_cre").html(tsf.formatMoney(2,'.',','))
+	$("#stot_cre").html(tssf.formatMoney(2,'.',','))
 }
 
 

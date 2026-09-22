@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Documentos Electrónicos</title>
    {$STY}
-   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.4.0.3">
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.4.0.3">
+   <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css?v=10.4.1.0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-documentos.css?v=10.4.1.0">
   </head>
   <body>
   <br>
@@ -173,30 +173,47 @@
         </div>
     </div>
 
+    <div id="modal-lookup" class="modal modal-fixed-footer" style="width: 30% !important;" inref="0">
+         <div class="modal-content" style="padding: 3px;padding-bottom: 50px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Compra</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody id="lista_compras"></tbody>
+            </table>
+         </div>
+         <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+        </div>
+    </div>
+
     <div id="modal-irobot" class="modal modal-fixed-footer grandemodal" style="width: 100%">
         <div class="modal-header">
         <div class="card-header center blue-grey white-text z-depth-1">
-            <p class="flow-text marginzero"  style="background-color:#0B3861;" >Cargar Documentos</p>
+            <p class="flow-text marginzero"  style="background-color:#0B3861;">Cargar Documentos</p>
         </div>
         </div>
         <div class="modal-content" style="padding: 3px;padding-bottom: 50px;">
-           
+            <div class="row" style="position: fixed;background-color: white;border-bottom: 1px solid #e2e2e2;width: 100%;">
+                <div class="col s6 input-field">
+                    <input type="text" id="fil_docs">
+                    <label for="fil_docs">Buscar</label>
+                </div> 
+                <div class="col s6">
+                    <input type="checkbox" id="c_facts" checked>
+                    <label for="c_facts">Mostrar Compras</label>
+
+                    <input type="checkbox" id="c_nc" checked>
+                    <label for="c_nc">Mostrar NC</label>
+                </div>
+            </div>
+
             <div class="center iloop hide actin" style="margin-top: 15%"><i class="mdi mdi-spin mdi-refresh mdi-48px green-text"></i></div>
-            <table class="table bordered highlight responsive-table z-depth-3 centered act" id="data-table-compras" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th title="Generar Cuenta por Pagar" class="_cxp">CxP</th>
-                        <th>Proveedor</th>
-                        <th>Fecha</th>
-                        <th>Consecutivo</th>
-                        <th>Total</th>
-                        <th>Tipo</th>
-                        <th>Gasto</th>
-                        <th>IVA</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="bcompras"></tbody>
+            <div id="bcompras" style="margin-top: 5%;"></div>
+                
             </table>
         </div>
         <div class="modal-footer" style="z-index: 5500;">
@@ -228,7 +245,7 @@
         </div>
     </div>
     
-    <script src="../assets/js/dropzone.js?v=10.4.0.3"></script>
-    <script src="../assets/js/modulos/documentos.js?v=10.4.0.3"></script>
+    <script src="../assets/js/dropzone.js?v=10.4.1.0"></script>
+    <script src="../assets/js/modulos/documentos.js?v=10.4.1.0"></script>
   </body>
 </html>

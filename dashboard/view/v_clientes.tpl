@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title class="cghs"> </title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-clientes.css?v=10.4.1.0">
   </head>
   <!-- #0B3861 -->
   <body>
@@ -122,6 +122,15 @@
                           <input type="text" class="validate onblur" id="vweb" autocomplete="off">
                         </div>
 
+                        <div class="input-field col s12 m6 l4 vapellido1">
+                          
+                          <select id="vapellido1" type="select">
+                            <option value="1">Compra</option>
+                            <option value="2">Gasto</option>
+                          </select>
+                          <label for="vapellido1">Tipo Proveedor</label>
+                        </div>
+
                         <div class="input-field col s12 m6 l4 ncliente">
 
                           <select type="select" id="vidmoneda" noClear="1">
@@ -142,7 +151,7 @@
                           <label for="vidagente">Agente</label>
                         </div>
 
-                        <div class="input-field ncliente col s12 m6 l4 {if $smarty.session.BUSS eq 1} hide {/if}">
+                        <div class="input-field ncliente col s12 m6 l4 hide">
                           <select type="select" id="vidnivel">
                             <option value="0">Seleccione una Categoría</option>
                             {section name=LE loop=$NVLCLIE}
@@ -152,7 +161,7 @@
                           <label for="vidnivel">Categoría del Cliente</label>
                         </div>
 
-                        <div class="input-field ncliente col s12 m6 l4 ">
+                        <div class="input-field ncliente col s12 m6 l4 hide">
                           <select type="select" id="videstado">
                             <option value="0">Seleccione un Estado</option>
                             {section name=LE loop=$ESTCLIE}
@@ -167,8 +176,7 @@
                           <label for="vmensaje">Mensaje Adicional</label>
                         </div>
 
-                        <div class="chips chips-autocomplete col s12 hide">
-                        </div>
+                        <div class="chips chips-autocomplete col s12 chips-hassh hide"></div>
 
                       </div>
 
@@ -189,7 +197,7 @@
 
                         <a href="#" data-activates="slide-cliente" class="col s3 m2 ncliente button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar XML Otros" data-position="bottom" num="3"><i class="mdi mdi-xml mdi-24px" style="margin-right: 3px;"></i>XML Otros</a>
 
-                        <a href="#" data-activates="slide-cliente" class="hide col s3 m2 button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar Contactos" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px" style="margin-right: 3px"></i>Contactos</a>
+                        <a href="#" data-activates="slide-cliente" class="col s3 m2 button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar Contactos" data-position="bottom" num="4"><i class="mdi mdi-account-multiple mdi-24px" style="margin-right: 3px"></i>Contactos</a>
 
                         <a href="#" data-activates="slide-cliente" class="hide per1004 col s3 m2 button-collapse tooltipped black-text s-cliente" slide-id="0" style="text-align: left;" data-tooltip="Administrar Servicios" data-position="bottom" num="5"><i class="mdi mdi-account-details mdi-24px" style="margin-right: 3px;"></i>Servicios</a>
 
@@ -197,11 +205,13 @@
                 </div>
           </div>
         </div>
+      </div>
+
       <div class="modal-footer">
         <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
         <button type="button" class="waves-effect waves-green btn-flat add" id="agClie" modulo="cliente" varias="1" >Guardar</button>
       </div>
-    </div>
+   
   </div>
 
     <ul id="slide-cliente" class="side-nav" style="z-index:1500;"><li><div class="user-view center"><span class="ntitc"></span></a></div></li><li><div class="divider"></div></li><li>
@@ -224,10 +234,16 @@
               <label for="vdproforma">Días Validez Proforma</label>
             </div>
            
-            <div class="input-field col s12 ncliente {if $smarty.session.BUSS eq 1} hide {/if}">
+            <div class="input-field col s12 ncliente">
               <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
               <input type="number" class="eder center" id="vdescuentom" value="0" autocomplete="off">
               <label for="vdescuentom">Descuento Máximo</label>
+            </div>
+
+            <div class="col s12 input-field">
+              <div class="prefix"><img src="../assets/img/icon/percent.svg"></div>
+              <label for="vprima">Prima Apartado</label>
+              <input type="text" class="validate eder" id="vprima" autocomplete="off">
             </div>
 
             <div class="input-field col s12 cre hide">
@@ -245,7 +261,7 @@
 
           <div class="subclie row" id="xmlotros">
             <div class="input-field col s6">
-              <input type="text" id="xo-etiqueta">v_pro
+              <input type="text" id="xo-etiqueta">
               <label for="xo-etiqueta">Etiqueta</label>
             </div>
 
@@ -285,19 +301,35 @@
           </div>
 
           <div class="subclie row" id="contactos">
+            <i class="mdi mdi-plus der pbtn" id="addncont" title="Agregar Contacto" ></i> <br>
+
+            <section id="cntlist">
+              <div class="row">
+                <div class="col s12 blue-grey darken-1 white-text">
+                  <span class="myfont">CARLOS ANDRES MIRANDA CASTRO</span> <i class="der red-text mdi mdi-24px mdi-delete"></i> <i class="der mdi mdi-24px mdi-pencil"></i>
+                  <i class="prefix mdi mdi-24px mdi-email"></i>
+                  <label style="color: #F58345 !important;">a.miranda8911@gmail.com</label>
+                  <br>
+                  <i class="prefix mdi mdi-24px mdi-phone"></i>
+                  <label style="color: #F58345 !important;">6105-6852</label>
+                </div>
+              </div>
+            </section>
+
           </div>
 
           <div class="subclie row" id="servicios">
             <i class="mdi mdi-plus der pbtn" id="addnserv" title="Agregar Servicio" ></i> <br>
-            <table cellspacing="0" cellpadding="0" class="tbl striped" style="font-size: 12px">
+            <table cellspacing="0" cellpadding="0" class="tbl striped" style="font-size: 12px;line-height: 15px;">
               <thead>
                 <tr>
                   <th style="padding: 0px;" colspan="100%">Servicio</th>
                 </tr>
                 <tr style="border-bottom: 1px solid black;">
                   <th style="padding: 0px;">Monto</th>
-                  <th style="padding: 0px;">Sig.Pago</th>
                   <th style="padding: 0px;">Tipo</th>
+                  <th style="padding: 0px;">Pago</th>
+                  <th style="padding: 0px;">Corte</th>
                 </tr>
               </thead>
               <tbody id="servlist"></tbody>
@@ -308,6 +340,21 @@
 </section>
 </div>
 </div>
+        
+        <div class="modal modal-fixed-footer grandemodal" id="modal-addcnt" style="z-index: 2000 !important;">
+          <div class="modal-header">
+            <ul class="tabs tabs-fixed-width head3 center">
+              <h5 class="center">Contacto</h5>
+            </ul>
+            </div>
+            <div class="modal-content row" style="margin:0px;">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
+                <button type="button" class="waves-effect waves-green btn-flat" id="addcnt">Guardar</button>
+            </div>
+        </div>
 
         <div class="modal modal-fixed-footer grandemodal" id="modal-addexo" style="z-index: 2000 !important;">
           <div class="modal-header">
@@ -320,9 +367,9 @@
                   <input type="hidden" id="videxoneracion" value="0">
                   <select id="vtipodoc" class="tooltiped" type="select">
                     <option value="0">Tipo de Documento</option>
-                    <option value="-1">Disminución por Ley</option>
+                    <!-- <option value="-1">Disminución por Ley</option> -->
                     {section name=LE loop=$EXOS}
-                    <option value="{$EXOS[LE][0]}" >{$EXOS[LE][1]}</option>
+                    <option value="{$EXOS[LE][0]}">{$EXOS[LE][1]}</option>
                     {/section}
                   </select>
                 </div>
@@ -333,7 +380,7 @@
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="tooltiped" autocomplete="off">
+                  <select type="select" id="ventidad"></select>
                   <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
                 </div>
 
@@ -345,6 +392,16 @@
 
                   <div class="col s6 input-field">
                     <input type="time" id="vtimeDoc" class="tooltiped" step="1">
+                  </div>
+
+                  <div class="col s6 carti input-field">
+                    <input type="number" id="varticulo" maxlength="6" data-position="bottom" data-tooltip="Número de artículo que establece la exoneración o autorización" class="tooltiped eder" value="0" autocomplete="off">
+                    <label for="varticulo">Número de artículo</label>
+                  </div>
+
+                  <div class="col s6 carti input-field">
+                    <input type="number" id="vinciso" maxlength="6" data-position="bottom" data-tooltip="Número de inciso que establece la exoneración o autorización" class="tooltiped eder" value="0" autocomplete="off">
+                    <label for="vinciso">Número de inciso</label>
                   </div>
 
                 <div class="col s6 input-field">
@@ -365,42 +422,66 @@
 
          <div id="modal-addserv" class="modal modal-fixed-footer mymodal" style="z-index: 2000 !important;">
           <div class="modal-header"> <h4 class="center">Servicios</h4>  </div>
-          <div class="modal-content row">
+          <div class="modal-content row" id="f-servicios">
             
             <div class="col s6 input-field">
               <select id="s_list">
                 {section name=LE loop=$SERV}
-                  <option value="{$SERV[LE][0]}" valor="{$SERV[LE][2]}">{$SERV[LE][1]}</option>
+                  <option value="{$SERV[LE][0]}" valor="{$SERV[LE][2]}" moneda="{$SERV[LE][3]}">{$SERV[LE][1]}</option>
                 {/section}
               </select>
               <label for="s_list">Servicio</label>
             </div>
             
-            <div class="col s6 input-field">
+            <div class="col s3 input-field">
+              <select id="s_moneda">
+                {section name=LE loop=$MON}
+                  <option value="{$MON[LE][0]}" dv="{$MON[LE][2]}">{$MON[LE][1]}</option>
+                {/section}
+              </select>
+              <label for="s_moneda">Monto</label>
+            </div>
+
+            <div class="col s3 input-field">
               <input type="text" class="numeric eder" id="s_monto" value="0.00">
               <label for="s_monto">Monto</label>
             </div>
 
+            <div class="col s12 input-field">
+              <input type="date" id="s_fecha" class="datepicker">
+              <label for="s_fecha" class="active">Fecha Inicio de Servicio</label>
+            </div>
+
             <div class="col s6 input-field">
-              <input type="date" id="s_fecha">
-              <label for="s_fecha" class="active">Fecha Servicio</label>
+              <select id="s_pago">{$LISTA_DIAS}</select>
+              <label for="s_pago">Día de Pago</label>
+            </div>
+
+            <div class="col s6 input-field">
+              <select id="s_corte">{$LISTA_DIAS}</select>
+              <label for="s_corte">Día de Corte</label>
             </div>
 
             <div class="col s6 input-field">
               <select id="s_factura">
                 <option value="1">Electrónica</option>
-                <option value="2">Normal</option>
+                <option value="8">Especial</option>
               </select>
               <label for="s_factura">Tipo Factura</label>
             </div>
 
-            <div class="col s6 m3 input-field">
+            <div class="col s6 input-field">
               <select id="s_tipo">
                 {section name=LE loop=$CICLOS}
                   <option value="{$CICLOS[LE][0]}">{$CICLOS[LE][1]}</option>
                 {/section}
               </select>
               <label for="s_tipo">Ciclo</label>
+            </div>
+
+            <div class="col s6">
+              <input type="checkbox" id="este_mes">
+              <label for="este_mes">Cobrar este Mes</label>
             </div>
 
             <div class="col s3 input-field hide s_vf">
@@ -415,6 +496,7 @@
 
           </div>
           <div class="modal-footer" style="padding-bottom: 55px;">
+            <a class="waves-effect waves-blue btn-flat" id="getLegal">Descargar Contrato</a>
             <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="addserv">Aceptar</a>
           </div>
         </div>
@@ -489,26 +571,7 @@
 </div>
 </div>
 
-<div id="modal-servicios" class="modal modal-fixed-footer">
-  <div class="modal-header head3 center" style="font-size: 22px;">Servicios Asignados <span class="cliename"></span></div>
-<div class="modal-content">
-  <i class="mdi mdi-plus mdi-24px btn-floating" style="cursor: pointer;position: absolute;right: 0;text-align: center;" title="Agregar Servicio a Cliente"></i>
-  <table class="table">
-    <thead>
-      <th>Servicio</th>
-      <th>Valor</th>
-      <th>Creacion</th>
-      <th>Siguiente Cobro</th>
-      <th></th>
-    </thead>
-  </table>
-</div>
-<div class="modal-footer ">
-<a class="modal-action modal-close waves-effect waves-red btn-flat z-depth-5" style="margin-right: 2%">Salir</a>
-</div>
-</div>
-
 {$SCR}
-<script src="../assets/js/modulos/clientes.js?v=10.4.0.3"></script>
+<script src="../assets/js/modulos/clientes.js?v=10.4.1.0"></script>
 </body>
 </html>

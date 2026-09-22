@@ -59,8 +59,8 @@ class myPDF extends TCPDF {
             $html .= '<p style="font-size: 12px;"><b>'.$this->m2.'</b></p>';
 
           if ($this->fe != '' and $this->tfactura != 4) {
-           $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
-              <br>Versión API Hacienda: 4.3<br> 
+           $html .= '<p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION MH-DGT-RES-0027-2024 del 13 DE NOVIEMBRE 2024
+              <br>Versión API Hacienda: 4.4<br> 
               <span class="leyfooter" style="font-size: 0.8em;">'.$msj.'</span>';
               
               $html .= '
@@ -76,7 +76,7 @@ class myPDF extends TCPDF {
 
 // create new PDF document
 $pdf = new myPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false,$transaccion[0][32]);
-$pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32],'m1'=>$transaccion[0][57],'m2'=>$transaccion[0][58]]);
+$pdf->setData(['tfactura'=>$datos[0][24],'credito'=>$datos[0][26],'fe'=>$datos[0][32],'m1'=>$transaccion[0][57],'m2'=>$transaccion[0][58],'vmh'=>$datos[0][50]]);
 $pdf->setGen($generator);
 // set document information
 // $pdf->SetCreator(PDF_CREATOR);
@@ -248,7 +248,7 @@ if(strlen($datos[0][33])){
   $time = strtotime($exoneracion[3]);
   $fexo = date('d/m/Y \a \l\a\s H:i:s',$time);
 
-  $exon .= '<span style="font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;"><br>Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',con fecha '.$fexo.'</span><br><br>';
+  $exon .= '<span style="font-size: 12px;text-align:justify;color: #494949;font-family: Helvetica;"><br>Factura exenta del pago del impuestos. Exoneracion emitida por '.$exoneracion[2].' mediante el documento '.$exoneracion[1].',con fecha '.$fexo.'</span>';
 } 
 
 $html .= '<tr> <td width="65%">'.$clave.$fint.$tipo.$cliente.$user.$orden.$comentario.$exon.'</td> <td width="5%"></td> <td width="30%">'.$plazo.'</td> </tr> </table>';
@@ -266,7 +266,7 @@ $html .= '* Línea Exenta<br>'.
 '<td valign="top" style="font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
 '<strong>Código</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="18%">'.
+'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="29%">'.
 '<strong>Descripción</strong>'.
 '</td>'.
 '<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="13%">'.
@@ -275,16 +275,13 @@ $html .= '* Línea Exenta<br>'.
 '<td valign="top" style="<font-size: 12px;text-align: center;color: white;font-family: Helvetica;" align="center" width="6%">'.
 '<strong>Tipo</strong>'.
 '</td>'.
-'<td valign="top" style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="9%">'.
-'<strong>DESC.</strong>'.
-'</td>'.
 '<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="5%">'.
 '<strong>IVA</strong>'.
 '</td>'.
 '<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="5%">'.
 '<strong>EXO</strong>'.
 '</td>'.
-'<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="15%">'.
+'<td valign="top"  style="<font-size: 12px;text-align: center; color: white;font-family: Helvetica;" align="center" width="13%">'.
 '<strong>Importe</strong>'.
 '</td>'.
 '</tr>'.
@@ -312,7 +309,7 @@ $obj[59].
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="9%">'.
 $obj[36].
 '</td>'.
-'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="18%">'.
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="29%">'.
 $obj[19].
 '</td>'.
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="13%">'.
@@ -321,17 +318,14 @@ $obj[20].
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="6%">'.
 $obj[23].
 '</td>'.
-'<td valign="top"  style="color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="9%">'.
-$obj[21].
-'</td>'.
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
 number_format($obj[47],0,'','').
 '</td>'.
 '<td valign="top"  style="color: #494949;font-size: 10px;text-align: center;font-family: Helvetica;" width="5%">'.
 $obj[46].
 '</td>'.
-'<td valign="top"  style="color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="14%">'.
-$obj[22].
+'<td valign="top"  style="color: #494949;font-size: 10px;text-align: right;font-family: Helvetica;" width="13%">'.
+number_format($obj[22],2).
 '</td>'.
 '</tr>';
 }
@@ -341,9 +335,14 @@ $html .= '</tbody>'.
 '</table> <br><br>';
 
 $html .= '<table style="width: 100%" style="font-size:9px">';
-
+$fcorte = '';
+if($datos[0][61]){
+  $fcorte = '  <b>Día de Cobro:</b> '.$datos[0][61].'<br>
+             <b>Día de Corte:</b> '.$datos[0][62].'<br>
+             <b>Fecha de Corte:</b> <br>      '.ucfirst($datos[0][63]);
+  }
   $html .= '<tr>
-    <td></td>
+    <td>'.$fcorte.'</td>
     <td align="right">Gravado:</td>
     <td align="right">'.$datos[0][15].$datos[0][9].'</td>
   </tr>';
@@ -360,6 +359,7 @@ $html .= '<table style="width: 100%" style="font-size:9px">';
     <td align="right">'.$datos[0][15].$datos[0][7].'</td>
   </tr>';
 
+if($datos[0][49] > 0)
   $html .= '<tr>
     <td></td>
     <td align="right">Servicio Mesero:</td>
@@ -394,7 +394,6 @@ $pdf->lastPage();
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 $sld = $datos[0][25] == 'Venta' ?  'Factura' : $datos[0][25];
-
 $ver = isset($_REQUEST['arreglo']['show']) ? 'I' : 'F';
 $pdf->Output($ubic.'assets/pdf/'.$sld.' No'.$datos[0][0].' '.strtoupper($fact).'.pdf',$ver);
 ?>

@@ -2,7 +2,7 @@ $(function(){
     var param = getParameterByName('rep');
     switch(param){
         case 'invgen':
-            arr('login',6,'',254,'6,@@impresa,"","",-1,-1,-1,-1,"1",0','',1,$(".detrep")); 
+            //arr('login',6,'',254,'6,@@impresa,"","",-1,-1,-1,-1,"1",0','',1,$(".detrep")); 
             
             $(".excel").data('parametros')['vista'] = '2,6,12,15';
             $(".excel").data('parametros')['conteo'] = 1;
@@ -20,7 +20,7 @@ $(function(){
 
                 $("tbody tr").each(function(index){
                     if(index != last)
-                    str += '<tr><td style="size: 8px">'+$('td:nth-child(1)',this).html()+'</td> <td class="borde"></td> <td></td> <td class="borde"></td> </tr>'
+                    str += '<tr><td style="size: 8px">'+$('td:nth-child(2)',this).html()+'</td> <td class="borde"></td> <td></td> <td class="borde"></td> </tr>'
                 });
 
                 //console.log(str)
@@ -38,7 +38,7 @@ $(function(){
             });
             break;
         case 'movinv':
-             arr('login',6,'',284,'"","",0,@@impresa,0,0,0,""','',1,$(".detrep"));
+             arr('login',6,'',284,'"","",0,@@impresa,0,0,""','',1,$(".detrep"));
             break;
         case 'inventarios':
             arr('login',6,'',127,'6,@@impresa','127_1',1,$(".detrep"));

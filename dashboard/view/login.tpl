@@ -9,10 +9,10 @@
   <title>Login</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
 
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3">
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
-  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.4.0.3"> 
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.4.0.3">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.1.0">
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.1.0">
+  <link rel="stylesheet" type="text/css" href="../assets/css/system.min.css?v=10.4.1.0"> 
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-login.css?v=10.4.1.0">
 
 </head>
 <body>
@@ -24,7 +24,7 @@
         <input type="hidden" name="vdir" value="" id="vdir"> 
 
         <div class="login__check" align="center">
-          <img id="img" src="../assets/img/login/2.png?v=10.4.0.3" style="width: 80%">
+          <img id="img" src="../assets/img/logos/logo_clean.png?v=10.4.1.0" style="width: 100%">
         </div>
         <div class="login__form" style="padding-top: 0;">
           <div class="input-field" style="margin-top: 0;">
@@ -47,6 +47,7 @@
           <button type="submit" class="login__submit btn1">Ingresar</button>
           
           <p class="login__signup"> Olvido su contraseña? &nbsp;<a href="#modal1" class="modal-trigger" id="recupss">Recuperar</a> <span id="smail"></span></p>
+          <small>Powered by APSY</small>
         </div>
       </form>
     </div>
@@ -235,11 +236,9 @@ Fecha de entrada en vigor: 28 de Junio de 2016.
 
   </div>
 </div>
-<script src="../assets/js/jquery.js?v=10.4.0.3"></script>
-<script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
-<script src="../assets/js/asgard.js?v=10.4.0.3"></script>
-<script src="../assets/js/modulos/login.js?v=10.4.0.3"></script>
-<!-- https://texttospeech.responsivevoice.org/v1/text:synthesize
-<script src="../assets/js/responsivevoice.js?v=10.4.0.3"></script> -->
+<script src="../assets/js/jquery.js?v=10.4.1.0"></script>
+<script src="../assets/js/materialize.min.js?v=10.4.1.0"></script>
+<script src="../assets/js/asgard.js?v=10.4.1.0"></script>
+<script src="../assets/js/modulos/login.js?v=10.4.1.0-1"></script>}
 </body>
 </html>

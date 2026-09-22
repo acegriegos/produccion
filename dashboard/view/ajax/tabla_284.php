@@ -1,4 +1,6 @@
-<?php if($transaccion[0][0] != 1) {?>
+<?php 
+ 
+if($transaccion[0][0] != 1) {?>
 
 <table class="table striped pequeño  bordered highlight centered responsive-table z-depth-3" id="data-table-inventarios" cellspacing="0" width="100%" >
     <thead>
@@ -10,7 +12,6 @@
         <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad Inicial</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad</b></td>
         <td class="white-text blue sinborde " style="text-align: center"><b>Cantidad Final</b></td>
-        <td class="white-text blue sinborde " style="text-align: center"><b>Unidad</b></td>
       </tr>
     </thead>
     <tbody>
@@ -24,10 +25,10 @@
         <td style=" padding: 1px;"><?php echo $obj[1] ?></td>
         <td style=" padding: 1px;"><?php echo $obj[2] ?></td> 
         <td style=" padding: 1px;"><?php echo $obj[7] ?></td> 
-        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[6],2) ?></td> 
-        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[3],2) ?></td>
-        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo number_format($obj[5],2) ?></td> 
-        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo $obj[4] ?></td> 
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo $obj[6] ?></td> 
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo $obj[3] ?></td>
+        <td style=" padding: 1px;padding-right: 1%;text-align: right"><?php echo $obj[5] ?></td> 
+         
     </tr>
 
     <?php }

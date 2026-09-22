@@ -2,23 +2,81 @@
 <title>Recibo de Factura</title>
 <meta charset="utf-8">
 <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3">
-<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.1.0">
+<link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.1.0">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-recibo.css?v=10.4.1.0">
 
 <style type="text/css">
   html{
     line-height: 1;
   }
+  
+  #lref td{
+    border:1px solid;
+    text-align: right;
+    padding: 5px;
+  }
+  
+  #lref{
+    margin-top:2%;
+  } 
+  
 </style>
 <?php $hide = $datos[24] > 2 ? 'hide':''; $special = $datos[24] == 8 ? 'color:red;' : ''; ?>
 <?php $co = isset($_REQUEST['co']) ? 0 : 1 ?>
+<?php 
+  $referencias = '';
+  if($datos[24] == 3){
+
+    $kakaroto->sql = 'select if(b.idinventario = 7,"Ruta","Inventario") as destinoa,ifnull(d.nombre,c.comodin),b.cantidad,e.nombre from msdetallefacturas a join detallefacturas b on b.id = a.viddetalle join facturas c on c.id = b.idfactura left join clientes d on d.id = c.idcliente join productos e on e.id = b.idproducto where a.oc = '.$_GET['id'];
+    $pedidos = $kakaroto->ejecutarSelect();
+
+    $kakaroto->sql = 'select distinct a.idproducto,b.nombre,w.id,w.nombre,(select max(preciocosto) from proveedorproductos where idref = '.$_GET['id'].' and idproducto = a.idproducto and idproveedor = w.id) from proveedorproductos a join productos b on b.id = a.idproducto join (select distinct a.idproveedor as id,if(b.web <> "",b.web,b.nombre) as nombre from proveedorproductos a join clientes b on b.id = a.idproveedor where idref = '.$_GET['id'].') w where idref = '.$_GET['id'].' order by a.idproducto,w.nombre;';
+    $referencias = $kakaroto->ejecutarSelect();
+
+    $kakaroto->sql = 'select group_concat(distinct if(b.web <> "",b.web,b.nombre) order by if(b.web <> "",b.web,b.nombre) separator "^") from proveedorproductos a join clientes b on b.id = a.idproveedor where idref = '.$_GET['id'];
+    $str_cols = $kakaroto->ejecutarSelect();
+    
+    $str_ref = '';
+    $str_ped = '';
+
+    if(sizeof($referencias)){
+        
+        //$str_cols = explode(',',$str_cols[0][0]); 
+        $str_cols = '<td></td> <td>'.str_replace('^', '</td><td>', $str_cols[0][0]).' </td> </tr>';
+        
+        $str_ref = '<table id="lref"> '.$str_cols;
+        for($i = 0; $i < sizeof($referencias); $i++){
+          if($idprodtmp != $referencias[$i][0]){
+              $idprodtmp = $referencias[$i][0];
+              $str_ref .= $idprodtmp == 0 ? '' : '</tr>';
+              $str_ref .= '<tr> <td>'.$referencias[$i][1].'</td>';
+              $row_cnt = 0;
+            }
+            
+            $str_ref .= '<td>'.number_format($referencias[$i][4],2).'</td>';            
+        }
+    }
+
+    if(sizeof($pedidos)){
+        
+        $str_ped = '<b>Pedidos</b><table id="lped" style="width:50%">';
+        for($i = 0; $i < sizeof($pedidos); $i++){
+            
+            $str_ped .= '<tr> <td>'.$pedidos[$i][0].'</td>
+                         <td>'.$pedidos[$i][1].'</td>
+                         <td>'.$pedidos[$i][2].'</td> </tr> ';            
+        }
+        $str_ped .= '</table>';
+    }
+  }
+?>
 </a>
 
 <body class="grey darken-4 pequeño" style="font-size: 1.1em;">
-
+  <input type="hidden" id="tipoventa" value="<?php echo $datos[24]; ?>">
   <div class="row">
-    <div class="col s12 m9 l9" id="tercero" style="display: none">
+    <div class="col s12 m9 l9" id="tercero" <?php if($str_ref == '' && $str_ped == '') echo "style='display:none'" ?>>
 
       <!-- MAIN -->
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
@@ -35,7 +93,8 @@
           </div>
 
           <div class="col s4 center">
-            <bR>
+            <br>
+            <div class="ocompra">
               <?php
                 if ($miscelaneos[10] == 2) {
                    if (trim($miscelaneos[2]) != '') 
@@ -55,14 +114,15 @@
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
-              <b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
+              <span class="ocompra"><b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span></span><br>
+            </div>
           </div>
 
           <div class="col s4 center" style="padding: 0px;">
             <?php if ($transaccion[0][32] != '') { ?>
-              <b><bR><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
+              <b><br><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
             <?php } else echo "<br>"; ?>
-            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+            <b><span class="fact" id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe" style="color: red;"> <?php echo $datos[0]; ?> </span>
             <p style="margin-bottom: 0px"><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </span></p>
@@ -88,7 +148,7 @@
                     <span class="ftipofa"><?php echo $datos[11]; ?></span>
                     <b style="margin-left: 5%">Vence:</b><?php echo $datos[38]; ?>
                   <?php }else if($datos[2]){ ?>
-                    <b class="ftipofact" style="margin-left: 5%">Tipo de Pago: </b>
+                    <b class="ftipofact ocompra" style="margin-left: 5%">Tipo de Pago: </b>
                     <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   <?php } ?>
               </div>
@@ -109,10 +169,14 @@
               <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
               <?php if($datos[48]){ ?>
-              <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; } ?>
+              <span class="ocompra"><b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; } ?>
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
               <b style="padding-left: 5%; color: red">ARCHIVO</b>
+              <div style="float: right;">
+                <b>Peso Total:  <span class="tpeso"></span> Kg</b>
+              </div>
+            </span>
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -140,19 +204,19 @@
           </thead>
           <tbody id="ftbody">
             <?php 
-          
+            $tpeso = 0;
             foreach ($transaccion as $obj) {?>
               <tr class="tr" >
                 <td class="flista1 td center-align" style="padding: 0px"><span><?php echo $obj[29].$obj[18]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[36]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[19]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo 'KG' ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php $tpeso+=$obj[60];echo number_format($obj[60],2); ?> KG</span></td>
                 <td class="flista3 td center-align" style="padding: 0px"><span><?php echo $obj[20]; ?></span></td>
                 <td class="flista4 td center-align" style="padding: 0px"><span><?php echo $obj[23]; ?></span></td>
                 <td class="flista6 td right-align" style="padding: 0px"><span><?php echo number_format($obj[22],2); ?></span></td>
               </tr>
 
-             <?php } ?>
+             <?php } echo '<input type="hidden" value="'.$tpeso.'" id="tpeso">' ?>
             </tbody>
             <?php if($obj[33] != ''){
               $exoneracion = explode('^', $obj[33]);
@@ -164,11 +228,11 @@
               <tr>
                 <td style="padding: 0px !important" colspan="4" style="padding-bottom: 0;">
                   <div class="row" style="margin: 0px; padding-top: 7%">
-                    <div class="col s6 center" >
+                    <div class="col s6 center sign" >
                       <div style="border-top: 1px solid black;">Recibido Conforme</div>
                     </div>
 
-                    <div class="col s6 center">
+                    <div class="col s6 center sigced">
                       <div style="border-top: 1px solid black;">Cédula</div>
                     </div>
                   </div>
@@ -253,12 +317,12 @@
             } ?>
             
               <!-- /FOOTER -->
-
+              
               <div class=" center " style=" width: 100%; padding-right: 8% !important" >
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
+                <p class="center-align" style="font-size: 0.8em;"> Versión API Hacienda: <?php echo $obj[50] ?> <br> AUTORIZADO MEDIANTE RESOLUCION No MH-DGT-RES-0027-2024 del 13 DE NOVIEMBRE 2024
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?>.No se aceptan Devoluciones después de 30 días</span></p><br>
                 
@@ -298,7 +362,7 @@
 
      </div>
 
-     <div class="row salto" id="segundo" style="display: none">
+     <div class="row salto" id="segundo"  <?php if($str_ref == '' && $str_ped == '') echo "style='display:none'" ?> >
     <div class="col s12 m9 l9">
 
       <div class="hoja grey lighten-5" style="padding: 0% 4%">
@@ -315,7 +379,8 @@
             
           </div>
           <div class="col s4 center">
-            <bR>
+            <br>
+            <div class="ocompra">
               <?php
 
                 if ($miscelaneos[10] == 2) {
@@ -336,14 +401,15 @@
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
-              <b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
+              <span class="ocompra"><b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span></span><br>
+            </div>
           </div>
 
           <div class="col s4 center" style="padding: 0px;">
             <?php if ($transaccion[0][32] != '') { ?>
               <b><br><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
             <?php }else echo '<br>' ?>
-            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+            <b><span class="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe" style="color: red;"> <?php echo $datos[0]; ?> </span>
             <p style="margin-bottom: 0px"><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </span></p>
@@ -367,7 +433,7 @@
                     <span class="ftipofa"><?php echo $datos[11]; ?></span>
                     <b style="margin-left: 5%">Vence:</b><?php echo $datos[38]; ?>
                   <?php }else{ ?>
-                    <b class="ftipofact" style="margin-left: 5%">Tipo de Pago: </b>
+                    <b class="ftipofact ocompra" style="margin-left: 5%">Tipo de Pago: </b>
                     <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   <?php } ?>
               </div>
@@ -387,10 +453,14 @@
             <div class="col s12" style="padding: 0px">
               <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
-              <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; ?>
+              <span class="ocompra"><b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; ?>
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
               <b style="padding-left: 5%; color: red">COPIA</b>
+              <div style="float: right;">
+                <b>Peso Total:  <span class="tpeso"></span> Kg</b>
+              </div>
+              </span>  
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -423,7 +493,7 @@
                 <td class="flista1 td center-align" style="padding: 0px"><span  ><?php echo $obj[29].$obj[18]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[36]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[19]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo 'KG' ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo number_format($obj[60],2); ?> KG</span></td>
                 <td class="flista3 td center-align" style="padding: 0px"><span><?php echo $obj[20]; ?></span></td>
                 <td class="flista4 td center-align" style="padding: 0px"><span><?php echo $obj[23]; ?></span></td>
                 <td class="flista6 td right-align" style="padding: 0px"><span><?php echo number_format($obj[22],2); ?></span></td>
@@ -444,11 +514,11 @@
               <tr>
                 <td style="padding: 0px !important" colspan="4" style="padding-bottom: 0;">
                   <div class="row" style="margin: 0px; padding-top: 7%">
-                    <div class="col s6 center" >
+                    <div class="col s6 center sign" >
                       <div style="border-top: 1px solid black;">Recibido Conforme</div>
                     </div>
 
-                    <div class="col s6 center">
+                    <div class="col s6 center sigced">
                       <div style="border-top: 1px solid black;">Cédula</div>
                     </div>
                   </div>
@@ -534,7 +604,7 @@
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
+                <p class="center-align" style="font-size: 0.8em;">Versión API Hacienda: <?php echo $obj[50] ?> <br> AUTORIZADO MEDIANTE RESOLUCION No MH-DGT-RES-0027-2024 del 13 DE NOVIEMBRE 2024
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?>.No se aceptan Devoluciones después de 30 días</span></p><br>
                 </div>
@@ -565,6 +635,7 @@
           </div>
           <div class="col s4 center">
             <br>
+            <div class="ocompra">
               <?php
 
                 if ($miscelaneos[10] == 2) {
@@ -585,14 +656,15 @@
               <b>Cédula:</b> <span id="fcedula"><?php echo $miscelaneos[1]; ?></span><br>
               <b>Teléfono:</b> <span id="ftelefono"><?php echo $miscelaneos[5]; ?></span><br>
               <b>Correo:</b> <span id="fcorreo"><?php echo $miscelaneos[4]; ?></span><br>
-              <b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span><br>
+              <span class="ocompra"><b>Dirección:</b> <span id="fdireccion"><?php echo $miscelaneos[6]; ?></span> </span><br>
+            </div>
           </div>
 
           <div class="col s4 center" style="padding: 0px;">
             <?php if ($transaccion[0][32] != '') { ?>
               <b><br><h3 id="ftipo" style="font-size: 15px;padding: 0px;margin:0px">Documento Electrónico</h3></b>
             <?php } else echo "<br>"; ?>
-            <b><span id="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
+            <b><span class="fact"><?php echo $transaccion[0][25] ?></span> <span id="fclase"><?php echo $datos[1].$datos[31]; ?></span> N°:</b>
                 <span id="numfact" class="fe" style="color: red;"> <?php echo $datos[0]; ?> </span>
             <p style="margin-bottom: 0px"><b>Fecha:</b>
                   <span id="ffecha"><?php echo $datos[3]; ?> </span></p>
@@ -617,7 +689,7 @@
                     <span class="ftipofa"><?php echo $datos[11]; ?></span>
                     <b style="margin-left: 5%">Vence:</b><?php echo $datos[38]; ?>
                   <?php }else{ ?>
-                    <b class="ftipofact" style="margin-left: 5%">Tipo de Pago: </b>
+                    <b class="ftipofact ocompra" style="margin-left: 5%">Tipo de Pago: </b>
                     <span class="ftipofa"><?php echo $datos[2]; ?></span>
                   <?php } ?>
               </div>
@@ -637,10 +709,14 @@
             <div class="col s12" style="padding: 0px">
               <span><b>Usuario:</b></span>
               <span id="fvendedor"><?php echo $datos[16]; ?> </span>
-              <b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; ?>
+              <span class="ocompra"><b style="padding-left: 5%;">Orden N°:</b><?php echo $datos[48]; ?>
               <b style="padding-left: 5%;">Agente:</b><?php echo $datos[44]; ?>
               <b style="padding-left: 5%;">Bodega:</b><?php echo $datos[42]; ?>
               <b style="padding-left: 5%; color: red">ORIGINAL</b>
+              <div style="float: right;">
+                <b>Peso Total:  <span class="tpeso"></span> Kg</b>
+              </div>
+            </span>
             </div>
             <?php if($datos[12] != ''){ ?>
             <div class="col s12" style="padding: 0px">
@@ -674,7 +750,7 @@
                 <td class="flista1 td center-align" style="padding: 0px"><span><?php echo $obj[29].$obj[18]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[36]; ?></span></td>
                 <td class="flista2 td center-align" style="padding: 0px"><span><?php echo $obj[19]; ?></span></td>
-                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo 'KG' ?></span></td>
+                <td class="flista2 td center-align" style="padding: 0px"><span><?php echo number_format($obj[60],2); ?> KG</span></td>
                 <td class="flista3 td center-align" style="padding: 0px"><span><?php echo $obj[20]; ?></span></td>
                 <td class="flista4 td center-align" style="padding: 0px"><span><?php echo $obj[23]; ?></span></td>
                 <td class="flista6 td right-align" style="padding: 0px"><span><?php echo number_format($obj[22],2); ?></span></td>
@@ -696,11 +772,11 @@
               <tr>
                 <td style="padding: 0px !important" colspan="4" style="padding-bottom: 0;">
                   <div class="row" style="margin: 0px; padding-top: 7%">
-                    <div class="col s6 center" >
+                    <div class="col s6 center sign" >
                       <div style="border-top: 1px solid black;">Recibido Conforme</div>
                     </div>
 
-                    <div class="col s6 center">
+                    <div class="col s6 center sigced">
                       <div style="border-top: 1px solid black;">Cédula</div>
                     </div>
                   </div>
@@ -785,32 +861,57 @@
               $msj = '';
               break;
             } ?>
-            
+              <?php print_r($arrprov); ?>
+              <?php echo '<tr>'.$str_ref . '</tr> </table>';  ?>
+              <?php echo $str_ped ?>
+            </div>
               <div class=" center " style=" width: 100%; padding-right: 8% !important" >
               <hr>
               <div>
                 <?php if ($transaccion[0][32] != '') { ?>
-                <p class="center-align" style="font-size: 0.8em;">AUTORIZADO MEDIANTE RESOLUCION No DGT-R-033-2019 del 20 DE JUNIO 2019
+                <p class="center-align" style="font-size: 0.8em;">Versión API Hacienda: <?php echo $obj[50] ?> <br> AUTORIZADO MEDIANTE RESOLUCION No MH-DGT-RES-0027-2024 del 13 DE NOVIEMBRE 2024
                   <br> 
                   <span class="" style="font-size: 0.8em;"><?php echo $msj; ?>.No se aceptan Devoluciones después de 30 días</span></p><br>
                 </div>
                 <?php }else echo '<p class="center-align" style="font-size: 0.8em;">'.$msj.'</p>'; ?>
               </div>
+
+              
+
+
             </div>
              </section>
 
 
      </div>
 
-     <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
-     <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
-     <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
-     <script src="../assets/js/modulos/recibos.js?v=10.4.0.3"></script>
+     <script src="../assets/js/jquery.js?v=10.4.1.0"></script>
+     <script src="../assets/js/materialize.min.js?v=10.4.1.0"></script>
+     <script src="../assets/js/asgard.js?v=10.4.1.0"></script>
+     <script src="../assets/js/modulos/recibos.js?v=10.4.1.0-1"></script>
      <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');
           param = param == '' ? 0 : parseInt(param) ;
           
+          let tipoventa = $("#tipoventa").val();
+
+          switch(tipoventa){
+          case '3':
+            $(".ocompra").hide()
+            $(".fact").css('font-size','35px')
+            $(".fact").css('color','red')
+            $(".fact").css('display','inline-block')
+            $(".numfact").css('font-size','20px')
+            $(".sigced").hide()
+            $(".sign").html('<div style="border-top: 1px solid black;">Firma</div>')
+            break;
+          default:
+            break;
+          }
+
+          $(".tpeso").html(parseFloat($("#tpeso").val()).formatMoney(2,'.',','))
+
           window.onafterprint = function(){
            window.close();
          }

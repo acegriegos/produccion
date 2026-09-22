@@ -1,3 +1,12 @@
+import './extra/ui.js'
+import { WS } from './extra/ws.js';
+WS.init()
+
+if ($("#solicitudes_pendientes").length) {
+    const solicitudes = await import('./extra/solicitudes.js');
+    solicitudes.init()
+}
+
 $(function(){
 
     var ahora = now();
@@ -11,6 +20,86 @@ $(function(){
     $("#help").click(function(){
         $("#modal-help").modal('open'); 
     }); 
+
+    $("#rastreo").click(function(){
+        $("#r_ptwo").addClass('hide')
+        $("#modal-rastreo").modal('open')
+        $("#r_cons").val('').focus()
+        $("#rfct").click()
+    })
+
+    $('[name=rastreo]').change(function(){
+        $("#r_cons").focus()
+    })
+
+    $("#ref_ing").click(function(){
+        let idproducto = $(this).attr('idproducto')
+        
+        if(param == 3){
+          $(".cargarReferencias[vid="+idproducto+"]").data('referencias',[])
+          $.each($(".ref_ciclo:visible"),function(){
+                $(".cargarReferencias[vid="+idproducto+"]").data('referencias').push([0,idproducto,$(this).attr('vidprov'),$(this).attr('costo'),$(".ref_ciclo td:nth(0)").html(),$(this).find('.ref_costo').val().replace(/,/g,''),$(".ref_ciclo td:nth(2)").html(),$(".ref_ciclo td:nth(3)").html()])
+          })
+        }else{
+
+            $.each($(".ref_ciclo:visible"),function(){
+                switch($(this).attr('accion')){
+                case '1':
+                    let id = insertar(104,'id,idproducto,idproveedor,codigo,preciocosto,costoadicional,ultimafecha,idmonedacosto,idmonedaadicional,cntvar,idusuario','null,'+idproducto+','+$(this).attr('vidprov')+',"",'+$(this).attr('costo')+',0,now(),1,0,0,@@usr')[0][0][0]
+                    $(this).attr('accion',0)
+                    $(this).attr('vid',id)
+                    break;
+                case '2':
+                    actualizar(104,'preciocosto='+$(this).attr('costo')+',ultimafecha=now(),idusuario=@@usr','id='+$(this).attr('vid'))
+                    break;
+                default:
+                    break;
+                }
+             })
+        }
+
+        Materialize.toast('Referencias Incluidas Correctamente',4000,'green')
+    })
+
+    $("#agRef").click(function(){
+        let idprov = $("#ref_search").attr('vid')
+        if(idprov == '0'){
+            Materialize.toast('Proveedor Requerido',4000,'red')
+            $("#ref_search").focus()
+            return false
+        }
+
+        let precio = $("#ref_precio").val().replace(/,/g,'')
+        if(precio < 0){
+            Materialize.toast('Precio Referencia Requerido',4000,'red')
+            $("#ref_precio").focus().select()
+            return false
+        }
+
+        let fantasia = getDatos('upper(if(web<>"",web,nombre)),date_format(curdate(),"%d-%m-%Y")',2,'id='+idprov)[0][0]
+        let nusr = getDatos('nombre',1,'id=@@usr')[0][0][0]
+        $("#listaref").append('<tr class="ref_ciclo" vidprov="'+idprov+'" costo="'+precio+'" accion="1" vid="0"> <td>'+fantasia[0]+'</td> <td> <input type="text" class="ref_costo numeric browser-default eder" value="'+parseFloat(precio).formatMoney(2,'.','')+'" style="width: 60%"/>  </td> <td>'+fantasia[1]+'</td> <td>'+nusr+'</td> <td></td> <td> <i class="mdi mdi-close red-text del_referencia"></i> </td> </tr>')
+        $("#ref_search").attr('vid',0)
+        $("#ref_search").val('').focus()
+        $("#ref_precio").val(0)
+        
+    });
+
+    $("#r_cons").keyup(function(e){
+        let code = e.wich || e.keyCode
+        if(code==13){
+            $(this).prop('disabled',true)
+            let r_tipo = $('[name=rastreo]:checked').attr('vid');
+            $("#r_pone").append('<div class="progress"><div class="indeterminate"></div></div>')
+            let r_datos;
+            switch(r_tipo){
+            case '2':
+                r_datos = getDatos('')
+                break;
+            }
+        }
+
+    })
 
     $('.button-collapses').sideNav({
         menuWidth: 300, // Default is 240
@@ -183,9 +272,25 @@ $(function(){
         $(this).sideNav('show');
     });
 
-    $(document).on("click",".not_stat",function(){
-        var datos_not = getDatos('',352,'1,0,0,'+$(this).attr('vid'))
-        console.log(datos_not)
+        $(document).on("click",".not_stat",function(){
+        $("#modal-display-not").css('z-index',3000)
+        $("#info-not").attr('vid',0)
+        $(".acc-not").addClass('hide')
+        var datos_not = getDatos('',352,'1,@usr,0,@impresa,'+$(this).attr('vid'))[0][0]
+   
+        let body_info = '';
+        switch(datos_not[0]){
+        case '394':
+            body_info = '<div class="row"> <div class="col s12 center"> <b>'+datos_not[4]+'</b></div> </div><div class="row"><span class="col s4"><b>Usuario: </b>'+datos_not[2]+' </span> <span class="col s4"> </span> <span class="col s4"><b>Hora: </b>'+datos_not[1]+' </span> </div> <div class="row"> <span class="col s6"><b>Cliente: </b>'+datos_not[3]+'</span> <span class="col s6"><b>Producto: </b> '+datos_not[5]+' </span> </div> <div class="row"> <span class="col s3 center"> <b>Precio Solicitado: </b> <br> '+parseFloat(datos_not[6]).formatMoney(2,'.',',')+' </span> <span class="col s3 center"><b>Cantidad Solicitada: </b> <br>'+datos_not[7]+' </span>  <span class="col s3 center"><b>Unidad Solicitada: </b> <br>'+datos_not[8]+' </span>  <span class="col s3 center"><b>Utilidad Solicitada: </b> <br> '+parseFloat(datos_not[9]).formatMoney(2,'.',',')+' </span></div> <hr style="border:1px solid red"><hr style="border:1px solid red"> <div class="row"> <span class="col s3 center"><b>Costo Producto:</b> <br>'+parseFloat(datos_not[10]).formatMoney(2,'.',',')+'</span>  <span class="col s3 center"> <b>Utilidad Mínima: </b> <br>'+parseFloat(datos_not[11]).formatMoney(2,'.',',')+' </span> <span class="col s3 center"> <b>Precio Mínimo: </b> <br>'+parseFloat(datos_not[12]).formatMoney(2,'.',',')+'<span> </div>';
+            break;
+        default:
+            break;
+        }
+        $("#cuerpo-not").html(body_info)
+        if($(this).attr('acciones') != undefined)
+            $(".acc-not").removeClass('hide')
+
+        $("#info-not").attr('vid',$(this).attr('vid'))
         $("#modal-display-not").modal('open')
     })
 
@@ -218,6 +323,20 @@ $(function(){
         getListaFlujo();
     });
 
+    $(document).on("click",".cargarReferencias",function(){
+        let vid = $(this).attr('vid')
+        let idfact = $(this).attr('vid') ?? ''
+
+        let pname = $(this).parent().parent().find('.eqprod').val()
+        pname = pname == undefined ? $("#desc"+$(this).parent().parent().attr('id').substr(2)).html() : pname
+
+        $("#ref_prodname").html(pname)
+        $("#ref_ing").attr('idproducto',vid)
+        $("#ref_ing").attr('idfactura',idfact)
+        cargarListaReferencias()
+        $("#modal-referencias").modal('open')
+    })
+
     $(document).on("click",".detextra",function(){
         var el = $(this);
 
@@ -227,7 +346,7 @@ $(function(){
         el.sideNav('destroy')
 
         el.sideNav({
-                menuWidth: 700,
+                menuWidth: 1000,
                 edge: 'right', // Choose the horizontal origin
                 closeOnClick: true,// Closes side-nav on <a> clicks, useful for Angular/Meteor
                 onClose: function(){
@@ -335,12 +454,12 @@ $(function(){
     }
     $("#monrubros").html(ht)
 
-    permisos(1,50);
+    permisos(1,199);
     SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr,@@impresa'},1);
 
-    setInterval(function(){
+    /*setInterval(function(){
         SSE_SERVER('login',4,{sel:'',tbl:234,where:'@@usr,@@impresa'},1);
-    },5000);
+    },5000);*/
 });
 
 function SSE_SERVER(vmodulo,vaccion,varreglo,vid,vjson) {
@@ -375,12 +494,12 @@ function sse_response(vid,p) {
             
             if (p['succed'] == undefined || p['succed'] == '')
                 location.reload();
-            if (p[0][0][0] != 0) {
-                $(".sse_cnt").parent().removeClass('hide');
-                $(".sse_cnt").html(p[0][0][0]);
+            /*if (p[0][0][0] != 0) {
+                $("#solicitudes_badge").removeClass('hide');
+                $("#solicitudes_badge").html(p[0][0][0]);
             }else{
-                $(".sse_cnt").parent().addClass('hide');
-            }
+                $("#solicitudes_badge").addClass('hide');
+            }*/
 
             //if (parseInt(p[0][0][1])) {
                 //REFRESH TOKEN
@@ -469,6 +588,28 @@ function generarSSuc(){
     $(".ssuc").material_select();
 }
 
+function cargarListaReferencias(){
+    $("#listaref").html('')
+    let referencias = []
+
+    referencias = getDatos('',1001,$("#ref_ing").attr('idproducto')+','+param+',@@impresa')
+    
+    if(param == 3){
+        if($(".cargarReferencias[vid="+$("#ref_ing").attr('idproducto')+"]").data('referencias') != undefined) 
+            
+            referencias[0] = $(".cargarReferencias[vid="+$("#ref_ing").attr('idproducto')+"]").data('referencias')
+    }
+        
+    let str_ref = ''
+    
+    if(referencias[0].length){
+        $.each(referencias[0],function(){
+
+            str_ref += '<tr vid="'+$(this)[6]+'" class="ref_ciclo" vidprov="'+$(this)[12]+'" costo="'+$(this)[1]+'" accion="1"> <td> '+$(this)[0]+'"  </td> <td> <input type="text" class="ref_costo numeric browser-default eder" value="'+parseFloat($(this)[1]).formatMoney(2,'.','')+'" style="width: 60%"/> </td> <td>'+$(this)[2]+'</td> <td>'+$(this)[10]+'</td> <td>'+$(this)[5]+'</td> <td> <i class="mdi mdi-close red-text del_referencia"></i> </td> </tr>'
+        })
+    }
+    $("#listaref").html(str_ref)
+}
 
 function abrirFlujo(){
     $("#modal-flujo").modal('open');
@@ -483,14 +624,14 @@ function abrirFlujo(){
 
 function getListaNotificacion(){
 
-    var listanot = getDatos('',352,'0,@@usr,0,@@impresa');
+    var listanot = getDatos('',352,'0,@@usr,0,@@impresa,0');
     var strlista = '';
     for (var i = 0; i < listanot[0].length; i++) {
         strlista += '<tr>'+
             '<td>'+listanot[0][i][1]+'</td>'+
             '<td>'+listanot[0][i][4]+'</td>'+
             '<td>'+listanot[0][i][2]+'</td>'+
-            '<td> <i class="not_stat mdi mdi-24px mdi-information blue-text" title="Ver Solicitud"></i> </td>'+
+            '<td> <i class="not_stat mdi mdi-24px mdi-information blue-text pbtn" vid="'+listanot[0][i][0]+'" title="Ver Solicitud" acciones></i> </td>'+
         '</tr>';
     }
 
@@ -509,4 +650,17 @@ function getListaFlujo(){
     });
 
     $("#listaflujo").html(strlista)
+}
+
+function postFClient(idclie,idelem){
+    switch(idelem){
+        case '1': //referencia compra
+            setTimeout(function(){
+               $("#ref_precio").focus().select()
+            },100);
+            break;
+        default:
+            console.log(idelem)
+            break;
+    }
 }

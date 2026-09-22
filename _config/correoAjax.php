@@ -10,7 +10,9 @@ if (isset($url2)){
       break;
   }
 }
-$correo = new correo($_POST['to'],$_POST['subject'],$_POST['body'],$ubi);
+
+$tipo_correo = isset($_POST['tipo']) ? $_POST['tipo'] : 0;
+$correo = new correo($_POST['to'],$_POST['subject'],$_POST['body'],$ubi,$tipo_correo);
 
 ob_end_clean();
 ignore_user_abort();

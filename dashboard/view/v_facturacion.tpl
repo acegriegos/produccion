@@ -8,7 +8,7 @@
     <title>Facturación</title>
   </head>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.4.0.3">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-facturacion.css?v=10.4.1.0-3">
   <body >
   {$NAV}
     <a class="hide" data-activates="margenes" id="openmargen">MARGENES</a>
@@ -30,8 +30,36 @@
       <div id="mfacturacion"></div>
     </div>
   {$SCR}
-  <script src="../assets/js/modulos/facturacion.js?v=10.4.0.3"></script>
-</html>
+  <script src="../assets/js/modulos/facturacion.js?v=10.4.1.0-10"></script>
+</html> 
+
+<div id="modal-cambio" class="modal modal-fixed-footer">
+  <div class="modal-content">
+
+    <h4 id="titmod" class="center">Cambiar Producto</h4>
+    <div class="center"> <b> <span id="change_prod_name"></span> </b> </div>
+    <div class="row">
+
+      <div class="col s6">
+        <span>Cambiar Producto por:</span>
+
+        <input type="text" id="_prod_cambiar" class="autocomplete fastProduct" autocomplete="off">
+
+        <a class=" btn green" id="_changeprod">Aceptar</a>
+      </div>
+
+      <div>
+        <a class="btn" id="change_move_stock">Agregar a Inventario</a>
+      </div>
+      
+
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Salir</a>
+  </div>
+</div>
 
 <div id="modal-edit" class="modal modal-fixed-footer">
   <div class="modal-content">
@@ -45,7 +73,7 @@
       </div>
 
       <div class="input-field col s6 eunit">
-        <input type="text" id="eunitario">
+        <input type="text" id="eunitario" class="numeric eder">
         <label for="eunitario">Precio Unitario</label>
       </div>
       
@@ -91,6 +119,17 @@
         <label for="ival">IVI</label>
       </div>
 
+      <div class="col s6 hide tcabys">
+        <div class="input-field">
+          <input type="text" id="textcabys" haschange="0">
+          <label for="textcabys">Cabys</label>
+        </div>
+        
+        <table>
+          <tbody id="lista_cabys" style="display: block; overflow: auto; height: 20vh;"></tbody>
+        </table>
+      </div>
+
       <input type="hidden" id="hdnprd" value="0">
     </div>
 
@@ -118,14 +157,19 @@
         <label for="vtipodoc">Tipo de Documento</label>
       </div>
 
+     <!-- 4.4 -->
      <div class="col s6 input-field">
                   <input type="text" id="vnumdoc" maxlength="40" data-position="bottom" data-tooltip="Número de documento de exoneración o autorización" class=" tooltiped" autocomplete="off">
                   <label for="vnumdoc">Número de Documento</label>
                 </div>
 
                 <div class="col s12 input-field">
-                  <input type="text" id="ventidad" maxlength="160" data-position="bottom" data-tooltip="Nombre de la institución o dependencia que emitió la exoneración" class="tooltiped" autocomplete="off" readonly>
-                  <label for="ventidad">Nombre Institución que Emitió la Exoneración</label>
+                  <select type="select" id="ventidad">
+                    {section name=LE loop=$ENTIDADES}
+                    <option value="{$ENTIDADES[LE][0]}">{$ENTIDADES[LE][1]}</option>
+                    {/section}
+                  </select>
+                  <label for="ventidad">Nombre Institución que Emitió la Exoneración_</label>
                 </div>
 
                   <label class="col s12">Fecha y Hora de Emisión</label>
@@ -138,6 +182,16 @@
                     <input type="time" id="vtimeDoc" class="tooltiped" step="1" readonly>
                   </div>
 
+                  <div class="col s6 carti input-field">
+                    <input type="number" id="varticulo" maxlength="6" data-position="bottom" data-tooltip="Número de artículo que establece la exoneración o autorización" class="tooltiped eder" value="0" autocomplete="off">
+                    <label for="varticulo">Número de artículo</label>
+                  </div>
+
+                  <div class="col s6 carti input-field">
+                    <input type="number" id="vinciso" maxlength="6" data-position="bottom" data-tooltip="Número de inciso que establece la exoneración o autorización" class="tooltiped eder" value="0" autocomplete="off">
+                    <label for="vinciso">Número de inciso</label>
+                  </div>
+
                 <div class="col s6 input-field">
                   <input type="text" id="vporcompra" maxlength="3" data-position="bottom" data-tooltip="Porcentaje de la compra autorizada o exonerada" class=" tooltiped eder" isnumeric="1" value="0" autocomplete="off" maxlength="3">
                   <label for="vporcompra">Porcentaje de Exoneración</label>
@@ -147,8 +201,6 @@
                   <label for="vfechafin" class="active">Fecha Fin</label>
                   <input type="date" id="vfechafin" class="tooltiped">
                 </div>
-
-
     </div>
 
   </div>

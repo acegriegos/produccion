@@ -10,7 +10,7 @@
         <td  style=" padding: 10px;color:black" class="der">
 
           <?php if($obj[7] > 0){ ?>
-            <a href="#" class="" style="color:black" title="Estado de Cuenta"><i class="stado mdi mdi-currency-usd-circle-outline pbtn mdi-24px" id="w<?php echo $obj[0]; ?>"></i></a>
+            <a href="#" class="" style="color:black" title="Estado de Cuenta"><i class="hide per1006 stado mdi mdi-currency-usd-circle-outline pbtn mdi-24px" id="w<?php echo $obj[0]; ?>"></i></a>
           <?php } ?>
           
           <a href="#modal-addvehiculos" class="modal-trigger hide" style="color:black" title="Vehiculos"><i class="car mdi mdi-car pbtn mdi-24px" id="v<?php echo $obj[0]; ?>"></i></a>

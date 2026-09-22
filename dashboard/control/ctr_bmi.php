@@ -14,6 +14,8 @@
         $smarty->assign('STY',$sty);
         $smarty->assign('SCR',$scr);
 	   	$smarty->assign('NAV',$pg);
+	   	$bmi_struct = $smarty->fetch('../view/bmi.php');
+	   	$smarty->assign('BMI_STRUCT',$bmi_struct);
 	   	$smarty->display('v_bmi.tpl');
 	   }else{
 	   $pagina = 0;

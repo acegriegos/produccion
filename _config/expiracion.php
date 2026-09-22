@@ -24,8 +24,8 @@
 			session_start();
 
 			if (isset($_SESSION['USR'])) {
-			    session_destroy();
-			    $modulo = 'login';
+				$token = $_COOKIE['apsy_token'] ?? null;
+			    $modulo = cerrar_sesion($token,'Logout');
 			}
 			else
 				$modulo = 'login';
@@ -40,28 +40,56 @@
 				$modulo = 'login';
 			}
 
-			if (isset($_SESSION['EXPR'])) {
-				if (!isset($_SESSION['tuser'])) {
-					$_SESSION['tuser'] = new DateTime('now');
-				}
+			$token 		= $_COOKIE['apsy_token'] ?? null;
+			$refresh 	= $_COOKIE['apsy_refresh'] ?? null;
 
-				$ahora = new DateTime('now');
-				$reserved = $_SESSION['tuser'];
+			if(!$refresh)
+				$modulo = cerrar_sesion('','Tiempo Maximo');
+			
+			if (!$token) {
+				$modulo = cerrar_sesion('','Token Expired');
+			}else{
+				include_once '../_config/mysqlDB.php';
+				$db = new DBClass();
+				$res = $db->ejecutar("call sp_validate_token('".$token."')")->fetch_all(MYSQLI_ASSOC)[0];
+				
+				if ($res['ok'] != 1) {
+				    $modulo = cerrar_sesion($token,'Validate');
 
-				$interval = ceil((strtotime($ahora->format('Y-m-d H:i:s')) - strtotime($reserved->format('Y-m-d H:i:s')))/60);
-
-				if ($interval >= $_SESSION['EXPR']) {
-					session_destroy();
-					$modulo = 'login';
 				}else{
-					$_SESSION['tuser'] = new DateTime('now');
+					// listo: usuario válido
+					setcookie(
+	                  "apsy_token",
+	                  $token,
+	                  time() + 3600,
+	                  "/; samesite=Lax",
+	                  "",
+	                  $is_https,
+	                  true
+	              );
+
+				  //$db->ejecutar('insert into auditar_token values(id,now(),"Renovacion de cookie : '.$token.'")');
 				}
 			}
 			
-
 			break;
 	}
 
+	function cerrar_sesion($token = '',$tipo= ''){
 
+		include_once '../_config/mysqlDB.php';
+		$db = new DBClass();
+
+		$db->ejecutar('insert into auditar_token values(id,now(),"'.$tipo.': '.$token.'")');
+
+		if($token){
+
+			$db->ejecutar('delete FROM auth_tokens WHERE token = '.$token.';');
+		}
+
+		session_destroy();
+
+		return 'login';
+	}
 
 ?>

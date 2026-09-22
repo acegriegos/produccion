@@ -32,18 +32,18 @@ class correo
     var $borrar;
     var $mail;
 
-    function __construct($pr,$tit,$msj,$ubi='../',$borrar=1)
+     function __construct($pr,$tit,$msj,$ubi='../',$borrar=1,$tipo=0)
     { 
-        include_once 'mysqlDB.php';
+      	include_once 'mysqlDB.php';
         session_write_close();
         $this->ubi = $ubi;
         $this->borrar = $borrar;
 		    $base = new DBClass();
 
         $gcrr = isset($_SESSION['IMPRESA']) ? $_SESSION['IMPRESA'] : 0;
-    		$res = $base->ejecutar('call sp_getGeneralMail('.$gcrr.')')->fetch_all()[0];
+    		$res = $base->ejecutar('call sp_getGeneralMail('.$gcrr.','.$tipo.')')->fetch_all()[0];
         $no_replay = $res[1] == 'correos.logintechcr@gmail.com' || $res[1] == 'facturacion@apsycr.com' ? 'Esta dirección de correo electrónico no admite respuestas. Para obtener más información, visita el sitio' : '';
-        
+       
         $msj = $this->getBody($msj,$no_replay);
 
         $this->mail = new PHPMailer\PHPMailer\PHPMailer(true);

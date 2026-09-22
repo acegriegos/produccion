@@ -24,7 +24,7 @@ $(function(){
 		var id = $(this).attr('id').substr(1);
 		$(".menu2").removeClass("active");
 		$("#m"+id).addClass("active");
-
+		
 		if (id == 3){
 
 			id = {}
@@ -39,7 +39,7 @@ $(function(){
 		    	selectMonths: true, // Creates a dropdown to control month
 		    	selectYears: 15, // Creates a dropdown of 15 years to control year
 		    	format: 'yyyy-mm-dd'
-		    });
+		 });
 		
 		$('.timepicker').pickatime({
 		    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
@@ -93,6 +93,7 @@ $(function(){
 				$("#titusr").html('Editar Usuario')
 				$("#modal-usuarios").modal('open');
 				$("#aguser").removeClass('add').addClass('edit');
+				console.log($("#vcodigo").val())
 			})
 		}else if (id == 2) {
 			// $("#data-table-usuariosPermisos").dataTable({
@@ -229,11 +230,19 @@ $(document).on("keyup","#clave",function(e){
 });
 
 $(document).on('change','#selectUser',function(){
-	var opcion = $(this).val();
-	console.log(opcion)
-	if(opcion != 0){
-		ajaxUsuarios(opcion,0)
+	let opcion = $("#selectUser option:selected").val();
+	if(opcion == '0'){
+		$(".perline").prop('checked',false)
+		$(".perline").attr('disabled',true)
+		return false;
 	}
+
+	$(".perline").attr('disabled',false)
+	let listapermisos = getDatos('idpermiso,if(tipo=1,1,0),id',248,'idUsuario='+opcion)[0]
+	$.each(listapermisos,(i,e)=>{
+		$(".perline[vid="+e[0]+"]").attr('rid',e[2])
+		$(".perline[vid="+e[0]+"]").prop('checked',parseInt(e[1]))
+	})
 
 	$('#selectType').val(0);
 	$('#selectType').material_select('update');
@@ -266,13 +275,45 @@ $(document).on('change','#selectUserH',function(){
 });
 
 $(document).on('change','#selectType',function(){
-	var opcion = $(this).val();
-	if(opcion != 0){
-		ajaxUsuarios(opcion,1)
+	let opcion = $("#selectType option:selected").val();
+	if(opcion == '0'){
+		$(".perline").prop('checked',false)
+		$(".perline").attr('disabled',true)
+		return false;
 	}
+
+	$(".perline").attr('disabled',false)
+	let listapermisos = getDatos('idpermiso,if(tipo=1,1,0)',249,'idtipoUsuario='+opcion)[0]
+	$.each(listapermisos,(i,e)=>{
+		$(".perline[vid="+e[0]+"]").prop('checked',parseInt(e[1]))
+	})
 	$('#selectUser').val(0);
 	$("#selectUser").material_select('update');
 });
+
+$(document).on('change',".perline",function(){
+	let valor = $(this).is(':checked') ? 1 : 0
+	var id = $(this).attr('vid');
+	var tabla = $("#selectUser").val() == 0 ? 249 : 248;
+
+	if($("#selectUser").val() != '0'){
+		id = $(this).attr('rid')
+	}
+
+	console.log(arr("login",7,2,tabla,'tipo='+valor,'id='+id,0,0));
+	Materialize.toast('Permiso Actualizado Correctamente',4000,'green')
+	
+})
+
+$(document).on('change',".peruser",function(){
+	let valor = $(this).is(':checked') ? 1 : 0
+	var id = $(this).attr('vid');
+	var tabla = $(this).attr('tp') != '1' ? 249 : 248;
+
+	console.log(arr("login",7,2,tabla,'tipo='+valor,'id='+id,0,0));
+	Materialize.toast('Permiso Actualizado Correctamente',4000,'green')
+	
+})
 
 $(document).on('click','.correo',function(){
 	var id = $(this).attr('id').substr(1)
@@ -307,6 +348,23 @@ $(document).on('click','[name^=row]',function(){
 	var tabla = $("#selectUser").val() == 0 ? 249 : 248;
 
 	console.log(arr("login",7,2,tabla,'tipo='+tipo,'id='+id,0,0));
+});
+
+
+$(document).on('click','.shlistauser',function(){
+	$(".tit_per").html($(this).parent().parent().find('.pername').html())
+	let idpermiso = $(this).parent().find('.perline').attr('vid')
+	
+	let lusuarios = getDatos('(select id from permisosusuarios where idusuario = usuarios.id and idpermiso = '+idpermiso+' limit 1),nombre,(select if(tipo=1,1,0) from permisosusuarios where idusuario = usuarios.id and idpermiso = '+idpermiso+' limit 1)',1,'id>1 order by nombre');
+	let str = '';
+	let ischeck = '';
+	$.each(lusuarios[0],function(i,e){
+		ischeck = e[2] == '1' ? 'checked' : '';
+		str += '<div class="col s12 row"> <span class="col s8">'+e[1]+'</span> <div class="switch col s4"> <label> <input vid="'+e[0]+'" tp="1" class="peruser" type="checkbox" '+ischeck+'> <span class="lever"></span> </label> </div> </div>'
+	})
+
+	$("._perlista").html(str)
+	$("#modal-peruser").modal('open')
 });
 
 function validar (varreglo,vmodulo) {
@@ -423,7 +481,7 @@ function cargar(vmodulo,vid) {
 
 	switch(vmodulo['modulo']) {
 		case 'usuario':
-		vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,clave as vclave,clave as clave,idsucursal as vidsuc';
+		vmodulo['sel'] = 'id as vid,user as vuser,cedula as vcedula,nombre as vnombre,idTipoUsuario as vidTipoUsuario,mail as vmail,limite1 as vlimite,limite2 as vlimite2,aes_decrypt(clave,"lt2016") as vclave,aes_decrypt(clave,"lt2016") as clave,idsucursal as vidsuc,codigo as vcodigo';
 		vmodulo['tbl'] = 1;
 		vmodulo['where'] = 'id = "'+vid+'"';
 		$("#vuser").focus();

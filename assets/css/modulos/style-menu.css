@@ -193,3 +193,870 @@ html {
   height: 40px; }
 
 /*# sourceMappingURL=style-menu.css.map */
+
+body{
+    background:#f4f6f8;
+    overflow-x:hidden;
+}
+
+
+/* HEADER */
+
+.apsy-header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:70px;
+
+    background:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+
+    z-index:1000;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.apsy-logo{
+    width:220px;
+}
+
+.apsy-logo img{
+    max-height:50px;
+    max-width:100%;
+}
+
+.apsy-search{
+    flex:1;
+    padding:0 20px;
+}
+
+.apsy-search input{
+    margin:0 !important;
+    height:45px !important;
+
+    border:none !important;
+
+    background:#f4f6f8 !important;
+
+    border-radius:12px !important;
+
+    padding-left:20px !important;
+}
+
+.apsy-actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+
+/* PROCESOS */
+
+.apsy-process{
+    position:relative;
+    cursor:pointer;
+
+    font-size:28px;
+
+    color:#1565c0;
+}
+
+.apsy-badge{
+    position:absolute;
+
+    top:-8px;
+    right:-8px;
+
+    width:22px;
+    height:22px;
+
+    border-radius:50%;
+
+    background:#e53935;
+
+    color:#fff;
+
+    font-size:11px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+
+/* USUARIO */
+
+.apsy-user{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.apsy-user i{
+    font-size:28px;
+}
+
+.apsy-user-name{
+    font-weight:600;
+}
+
+.apsy-company{
+    font-size:.8em;
+    color:#777;
+}
+
+
+/* SIDEBAR */
+
+.apsy-sidebar{
+
+    position:fixed;
+
+    top:70px;
+    left:0;
+    bottom:0;
+
+    width:55px;
+
+    background: #e2e2e2/*#343222;*/;
+
+    transition:.25s;
+
+    overflow:hidden;
+
+    z-index:999;
+}
+
+.apsy-sidebar.open{
+    width:260px;
+}
+
+.apsy-toggle{
+
+    height:60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    color:black;
+}
+
+.apsy-sidebar a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    height:55px;
+
+    padding:0 20px;
+
+    color:grey;
+}
+
+.apsy-sidebar a:hover{
+    background:rgba(255,255,255,.08);
+}
+
+.apsy-sidebar i{
+    font-size:24px;
+    min-width:24px;
+}
+
+.apsy-sidebar span{
+    white-space:nowrap;
+}
+
+
+/* CONTENIDO */
+
+.apsy-content{
+
+    margin-top:70px;
+
+    margin-left:70px;
+
+    /*padding:20px;*/
+
+    transition:.25s;
+}
+
+.apsy-sidebar.open + .apsy-content{
+    margin-left:260px;
+}
+
+/* =========================================================
+   DROPDOWN DE SOLICITUDES
+   ========================================================= */
+
+.apsy-process-wrapper {
+    position: relative;
+}
+
+
+.apsy-process-dropdown {
+    position: absolute;
+
+    top: calc(100% + 12px);
+    right: 0;
+
+    width: 760px;
+    max-width: calc(100vw - 30px);
+
+    background: #fff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 6px 25px rgba(0, 0, 0, .16);
+
+    display: none;
+
+    z-index: 9999;
+
+    overflow: hidden;
+}
+
+
+.apsy-process-dropdown.open {
+    display: block;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.apsy-process-dropdown-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 18px;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.apsy-process-dropdown-header > span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.apsy-process-dropdown-header button {
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 6px 10px;
+
+    border-radius: 5px;
+}
+
+
+.apsy-process-dropdown-header button:hover {
+    background: #f5f5f5;
+}
+
+
+/* =========================================================
+   DOS COLUMNAS
+   ========================================================= */
+
+.apsy-process-columns {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    min-height: 300px;
+}
+
+
+/* =========================================================
+   COLUMNA
+   ========================================================= */
+
+.apsy-process-column {
+    min-width: 0;
+}
+
+
+.apsy-process-column:first-child {
+    border-right: 1px solid #eee;
+}
+
+
+/* =========================================================
+   TITULO DE COLUMNA
+   ========================================================= */
+
+.apsy-process-column-title {
+    height: 48px;
+
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.apsy-process-column-title > i {
+    font-size: 19px;
+}
+
+
+.apsy-process-column-badge {
+    margin-left: auto;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    background: #eee;
+}
+
+
+/* =========================================================
+   LISTA
+   ========================================================= */
+
+.apsy-process-list {
+    max-height: 330px;
+
+    overflow-y: auto;
+}
+
+
+/* Scrollbar */
+
+.apsy-process-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+.apsy-process-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+
+    border-radius: 5px;
+}
+
+
+.apsy-process-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+/* =========================================================
+   ITEM
+   ========================================================= */
+
+.apsy-process-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 12px 14px;
+
+    /*cursor: pointer;
+
+    border-bottom: 1px solid #f1f1f1;
+
+    transition: background .15s ease;*/
+}
+
+
+.apsy-process-item:hover {
+    background: #f7f7f7;
+}
+
+
+/* =========================================================
+   ICONO
+   ========================================================= */
+
+.apsy-process-item-icon {
+    width: 34px;
+    height: 34px;
+
+    min-width: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f1f1f1;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.apsy-process-item-content {
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.apsy-process-item-title {
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.apsy-process-item-info {
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.apsy-process-item-date {
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    color: #999;
+}
+
+
+/* =========================================================
+   ACCION
+   ========================================================= */
+
+.apsy-process-item-action {
+    width: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #999;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.apsy-process-dropdown-footer {
+    padding: 12px 16px;
+
+    border-top: 1px solid #eee;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .apsy-process-dropdown {
+        width: calc(100vw - 20px);
+
+        right: -10px;
+    }
+
+    .apsy-process-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .apsy-process-column:first-child {
+        border-right: 0;
+
+        border-bottom: 1px solid #eee;
+    }
+
+}
+
+/*
+  ======== APSY MODAL ==========
+*/
+
+.apsy-modal-header{
+  margin-bottom: 2%;
+}
+
+/* ======= APSY ACTION BTN ====== */
+
+.apsy-process-btn {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background-color .2s ease,
+        transform .15s ease;
+}
+
+.apsy-process-btn i {
+    font-size: 18px;
+}
+
+.apsy-process-btn:hover {
+    transform: scale(1.08);
+}
+
+.apsy-process-btn.aprobar {
+    color: #2e7d32;
+}
+
+.apsy-process-btn.aprobar:hover {
+    background: rgba(46, 125, 50, .12);
+}
+
+.apsy-process-btn.rechazar {
+    color: #c62828;
+}
+
+.apsy-process-btn.rechazar:hover {
+    background: rgba(198, 40, 40, .12);
+}
+
+.apsy-process-btn:active {
+    transform: scale(.94);
+}
+
+#apsy-process-detail {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 380px;
+    max-width: 90vw;
+    height: 100vh;
+
+    background: #fff;
+
+    box-shadow: 4px 0 18px rgba(0,0,0,.18);
+
+    z-index: 1005;
+
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#apsy-process-detail.active {
+    transform: translateX(0);
+}
+
+.apsy-process-detail-header {
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 16px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.apsy-process-detail-title {
+    flex: 1;
+
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.apsy-process-detail-close {
+    width: 36px;
+    height: 36px;
+
+    border: 0;
+    background: transparent;
+
+    cursor: pointer;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apsy-process-detail-close:hover {
+    background: rgba(0,0,0,.08);
+}
+
+.apsy-process-detail-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.apsy-process-flow {
+    position: relative;
+    padding-left: 34px;
+}
+
+.apsy-process-flow::before {
+    content: '';
+
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+
+    width: 2px;
+
+    background: #ddd;
+}
+
+.apsy-process-flow-item {
+    position: relative;
+
+    padding-bottom: 24px;
+}
+
+.apsy-process-flow-item::before {
+    content: '';
+
+    position: absolute;
+
+    left: -29px;
+    top: 4px;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #fff;
+    border: 3px solid #777;
+}
+
+.apsy-process-flow-user {
+    font-weight: 500;
+}
+
+.apsy-process-flow-action {
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.apsy-process-flow-date {
+    font-size: 12px;
+    color: #888;
+    margin-top: 3px;
+}
+
+.apsy-process-flow-comment {
+    margin-top: 7px;
+    padding: 9px 11px;
+
+    background: #f5f5f5;
+    border-radius: 6px;
+
+    font-size: 13px;
+    line-height: 1.4;
+
+    color: #555;
+
+    position: relative;
+}
+
+.apsy-process-flow-comment::before {
+    content: '';
+
+    position: absolute;
+    left: 12px;
+    top: -5px;
+
+    width: 10px;
+    height: 10px;
+
+    background: #f5f5f5;
+    transform: rotate(45deg);
+}
+
+.apsy-process-flow-date {
+    margin-top: 6px;
+}
+
+.apsy-process-flow-user {
+    font-weight: 600;
+}
+
+.apsy-process-flow-action {
+    margin-top: 2px;
+    font-size: 13px;
+}
+
+.apsy-process-flow-date {
+    font-size: 11px;
+    color: #999;
+}
+
+.apsy-process-item-comment-form {
+    margin: 10px 0 4px 0;
+    padding: 10px;
+
+    background: #f7f7f7;
+    border-radius: 8px;
+
+    border: 1px solid #e0e0e0;
+}
+
+.apsy-process-comment-label {
+    margin-bottom: 6px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    color: #666;
+}
+
+.apsy-process-comment-input {
+    width: 100%;
+    min-height: 70px;
+    max-height: 120px;
+
+    padding: 8px 10px;
+
+    box-sizing: border-box;
+    resize: vertical;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background: #fff;
+
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.apsy-process-comment-input:focus {
+    border-color: #999;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, .05);
+}
+
+.apsy-process-comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.apsy-process-comment-cancel,
+.apsy-process-comment-submit {
+    border: 0;
+    border-radius: 5px;
+
+    padding: 6px 12px;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s ease,
+        transform .15s ease;
+}
+
+.apsy-process-comment-cancel {
+    background: transparent;
+    color: #777;
+}
+
+.apsy-process-comment-cancel:hover {
+    background: #e9e9e9;
+}
+
+.apsy-process-comment-submit {
+    background: #424242;
+    color: #fff;
+}
+
+.apsy-process-comment-submit:hover {
+    background: #333;
+}
+
+.apsy-process-comment-cancel:active,
+.apsy-process-comment-submit:active {
+    transform: scale(.97);
+}

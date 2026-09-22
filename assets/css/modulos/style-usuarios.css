@@ -95,4 +95,13 @@
 #userSubmit {
   margin-right: 15px; }
 
+.sdiv{
+  display: block;
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #e2e2e2;
+  margin-bottom: 3%;
+}
+
+
 /*# sourceMappingURL=style-usuarios.css.map */

@@ -175,7 +175,7 @@ if (isset($_POST['respuestaXml'])) {
                 $params = array(
                   "client_id" => $cli_id,
                   "client_secret" => "",
-                  "scope" => "",
+                  /*"scope" => " ",*/
                   "username" => $user,
                   "password" => $pass,
                   "grant_type" => "password");
@@ -238,13 +238,38 @@ if (isset($_POST['respuestaXml'])) {
                         $db->ejecutar("insert into telefonos values(null,3,'".$telefono."',39,".$rs.",52)");
                         $db->ejecutar("insert into ubicaciones values(null,".$barrio.",'".$ubicacion."','0','0',39,".$rs.")");
                         $db->ejecutar("call sp_mantusuarios(1,0,'".$sysuser."',2,'".$salida['CN']."','".$pswd."','".$salida['cedula']."','".$correo."',0,'','00:15:00','23:55:00','".$rs."',0,0)");
-                        #$db->ejecutar("INSERT INTO usuarios VALUES(null, '".$sysuser."', 2, '".$salida['CN']."', md5(aes_encrypt('".$pswd."','lt6969')), '".$salida['cedula']."', '".$correo."', 0, NULL, '00:15:00', '23:55:00', '".$rs."')");
                         $db->ejecutar("insert into consecutivos(idsucursal) values(".$rs.")");
                         $db->ejecutar("insert into ajustessucursales(vid,idsucursal,pv,cbarras,exp_p12,margenes,recibo,punitventa,iniciofact,isivi,pipme) values(null,".$rs.",1,0,'".$exp_p12."',0,0,0,0,1,'https://fe.logintechcr.com/wsdlServer.php')");
                         if(isset($_POST['referencia']))
                           $db->ejecutar('update usuarios set idsucursal = concat(idsucursal,",'.$rs.'") where id = '.$_POST['referencia'].' and id in(246);');
+                                      
+                        $ch = curl_init("https://api.hacienda.go.cr/fe/ae?identificacion=".$salida['CN']);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                            'Connection:keep-alive',
+                            'Cache-Control: no-cache',
+                            'Pragma: no-cache',
+                            'Expires: 0',
+                            'User-Agent: PHP'
+                        ]);
+                        $data = json_decode(curl_exec($ch),true);
+                        $error = curl_error($ch);
+                        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                        
+                        curl_close ($ch);
+                        if(isset($data['actividades'])){
 
-                        //LEER Y GUARDAR LA INFO DE CONTRIBUYENTE
+                          for($i=0;$i<sizeof($data['actividades']);$i++){
+
+                            if($i == 0)
+                                $db->ejecutar('update sucursales set codactividad = "'.$data['actividades'][$i]['codigo'].'" where idsucursal = '.$rs);
+                              else
+                                $db->ejecutar('insert into sucactivids values('.$rs.',"'.$data['actividades'][$i]['codigo'].'")');
+
+                          }
+
+                        }
+                        
                     }else{
                         $salida['error'] = 14;
                     }
@@ -317,6 +342,7 @@ if (isset($_POST['respuestaXml'])) {
                     break;
                   case 65:
                     $val = $memory ? 0 : 1;
+                    $base->ejecutar('insert into movimientos select null,4,-'.$obj->bdy->cantidad.',a.fecha,'.$obj->bdy->idproducto.',"",a.idsucursal,a.idusuario,0,64,a.id,"" from facturas a where a.id = '.$obj->bdy->idfactura.';');
                     break;
                   case 279:
                     $val = $base->ejecutar('call krattos("id",279,"idfila = '.$obj->bdy->idfila.' and idtabla = '.$obj->bdy->idtabla.' and idsucursal = '.$obj->bdy->idsucursal.'")')->fetch_all();

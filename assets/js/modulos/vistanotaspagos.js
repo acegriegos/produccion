@@ -86,16 +86,18 @@ $(document).on("click",".pdf",function(){
             break;
     }
     mantenimiento('login',8,{arch:'recibo-notas-pagos',id:vid,mic:1,tit:vbody[3],sel:'',tbl:186,where:vid},1);
-    console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf')
-    $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+', '+vbody[1]+'.pdf');
+    console.log('../assets/pdf/'+vbody[3]+' No'+vbody[2]+' '+vbody[1]+'.pdf')
+    $(this).attr('href','../assets/pdf/'+vbody[3]+' No'+vbody[2]+' '+vbody[1]+'.pdf');
 });
 
 $(document).on("click",".print",function(){
     var id = $(this).attr('id').substr(1);
     var tp = $("#tps").is(":checked") ? 0 : 1;
     var tf = $("[name=tventa]:checked").attr('id').substr(2);
-    if (tf == '7' || tf == '8')
-        window.open('cuentas?accion=5&id='+id+'&tp='+tp);
+    if (tf == '7' || tf == '8'){
+        let tipo = tf == '8' ? 2 : 1;
+        window.open('cuentas?accion=5&id='+id+'&tp='+tp+'&tipo='+tipo);
+    }
     else
         window.open('cuentas?accion=4&id='+id+'&tp='+tp);
 });
@@ -114,6 +116,14 @@ $(document).on("click",".xml",function(){
     var vbody = getDatos('',73,'"-'+vid+'"',0,0)[0][0];
     mantenimiento('login',9,{restado:vbody[3],factura:vbody[2],sucursal:vbody[1],id:'-'+vid},1);
     $(this).attr('href','../assets/xml/'+vbody[3]+' No'+vbody[2]+' '+vbody[1]+'.xml'); 
+});
+
+$(document).on("click",".mh",function(){
+    var vid = $(this).attr('id').substr(1);
+    var vbody = getDatos('',73,'"-'+vid+'"',0,0)[0][0];
+    var rs = mantenimiento('login',14,{id:'-'+vid,sucursal:vbody[1]},1);
+    if(rs["succed"])
+        $(this).attr('href',rs["arhivo"]); 
 });
 
 function sendVMail(idfact,idnota,cnota){

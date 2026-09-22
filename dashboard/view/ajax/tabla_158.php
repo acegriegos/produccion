@@ -4,14 +4,15 @@
 ?>
 
 <tr>
-<td style="width: 10%"><?php echo $obj[1] ?></td>
-<td style="width: 10%" class="tr trCompra"><?php echo $obj[2] ?></td>
-<td style="width: 10%" class="tr trCompra trVenta trCot"><?php echo $obj[4] ?></td>
-<td style="width: 10%"><?php echo $obj[5] ?></td>
-<td style="width: 10%"><?php echo substr($obj[6],0,20)   ?></td>
-<td style="width: 10%"><?php echo $obj[7] ?></td>
-<td style="width: 10%"><?php echo $obj[8] ?></td>
-<td style="width: 10%">
+<td><?php echo $obj[1] ?></td>
+<td><?php echo $obj[16] ?></td>
+<td class="tr trCompra"><?php echo $obj[2] ?></td>
+<td class="tr trCompra trVenta trCot"><?php echo $obj[4] ?></td>
+<td><?php echo $obj[5] ?></td>
+<td title="<?php echo $obj[6]; ?>"><?php echo substr($obj[6],0,20)   ?></td>
+<td><?php echo $obj[7] ?></td>
+<td><?php echo $obj[8] ?></td>
+<td>
     <a class="dropdown-button btn btn-default hide-on-med-and-down" style="cursor: pointer;padding: 0;width: 100%;background-color: #e2e2e2; " data-activates='acciones<?php echo $obj[0];?>'><i class="mdi mdi-cursor-default mdi-16px black-text"></i> <i class="der mdi mdi-menu-down mdi-24px black-text"></i></a>
         <ul id="acciones<?php echo $obj[0];?>" class='dropdown-content hide-on-med-and-down'>
 
@@ -25,13 +26,13 @@
 
             <li class="tr trCot"><a class="center mdi mdi-24px mdi-cog process tooltipped" data-tooltip="Procesar Factura" data-position="left" id="b<?php echo $obj[0] ?>"></a></li>
 
-            <li class="tr trCot trManual trPedido trOCompra"><a class="center mdi mdi-24px mdi-pencil fedit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
+            <li class="tr trCot trManual trPedido"><a class="center mdi mdi-24px mdi-pencil fedit tooltipped" data-tooltip="Editar" data-position="left" id="e<?php echo $obj[0] ?>" ></a></li>
 
             <li class="tr trVenta trSpecial trTiquete"><a class="center mdi mdi-24px mdi-content-duplicate process tooltipped" data-tooltip="Clonar" data-position="left" id="f<?php echo $obj[0] ?>"></a></li>
 
-            <li class="tr trSpecial"><a class="center mdi mdi-24px mdi-close red tooltipped delete-view" data-tooltip="Eliminar" data-position="left" id="k<?php echo $obj[0] ?>"></a></li>
-
             <li class="tr trVenta trCot trOCompra trExportacion"><a class="center mdi mdi-24px mdi-send send tooltipped" data-tooltip="Enviar por Correo" data-position="left" id="d<?php echo $obj[0] ?>"></a></li>
+
+            <li class="tr trSpecial trApartado trCot trOCompra"><a class="center mdi mdi-24px mdi-close red tooltipped delete-view" justificar="<?php echo $obj[15] ?>" data-tooltip="Eliminar" data-position="left" id="k<?php echo $obj[0] ?>"></a></li>
             <!-- tr trVenta trCot trOCompra trPedido -->
         </ul>
         
@@ -63,43 +64,9 @@
 
  <script type="text/javascript">
     $(function(){
-        var tf = parseInt($("input[name=tventa]:checked").attr('id').substr(2));
-        $(".tr").addClass('hide');
-        switch(tf) {
-        case 1:
-            $(".trVenta").removeClass('hide')
-            break;
-        case 2:
-            $(".trCompra").removeClass('hide');
-            break;
-        case 3:
-            $(".trOCompra").removeClass('hide')
-            break;
-        case 4:
-            $(".trCot").removeClass('hide')
-            break;
-        case 5:
-            $(".trPedido").removeClass('hide')
-            break;
-        case 7:
-            $(".trTiquete").removeClass('hide')
-            break;
-        case 8:
-            $(".trSpecial").removeClass('hide')
-            break;
-        case 9:
-            $(".trFECompra").removeClass('hide')
-            break;
-        case 10:
-            $(".trExportacion").removeClass('hide')
-            break;
-        case 104:
-            $(".trManual").removeClass('hide')
-            break;
-    }
-
+        cargarTipo();
         $('.tooltipped').tooltip({delay: 50});
         $('.dropdown-button').dropdown();
-        permisos(310,311);
-    })
+
+    });
  </script>

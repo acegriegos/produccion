@@ -6,11 +6,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Clientes</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.3">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.1.0">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="181" entrefechas modulo="reporteCliente" bisprov="0"></div>
+    <div class="filtros row" elem="" sp="181" modulo="reporteCliente" bisprov="0"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -52,7 +52,57 @@
   <br><br>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.3"></script>
-  <script src="../assets/js/modulos/reportes/clientes.js?v=10.4.0.3"></script>
+  {literal}
+  <script type="text/javascript">
+    $(function(){
+
+      $(".filtros").data('filtros',{
+        "entrefechas":{
+          "tipo":4,
+          "texto":"Entre Fechas",
+          "sub":5,
+          "values":{
+            "vdesde":"1",
+            "vhasta":""
+          }
+        },
+        "vventas":{
+            "tipo":2,
+            "texto": "Ventas",
+            "pre":{
+              "tipo":1,
+              "id" : "vcodigo",
+              "default" : "<i class=\"mdi mdi-equal mdi-24px\" vl=\"1\" id=\"vcodigo\" val=\"1\"></i>",
+              "value" : 1,
+              "opciones": {
+                0 :{
+                  "id":1,
+                  "name":"<a class=\"optnsflt\" tipo=\"mdi-equal\" fltr=\"1\">Igual</a>"
+                },
+                1 :{
+                  "id":2,
+                  "name":"<a class=\"optnsflt\" tipo=\"mdi-greater-than-or-equal\" fltr=\"2\">Mayor o Igual</a>"
+                },
+                2 :{
+                  "id":3,
+                  "name":"<a class=\"optnsflt\" tipo=\"mdi-greater-than\" fltr=\"3\">Mayor</a>"
+                },
+                3 :{
+                  "id":4,
+                  "name":"<a class=\"optnsflt\" tipo=\"mdi-less-than-or-equal\" fltr=\"4\">Menor o Igual</a>"
+                },
+                4 :{
+                  "id":5,
+                  "name":"<a class=\"optnsflt\" tipo=\"mdi-less-than\" fltr=\"5\">Menor</a>"
+                }
+              }
+            }
+          }
+        });
+    });
+  </script>
+  {/literal}
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.1.0"></script>
+  <script src="../assets/js/modulos/reportes/clientes.js?v=10.4.1.0"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Rutas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-rutas.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-rutas.css?v=10.4.1.0">
   </head>
   <body>
   <br>
@@ -40,6 +40,6 @@
     </div>
     </div>
     {$SRC}
-    <script src="../assets/js/modulos/rutas.js?v=10.4.0.3"></script>
+    <script src="../assets/js/modulos/rutas.js?v=10.4.1.0"></script>
   </body>
 </html>

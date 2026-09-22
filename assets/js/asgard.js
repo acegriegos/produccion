@@ -46,11 +46,20 @@ $(window).keydown(function(e){
 $(document).on('click','.notasprod',function(){
 
     if($(this).attr('tbl') == '11'){
-        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select if(valor,valor,1) from dimensioproductos where idproducto = productos.id),1),2)',11,'id='+$(this).attr('row'))[0][0];
-        console.log(datosprod)
+        var datosprod = getDatos('nombre,format(costo,2),format((select cantidad from detalleinventarios where idproducto = productos.id)/ifnull((select if(valor,valor,1) from dimensioproductos where idproducto = productos.id and codigo = 1),1),2) as cantidad,truncate((ganancia/costo)*100,0) as utl,format(costo+ganancia,2) as venta,truncate((select (i.ganancia*100)/(productos.costo/if(h.valor is null or h.valor <= 0,1,h.valor)) from dimensioproductos h join nivelproductos i on i.identrada = h.idproducto where h.idproducto = productos.id and h.idunidad in(8) and i.idtipoentrada = 2),0) as ult2,format((select productos.costo/h.valor+i.ganancia from dimensioproductos h join nivelproductos i on i.identrada = h.idproducto where h.idproducto = productos.id and h.idunidad in(8) and i.idtipoentrada = 2),2) as metro',11,'id='+$(this).attr('row'));
+        
+        datosprod = datosprod[0][0];
         $("._proname").html(datosprod[0])
         $("#npprec").html(datosprod[1])
         $("#npcant").html(datosprod[2])
+        $("#nputil").html(datosprod[3])
+        $("#npven").html(datosprod[4])
+        if(datosprod[5]){
+            $("#nputil2").html(datosprod[5])
+            $("#npven2").html(datosprod[6])
+            $(".segundo").removeClass('hide')
+        }else
+            $(".segundo").addClass('hide')        
     }
     arr('login',6,'',334,'@@impresa,'+$(this).attr('tbl')+','+$(this).attr('row'),0,1,$("#_listanotas"));
 
@@ -68,6 +77,76 @@ $(document).on('click','.notasprod',function(){
     $("#modal-notasprod").modal('open')
 
     
+});
+
+async function loadModule(ruta,name){
+    if($(document).data('in_modules') == undefined)
+        $(document).data('in_modules',[])
+
+    if($(document).data('in_modules')[name] == undefined){
+
+        $(document).data('in_modules').push(name)
+
+        if(typeof(preModule) === 'function')
+            preModule(name)
+
+        const modulo = await import(ruta+'/'+name+'.js')
+        Object.assign(window, modulo);
+        if(typeof(postModule) === 'function')
+            postModule(name,modulo)
+
+    }else{
+        console.log('Mod '+name+' ya esta Cargado')
+    }
+
+}
+
+$(document).on('click','.opdf',function(){
+    let clave = $(this).attr('clave')
+    if(clave.length != 50){
+        Materialize.toast('Problemas con la Clave Electrónica',4000,'red')
+        return false
+    }
+
+    var $toastContent = $('<span style="width: 500px" id="shdown">Generando Archivo</span>').add($('<div class="progress expect"><div class="indeterminate"></div></div>'));
+    Materialize.toast($toastContent);
+
+    const formData = new FormData();
+
+    formData.append("succ", getDatos('id',39,'id=@@impresa')[0][0][0]);
+    formData.append("clave", clave);
+    formData.append("getpdf", 1);
+
+    fetch('../irobot',{method:"POST",body:formData})
+        .then(response=>response.blob())
+        .then(blob => { 
+
+            const url   = window.URL.createObjectURL(blob); 
+            const a     = document.createElement("a"); 
+            a.href = url; 
+            a.download = clave+".pdf"; 
+            a.click()
+            
+            $("#shdown").html('Archivo Generado')
+            $(".progress").remove();
+            $("#shdown").append('<i class="mdi mdi-24px mdi-check green-text der"></i>');
+
+            setTimeout(function(){
+                $("#shdown").parent().remove();
+            }, 3000);
+             
+        })
+});
+
+$(document).on('keyup','.key_up',function(e){
+    let code = e.which || e.keyCode;
+    if (code == 13) {
+        $(this).blur();
+    }
+});
+
+$(document).on('click','.open_modal',function(){
+    $("#"+$(this).attr('mname')).modal('open'); 
 });
 
 $(document).on('click','._enota',function(){
@@ -174,6 +253,76 @@ $(document).on("click","#retfact",function(){
     $(".detextra").sideNav('hide')
 });
 
+$(document).on('click','.prod_movs',function(){
+    let fd = $(this).parent().attr('id')
+    let idproducto = $(this).attr('vidprod')
+    let pname = getDatos('nombre',11,'id='+idproducto)[0][0][0]
+    let razon = getDatos('valor',283,'idproducto='+idproducto+' and codigo = 1 limit 1')
+    razon = razon[0].length ? razon[0][0][0] : 1
+    let actual = getDatos('truncate(if(cantidad>0,1,-1)*floor(abs(cantidad)/'+razon+'),2),truncate(mod(cantidad,1)*'+razon+',2)',97,'idproducto='+idproducto)[0][0]
+    $("#movprod_name").html(pname)
+    $("#movprod_cnt").val(actual[0])
+
+    if(actual[1] != '0'){
+        $("#movprod_cnt_mts").parent().removeClass('hide')
+        $("#movprod_cnt_mts").val(actual[1])
+    }
+    
+    $("#movprod_update").attr('vid',idproducto)
+    $("#movprod_update").attr('razon',razon)
+    $("#movprod_update").attr('fd',fd)
+
+    $("#movprod_update").click(function(e){
+        e.preventDefault
+        let razon = parseFloat($(this).attr('razon'))
+        let valor = parseFloat($("#movprod_cnt").val().replace(/,/g,''))
+        let idproducto = $(this).attr('vid')
+        let metros = razon == 1 ? 0 : parseFloat($("#movprod_cnt_mts").val().replace(/,/g,''))
+        let cactual = getDatos('cantidad',97,'idproducto = '+idproducto,0,0,0)[0][0][0];
+
+        actualizar(97,'cantidad='+(valor*razon+metros),'idproducto='+idproducto)
+
+        var resta = parseFloat(valor*razon-metros) - parseFloat(cactual);
+        if(resta){
+            insertar(298,'','null,2,'+resta+',now(),'+idproducto+',"",@@impresa,@@usr,'+(valor*razon+metros)+',0,0,""');
+        }
+
+        let refresh = getDatos('f_units_mts(id,'+(valor+metros/razon)+')',11,'id='+idproducto)[0][0][0]
+        $("#"+$(this).attr('fd')).find('.prod_movs').html(refresh)
+        $("#"+$(this).attr('fd')).find('.prod_movs').attr('vid',valor*razon+metros)
+
+        cargarListaMovimientosProductos(idproducto)
+
+        Materialize.toast('Inventario Actualizado',4000,'green')
+        return false
+    })
+
+    $(this).sideNav({
+        menuWidth: 300,
+        edge: 'right',
+        closeOnClick: true,
+        draggable: true,
+        onOpen: function(){
+            cargarListaMovimientosProductos(idproducto)
+        }
+    });
+
+    $(this).sideNav('show');
+})
+
+function cargarListaMovimientosProductos(idproducto){
+    let movimientos = getDatos('',284,'"","","'+idproducto+'",@@impresa,null,"2",""')
+    let str = ''
+    $.each(movimientos[0],function(){
+        str += '<tr> <td>'+$(this)[0]+'</td> <td>'+$(this)[1]+'</td> <td>'+$(this)[6]+'</td> <td>'+$(this)[5]+'</td> <td>'+$(this)[2]+'</td> <td>'+$(this)[4]+'</td></tr>'
+    })
+
+    $("#movprod_bdy").html(str)
+}
+
+$(document).on("click",".salir-slide",function(){
+    $("#"+$(this).attr('slide-n')).sideNav('hide');
+})
 $(document).on("click",".tc-show",function(){   
 
     var code = parseInt($(this).data('num'));
@@ -432,6 +581,16 @@ $(document).on("click",".delete-row",function(){
 
 $(document).on("click","#deldef",function(){
     var id = $(this).attr("inid");
+    
+     if($("#txt-justify").is(':visible')){
+        let razon = $("#txt-justify").val()
+        if(razon.trim().length <= 3){
+            $("#txt-justify").focus().select()
+            return false;
+        }
+        $("#"+id).attr('txt-justify',razon)
+    }
+    
     $(this).attr('disabled',true)
     $(this).parent().remove();
     $("#"+id).attr('cnt',1);
@@ -457,41 +616,60 @@ $(document).on("keyup",".buscarNom",function(e){
 });
 
 $(document).on("blur",".buscarNom",function(e){
-    if($(this).val().trim().length){
-        $(this).attr('readonly','true')
-    $.get('../sic.php?',{ced:$(this).val()})
-        .done(function(data){
-            var p = JSON.parse(data);
-            if (p['succed']) {
-                $(".c-st").addClass('hide');
-                
-                switch(parseInt(p['tip'])){
-                    case 1:
-                    case 4:
-                        $(".c-stp1").removeClass('hide');
-                        $("[for='c-nom']").html('Nombre');
-                        break;
-                    default:
-                        $("[for='c-nom']").html('Razón Social');
-                        $(".c-stp2").removeClass('hide');
-                        break;
-                }
-                $("#c-ced").val(p['ced']);
-                // $("#c-ap1").val(p['ap1']);
-                // $("#c-ap2").val(p['ap2']);
-                $("#c-nom").val(p['nom']);
-                $("#c-nom").attr('tipo',p['tip']);
-                if(p['correo']){
-                    $("#slideCorreo").data('idfila',0)
-                    $("#slideCorreo").data('fila1',{vaccion:1,vidcorreo:0,vcorreo:p['correo']})
-                }
+    if($("#isextranjero").is(":checked")){
+        return false;
+    }
 
-            }else
-                Materialize.toast(p['error'],4000,'red');
+    if($(this).val().trim().length && $(this).val() != '*'){
+        $(this).attr('readonly','true')
+    
+    let cedula = $(this).val().trim().replace(/,/g,'')
+    $.get('https://api.hacienda.go.cr/fe/ae?identificacion='+cedula)
+        .done(function(data){
+            $(".c-st").addClass('hide');
+            
+            switch(parseInt(data.tipoIdentificacion)){
+                case 1:
+                case 4:
+                    $(".c-stp1").removeClass('hide');
+                    $("[for='c-nom']").html('Nombre');
+                    break;
+                default:
+                    $("[for='c-nom']").html('Razón Social');
+                    $(".c-stp2").removeClass('hide');
+                    break;
+            }
+            $("#c-ced").val(cedula);
+            $("#c-nom").val(data.nombre);
+            $("#c-nom").attr('tipo',data.tipoIdentificacion);
+            if(p['correo']){
+                $("#slideCorreo").data('idfila',0)
+                $("#slideCorreo").data('fila1',{vaccion:1,vidcorreo:0,vcorreo:p['correo']})
+            }
+      
+      		//4.4
+            let actividades = []
+            $.each(data.actividades,function(){
+                actividades.push($(this)[0]['codigo'])
+            })
+
+            if(!actividades.length)
+                actividades.push('')
 
             $(".buscarNom").removeAttr('readonly');
             Materialize.updateTextFields();
+        })
+        .fail(function(){ 
+            Materialize.toast('Cédula no Existente',4000,'red'); 
+            $(".buscarNom").removeAttr('readonly');
+            $("#c-nom").val('')
+            $("#c-nom").attr('tipo',0);
+            $("#c-ced").focus().select()
         });
+    }else if($(this).val() == '*'){
+        $(".c-stp1").removeClass('hide');
+        $("#c-nom").attr('readonly',false).val('').focus();
+        $("#c-nom").attr('tipo',1);
     }
 });
 
@@ -650,6 +828,26 @@ function addslashes(string) {
         replace(/"/g, '\\"');
 }
 
+async function getDatos_async(vsel,vtbl,vwhere,vassoc=0){
+    let arr = {};
+
+    arr['sel'] = vsel;
+    arr['tbl'] = vtbl;
+    arr['where'] = vwhere;
+
+    const datos = {accion: 4,arreglo : arr}
+    if(vassoc == 1)
+        datos.assoc = 1
+    
+    const p = await $.ajax({
+        url:    '../dashboard/login',
+        data:   datos,
+        dataType: 'json'
+    })
+
+    return p;
+}
+
 function getData(vmodulo){
     var dt = mantenimiento('login',1,{modulo:vmodulo});
     if (dt['succed']) {
@@ -662,7 +860,7 @@ function getData(vmodulo){
 }
 
 function loadpool(vmodulo,vid,vvarias){
-    
+    console.log(vmodulo,vid)
     vmodulo = cargar(vmodulo,vid);
     if (vmodulo['sel'] == undefined){
         Materialize.toast(vmodulo,4000,'red');
@@ -671,7 +869,8 @@ function loadpool(vmodulo,vid,vvarias){
     
     vform = 'f'+vmodulo['modulo']+'s';
     var columns = mantenimiento('login',5,vmodulo);
-    console.log(vmodulo)
+    
+    console.log(columns)
     for (var i = 0; columns[0][1].length > i; i++) {
 
         switch($("#"+vform+" #"+columns[0][1][i]['name']).attr("type")){
@@ -744,20 +943,31 @@ function loadpool(vmodulo,vid,vvarias){
     }
 }
 
-function mantenimiento(vmodulo,vaccion,varreglo,vjson){
+function mantenimiento(vmodulo,vaccion,varreglo,vjson,vassoc=0){
     var p;
         if (vjson)
             varreglo['JSON'] = vjson
 
+        let arreglo_mant = vassoc ? {accion: vaccion,arreglo : varreglo,assoc:1} : {accion: vaccion,arreglo : varreglo}
         $.ajax({
             async: false,
             url: '../dashboard/'+vmodulo,
             type: 'POST',
-            data: {accion: vaccion,arreglo : varreglo}
+            data: arreglo_mant
         })
         .done(function(data) {
             try {
                 p = JSON.parse(data);
+                if(p['succed'] == '0'){
+                    console.log(varreglo)
+                    console.log(p[0])
+                    console.trace()
+                }else{
+                    if(getParameterByName('debug') != ''){
+                        console.log(vaccion,varreglo)
+                        console.trace()
+                    }
+                }
             }
             catch(err){
                 p = data;
@@ -787,7 +997,7 @@ function mantenimiento_async(vmodulo,vaccion,varreglo,vid,vjson,vmore){
             data: {accion: vaccion,arreglo : varreglo}
         })
         .done(function(data) {
-            
+           
             try {
                 p = JSON.parse(data);
             }
@@ -822,7 +1032,7 @@ function iaes_masivo(vtp,vtbl,vvalue){
     return mantenimiento('login',18,{tp:vtp,tbl:vtbl});
 }
 
-function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros = ''){
+function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros = '',vassoc=0){
     var arr = {};
 
     if(vref == 'login' && vaccion == 7){
@@ -846,11 +1056,11 @@ function arr(vref,vaccion,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros = ''
     }
     
     if (vch){
-        velemto.html(mantenimiento(vref,vaccion,arr,vjson));
+        velemto.html(mantenimiento(vref,vaccion,arr,vjson,vassoc));
         return true;
     }
     else
-        return mantenimiento(vref,vaccion,arr,vjson);
+        return mantenimiento(vref,vaccion,arr,vjson,vassoc);
 
 };
 
@@ -869,12 +1079,30 @@ function validarCorreo(valor) {
     }
 }
 
-function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla,topost=undefined) {
+function getNAutocomplete(vsel,vtbl,vwhere){
+    let salida = {};
+    let datos = arr('login',4,vsel,vtbl,vwhere,0,0,0)
+    /*ESTRUCTURA
+        DATOS[0] = ID
+        DATOS[1] = NOMBRE
+        DATOS[2] = IMAGEN
+    */
+    if(datos[0].length){
+        datos = datos[0]
+        for (var i = 0; i < datos.length; i++) {
+            salida[datos[i][1]] = {'id':datos[i][0],'img':datos[i][2]}          
+         }
+    }
+    
+    return JSON.parse(JSON.stringify(salida));
+}
+
+function enviarCorreo(vaccion,vto,vsubject,vbody,vadjunto,vconcon,vidfila,vidtabla,topost=undefined,vtipo=0) {
 
    $.ajax({
         url: '../_config/correoAjax.php',
         type: 'POST',
-        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto,con_con : vconcon,idfila : vidfila,idtabla : vidtabla}
+        data: {accion: vaccion,to : vto, subject : vsubject, body : vbody, adjunto : vadjunto,con_con : vconcon,idfila : vidfila,idtabla : vidtabla,tipo : vtipo}
     })
    .done(function(data) {
         console.log(data);
@@ -1130,6 +1358,41 @@ default:
     return salida;
 }
 
+function vaciarFormulario(vformulario){
+    let base = $("#"+vformulario);
+
+    $("#"+vformulario).find('[type=text]').filter(function(){
+        if($(this).hasClass('numeric'))
+            $(this).val(0)
+        else if($(this).hasClass('datepicker')){
+            let fecha = new Date();
+            fecha = fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+(fecha.getDate());
+            $(this).pickadate().pickadate('picker').set('select', fecha);
+        }
+        else
+            $(this).val('')
+
+        if($(this).is('[vid]'))
+            $(this).attr('vid',0)
+    });
+
+    $("#"+vformulario).find('select').filter(function(){
+        let def_ = $(this).attr('default') != undefined ? $(this).attr('default') : $('option:first',this).val()
+
+        if($(this).hasClass('browser-default'))
+            $(this).val(def_)
+        else
+            $(this).val(def_).material_select('update')
+    });
+
+    $("#"+vformulario).find('[type=date]').filter(function(){
+        let fecha = new Date()
+        let fechastr = fecha.getFullYear()+'-'+(fecha.getMonth()+1).toString().padStart(2,'0')+'-'+(fecha.getDate()).toString().padStart(2,'0')
+
+        $(this).val(fechastr)
+    });
+}
+
 function deadclear(vform) {
     
     if (acc == 1) {
@@ -1174,6 +1437,11 @@ function deadclear(vform) {
 
 function thorload(vtabla) {
     vtabla += "s";
+  
+    if($("ul.pagination").attr('last_limit') != undefined){
+        $("[limit='"+$("ul.pagination").attr('last_limit')+"']").click()
+        return true;
+    }
 
     if ($("#search_"+vtabla).val() != undefined && $("#search_"+vtabla).val() != ""){
         var e = jQuery.Event("keyup");
@@ -1216,6 +1484,7 @@ function permisos(vnumber,vnumber2) {
         p = JSON.parse(data);
         for (var i = 0; i < p.length; i++) {
             var op = parseInt(p[i][3]);
+            
             switch(parseInt(op)){
                 case 1:
                 $(".per"+p[i][1]).removeClass('hide');
@@ -1490,8 +1759,15 @@ function rreport(){
     datos = datos.splice(elem.length,datos.length-elem.length);
 
     for (var i = 0, len = datos.length; i < len; i++) {
-        if ($("#"+datos[i][0]).val() != undefined)
+        /*if ($("#"+datos[i][0]).val() != undefined){
+            if(!Array.isArray($("#vidtipo3").val()))
+                search[i] = '"'+$("#"+datos[i][0]).val().replace(/"/g,'\\"')+'"';
+            else
+                 search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+         }*/
+        if ($("#"+datos[i][0]).val() != undefined){
             search[i] = '"'+$("#"+datos[i][0]).val()+'"';
+        }
         else if($("#"+datos[i][0]).attr('vl') != undefined)
             search[i] = '"'+$("#"+datos[i][0]).attr('vl')+'"';
         else if (datos[i][0] == 'vidsucursal')
@@ -1569,6 +1845,29 @@ $(document).on('click',"[det]",function(){
     
 });
 
+function fillSel(idsel,sel,tbl,where,vdefault=-1,label='Seleccione una Opción') {
+    let lista = getDatos(sel,tbl,where)
+    let salida = defau = '';
+    if(vdefault == -1)
+        salida = '<option value="0" selected>'+label+'</option>'
+    else
+        salida = '<option value="0">'+label+'</option>'
+    if(lista.succed){
+        $.each(lista[0],function(i){
+            if(i==vdefault)
+                defau = 'selected'
+            salida += '<option value="'+$(this)[0]+'">'+$(this)[1]+'</option>'
+
+        })
+    }else
+        console.log(lista)
+    
+    if($("#"+idsel).attr('data-select-id') != undefined)
+        $("#"+idsel).html(salida).material_select('update')
+    else
+        $("#"+idsel).html(salida)
+}
+
 $(document).on("keyup","[id^=ing_]",function(e){
     var code = e.wich || e.keyCode
     if (code == 13) {
@@ -1589,9 +1888,9 @@ $(document).on("keyup","[id^=ing_]",function(e){
     }
 });
 
-function getDatos(vsel,vtbl,vwhere,vcambio=0,velemto=0,vjson=0){
+function getDatos(vsel,vtbl,vwhere,vcambio=0,velemto=0,vjson=0,votros='',vassoc=0){
     var vch = velemto == '' || velemto == 0 ? 0: 1;
-    return arr('login',4,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson)
+    return arr('login',4,vsel,vtbl,vwhere,vcambio,vch,velemto,vjson,votros,vassoc)
 }
 
 function getDatos_col(vfila,vidh,velemto,vheader,vmodulo,vomit,vacc){
@@ -1684,6 +1983,9 @@ function filltable(h,b,c,g) {
 }
 
 function paginate(vtbl,len,vfiltro) {
+  
+  if($("ul.pagination").attr('last_limit') != undefined)
+        return true;
     
     $(".pagination").html('');
     if (vfiltro == undefined)
@@ -1691,6 +1993,7 @@ function paginate(vtbl,len,vfiltro) {
     
     if (len == undefined) {
         countpag = arr('login',4,'',vtbl,'0,1,"'+vfiltro+'",""',0,0,0)[0][0];
+        console.log('login',4,'',vtbl,'0,1,"'+vfiltro+'",""')
     }else
         countpag = len;
 
@@ -1723,6 +2026,7 @@ function paginate(vtbl,len,vfiltro) {
 $(document).on("click", ".paginate", function () {
 
     var limit = $(this).attr('limit');
+    $("ul.pagination").attr('last_limit',limit)
     var vtbl = $("ul.pagination").attr('vtbl');
     var modulo = $("ul.pagination").attr('modulo');
     
@@ -1788,13 +2092,14 @@ $(document).on("click", ".nxt", function () {
             $(".pagination").append('<li class="waves-effect"><a href="#!"><i class="mdi mdi-24px mdi-chevron-right nxt"></i></a></li>');
             $(".paginate").removeClass('active');
             $("#z" + next).addClass('active');
-            var limit = $("#z" + next).attr('limit');
         }
     } else {
-        var limit = $("#z" + next).attr('limit');
         $(".paginate").removeClass('active');
         $("#z" + next).addClass('active');      
     }
+  	
+    var limit = $("#z" + next).attr('limit');
+    $("ul.pagination").attr('last_limit',limit)
     llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
 
     if ($("#z"+next+" a").html() == undefined)
@@ -1840,8 +2145,6 @@ $(document).on("click", ".prv", function () {
                 }
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
-                var limit = $("#z" + prev).attr('limit');
-                llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
                } else {
                 $(".paginate").removeClass('active');
                 $("#z" + prev).addClass('active');
@@ -1849,14 +2152,16 @@ $(document).on("click", ".prv", function () {
                 llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
             }
         } else {
-            var limit = $("#z" + prev).attr('limit');
             $(".paginate").removeClass('active');
             $("#z" + prev).addClass('active');
-           
             var filtro = $("#search_"+modulo).val().replace(/"/g,'\\\"');
-            llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
         }
     }
+  	
+  	var limit = $("#z" + prev).attr('limit');
+    $("ul.pagination").attr('last_limit',limit)
+    llenarTablaPaginate(modulo,vtbl,filtro_sp,limit,cambio)
+  
     if ($("#z"+prev+" a").html() == undefined)
         return
     var numl = parseInt($("#z"+prev+" a").html());
@@ -1929,6 +2234,68 @@ $(document).on('blur','[addG=1]',function(){
             var op = parseInt($(this).attr('addG'));
             addGeneral(op);
         }
+    }
+});
+
+// fast products
+$(document).on('keydown','.fastProduct',function(e){
+    let charCode    = e.which || e.keyCode;
+    let charStr     = String.fromCharCode(charCode);
+    let inv         = $(this).attr('inv') == undefined ? 6 : $(this).attr('inv');
+    let element_g   = $(this).attr('guardar') == undefined ? $(this) : $("#"+$(this).attr('guardar'));
+    let accion      = $(this).attr('vacc') == undefined ? 1 : $(this).attr('vacc')
+
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        element_g.attr('vid',0)
+        $(".autocomplete-content").remove();
+        $(this).autocomplete({
+            limit: 20,
+            data: getNAutocomplete(`id,trim(nombre) as nom,null`,
+                                   11,
+                `id > 0 and id in(select idproducto from detalleinventarios where idinventario = ${inv} ) 
+				and (nombre like "%${$(this).val()}%" or codigo like "%${$(this).val()}%" ) limit 20`),
+            onAutocomplete: function(e){
+                element_g.attr('vid',$(this).attr('vid'))
+                try{
+                    postFProd(accion,$(this).attr('vid'),$(this));
+                }catch(e){}
+            }
+        });
+    }else if(charCode == 13){
+        try{
+            postFProd(0,0,$(this));
+        }catch(e){}
+    }
+})
+
+// fast client
+$(document).on('keydown','.fastClient',function(e){
+    var charCode    = e.which || e.keyCode;
+    var charStr     = String.fromCharCode(charCode);
+    var bisprov     = $(this).attr('bisprov') == undefined ? 0 : $(this).attr('bisprov');
+    var element_g   = $(this).attr('guardar') == undefined ? $(this) : $("#"+$(this).attr('guardar'));
+    let elem_id     = $(this).attr('idelem')
+    let valor       = $(this).val()+charStr 
+    valor = valor.replace(/"/g,'&quot;')
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        console.log($(this).val())
+        element_g.attr('vid',0)
+        $(".autocomplete-content").remove();
+        $(this).autocomplete({
+            limit: 20,
+            data: getNAutocomplete('id,concat(trim(nombre),if(web<>"",concat(" [",trim(web),"], "),", "),trim(cedula)) as nom,null',2,'bisproveedor='+bisprov+' and id > 0 and idsucursal = @@impresa having nom like "%'+valor+'%" limit 20'),
+            onAutocomplete: function(e){
+                element_g.attr('vid',$(this).attr('vid'))
+                try{
+                    postFClient($(this).attr('vid'),elem_id);
+                }catch(e){}
+            }
+        });
+        $(".autocomplete-content").css('width','50%');
+    }else if(charCode == 13){
+        try{
+            postFClient(-1,0);
+        }catch(e){}
     }
 });
 
@@ -2466,6 +2833,35 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+function validarById(elemento,is_req=0,sz=0){
+    elemento = $("#"+elemento);
+    let stoast = elemento.attr('stoast') != undefined ? elemento.attr('stoast') : 'Elemento'
+    let isnumeric = elemento.hasClass('numeric')
+    
+    if(isnumeric){
+        if(elemento.val().replace(/,/g,'').trim() == 0 && is_req){
+            Materialize.toast(stoast+' Requerido',4000,'red');
+            elemento.focus().select()
+            return false;
+        }
+    }
+    else{
+        if(elemento.val().trim() == '' && is_req){
+            Materialize.toast(stoast+' Requerido',4000,'red');
+            elemento.focus().select()
+            return false;
+        }
+    }
+
+    if(elemento.val().trim().length > sz && sz){
+        Materialize.toast(stoast+' Tamaño Inválido',4000,'red');
+        elemento.focus().select()
+        return false;
+    }
+
+    return elemento.val().trim();
 }
 
 function validarNumero(elem,msj='Valor',zero=1,dec=2,min=0,max=0){

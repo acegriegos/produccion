@@ -1,0 +1,94 @@
+#apsy-alerts {
+    position: fixed;
+    top: 95px;
+    right: 50px;
+    z-index: 99999;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.apsy-alert {
+    min-width: 300px;
+    max-width: 450px;
+
+    padding: 14px 18px;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    border: 1px solid #e0e0e0;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .12);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transform: translateX(30px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.apsy-alert-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+}
+
+.apsy-alert-progress-bar {
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    transform-origin: left;
+    animation-name: apsy-alert-progress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes apsy-alert-progress {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+.apsy-alert-success {
+    color: #2e7d32;
+    border-left: 4px solid #2e7d32;
+    background: #f7fbf7;
+}
+
+.apsy-alert-error {
+    color: #c62828;
+    border-left: 10px solid #c62828;
+    background: #fff8f8;
+}
+
+.apsy-alert-warning {
+    color: #ef6c00;
+    border-left: 4px solid #ef6c00;
+    background: #fffaf4;
+}
+
+.apsy-alert-info {
+    color: #1565c0;
+    border-left: 4px solid #1565c0;
+    background: #f7faff;
+}
+
+.apsy-alert-content {
+    color: #333;
+}

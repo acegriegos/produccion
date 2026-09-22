@@ -6,11 +6,11 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Movimientos de Inventario</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.3">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.1.0">
 </head>
 <body class="black">
   <div class=" principal contenedor" >
-      <div class="filtros row" elem="" sp="284" modulo="reportemovinv" porproducto entrefechas tbltipos="256,0,20,-1" tipos="Movimiento,Agrupado,Por Familia,Comodin" types="1,3,1,0" portipo="varios"></div>
+      <div class="filtros row" elem="" sp="284" modulo="reportemovinv"></div>
       <!-- HEADER -->
     <div class="row header">
       <div class="col s4 m4 l4">
@@ -42,7 +42,53 @@
   </ul>
   </div>
   {$SCR}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.3"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.0.3"></script>
+  {literal}
+    <script type="text/javascript">
+      $(function(){
+        $(".filtros").data('filtros',{
+          /*porproducto tbltipos="256,-1,20,-1" tipos="Movimiento,Agrupado,Por Familia,Comodin" types="1,3,1,0" portipo="varios"*/
+          "entrefechas":{
+            "tipo":4,
+            "texto": "Entre Fechas",
+            "sub": 5,
+            "values": {
+              "vdesde":"1",
+              "vhasta":""
+            }
+          },
+          "nproducto":{
+            "tipo":1,
+            "texto":"Producto",
+            "class":"producto",
+            "autocomplete":{
+              "id":"vidproducto"
+            }
+          },
+          "vtipomovimiento":{
+            "tipo":6,
+            "texto":"Tipo Movimiento",
+            "pre":{
+              "tipo":6,
+              "default":"0",
+              "sel":"id,nombre",
+              "tbl":"256",
+              "whr":"id>0"
+            }
+          },
+          "vagrupado":{
+            "tipo":3,
+            "indeterminate" : 0,
+            "texto":"Agrupado"
+          },
+          "vcomodin":{
+            "tipo":1,
+            "texto":"Comodín"
+          }
+        })
+      })
+    </script>
+  {/literal}
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.1.0-1"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.1.0-2"></script>
 </body>
 </html>

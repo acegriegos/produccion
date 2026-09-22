@@ -1,11 +1,15 @@
 $(function(){
     var html = '';
     var mdate;
+    let permiso = getDatos('',246,'@@usr,9997,9998')[0] //9998 boton Excel,9998 envio por correo
+    let hexel = permiso[0][3] == '1' ? '' : 'hide';
+    let hmail = permiso[1][3] == '1' ? '' : 'hide';
+
 
     $(".autocomplete").blur(function(){ 
         $(".autocomplete-content").hide('500'); 
     });
-    $(".principal .filtros").append('<div class="col s12" id="fbtns"><span style="font-weight: bold;font-size: 20px;">FILTROS DEL REPORTE</span><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
+    $(".principal .filtros").append('<div class="col s12" id="fbtns" style="margin-bottom: 1%;"><span style="font-weight: bold;font-size: 20px;">FILTROS DEL REPORTE</span><a class="waves-effect waves-light blue btn der" title="Ocultar Filtros"><i class="mdi mdi-chevron-up ofiltr"></i></a><a class="waves-effect waves-light btn der blue" style="margin-right:2%;" title="Generar Reporte" onclick="doreport()">Generar</a> <a class="der btn-floating sendrep '+hmail+'" style="margin-right:2%;" title="Enviar por Correo"><i class="mdi mdi-send mdi-24px"></i></a>  <a class="der btn-floating excel '+hexel+'" style="margin-right:2%;" title="Exportar a Excel" data-parametros=\'{"vista":"","titulo":"","suma":""}\'><i class="mdi mdi-file-excel mdi-24px"></i> <i class="mdi mdi-send mdi-24px"></i></a> <a class="hide" id="irpdf"></a>  <a class="der btn-floating pdf hide" style="margin-right:2%;" title="Exportar a PDF"><i class="mdi mdi-file-pdf mdi-24px"></i> </a> </div><br>   <div class="modal modal-fixed-footer" id="modal-correos" style="height: 200px;"><div class="modal-content"><span>Enviar por Correo a:</span> <div class="chips chips-initial white-text" id="listcorreos"></div> </div><div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a><a class="modal-action modal-close waves-effect waves-green btn-flat" id="sndcrr">Enviar</a></div></div>');
 
     mdate = $(".principal .filtros").attr('porcliente');
     if (mdate != undefined){
@@ -44,7 +48,7 @@ $(function(){
      mdate = $(".principal .filtros").attr('porProducto');
     if (mdate != undefined){
 
-        html = '<div class="row col s6 rous" style="margin:0;"><div class="col s4"><input type="checkbox" id="chkprod" value="4" class="repcheck"><label for="chkprod" class="pbtn">Por Producto</label></div><div class="col s8 '+mdate+'" id="fltr4" style="paddin:0"><div class="input-field" style="margin:0;"><label for="productos" class="width:100%">Nombre</label><input type="text" class="validate init autocomplete" style="margin:0;padding:0" id="productos"><input type="hidden" id="vidproducto" class="inpreport" value="0" /></div></div></div>';
+        html = '<div class="row col s6 rous" style="margin:0;"><div class="col s4"><input type="checkbox" id="chkprod" value="4" class="repcheck"><label for="chkprod" class="pbtn">Por Producto</label></div><div class="col s8 '+mdate+'" id="fltr4" style="paddin:0"><div class="input-field" style="margin:0;"><label for="productos" class="width:100%">Nombre</label><input type="text" class="validate init autocomplete" style="margin:0;padding:0" id="productos" autocomplete="off"><input type="hidden" id="vidproducto" class="inpreport" value="0" /></div></div></div>';
 
         $(".principal .filtros").append(html);
 
@@ -218,7 +222,7 @@ $(function(){
                         type = '<input type="number" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
                         break;
                     default://para texto
-                        type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
+                        type = '<input type="text" id="'+mdi+'" class="validate inpreport tipos eder" style="margin:0px" autocomplete="off"><label for="'+mdi+'" str="1">'+tipos[i]+'</label>';
 
                     break;
                 }
@@ -248,7 +252,7 @@ $(function(){
 
     var dt_filtro = $(".filtros").data('filtros');
     if(dt_filtro){
-        html = '<div class="row col s4" id="nselects"></div> <div class="row col s4" id="selects"></div> <div class="row col s3" id="checks"></div>'
+        html = '<div class="row col s12" id="fbuttons"></div> <div class="row col s4" id="nselects"></div> <div class="row col s4" id="selects"></div> <div class="row col s3" id="checks"></div>'
         $(".principal .filtros").append(html);
         
         $.each(dt_filtro,function(v,i){
@@ -262,8 +266,29 @@ $(function(){
             if(dt_filtro[v]['pre'] != undefined){
                 let pre = dt_filtro[v]['pre'];
                 let lpre = '';
-                
+
                 switch(parseInt(pre['tipo'])){
+                    case 6:
+                         
+                        if(pre['sel'] != undefined){
+                            spre = '<option disabled selected value="'+dt_filtro[v]['pre']['default']+'">Seleccione un Valor</option>';
+                            let _opciones = getDatos(pre['sel'],pre['tbl'],pre['whr']);
+                            if(_opciones[0]){
+                                let selected = dt_filtro[v]['pre']['selected']
+                                selected = selected == undefined ? '' : selected
+                                let is_selected = ''
+                                $.each(_opciones[0],function(x,y){
+                                    is_selected = selected == y[0] ? 'selected' : ''
+                                    spre += '<option value="'+y[0]+'" '+is_selected+'>'+y[1]+'</option>';
+                                })
+                            } 
+                        }else{
+                            $.each(pre['opciones'],function(x,y){
+                                spre += '<option value="'+y['id']+'">'+y['nombre']+'</option>';
+                            })
+                        }
+
+                        break;
                     case 1:
                     default:
                         $.each(pre['opciones'],function(x,y){
@@ -276,7 +301,44 @@ $(function(){
                 }
             }
 
+
+            let eclass = "";
+            let eattr = "";
+
+            if(dt_filtro[v]['class'] != undefined){
+                eclass = dt_filtro[v]['class']
+            }
+
+            if(dt_filtro[v]['attr'] != undefined){
+                eattr = dt_filtro[v]['attr']
+            } 
+
             switch(type){
+                case 6: //SELECT
+                    item = '<select id="'+name+'" '+eclass+'" '+eattr+'>'+spre+'</select> <label for="'+name+'">'+text+'</label>';
+                    break;
+                case 5: //button
+                    item = '<a class="btn '+dt_filtro[v]['class']+'" id="'+dt_filtro[v]['id']+'" style="margin-left:3%" '+dt_filtro[v]['attr']+'>'+text+'</a>';
+                    break;
+                case 4: //BETWEEN
+                    let subitem = '';
+                    let div_size = dt_filtro[v]['size'] == undefined ? 6 : dt_filtro[v]['size'];
+                    $.each(dt_filtro[v]['values'],function(x,y){
+                        let entre_label = "";
+                        if(y =='1')
+                            entre_label = '<label for="'+x+'" class="active">'+text+'</label>';
+                        switch(dt_filtro[v]['sub']){
+                            case 4://horas
+                                subitem += '<div class="col s'+div_size+'" style="padding:0px;margin:0px;">'+entre_label+'<input type="time" id="'+x+'" value="" style="margin:0px"></div>';
+                                break;
+                            case 5://fechas
+                            default:
+                                subitem += '<div class="col s'+div_size+'" style="padding:0px;margin:0px;">'+entre_label+'<input type="date" id="'+x+'" value="" style="margin:0px"></div>';
+                                break;
+                        }
+                    });
+                    item = '<div class="row" style="margin:0px;padding:0px">'+subitem+'</div>';
+                    break;
                 case 3: //CHECK
                     let checked = dt_filtro[v]['checked'] == undefined ? '' : 'checked';
 
@@ -289,37 +351,41 @@ $(function(){
                 default:
                     let auto = "";
                     let hd = "";
-                    let eclass = "";
-                    let eattr = "";
 
                     if(dt_filtro[v]['autocomplete'] != undefined){
                         auto = "autocomplete"
                         hd = '<input type="hidden" id="'+dt_filtro[v]['autocomplete']['id']+'" value="0" />'
                     }
 
-                    if(dt_filtro[v]['class'] != undefined){
-                        eclass = dt_filtro[v]['class']
-                    }
-
-                    if(dt_filtro[v]['attr'] != undefined){
-                        eattr = dt_filtro[v]['attr']
-                    } 
-
-                    item = '<span class="prefix" style="font-size:16px;">'+text+'</span><input type="text" id="'+v+'" class="eder '+auto+' '+eclass+'" '+eattr+' style="margin:0px" placeholder="--" autocomplete="off">'+hd;
+                    item = '<span class="prefix" style="font-size:16px;width:50%">'+text+'</span><input type="text" autocomplete="off" id="'+v+'" class="eder '+auto+' '+eclass+'" '+eattr+' style="margin:0px;width:100%;" placeholder="--" autocomplete="off">'+hd;
                     break;
             }
 
+            if(dt_filtro[v]['change_type'] != undefined){
+
+                type = dt_filtro[v]['change_type']
+                console.log(type)
+            } 
+
             switch(type){
+                case 6:
+                    $("#selects").append('<div class="input-field" style="margin:0px;margin-bottom:3%">'+item+'</div>');
+                    break;
+                case 5:
+                    $("#fbuttons").append(item);
+                    break;
+                case 4:
                 case 1:
                 case 2:
-                    $("#nselects").append('<div class="input-field" style="margin:0px;">'+item+'</div>');
+                    $("#nselects").append('<div class="input-field" style="margin:0px;margin-bottom:3%">'+item+'</div>');
                     break;
                 case 3:
                     $("#checks").append('<div class="col s6" style="margin:0px;">'+item+'</div>');
                     if(dt_filtro[v]['indeterminate'] != undefined)
-                        $("#"+v).prop('indeterminate',true).addClass('_justChange').val(-1)
+                        $("#"+v).prop('indeterminate',true).addClass('_justChange').val(dt_filtro[v]['indeterminate'])
                     break;
                 default:
+                    $("#checks").append('<div class="input-field" style="margin:0px;margin-bottom:3%">'+item+'</div>');
                     break;
             }
 
@@ -333,12 +399,22 @@ $(function(){
         $('.dropdown-button').dropdown();
         $('.tooltipped').tooltip({delay: 50,duration:1000});
 
+        if(!$("#fbuttons").children().length)
+            $("#fbuttons").remove()
         if(!$("#selects").children().length)
-            $("#selects").remove()
+            $("#selects").remove()            
         if(!$("#nselects").children().length)
             $("#nselects").remove()
         if(!$("#checks").children().length)
             $("#checks").remove()
+
+        $("select").material_select()
+
+        $(document).on("keyup","input[type='text']",function(e){
+            let key = e.keyCode || e.which;
+            if(key == 13)
+                doreport();
+        });
     }
 
     $("[id^=fltr]").hide();
@@ -387,8 +463,8 @@ $(document).on("keydown",".cliente",function(e){
     var charCode = e.which || e.keyCode;
     var charStr = String.fromCharCode(charCode);
     var elem = $(this);
-    var prov = elem.attr('bisprov') == undefined ? '': 'and bisproveedor';
-    
+    var prov = elem.attr('bisprov') == undefined ? 'and !bisproveedor': 'and bisproveedor';
+
     if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
         $(".autocomplete-content").remove();
         elem.autocomplete({
@@ -403,6 +479,24 @@ $(document).on("keydown",".cliente",function(e){
                     }
                     else
                         $("#vidcliente").val(0);
+            }
+        });
+        elem.siblings($(".autocomplete-content")).css('width','25%');
+    }
+});
+
+$(document).on("keydown",".producto",function(e){
+    var charCode = e.which || e.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    var elem = $(this);
+    
+    if (/[a-zA-Z0-9-_. ]/i.test(charStr) || charCode == 8) {
+        $(".autocomplete-content").remove();
+        elem.autocomplete({
+            limit: 10,
+            data: getNAutocomplete('id,nombre,null',11,'id > 0 and nombre like \"%'+elem.val()+'%\" and idsucursal in(-1,@@impresa) limit 10'),
+            onAutocomplete: function(val){
+                $("#vidproducto").val($(this).attr('vid'))
             }
         });
         elem.siblings($(".autocomplete-content")).css('width','25%');

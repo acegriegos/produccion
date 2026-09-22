@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Ver Facturas</title>
     {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-verfacturas.css?v=10.4.1.0">
   </head>
   <body>
   
@@ -30,17 +30,17 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf2" {if $TF eq 2}checked{/if}/>
                 <label for="tf2">Compras</label>
             </div>
-            {if $smarty.session.BUSS eq 3}
+            
             <div class="col s6  m2">
                 <input name="tventa" class="with-gap truncate" type="radio" id="tf3" {if $TF eq 3}checked{/if}/>
                 <label for="tf3">Ord. Compras</label>
             </div>
 
-            <div class="col s6 m2">
+            <div class="col s6 m2 hide">
                 <input name="tventa" class="with-gap" type="radio" id="tf5" {if $TF eq 5}checked{/if}/>
                 <label for="tf5">Orden de Pedidos</label>
-            </div>  
-            {/if}
+            </div> 
+
             <div class="col s6 m2">
                 <input name="tventa" class="with-gap" type="radio" id="tf7" {if $TF eq 7}checked{/if}/>
                 <label for="tf7">Tiquetes</label>
@@ -91,7 +91,8 @@
                     <li><a class="optns" href="#!" fltr="1">Número</a></li>
                     <li><a class="optns" href="#!" fltr="2">Razón Social o Cédula</a></li>
                     <li><a class="optns" href="#!" fltr="3">Fecha</a></li>
-                    <li><a class="optns" href="#!" fltr="4">Orden Compra</a></li>
+                    <li><a class="optns" href="#!" fltr="4">Orden Compra Cliente</a></li>
+                    <li><a class="optns" href="#!" fltr="5">Orden Compra Interna</a></li>
                   </ul>
                   <input type="text" id="search_facturas" maxlength="100" num="v158" var="0,1" filtro="1" autocomplete="off">
                   <label class="truncate" for="search_facturas">Buscar Factura por <span>Número</span></label>
@@ -113,6 +114,7 @@
                         <thead class="tab1">
                             <tr>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">N° Factura</th>
+                                <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important;">Usuario</th>
                                 <th class="white-text tr trCompra" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Referencia</th>
                                 <th class="white-text tr trCompra trVenta trCot" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Tipo</th>
                                 <th class="white-text" style="border: 0; font-size: 1.2em; border-radius: 0px !important; width: 100%">Fecha</th>
@@ -128,7 +130,7 @@
                         <!-- <tbody id="loadbody"><tr><td colspan="100"><i class="mdi mdi-spin mdi-refresh mdi-48px center"></i></td><tr></tbody> -->
                     </table>
                     <ul class="left showing" modulo="158"><small></small></ul>
-                    <ul class="pagination right" vtbl="158" modulo="facturas" filtro_sp="{$TF},0,@@impresa,^,?"></ul>
+                    <ul class="pagination right" vtbl="158" modulo="facturas" filtro_sp="{$TF},0,@@impresa,@@usr,^,?"></ul>
                 </div>
             </div>
             <br><br>
@@ -167,6 +169,6 @@
 
     {$SCR}
     
-    <script src="../assets/js/modulos/verfacturas.js?v=10.4.0.3"></script>
+    <script src="../assets/js/modulos/verfacturas.js?v=10.4.1.0-1"></script>
   </body>
 </html>

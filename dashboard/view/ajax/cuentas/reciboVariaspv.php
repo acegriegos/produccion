@@ -110,9 +110,9 @@ echo '<tr>
   </tr>
   <tr>
     <td align="left"><span class="fe hide"></span></td>
-    <td width="13%" align="center">'.$fecha[2].'</td>
-    <td width="13%" align="center">'.$fecha[1].'</td>
     <td width="13%" align="center">'.$fecha[0].'</td>
+    <td width="13%" align="center">'.$fecha[1].'</td>
+    <td width="13%" align="center">'.$fecha[2].'</td>
   </tr>
 </table>
 <br>
@@ -167,7 +167,10 @@ echo '<tr>
   echo '
 </table>';
 
-echo '<hr><b>SALDO '.$transaccion[0][12].':</b> '.$obj[6].$obj[11].'
+$dol = '';
+if($transaccion[0][15]) $dol = '<br><span style="float:right">$'.number_format($transaccion[0][15],2).'</span>';
+  
+echo '<hr><b>SALDO '.$transaccion[0][13].':</b> <span style="float:right">¢'.$obj[11].'</span> '.$dol.'
 <br><br><br>
 <hr>
 <span style="text-align: center; margin-left:36%">Recibo Conforme</span>
@@ -176,9 +179,9 @@ echo '<hr><b>SALDO '.$transaccion[0][12].':</b> '.$obj[6].$obj[11].'
 <span style="text-align: center; margin-left:36%">Número de Cédula</span>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
- <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
- <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
+ <script src="../assets/js/jquery.js?v=10.4.1.0"></script>
+ <script src="../assets/js/materialize.min.js?v=10.4.1.0"></script>
+ <script src="../assets/js/asgard.js?v=10.4.1.0"></script>
    <script type="text/javascript">
        $(function(){
           param = getParameterByName('fp');

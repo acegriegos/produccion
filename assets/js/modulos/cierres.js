@@ -287,7 +287,7 @@ $(function(){
 	});
 
 	$("#shcierre").click(function(){
-		var datos = getDatos('consecutivo,date_format(fecha,"%d-%m-%Y") as fecha',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) in(1,2),1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
+		var datos = getDatos('consecutivo,date_format(fecha,"%d-%m-%Y") as fecha,id',314,'if((select rcaja from ajustessucursales where idsucursal = @@impresa) in(1,2),1,idusuario = '+guser+') and idsucursal=@@impresa order by id desc',0,0)[0];
 		var str = '<h4>Lista de Cierres</h4><table class="table responsive-table centered striped bordered highlight z-depth-5"><thead><tr><th>Cierre</th><th>Fecha</th></tr></thead>';
 
 		for (var i = 0; i < datos.length; i++) {

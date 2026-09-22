@@ -49,13 +49,20 @@ $(function () {
 				});
 
 				$("#boletainv").click(function(){
+
+					if(!$(".mciclos").length){
+						Materialize.toast('Boleta sin Líneas',4000,'red')
+						$("#bpes").focus()
+						return false;
+					}
+
 					var boleta = getDatos('',273,'1,0,@@usr,@@impresa,'+$("[name=mov]:checked").val()+','+$("#bod1").val()+','+$("#bod2").val()+',"'+$("#bol-comen").val()+'"',0,0,0);
 					
 					if(boleta.succed){
 						boleta = boleta[0][0][0];
 						var detbol;
 						$(".mciclos").each(function(){
-							detbol = getDatos('',274,'1,0,'+boleta+','+$(this).attr('idp')+','+$(this).find(".cdetbol").val()+',0',0,0,0);
+							detbol = getDatos('',274,'1,0,'+boleta+','+$(this).attr('idp')+','+$(this).find(".cdetbol").val()+',0,'+$("#selunid option:selected").val(),0,0,0);
 						});
 						$("#bol-comen").val('');
 						$("#bes").html('');
@@ -233,30 +240,15 @@ $(function () {
 	    });
 	});
 
-	var pr = getParameterByName("pr"); //accesos
-	var sr = getParameterByName("sr");
-	var pq = getParameterByName("pq");
-	var addpr = getParameterByName("addpr");
-	var addsr = getParameterByName("addsr");
-	var addpq = getParameterByName("addpq");
-
-	if (pr) {
-		$("#m1").click();
-	} else if (sr) {
-		$("#m2").click();
-	} else if (pq) {
-		$("#m3").click();
-	} else if (addpr) {
-		$("#m1").click();
-		$("#agProd").click();
-	} else if (addsr) {
-		$("#m2").click();
-		$("#addservice").click();
-	} else if (addpq) {
-		$("#m3").click();
-		$("#addpackage").click();
-	} else
-		$("#m1").click();
+	var raiz = getParameterByName("raiz"); 
+	switch(raiz){
+		case "1":
+			$("#m2").click();
+			break;
+		default:
+			$("#m1").click();
+			break;
+	}	
 	
 	permisos(4100,4200);
 });
@@ -310,17 +302,31 @@ $(document).on("keyup","#bpes",function(e){
 
 $(document).on("blur","#bpes",function(){
 	if($(this).val().trim().length){
-		var id = arr('login',4,'id',11,'(nombre = "'+$("#bpes").val()+'" or codigo = "'+$("#bpes").val()+'") and id > 0 and idsucursal in(-1,@@impresa) limit 1',0,0,0)[0][0];
+		let info = arr('login',4,'id,idunidad',11,'(nombre = "'+$("#bpes").val()+'" or codigo = "'+$("#bpes").val()+'") and id > 0 and idsucursal in(-1,@@impresa) limit 1',0,0,0)
+		console.log(info)
+		info = info[0][0];
+		let id =  info[0]
 
 		if (id != undefined){
 		    $("#bpes").attr('idp',id);
-		    var cinv = getDatos('if(count(cantidad),truncate(cantidad,2),"N")',97,'idproducto = '+id+' and idinventario = '+$("#bod1").val(),0,0,0);
+		    var cinv = getDatos('if(count(cantidad),truncate(cantidad/(select cantidad from unidades where id = '+info[1]+'),2),"N"),(select idunidad from productos where id = '+id+')',97,'idproducto = '+id+' and idinventario = '+$("#bod1").val(),0,0,0);
 
 		    if(parseInt(cinv[0][0][0]) == -1){
 		    	Materialize.toast('Producto no Existente en el Inventario',4000,'red');
 				$("#bpes").focus().select();
 		    	return false;
 		    }
+
+		    let uni = '';
+		    let unis = getDatos('',250,id,0,0,0)[0];
+
+		    $.each(unis, function(index, valor) {
+		        uni += '<option value="'+valor[0]+'" cant="'+valor[2]+'">'+valor[1]+'</option>';
+		    });
+		    $("#selunid").html(uni);
+		    $("#selunid").val(cinv[0][0][1]);
+		    $("#selunid").material_select('update');
+
 		    $("#cesin").html(cinv[0][0][0])
 		    $("#cpes").focus().select();
 		}

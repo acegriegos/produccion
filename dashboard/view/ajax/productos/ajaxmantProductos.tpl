@@ -34,9 +34,8 @@
 
             <a id="addproduct" class="btn-floating waves-effect waves-light btn2 right z-depth-3 modal-trigger per4102" href="#modal-productos" title="Agregar Producto"><i class="mdi mdi-plus"></i></a>
 
-            {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
              <a id="boletaes" class="btn-floating waves-effect waves-light right z-depth-3 per4110" title="Boleta E/S Inventario" style="margin-right: 2%;"><i class="mdi mdi-truck"></i></a>
-             {/if}
+
         </div>
     </div>
     <div class="row pequeño">
@@ -297,7 +296,6 @@
                         <input type="hidden" id="vidinventario" value="6">
                      {/if}
                     
-                    {if $smarty.session.BUSS eq 3 or $smarty.session.BUSS eq 0}
                     <div class="input-field marginzero col s12">
                         <a href="#" id="heredado" class="btn-floating tooltipped hide" data-tooltip="Producto Heredado" data-position="bottom"><i>H</i></a>
                         <a href="#" id="union" class="btn-floating tooltipped" data-tooltip="Producto Mixtos" data-position="bottom"><i class="mdi mdi-note-multiple-outline mdi-24px"></i></a>
@@ -305,7 +303,6 @@
                         <a href="#" id="imagenes" class="btn-floating tooltipped" data-tooltip="Imagenes" data-position="bottom"><i class="mdi mdi-image-multiple mdi-24px"></i></a>
                         <a href="#" id="dimensiones" class="btn-floating tooltipped" data-tooltip="Dimensiones" data-position="bottom"><i class="mdi mdi-move-resize-variant mdi-24px"></i></a>
                     </div>
-                    {/if}
 
                 </div>
 
@@ -676,7 +673,7 @@
             <label for="bol-comen">Comentario</label>
         </div>
     </div>
-    <div class="row">
+        <div class="row">
         <div class="col s4 input-field">
             <i class="mdi mdi-magnify prefix"></i>
             <input type="text" id="bpes" autocomplete="off">
@@ -685,11 +682,15 @@
         <div class="col s2">
             En Inventario: <span id="cesin">0.00</span>
         </div>
-        <div class="col s3 input-field">
+        <div class="col s2 input-field">
             <input type="text" id="cpes" autocomplete="off" value="0">
             <label class="truncate" for="cpes">Cantidad</label>
         </div>
-        <div class="col s3">
+         <div class="col s2 input-field">
+            <select id="selunid"></select>
+            <label class="truncate" for="selunid">Cantidad</label>
+        </div>
+        <div class="col s2">
             <a id="addline" class="btn-floating waves-effect waves-light btn2 right z-depth-3" title="Agregar Linea"><i class="mdi mdi-plus"></i></a>
         </div>
     </div>

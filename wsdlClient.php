@@ -311,7 +311,7 @@
 
                     
                     $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-                    <'.$fe->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$fe->xmldoc.'" />');
+                    <'.$fe->tdoc.' xmlns="'.$this->linkVersion.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="'.$this->linkVersion.$fe->xmldoc.' '.$this->linkVersion.$fe->xmldoc.'" />');
                     $fe->array_to_xml($rxml,$xml_data);
 
                     $xml = $xml_data->asXML();
@@ -421,8 +421,8 @@
                         $fe->info['Receptor']['Identificacion']['Numero'] = $rxml['Receptor']['Identificacion']['Numero'];
                     }*/
 
-                     $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-                    <'.$fe->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$fe->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$fe->xmldoc.'" />');
+                    $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
+                    <'.$fe->tdoc.' xmlns="'.$this->linkVersion.$fe->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="'.$this->linkVersion.$fe->xmldoc.' '.$this->linkVersion.$fe->xmldoc.'" />');
                     $fe->array_to_xml($rxml,$xml_data);
                     $xml = $xml_data->asXML();
                     $delimiter = '#';
@@ -452,8 +452,8 @@
                 $xml = $fe->estado();
                 if ($xml) {
                     $salida['succed'] = 1;
-                    $salida['arhivo'] = "../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml";
-                    $salida['mfile'] = file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo'].", ".$_REQUEST['sucname'].".xml", $xml['xml']);
+                    $salida['arhivo'] = "../assets/xml/RH_".$fe->info['NumeroConsecutivo']." ".$_REQUEST['sucname'].".xml";
+                    $salida['mfile'] = file_put_contents("../assets/xml/RH_".$fe->info['NumeroConsecutivo']." ".$_REQUEST['sucname'].".xml", $xml['xml']);
                 }else
                     $salida['succed'] = 0;
                 echo json_encode($salida);
@@ -529,12 +529,12 @@
     <head>
         <title>Mensaje Hacienda</title>
         <link rel="icon" type="image/png" href="assets/img/favicon.ico">
-        <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.4.0.3">
-        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.3">
-        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.3">
-        <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.4.0.3">
-        <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
-        <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.4.0.3">
+        <link rel="stylesheet" type="text/css" href="assets/css/materialize.min.css?v=10.4.1.0">
+        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.1.0">
+        <link rel="stylesheet" type="text/css" href="assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.1.0">
+        <link rel="stylesheet" type="text/css" href="assets/css/modulos/style-menu.css?v=10.4.1.0">
+        <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.1.0">
+        <link rel="stylesheet" type="text/css" href="assets/css/system.min.css?v=10.4.1.0">
     </head>
     <body>
         
@@ -560,12 +560,12 @@
 
         <div class="center" style="bottom: 15%;left:auto;">Documento Electrónico Emitido por Logintech <br> <a href="mailto:info@logintechcr.com">Contáctenos, Será un placer brindar nuestros servicios</a>, +(506) 6105-6852</div>
 
-        <script src="assets/js/jquery.js?v=10.4.0.3"></script>
-        <script src="assets/js/jquery.mask.min.js?v=10.4.0.3"></script>
-        <script src="assets/js/materialize.min.js?v=10.4.0.3"></script>
-        <script src="assets/libs/charts/chart.js?v=10.4.0.3"></script>
-        <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.0.3"></script>
-        <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.0.3"></script>
+        <script src="assets/js/jquery.js?v=10.4.1.0"></script>
+        <script src="assets/js/jquery.mask.min.js?v=10.4.1.0"></script>
+        <script src="assets/js/materialize.min.js?v=10.4.1.0"></script>
+        <script src="assets/libs/charts/chart.js?v=10.4.1.0"></script>
+        <script src="assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.1.0"></script>
+        <script src="assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.1.0"></script>
         <script type="text/javascript">
             $(function(){
                 $('.tooltipped').tooltip({delay: 50});
@@ -601,9 +601,6 @@
         var $sumaimpuestos = 0;
         var $sumadescuentos = 0;
         var $sumaexonerados = 0;
-        var $totGr = 0;
-        var $totEx = 0;
-        var $totEo = 0;
         var $sumagravados = 0;
         var $idtabla = 64;
         var $titulo = 'Factura';
@@ -620,7 +617,6 @@
                     $this->ref = 1;
                     $this->idtabla = 301;
                     $this->titulo = 'Nota Debito';
-
                     break;
                 case 3: //NOTA DE CREDITO
                     $this->tdoc = 'NotaCreditoElectronica';
@@ -660,16 +656,22 @@
                     $_SESSION['IMPRESA'] = $_REQUEST['sucursal'];
 
             if ($vid != '') {
-                $db = new DBClass();
                 if (!isset($_SESSION['IMPRESA']))
                     session_start();
                 if (!isset($_REQUEST['accion']))
                     $this->preUbicacion = '../';
                 
                 session_write_close();
+                $db = new DBClass();
                 $this->credenciales = $db->ejecutar('call fe_getCredentials('.$_SESSION['IMPRESA'].')')->fetch_all()[0];
+                $this->getByVersion();
             }
             
+        }
+
+        function getByVersion(){
+            $this->linkVersion = 'https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.4/';
+            $this->tribunet    = 'https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.4/'.$this->xmldoc;
         }
 
         function getBearer(){
@@ -705,8 +707,8 @@
 
             $params = array(
               "client_id" => $cli_id,
-              "client_secret" => "",
-              "scope" => "",
+              "client_secret" => " ",
+              /*"scope" => "",*/
               "username" => $user,//$this->credenciales[1],
               "password" => $pass,//$this->credenciales[2],
               "grant_type" => "password");
@@ -876,6 +878,7 @@
                 case 201:
                 case 202:
                 case 206:
+                    $salida = [];
                     foreach (json_decode($body) as $index => $key) {
                         $salida[$index] = [];
                         $salida[$index]['numfact'] = substr($key->clave,21,20);
@@ -904,7 +907,7 @@
                 return 'Problemas con la Llave Criptográfica';
 
             if ($this->credenciales[2] == 1) 
-                    $curl = curl_init("https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
+                $curl = curl_init("https://api-sandbox.comprobanteselectronicos.go.cr/recepcion/v1/recepcion");
             else
                 $curl = curl_init("https://".$this->pagina."/recepcion/v1/recepcion");
             curl_setopt($curl, CURLOPT_HEADER, true);
@@ -1018,321 +1021,255 @@
 
         function loadXML_FILE($_xml,&$salida,&$db,$cedula)
         {       
+            //$_xml = utf8_encode($_xml);
             $_xml = preg_replace ('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '', $_xml);
+
             $inv_xml = simplexml_load_string($_xml);
-            if (!isset($inv_xml->Clave)) {
-                $inv_xml = simplexml_load_string(utf8_encode($_xml));
-                if (!isset($inv_xml->Clave)) {
-                    $salida = ['succed' => 0,'ERROR' => 'XML no Válido'];
-                    return false;
-                }
+
+            if(!$inv_xml){
+                $salida = ['succed' => 0,'ERROR'=>'Archivo no es Xml Válido'];
+                return false;
             }
+                
+            $tipofe = $inv_xml->getName();
             
             $ispruebas = 0;
             if(strpos($_xml, 'SANDBOX') > -1)
                 $ispruebas = 1;
 
-            if (!isset($inv_xml->Emisor->Identificacion->Numero)) {
-                $inv_xml = (Array) $inv_xml;
-                
-                if ($inv_xml['Mensaje'] == 3) {
-                    $salida = ['succed' => 0,'ERROR' => 'El Comprobante Electrónico no fue Aceptado'];
-                    return false;
-                }
+            $ns = $inv_xml->getNamespaces(true);
+            $inv_xml->registerXPathNamespace('fe', $ns['']);
 
-                if (substr($inv_xml['Clave'], 30,1) >= 5) {
-                    $salida = ['succed' => 0,'ERROR' => 'Comprobante no Válido'];
-                    return false;
-                }
+            if(!isset($inv_xml->xpath('//fe:Clave')[0])){
+                $salida = ['succed' => 0,'ERROR'=>'XML no Electónico'];
+                return false;
+            }
 
-                if (strlen($inv_xml['Clave']) != 50){
-                    $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
-                    return false;
-                }
+            if( strlen($inv_xml->xpath('//fe:Clave')[0]) != 50){
+                $salida = ['succed' => 0,'ERROR'=>'XML no Electónico'];
+                return false;
+            }
 
-                if (!isset($inv_xml['NombreEmisor'])) {
-                    $salida = ['succed' => 0,'ERROR' => 'Comprobante no Válido'];
-                    return false;
-                }
-
-                if (!strlen(trim($inv_xml['NombreEmisor']))) {
-                    $salida = ['succed' => 0,'ERROR' => 'Comprobante no Válido'];
-                    return false;
-                }
-
-                // if($inv_xml['NumeroCedulaReceptor'] != $cedula && $cedula != ''){
-                //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-                //     return false;
-                // }
-
-                $salida['clave'] = $inv_xml['Clave'];
-
-                $sub = $inv_xml['TotalFactura']-$inv_xml['MontoTotalImpuesto'];
-                $_exo = $inv_xml['TotalFactura']-$sub-$inv_xml['MontoTotalImpuesto'];
-
-                $idprov = $db->ejecutar('call sp_rmantclientes("'.$inv_xml['NombreEmisor'].'","'.$inv_xml['NumeroCedulaEmisor'].'","","",'.$inv_xml['TipoIdentificacionEmisor'].',0,0,0,0,0)');
-                if(isset($idprov->num_rows)) 
-                    $idprov = $idprov->fetch_all()[0][0];
-                else{
-                     $salida = ['succed' => 0,'ERROR' => $idprov,'mod'=>'PROVEEDOR R'];
-                    return false;
-                }
-                $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"'.$inv_xml['Clave'].'","'.$inv_xml['Clave'].'",1,1,0,"",0,"","",now(),1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')');
-                if(isset($idfact->num_rows)){
-                    $idfact = $idfact->fetch_all()[0][0];
-                    $salida['ifactura'] = $idfact;
-                }
-                else{
-                    $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,0,'.$inv_xml['MontoTotalImpuesto'].','.$sub.','.$_exo.',0,0,0,0,"'.$inv_xml['Clave'].'","'.$inv_xml['Clave'].'",1,1,0,"",0,"","",now(),1,"",'.$inv_xml['Mensaje'].',"'.$inv_xml['NumeroCedulaReceptor'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
-                    $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura R'];
-                    return false;
-                }
-                if ($idfact) {
-
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,0,"",0)');
-
-                    if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$inv_xml['MontoTotalImpuesto'].',1,0,0,0,0)');
-                        $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura R'];
-                        //$db->ejecutar('call sp_rrollback('.$idfact.')');1
-                        return false;
+            switch ($tipofe) {
+                case 'MensajeHacienda':
+                    $salida =  $this->cargarRecepcion($inv_xml,$ispruebas,$db);
+                    break;
+                default:
+                    if(strpos($_xml, 'xml-schemas/v4.3/'))
+                        $version = '4.3';
+                    else if(strpos($_xml, 'xml-schemas/v4.4/')){
+                        $version = '4.4';
                     }
-                }
-                return false;
+                    $salida = $this->cargarFacturaElectronica($inv_xml,$ispruebas,$db,$ns,$version,$cedula);
+                    break;
             }
 
-            if(!isset($inv_xml->Emisor->Identificacion->Numero)){
-                $salida = ['succed' => 0,'ERROR' => 'Receptor Requerido'];
-                return false;
+        }
+
+        function cargarRecepcion($xml,$ispruebas,$db){
+            $salida = ['succed' => 1];
+
+            if(strpos($this->_getValue($xml,'DetalleMensaje'), 'ambiente de prueba') > -1)
+                $ispruebas = 1;
+
+            $salida['clave'] = $this->_getValue($xml,'Clave','');
+
+            $idprov = $db->ejecutar('call sp_rmantclientes("'.$this->_getValue($xml,'NombreEmisor').'","'.$this->_getValue($xml,'NumeroCedulaEmisor').'","","",'.$this->_getValue($xml,'TipoIdentificacionEmisor').',0,0,0,0,0)');
+            if(isset($idprov->num_rows)) 
+                $idprov = $idprov->fetch_all()[0][0];
+            else
+                return ['succed' => 0,'ERROR' => $idprov,'mod'=>'PROVEEDOR R'];
+            
+            $sub = $this->_getValue($xml,'TotalFactura')-$this->_getValue($xml,'MontoTotalImpuesto');
+            $msj = $this->_getValue($xml,'DetalleMensaje');
+            if($this->_getValue($xml,'Mensaje') == '3'){ //RECHAZADO POR HACIENDA
+                $matches = [];
+                $pattern = '/' . preg_quote('[', '/') . '(.*?)' . preg_quote(']', '/') . '/s';
+                preg_match_all($pattern, $msj, $matches);
+                $rmatch = [];
+                $pattern = '/' . preg_quote('""', '/') . '(.*?)' . preg_quote('""', '/') . '/s';
+                preg_match_all($pattern, $matches[1][0], $rmatch);
+                $msj = implode($rmatch[1],'->');
             }
+            
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,1,1,'.$idprov.',1,"'.$this->_getValue($xml,'Mensaje').'",'.$this->_getValue($xml,'MontoTotalImpuesto').','.$sub.',0,0,0,0,0,"'.addslashes($msj).'","'.$salida['clave'].'",1,1,0,"",0,"","",now(),1,"","'.$this->_getValue($xml,'Mensaje').'","'.$this->_getValue($xml,'NumeroCedulaReceptor').'",'.$ispruebas.',"")');
+            
+            if(isset($idfact->num_rows)){
+                $idfact = $idfact->fetch_all()[0][0];
+                $salida['ifactura'] = $idfact;
 
-            // if($inv_xml->Receptor->Identificacion->Numero != $cedula && $cedula != ''){
-            //     $salida = ['succed' => 0,'ERROR' => 'Receptor Inválido '.$cedula];
-            //     return false;
-            // }
+                if ($idfact)
+                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"Mensaje de Hacienda","",1,'.$sub.',0,'.$this->_getValue($xml,'MontoTotalImpuesto').',1,0,0,0,0,"",0)');
 
-            $salida['clave'] = (array)$inv_xml->Clave;
-            $salida['clave'] = $inv_xml->Clave[0];
+            }else
+                return ['succed' => 0,'ERROR' => $idfact,'mod'=>'FACTURA R'];
 
-            if (strlen($salida['clave']) != 50){
-                $salida = ['succed' => 0,'ERROR' => 'Clave no Válida'];
-                return false;
-            }
+            return $salida;
+        }
+
+        function cargarFacturaElectronica($xml,$ispruebas,$db,$ns,$version,$cedula){
+            $salida = ['succed' => 1];
+
+            $emisor = $xml->xpath('//fe:Emisor/fe:Identificacion/fe:Numero');
+
+            if(empty($emisor))
+                return ['succed' => 0,'ERROR' => 'Emisor Requerido'];
+
+            $salida['clave']    = $this->_getValue($xml,'Clave','');
 
             $prov = [];
-            $prov['cedula'] = (array) $inv_xml->Emisor->Identificacion->Numero;
-            $prov['cedula'] = $prov['cedula'][0];
-            if (trim($prov['cedula']) != trim(substr($salida['clave'], 9,12))) {
-                $salida = ['succed' => 0,'ERROR' => 'Cédula no Válida'];
-                return false;
-            }
+            $prov['cedula']     = $this->_getValue($xml,'Emisor/fe:Identificacion/fe:Numero');
+            $prov['nombre']     = $this->_getValue($xml,'Emisor/fe:Nombre','');
+            $prov['tipo']       = $this->_getValue($xml,'Emisor/fe:Identificacion/fe:Tipo');
 
-            $prov['nombre'] = (array) $inv_xml->Emisor->Nombre;
-            $prov['nombre'] = $prov['nombre'][0];
-            
-            $prov['tipo']       = (array) $inv_xml->Emisor->Identificacion->Tipo;
-            $prov['tipo']       = $prov['tipo'][0];
+            $ubicacion          = $this->_getValue($xml,'Emisor/fe:Ubicacion');
 
-            $prov['barrio']     = isset($inv_xml->Emisor->Ubicacion->Barrio) ? (array) $inv_xml->Emisor->Ubicacion->Barrio : 0;
-            $prov['barrio'] = $prov['barrio'] == 0 ? $prov['barrio'] : $prov['barrio'][0];
+            $prov['barrio']     = $this->_getValue($xml,'Emisor/fe:Ubicacion/fe:Barrio',0);
+            $prov['distrito']   = $this->_getValue($xml,'Emisor/fe:Ubicacion/fe:Distrito',0);
+            $prov['canton']     = $this->_getValue($xml,'Emisor/fe:Ubicacion/fe:Canton',0);
+            $prov['provincia']  = $this->_getValue($xml,'Emisor/fe:Ubicacion/fe:Provincia',0);
+            $prov['otrassenas'] = $this->_getValue($xml,'Emisor/fe:Ubicacion/fe:OtrasSenas');
 
-            $prov['distrito']   = isset($inv_xml->Emisor->Ubicacion->Distrito) ? (array) $inv_xml->Emisor->Ubicacion->Distrito : 0;
-            $prov['distrito'] = $prov['distrito'] == 0 ? $prov['distrito'] : $prov['distrito'][0];
+            $prov['correo']     = $this->_getValue($xml,'Emisor/fe:CorreoElectronico');
+            $prov['telefono']   = $this->_getValue($xml,'Emisor/fe:Telefono/fe:NumTelefono');
+            $prov['pais']       = $this->_getValue($xml,'Emisor/fe:Telefono/fe:CodigoPais','52');
 
-            $prov['canton']     = isset($inv_xml->Emisor->Ubicacion->Canton) ? (array) $inv_xml->Emisor->Ubicacion->Canton : 0;
-            $prov['canton']  = $prov['canton']  == 0 ? $prov['canton']  : $prov['canton'] [0];
-
-            $prov['provincia']  = isset($inv_xml->Emisor->Ubicacion->Provincia) ? (array) $inv_xml->Emisor->Ubicacion->Provincia : 0;
-            $prov['provincia'] = $prov['provincia'] == 0 ? $prov['provincia'] : $prov['provincia'][0];
-
-            $prov['otrassenas'] = isset($inv_xml->Emisor->Ubicacion->OtrasSenas) ? (array) $inv_xml->Emisor->Ubicacion->OtrasSenas : 0;
-            $prov['otrassenas'] = $prov['otrassenas'] == 0 ? $prov['otrassenas'] : $prov['otrassenas'][0];
-
-            $prov['correo']     = isset($inv_xml->Emisor->CorreoElectronico) ? (array) $inv_xml->Emisor->CorreoElectronico : 0;
-            $prov['correo'] = $prov['correo'] == 0 ? $prov['correo'] : $prov['correo'][0];
-
-            $prov['telefono']   = isset($inv_xml->Emisor->Telefono->NumTelefono) ? (array) $inv_xml->Emisor->Telefono->NumTelefono : 0;
-            $prov['telefono'] = $prov['telefono'] == 0 ? $prov['telefono'] : $prov['telefono'][0];
-
-            $prov['pais']       = isset($inv_xml->Emisor->Telefono->CodigoPais) ? (array) $inv_xml->Emisor->Telefono->CodigoPais : 0;
-            $prov['pais'] = $prov['pais'] == 0 ? $prov['pais'] : $prov['pais'][0];
+            $prov['barrio']     = is_numeric($prov['barrio']) ? $prov['barrio'] : 0;
 
             $prov['id']         = $db->ejecutar('call sp_rmantclientes("'.$prov['nombre'].'","'.$prov['cedula'].'","'.$prov['correo'].'","'.$prov['telefono'].'",'.$prov['tipo'].','.$prov['barrio'].','.$prov['distrito'].','.$prov['canton'].','.$prov['provincia'].','.$prov['pais'].')');
             if(isset($prov['id']->num_rows)) 
                 $prov['id'] = $prov['id']->fetch_all()[0][0];
-            else{
-                 $salida = ['succed' => 0,'ERROR' => $prov['id'],'mod'=>'PROVEEDOR'];
-                return false;
-            }
-
-
-            $fecha = (array) $inv_xml->FechaEmision;
-            $fecha = date('Y-m-d H:i:s',strtotime($fecha[0]));
-
-            $fact['tipoventa'] = (array) $inv_xml->CondicionVenta;
-            $fact['tipoventa'] = $fact['tipoventa'][0];
-            $fact['plazo']     = isset($inv_xml->PlazoCredito) && $fact['tipoventa'] == '02' ? (array) $inv_xml->PlazoCredito : 0;
-            $fact['plazo']     = $fact['plazo'] == 0 ? 0 : isset($fact['plazo'][0]) ? $fact['plazo'][0] : 0;
-            preg_match_all('!\d+!', $fact['plazo'], $matches);
-            $fact['plazo']     = isset($matches[0][0]) ? $matches[0][0] : 0;
-            $fact['tipopago']  = (array) $inv_xml->MedioPago;
-            $fact['tipopago']  = $fact['tipopago'][0];
-
-            $version = '4.2';
-
-            $fact['moneda']    = (array) $inv_xml->ResumenFactura->CodigoMoneda;
-        
-            if(!isset($fact['moneda'][0]))  { //4.2
-                $fact['moneda'] = (array) $inv_xml->ResumenFactura->CodigoTipoMoneda->CodigoMoneda;
-                $fact['moneda'] = isset($fact['moneda'][0]) ? $fact['moneda'][0] : 'CRC';
-                $version = '4.3';
-            }
             else
-                $fact['moneda']    = $fact['moneda'][0];
+                return ['succed' => 0,'ERROR' => $prov['id'],'mod'=>'PROVEEDOR'];
 
-            if($version == '4.3'){
-                $fact['divisa']    = (array) $inv_xml->ResumenFactura->CodigoTipoMoneda->TipoCambio;
-                $fact['divisa']    = isset($fact['divisa'][0]) ? $fact['divisa'][0] : 0;
-                $fact['divisa']    = $fact['divisa'] == 0 ? 1 : $fact['divisa'];
-            }else{
-                $fact['divisa']    = (array) $inv_xml->ResumenFactura->TipoCambio;
-                $fact['divisa']    = isset($fact['divisa'][0]) ? $fact['divisa'][0] : 0;
-                $fact['divisa']    = $fact['divisa'] == 0 ? 1 : $fact['divisa'];
-            }
+            $fact = [];
+            $fact['fecha']          = date('Y-m-d H:i:s',strtotime($this->_getValue($xml,'FechaEmision')));
+            $fact['codActividad']   = $this->_getValue($xml,'CodigoActividadReceptor');
+            $fact['tipoventa']      = $this->_getValue($xml,'CondicionVenta',0);
+            $fact['plazo']          = $this->_getValue($xml,'PlazoCredito',0);
+            preg_match_all('!\d+!', $fact['plazo'], $matches);
+            $fact['plazo']          = isset($matches[0][0]) ? $matches[0][0] : 0;
+            //if(sizeof($xml->ResumenFactura->MedioPago))
 
-            $fact['subtotal']  = (array) $inv_xml->ResumenFactura->TotalGravado;
-            $fact['subtotal']  = isset($fact['subtotal'][0]) ? $fact['subtotal'][0] : 0;
-            $fact['exento']    = (array) $inv_xml->ResumenFactura->TotalExento;
-            $fact['exento']    = isset($fact['exento'][0]) ? $fact['exento'][0] : 0;
-            $fact['exonerado']    = (array) $inv_xml->ResumenFactura->TotalExonerado;
-            $fact['exonerado']    = isset($fact['exonerado'][0]) ? $fact['exonerado'][0] : 0;
-            $fact['descuento'] = (array) $inv_xml->ResumenFactura->TotalDescuentos;
-            $fact['descuento'] = isset($fact['descuento'][0]) ? $fact['descuento'][0]: 0;
-            $fact['impuesto']  = (array) $inv_xml->ResumenFactura->TotalImpuesto;
-            $fact['impuesto']  = isset($fact['impuesto'][0]) ? $fact['impuesto'][0] : 0 ;
-            $fact['cedula'] = (array) $inv_xml->Receptor->Identificacion->Numero;
-            $fact['cedula'] = $fact['cedula'][0];
-            $fact['oc']  = (array) $inv_xml->ResumenFactura->TotalOtrosCargos;
-            $fact['oc']  = isset($fact['oc'][0]) ? $fact['oc'][0] : 0;
-            
+            $fact['tipopago']       = 1;
+            $fact['moneda']         = $this->_getValue($xml,'ResumenFactura/fe:CodigoTipoMoneda/fe:CodigoMoneda');
+            $fact['divisa']         = $this->_getValue($xml,'ResumenFactura/fe:CodigoTipoMoneda/fe:TipoCambio');
+            $fact['subtotal']       = $this->_getValue($xml,'ResumenFactura/fe:TotalGravado',0);
+            $fact['exento']         = $this->_getValue($xml,'ResumenFactura/fe:TotalExento',0);
+            $fact['nosujeto']       = $this->_getValue($xml,'ResumenFactura/fe:TotalNoSujeto',0);
+            $fact['exonerado']      = $this->_getValue($xml,'ResumenFactura/fe:TotalExonerado',0);
+            $fact['descuento']      = $this->_getValue($xml,'ResumenFactura/fe:TotalDescuentos',0);
+            $fact['impuesto']       = $this->_getValue($xml,'ResumenFactura/fe:TotalImpuesto',0);
+            $fact['cedula']         = $cedula = '' ? $this->_getValue($xml,'Receptor/fe:Identificacion/fe:Numero') : $cedula;
+            $fact['oc']             = $this->_getValue($xml,'ResumenFactura/fe:TotalOtrosCargos',0);
+            $fact['ref']            = $this->_getValue($xml,'InformacionReferencia/fe:Numero','');
+
             $_divisa = trim($fact['moneda']) != 'CRC' ? $fact['divisa'] : 1;
-            $ireferencia = isset($inv_xml->InformacionReferencia) ? $inv_xml->InformacionReferencia->Numero : '';
 
-            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto']*$_divisa.','.$fact['subtotal']*$_divisa.','.$fact['exento']*$_divisa.','.$fact['descuento']*$_divisa.','.$fact['exonerado']*$_divisa.','.$fact['oc']*$_divisa.','.$fact['plazo'].',"'.$ireferencia.'","'.$salida['clave'].'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')');
+            $idfact = $db->ejecutar('call sp_rmantfacturas(1,null,2,
+                '.$fact['tipoventa'].',
+                '.$fact['tipopago'].',
+                '.$prov['id'].',
+                1,
+                0,
+                '.$fact['impuesto']*$_divisa.',
+                '.$fact['subtotal']*$_divisa.',
+                '.($fact['exento']+$fact['nosujeto'])*$_divisa.',
+                '.$fact['descuento']*$_divisa.',
+                '.$fact['exonerado']*$_divisa.',
+                '.$fact['oc']*$_divisa.',
+                '.$fact['plazo'].',
+                "'.$fact['ref'].'",
+                "'.$salida['clave'].'",
+                "'.$fact['moneda'].'",
+                1,
+                0,
+                "",
+                0,
+                "",
+                "",
+                "'.$fact['fecha'].'",
+                '.$fact['divisa'].',
+                "",
+                9,
+                "'.$fact['cedula'].'",
+                '.$ispruebas.',
+                "'.$fact['codActividad'].'")');
 
             if(isset($idfact->num_rows)){
                 $idfact = $idfact->fetch_all()[0][0];
                 $salida['ifactura'] = $idfact;
-            }
-            else{
-                $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantfacturas(1,null,2,'.$fact['tipoventa'].','.$fact['tipopago'].','.$prov['id'].',1,0,'.$fact['impuesto'].','.$fact['subtotal'].','.$fact['exento'].','.$fact['descuento'].',0,0,'.$fact['plazo'].',"'.$ireferencia.'","'.$fact['moneda'].'",1,0,"",0,"","","'.$fecha.'",'.$fact['divisa'].',"",9,"'.$fact['cedula'].'",'.$ispruebas.')'.'\',\''.$idfact.'\')');
-                $salida = ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura'];
-                return false;
-            }
 
-            if ($idfact) {
+                if($idfact){
+                    foreach($xml->xpath('//fe:DetalleServicio/fe:LineaDetalle') as $ciclo){
+                        //print_r($ciclo);
+                        $hijos      = $ciclo->children($ns['']);
+                        $ddetalle   = addslashes((string)$hijos->Detalle);
+                        $dcabys     = $version == '4.4' ? (string)$hijos->CodigoCABYS : (string)$hijos->Codigo;
+                        $dcantidad  = (string)$hijos->Cantidad;
+                        $dunitario  = (string)$hijos->PrecioUnitario;
+                        $ddescuento = 0;
+                        
+                        foreach($hijos->Descuento as $linea_Descuento)
+                            $ddescuento += (float)$linea_Descuento->children($ns[''])->MontoDescuento;
 
-                $ciclo = (array) $inv_xml->DetalleServicio;
-                
-                if (!isset($ciclo['LineaDetalle']->NumeroLinea)) {
-                    $ciclo = $ciclo['LineaDetalle'];
-                }
-                $salida['codigo'] = [];
+                        $dtarifa    = 0;
+                        $timv       = 1;                    
+                        $dimpuesto  = 0;
+                        $cimp       = 0;
+                        $dotros     = 0;
+                        $pexo       = 0;
 
-                $gimp = $gotros = 0;
+                        foreach ($hijos->Impuesto as $linea_Impuesto) {
+                            $children = $linea_Impuesto->children($ns['']);
 
-                foreach ($ciclo as $ind=>$key) {
-                    $vunidad = (array)$key->UnidadMedida;
-                    $vunidad = $vunidad[0] == 'Otros' ? (array)$key->UnidadMedidaComercial : (array)$key->UnidadMedida;
-                    $vunidad = isset($vunidad[0]) ? $vunidad[0] : $vunidad ;
-                    // $vunidad = $vunidad == 0 ? 1 : $vunidad;
+                            $timpuesto = (string)$children->Codigo;
+                            if( preg_match('/\b01\b|\b07\b|\b08\b/i', $timpuesto) == 1){ #APLICA_IVA
+                                $dtarifa    = (string)$children->Tarifa;
+                                $timv       = $version == '4.4' ? (string)$children->CodigoTarifaIVA : (string)$children->CodigoTarifa;
+                                $dimpuesto += (float) $children->Monto;
 
-                    $num = (array)$key->NumeroLinea;
-                    $dcodigo = '';
-                    if(isset($key->Codigo)) 
-                        $dcodigo = (array)$key->Codigo; 
-                    else
-                        if(isset($key->CodigoComercial)) 
-                            $dcodigo =  1; 
-                        else 
-                            $dcodigo = 2;//  (array)$key->CodigoComercial->Codigo : '';
-                    $salida['codigo'][$ind] = $dcodigo;
-                    $dcodigo = isset($dcodigo[0]) ? $dcodigo[0] : '';     
-                    
-                    $dcantidad = (array)$key->Cantidad;
-                    $ddetalle = (array)$key->Detalle;
-                    $dunitario = (array)$key->PrecioUnitario;
-                    $dsubtotal = (array)$key->SubTotal;
-                    if(isset($key->MontoDescuento))
-                        $ddescuento = (array)$key->MontoDescuento;
-                    else 
-                        $ddescuento = isset($key->Descuento->MontoDescuento) ? (array)$key->Descuento->MontoDescuento : 0;
-                    $ddescuento = $ddescuento == 0 ? $ddescuento : $ddescuento[0];
-                    $dtarifa = 0;
-                    $timv = 0;
-                    
-                    $dimpuesto = 0;
-                    $cimp = 0;
-                    $_exento = 0;
-                    // $dimpuesto = isset($key->ImpuestoNeto) ? is_numeric($key->ImpuestoNeto) ? (array) $key->ImpuestoNeto : 0 : 0;
-                    // $dimpuesto = $dimpuesto[0] == 0 ? isset($key->Impuesto) ? (array) $key->Impuesto->Monto : 0 : $dimpuesto;
-                    
-                    //$dimpuesto = $dimpuesto == 0 ? 0 : $dimpuesto[0];
-                    
-                    if(isset($key->Impuesto)){
+                                $pexo       = empty($children->Exoneracion) ? 0 : $children->Exoneracion->TarifaExonerada;
 
-                        for ($i = 0; $i < sizeof($key->Impuesto); $i++) {
-
-                            $timpuesto = (array) $key->Impuesto[$i]->Codigo;
-                            $timpuesto = $timpuesto[0];
-
-                            if( preg_match('/\b01\b|\b07\b|\b08\b/i', $timpuesto) == 1){
-
-                                $dtarifa = isset($key->Impuesto[$i]->Tarifa) ? (array)$key->Impuesto[$i]->Tarifa : 0;
-                                $dtarifa = $dtarifa == 0 ? $dtarifa : $dtarifa[0];
-                                $timv = isset($key->Impuesto[$i]->CodigoTarifa) ? (array)$key->Impuesto[$i]->CodigoTarifa : 0;
-                                $timv = is_array($timv) ? $timv[0] : $timv;
-                                $cimp = isset($key->Impuesto[$i]->Monto) ? (array)$key->Impuesto[$i]->Monto : 0;
-                                $cimp = is_array($cimp) ? $cimp[0] : $cimp;
-                                $dimpuesto += $cimp;
-                            }else{
-                                $cimp = isset($key->Impuesto[$i]->Monto) ? (array)$key->Impuesto[$i]->Monto : 0;
-                                $cimp = is_array($cimp) ? $cimp[0] : $cimp;
-                                $_exento += $cimp;
+                            }else{ #OTROS_IMPUESTOS
+                                $dotros += (float) $children->Monto;
                             }
                         }
-                    }
-                    $pexo = isset($key->Impuesto->Exoneracion->PorcentajeExoneracion) ? (array)$key->Impuesto->Exoneracion->PorcentajeExoneracion : 0;
-                    $pexo = is_array($pexo) ? $pexo[0] : $pexo; 
-                    $dcodigo =  is_array($dcodigo) ? $dcodigo[0] : $dcodigo;
-                    $ddescuento = is_array($ddescuento) ? $ddescuento[0] : $ddescuento;
-                    $vunidad = is_array($vunidad) ? isset($vunidad[0]) ? $vunidad[0]  : 0 : $vunidad;
-                    $cod = '';
-                    $tcod = 0;
-                    if(isset($key->CodigoComercial)){
-                        $cod = isset($key->CodigoComercial->Codigo) ? (array)$key->CodigoComercial->Codigo : 0;
-                        $cod = is_array($cod) ? $cod[0] : $cod;
 
-                        $tcod = isset($key->CodigoComercial->Tipo) ? (array)$key->CodigoComercial->Tipo : 0;
-                        $tcod = is_array($tcod) ? $tcod[0] : $tcod;
-                    }
+                        $vunidad    = (string)$hijos->UnidadMedida;
+                        if($vunidad == 'Otros'){
+                            $vunidad =  (string)$hijos->UnidadMedidaComercial;
+                        }
 
-                    $gimp += $dimpuesto*$_divisa;
-                    $gotros += $_exento;
-                    $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$_exento.',"'.$cod.'",'.$tcod.')');
-                    
-                    if (!isset($iddet->num_rows)) {
-                        $db->ejecutar('insert into registroSQL values(null,now(),\''.'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.addslashes($ddetalle[0]).'","'.$dcodigo.'",'.$dcantidad[0].','.$dunitario[0]*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$_exento.',"'.$cod.'",'.$tcod.')');
-                        $salida = ['succed' => 0,'ERROR' => $iddet,'mod'=>'Detalle Factura'];
-                        //$db->ejecutar('call sp_rrollback('.$idfact.')');
-                        return false;
-                    }
+                        $cod = '';
+                        $tcod = 0;
 
+                        if(!empty($hijos->CodigoComercial)){
+                            $cod = $hijos->CodigoComercial->Codigo;
+                            $tcod = $hijos->CodigoComercial->Tipo;
+                        }
+
+                        $iddet = $db->ejecutar('call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle.'","'.$dcabys.'",'.$dcantidad.','.$dunitario*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$dotros.',"'.$cod.'",'.$tcod.')');
+                        if(!$iddet->num_rows){
+                          $salida['version'] = $version;
+                          $salida['rdetalle'] = $iddet; 
+                          $salida['rdetalle_sql'] = 'call sp_rmantdetallefacturas(1,0,'.$idfact.',"'.$ddetalle.'","'.$dcabys.'",'.$dcantidad.','.$dunitario*$_divisa.','.$ddescuento*$_divisa.','.$dimpuesto*$_divisa.',"'.$vunidad.'",'.$dtarifa.','.$timv.','.$pexo.','.$dotros.',"'.$cod.'",'.$tcod.')'; 
+                        }
+                    }
                 }
-
-                $db->ejecutar('update rfacturas set imv='.$gimp.',ajuste='.$gotros.' where id = '.$idfact);
             }
+            else
+                return ['succed' => 0,'ERROR' => $idfact,'mod'=>'Factura'];
 
+            return $salida;
+        }
+
+        function _getValue($xml,$path,$retorno=''){
+            $dato = $xml->xpath('//fe:'.$path);
+            if(empty($dato))
+                return $retorno;
+            else
+                return (string) $dato[0];
         }
 
         function estado()
@@ -1447,7 +1384,6 @@
 
                 $data[] = $this->info;
 
-                //$data['DetalleServicio'] = $this->getDetalle('call fe_getDetalle("'.$this->id.'")');
                 $schemaXML = $this->getXMLSchema($this->id);
                 $data['DetalleServicio'] = $schemaXML['det'];
                 
@@ -1469,9 +1405,10 @@
                     unset($data['ResumenFactura']['TotalMercExonerada']);
                 }
 
-                if ($this->ref) {
-                    $refxml = $this->getJSON('call fe_getReferencia('.substr($this->id, 1).')');
-                    $data['InformacionReferencia'] = $refxml;
+                $refxml = $this->getJSON('call fe_getReferencia('.$this->id.')');
+                if (is_array($refxml)) {
+                    if(sizeof($refxml))
+                        $data['InformacionReferencia'] = $refxml;
                 }
 
                 //$data['Normativa'] = ['NumeroResolucion' => 'DGT-R-48-2016', 'FechaResolucion' => '07-10-2016 08:00:00'];
@@ -1490,11 +1427,11 @@
 
                 if(isset($this->info['Receptor']['Telefono']['NumTelefono'])){
                     if (!is_numeric($this->info['Receptor']['Telefono']['NumTelefono'])) {
-                        return ['error' => 'Telefono no Valido'];
+                        unset($this->info['Receptor']['Telefono']);
                     }
 
                     if (strlen($this->info['Receptor']['Telefono']['NumTelefono']) != 8) {
-                        return ['error' => 'Telefono no Valido'];
+                        unset($this->info['Receptor']['Telefono']);
                     }
                 }
                 $tmcedula = strlen($this->info['Receptor']['Identificacion']['Numero']);
@@ -1509,13 +1446,8 @@
                         if ($tmcedula != 10)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
-                    case '03':
+                    default:
                         if ($tmcedula != 10 && $tmcedula != 12)
-                            return ['error' => 'Formato Cédula no Valido'];
-                        break;
-                    default :
-                        
-                        if ( $tmcedula != 12)
                             return ['error' => 'Formato Cédula no Valido'];
                         break;
                 }
@@ -1537,9 +1469,9 @@
                     break;
             }
 
-            $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
-            <'.$this->tdoc.' xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.' https://tribunet.hacienda.go.cr/docs/esquemas/2017/v4.3/'.$this->xmldoc.'" />');
+             $xml_data = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="no"?>
+            <'.$this->tdoc.' xmlns="'.$this->linkVersion.$this->xmldoc.'" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="'.$this->linkVersion.$this->xmldoc.' '.$this->tribunet.'" />');
+
             $this->array_to_xml($data,$xml_data);
 
             $xml = $xml_data->asXML();
@@ -1592,6 +1524,7 @@
             $db = new DBClass();
             $rs = $db->ejecutar('call fe_getDetalle("'.$this->id.'")');
 
+            $desgloceIVA = [];
             $salida = ['det'=>[],'res'=>[
                 'CodigoTipoMoneda'          => ['CodigoMoneda'=>'--','TipoCambio'=>1], 
                 'TotalServGravados'         => '0.00000',
@@ -1614,10 +1547,10 @@
             if (isset($rs->num_rows)) {
                foreach ($rs->fetch_all() as $key => $linea) {
                     $det                            = ['NumeroLinea' => ($key+1)];
-                    $det['Codigo']                  = $linea[2];
+                    $det['CodigoCABYS']                  = $linea[2];
 
                     if($linea[22])
-                    $det['CodigoComercial']         = ['Tipo'=>'03','Codigo'=>$linea[22]];
+                        $det['CodigoComercial']         = ['Tipo'=>'03','Codigo'=>$linea[22]];
                     
                     $det['Cantidad']                = $linea[3];
                     $det['UnidadMedida']            = $linea[4];
@@ -1632,11 +1565,12 @@
                     if ($linea[9] > 0) {
                     $salida['res']['TotalDescuentos'] += $linea[9];
                     $det['Descuento']['MontoDescuento'] = $linea[9];
+                    $det['Descuento']['CodigoDescuento'] = $linea[23];
                     $det['Descuento']['NaturalezaDescuento'] = $linea[10];
                     }
 
                     $det['SubTotal'] = $linea[11];
-
+                    $det['BaseImponible'] = $linea[11];
                     $sum_imp = 0;
                     $tipo_linea = 1;
 
@@ -1648,39 +1582,68 @@
                         if (strlen($sub_array[0])) {
                             
                             $impuesto = ['Codigo'       => str_pad($sub_array[0],2,0,STR_PAD_LEFT),
-                                         'CodigoTarifa' => str_pad($sub_array[3],2,0,STR_PAD_LEFT),
-                                         'Tarifa'       => number_format($sub_array[1],0),
-                                         'Monto'        => $sub_array[2]
-                                        ];
+                                         'CodigoTarifaIVA' => str_pad($sub_array[3],2,0,STR_PAD_LEFT),
+                                         'Tarifa'       => $sub_array[1] == 0 ? '0.0' :number_format($sub_array[1],1),
+                                         'Monto'        => $sub_array[2] == 0 ? '0.00000' : str_replace(',', '', $sub_array[2])
+                                     ];
 
-                            if ($linea[16] != '' && $linea[21] > 0){
+                            if ($linea[16] != ''){
                                 /*EXONERADO*/
-                                $exoneracion = ['TipoDocumento'         => $linea[16],
-                                                'NumeroDocumento'       => $linea[17],
-                                                'NombreInstitucion'     => $linea[18],
-                                                'FechaEmision'          => $linea[19],
-                                                'PorcentajeExoneracion' => $linea[20],
-                                                'MontoExoneracion'      => $linea[21]
+                                $exoneracion = ['TipoDocumentoEX1'          => $linea[16],
+                                                'NumeroDocumento'           => $linea[17],
+                                                'Articulo'                  => $linea[24],
+                                                'Inciso'                    => $linea[25],
+                                                'NombreInstitucion'         => str_pad($linea[18],2,'0',STR_PAD_LEFT),
+                                                'FechaEmisionEX'            => $linea[19],
+                                                'TarifaExonerada'           => number_format($linea[20],2),
+                                                'MontoExoneracion'          => $linea[21]
                                                ];
+                                if($linea[16]!='03' && $linea[16]!= "02" && $linea[16]!= "06" && $linea[16]!= "07" && $linea[16]!= "08"){
+                                    unset($exoneracion['Articulo']);
+                                    unset($exoneracion['Inciso']);
+                                }
 
                                 $impuesto['Exoneracion'] = $exoneracion;
                                 $tipo_linea = 2;
                                 $sum_imp += $sub_array[2]-$linea[21];
                             }else{
-                                /*GRAVADO*/
-                                $tipo_linea = 3;
+                                $tipo_linea = $sub_array[1] == 0 ? 1 : 3;
                                 $sum_imp += $sub_array[2];
                             }
+                            
+                            if(isset($desgloceIVA[$impuesto['CodigoTarifaIVA']]))
+                                $desgloceIVA[$impuesto['CodigoTarifaIVA']]['TotalMontoImpuesto'] += number_format($sum_imp,5,'.','');
+                            else
+                                $desgloceIVA[$impuesto['CodigoTarifaIVA']] = [
+                                    'Codigo'            => $impuesto['Codigo'],
+                                    'CodigoTarifaIVA'   => $impuesto['CodigoTarifaIVA'],
+                                    'TotalMontoImpuesto'=> number_format($sum_imp,5,'.','')
+                                ];
 
                             array_push($det, ['Impuesto' => $impuesto]);
                         }
-                    }
+                    }else{
+                         $impuesto = ['Codigo'       => '01',
+                             'CodigoTarifaIVA' => '10',
+                             'Tarifa'       => '0.0',
+                             'Monto'        => '0.0'
+                         ];
 
+                         array_push($det, ['Impuesto' => $impuesto]);
+                         if(!isset($desgloceIVA[10]))
+                            $desgloceIVA[10] = [
+                                'Codigo'            => '01',
+                                'CodigoTarifaIVA'   => '10',
+                                'TotalMontoImpuesto'=> '0.00'
+                            ];
+
+                    }
+                    $det['ImpuestoAsumidoEmisorFabrica'] = '0.00000';
                     $det['ImpuestoNeto'] = number_format($sum_imp,5,'.','');
                     $det['MontoTotalLinea'] = number_format($linea[15] + $sum_imp,5,'.','');
 
                     $salida['res']['TotalImpuesto'] += $det['ImpuestoNeto'];
-
+                    
                     switch ($tipo_linea.$linea[1]) {
                         case 101: //EXENTO_SERVICIO
                             $salida['res']['TotalServExentos']          += number_format( $linea[8] ,5,'.','');
@@ -1689,7 +1652,8 @@
                             $salida['res']['TotalMercanciasExentas']    += number_format( $linea[8] ,5,'.','');
                             break;
                         case 201: //EXONERADO_SERVICIO
-                            $salida['res']['TotalServGravados']         += number_format( $linea[8]*(1-($linea[20]/$sub_array[1])) ,5,'.','');
+                            if((1-($linea[20]/$sub_array[1])))
+                                $salida['res']['TotalServGravados']         += number_format( $linea[8]*(1-($linea[20]/$sub_array[1])) ,5,'.','');
                             $salida['res']['TotalServExonerado']        += number_format( $linea[8]*(($linea[20]/$sub_array[1])) ,5,'.','');
                             break;
                         case 204: //EXONERADO_PRODUCTO
@@ -1711,7 +1675,10 @@
             }else{
                 return ['det' => '', 'res' => $this->getJSON('call fe_getResumen("'.$this->id.'")')];
             }
-
+            if(isset($_REQUEST['debug'])){
+                echo (1-($linea[20]/$sub_array[1]));
+                echo $salida['res']['TotalServGravados'];
+            }
             $salida['res']['TotalGravado']      = number_format( $salida['res']['TotalMercanciasGravadas']+$salida['res']['TotalServGravados'] ,5,'.','');
             $salida['res']['TotalExento']       = number_format( $salida['res']['TotalMercanciasExentas']+$salida['res']['TotalServExentos'] ,5,'.','');
             $salida['res']['TotalExonerado']    = number_format( $salida['res']['TotalMercExonerada']+$salida['res']['TotalServExonerado'] ,5,'.','');
@@ -1721,9 +1688,24 @@
             $salida['res']['TotalVentaNeta']    = number_format( $salida['res']['TotalVenta']-$salida['res']['TotalDescuentos'] ,5,'.','');
 
             if($this->opcion == 3){
-                $rest = $db->ejecutar('select b.codigo,a.divisa,0 from estadoscuentas a join monedas b on b.id = a.idmoneda where a.id = '.$this->id.';')->fetch_all();
+                $rest = $db->ejecutar('select b.codigo,a.divisa,0 from estadoscuentas a join monedas b on b.id = a.idmoneda where a.id = abs('.$this->id.');')->fetch_all();
             }else{  
-                $rest = $db->ejecutar('select b.codigo,a.divisa,e.mesero from facturas a join monedas b on b.id = a.idmoneda join ( (select id,0 as mesero from facturas where id not in(select idfactura from msfacturas where idfactura = '.$this->id.') and id = '.$this->id.') union (select a.id,ifnull(b.servmesero,0) from facturas a join msfacturas b on b.idfactura = a.id where a.id = '.$this->id.') ) e on e.id = a.id  where a.id = '.$this->id.';')->fetch_all();
+                $rest = $db->ejecutar('select b.codigo,a.divisa,e.mesero,if(a.idtipo in(2),0,a.idtipopago) from facturas a join monedas b on b.id = a.idmoneda join ( (select id,0 as mesero from facturas where id not in(select idfactura from msfacturas where idfactura = '.$this->id.') and id = '.$this->id.') union (select a.id,ifnull(b.servmesero,0) from facturas a join msfacturas b on b.idfactura = a.id where a.id = '.$this->id.') ) e on e.id = a.id  where a.id = '.$this->id.';')->fetch_all();
+
+                switch($rest[0][3]){
+                    case 5://MIXTO
+                        $mixtos = $db->ejecutar('select b.idhacienda,a.total from pagosmixtos a join tipopagos b on b.id = a.idpago where idfactura = '.$this->id);
+                        break;
+                    case 0://CREDITOS
+                        break;
+                    default:
+                        $idhacienda_pago = $db->ejecutar('select lpad(idhacienda,2,0) from tipopagos where id ='.$rest[0][3])->fetch_all()[0][0];
+                        
+                        $salida_pagos = array_slice($salida['res'], 0,15);
+                        $salida_pagos += ['MedioPago'=>['TipoMedioPago'=>$idhacienda_pago]];
+                        $salida['res'] = $salida_pagos+$salida['res'];
+                        break;
+                }
             }
 
             $salida['res']['CodigoTipoMoneda']['CodigoMoneda']  = $rest[0][0];
@@ -1732,93 +1714,16 @@
 
             $salida['res']['TotalComprobante']  = number_format( $salida['res']['TotalVentaNeta']+$salida['res']['TotalImpuesto']+$salida['res']['TotalOtrosCargos'] ,5,'.','');
 
-            return $salida;
-        }
-
-        function getDetalle($query)
-        {
-            $db = new DBClass();
-            $rs = $db->ejecutar($query);
-
-            if (isset($rs->num_rows)) {
-                $entrada = [];
-                $entrada = $rs->fetch_all();
-                $linea = $detalle = [];
-                $fila = $iddetalle = 0;
-                $globalmexo = $entrada[0][20];
-
-                foreach ($entrada as $value) { 
-                    if ($iddetalle != $value[0]) {
-                        $fila++;
-                        $iddetalle = $value[0];
-                        $detalle = [];
-                        $detalle['NumeroLinea'] = $fila;
-                        //$codigo = ['Tipo'=>$value[1],'Codigo'=>$value[2]];
-                        $detalle['Codigo'] = $value[2];//$codigo;
-                        $detalle['Cantidad'] = $value[3];
-                        $detalle['UnidadMedida'] = $value[4];
-                        if($value[5])
-                            $detalle['UnidadMedidaComercial'] = $value[5];
-                        $detalle['Detalle'] = $value[6];
-                        $detalle['PrecioUnitario'] = $value[7];
-                        $detalle['MontoTotal'] = $value[8];
-
-                        if ($value[9] > 0) {
-                            $this->sumadescuentos += $value[9];
-                            $detalle['Descuento']['MontoDescuento'] = $value[9];
-                            $detalle['Descuento']['NaturalezaDescuento'] = $value[10];
-                        }
-                        $detalle['SubTotal'] = $value[11];
-                        
-                        $sum_imp = 0;
-                        if ($value[12] != '') {
-                            
-                            $obj = $value[12];//explode(']', $value[12]);
-                            
-                            // foreach ($array_impuestos as $obj) {
-                                $sub_array = explode(',', $obj);
-
-                                if (strlen($sub_array[0])) {
-                                    
-                                    $impuesto = ['Codigo'=>str_pad($sub_array[0], 2,0,STR_PAD_LEFT),'CodigoTarifa'=> str_pad($sub_array[3], 2,0,STR_PAD_LEFT) ,'Tarifa'=>number_format($sub_array[1],0),'Monto'=>$sub_array[2]];
-
-                                    if ($value[16] != '' && $value[21] > 0){
-
-                                        $exoneracion =   ['TipoDocumento' => $value[16], 'NumeroDocumento' => $value[17], 'NombreInstitucion' => $value[18],'FechaEmision' => $value[19],'PorcentajeExoneracion' => $value[20], 'MontoExoneracion' => $value[21]];
-
-                                        $this->sumaexonerados += $value[11];//$sub_array[2];
-                                        $impuesto['Exoneracion'] = $exoneracion;
-                                        
-                                        $sum_imp += $impuesto['Monto']-$impuesto['Exoneracion']['MontoExoneracion'];
-
-                                        $sub_array[2] -= $impuesto['Exoneracion']['MontoExoneracion'];
-                                    }else{
-                                        $this->sumagravados += $value[11];
-                                        $sum_imp += $sub_array[2];
-                                        $this->totGr += $value[8];
-                                    }
-
-                                    $this->sumaimpuestos += $sub_array[2];
-                                    array_push($detalle, ['Impuesto' => $impuesto]);
-                                }else
-                                    $this->totEx += $value[8];
-                            // }
-
-                        }
-
-                        $detalle['ImpuestoNeto'] = number_format($sum_imp,5,'.','');
-                        $detalle['MontoTotalLinea'] = $value[15] + number_format($sum_imp,5,'.','');
-                        array_push($linea, ['LineaDetalle'=>$detalle]);
-                    }
-                    
-                }
-                $detserv = $linea;
-                $salida = $detserv;
-
-                return $salida;
-            }else{
-                return $rs;
+            $salida_res = array_slice($salida['res'], 0,13);
+            foreach ($desgloceIVA as $key => $value) {
+                if(!$value['TotalMontoImpuesto'])
+                  $value['TotalMontoImpuesto'] = '0.0';
+              
+                array_push($salida_res,['TotalDesgloseImpuesto'=>$value]);
             }
+
+            $salida['res'] = $salida_res+$salida['res'];
+            return $salida;
         }
 
         function getJSON($query){
@@ -1885,15 +1790,6 @@
             }
         }
 
-
-        public function random() {
-            if (function_exists('random_int')) {
-              return random_int(0x10000000, 0x7FFFFFFF);
-            } else {
-              return rand(100000, 999999);
-            }
-        }
-
         public function retC14DigestSha256($strcadena){
             $strcadena = str_replace("\r", "", str_replace("\n", "", $strcadena));
             $d1p = new DOMDocument('1.0','UTF-8');
@@ -1919,7 +1815,7 @@
 
             $POLITICA_FIRMA = array(
                 "name"      => "",
-                "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
+                "url"       => "https://tribunet.hacienda.go.cr/docs/esquemas/2016/v4.1/Resolucion%20Comprobantes%20Electronicos%20%20DGT-R-48-2016.pdf",
                 "digest"    =>  $digest //digest en sha1 y base64
             );
 
@@ -1931,35 +1827,34 @@
             $Exponent= base64_encode($complem['rsa']['e']);
 
             $signPolicy       = $POLITICA_FIRMA;
-            $signatureID      = "Signature-".$this->random();
-            $signatureValue   = "SignatureValue-".$this->random();
-            $XadesObjectId    = "XadesObjectId-".$this->random();
+            $signatureID      = "Signature-".$this->id;
+            $signatureValue   = "SignatureValue-".$this->id*2;
+            $XadesObjectId    = "XadesObjectId-".$this->id*3;
             $KeyInfoId        = "KeyInfoId-".$signatureID;
             
-            $Reference0Id     = "Reference-".$this->random();
+            $Reference0Id     = "Reference-".$this->id*4;
             $Reference1Id     = "ReferenceKeyInfo";
             
             $SignedProperties = "SignedProperties-".$signatureID; 
 
-            $xmlns_keyinfo='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
+            $xmlns_keyinfo='xmlns="'.$this->linkVersion.$this->xmldoc.'" '.
              'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
              'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
              'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
              
-            $xmnls_signedprops='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
+            $xmnls_signedprops='xmlns="'.$this->linkVersion.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xades="http://uri.etsi.org/01903/v1.3.2#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 
             
-            $xmnls_signeg='xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/'.$this->xmldoc.'" '.
+            $xmnls_signeg='xmlns="'.$this->linkVersion.$this->xmldoc.'" '.
             'xmlns:ds="http://www.w3.org/2000/09/xmldsig#" '.
             'xmlns:xsd="http://www.w3.org/2001/XMLSchema" '.
             'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
             
             $signTime1 = date('Y-m-d\TH:i:s-06:00');
-
 
             $certData   = openssl_x509_parse($publicKey);
             $certDigest = base64_encode(openssl_x509_fingerprint($publicKey, "sha1", true));
@@ -2276,7 +2171,6 @@
                 //PDF
                 $_arch = isset($_REQUEST['arch']) ? $_REQUEST['arch'] : 'recibo';
                 $pdftbl = $this->idtabla == 64 ? 72 : 186;
-
                 $tid = $this->idtabla == 64 ? $id : $id*-1;
 
                 $_arreglo = ['arch'=> $_arch,'id'=>$tid,"mic"=>1,"tit"=>$tit ,"sel"=>'',"tbl"=>$pdftbl,"where"=>$tid,"empresaid"=>$_SESSION['IMPRESA']];

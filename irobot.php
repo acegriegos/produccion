@@ -4,12 +4,6 @@
     $_REQUEST['accion'] = 99;
     require_once 'wsdlClient.php';
  ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>IRobot</title>
-</head>
-<body>
 
 <?php 
     $fe = new facturaElectronica(0);
@@ -43,7 +37,7 @@
                     break;
                 case 'hotmail':
                 case 'outlook':
-                    $hostname = '{imap-mail.outlook.com:993/imap/ssl/novalidate-cert}INBOX';
+                    $hostname = '{outlook.office365.com:993/imap/ssl/novalidate-cert}INBOX';
                     break;
                 case 'yahoo':
                     $hostname = "{imap.mail.yahoo.com:993/imap/ssl/novalidate-cert}INBOX";
@@ -52,7 +46,7 @@
                     $hostname = "{imap.aol.com:993/imap/ssl/novalidate-cert}INBOX";
                     break;
                 default:
-                    $hostname = '{mail.'.$final.'.com:993/imap/ssl/novalidate-cert}INBOX';
+                    $hostname = '{mail.'.$final.'.cr:993/imap/ssl/novalidate-cert}INBOX';
                     break;
             }
         }else
@@ -61,7 +55,18 @@
 
     $inbox = imap_open($hostname,$username,$password) or die('Cannot connect: ' . imap_last_error());
     
-    $emails = imap_search($inbox,'UNSEEN');
+    if(isset($_REQUEST['clave']))
+        $emails = imap_search($inbox,'TEXT "'.$_REQUEST['clave'].'"');
+    else if(isset($_REQUEST['desde'])){
+        if(!isset($_REQUEST['hasta'])){
+            echo 'Falta el Valor Hasta';
+            map_close($inbox);
+            exit(0);
+        }
+        $emails = imap_search($inbox,'BEFORE '.$_REQUEST['desde'].' SINCE '.$_REQUEST['hasta']);
+    }
+    else
+        $emails = imap_search($inbox,'UNSEEN');
     
     if($emails) {
         $emails = array_reverse($emails);
@@ -101,21 +106,22 @@
                                 'name' => '',
                                 'attachment' => ''
                             );
+                            
                             if(isset($nobject->dparameters)){
                            
-                           if($nobject->ifdparameters){ 
+                                if($nobject->ifdparameters){ 
                             
-                           foreach($nobject->dparameters as $_object) 
-                                {
+                                    foreach($nobject->dparameters as $_object) 
+                                    {
                                     
-                                    if(strtolower($_object->attribute) == 'filename') 
-                                    {   
+                                        if(strtolower($_object->attribute) == 'filename') 
+                                        {   
                                         
-                                        $attachments[$_index]['is_attachment'] = true;
-                                        $attachments[$_index]['filename'] = $_object->value;
+                                            $attachments[$_index]['is_attachment'] = true;
+                                            $attachments[$_index]['filename'] = $_object->value;
+                                        }
                                     }
                                 }
-                            }
                             }  
 
                             if(isset($nobject->parameters)){
@@ -136,11 +142,13 @@
                             }
 
                             if($attachments[$_index]['is_attachment']) 
-                        {
+                            {
                                 $attachments[$_index]['attachment'] = imap_fetchbody($inbox, $email_number, $spart.'.'.($j+1));
+                                if($attachments[$_index]['attachment'] == '')
+                                    $attachments[$_index]['attachment'] = imap_fetchbody($inbox, $email_number, ($spart-1).'.'.($j+1));
                                 $attachments[$_index]['attachment'] = base64_decode($attachments[$_index]['attachment']);
                                 $_index++;
-                        }
+                            }
                         }
 
                         }
@@ -261,14 +269,53 @@
 
         }
 
-        foreach($attachments as $attachment)
-        {
-            if($attachment['is_attachment'] == 1)
+        if(isset($_REQUEST['getpdf'])){
+            foreach($attachments as $attachment){
+                if ( strpos(strtolower($attachment['name']), '.pdf') || strpos(strtolower($attachment['filename']), '.pdf')){
+
+                    $pdf_file = './assets/pdf/'.$_REQUEST['clave'].'.pdf';
+                    file_put_contents($pdf_file,$attachment['attachment']);
+
+                    header('Content-Type: application/pdf');
+                    header("Content-Disposition: attachment; filename=\"".$_REQUEST['clave'].".pdf\"");
+                    readfile($pdf_file);
+
+                    // Limpieza
+                    //unlink($htmlFile);
+                    unlink($pdf_file);
+                }
+            }
+            $fin = microtime(true);
+            //echo 'Elapsed Time: '.($fin-$inicio).' <br>';
+        }else{
+            foreach($attachments as $attachment)
             {
-               if (strpos(strtolower($attachment['name']), '.xml') || strpos(strtolower($attachment['filename']), '.xml') || strpos($attachment['attachment'], '.xml')) {
-                    $salida = [];
-                    $fe->loadXML_FILE($attachment['attachment'],$salida,$db,$cedula);
-                    print_r($salida);
+                if($attachment['is_attachment'] == 1)
+                {
+                    if (strpos(strtolower($attachment['name']), '.rar') || strpos(strtolower($attachment['filename']), '.rar') || strpos($attachment['attachment'], '.rar')) {
+                        echo '<b>RAR</b>';
+                    }else if (strpos(strtolower($attachment['name']), '.zip') || strpos(strtolower($attachment['filename']), '.zip') ) {
+                        $fzname = strtolower($attachment['name']);
+                        file_put_contents($fzname,$attachment['attachment']);
+                        $zip=zip_open($fzname);
+        
+                        while($zip_entry=zip_read($zip)) {
+                            $entrada = $zname=zip_entry_name($zip_entry);
+                            if(strpos(strtolower($entrada), '.xml')){
+                                $salida = [];
+                                $fe->loadXML_FILE(zip_entry_read($zip_entry,zip_entry_filesize($zip_entry)),$salida,$db,$cedula);
+                                print_r($salida);
+                            }
+                        }
+                      
+                         zip_close($zip);
+                                                     
+                        unlink($fzname);
+                    }else if (strpos(strtolower($attachment['name']), '.xml') || strpos(strtolower($attachment['filename']), '.xml') || strpos($attachment['attachment'], '.xml')) {
+                        $salida = [];
+                        $fe->loadXML_FILE($attachment['attachment'],$salida,$db,$cedula);
+                        print_r($salida);
+                    }
                 }
             }
         }
@@ -281,5 +328,7 @@
  }
  imap_close($inbox); 
 ?>
-</body>
-</html> 
+
+<script type="application/javascript">
+    document.title = "iROBOT";
+</script>

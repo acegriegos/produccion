@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="max-age=86400"/>
 <title>Usuarios</title>
 {$STY}
-<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.4.0.3">
+<link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-usuarios.css?v=10.4.1.0">
 
 </head>
 
@@ -24,6 +24,8 @@
             <li class="tab menu2" id="m2"><a class="white-text {if $smarty.session.BUSS eq 1} hide {/if}" href="#">Permisos</a></li>
            
             <li class="tab menu2" id="m3"><a class="white-text {if $smarty.session.BUSS eq 1} hide {/if}" href="#">Historial</a></li>
+
+            <li class="tab menu2" id="m4"><a class="white-text" href="#">Flujo de Trabajo</a></li>
             </ul>
         </div>
     </div>
@@ -33,7 +35,7 @@
 
 </div>
 {$SCR}
-<script src="../assets/js/modulos/usuarios.js?v=10.4.0.3"></script>
+<script src="../assets/js/modulos/usuarios.js?v=10.4.1.0"></script>
 
 </body>
 </html>

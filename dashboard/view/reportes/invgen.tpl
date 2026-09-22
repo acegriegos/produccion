@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="max-age=86400"/>
   <title>Inventarios</title>
   {$STY}
-  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.0.3">
+  <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-newReport.css?v=10.4.1.0">
   {literal}
   <style type="text/css">
     .detrep input{
@@ -50,17 +50,42 @@
   <div class="modal-content">
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <b><span class="_proname"></span></b>
         </div>
 
-        <div class="col s4">
+        <div class="col s3">
           Cantidad(UN): <span id="npcant">0</span>
         </div>
 
-        <div class="col s4">
-          Precio(CRC): <span id="npprec">0</span>
+        <div class="col s3">
+          Costo(CRC): <span id="npprec">0</span>
         </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col s6"></div>
+
+        <div class="col s6">
+          <div class="col s6">
+            Utilidad: <span id="nputil">0</span>%
+          </div>
+
+          <div class="col s6">
+            Precio(CRC): <span id="npven">0</span>
+          </div>
+
+          <div class="col s6 segundo">
+            Utilidad mts: <span id="nputil2">0</span>%
+          </div>
+
+          <div class="col s6 segundo">
+            Precio(CRC): <span id="npven2">0</span>
+          </div>
+        </div>
+
 
       </div>
 
@@ -108,22 +133,22 @@
       $(".filtros").data('filtros',{
       "vvariable":{
         "tipo":3,
-        "indeterminate" : 1,
+        "indeterminate" : -1,
         "texto":"Variable"
       },
       "visinventariado":{
         "tipo":3,
-        "indeterminate" : 1,
+        "indeterminate" : -1,
         "texto":"Inventariado"
       },
       "vgravado":{
         "tipo":3,
-        "indeterminate" : 1,
+        "indeterminate" : -1,
         "texto":"Gravado"
       },
       "vcabys":{
         "tipo":3,
-        "indeterminate" : 1,
+        "indeterminate" : -1,
         "texto":"Cabys"
       },
       "ncliente":{
@@ -138,6 +163,18 @@
       "vproducto":{
         "tipo":1,
         "texto":"Producto"
+      },
+      "vinventario":{
+        "tipo":6,
+        "texto": "Inventario",
+        "pre":{
+          "tipo":6,
+          "default":"0",
+          "selected":6,
+          "sel":"id,nombre",
+          "tbl":111,
+          "whr":"id>0 and idsucursal in(-1,@@impresa)"
+        }
       },
       "vexistencia":{
         "tipo":2,
@@ -170,13 +207,18 @@
             }
           }
         }
+      },
+      "vcosto":{
+        "tipo":2,
+        "texto": "Costo",
+        "change_type": 4
       }
     }
     )
     }) 
   </script>
   {/literal}
-  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.0.3"></script>
-  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.0.3"></script>
+  <script src="../assets/js/modulos/reportes/reportes.js?v=10.4.1.0"></script>
+  <script src="../assets/js/modulos/reportes/inventarios.js?v=10.4.1.0"></script>
 </body>
 </html>

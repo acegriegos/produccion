@@ -5,11 +5,11 @@
     <title>Calculadora</title>
 
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="./assets/css/materialize.min.css?v=10.4.0.3">
-    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.0.3">
-    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.0.3">
-    <link rel="stylesheet" type="text/css" href="./assets/css/modulos/style-menu.css?v=10.4.0.3">
-    <link rel="stylesheet" type="text/css" href="./assets/css/materialdesignicons.min.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="./assets/css/materialize.min.css?v=10.4.1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/css/modulos/style-menu.css?v=10.4.1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/css/materialdesignicons.min.css?v=10.4.1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/jquery.dataTables.css?v=10.4.1.0">
+    <link rel="stylesheet" type="text/css" href="./assets/libs/DataTables/media/css/dataTables.responsive.css?v=10.4.1.0">
 
     <style type="text/css">
         #calc label, #calc span{
@@ -69,6 +69,36 @@
                 </tr>
             </tfoot>
         </table>
+        <br>
+        <table>
+            <tr>
+                <td><b>CHEQUE</b></td>
+                <td style="text-align: center;"><b>TOTAL</b></td>
+            </tr>
+            <tbody id="listavueltos_spec_cheq"></tbody>
+            <tfoot>
+
+                <tr>
+                    <td><b>TOTAL 01(CRC)</b></td>
+                    <td style="text-align: right;" id="stot_cheq">0.00</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td><b>CRÉDITO A FAVOR</b></td>
+                <td style="text-align: center;"><b>TOTAL</b></td>
+            </tr>
+            <tbody id="listavueltos_spec_cre"></tbody>
+            <tfoot>
+
+                <tr>
+                    <td><b>TOTAL 01(CRC)</b></td>
+                    <td style="text-align: right;" id="stot_cre">0.00</td>
+                </tr>
+            </tfoot>
+        </table>
 
         </div>
 
@@ -104,9 +134,12 @@
             <div class="col s6 center" style="border-right: 1px solid black;">
                 <span>Paga con:</span> <br>
               <input type="text" id="vuelto_pcon" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
-              <br><br><br>
+              <br>
 
-              <span>Vuelto:</span><br>
+              <span>Vuelto:</span> <br>
+              <span style="font-size: 44px;" id="vuelto_">0.00</span> <br>
+
+              <span>Pendiente:</span> <br>
               <span style="font-size: 44px;" id="vuelto_">0.00</span>
             </div>
             
@@ -114,9 +147,13 @@
             <div class="col s6 center">
                 <span>Tarjeta:</span> <br>
                 <input type="text" id="_tar" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
-
-                <span>Bancos:</span> <br>
-                <input type="text" id="_dep" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
+                <br>
+                <span>Cheque:</span> <br>
+                <input type="text" id="_cheq" value="0.00" autocomplete="off" style="font-size: 44px; text-align: center;">
+                 <br>
+                <span>Por Devolución:</span> <br>
+                <input type="text" id="_saf" value="0.00" autocomplete="off" readonly style="font-size: 44px; text-align: center;">
+                </section>
 
             </div>
 
@@ -125,6 +162,8 @@
         <a class="btn green" style="width: 100%" id="proc_cierre">Procesar</a>
         <br>
         <a class="btn red" style="width: 100%" id="do_cierre">Realizar Cierre</a>
+        <br>
+        <a class="btn blue" style="width: 100%" id="prevista">Prevista</a>
     </div>
 
     <div class="col s3 center">
@@ -159,6 +198,36 @@
                 <tr>
                     <td><b>TOTAL(CRC)</b></td>
                     <td style="text-align: right;" id="ttot_tar">0.00</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td><b>CHEQUE</b></td>
+                <td style="text-align: center;"><b>TOTAL</b></td>
+            </tr>
+            <tbody id="listavueltos_cheq"></tbody>
+            <tfoot>
+
+                <tr>
+                    <td><b>TOTAL 01(CRC)</b></td>
+                    <td style="text-align: right;" id="ttot_cheq">0.00</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td><b>CRÉDITO A FAVOR</b></td>
+                <td style="text-align: center;"><b>TOTAL</b></td>
+            </tr>
+            <tbody id="listavueltos_cre"></tbody>
+            <tfoot>
+
+                <tr>
+                    <td><b>TOTAL 01(CRC)</b></td>
+                    <td style="text-align: right;" id="ttot_cre">0.00</td>
                 </tr>
             </tfoot>
         </table>
@@ -242,13 +311,27 @@
             </div>
         </div>
     </ul>
+
+    <div class="modal modal-fixed-footer" id="modal-saldo" style="height: 75%; width: 50%">
+    <div class="modal-header head3 center" style="font-size: 22px;">Cargar Devoluciones</div>
+    <div class="modal-content">
+        <div class="row" id="listadevoluciones">
+          
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+        <a class="modal-action waves-effect waves-green btn-flat" id="cargarDev">Aceptar</a>
+    </div>
+  </div>
     
-    <script src="./assets/js/jquery.js?v=10.4.0.3"></script>
-    <script src="./assets/js/materialize.min.js?v=10.4.0.3"></script>
-    <script src="./assets/js/asgard.js?v=10.4.0.3"></script>
-    <script src="./assets/js/main.js?v=10.4.0.3"></script>
-    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.0.3"></script>
-    <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.0.3"></script>
-    <script src="./assets/js/calc.js?v=10.4.0.3"></script>
+    <script src="./assets/js/jquery.js?v=10.4.1.0"></script>
+    <script src="./assets/js/materialize.min.js?v=10.4.1.0"></script>
+    <script src="./assets/js/asgard.js?v=10.4.1.0"></script>
+    <script src="./assets/js/main.js?v=10.4.1.0"></script>
+    <script src="../assets/libs/DataTables/media/js/jquery.dataTables.min.js?v=10.4.1.0"></script>
+    <script src="../assets/libs/DataTables/media/js/dataTables.responsive.min.js?v=10.4.1.0"></script>
+    <script src="./assets/js/calc.js?v=10.4.1.0"></script>
  </body>
  </html>

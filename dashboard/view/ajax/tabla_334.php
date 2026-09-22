@@ -7,11 +7,11 @@
     foreach ($transaccion as $obj) {
 ?>
 <tr vid="<?php echo $obj[0]; ?>">
-    <td><?php echo $obj[1]; ?></td>
-    <td><?php echo $obj[2]; ?></td>
-    <td><?php echo $obj[3]; ?></td>
-    <td><?php echo $obj[4]; ?></td>
-    <td> <i class="mdi mdi-pencil mdi-24px _enota pbtn" title="Editar Nota"></i> <i class="mdi mdi-close red-text mdi-24px _dnota pbtn" title="Eliminar Nota"></i> </td>
+    <td width="10%"><?php echo $obj[1]; ?></td>
+    <td width="50%" style="word-break: break-all;"><?php echo $obj[2]; ?></td>
+    <td width="10%"><?php echo $obj[3]; ?></td>
+    <td width="20%"><?php echo $obj[4]; ?></td>
+    <td width="10%"> <i class="mdi mdi-pencil mdi-24px _enota pbtn" title="Editar Nota"></i> <i class="mdi mdi-close red-text mdi-24px _dnota pbtn" title="Eliminar Nota"></i> </td>
 </tr>
 
 <?php }

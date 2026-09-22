@@ -5,14 +5,21 @@
     }else{
     $_REQUEST['ced'] = isset($_REQUEST['ced']) ? $_REQUEST['ced'] : '0';
     $source = "https://api.hacienda.go.cr/fe/ex?autorizacion=".$_REQUEST['exo'];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $source);
+    $ch = curl_init($source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSLVERSION,0);
+    /*curl_setopt($ch, CURLOPT_SSLVERSION,0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Connection:keep-alive',
+        'Cache-Control: no-cache',
+        'Pragma: no-cache',
+        'Expires: 0',
+        'User-Agent: PHP',
+    ]);
     $data = curl_exec($ch);
     $error = curl_error($ch);
+    echo $error;
     curl_close ($ch);
     
     $data = (array)json_decode($data);

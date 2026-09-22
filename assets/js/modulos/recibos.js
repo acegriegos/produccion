@@ -7,6 +7,7 @@ $(function(){
      if(fullmode){
         $(".hideonprint").hide()
         $(".fac").removeClass('m9 l9')
+        $(".no_hide").show()
      }
 
      $('.chips-initial').material_chip({

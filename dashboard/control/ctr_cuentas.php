@@ -43,13 +43,12 @@ if (!isset($_REQUEST['accion'])) {
 		case 5:
 			$pagina = 1;
 
-			$transaccion = $kakaroto->kamehameha('',230,$_REQUEST['id']);
+			$transaccion = $kakaroto->kamehameha('',230,$_REQUEST['id'].',@@impresa,'.$_REQUEST['tipo']);
 			$miscelaneos = $kakaroto->kamehameha('',50,'@@impresa')[0];
 			if($_REQUEST['tp'] == 1)
 				require_once 'view/ajax/cuentas/reciboVariaspv.php';
 			else
 				require_once 'view/ajax/cuentas/reciboVarias.php';
-			break;
 			break;
 	}
 	if(!$pagina){

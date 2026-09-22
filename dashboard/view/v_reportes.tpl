@@ -93,7 +93,7 @@
 <p>Compras</p>
 </div>
 
-<div class="col s6 m3 l2 center-align hide">
+<div class="col s6 m3 l2 center-align per1523 hide">
 <a class="report pbtn"><i class="mdi-48px mdi mdi-cart-plus"></i></a>
 <p>Ordenes de Compras</p>
 </div>
@@ -108,12 +108,17 @@
 <p>Histórico CxP</p>
 </div>
 
-<div class="col s6 m3 l2 center-align">
+<div class="col s6 m3 l2 center-align per1522 hide">
 <a class="report pbtn" rep="costos"><i class="mdi-48px mdi mdi-ticket-percent"></i></a>
 <p>Utilidades</p>
 </div>
 
-<div class="col s6 m3 l2 per11 hide center-align">
+<div class="col s6 m3 l2 center-align per1523 hide">
+<a class="report pbtn" rep="oc"><i class="mdi-48px mdi mdi-chart-bell-curve-cumulative"></i></a>
+<p>Ordenes de Compra</p>
+</div>
+
+<div class="col s6 m3 l2 per25 hide center-align">
 <a class="report pbtn" rep="servrest"><i class="mdi-48px mdi mdi-glass-wine"></i></a>
 <p>Servicio Restaurante</p>
 </div>
@@ -148,14 +153,14 @@ Inventario <hr>
 <p>Movimiento de Costos-Ventas</p>
 </div>
 
-<div class="col s6 m3 l2 center-align basic ">
+<div class="col s6 m3 l2 center-align basic hide">
 <a class="report pbtn" rep="movprod"><i class="mdi-48px mdi mdi-card-bulleted-settings-outline"></i></a>
 <p>Kardex</p>
 </div>
 
 </div>
 
-<div class="row">
+<div class="row hide">
 	Cierres <hr>
 
 	<div class="col s6 m3 l2 center-align">
@@ -165,7 +170,7 @@ Inventario <hr>
 
 </div>
 
-<div class="row per15 hide">
+<div class="row per26 hide">
 Contabilidad <hr>
 
 <div class="col s6 m3 l2 center-align">
@@ -207,6 +212,6 @@ Contabilidad <hr>
 </div>
 
 {$SCR}
-<script src="../assets/js/modulos/reportes.js?v=10.4.0.3"></script>
+<script src="../assets/js/modulos/reportes.js?v=10.4.1.0"></script>
 </body>
 </html>

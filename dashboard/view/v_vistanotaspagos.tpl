@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="max-age=86400"/>
     <title>Movimientos Estados</title>
    {$STY}
-    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.4.0.3">
+    <link rel="stylesheet" type="text/css" href="../assets/css/modulos/style-vistanotaspagos.css?v=10.4.1.0">
   </head>
   <body>
   <br>
@@ -41,6 +41,10 @@
                 <input name="tventa" class="with-gap" type="radio" id="tf5"/>
                 <label for="tf5">Notas de Crédito</label>
             </div>
+            <div class="col s4 l3">
+                <input name="tventa" class="with-gap" type="radio" id="tf10"/>
+                <label for="tf10">Notas de Crédito Especiales</label>
+            </div>
 
         </div>        
             <hr>
@@ -52,6 +56,7 @@
                     <li><a class="optns" href="#!" fltr="1">Número</a></li>
                     <li><a class="optns" href="#!" fltr="2">Razón Social o Cédula</a></li>
                     <li><a class="optns" href="#!" fltr="3">Fecha</a></li>
+                    <li><a class="optns" href="#!" fltr="4">N° Factura</a></li>
                   </ul>
                   <input type="text" id="search_facturas" maxlength="100" num="v187" var="0,1" filtro="1" autocomplete="off">
                   <label class="truncate" for="search_facturas">Buscar Documento por <span>Número</span></label>
@@ -91,6 +96,6 @@
            
     </div>
     {$SCR}
-    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.4.0.3"></script>
+    <script src="../assets/js/modulos/vistanotaspagos.js?v=10.4.1.0"></script>
   </body>
 </html>

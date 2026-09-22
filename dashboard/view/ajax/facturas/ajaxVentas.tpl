@@ -58,9 +58,15 @@
       <label><b>Saldo Actual: </b><span class="moneda"></span> <label id="msaldo" class="divisa"></label> </label> 
     </div>
 
-    <div class="input-field col s12 m3 trCompra hide">
+    <div class="input-field col s12 m3 trCompra hide per1116" style="position: relative;">
       <label for="vreferencia"></label>
-      <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="new-password" />
+      <input type="text" id="vreferencia" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" autocomplete="off" />
+      <i class="mdi mdi-eye detextra pbtn hide" id="show_in_ref" data-activates="extra" fila="10" tabla="64" style="position: absolute;top: 10px; left: 0;"></i>
+    </div>
+
+    <div class="input-field col s12 m3 hide" id="buscarCOC">
+      <label for="vcompra"></label>
+      <input type="text" id="vcompra" class="validate eder" placeholder="Número de Referencia" style="padding: 0px;margin: 0px" readonly autocomplete="off" vid="0" />
     </div>
 
   </div>
@@ -72,15 +78,16 @@
       <input type="date" class="datepicker" id="vfecha" value="" />
     </div>
    
-    <div class="input-field cre gen col s12 m3 l3 hide">
+    <!-- 4.4 -->
+    <div class="input-field cre gen col s12 m2 hide">
       <i class="mdi mdi-calendar-clock mdi-24px prefix"></i>
-      <input type="text" id="vplazo" value="0" class="eder" autocomplete="new-password" />
+      <input type="text" id="vplazo" value="0" class="eder" autocomplete="off" />
       <label style="color: black"><b>Plazo en Días</b></label>
     </div>
     
     <div class="input-field col s12 m6 show_cliente" style="position: relative;">
       <i class="mdi mdi-face mdi-24px prefix"></i>
-      <input type="text" id="ncli" value="" class="autocomplete sclie" maxlength="64" autocomplete="new-password"/>
+      <input type="text" id="ncli" value="" class="autocomplete sclie" maxlength="64" autocomplete="off"/>
 
       <a class="mdi mdi-16px mdi-plus text-green pbtn tooltipped clieBTN" id="ingclie" style="position: absolute;top:4px;right: 0px;border-radius: 100%;outline: none;padding-top: 2px;padding-right: 8px; z-index: 180;cursor: pointer;" data-position="bottom" data-tooltip="Agregar Cliente"></a>
 
@@ -91,27 +98,35 @@
       
     </div> 
 
-    <div class="col s12 m3 hide trVenta">
-      <select id="codact" class="browser-default">
+    <!-- 4.4 -->
+    <div class="col s12 m4 hide trVenta row">
+      <div class="input-field_ col s6">
+        <select id="codact" class="browser-default"></select>
         
-      </select>
+      </div>
+      <div class="col s6 hide clieBTN" id="cod_act_cliente" style="position: relative;">
+        <i class="prefix mdi mdi-refresh pbtn" style="position: absolute;left: 0;" onclick="getActividades()" title="Refrescar Actividades"></i>
+        <select id="actividad_cliente" class="browser-default"></select>
+        <label for="actividad_cliente" style="font-size:8px;position: absolute; top: 0;">Actividad Receptor</label>
+      </div>
+      
     </div>
 
     <small id="msj_small" class="hide trVenta col s12" style="color: #621313"></small>
 
-    <div class="col s12 m3 hide trCompra">
-      <input type="checkbox" id="celectronica" {if $smarty.session.BUSS eq 1} checked disabled {/if}>
-      <label for="celectronica">Compra Electrónica</label>
-    </div>
+    <section class="col s6 hide trCompra">
+      <input type="radio" name="tipocompra" value="1" id="cmanual">
+      <label for="cmanual">Manual</label>
 
-    {if $smarty.session.BUSS eq 3}
-      <div class="col s12 m3 hide trCompra">
-        <input type="checkbox" id="cauto" checked>
-        <label for="cauto">Manual</label>
-      </div>
-    {/if}
-    
-  </div>
+      <input type="radio" name="tipocompra" value="2" id="cauto" checked>
+      <label for="cauto">Automática</label>
+
+      <input type="radio" id="celectronica" name="tipocompra" value="3">
+      <label for="celectronica">Compra Electrónica</label>
+
+      <input type="radio" id="xcoc" name="tipocompra" value="4">
+      <label for="xcoc">Por OC</label>
+    </section>
 <!-- gen aff afc cre -->
   <div class="row">
     <div class="col s2 der hide">
@@ -197,33 +212,42 @@
   </div>
 
   </div>
-
+</div>
 
 <!-- DETALLE FACTURA -->
-  <div class="card z-depth-3 p2 ps hide-on-med-and-down" style="margin: 0px">
-  <div class="card-header head2 center hide-on-med-and-down" style="padding: 0.5%;position: relative;"><b>DETALLE DE FACTURA</b>
+  <div class="card z-depth-3 p2 ps hide-on-med-and-down" style="margin: 0px" id="detalle">
+  <div class="card-header head2 hide-on-med-and-down row">
+    <div class="col s4"></div>
+    <div class="col s4 center" style="line-height:2">
+      <b>DETALLE DE FACTURA </b>
+    </div>
+    <div class="col s4 eder">
 
-    <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px white-text der" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos" style="position: absolute;top: 0;right: 0;"></a>
-    
-    {if $smarty.session.BUSS eq 3}
-    <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px white-text der" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion" style="position: absolute;top: 0;right: 0;margin-right: 36px"></a>
+      <a href="#modal-libreta" class="mdi mdi-book-open-variant tooltipped mdi-24px hide" data-tooltip="Libreta de Créditos" data-position="bottom" id="libreta"></a>
 
-    <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
+      <a href="#modal-pesaje" class="mdi mdi-scale tooltipped mdi-24px hide" data-tooltip="Productos de Pesaje" data-position="bottom" id="pesaje"></a>
 
-    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
+      <a href="#modal-autoOC" class="mdi mdi-home-automation tooltipped mdi-24px hide trOCompra" data-tooltip="Ordenes Automáticas" data-position="bottom" id="aoc"></a>
 
-    <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
-    
-    {else}
+      <a href="#" class="mdi mdi-24px mdi-upload tooltipped hide clieBTN" id="coc" data-tooltip="Cargar Orden de Compra" data-position="bottom"></a>
 
-    <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px white-text der per1110" data-tooltip="Factura Especial" data-position="bottom" id="special" style="position: absolute;top: 0;right: 0;margin-right: 72px"></a>
+      <a href="#" class="hide tooltipped" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" act="0">FE</a>
 
-    <a href="#" class="hide tooltipped white-text der" data-tooltip="Generar Factura Electrónica" data-position="bottom" id="dofe" style="position: absolute;top: 0;right: 0;margin-right: 144px;padding-top: 0.5%;" act="0">FE</a>
+      <a class="mdi mdi-xml tooltipped mdi-24px hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh"></a>
+      
+      <a href="#" class="mdi mdi-briefcase-upload hide tooltipped mdi-24px per1115" data-tooltip="Cargar Item Variable" data-position="bottom" id="locompras"></a>
 
-    {/if}
+      <a href="#" class="mdi mdi-account-cash hide tooltipped mdi-24px" data-tooltip="Saldos a Favor" data-position="bottom" id="saldos"></a>
 
-    <a class="mdi mdi-xml tooltipped mdi-24px white-text der hide pbtn" data-tooltip="Ver XML-Otos" id="xo-sh" style="position: absolute;top: 0;right: 108px;"></a>
+      <a href="#" class="mdi mdi-account-alert hide tooltipped mdi-24px per1110" data-tooltip="Factura Especial" data-position="bottom" id="special"></a>
 
+      <a href="#modal-devoluciones" class="mdi mdi-arrow-collapse tooltipped mdi-24px" data-tooltip="Devolución de Productos" data-position="bottom" id="ldevolucion"></a>
+
+      <a href="#" data-activates="slide-factura" class="button-collapse hide" id="dfact"></a>
+      
+      <a href="#modal-productos" class="mdi mdi-search-web tooltipped mdi-24px" data-tooltip="Lista de Productos" data-position="bottom" id="lproductos"></a>
+
+    </div>
  </div>
 
   <div class="row">
@@ -242,6 +266,17 @@
     <section class="right hide-on-small-only">
           <input type="checkbox" name="hasimpuesto" id="iva" hclk="0">
           <label for="iva" class="hide" style="float: left;margin-right: 5px">IVI</label>
+          
+                    <label class="chk hide trVenta">
+            <input type="checkbox" id="prorrateo_flete">
+            <span></span> Distribuir Flete
+          </label>
+
+          <input type="text" class="numeric eder browser-default hide" id="prorrateo_flete_valor" style="    border: none;
+            border-bottom: 1px solid;
+            height: 1.5em !important;" placeholder="Valor de Flete">
+     
+          
       {if $smarty.session.BUSS neq 1}
         <a href="#" data-tooltip="Cantidad en Inventario" id="sinv" class="tooltipped" data-position="bottom"><i class="mdi mdi-archive" ></i><a class="hide-on-small-only">:</a><span class="hide-on-small-only" id="cantI">0</span> <span id="tuni"></span></a>
       {/if}
@@ -264,38 +299,43 @@
       <thead> -->
         <section class="trVenta hide trsec">
 
-          <div class="row">
+          <div class="row"> 
             <div class="input-field col s2">
               <input type="hidden" id="valores">
-              <input type="text" placeholder="Código" id="codp" autocomplete="new-password" class="autocomplete">
+              <input type="text" placeholder="Código" id="codp" autocomplete="off" class="autocomplete">
               <label for="codp" style="font-size: 20px" class="active"><b>Código</b></label>
             </div>
 
-            <div class="input-field col s5">
-              <input type="text" id="descp" placeholder="Artículo" autocomplete="new-password" class="autocomplete">
+            <div class="input-field col s3">
+              <input type="text" id="descp" placeholder="Artículo" autocomplete="off" class="autocomplete">
               <label for="descp" style="font-size: 20px" class="active center"><b>Artículo</b></label>
             </div>
 
            <div class="input-field col s2">
-              <input type="text" id="precp" class="divisa numeric" value="0.00" readonly autocomplete="new-password">
+              <input type="text" id="precp" class="divisa numeric eder" value="0.00" readonly autocomplete="off">
               <label for="precp" style="font-size: 20px" class="active"><b>P.Unit</b></label>
             </div> 
 
             <div class="input-field col s1">
-               <input type="text" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" class="center">
+               <input type="text" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad" class="center">
               <label for="c4" style="font-size: 20px" class="active"><b>Cantidad</b></label>
             </div> 
 
             <div class="col s1 input-field">
               <label for="uni" class="active" style="font-size: 20px;"><b>Unidad</b></label>
-              <select id="uni">
+              <select id="uni" readonly >
                 <option value="1">Unid</option>
               </select>
             </div>
 
-            <div class="input-field col s1">
-              <input type="text" id="totp" class="divisa" value="0.00" readonly placeholder="Total">
-              <label for="c6" style="font-size: 20px" class="active"><b>Total</b></label>
+            <div class="col s1 input-field">
+              <input type="text" id="descuento_" class="eder" value="0" placeholder="Descuento">
+              <label for="descuento_" style="font-size: 20px" class="active"><b>Descuento</b></label>
+            </div>
+
+            <div class="input-field col s2">
+              <input type="text" id="totp" class="divisa eder" value="0.00" readonly placeholder="Total">
+              <label for="totp" style="font-size: 20px" class="active"><b>Total</b></label>
             </div> 
 
           </div>
@@ -317,38 +357,38 @@
          
         </section>
 
-        <section class="trOCompra hide">
-          <div class="hide-on-med-and-down">
-            <div style="padding: 0 !important;" class="col s2 center-align"><b>Código</b></div>
-            <div style="padding: 0 !important;" class="col s4 center-align"><span class="truncate"><b>Descripción</b></span></div>
-            <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Cantidad</b></span></div>
-            <div style="padding: 0 !important;" class="col s2 center-align"><span class="truncate"><b>Unidad</b></span></div>
-            <div style="padding: 0 !important;" class="col s2 center-align">&nbsp;</div>
-          </div>
-        </section>
-
-        <div class="trOCompra hide trsec hide-on-med-and-down">
+        <div class="trOCompra hide trsec hide-on-med-and-down row" id="encabezadoOCompra">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
+            <input type="text" id="codp" class="f prod center truncate" autocomplete="off" placeholder="000">
             <input type="hidden" id="valores">
+            <label for="codp" class="_active" style="font-size: 20px"> <b>Código</b></label>
           </div>
 
-          <div style="padding: 0px 5px !important" class="input-field col s12 m4">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly>
-          </div>
-
-          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" autocomplete="new-password">
+          <div style="padding: 0px 5px !important" class="input-field col s12 m3">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Item" autocomplete="off">
+            <label for="descp" class="_active" style="font-size: 20px"><b>Descripción</b></label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" class="f center divisa numeric" id="precp" value="0.00">
+            <label for="precp" class="_active" style="font-size: 20px"><b>Precio</b></label>
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off"  autocomplete="off">
+            <label for="cantp" class="_active" style="font-size: 20px"><b>Cantidad</b></label>
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m2">
+            <label for="uni" class="_active" style="font-size: 20px"><b>Unidad</b></label>
             <select id="uni" readonly >
               <option value="1">Unid</option>
             </select>
+          </div>
+
+          <div style="padding: 0px 5px !important" class="input-field col s12 m1">
+            <input type="text" class="numeric eder" id="factor" value="1" readonly>
+            <label for="factor" class="_active" style="font-size: 20px"><b>Factor</b></label>
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m2 hide">
@@ -358,12 +398,12 @@
 
         <div class="trCompra hide trsec hide-on-med-and-down row v104">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="new-password">
+            <input type="text" id="codp" class="f prod center truncate" placeholder="Código" autocomplete="off">
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="new-password">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" placeholder="Descripción" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1 _uni">
@@ -373,15 +413,15 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password" placeholder="Cantidad" autocomplete="new-password">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off" placeholder="Cantidad" autocomplete="off">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
           </div>
 
           <div class="input-field col s12 m1">
-            <input type="text" class="f center" id="descup" min="0" value="0" placeholder="Descuento" value="0.00" autocomplete="new-password">
+            <input type="text" class="f center" id="descup" min="0" value="0" placeholder="Descuento" value="0.00" autocomplete="off">
           </div>
           
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
@@ -409,6 +449,24 @@
         </div>
 
       </div>
+      
+      <!-- ULTIMAS_REFERENCIAS -->
+
+          <div class="col s12 hide" id="show_last_ref" style="min-height: 50px;background-color: white;position: absolute;
+    top: 135px;width: 98%;">
+            <table>
+              <tr style="border-bottom: 1px solid black;">
+                <td>Proveedor</td>
+                <td class="fast_ref_costp">Último Costo</td>
+                <td>Última Compra</td>
+                <td>Cantidad Solicitada</td>
+                <td>Cantidad Recibida</td>
+                <td>OC</td>
+                <td>Compra</td>
+              </tr>
+              <tbody id="fast_refs"></tbody>
+            </table>
+          </div>
 
       {if $smarty.session.BUSS neq 1}
       <div class="trCompra hide trsec hide-on-med-and-down row v104" style="font-size: 12px" id="precioscat">
@@ -452,17 +510,17 @@
       {/if}
       <div class="trcompra hide trsec hide-on-med-and-down">
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="ventap" class="eder" autocomplete="new-password">
+            <input type="text" id="ventap" class="eder" autocomplete="off">
             <label for="ventap">Costo Original</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="ventap" class="eder" autocomplete="new-password">
+            <input type="text" id="ventap" class="eder" autocomplete="off">
             <label for="ventap">Precio Venta</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="gananciap" class="eder" autocomplete="new-password">
+            <input type="text" id="gananciap" class="eder" autocomplete="off">
             <label for="gananciap">Utilidad</label>
           </div>
       </div>
@@ -472,6 +530,17 @@
       </div>
       <div vtabla="detallefactura" id="fdetallefacturas" tp="4" rollback="" class="col s12" style="margin-bottom: 5px;">
       </div>
+      <div class="row">
+        <div class="col s6 hide trCompra">
+          <b>Total Líneas:</b> <span id="tlines">0</span> <br>
+          <b>Total Productos:</b> <span id="tprods">0</span>
+        </div>
+        <div class="col s6">
+          <a class="btn hide der" id="docompra">Aceptar</a>  
+          <a class="btn green der hide" id="savecompra_" style="margin-right: 1%;">Guardar</a>
+        </div>
+             
+      </div>
     </div>
 </div>
 <!-- /DETALLE FACTURA -->
@@ -480,7 +549,7 @@
 
 <!-- DIVISOR -->
 
-<div class="l3 m12 s12 col p3 ps movil hide-on-med-and-down mfact">
+<div class="l3 m12 s12 col p3 ps movil hide-on-med-and-down mfact" id="desgloce">
 
 <div class="card center z-depth-3">
   <div class="card-header center head2 center hide-on-med-and-down" style="padding: 1%"><b>DESGLOCE DE FACTURA</b></div>
@@ -533,7 +602,7 @@
               <select id="tdescuento" class="eder tdesc trVenta hide" tp="1" style="margin: 0px; height: 0.5%% !important">
               </select>
               <input type="text" id="vdescuentop" class="eder _txtaside hide trCompra" value="0" tdesc="1"
-              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="new-password">
+              style="margin:0px;height: 0.5% !important" placeholder="DESCUENTO" autocomplete="off">
             </td>
           </tr>
           <tr class="hide clieBTN" id="norden">
@@ -586,11 +655,13 @@
 
         <tfoot> 
 
-          <tr style="border-top:1px solid #E9E9E9">
-            <td><b>TOTAL:</b></td>
-            <td style="float: right;"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b>
-            </td>
+           <tr style="border-top:1px solid #E9E9E9;">
+            <td colspan="2" class="center"><b>TOTAL</b></td>
           </tr>
+          <tr style="font-size:35px">
+            <td colspan="2" class="center"><b><span class="moneda"></span><span id="tot" type="html" value="0">0.00</span></b></td>
+          </tr>
+
         </tfoot>
       </table>
       </div>
@@ -609,7 +680,7 @@
 
           <div class="col s12 m6 l6 _odt hide">
             <select id="idodt" type="select">
-              <option value="0" style="color: black"><b>ODT</b></option>
+              <option value="0" style="color: black">ODT</option>
             </select>
           </div>
 
@@ -637,6 +708,70 @@
 <!-- ffacturas -->
 </div>
  <!-- bdy -->
+ 
+ <div class="modal modal-fixed-footer" id="modal-pedidos" style="width: 75%;">
+  <div class="modal-header head2 center" style="font-size: 22px;">Pedidos</div>
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s4">
+        <b>Producto:</b> <span id="pedido_producto" vid="0"></span> <br>
+        <b>Cantidad Máxima:</b> <span id="pedido_cant_max"></span> <br>
+        <b>Cantidad a Inventario:</b> <span id="pedido_to_stock">0.00</span> <br>
+      </div>
+
+      <div class="col s4 input-field">
+        <input type="text" class="fastClient" vid="0" id="pedido_cliente">
+        <label for="pedido_cliente">Cliente</label>
+      </div>
+
+      <div class="col s4 row">
+
+        <div class="col s4 input-field">
+          <input type="number" id="pedido_cantidad" class="eder">
+          <label for="pedido_cantidad">Cantidad</label>
+        </div>
+
+        <div class="col s4 input-field">
+          <input type="number" id="pedido_venta" class="eder" value="0">
+          <label for="pedido_venta">Venta</label>
+        </div>
+        
+        <div class="col s4">
+
+          <label class="chk">
+            <input type="checkbox" id="pedido_to_stock">
+            <span></span> Inventario
+          </label>
+
+          <a class="pbtn" title="Agregar a Pedidos en Curso" id="pedido_add"> <i class="mdi mdi-plus"></i> </a>
+        </div>
+      </div>
+    </div>
+    
+    <table>
+      <tr>
+        <td colspan="100%" class="center">
+          <b>Pedidos en Curso</b>
+        </td>
+      </tr>
+      <tr>
+        <td>Pedido</td>
+        <td>Cliente</td>
+        <td>Fecha</td>
+        <td>Cantidad</td>
+        <td>Venta</td>
+        <td>Destino</td>
+        <td>Usuario</td>
+        <td>Acciones</td>
+      </tr>
+      <tbody id="ped_en_curso"></tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action waves-effect waves-green btn-flat" id="save_pedidos">Aceptar</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+  </div>
+</div>
 
 <div class="modal modal-fixed-footer per7302 hide" id="modal-docaja">
    <div class="modal-header head3 center" style="font-size: 22px;">Iniciar Caja</div>
@@ -657,18 +792,18 @@
     <div class="trVenta hide trsec hide-on-large-only"> <!-- MOBIL -->
       <div style="padding: 0px 5px !important" class="input-field col s12 m2">
 
-            <input type="text" id="codp" class="f prod center truncate" autocomplete="new-password">
+            <input type="text" id="codp" class="f prod center truncate" autocomplete="off">
             <label for="codp">Código</label>
             <input type="hidden" id="valores">
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m3">
-            <input type="text" id="descp" class="fd autocomplete center prod" value="" autocomplete="new-password">
+            <input type="text" id="descp" class="fd autocomplete center prod" value="" autocomplete="off">
             <label for="descp">Descripción</label>
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m2">
-            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="new-password">
+            <input type="text" id="precp" class="f center divisa numeric" value="0.00" readonly autocomplete="off">
             <label for="precp">Precio</label>
           </div>
 
@@ -680,7 +815,7 @@
           </div>
 
           <div style="padding: 0px 5px !important" class="input-field col s12 m1">
-            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="new-password">
+            <input type="text" class="f center" id="cantp" min="1" value="1" autocomplete="off">
             <label for="cantp">Cantidad</label>
           </div>
 
@@ -713,7 +848,7 @@
   <div class="modal-content">
     <div class="input-field">
       <span class="prefix mdi mdi-magnify mdi-24px"></span>
-      <input type="text" id="bproductos" style="width: 70%" autocomplete="new-password">
+      <input type="text" id="bproductos" style="width: 70%" autocomplete="off">
       <label>Buscar por Código, Nombre, Marca, Tipo o Familia</label>
     </div>
     <table class="table centered bordered z-depth-1">
@@ -761,11 +896,11 @@
   <div class="modal-content">
     <div class="row">
       <div class="col s6 input-field">
-        <input type="text" id="byfact" class="autocomplete" autocomplete="new-password">
+        <input type="text" id="byfact" class="autocomplete" autocomplete="off">
         <label for="byfact">Por Factura</label>
       </div>
        <div class="col s6 input-field">
-        <input type="text" id="byclie" class="autocomplete" autocomplete="new-password" cid="0" >
+        <input type="text" id="byclie" class="autocomplete" autocomplete="off" cid="0" >
         <label for="byclie">Por Cliente</label>
       </div>
     </div>
@@ -809,7 +944,7 @@
     
     <div class="row">
       <div class="input-field col s6">
-        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="new-password">
+        <input type="text" id="c-ced" maxlength="12" class="buscarNom" autocomplete="off">
         <label for="c-ced">Cédula</label>
       </div>
 
@@ -847,6 +982,23 @@
   <div class="modal-footer">
       <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
       <a class="modal-action waves-effect waves-green btn-flat" id="addclie">Agregar</a>
+  </div>
+</div>
+
+<div class="modal modal-fixed-footer" id="modal-load-ocompras" style="height: 400px;">
+
+  <div class="modal-content">
+    <div class="input-field">
+      <input type="text" id="tocompra">
+      <label for="tocompra">Digite el Número de Orden de Compra</label>
+    </div>
+    
+    <div id="lista_"></div>
+
+  </div>
+  <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
+      <a class="modal-action waves-effect waves-green btn-flat" id="load-in">Aceptar</a>
   </div>
 </div>
 
@@ -893,7 +1045,7 @@
 
   <div class="row">
     {section name=LE loop=$TPAGO}
-        <input type="radio" value="{if $TPAGO[LE][0] eq 5}5{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" icono="{$TPAGO[LE][5]}"/>
+        <input type="radio" value="{if $TPAGO[LE][0] eq 5}5{else} {$TPAGO[LE][0]} {/if}" id="tpg{$TPAGO[LE][0]}" name="tipopago" class="with-gap" bancos="{$TPAGO[LE][2]}" extra="{$TPAGO[LE][3]}" regex="{$TPAGO[LE][4]}" {if $TPAGO[LE][0] neq 1} disabled {/if} icono="{$TPAGO[LE][5]}"/>
         <label for="tpg{$TPAGO[LE][0]}" class="col s4 l2">{$TPAGO[LE][1]}</label>
     {/section}
   </div>
@@ -904,7 +1056,7 @@
     <b><span class="totalfact" style="font-size: 2.6em !important;"></span></b>
     <div class="input-group" style="width: 80%; font-size: 2em !important;">
       <span>PAGA CON:</span>
-      <input type="text" class="form-control form-control-sm center vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="new-password">
+      <input type="text" class="form-control form-control-sm center vextra" id="pcon" placeholder="0.00" value="0.00" style="font-size: 1.5em !important;" autocomplete="off">
       <select style="position: absolute;top:180px;outline: none; z-index: 180;width: 5%; border: 0;" class="browser-default" id="monedapago">
         <option selected value="1">¢</option>
         <option value="2">$</option>
@@ -1060,7 +1212,7 @@
       </div>
       <br>
       <div class="input-field col s6 hide">
-        <input type="text" id="c0-ced" maxlength="12" class="buscarNombre" autocomplete="new-password" num="0">
+        <input type="text" id="c0-ced" maxlength="12" class="buscarNombre" autocomplete="off" num="0">
         <label for="c0-ced">Cédula</label>
       </div>
 
@@ -1116,9 +1268,9 @@
 
 </section>
 
-<div id="modal-producto" class="modal modal-fixed-footer">
+<div id="modal-producto" class="modal modal-fixed-footer grandemodal">
   <div class="modal-content" id="fproductos">
-    <h4>Agregar Item</h4>
+    <h4 id="aeprod"></h4>
 
     <div class="switch der">
       <label>
@@ -1135,12 +1287,17 @@
     <div class="row">
 
       <div class="input-field col s6">
-        <input type="text" id="vcodigo" autocomplete="new-password">
-        <label for="vcodigo">Código</label>
+        <input type="text" id="vcodigo" autocomplete="off">
+        <label for="vcodigo">Código Barras</label>
       </div>
 
       <div class="input-field col s6">
-        <input type="text" id="vpnombre" autocomplete="new-password" autosave="off">
+        <input type="text" id="vcodigointerno" autocomplete="off">
+        <label for="vcodigointerno">Código Interno</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input type="text" id="vpnombre" autocomplete="off" autosave="off">
         <label for="vpnombre">Nombre</label>
       </div>
 
@@ -1152,6 +1309,16 @@
         </select>
       </div>
 
+      <div class="input-field col s6">
+          <select type="select" id="vpidunidad">
+              <option value="" disabled>Seleccione una Unidad</option>
+              {section name=LE loop=$UNI}
+              <option value="{$UNI[LE][0]}" tipo="{$UNI[LE][3]}" ml="{$UNI[LE][5]}">{$UNI[LE][1]}</option>
+              {/section}
+          </select>
+          <label for="vpidunidad">Unidad</label>
+      </div> 
+
       <div class="col s6 input-field">
          <select id="pimv" style="margin: 0px" >
               <option value="1" num="0">Exento 0%</option>
@@ -1162,11 +1329,66 @@
               <option value="6" num="4">Transitorio 4%</option>
               <option value="7" num="8">Transitorio 8%</option>
               <option selected value="8" num="13">General 13%</option>
+              <option  value="11" num="0">No Sujeto 0%</option>
           </select>
           <label for="pimv">IVA</label>
       </div>
 
-    </div>
+      <div class="col s6 input-field hide">
+        <div class="input-field">
+            <i class="mdi mdi-24px mdi-magnify prefix scabys"></i>
+            <input type="text" id="scabys" autocomplete="off">
+            <label for="scabys">Buscar Código CABYS</label>
+        </div>
+
+        <div style="border: 1px solid #e2e2e2;max-height: 150px; overflow: auto;font-size: 16px" id="lcabys"></div>
+      </div>
+
+      <div class="col s16 input-field" style="margin-top: 20px;">
+          <input type="text" id="vcabys" maxlength="13" class="eder" autocomplete="off">
+          <label for="vcabys">Codigo Cabys</label>
+
+          <label id="ncabys"></label>
+      </div>
+
+      <div class="row hide">
+        <div class="input-field col s6">
+          <input type="text" id="vpcosto" autocomplete="off" autosave="off">
+          <label for="vpcosto">Costo</label>
+        </div>
+
+
+        <div class="input-field col s6 hide">
+          <input type="text" id="vpventa" autocomplete="off" autosave="off">
+          <label for="vpventa">Venta</label>
+        </div>
+      </div>
+
+      <div class="row col s6">
+        <div class="col s6 input-field">
+          <input type="text" id="_plon" value="0" class="numeric eder">
+          <label for="plon">Longitud (Metros)</label>
+        </div>
+
+        <div class="col s6 input-field">
+          <input type="text" id="_ppes" value="0" class="numeric eder">
+          <label for="_ppes">Peso (Kilos)</label>
+        </div>
+      </div>
+
+      <div class="col s6 input-field">
+        <input type="text" id="vpminimo" value="0" class="numeric eder">
+        <label for="vpminimo">Mínimo</label>
+      </div>
+
+      <div class="col s6">
+        <h6>Hashtags</h6>
+        <div class="hashtag-container" style="display: flex; flex-wrap: wrap; gap: 5px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; min-height: 40px;" onclick="document.getElementById('input-hashtag').focus()">
+            <input type="text" id="input-hashtag" class="input-hashtag" placeholder="Escribe y presiona Enter">
+        </div>
+      </div>
+
+    </div>    
 
   </div>
   <div class="modal-footer">
@@ -1175,50 +1397,7 @@
   </div>
 </div>
 
-<div id="modal-noticia" class="modal modal-fixed-footer">
-  <div class="modal-content" >
-    <h4 class="center">Estimado Contribuyente</h4>
-    
-    <p>De Acuerdo a las <b><i>"ESPECIFICACIONES TÉCNICAS Y FORMATO DE LOS DOCUMENTOS ELECTRÓNICOS"</i></b>, es necesario el código de la actividad económica, por lo cual es requerido que digite en el siguiente espacio:</p>
-
-    <div class="input-field col s6 edescu container" style="width: 50%">
-        <input type="text" class="eder" id="codactividad" autocomplete="new-password" maxlength="6" autosave="off">
-        <label for="codactividad">Código de Actividad</label>
-    </div>
-
-    <small><a style="color: blue" href="https://www.hacienda.go.cr/ATV/frmConsultaSituTributaria.aspx" target="_blank">Buscar Código de Actividad en Hacienda</a></small>
-
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acepnew">Aceptar</a>
-  </div>
-</div>
-
-<div id="modal-facturas" class="modal modal-fixed-footer" style="width: 80%; height: 90% !important;">
-  <div class="modal-content">
-    <h4 align="center">Lista de Facturas</h4>
-    <table class="table striped">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Numero de Orden</th>
-          <th>Nombre</th>
-          <th>Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="bdylist">
-        
-      </tbody>
-    </table>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" id="acepfact">Aceptar</a>
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salir</a>
-  </div>
-</div>
-
-        <div class="modal modal-fixed-footer grandemodal" id="modal-limitcre">
+<div class="modal modal-fixed-footer grandemodal" id="modal-limitcre">
           <div class="modal-header">
             <ul class="tabs tabs-fixed-width head3 center">
               <h5 class="center" id="tit-creli"></h5>
@@ -1279,7 +1458,7 @@
                     </table>
             </div>
             <div class="modal-footer">
-                <a class="btn" id="lmgo">Ir a Cobros</a>
+                <a class="btn lmgo">Ir a Cobros</a>
                 <button type="button" class="modal-action modal-close waves-effect waves-red btn-flat">Salir</button>
                 <button type="button" class="waves-effect waves-green btn-flat" id="sg-limit">Continuar</button>
             </div>
@@ -1297,12 +1476,39 @@
     <div class="divider"></div>
   </li>
   <li>
-    Productos a Devolver por: <input type="text" id="rdev" maxlength="180" style="width: 50%" autocomplete="off">
+    Comentario: <input type="text" id="rdev" maxlength="180" style="width: 50%" autocomplete="off">
       <i class="mdi mdi-exit-to-app mdi-24px" id="fext" title="Salir" style="width: 5% !important; float: right;cursor: pointer;"></i>
 
       <i class="mdi mdi-plus mdi-24px" id="fdev" title="Realizar Devolución" dodev="1" style="width: 5% !important; float: right;cursor: pointer;"></i>
       
     <br>
+      <input type="checkbox" id="dev_loadall">
+      <label for="dev_loadall">Cargar Toda la Factura</label> 
+
+      <input type="checkbox" id="dev_remplace">
+      <label for="dev_remplace">Reemplazar por una Factura Nueva</label> 
+      <br>
+      <label class="blue-text dlcant hide">Factura Contiene <span id="dcantser">0</span> Servicio(s)</label>
+      <div class="row"> 
+        <b class="col s12">Devolución Financiero</b>
+        <div class="row col s3 input-field">
+          <input type="text" class="numeric eder" id="devby_efect" value="0.00">
+          <label for="devby_efect">Efectivo</label>
+        </div>
+        <div class="row col s3 input-field">
+          <input type="text" class="numeric eder" id="devby_tar" value="0.00">
+          <label for="devby_tar">Transferencia</label>
+        </div>
+        <div class="row col s3 input-field">
+          <input type="text" class="numeric eder" id="devby_caf" value="0.00">
+          <label for="devby_caf">Crédito a Favor</label>
+        </div>
+        <div class="row col s3 input-field">
+          <input type="text" class="numeric eder" id="devby_tot" value="0.00">
+          <label for="devby_tot">Total</label>
+        </div>
+      </div>  
+    <br>  
     <table>
       <thead>
         <tr>
@@ -1311,6 +1517,7 @@
           <th>CANT. A DEVOLVER</th>
           <th>RAZON</th>
           <th>CAMBIO</th>
+          <th title="Orden de Compra Asociada">OC</th>
         </tr>
       </thead>
       <tbody id="detfact"></tbody>
@@ -1319,4 +1526,4 @@
 
 </ul>
 
-<script src="../assets/js/modulos/ventas.js?v=10.4.0.3"></script>
+<script src="../assets/js/modulos/ventas.js?v=10.4.1.0-30"></script>

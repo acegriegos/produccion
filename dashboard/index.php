@@ -61,10 +61,14 @@
 
 	function hper($vmodulo)
 	{
+		if($vmodulo == 'login' || $vmodulo == 'logout')
+			return 1;
+		
 		include_once '../_config/mysqlDB.php';
 		$db = new DBClass();
+		$usr = str_replace("\0","",base64_decode($_SESSION['USR']));
 
-		$rs = $db->ejecutar("select if(b.tipo <> 1,0,1) from permisos a join permisosusuarios b on a.id = b.idpermiso where a.href = '".$vmodulo."'");
+		$rs = $db->ejecutar("select if(".$usr."=1,1,if(b.tipo <> 1,0,1)) from permisos a join permisosusuarios b on a.id = b.idpermiso where a.href = '".$vmodulo."' and b.idusuario = ".$usr);
 		$rs = $rs->num_rows > 0 ? $rs->fetch_all()[0][0] : 1;
 		return $rs;
 	}

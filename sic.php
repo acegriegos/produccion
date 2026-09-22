@@ -1,12 +1,18 @@
 <?php 
     $consulta = str_replace('-', '', str_replace(' ', '', $_REQUEST['ced']));
     $source = "https://api.hacienda.go.cr/fe/ae?identificacion=".$consulta;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $source);
+    $ch = curl_init($source);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_SSLVERSION,0);
+    /*curl_setopt($ch, CURLOPT_SSLVERSION,0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);*/
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Connection:keep-alive',
+        'Cache-Control: no-cache',
+        'Pragma: no-cache',
+        'Expires: 0',
+        'User-Agent: PHP'
+    ]);
     $data = curl_exec($ch);
     $error = curl_error($ch);
     $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);

@@ -4,8 +4,8 @@
 <head>
   <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
   <title>Factura</title>  
-  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.0.3"> -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.0.3">
+  <!-- <link rel="stylesheet" type="text/css" href="../assets/css/materialize.min.css?v=10.4.1.0"> -->
+  <link rel="stylesheet" type="text/css" href="../assets/css/materialdesignicons.min.css?v=10.4.1.0">
 <style>
   *{font-size: 1em}
   
@@ -407,7 +407,7 @@ if ($pvuelto > 0 && $vuelto >= 0) {
 }
 
 $svg = $generator->render_svg('qr-l', $transaccion[0][32],'');
-echo '<div class="fe">'.$svg.'</div>';
+//echo '<div class="fe">'.$svg.'</div>';
 
 echo '
 <div style="text-align: center;font-size:10px;'.$oc.'" id="resolucion"></div><br><br><br>
@@ -420,9 +420,9 @@ echo '
 </div></div>';
 
  ?>
- <script src="../assets/js/jquery.js?v=10.4.0.3"></script>
- <script src="../assets/js/materialize.min.js?v=10.4.0.3"></script>
- <script src="../assets/js/asgard.js?v=10.4.0.3"></script>
+ <script src="../assets/js/jquery.js?v=10.4.1.0"></script>
+ <script src="../assets/js/materialize.min.js?v=10.4.1.0"></script>
+ <script src="../assets/js/asgard.js?v=10.4.1.0"></script>
  <script type="text/javascript">
    $(function(){
       var config0 = $("#config0").val()
