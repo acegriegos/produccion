@@ -43,11 +43,11 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 
 ## Estado del proyecto
 
-El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 quedaron definidas las decisiones necesarias para comenzar el desarrollo y se instaló el esquema en la base local `pruebas`: las cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` fueron verificados. El proveedor de prueba `id = 500` existe solo en esa base. Aún no se han implementado los SP, el backend o las pantallas.
+El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` están verificados en la base local `pruebas`. `sp_emitir_nota_entrega` está instalado y el backend PHP de emisión, listado y detalle está implementado en esta rama. Se probaron la conversión, el inventario, los reintentos y la reversión de una nota temporal, sin conservar datos de prueba. El proveedor de prueba `id = 500` existe solo en esta base. Aún faltan la prueba HTTP con sesión real, las pantallas, las devoluciones y la facturación posterior.
 
-## Qué falta para comenzar la implementación
+## Próximas etapas
 
-No queda una decisión funcional indispensable pendiente de TI. El esquema está instalado en `pruebas`. El siguiente paso es desarrollar los SP y el backend PHP de emisión; luego su interfaz, las devoluciones y la facturación posterior. Durante la interfaz se concretarán los permisos existentes y el formato físico de la boleta de media hoja.
+No queda una decisión funcional indispensable pendiente de TI. La emisión de backend está lista para revisión en esta rama. Tras revisar y fusionar este PR, sigue su interfaz y la boleta; luego se implementarán las devoluciones y la facturación posterior. Durante la interfaz se concretarán un permiso propio del módulo, si TI lo solicita, y el formato físico de media hoja.
 
 ## Secuencia de ramas y revisiones
 
@@ -65,6 +65,7 @@ Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de 
 
 - [Base de datos](DB-Notas-Entrega.md): estructuras existentes, tablas propuestas, relaciones y reglas de consistencia.
 - [Migración local aplicada](SQL-Notas-Entrega-Migracion.sql): cuatro tablas, registros en `tablas` y tipo de movimiento `10`, verificados en `pruebas`.
+- [Procedimiento de emisión](SQL-Notas-Entrega-Emision.sql): emisión atómica, inventario `6`, movimientos tipo `10` y reintentos idempotentes; instalado por separado después de la migración.
 - [Backend](Backend-Notas-Entrega.md): integración PHP/MariaDB, emisión, inventario, anulaciones y facturación sin doble descuento.
 - [Frontend](Frontend-Notas-Entrega.md): pantallas, referencia visual y boleta imprimible.
 - [README](../README.md): cómo arrancar y consultar el sistema local.
