@@ -1,6 +1,6 @@
 # Notas de Entrega — backend e integración
 
-> Estado al 2026-10-06: esquema y `sp_emitir_nota_entrega` instalados en la base local `pruebas`; modelo y controlador de emisión, listado y detalle implementados en esta rama. La interfaz, devoluciones y facturación siguen pendientes.
+> Estado al 2026-10-06: esquema y `sp_emitir_nota_entrega` instalados en la base local `pruebas`; modelo y controlador de emisión fusionados en `master` por el PR #1. Esta rama añade pantalla y búsquedas de catálogos. Devoluciones y facturación siguen pendientes.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -29,11 +29,14 @@ Las tres primeras operaciones tienen backend en esta etapa; la impresión, el hi
 
 Después de aplicar **una sola vez** [SQL-Notas-Entrega-Migracion.sql](SQL-Notas-Entrega-Migracion.sql), instalar [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql) en la base de destino. La migración ya está aplicada en la base local `pruebas`: no debe repetirse allí. El segundo archivo usa `DROP PROCEDURE IF EXISTS` para actualizar únicamente `sp_emitir_nota_entrega`. Antes de instalar en otro entorno, revisar el nombre de base en `USE`, los IDs `520`–`523`, el tipo `10` y el proveedor de prueba local, que no forma parte de la migración.
 
-El endpoint de esta etapa es `dashboard/notasentrega`, resuelto por `dashboard/index.php`. Usa la sesión existente: `USR` determina el usuario e `IMPRESA` la sucursal. Exige el permiso de escritura (`tipo = 1`) del módulo `facturacion` en `permisosusuarios`, salvo el administrador `id = 1`. Este permiso se reutiliza provisionalmente porque aún no existe un permiso propio del módulo; la futura pantalla deberá ocultar acciones con la misma regla. El controlador vuelve a comprobar el permiso en cada petición, pues la comprobación genérica de `dashboard/index.php` permite módulos sin fila de permiso.
+El endpoint de esta etapa es `dashboard/notasentrega`, resuelto por `dashboard/index.php`. Usa la sesión existente: `USR` determina el usuario e `IMPRESA` la sucursal. Exige el permiso de escritura (`tipo = 1`) del módulo `facturacion` en `permisosusuarios`, salvo el administrador `id = 1`. Este permiso se reutiliza provisionalmente porque aún no existe un permiso propio del módulo; la opción de menú usa la misma clase visible que Ventas (`per2`). El controlador vuelve a comprobar el permiso en cada petición, pues la comprobación genérica de `dashboard/index.php` permite módulos sin fila de permiso.
 
 | Método y acción | Entrada | Resultado |
 | --- | --- | --- |
+| `GET dashboard/notasentrega` | Sesión activa | Pantalla HTML de emisión y consulta |
 | `GET ?accion=contexto` | Sesión activa | `data.idusuario`, `data.idsucursal`, `data.csrf_token`, `data.max_lineas` |
+| `GET ?accion=buscar` | `tipo=clientes|productos|proveedores`, `q` de 2 a 80 caracteres | `data.resultados` con hasta 25 coincidencias; productos incluyen unidad base y saldo visible del inventario `6` |
+| `GET ?accion=unidades` | Sesión activa | `data.unidades` para el selector por línea |
 | `POST ?accion=emitir` | JSON y encabezado `X-CSRF-Token` obtenido de `contexto` | `201` con `data.idnota` y `data.repetida=false`; un reintento idéntico devuelve `200` y `repetida=true` |
 | `GET ?accion=listar` | Filtros y paginación descritos abajo | `data.notas`, `limite`, `offset` y filtros aplicados |
 | `GET ?accion=ver&id=N` | ID de nota | `data.nota` con cabecera y `lineas`; `404` si no pertenece a la sucursal activa |
@@ -72,7 +75,7 @@ Las tablas, tipos, índices y estados propuestos están en [la especificación d
 
 ## Pendientes de implementación
 
-1. Revisar esta etapa de emisión y probar el endpoint HTTP con sesión real cuando Apache esté disponible. Ya se verificaron la emisión SQL, conversión de 1,25 barras a 7,50 unidades, reintento, stock insuficiente, precisión inválida, unidad incompatible y rollback si falla la segunda línea. La prueba adicional de observación JSON `null` dejó el stock y las tablas sin datos temporales.
+1. Revisar la pantalla y la impresión con una sesión interactiva real. Ya se verificaron por SQL la conversión de 1,25 barras a 7,50 unidades, reintento, stock insuficiente, precisión inválida, unidad incompatible y rollback si falla la segunda línea. Además, una petición HTTP con sesión temporal emitió, reintentó y consultó una nota; la nota se retiró y se restauró el stock.
 2. Integrar el formulario, listado y boleta; en ramas posteriores desarrollar devoluciones y facturación de cantidades netas sin segundo descuento.
 3. Probar varias devoluciones de una misma línea, devolución total, agrupación y facturación simultánea en sus respectivos PR.
 

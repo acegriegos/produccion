@@ -43,11 +43,11 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 
 ## Estado del proyecto
 
-El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` están verificados en la base local `pruebas`. `sp_emitir_nota_entrega` está instalado y el backend PHP de emisión, listado y detalle está implementado en esta rama. Se probaron la conversión, el inventario, los reintentos y la reversión de una nota temporal, sin conservar datos de prueba. El proveedor de prueba `id = 500` existe solo en esta base. Aún faltan la prueba HTTP con sesión real, las pantallas, las devoluciones y la facturación posterior.
+El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` están verificados en la base local `pruebas`. `sp_emitir_nota_entrega` está instalado y el backend PHP de emisión, listado y detalle quedó fusionado en `master` mediante el PR #1. Se probaron la conversión, el inventario, los reintentos y la reversión de una nota temporal, sin conservar datos de prueba. Esta rama añade la interfaz de emisión, listado, detalle y boleta provisional. El proveedor de prueba `id = 500` existe solo en esta base. Aún faltan la prueba visual HTTP con sesión real, las devoluciones y la facturación posterior.
 
 ## Próximas etapas
 
-No queda una decisión funcional indispensable pendiente de TI. La emisión de backend está lista para revisión en esta rama. Tras revisar y fusionar este PR, sigue su interfaz y la boleta; luego se implementarán las devoluciones y la facturación posterior. Durante la interfaz se concretarán un permiso propio del módulo, si TI lo solicita, y el formato físico de media hoja.
+No queda una decisión funcional indispensable pendiente de TI. La emisión de backend ya fue revisada y fusionada. Ahora se revisa su interfaz y la boleta de media hoja; luego se implementarán las devoluciones y la facturación posterior. TI puede solicitar un permiso propio del módulo y los usuarios operativos deben confirmar el formato físico final de la boleta.
 
 ## Secuencia de ramas y revisiones
 

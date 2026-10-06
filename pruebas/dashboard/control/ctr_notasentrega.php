@@ -31,8 +31,9 @@ function ne_entero($valor, $nombre, $minimo, $maximo)
     if (is_int($valor)) {
         $entero = $valor;
     } elseif (is_string($valor)
-        && preg_match('/^(0|[1-9][0-9]*)$/D', $valor)
-        && strlen($valor) <= 10) {
+        && preg_match($minimo < 0 ? '/^-?(0|[1-9][0-9]*)$/D'
+            : '/^(0|[1-9][0-9]*)$/D', $valor)
+        && strlen($valor) <= ($minimo < 0 ? 11 : 10)) {
         $entero = (int) $valor;
     } else {
         ne_error('dato_invalido', $nombre . ' debe ser un número entero.', 422);
@@ -253,7 +254,13 @@ try {
     $accion = isset($_GET['accion']) ? $_GET['accion'] : '';
 
     if ($metodo === 'GET') {
-        if ($accion === '' || $accion === 'contexto') {
+        if ($accion === '') {
+            header('Cache-Control: no-store');
+            $smarty = make_smarty();
+            $smarty->display('v_notasentrega.tpl');
+            exit;
+        }
+        if ($accion === 'contexto') {
             ne_responder(200, array(
                 'succed' => true,
                 'data' => array(
@@ -263,6 +270,23 @@ try {
                     'max_lineas' => 100
                 )
             ));
+        }
+        if ($accion === 'buscar') {
+            $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : '';
+            if (!in_array($tipo, array('clientes', 'productos', 'proveedores'), true)) {
+                ne_error('dato_invalido', 'Catálogo no disponible.', 422);
+            }
+            $termino = ne_texto(isset($_GET['q']) ? $_GET['q'] : null,
+                'Búsqueda', 80, true);
+            if (ne_longitud($termino) < 2) {
+                ne_error('dato_invalido', 'Escribe al menos dos caracteres para buscar.', 422);
+            }
+            ne_responder(200, array('succed' => true,
+                'data' => array('resultados' => $modelo->buscarCatalogo($tipo, $termino))));
+        }
+        if ($accion === 'unidades') {
+            ne_responder(200, array('succed' => true,
+                'data' => array('unidades' => $modelo->listarUnidades())));
         }
         if ($accion === 'listar') {
             $limite = ne_entero(isset($_GET['limite']) ? $_GET['limite'] : 50, 'Límite', 1, 100);

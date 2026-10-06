@@ -83,6 +83,132 @@ class _notasentrega
     }
 
     /**
+     * Catálogos acotados para la pantalla. Ningún término de búsqueda entra
+     * como SQL; tampoco se confía en una relación producto-proveedor exclusiva.
+     */
+    public function buscarCatalogo($tipo, $termino)
+    {
+        $conexion = $this->conexion();
+        $sentencia = null;
+        // Los comodines escritos por el usuario se tratan como texto literal.
+        $patron = '%' . str_replace(array('=', '%', '_'),
+            array('==', '=%', '=_'), $termino) . '%';
+        try {
+            if ($tipo === 'clientes' || $tipo === 'proveedores') {
+                $condicion = $tipo === 'proveedores' ? ' AND bisproveedor = 1' : '';
+                $sentencia = $conexion->prepare(
+                    'SELECT id, nombre, cedula FROM clientes
+                     WHERE id > 0' . $condicion . '
+                       AND (nombre LIKE ? ESCAPE \'=\' OR cedula LIKE ? ESCAPE \'=\')
+                     ORDER BY nombre LIMIT 25'
+                );
+                if (!$sentencia || !$sentencia->bind_param('ss', $patron, $patron)) {
+                    throw new RuntimeException('No se pudo preparar la búsqueda de clientes.');
+                }
+            } elseif ($tipo === 'productos') {
+                $sentencia = $conexion->prepare(
+                    'SELECT p.id, p.codigo, p.nombre, p.idunidad
+                     FROM productos p
+                     WHERE p.id > 0 AND COALESCE(p.idheredado, 0) = 0
+                       AND (p.nombre LIKE ? ESCAPE \'=\' OR p.codigo LIKE ? ESCAPE \'=\')
+                     ORDER BY (p.codigo = ?) DESC, p.nombre LIMIT 100'
+                );
+                if (!$sentencia || !$sentencia->bind_param('sss', $patron, $patron, $termino)) {
+                    throw new RuntimeException('No se pudo preparar la búsqueda de productos.');
+                }
+            } else {
+                throw new InvalidArgumentException('Catálogo no disponible.');
+            }
+            if (!$sentencia->execute() || ($resultado = $sentencia->get_result()) === false) {
+                throw new RuntimeException('No se pudo consultar el catálogo.');
+            }
+            $filas = $resultado->fetch_all(MYSQLI_ASSOC);
+            if ($tipo === 'productos') {
+                return $this->completarProductos($conexion, $filas, $termino);
+            }
+            return $filas;
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    private function completarProductos($conexion, array $productos, $termino)
+    {
+        if (!$productos) {
+            return array();
+        }
+        // La búsqueda textual ya fue preparada. Estos IDs vienen de la BD y
+        // se convierten a enteros antes de usarse en las dos consultas masivas.
+        $ids = array();
+        foreach ($productos as $producto) {
+            $ids[] = "'" . (int) $producto['id'] . "'";
+        }
+        $lista = implode(',', $ids);
+        $saldos = array();
+        $resultado = $conexion->query(
+            'SELECT idproducto, COUNT(*) AS saldos, MAX(cantidad) AS saldo
+             FROM detalleinventarios WHERE idinventario = 6
+               AND idproducto IN (' . $lista . ') GROUP BY idproducto'
+        );
+        if ($resultado === false) {
+            throw new RuntimeException('No se pudo consultar el inventario de los productos.');
+        }
+        foreach ($resultado as $fila) {
+            $saldos[(string) $fila['idproducto']] = $fila;
+        }
+        $dimensiones = array();
+        $resultado = $conexion->query(
+            'SELECT idproducto FROM dimensioproductos
+             WHERE codigo = \'1\' AND idunidad = 8
+               AND idproducto IN (' . $lista . ') GROUP BY idproducto'
+        );
+        if ($resultado === false) {
+            throw new RuntimeException('No se pudo consultar las dimensiones de los productos.');
+        }
+        foreach ($resultado as $fila) {
+            $dimensiones[(int) $fila['idproducto']] = true;
+        }
+        foreach ($productos as &$producto) {
+            $id = (string) (int) $producto['id'];
+            $producto['saldos'] = isset($saldos[$id]) ? $saldos[$id]['saldos'] : 0;
+            $producto['saldo'] = isset($saldos[$id]) ? $saldos[$id]['saldo'] : null;
+            $producto['tiene_dimension'] = isset($dimensiones[(int) $id]) ? 1 : 0;
+        }
+        unset($producto);
+        usort($productos, function ($a, $b) use ($termino) {
+            $aExacto = strcasecmp($a['codigo'], $termino) === 0;
+            $bExacto = strcasecmp($b['codigo'], $termino) === 0;
+            if ($aExacto !== $bExacto) {
+                return $aExacto ? -1 : 1;
+            }
+            $aDisponible = (int) $a['saldos'] === 1 && (float) $a['saldo'] > 0;
+            $bDisponible = (int) $b['saldos'] === 1 && (float) $b['saldo'] > 0;
+            if ($aDisponible !== $bDisponible) {
+                return $aDisponible ? -1 : 1;
+            }
+            return strcmp($a['nombre'], $b['nombre']);
+        });
+        return array_slice($productos, 0, 25);
+    }
+
+    public function listarUnidades()
+    {
+        $conexion = $this->conexion();
+        try {
+            $resultado = $conexion->query('SELECT id, nombre, simbolo FROM unidades ORDER BY id');
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudo consultar las unidades.');
+            }
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            $conexion->close();
+        }
+    }
+
+    /**
      * El SP es dueño de la transacción: crea cabecera y líneas, descuenta
      * inventario 6 y registra los movimientos juntos. Reusar la misma clave
      * permite reconocer un reintento sin una segunda salida de material.

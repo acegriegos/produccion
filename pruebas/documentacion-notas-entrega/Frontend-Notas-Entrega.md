@@ -1,6 +1,6 @@
 # Notas de Entrega — interfaz y comprobante
 
-> Estado: diseño de interfaz actualizado con las respuestas de TI del 2026-10-05. El esquema se instaló en `pruebas` el 2026-10-06; todavía no se han creado pantallas del módulo.
+> Estado al 2026-10-06: esta rama implementa el formulario de emisión, las búsquedas de catálogos, el listado, el detalle y una boleta imprimible provisional. El backend de emisión ya se incorporó a `master`. Devoluciones, agrupación para factura y vínculos desde la factura siguen pendientes.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Backend](Backend-Notas-Entrega.md)
 
@@ -8,7 +8,15 @@
 
 La pantalla de ventas de la copia de pruebas en `http://127.0.0.1:8080/produccion/pruebas/dashboard/facturacion?tf=1` es la referencia visual y de uso indicada para seleccionar clientes y artículos. Su contenido se carga desde `dashboard/view/ajax/facturas/ajaxVentas.tpl` mediante `dashboard/control/ctr_facturacion.php`; intervienen `assets/js/modulos/facturacion.js` y `assets/js/modulos/ventas.js`.
 
-La nueva interfaz debe conservar los patrones reconocibles del sistema y ajustar los formularios donde la entrega requiera controles adicionales. En la venta revisada no aparece un selector de proveedor equivalente al solicitado para las notas; habrá que incorporarlo **en cada línea de artículo**.
+La nueva interfaz conserva navegación, estilos y permisos visibles del sistema. Agrega un selector de proveedor **en cada línea de artículo**, ausente en la venta revisada.
+
+## Implementación de esta etapa
+
+La opción **Notas de Entrega** aparece bajo Facturación para usuarios con la misma clase de permiso de Ventas (`per2`); el controlador vuelve a exigir permiso de escritura de facturación o administrador `id = 1`. La ruta `dashboard/notasentrega` sirve la vista, y `?accion=contexto`, `buscar`, `unidades`, `emitir`, `listar` y `ver` sirven JSON. Las búsquedas de cliente, producto y proveedor consultan la base mediante parámetros preparados y muestran hasta 25 resultados; se exige seleccionar una coincidencia, no basta escribir texto. El producto muestra el saldo del inventario `6` y unidades compatibles con su unidad base. El saldo visible es orientativo: el SP valida y bloquea el saldo al emitir.
+
+El formulario crea una clave UUID por solicitud lógica. Si falla la red y la persona reintenta sin cambiar los datos, usa la misma clave para evitar otra salida de material. El botón se deshabilita durante el envío. Después de una emisión confirmada se abre el detalle de la nota. El listado filtra estado, cliente registrado o contado, fechas y usuario, con páginas de 25 registros. El detalle conserva los valores guardados al emitir y la boleta se imprime sin precios ni impuestos.
+
+La boleta usa media hoja de 5,5 × 8,5 pulgadas como medida **provisional**; incluye número, cliente, fecha, responsable, sucursal, estado, materiales, proveedor por línea, cantidades, observaciones y espacios para firmas. Usuarios operativos deben confirmar medidas finales, copias y firmas antes de cerrar el diseño. No se presentan saldos netos de devoluciones ni acciones de facturación porque esas operaciones aún no existen.
 
 ## Pantallas previstas
 
@@ -16,8 +24,8 @@ La nueva interfaz debe conservar los patrones reconocibles del sistema y ajustar
 | --- | --- |
 | Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas y anuladas; acceso al detalle e impresión. |
 | Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir proveedor por línea, unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
-| Detalle de nota | Datos originales, líneas, cantidad devuelta acumulada y cantidad todavía entregada por línea, movimientos, estado y vínculo a factura cuando exista. Acciones según estado y permisos. |
-| Facturación de pendientes | Seleccionar una o varias notas del mismo cliente y sucursal; las de contado deben compartir el mismo nombre libre. Mostrar cantidades netas positivas, omitir líneas totalmente devueltas y permitir definir precio, descuento e impuestos. La factura contado usa `idcliente = 0` y `comodin = nombre_cliente`. |
+| Detalle de nota | En esta etapa muestra datos originales, líneas, estado y número de factura cuando exista. Las cantidades devueltas, movimientos e historial se añadirán con el backend de devoluciones. |
+| Facturación de pendientes (futuro) | Seleccionar una o varias notas del mismo cliente y sucursal; las de contado deben compartir el mismo nombre libre. Mostrar cantidades netas positivas, omitir líneas totalmente devueltas y permitir definir precio, descuento e impuestos. La factura contado usa `idcliente = 0` y `comodin = nombre_cliente`. |
 
 El proveedor representa a quien suministró cada artículo; puede ser distinto entre renglones y se elige de la lista general, incluso si varios proveedores ofrecen el mismo producto. El precio definitivo no se captura ni se presenta como definitivo al emitir una nota.
 
@@ -39,16 +47,15 @@ El impreso debe servir como respaldo de entrega física. La factura se generará
 
 ## Integración técnica prevista
 
-Las vistas nuevas seguirán las convenciones actuales de PHP/Smarty y los scripts del proyecto. Los catálogos de clientes, artículos, proveedores, unidades e inventarios se consultarán a través del backend existente o sus extensiones, sin duplicar datos fijos en JavaScript. La pantalla solo solicitará operaciones autorizadas; las transiciones de estado y el inventario se controlarán en el servidor, como se describe en [backend](Backend-Notas-Entrega.md).
+La vista usa PHP/Smarty y los scripts del proyecto. Los catálogos de clientes, artículos, proveedores y unidades se consultan a través de extensiones preparadas del backend; el inventario visible se consulta junto con el producto. La pantalla solo solicita operaciones autorizadas; las transiciones de estado y el inventario se controlan en el servidor, como se describe en [backend](Backend-Notas-Entrega.md).
 
 No se ha establecido ninguna dependencia de WebSocket para este módulo.
 
 ## Pendientes de diseño y pruebas
 
-1. Revisar en detalle los componentes reutilizables de la venta y el comportamiento de búsqueda de cliente/artículo.
-2. Definir junto con usuarios los campos visibles y el formato final de la boleta de media hoja.
-3. Integrar la secuencia de permisos por clases HTML existente y verificar los mismos permisos en el servidor. Definir mensajes para devoluciones parciales, saldo cero y notas ya facturadas.
-4. Probar con notas de varias líneas, diferentes proveedores, falta de stock y agrupación de varias notas en una factura.
+1. Revisar visualmente la pantalla y la impresión con una sesión real en Apache; confirmar el formato físico con usuarios operativos.
+2. En etapas posteriores, añadir devoluciones, saldo neto por línea, agrupación de notas en factura y vínculo inverso desde la factura.
+3. Probar las acciones de devolución y agrupación cuando existan sus SP y pantallas.
 
 ## Registro de avance
 
@@ -58,3 +65,5 @@ No se ha establecido ninguna dependencia de WebSocket para este módulo.
 | 2026-10-01 | Se incorporó la emisión directa, el nombre libre de cliente y el proveedor elegido por línea. |
 | 2026-10-01 | Se eliminó la fecha de entrega separada y se definió mostrar el usuario emisor y la fecha de emisión en la boleta. |
 | 2026-10-05 | Se fijaron cantidades a dos decimales, devoluciones parciales acumulables y cliente contado `0` con nombre libre. |
+| 2026-10-06 | Se añadieron emisión, búsqueda de catálogos, listado, detalle y boleta provisional. Pasaron sintaxis PHP/JS, consultas de catálogos, renderizado de plantilla y peticiones HTTP de pantalla, búsqueda, listado, emisión, reintento y detalle con sesión temporal. Un POST sin CSRF recibió `403`; la nota temporal se retiró y se restauró el stock. Falta revisión visual e impresión con una sesión interactiva real. |
+| 2026-10-06 | Tras la revisión visual del usuario se corrigió el filtro `idcliente=-1`, se usaron selectores nativos para evitar duplicados de Materialize y se fijó el número de boleta en una línea al imprimir. La búsqueda de productos consulta inventario y dimensiones en bloque; «ANGULAR» pasó de alrededor de 1,1 s a unos 20 ms en el modelo local. La misma URL de listado que fallaba devolvió notas por HTTP con el usuario 2. |

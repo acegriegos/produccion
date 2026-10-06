@@ -88,6 +88,7 @@
       <a class="collapsible-header dropdown-button hide per1" style="padding: 0px 32px 0px 32px;" data-alignment="right" data-activates='dropfact'><i class="mdi mdi-cash-multiple mdi-24px right" aria-hidden="true"></i><span style="font-size: 1.2em !important">Facturación</span></a>
       <ul id='dropfact' class='dropdown-content'>
         <li class="hide per2"><a href="facturacion?tf=1">Ventas</a></li>
+        <li class="hide per2"><a href="notasentrega">Notas de Entrega</a></li>
         <li class="hide per3"><a href="facturacion?tf=4">Proformas</a></li>
         <li class="hide per4"><a href="facturacion?tf=2">Compras</a></li>
         <li class="hide per5"><a href="facturacion?tf=3">Orden de Compra</a></li>
