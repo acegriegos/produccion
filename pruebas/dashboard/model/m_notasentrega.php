@@ -83,6 +83,80 @@ class _notasentrega
     }
 
     /**
+     * Catálogos acotados para la pantalla. Ningún término de búsqueda entra
+     * como SQL; tampoco se confía en una relación producto-proveedor exclusiva.
+     */
+    public function buscarCatalogo($tipo, $termino)
+    {
+        $conexion = $this->conexion();
+        $sentencia = null;
+        // Los comodines escritos por el usuario se tratan como texto literal.
+        $patron = '%' . str_replace(array('=', '%', '_'),
+            array('==', '=%', '=_'), $termino) . '%';
+        try {
+            if ($tipo === 'clientes' || $tipo === 'proveedores') {
+                $condicion = $tipo === 'proveedores' ? ' AND bisproveedor = 1' : '';
+                $sentencia = $conexion->prepare(
+                    'SELECT id, nombre, cedula FROM clientes
+                     WHERE id > 0' . $condicion . '
+                       AND (nombre LIKE ? ESCAPE \'=\' OR cedula LIKE ? ESCAPE \'=\')
+                     ORDER BY nombre LIMIT 25'
+                );
+                if (!$sentencia || !$sentencia->bind_param('ss', $patron, $patron)) {
+                    throw new RuntimeException('No se pudo preparar la búsqueda de clientes.');
+                }
+            } elseif ($tipo === 'productos') {
+                $sentencia = $conexion->prepare(
+                    'SELECT p.id, p.codigo, p.nombre, p.idunidad,
+                            (SELECT COUNT(*) FROM detalleinventarios d
+                             WHERE d.idinventario = 6
+                               AND d.idproducto = CAST(p.id AS CHAR CHARACTER SET utf8mb4)
+                                   COLLATE utf8mb4_unicode_ci) AS saldos,
+                            (SELECT MAX(d.cantidad) FROM detalleinventarios d
+                             WHERE d.idinventario = 6
+                               AND d.idproducto = CAST(p.id AS CHAR CHARACTER SET utf8mb4)
+                                   COLLATE utf8mb4_unicode_ci) AS saldo,
+                            EXISTS(SELECT 1 FROM dimensioproductos dp
+                                   WHERE dp.idproducto = p.id AND dp.codigo = \'1\'
+                                     AND dp.idunidad = 8) AS tiene_dimension
+                     FROM productos p
+                     WHERE p.id > 0 AND COALESCE(p.idheredado, 0) = 0
+                       AND (p.nombre LIKE ? ESCAPE \'=\' OR p.codigo LIKE ? ESCAPE \'=\')
+                     ORDER BY (saldo > 0) DESC, p.nombre LIMIT 25'
+                );
+                if (!$sentencia || !$sentencia->bind_param('ss', $patron, $patron)) {
+                    throw new RuntimeException('No se pudo preparar la búsqueda de productos.');
+                }
+            } else {
+                throw new InvalidArgumentException('Catálogo no disponible.');
+            }
+            if (!$sentencia->execute() || ($resultado = $sentencia->get_result()) === false) {
+                throw new RuntimeException('No se pudo consultar el catálogo.');
+            }
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    public function listarUnidades()
+    {
+        $conexion = $this->conexion();
+        try {
+            $resultado = $conexion->query('SELECT id, nombre, simbolo FROM unidades ORDER BY id');
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudo consultar las unidades.');
+            }
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            $conexion->close();
+        }
+    }
+
+    /**
      * El SP es dueño de la transacción: crea cabecera y líneas, descuenta
      * inventario 6 y registra los movimientos juntos. Reusar la misma clave
      * permite reconocer un reintento sin una segunda salida de material.
