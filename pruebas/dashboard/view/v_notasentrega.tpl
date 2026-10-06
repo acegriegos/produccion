@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=2">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=3">
 </head>
 <body>
   {$NAV}
@@ -147,9 +147,33 @@
         <div class="ne-firmas"><span>Entregado por</span><span>Recibido por</span></div>
         <p class="ne-boleta-pie">Comprobante de entrega física. Los precios e impuestos se definen al facturar.</p>
       </article>
+
+      <section class="ne-card ne-no-print" id="ne-devolucion-panel" hidden>
+        <h2>Registrar devolución</h2>
+        <p>Indica las cantidades recibidas. La nota se anulará automáticamente cuando se devuelva todo el material.</p>
+        <form id="ne-devolucion-form" autocomplete="off">
+          <label>Motivo, opcional
+            <textarea id="ne-devolucion-motivo" maxlength="255"></textarea>
+          </label>
+          <div class="ne-table-wrap">
+            <table>
+              <thead><tr><th>Material</th><th>Entregada</th><th>Devuelta</th><th>Pendiente</th><th>Recibir ahora</th></tr></thead>
+              <tbody id="ne-devolucion-lineas"></tbody>
+            </table>
+          </div>
+          <div class="ne-actions">
+            <button type="submit" class="btn" id="ne-devolver-boton">Registrar devolución</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="ne-card ne-no-print" aria-labelledby="ne-historial-titulo">
+        <h2 id="ne-historial-titulo">Historial de devoluciones</h2>
+        <div id="ne-d-historial"></div>
+      </section>
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=3"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=4"></script>
 </body>
 </html>

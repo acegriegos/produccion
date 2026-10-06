@@ -43,11 +43,11 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 
 ## Estado del proyecto
 
-El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` están verificados en la base local `pruebas`. `sp_emitir_nota_entrega` está instalado y el backend PHP de emisión, listado y detalle quedó fusionado en `master` mediante el PR #1. Se probaron la conversión, el inventario, los reintentos y la reversión de una nota temporal, sin conservar datos de prueba. Esta rama añade la interfaz de emisión, listado, detalle y boleta provisional. El proveedor de prueba `id = 500` existe solo en esta base. Aún faltan la prueba visual HTTP con sesión real, las devoluciones y la facturación posterior.
+El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` están verificados en la base local `pruebas`. `sp_emitir_nota_entrega` está instalado; backend e interfaz de emisión, consulta e impresión se integraron en `master` por los PR #1 y #3. Esta rama implementa devoluciones parciales e historial; su SP se entrega en un SQL separado que todavía no se instala en la base local. La facturación posterior sigue pendiente. El proveedor de prueba `id = 500` existe solo en esta base.
 
 ## Próximas etapas
 
-No queda una decisión funcional indispensable pendiente de TI. La emisión de backend ya fue revisada y fusionada. Ahora se revisa su interfaz y la boleta de media hoja; luego se implementarán las devoluciones y la facturación posterior. TI puede solicitar un permiso propio del módulo y los usuarios operativos deben confirmar el formato físico final de la boleta.
+No queda una decisión funcional indispensable pendiente de TI. Emisión e interfaz ya fueron revisadas e integradas. Se implementan ahora las devoluciones; luego sigue la facturación posterior. TI puede solicitar un permiso propio del módulo y los usuarios operativos deben confirmar el formato físico final de la boleta.
 
 ## Secuencia de ramas y revisiones
 
@@ -66,6 +66,7 @@ Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de 
 - [Base de datos](DB-Notas-Entrega.md): estructuras existentes, tablas propuestas, relaciones y reglas de consistencia.
 - [Migración local aplicada](SQL-Notas-Entrega-Migracion.sql): cuatro tablas, registros en `tablas` y tipo de movimiento `10`, verificados en `pruebas`.
 - [Procedimiento de emisión](SQL-Notas-Entrega-Emision.sql): emisión atómica, inventario `6`, movimientos tipo `10` y reintentos idempotentes; instalado por separado después de la migración.
+- [Procedimiento de devolución](SQL-Notas-Entrega-Devoluciones.sql): devoluciones parciales idempotentes, reposición exacta de existencias y anulación al devolver todo; se instala por separado después de revisar esta etapa.
 - [Backend](Backend-Notas-Entrega.md): integración PHP/MariaDB, emisión, inventario, anulaciones y facturación sin doble descuento.
 - [Frontend](Frontend-Notas-Entrega.md): pantallas, referencia visual y boleta imprimible.
 - [README](../README.md): cómo arrancar y consultar el sistema local.

@@ -284,6 +284,70 @@ class _notasentrega
         throw new RuntimeException('Error técnico al emitir la nota: ' . $mensaje);
     }
 
+    /**
+     * Registra una devolución parcial. El procedimiento bloquea la nota,
+     * repone solo el material recibido y protege los reintentos por UUID.
+     */
+    public function devolver($idSucursal, $idUsuario, $idNota, array $devolucion)
+    {
+        $lineasJson = json_encode($devolucion['lineas'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        if ($lineasJson === false) {
+            throw new NotaEntregaReglaException('detalle_invalido', 'No se pudo codificar el detalle de la devolución.', 422);
+        }
+
+        $clave = $devolucion['clave_operacion'];
+        $motivo = $devolucion['motivo'];
+        $conexion = $this->conexion();
+        $sentencia = null;
+        try {
+            $sentencia = $conexion->prepare(
+                'CALL sp_devolver_nota_entrega(?, ?, ?, ?, ?, ?)'
+            );
+            if (!$sentencia || !$sentencia->bind_param(
+                'iiisss', $idSucursal, $idUsuario, $idNota, $clave, $motivo, $lineasJson
+            )) {
+                throw new RuntimeException('No se pudo preparar la devolución de la nota.');
+            }
+            if (!$sentencia->execute()) {
+                $this->lanzarErrorDevolucion($sentencia->errno, $sentencia->error);
+            }
+            $resultado = $sentencia->get_result();
+            if ($resultado === false || !($fila = $resultado->fetch_assoc())) {
+                throw new RuntimeException('La devolución no devolvió su número de operación.');
+            }
+            return array(
+                'iddevolucion' => (int) $fila['iddevolucion'],
+                'repetida' => (bool) $fila['repetida']
+            );
+        } catch (mysqli_sql_exception $error) {
+            $this->lanzarErrorDevolucion($error->getCode(), $error->getMessage());
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    private function lanzarErrorDevolucion($numero, $mensaje)
+    {
+        if ((int) $numero === 1644) {
+            if (strpos($mensaje, 'Nota no encontrada') !== false) {
+                throw new NotaEntregaReglaException('nota_no_encontrada', $mensaje, 404);
+            }
+            $conflicto = strpos($mensaje, 'Clave usada') !== false
+                || strpos($mensaje, 'Nota no pendiente') !== false
+                || strpos($mensaje, 'Cantidad excede saldo') !== false
+                || strpos($mensaje, 'Stock cambio') !== false;
+            throw new NotaEntregaReglaException(
+                $conflicto ? 'conflicto' : 'regla_negocio',
+                $mensaje,
+                $conflicto ? 409 : 422
+            );
+        }
+        throw new RuntimeException('Error técnico al registrar la devolución: ' . $mensaje);
+    }
+
     public function listar($idSucursal, $limite, $desplazamiento, $estado,
                            $idCliente, $desde, $hasta, $idUsuario)
     {
@@ -362,15 +426,23 @@ class _notasentrega
                 'SELECT d.id, d.renglon, d.idproducto, d.idproveedor,
                         p.nombre AS proveedor_nombre, d.idunidad,
                         uni.nombre AS unidad_nombre, d.cantidad,
+                        COALESCE(dev.cantidad_devuelta, 0) AS cantidad_devuelta,
+                        d.cantidad - COALESCE(dev.cantidad_devuelta, 0) AS cantidad_pendiente,
                         d.cantidad_inventario, d.producto_codigo,
                         d.producto_descripcion, d.observaciones,
                         d.iddetallefactura
                  FROM detallenotasentrega d
                  LEFT JOIN clientes p ON p.id = d.idproveedor
                  LEFT JOIN unidades uni ON uni.id = d.idunidad
+                 LEFT JOIN (
+                    SELECT dd.iddetallenota, SUM(dd.cantidad_devuelta) AS cantidad_devuelta
+                    FROM detalledevolucionesnotasentrega dd
+                    INNER JOIN devolucionesnotasentrega dn ON dn.id = dd.iddevolucion
+                    WHERE dn.idnota = ? GROUP BY dd.iddetallenota
+                 ) dev ON dev.iddetallenota = d.id
                  WHERE d.idnota = ? ORDER BY d.renglon'
             );
-            if (!$detalle || !$detalle->bind_param('i', $idNota)
+            if (!$detalle || !$detalle->bind_param('ii', $idNota, $idNota)
                 || !$detalle->execute()) {
                 throw new RuntimeException('No se pudo consultar el detalle de la nota.');
             }
@@ -379,6 +451,61 @@ class _notasentrega
                 throw new RuntimeException('No se pudo leer el detalle de la nota.');
             }
             $nota['lineas'] = $resultado->fetch_all(MYSQLI_ASSOC);
+
+            $historial = $conexion->prepare(
+                'SELECT d.id, d.fecha, d.idusuario, u.nombre AS usuario_nombre, d.motivo
+                 FROM devolucionesnotasentrega d
+                 LEFT JOIN usuarios u ON u.id = d.idusuario
+                 WHERE d.idnota = ? ORDER BY d.fecha, d.id'
+            );
+            if (!$historial || !$historial->bind_param('i', $idNota)
+                || !$historial->execute()) {
+                throw new RuntimeException('No se pudo consultar el historial de devoluciones.');
+            }
+            $resultado = $historial->get_result();
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudo leer el historial de devoluciones.');
+            }
+            $nota['devoluciones'] = $resultado->fetch_all(MYSQLI_ASSOC);
+            $historial->close();
+            $historial = null;
+
+            if ($nota['devoluciones']) {
+                $indicePorId = array();
+                foreach ($nota['devoluciones'] as $indice => $evento) {
+                    $idDevolucion = (int) $evento['id'];
+                    $nota['devoluciones'][$indice]['lineas'] = array();
+                    $indicePorId[$idDevolucion] = $indice;
+                }
+                $lineasHistorial = $conexion->prepare(
+                    'SELECT dd.iddevolucion, d.renglon, d.producto_codigo,
+                            d.producto_descripcion, dd.cantidad_devuelta,
+                            dd.idunidad, u.nombre AS unidad_nombre
+                     FROM detalledevolucionesnotasentrega dd
+                     INNER JOIN devolucionesnotasentrega dn ON dn.id = dd.iddevolucion
+                     INNER JOIN detallenotasentrega d ON d.id = dd.iddetallenota
+                     LEFT JOIN unidades u ON u.id = dd.idunidad
+                     WHERE dn.idnota = ?
+                     ORDER BY dn.fecha, dn.id, d.renglon'
+                );
+                if (!$lineasHistorial || !$lineasHistorial->bind_param('i', $idNota)
+                    || !$lineasHistorial->execute()) {
+                    throw new RuntimeException('No se pudieron consultar las líneas devueltas.');
+                }
+                $resultado = $lineasHistorial->get_result();
+                if ($resultado === false) {
+                    throw new RuntimeException('No se pudieron leer las líneas devueltas.');
+                }
+                while ($linea = $resultado->fetch_assoc()) {
+                    $idDevolucion = (int) $linea['iddevolucion'];
+                    if (isset($indicePorId[$idDevolucion])) {
+                        unset($linea['iddevolucion']);
+                        $nota['devoluciones'][$indicePorId[$idDevolucion]]['lineas'][] = $linea;
+                    }
+                }
+                $lineasHistorial->close();
+                $lineasHistorial = null;
+            }
             return $nota;
         } finally {
             if ($cabecera instanceof mysqli_stmt) {
@@ -386,6 +513,12 @@ class _notasentrega
             }
             if ($detalle instanceof mysqli_stmt) {
                 $detalle->close();
+            }
+            if (isset($historial) && $historial instanceof mysqli_stmt) {
+                $historial->close();
+            }
+            if (isset($lineasHistorial) && $lineasHistorial instanceof mysqli_stmt) {
+                $lineasHistorial->close();
             }
             $conexion->close();
         }

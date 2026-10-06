@@ -72,6 +72,12 @@
 .ne-firmas { display: flex; gap: 24px; margin-top: 55px; }
 .ne-firmas span { flex: 1; border-top: 1px solid #455a64; text-align: center; padding-top: 5px; }
 .ne-boleta-pie { margin-top: 20px !important; font-size: .75rem; text-align: center; }
+.ne-dev-evento { border-top: 1px solid #dce4e6; padding: 12px 0; }
+.ne-dev-evento:first-child { border-top: 0; padding-top: 0; }
+.ne-dev-evento h3 { font-size: 1rem; margin: 0 0 6px; }
+.ne-dev-evento ul { margin: 6px 0 0; padding-left: 22px; }
+.ne-dev-cantidad { min-width: 110px; }
+.ne-dev-sin-saldo { color: #78909c; }
 @media (max-width: 820px) {
   .ne-title, .ne-card-head { align-items: flex-start; flex-direction: column; }
   .ne-grid, .ne-filtros { grid-template-columns: 1fr; }
