@@ -16,6 +16,8 @@
   var notaVisible = null;
   var tabActual = 'emitir';
   var avisos = {emitir: null, listado: null, detalle: null};
+  var claveDevolucionPendiente = null;
+  var huellaDevolucionPendiente = null;
 
   function el(id) { return document.getElementById(id); }
   function valor(id) { return el(id).value.trim(); }
@@ -370,8 +372,130 @@
         agregarCelda(fila, linea.observaciones);
         tbody.appendChild(fila);
       });
+      renderizarDevoluciones(nota);
       cambiarTab('detalle');
     });
+  }
+  function renderizarDevoluciones(nota) {
+    var sePuedeDevolver = Number(nota.idestado) === 1 && nota.idfactura == null;
+    var panel = el('ne-devolucion-panel');
+    var cuerpo = el('ne-devolucion-lineas');
+    var boton = el('ne-devolver-boton');
+    panel.hidden = !sePuedeDevolver;
+    cuerpo.replaceChildren();
+    var haySaldo = false;
+    nota.lineas.forEach(function (linea) {
+      var pendiente = Math.max(0, Number(linea.cantidad_pendiente || 0));
+      var fila = document.createElement('tr');
+      agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+      agregarCelda(fila, linea.cantidad + ' ' + (linea.unidad_nombre || ''));
+      agregarCelda(fila, linea.cantidad_devuelta + ' ' + (linea.unidad_nombre || ''));
+      var celdaPendiente = agregarCelda(fila, pendiente.toFixed(2) + ' ' + (linea.unidad_nombre || ''));
+      if (pendiente <= 0) celdaPendiente.className = 'ne-dev-sin-saldo';
+      var celdaCantidad = document.createElement('td');
+      var entrada = document.createElement('input');
+      entrada.type = 'number';
+      entrada.className = 'ne-dev-cantidad';
+      entrada.min = '0.01';
+      entrada.step = '0.01';
+      entrada.max = pendiente.toFixed(2);
+      entrada.setAttribute('data-id-detalle', linea.id);
+      entrada.setAttribute('aria-label', 'Cantidad a devolver de ' + linea.producto_descripcion);
+      entrada.disabled = !sePuedeDevolver || pendiente <= 0;
+      if (pendiente > 0) haySaldo = true;
+      celdaCantidad.appendChild(entrada);
+      fila.appendChild(celdaCantidad);
+      cuerpo.appendChild(fila);
+    });
+    boton.disabled = !sePuedeDevolver || !haySaldo;
+
+    var historial = el('ne-d-historial');
+    historial.replaceChildren();
+    if (!nota.devoluciones || !nota.devoluciones.length) {
+      var vacio = document.createElement('p');
+      vacio.textContent = 'Todavía no se han registrado devoluciones.';
+      historial.appendChild(vacio);
+      return;
+    }
+    nota.devoluciones.forEach(function (evento) {
+      var bloque = document.createElement('article');
+      bloque.className = 'ne-dev-evento';
+      var titulo = document.createElement('h3');
+      titulo.textContent = 'Devolución #' + evento.id + ' · ' + evento.fecha;
+      bloque.appendChild(titulo);
+      var responsable = document.createElement('p');
+      responsable.textContent = 'Responsable: ' + (evento.usuario_nombre || evento.idusuario);
+      bloque.appendChild(responsable);
+      if (evento.motivo) {
+        var motivo = document.createElement('p');
+        motivo.textContent = 'Motivo: ' + evento.motivo;
+        bloque.appendChild(motivo);
+      }
+      var lista = document.createElement('ul');
+      (evento.lineas || []).forEach(function (linea) {
+        var item = document.createElement('li');
+        item.textContent = (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion
+          + ': ' + linea.cantidad_devuelta + ' ' + (linea.unidad_nombre || '');
+        lista.appendChild(item);
+      });
+      bloque.appendChild(lista);
+      historial.appendChild(bloque);
+    });
+  }
+  function prepararDevolucion() {
+    if (!notaVisible || Number(notaVisible.idestado) !== 1 || notaVisible.idfactura != null) {
+      throw new Error('Esta nota ya no admite devoluciones.');
+    }
+    var lineas = [];
+    Array.prototype.forEach.call(el('ne-devolucion-lineas').querySelectorAll('input[data-id-detalle]'), function (entrada) {
+      var cantidad = entrada.value.trim();
+      if (!cantidad) return;
+      var original = notaVisible.lineas.find(function (linea) {
+        return String(linea.id) === entrada.getAttribute('data-id-detalle');
+      });
+      if (!/^[0-9]{1,12}(\.[0-9]{1,2})?$/.test(cantidad) || Number(cantidad) <= 0) {
+        throw new Error('Ingresa una cantidad positiva con máximo dos decimales.');
+      }
+      if (!original || Number(cantidad) > Number(original.cantidad_pendiente)) {
+        throw new Error('La cantidad supera el saldo pendiente de una línea.');
+      }
+      lineas.push({iddetallenota: Number(entrada.getAttribute('data-id-detalle')), cantidad_devuelta: cantidad});
+    });
+    if (!lineas.length) throw new Error('Indica al menos una cantidad para devolver.');
+    return {
+      motivo: el('ne-devolucion-motivo').value.trim() || null,
+      lineas: lineas
+    };
+  }
+  function registrarDevolucion(evento) {
+    evento.preventDefault();
+    var devolucion;
+    try { devolucion = prepararDevolucion(); } catch (error) { aviso(error.message, true, 'detalle'); return; }
+    var huella = JSON.stringify({idnota: Number(notaVisible.id), devolucion: devolucion});
+    if (huella !== huellaDevolucionPendiente) {
+      claveDevolucionPendiente = uuid();
+      huellaDevolucionPendiente = huella;
+    }
+    devolucion.clave_operacion = claveDevolucionPendiente;
+    var idNota = Number(notaVisible.id);
+    var boton = el('ne-devolver-boton');
+    boton.disabled = true;
+    aviso('Registrando la devolución…', false, 'detalle');
+    api('devolver', {id: idNota}, {
+      method: 'POST',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
+      body: JSON.stringify(devolucion)
+    }).then(function (respuesta) {
+      claveDevolucionPendiente = huellaDevolucionPendiente = null;
+      el('ne-devolucion-motivo').value = '';
+      return cargarDetalle(idNota).then(function () {
+        aviso('Devolución #' + respuesta.iddevolucion + (respuesta.repetida ? ' recuperada tras el reintento.' : ' registrada.'), false, 'detalle');
+      }).catch(function (error) {
+        aviso('La devolución #' + respuesta.iddevolucion + ' fue registrada, pero no se pudo recargar la nota: ' + error.message, true, 'detalle');
+      });
+    }, function (error) {
+      aviso(error.message, true, 'detalle');
+    }).finally(function () { boton.disabled = false; });
   }
   function iniciar() {
     conectarBusqueda(el('ne-buscar-cliente'), el('ne-resultados-cliente'), 'clientes', function (item) {
@@ -391,6 +515,7 @@
     });
     el('ne-agregar-linea').addEventListener('click', nuevaLinea);
     el('ne-form').addEventListener('submit', emitir);
+    el('ne-devolucion-form').addEventListener('submit', registrarDevolucion);
     el('ne-filtros').addEventListener('submit', function (evento) {
       evento.preventDefault();
       offset = 0;

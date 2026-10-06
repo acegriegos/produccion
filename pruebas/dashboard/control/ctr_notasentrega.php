@@ -240,6 +240,54 @@ function ne_normalizar_nota(array $datos)
     );
 }
 
+function ne_normalizar_devolucion(array $datos)
+{
+    $clave = isset($datos['clave_operacion']) ? $datos['clave_operacion'] : null;
+    if (!is_string($clave) || !preg_match(
+        '/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/D',
+        $clave
+    )) {
+        ne_error('clave_invalida', 'La clave de operación debe ser un UUID.', 422);
+    }
+
+    $lineas = isset($datos['lineas']) ? $datos['lineas'] : null;
+    if (!is_array($lineas) || count($lineas) < 1 || count($lineas) > 100
+        || array_keys($lineas) !== range(0, count($lineas) - 1)) {
+        ne_error('detalle_invalido', 'La devolución requiere entre 1 y 100 líneas.', 422);
+    }
+
+    $normalizadas = array();
+    $idsDetalle = array();
+    foreach ($lineas as $indice => $linea) {
+        if (!is_array($linea)) {
+            ne_error('detalle_invalido', 'La línea ' . ($indice + 1) . ' es inválida.', 422);
+        }
+        $idDetalle = ne_entero(
+            isset($linea['iddetallenota']) ? $linea['iddetallenota'] : null,
+            'Línea de nota ' . ($indice + 1), 1, 2147483647
+        );
+        if (isset($idsDetalle[$idDetalle])) {
+            ne_error('detalle_invalido', 'No repitas una línea en la misma devolución.', 422);
+        }
+        $idsDetalle[$idDetalle] = true;
+        $normalizadas[] = array(
+            'iddetallenota' => $idDetalle,
+            'cantidad_devuelta' => ne_cantidad(
+                isset($linea['cantidad_devuelta']) ? $linea['cantidad_devuelta'] : null
+            )
+        );
+    }
+
+    return array(
+        'clave_operacion' => strtolower($clave),
+        'motivo' => ne_texto(
+            isset($datos['motivo']) ? $datos['motivo'] : null,
+            'Motivo', 255, false
+        ),
+        'lineas' => $normalizadas
+    );
+}
+
 try {
     list($idUsuario, $idSucursal) = ne_sesion();
     $modelo = new _notasentrega();
@@ -343,7 +391,7 @@ try {
             'error' => array('codigo' => 'metodo_no_permitido', 'mensaje' => 'Usa GET o POST.')
         ));
     }
-    if ($accion !== '' && $accion !== 'emitir') {
+    if (!in_array($accion, array('', 'emitir', 'devolver'), true)) {
         ne_responder(404, array(
             'succed' => false,
             'error' => array('codigo' => 'accion_desconocida', 'mensaje' => 'Acción no disponible.')
@@ -365,6 +413,18 @@ try {
     $datos = json_decode($crudo, true, 12);
     if (json_last_error() !== JSON_ERROR_NONE || !is_array($datos)) {
         ne_error('contenido_invalido', 'El cuerpo debe ser un objeto JSON válido.', 400);
+    }
+
+    if ($accion === 'devolver') {
+        $idNota = ne_entero(isset($_GET['id']) ? $_GET['id'] : null,
+            'Número de nota', 1, 2147483647);
+        $devolucion = ne_normalizar_devolucion($datos);
+        session_write_close();
+        $resultado = $modelo->devolver($idSucursal, $idUsuario, $idNota, $devolucion);
+        ne_responder($resultado['repetida'] ? 200 : 201, array(
+            'succed' => true,
+            'data' => $resultado
+        ));
     }
 
     $nota = ne_normalizar_nota($datos);
