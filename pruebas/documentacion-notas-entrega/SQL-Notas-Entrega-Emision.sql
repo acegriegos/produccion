@@ -50,6 +50,7 @@ procedimiento: BEGIN
     DECLARE v_sucursal_anterior INT;
     DECLARE v_cliente_anterior INT;
     DECLARE v_nombre_anterior VARCHAR(150);
+    DECLARE v_cedula_anterior VARCHAR(45);
     DECLARE v_usuario_anterior INT;
     DECLARE v_referencia_anterior VARCHAR(55);
     DECLARE v_observaciones_anteriores VARCHAR(512);
@@ -123,16 +124,18 @@ procedimiento: BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Nota existente sin detalle';
     END IF;
     IF v_existentes > 0 THEN
-        SELECT idsucursal, idcliente, nombre_cliente, idusuario,
+        SELECT idsucursal, idcliente, nombre_cliente, cliente_cedula, idusuario,
                referencia, observaciones
           INTO v_sucursal_anterior, v_cliente_anterior, v_nombre_anterior,
+               v_cedula_anterior,
                v_usuario_anterior, v_referencia_anterior,
                v_observaciones_anteriores
           FROM notasentrega WHERE id = v_id FOR UPDATE;
         IF v_existentes <> v_total OR v_sucursal_anterior <> p_sucursal
            OR v_usuario_anterior <> p_usuario
            OR NOT (v_cliente_anterior <=> p_cliente)
-           OR (p_cliente IS NULL AND v_nombre_anterior <> v_nombre)
+           OR (p_cliente IS NULL AND (v_nombre_anterior <> v_nombre
+               OR NOT (v_cedula_anterior <=> v_cedula)))
            OR NOT (v_referencia_anterior <=> v_referencia)
            OR NOT (v_observaciones_anteriores <=> v_observaciones) THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Clave usada con otra nota';
@@ -163,8 +166,14 @@ procedimiento: BEGIN
         IF v_cantidad <= 0 THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cantidad debe ser positiva';
         END IF;
-        SET v_linea_observaciones = NULLIF(TRIM(COALESCE(
-            JSON_UNQUOTE(JSON_EXTRACT(p_lineas, CONCAT('$[', v_i, '].observaciones'))), '')), '');
+        -- MariaDB 10.3 convierte JSON null en el texto 'null' al aplicar
+        -- JSON_UNQUOTE. Conservar SQL NULL evita falsos cambios en reintentos.
+        IF JSON_TYPE(JSON_EXTRACT(p_lineas, CONCAT('$[', v_i, '].observaciones'))) = 'NULL' THEN
+            SET v_linea_observaciones = NULL;
+        ELSE
+            SET v_linea_observaciones = NULLIF(TRIM(JSON_UNQUOTE(
+                JSON_EXTRACT(p_lineas, CONCAT('$[', v_i, '].observaciones')))), '');
+        END IF;
         IF CHAR_LENGTH(v_linea_observaciones) > 255 THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Observacion de linea muy larga';
         END IF;
@@ -183,11 +192,11 @@ procedimiento: BEGIN
             IF NOT EXISTS (SELECT 1 FROM productos WHERE id = v_producto) THEN
                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Producto no existe';
             END IF;
-            SELECT codigo, nombre, idheredado
-              INTO v_producto_codigo, v_producto_nombre, v_heredado
+            SELECT codigo, nombre, idheredado, idunidad
+              INTO v_producto_codigo, v_producto_nombre, v_heredado, v_unidad_base
               FROM productos WHERE id = v_producto;
             IF v_producto_nombre IS NULL OR TRIM(v_producto_nombre) = ''
-               OR COALESCE(v_heredado, 0) <> 0 THEN
+               OR v_unidad_base IS NULL OR COALESCE(v_heredado, 0) <> 0 THEN
                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Producto no apto para nota';
             END IF;
             IF NOT EXISTS (SELECT 1 FROM clientes
@@ -231,6 +240,9 @@ procedimiento: BEGIN
             END IF;
             -- La misma conversion de ventas produce el valor exacto que
             -- guardamos en la linea, restamos y registramos en movimientos.
+            IF v_cantidad * v_factor > 999999999.999 THEN
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cantidad excede conversion disponible';
+            END IF;
             SET v_cantidad_ajustada = ROUND(v_cantidad * v_factor, 3);
             SET v_cantidad_stock = convercion(v_unidad, v_cantidad_ajustada);
             IF v_cantidad_stock IS NULL OR v_cantidad_stock <= 0 THEN
