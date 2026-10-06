@@ -1,6 +1,6 @@
 # Notas de Entrega — interfaz y comprobante
 
-> Estado: diseño de interfaz actualizado con las respuestas de TI del 2026-10-05. No se han creado pantallas del módulo.
+> Estado: diseño de interfaz actualizado con las respuestas de TI del 2026-10-05. El esquema se instaló en `pruebas` el 2026-10-06; todavía no se han creado pantallas del módulo.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Backend](Backend-Notas-Entrega.md)
 

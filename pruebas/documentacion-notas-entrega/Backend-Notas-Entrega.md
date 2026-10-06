@@ -1,6 +1,6 @@
 # Notas de Entrega — backend e integración
 
-> Estado: diseño técnico actualizado con las respuestas de TI del 2026-10-05. Todavía no hay controlador ni SP implementados para el módulo.
+> Estado: esquema instalado en `pruebas` y desarrollo de emisión en backend iniciado el 2026-10-06. Todavía no hay controlador ni SP implementados para el módulo.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -53,11 +53,11 @@ Las tablas, tipos, índices y estados propuestos están en [la especificación d
 
 ## Pendientes de implementación
 
-1. Ejecutar una vez la [migración local validada](SQL-Notas-Entrega-Migracion.sql) en `pruebas`. El 2026-10-06 se verificaron la base, los IDs `520`–`523`, el tipo `10` y la sintaxis de las tablas sin modificar la base.
-2. Implementar nuestros SP de emisión, devolución y facturación sin segundo descuento, con transacciones, bloqueo de saldos y `clave_operacion` estable para reintentos.
+1. Implementar y probar la emisión en un SP transaccional, con bloqueo de saldos, `clave_operacion` estable y movimientos tipo `10`. El esquema ya está instalado en `pruebas`.
+2. Conectar el SP con un modelo y controlador PHP que validen sesión, permisos y datos recibidos; añadir consultas para listar y ver notas.
 3. Verificar la conversión de cantidades con dos decimales y los productos con dimensiones especiales; `f_units_mts` solo presenta texto.
-4. Integrar la autorización existente en pantalla **y** servidor, y conectar controladores PHP con los SP.
-5. Probar varias devoluciones de una misma línea, devolución total, cliente contado, agrupación, emisiones repetidas, concurrencia e inventario sin doble movimiento.
+4. Integrar después el formulario, listado y boleta; en ramas posteriores desarrollar devoluciones y facturación de cantidades netas sin segundo descuento.
+5. Probar varias devoluciones de una misma línea, devolución total, cliente contado, agrupación, emisiones repetidas, concurrencia e inventario sin doble movimiento en sus respectivos PR.
 
 ## Registro de avance
 
@@ -68,4 +68,5 @@ Las tablas, tipos, índices y estados propuestos están en [la especificación d
 | 2026-10-01 | Se simplificó el responsable a un solo usuario, se confirmó una bandera de tres estados y se mantuvo `cantidad_inventario` para la reversión. |
 | 2026-10-01 | Se asumió el desarrollo de los SP del módulo y se definió una ruta dedicada para líneas de factura originadas en notas, sin segundo descuento. |
 | 2026-10-05 | TI confirmó devoluciones parciales acumulables, cliente contado `0` con `comodin`, catálogo `520`–`523`, cantidades a dos decimales e inventario `6` compartido. |
-| 2026-10-06 | Se comprobó la migración local sin ejecutarla; el próximo paso es instalar el esquema y comenzar los SP. |
+| 2026-10-06 | Se comprobó el SQL de la migración local sin ejecutarlo en esa revisión. |
+| 2026-10-06 | El usuario aplicó la migración y se verificaron cuatro tablas, IDs `520`–`523` y tipo `10` en `pruebas`. Se inició la rama `feat/notas-entrega-emision-backend`. |

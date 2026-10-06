@@ -43,16 +43,28 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 
 ## Estado del proyecto
 
-El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 quedaron definidas las decisiones necesarias para comenzar el desarrollo. Aún no se han creado las tablas ni implementado los SP, el backend o las pantallas. TI aprobó los IDs `520`–`523` para `tablas`; el proveedor de prueba `id = 500` ya se creó únicamente en la base local. La migración fue validada contra MariaDB local sin ejecutarse.
+El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 quedaron definidas las decisiones necesarias para comenzar el desarrollo y se instaló el esquema en la base local `pruebas`: las cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` fueron verificados. El proveedor de prueba `id = 500` existe solo en esa base. Aún no se han implementado los SP, el backend o las pantallas.
 
 ## Qué falta para comenzar la implementación
 
-No queda una decisión funcional indispensable pendiente de TI. MariaDB local y los IDs se comprobaron el 2026-10-06: la migración ya puede ejecutarse **una vez en la base local `pruebas`**. Luego se desarrollan los SP con pruebas de emisión, devoluciones parciales, anulación total y facturación sin segundo descuento; después se conectan el backend PHP y las pantallas. Durante la interfaz se concretarán los permisos existentes y el formato físico de la boleta de media hoja. El detalle de impresión no impide iniciar la base de datos y la lógica.
+No queda una decisión funcional indispensable pendiente de TI. El esquema está instalado en `pruebas`. El siguiente paso es desarrollar los SP y el backend PHP de emisión; luego su interfaz, las devoluciones y la facturación posterior. Durante la interfaz se concretarán los permisos existentes y el formato físico de la boleta de media hoja.
+
+## Secuencia de ramas y revisiones
+
+Cada rama parte de `master` actualizado y termina en un PR hacia `master`, que es la rama principal de este repositorio. No se abrirá la siguiente rama sobre trabajo sin fusionar de la anterior.
+
+1. `feat/notas-entrega-emision-backend`: SP transaccional para emitir y descontar stock; modelo y controlador PHP para crear, listar y consultar notas. Revisaremos primero el contrato de datos, después el movimiento de inventario y al final la conexión PHP.
+2. `feat/notas-entrega-emision-frontend`: formulario, listado y boleta de media hoja que usan el backend ya revisado.
+3. `feat/notas-entrega-devoluciones`: devoluciones parciales, reposición de stock, historial y anulación por devolución total. Se dividirá backend e interfaz en dos PR si el cambio resulta demasiado grande para una revisión clara.
+4. `feat/notas-entrega-facturacion-backend`: agrupación, cálculo de cantidad neta y líneas de factura sin otro descuento de inventario.
+5. `feat/notas-entrega-facturacion-frontend`: selección de notas pendientes y preparación de precios, impuestos y descuentos.
+
+Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de la regla que se introduce. Los comentarios en PHP y SQL explicarán transacciones, conversión de unidades, permisos y decisiones que evitan duplicados; las operaciones evidentes se dejarán legibles mediante nombres claros.
 
 ## Documentación de la integración
 
 - [Base de datos](DB-Notas-Entrega.md): estructuras existentes, tablas propuestas, relaciones y reglas de consistencia.
-- [Migración local validada](SQL-Notas-Entrega-Migracion.sql): cuatro tablas, registros en `tablas` y tipo de movimiento `10`; lista para ejecutar una vez en `pruebas`, aún sin ejecutar.
+- [Migración local aplicada](SQL-Notas-Entrega-Migracion.sql): cuatro tablas, registros en `tablas` y tipo de movimiento `10`, verificados en `pruebas`.
 - [Backend](Backend-Notas-Entrega.md): integración PHP/MariaDB, emisión, inventario, anulaciones y facturación sin doble descuento.
 - [Frontend](Frontend-Notas-Entrega.md): pantallas, referencia visual y boleta imprimible.
 - [README](../README.md): cómo arrancar y consultar el sistema local.

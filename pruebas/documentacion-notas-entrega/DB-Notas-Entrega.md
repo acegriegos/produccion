@@ -1,6 +1,6 @@
 # Notas de Entrega — base de datos
 
-> Estado: decisiones funcionales de TI incorporadas y [migración local](SQL-Notas-Entrega-Migracion.sql) validada sin ejecutarla el 2026-10-06. Todavía no se han creado las tablas del módulo ni desarrollado sus procedimientos.
+> Estado: [migración local](SQL-Notas-Entrega-Migracion.sql) aplicada en `pruebas` por el usuario y verificada el 2026-10-06. Las cuatro tablas, sus IDs de catálogo y el tipo de movimiento `10` existen; todavía no se han desarrollado los procedimientos del módulo.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Backend](Backend-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -147,4 +147,4 @@ Las claves foráneas y los `CHECK` del borrador son barreras adicionales. Las re
 | Facturación | Nosotros creamos la ruta de líneas netas sin segundo descuento de inventario. | Implementar SP y comparar importes y datos auxiliares con la venta normal. |
 | Integridad | Nosotros definimos SP y reglas; TI revisa. | Probar claves foráneas, `CHECK`, bloqueos, devoluciones repetidas y facturación simultánea. |
 
-La [migración local](SQL-Notas-Entrega-Migracion.sql) incluye las cuatro tablas, sus IDs en `tablas` y el tipo de movimiento `10`; excluye datos de prueba y SP. **Todavía no se ha ejecutado.** El 2026-10-06 se confirmó conexión a `pruebas` en MariaDB 10.3.7, ausencia de las cuatro tablas, IDs `520`–`523` y tipo `10` libres, tablas referenciadas InnoDB y sintaxis de los cuatro `CREATE TABLE` aceptada mediante preparación sin ejecución. El archivo selecciona explícitamente `pruebas` y termina con una consulta que debe devolver `4`, `4` y `1`. Esta verificación no sustituye la prueba de la migración y los procedimientos funcionando juntos.
+La [migración local](SQL-Notas-Entrega-Migracion.sql) instaló las cuatro tablas, sus IDs `520`–`523` en `tablas` y el tipo de movimiento `10` en `pruebas`. El 2026-10-06 se verificó cada registro en MariaDB 10.3.7. El archivo excluye datos de prueba y SP. La creación del esquema no prueba todavía la emisión, las devoluciones o la facturación; esos flujos se desarrollarán y verificarán por separado.
