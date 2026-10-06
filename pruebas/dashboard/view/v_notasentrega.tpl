@@ -150,6 +150,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=2"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=3"></script>
 </body>
 </html>

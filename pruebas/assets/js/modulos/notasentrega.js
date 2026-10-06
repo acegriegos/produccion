@@ -14,6 +14,8 @@
   var clavePendiente = null;
   var huellaPendiente = null;
   var notaVisible = null;
+  var tabActual = 'emitir';
+  var avisos = {emitir: null, listado: null, detalle: null};
 
   function el(id) { return document.getElementById(id); }
   function valor(id) { return el(id).value.trim(); }
@@ -21,12 +23,18 @@
   function estadoNombre(id) {
     return ({1: 'Pendiente de factura', 2: 'Facturada', 3: 'Anulada'})[id] || 'Desconocido';
   }
-  function aviso(mensaje, esError) {
+  function pintarAviso() {
     var caja = el('ne-aviso');
-    caja.textContent = mensaje;
-    caja.classList.toggle('error', !!esError);
-    caja.hidden = !mensaje;
-    if (mensaje && esError) caja.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    var actual = avisos[tabActual];
+    caja.textContent = actual ? actual.mensaje : '';
+    caja.classList.toggle('error', !!actual && actual.esError);
+    caja.hidden = !actual;
+    if (actual && actual.esError) caja.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+  }
+  function aviso(mensaje, esError, seccion) {
+    seccion = seccion || tabActual;
+    avisos[seccion] = mensaje ? {mensaje: mensaje, esError: !!esError} : null;
+    if (seccion === tabActual) pintarAviso();
   }
   function api(accion, params, opciones) {
     var query = new URLSearchParams(params || {});
@@ -45,11 +53,13 @@
     });
   }
   function cambiarTab(nombre) {
+    tabActual = nombre;
     ['emitir', 'listado', 'detalle'].forEach(function (tab) {
       el('ne-' + tab).hidden = tab !== nombre;
       var boton = document.querySelector('[data-ne-tab="' + tab + '"]');
       boton.classList.toggle('active', tab === nombre);
     });
+    pintarAviso();
     if (nombre === 'listado') cargarLista();
     if (nombre === 'detalle') el('ne-tab-detalle').hidden = false;
   }
@@ -67,6 +77,7 @@
     return boton;
   }
   function conectarBusqueda(input, contenedor, tipo, seleccionar, limpiar) {
+    var seccion = input.closest('.ne-panel').id.slice(3);
     var secuencia = 0;
     var temporizador = null;
     var solicitud = null;
@@ -101,7 +112,7 @@
             }));
           });
         }).catch(function (error) {
-          if (error.name !== 'AbortError' && actual === secuencia) aviso(error.message, true);
+          if (error.name !== 'AbortError' && actual === secuencia) aviso(error.message, true, seccion);
         });
       }, tipo === 'productos' ? 100 : 0);
     });
@@ -264,16 +275,21 @@
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
       body: JSON.stringify(nota)
     }).then(function (respuesta) {
-      return cargarDetalle(respuesta.idnota).then(function () {
-        aviso('Nota #' + respuesta.idnota + (respuesta.repetida ? ' recuperada tras el reintento.' : ' emitida correctamente.'), false);
-        el('ne-form').reset();
-        el('ne-lineas').replaceChildren();
-        nuevaLinea();
-        cambiarTipoCliente();
-        clavePendiente = huellaPendiente = null;
+      aviso('', false, 'emitir');
+      el('ne-form').reset();
+      el('ne-lineas').replaceChildren();
+      nuevaLinea();
+      cambiarTipoCliente();
+      clavePendiente = huellaPendiente = null;
+      cargarDetalle(respuesta.idnota).then(function () {
+        aviso('Nota #' + respuesta.idnota + (respuesta.repetida ? ' recuperada tras el reintento.' : ' emitida correctamente.'), false, 'detalle');
+      }).catch(function (error) {
+        aviso('La nota #' + respuesta.idnota + ' fue emitida, pero no se pudo abrir el detalle: ' + error.message, true, 'emitir');
       });
-    }).catch(function (error) {
-      aviso(error.message + ' Si el envío se interrumpió, vuelva a intentar sin modificar la nota.', true);
+    }, function (error) {
+      var mensaje = error.message;
+      if (error.name === 'TypeError') mensaje += ' Si el envío se interrumpió, vuelva a intentar sin modificar la nota.';
+      aviso(mensaje, true, 'emitir');
     }).finally(function () { boton.disabled = false; });
   }
   function filtros() {
@@ -291,7 +307,8 @@
   }
   function cargarLista() {
     var params;
-    try { params = filtros(); } catch (error) { aviso(error.message, true); return; }
+    aviso('', false, 'listado');
+    try { params = filtros(); } catch (error) { aviso(error.message, true, 'listado'); return; }
     api('listar', params).then(function (datos) {
       var tbody = el('ne-lista');
       tbody.replaceChildren();
@@ -308,7 +325,9 @@
         boton.type = 'button';
         boton.className = 'btn ne-secondary';
         boton.textContent = 'Ver';
-        boton.addEventListener('click', function () { cargarDetalle(nota.id); });
+        boton.addEventListener('click', function () {
+          cargarDetalle(nota.id).catch(function (error) { aviso(error.message, true, 'listado'); });
+        });
         celda.appendChild(boton);
         fila.appendChild(celda);
         tbody.appendChild(fila);
@@ -322,9 +341,10 @@
       el('ne-anterior').disabled = offset === 0;
       el('ne-siguiente').disabled = datos.notas.length < limite;
       texto('ne-pagina', 'Mostrando ' + (offset + 1) + '–' + (offset + datos.notas.length));
-    }).catch(function (error) { aviso(error.message, true); });
+    }).catch(function (error) { aviso(error.message, true, 'listado'); });
   }
   function cargarDetalle(id) {
+    aviso('', false, 'detalle');
     return api('ver', {id: id}).then(function (datos) {
       var nota = datos.nota;
       notaVisible = nota;
@@ -351,7 +371,7 @@
         tbody.appendChild(fila);
       });
       cambiarTab('detalle');
-    }).catch(function (error) { aviso(error.message, true); throw error; });
+    });
   }
   function iniciar() {
     conectarBusqueda(el('ne-buscar-cliente'), el('ne-resultados-cliente'), 'clientes', function (item) {
