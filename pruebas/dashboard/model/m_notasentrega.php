@@ -107,24 +107,13 @@ class _notasentrega
                 }
             } elseif ($tipo === 'productos') {
                 $sentencia = $conexion->prepare(
-                    'SELECT p.id, p.codigo, p.nombre, p.idunidad,
-                            (SELECT COUNT(*) FROM detalleinventarios d
-                             WHERE d.idinventario = 6
-                               AND d.idproducto = CAST(p.id AS CHAR CHARACTER SET utf8mb4)
-                                   COLLATE utf8mb4_unicode_ci) AS saldos,
-                            (SELECT MAX(d.cantidad) FROM detalleinventarios d
-                             WHERE d.idinventario = 6
-                               AND d.idproducto = CAST(p.id AS CHAR CHARACTER SET utf8mb4)
-                                   COLLATE utf8mb4_unicode_ci) AS saldo,
-                            EXISTS(SELECT 1 FROM dimensioproductos dp
-                                   WHERE dp.idproducto = p.id AND dp.codigo = \'1\'
-                                     AND dp.idunidad = 8) AS tiene_dimension
+                    'SELECT p.id, p.codigo, p.nombre, p.idunidad
                      FROM productos p
                      WHERE p.id > 0 AND COALESCE(p.idheredado, 0) = 0
                        AND (p.nombre LIKE ? ESCAPE \'=\' OR p.codigo LIKE ? ESCAPE \'=\')
-                     ORDER BY (saldo > 0) DESC, p.nombre LIMIT 25'
+                     ORDER BY (p.codigo = ?) DESC, p.nombre LIMIT 100'
                 );
-                if (!$sentencia || !$sentencia->bind_param('ss', $patron, $patron)) {
+                if (!$sentencia || !$sentencia->bind_param('sss', $patron, $patron, $termino)) {
                     throw new RuntimeException('No se pudo preparar la búsqueda de productos.');
                 }
             } else {
@@ -133,13 +122,76 @@ class _notasentrega
             if (!$sentencia->execute() || ($resultado = $sentencia->get_result()) === false) {
                 throw new RuntimeException('No se pudo consultar el catálogo.');
             }
-            return $resultado->fetch_all(MYSQLI_ASSOC);
+            $filas = $resultado->fetch_all(MYSQLI_ASSOC);
+            if ($tipo === 'productos') {
+                return $this->completarProductos($conexion, $filas, $termino);
+            }
+            return $filas;
         } finally {
             if ($sentencia instanceof mysqli_stmt) {
                 $sentencia->close();
             }
             $conexion->close();
         }
+    }
+
+    private function completarProductos($conexion, array $productos, $termino)
+    {
+        if (!$productos) {
+            return array();
+        }
+        // La búsqueda textual ya fue preparada. Estos IDs vienen de la BD y
+        // se convierten a enteros antes de usarse en las dos consultas masivas.
+        $ids = array();
+        foreach ($productos as $producto) {
+            $ids[] = "'" . (int) $producto['id'] . "'";
+        }
+        $lista = implode(',', $ids);
+        $saldos = array();
+        $resultado = $conexion->query(
+            'SELECT idproducto, COUNT(*) AS saldos, MAX(cantidad) AS saldo
+             FROM detalleinventarios WHERE idinventario = 6
+               AND idproducto IN (' . $lista . ') GROUP BY idproducto'
+        );
+        if ($resultado === false) {
+            throw new RuntimeException('No se pudo consultar el inventario de los productos.');
+        }
+        foreach ($resultado as $fila) {
+            $saldos[(string) $fila['idproducto']] = $fila;
+        }
+        $dimensiones = array();
+        $resultado = $conexion->query(
+            'SELECT idproducto FROM dimensioproductos
+             WHERE codigo = \'1\' AND idunidad = 8
+               AND idproducto IN (' . $lista . ') GROUP BY idproducto'
+        );
+        if ($resultado === false) {
+            throw new RuntimeException('No se pudo consultar las dimensiones de los productos.');
+        }
+        foreach ($resultado as $fila) {
+            $dimensiones[(int) $fila['idproducto']] = true;
+        }
+        foreach ($productos as &$producto) {
+            $id = (string) (int) $producto['id'];
+            $producto['saldos'] = isset($saldos[$id]) ? $saldos[$id]['saldos'] : 0;
+            $producto['saldo'] = isset($saldos[$id]) ? $saldos[$id]['saldo'] : null;
+            $producto['tiene_dimension'] = isset($dimensiones[(int) $id]) ? 1 : 0;
+        }
+        unset($producto);
+        usort($productos, function ($a, $b) use ($termino) {
+            $aExacto = strcasecmp($a['codigo'], $termino) === 0;
+            $bExacto = strcasecmp($b['codigo'], $termino) === 0;
+            if ($aExacto !== $bExacto) {
+                return $aExacto ? -1 : 1;
+            }
+            $aDisponible = (int) $a['saldos'] === 1 && (float) $a['saldo'] > 0;
+            $bDisponible = (int) $b['saldos'] === 1 && (float) $b['saldo'] > 0;
+            if ($aDisponible !== $bDisponible) {
+                return $aDisponible ? -1 : 1;
+            }
+            return strcmp($a['nombre'], $b['nombre']);
+        });
+        return array_slice($productos, 0, 25);
     }
 
     public function listarUnidades()

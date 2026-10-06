@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=1">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=2">
 </head>
 <body>
   {$NAV}
@@ -31,7 +31,7 @@
           <h2>Cliente</h2>
           <div class="ne-grid">
             <label>Tipo de cliente
-              <select id="ne-tipo-cliente">
+              <select id="ne-tipo-cliente" class="browser-default">
                 <option value="registrado">Registrado</option>
                 <option value="contado">Contado / nombre libre</option>
               </select>
@@ -76,7 +76,7 @@
         <h2>Buscar notas</h2>
         <form id="ne-filtros" class="ne-grid ne-filtros">
           <label>Estado
-            <select id="ne-f-estado">
+            <select id="ne-f-estado" class="browser-default">
               <option value="1">Pendiente</option>
               <option value="0">Todos</option>
               <option value="2">Facturada</option>
@@ -84,7 +84,7 @@
             </select>
           </label>
           <label>Cliente
-            <select id="ne-f-tipo-cliente">
+            <select id="ne-f-tipo-cliente" class="browser-default">
               <option value="-1">Todos</option>
               <option value="0">Contado</option>
               <option value="registrado">Cliente registrado</option>
@@ -123,10 +123,10 @@
         <button type="button" class="btn" id="ne-imprimir">Imprimir boleta</button>
       </div>
       <article class="ne-boleta" id="ne-boleta" aria-label="Boleta de entrega">
-        <header class="ne-boleta-head">
+        <div class="ne-boleta-head">
           <div><strong>ACEROS GRIEGOS</strong><span>Nota de Entrega</span></div>
           <div class="ne-boleta-numero" id="ne-d-numero"></div>
-        </header>
+        </div>
         <div class="ne-boleta-datos">
           <p><strong>Cliente:</strong> <span id="ne-d-cliente"></span></p>
           <p><strong>Identificación:</strong> <span id="ne-d-cedula"></span></p>
@@ -150,6 +150,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=1"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=2"></script>
 </body>
 </html>

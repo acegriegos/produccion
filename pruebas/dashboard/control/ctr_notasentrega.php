@@ -31,8 +31,9 @@ function ne_entero($valor, $nombre, $minimo, $maximo)
     if (is_int($valor)) {
         $entero = $valor;
     } elseif (is_string($valor)
-        && preg_match('/^(0|[1-9][0-9]*)$/D', $valor)
-        && strlen($valor) <= 10) {
+        && preg_match($minimo < 0 ? '/^-?(0|[1-9][0-9]*)$/D'
+            : '/^(0|[1-9][0-9]*)$/D', $valor)
+        && strlen($valor) <= ($minimo < 0 ? 11 : 10)) {
         $entero = (int) $valor;
     } else {
         ne_error('dato_invalido', $nombre . ' debe ser un número entero.', 422);

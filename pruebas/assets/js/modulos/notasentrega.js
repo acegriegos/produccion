@@ -69,6 +69,7 @@
   function conectarBusqueda(input, contenedor, tipo, seleccionar, limpiar) {
     var secuencia = 0;
     var temporizador = null;
+    var solicitud = null;
     input.addEventListener('input', function () {
       limpiar();
       contenedor.replaceChildren();
@@ -76,9 +77,11 @@
       secuencia += 1;
       var actual = secuencia;
       clearTimeout(temporizador);
+      if (solicitud) solicitud.abort();
       if (q.length < 2) return;
       temporizador = setTimeout(function () {
-        api('buscar', {tipo: tipo, q: q}).then(function (datos) {
+        solicitud = window.AbortController ? new AbortController() : null;
+        api('buscar', {tipo: tipo, q: q}, solicitud ? {signal: solicitud.signal} : {}).then(function (datos) {
           if (actual !== secuencia) return;
           contenedor.replaceChildren();
           if (!datos.resultados.length) {
@@ -97,8 +100,10 @@
               seleccionar(elegido);
             }));
           });
-        }).catch(function (error) { aviso(error.message, true); });
-      }, 250);
+        }).catch(function (error) {
+          if (error.name !== 'AbortError' && actual === secuencia) aviso(error.message, true);
+        });
+      }, tipo === 'productos' ? 100 : 0);
     });
   }
   function cambiarTipoCliente() {
@@ -132,7 +137,7 @@
       '<div class="ne-linea-grid">' +
       '<div class="ne-search"><label>Artículo<input class="ne-producto" type="search" placeholder="Código o descripción"></label><div class="ne-resultados ne-productos"></div><p class="ne-stock">Seleccione un artículo</p></div>' +
       '<div class="ne-search"><label>Proveedor<input class="ne-proveedor" type="search" placeholder="Nombre o cédula"></label><div class="ne-resultados ne-proveedores"></div><p class="ne-seleccion ne-proveedor-elegido">Ningún proveedor seleccionado</p></div>' +
-      '<label>Unidad<select class="ne-unidad" required><option value="">Seleccione artículo</option></select></label>' +
+      '<label>Unidad<select class="ne-unidad browser-default" required><option value="">Seleccione artículo</option></select></label>' +
       '<label>Cantidad<input class="ne-cantidad" type="number" min="0.01" step="0.01" required></label>' +
       '<label class="ne-linea-notas">Indicación, medida o corte (opcional)<input class="ne-linea-observaciones" type="text" maxlength="255"></label>' +
       '</div>';
@@ -323,7 +328,7 @@
     return api('ver', {id: id}).then(function (datos) {
       var nota = datos.nota;
       notaVisible = nota;
-      texto('ne-d-numero', 'N.º ' + nota.id);
+      texto('ne-d-numero', 'N.º\u00a0' + nota.id);
       texto('ne-d-cliente', nota.nombre_cliente);
       texto('ne-d-cedula', nota.cliente_cedula);
       texto('ne-d-fecha', nota.fecha_emision);
