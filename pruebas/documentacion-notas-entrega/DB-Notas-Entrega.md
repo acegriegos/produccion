@@ -1,6 +1,6 @@
 # Notas de Entrega — base de datos
 
-> Estado: decisiones funcionales de TI incorporadas y [migración local](SQL-Notas-Entrega-Migracion.sql) validada sin ejecutarla el 2026-10-06. Todavía no se han creado las tablas del módulo ni desarrollado sus procedimientos.
+> Estado al 2026-10-06: [migración local](SQL-Notas-Entrega-Migracion.sql) aplicada en `pruebas` por el usuario y verificada. Las cuatro tablas, sus IDs de catálogo y el tipo de movimiento `10` existen. [El procedimiento de emisión](SQL-Notas-Entrega-Emision.sql) también está instalado y probado localmente; devolución y facturación siguen en diseño.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Backend](Backend-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -121,11 +121,11 @@ El tipo `7` («Devolucion») ya existe; el SQL agrega el tipo `10` («Notas de E
 5. Cada devolución parcial aumenta el inventario únicamente por lo recibido y conserva la nota pendiente mientras exista saldo entregado. Al devolver todas las líneas, la nota pasa a `3` anulada. Después de facturar se usa el proceso fiscal existente.
 6. Una nota en estado `1` no tiene factura ni fecha de anulación; en estado `2` tiene factura y no está anulada; en estado `3` registra su anulación y no se puede facturar. Las transiciones deben mantener estos campos coherentes.
 
-### Propuesta nuestra para los procedimientos y las restricciones
+### Procedimientos y restricciones
 
-Nosotros desarrollaremos los SP del módulo y entregaremos su comportamiento a TI para revisión. No esperamos que TI entregue esos procedimientos. Los nombres siguientes son **propuestos**, todavía no son objetos existentes:
+Nosotros desarrollamos los SP del módulo y entregaremos su comportamiento a TI para revisión. No esperamos que TI entregue esos procedimientos. El primero ya existe en la base local; los otros dos son propuestas futuras:
 
-- `sp_emitir_nota_entrega`: en una transacción valida usuario/sucursal, cliente o nombre libre, proveedor, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida.
+- `sp_emitir_nota_entrega` (**implementado**): en una transacción valida usuario/sucursal, cliente o nombre libre, proveedor, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida. Su instalación está en [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql); se ejecuta después de la migración, que **no se repite** en la base local.
 - `sp_devolver_nota_entrega`: bloquea nota y líneas, exige estado pendiente sin factura, verifica pertenencia, unidad y `0 < cantidad_a_devolver <= cantidad_entregada - suma_devuelta_previa`. Guarda un evento con `clave_operacion` y sus líneas; repone solo el saldo recibido, crea un movimiento tipo `7` por línea y pasa la nota a anulada únicamente si todas sus líneas quedan en cero.
 - `sp_facturar_notas_entrega`: bloquea las notas seleccionadas, valida cliente/sucursal y estado pendiente, resuelve cliente contado `0` y nombre `comodin`, crea factura y líneas por las cantidades netas positivas, guarda `idfactura` e `iddetallefactura` y pasa cada nota a facturada. La operación completa hace `COMMIT` o `ROLLBACK`; no altera `detalleinventarios` ni inserta otro movimiento de salida.
 
@@ -147,4 +147,4 @@ Las claves foráneas y los `CHECK` del borrador son barreras adicionales. Las re
 | Facturación | Nosotros creamos la ruta de líneas netas sin segundo descuento de inventario. | Implementar SP y comparar importes y datos auxiliares con la venta normal. |
 | Integridad | Nosotros definimos SP y reglas; TI revisa. | Probar claves foráneas, `CHECK`, bloqueos, devoluciones repetidas y facturación simultánea. |
 
-La [migración local](SQL-Notas-Entrega-Migracion.sql) incluye las cuatro tablas, sus IDs en `tablas` y el tipo de movimiento `10`; excluye datos de prueba y SP. **Todavía no se ha ejecutado.** El 2026-10-06 se confirmó conexión a `pruebas` en MariaDB 10.3.7, ausencia de las cuatro tablas, IDs `520`–`523` y tipo `10` libres, tablas referenciadas InnoDB y sintaxis de los cuatro `CREATE TABLE` aceptada mediante preparación sin ejecución. El archivo selecciona explícitamente `pruebas` y termina con una consulta que debe devolver `4`, `4` y `1`. Esta verificación no sustituye la prueba de la migración y los procedimientos funcionando juntos.
+La [migración local](SQL-Notas-Entrega-Migracion.sql) instaló las cuatro tablas, sus IDs `520`–`523` en `tablas` y el tipo de movimiento `10` en `pruebas`. El 2026-10-06 se verificó cada registro en MariaDB 10.3.7. Ese archivo excluye datos de prueba y SP. El procedimiento de emisión se instaló después desde su archivo separado y se probó con notas temporales retiradas, restaurando el stock. La devolución y facturación aún no tienen procedimientos implementados.
