@@ -483,8 +483,10 @@ function sse_response(vid,p) {
     switch(parseInt(vid)){
         case 1:
             
-            if (p['succed'] == undefined || p['succed'] == '')
-                location.reload();
+            if (!p || p['succed'] != 1 || !Array.isArray(p[0]) || !Array.isArray(p[0][0])) {
+                console.error('No se pudo cargar el estado inicial del dashboard:', p);
+                return;
+            }
             if (p[0][0][0] != 0) {
                 $(".sse_cnt").parent().removeClass('hide');
                 $(".sse_cnt").html(p[0][0][0]);

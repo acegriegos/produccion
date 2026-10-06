@@ -1,9 +1,12 @@
 <?php 
+	if (session_status() !== PHP_SESSION_ACTIVE) {
+		session_start(['cache_expire' => 0]);
+	}
 	$mod = 'facturacion';
 	
 	switch ($modulo) {
 		case 'login';
-			if (isset($_SESSION['USR'])){
+			if (!isset($_REQUEST['accion']) && isset($_SESSION['USR'])){
 				if ($_SESSION['BUSS'] == 1) {
 					$mod = 'facturacion';
 				}
@@ -21,7 +24,6 @@
 			}
 			break;
 		case 'logout':
-			session_start();
 
 			if (isset($_SESSION['USR'])) {
 			    session_destroy();
@@ -34,7 +36,6 @@
 			$modulo = "login";
 			break;
 		default:
-			session_start(['cache_expire' => 0]); //, 'name' => 
 
 			if (!isset($_SESSION['USR'])) {
 				$modulo = 'login';

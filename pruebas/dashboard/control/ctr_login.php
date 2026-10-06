@@ -24,6 +24,7 @@
             return false;
           }
      
+              session_regenerate_id(true);
               $_SESSION['USR']     = base64_encode($user[0][0]);
               $_SESSION['NUM']     = base64_encode($user[0][1]);
               $_SESSION['NOM']     = $user[0][2];
@@ -69,7 +70,7 @@
                   $mod = 'facturacion';
                   break;
               }
-              $vdir = $_POST['vdir'] == '' || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
+              $vdir = empty($_POST['vdir']) || $_POST['vdir'] == 'logout' ? $mod : $_POST['vdir'];
               
               header("Location: ../dashboard/$vdir");
            }
