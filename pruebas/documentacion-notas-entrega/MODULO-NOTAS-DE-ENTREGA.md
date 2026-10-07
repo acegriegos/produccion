@@ -43,11 +43,11 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 
 ## Estado del proyecto
 
-El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y el tipo de movimiento `10` están verificados en la base local `pruebas`. `sp_emitir_nota_entrega` está instalado; backend e interfaz de emisión, consulta e impresión se integraron en `master` por los PR #1 y #3. Esta rama implementa devoluciones parciales e historial; su SP se entrega en un SQL separado que todavía no se instala en la base local. La facturación posterior sigue pendiente. El proveedor de prueba `id = 500` existe solo en esta base.
+El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y los tipos de movimiento `10` y `7` están verificados en la base local `pruebas`. Los SP de emisión, devolución y facturación están instalados; emisión, consulta e impresión se integraron por los PR #1 y #3, y el PR #4 integró devoluciones parciales e historial. Esta rama incluye el backend y la pantalla para preparar la facturación. Aún falta probar el guardado de una factura y revisar el cambio antes del PR. El proveedor de prueba `id = 500` existe solo en esta base.
 
 ## Próximas etapas
 
-No queda una decisión funcional indispensable pendiente de TI. Emisión e interfaz ya fueron revisadas e integradas. Se implementan ahora las devoluciones; luego sigue la facturación posterior. TI puede solicitar un permiso propio del módulo y los usuarios operativos deben confirmar el formato físico final de la boleta.
+No queda una decisión funcional indispensable pendiente de TI. Emisión, devoluciones e interfaces ya fueron revisadas e integradas. La etapa actual prepara selección de notas, precios, descuentos e impuestos; sigue revisar la pantalla y probar el guardado de la factura con una nota elegida por el usuario. TI puede solicitar un permiso propio del módulo y los usuarios operativos deben confirmar el formato físico final de la boleta.
 
 ## Secuencia de ramas y revisiones
 
@@ -55,9 +55,8 @@ Cada rama parte de `master` actualizado y termina en un PR hacia `master`, que e
 
 1. `feat/notas-entrega-emision-backend`: SP transaccional para emitir y descontar stock; modelo y controlador PHP para crear, listar y consultar notas. Revisaremos primero el contrato de datos, después el movimiento de inventario y al final la conexión PHP.
 2. `feat/notas-entrega-emision-frontend`: formulario, listado y boleta de media hoja que usan el backend ya revisado.
-3. `feat/notas-entrega-devoluciones`: devoluciones parciales, reposición de stock, historial y anulación por devolución total. Se dividirá backend e interfaz en dos PR si el cambio resulta demasiado grande para una revisión clara.
-4. `feat/notas-entrega-facturacion-backend`: agrupación, cálculo de cantidad neta y líneas de factura sin otro descuento de inventario.
-5. `feat/notas-entrega-facturacion-frontend`: selección de notas pendientes y preparación de precios, impuestos y descuentos.
+3. `feat/notas-entrega-devoluciones`: devoluciones parciales, reposición de stock, historial y anulación por devolución total. Integrada en `master` por el PR #4.
+4. `feat/notas-entrega-facturacion-backend`: agrupación, cálculo de cantidad neta y líneas de factura sin otro descuento de inventario. El endpoint, el SQL y la pantalla están juntos en la rama de trabajo; el procedimiento está instalado localmente. Falta probar el guardado y dejar tiempo para la revisión del usuario antes del PR.
 
 Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de la regla que se introduce. Los comentarios en PHP y SQL explicarán transacciones, conversión de unidades, permisos y decisiones que evitan duplicados; las operaciones evidentes se dejarán legibles mediante nombres claros.
 
@@ -66,7 +65,8 @@ Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de 
 - [Base de datos](DB-Notas-Entrega.md): estructuras existentes, tablas propuestas, relaciones y reglas de consistencia.
 - [Migración local aplicada](SQL-Notas-Entrega-Migracion.sql): cuatro tablas, registros en `tablas` y tipo de movimiento `10`, verificados en `pruebas`.
 - [Procedimiento de emisión](SQL-Notas-Entrega-Emision.sql): emisión atómica, inventario `6`, movimientos tipo `10` y reintentos idempotentes; instalado por separado después de la migración.
-- [Procedimiento de devolución](SQL-Notas-Entrega-Devoluciones.sql): devoluciones parciales idempotentes, reposición exacta de existencias y anulación al devolver todo; se instala por separado después de revisar esta etapa.
+- [Procedimiento de devolución](SQL-Notas-Entrega-Devoluciones.sql): devoluciones parciales idempotentes, reposición exacta de existencias y anulación al devolver todo; integrado por el PR #4 e instalado en `pruebas`.
+- [Procedimiento de facturación](SQL-Notas-Entrega-Facturacion.sql): crea encabezado, líneas y vínculos en una transacción, sin volver a descontar inventario; requiere la migración y los procedimientos de emisión y devolución ya instalados.
 - [Backend](Backend-Notas-Entrega.md): integración PHP/MariaDB, emisión, inventario, anulaciones y facturación sin doble descuento.
 - [Frontend](Frontend-Notas-Entrega.md): pantallas, referencia visual y boleta imprimible.
 - [README](../README.md): cómo arrancar y consultar el sistema local.

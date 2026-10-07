@@ -18,6 +18,10 @@
   var avisos = {emitir: null, listado: null, detalle: null};
   var claveDevolucionPendiente = null;
   var huellaDevolucionPendiente = null;
+  var notasSeleccionadas = {};
+  var opcionesFactura = null;
+  var notasEnFactura = [];
+  var lineasEnFactura = [];
 
   function el(id) { return document.getElementById(id); }
   function valor(id) { return el(id).value.trim(); }
@@ -56,13 +60,15 @@
   }
   function cambiarTab(nombre) {
     tabActual = nombre;
-    ['emitir', 'listado', 'detalle'].forEach(function (tab) {
+    ['emitir', 'listado', 'facturar', 'detalle'].forEach(function (tab) {
       el('ne-' + tab).hidden = tab !== nombre;
       var boton = document.querySelector('[data-ne-tab="' + tab + '"]');
       boton.classList.toggle('active', tab === nombre);
     });
     pintarAviso();
     if (nombre === 'listado') cargarLista();
+    if (nombre === 'facturar') el('ne-tab-facturar').hidden = false;
+    else if (!notasEnFactura.length) el('ne-tab-facturar').hidden = true;
     if (nombre === 'detalle') el('ne-tab-detalle').hidden = false;
   }
   function agregarCelda(fila, value) {
@@ -70,6 +76,45 @@
     celda.textContent = value == null || value === '' ? '—' : String(value);
     fila.appendChild(celda);
     return celda;
+  }
+  function renderizarEnlaceFactura(contenedor, idFactura) {
+    contenedor.replaceChildren();
+    if (idFactura == null || !Number.isInteger(Number(idFactura)) || Number(idFactura) < 1) {
+      contenedor.textContent = '—';
+      return;
+    }
+    var id = Number(idFactura);
+    var acciones = document.createElement('div');
+    acciones.className = 'ne-acciones-factura';
+    [false, true].forEach(function (imprimir) {
+      var url = 'facturacion?accion=6&id=' + encodeURIComponent(id) + '&tp=false'
+        + (imprimir ? '&fp=1' : '');
+      if (imprimir) {
+        var botonImprimir = document.createElement('button');
+        botonImprimir.type = 'button';
+        botonImprimir.className = 'ne-link-factura ne-link-imprimir';
+        botonImprimir.textContent = 'Imprimir';
+        botonImprimir.setAttribute('aria-label', 'Imprimir factura interna ' + id);
+        botonImprimir.addEventListener('click', function (evento) {
+          evento.preventDefault();
+          evento.stopPropagation();
+          var ventana = window.open(url, '_blank');
+          if (ventana) ventana.opener = null;
+          else aviso('Permite las ventanas emergentes para imprimir la factura.', true);
+        });
+        acciones.appendChild(botonImprimir);
+        return;
+      }
+      var enlace = document.createElement('a');
+      enlace.className = 'ne-link-factura';
+      enlace.href = url;
+      enlace.target = '_blank';
+      enlace.rel = 'noopener';
+      enlace.title = 'Ver factura interna #' + id;
+      enlace.textContent = 'Ver';
+      acciones.appendChild(enlace);
+    });
+    contenedor.appendChild(acciones);
   }
   function botonResultado(etiqueta, objeto, seleccionar) {
     var boton = document.createElement('button');
@@ -307,6 +352,12 @@
       offset: offset
     };
   }
+  function actualizarBotonPrepararFactura() {
+    var ids = Object.keys(notasSeleccionadas);
+    var boton = el('ne-preparar-factura');
+    boton.textContent = 'Preparar factura (' + ids.length + ')';
+    boton.disabled = ids.length < 1 || ids.length > 100 || !opcionesFactura;
+  }
   function cargarLista() {
     var params;
     aviso('', false, 'listado');
@@ -316,12 +367,32 @@
       tbody.replaceChildren();
       datos.notas.forEach(function (nota) {
         var fila = document.createElement('tr');
+        var celdaSeleccion = document.createElement('td');
+        var puedeFacturar = Number(nota.idestado) === 1 && nota.idfactura == null;
+        if (puedeFacturar) {
+          var check = document.createElement('input');
+          check.type = 'checkbox';
+          check.className = 'ne-checkbox-nota';
+          check.checked = !!notasSeleccionadas[String(nota.id)];
+          check.setAttribute('aria-label', 'Seleccionar nota ' + nota.id + ' para facturar');
+          check.addEventListener('change', function () {
+            if (check.checked) notasSeleccionadas[String(nota.id)] = true;
+            else delete notasSeleccionadas[String(nota.id)];
+            actualizarBotonPrepararFactura();
+          });
+          celdaSeleccion.appendChild(check);
+        } else {
+          celdaSeleccion.textContent = '—';
+        }
+        fila.appendChild(celdaSeleccion);
         agregarCelda(fila, nota.id);
         agregarCelda(fila, nota.fecha_emision);
         agregarCelda(fila, nota.nombre_cliente);
         agregarCelda(fila, nota.usuario_nombre || nota.idusuario);
         agregarCelda(fila, estadoNombre(nota.idestado));
-        agregarCelda(fila, nota.idfactura);
+        var celdaFactura = document.createElement('td');
+        renderizarEnlaceFactura(celdaFactura, nota.idfactura);
+        fila.appendChild(celdaFactura);
         var celda = document.createElement('td');
         var boton = document.createElement('button');
         boton.type = 'button';
@@ -337,13 +408,332 @@
       if (!datos.notas.length) {
         var vacio = document.createElement('tr');
         var celda = agregarCelda(vacio, 'No se encontraron notas.');
-        celda.colSpan = 7;
+        celda.colSpan = 8;
         tbody.appendChild(vacio);
       }
+      actualizarBotonPrepararFactura();
       el('ne-anterior').disabled = offset === 0;
       el('ne-siguiente').disabled = datos.notas.length < limite;
       texto('ne-pagina', 'Mostrando ' + (offset + 1) + '–' + (offset + datos.notas.length));
     }).catch(function (error) { aviso(error.message, true, 'listado'); });
+  }
+  function simboloMoneda() {
+    var select = el('ne-fa-moneda');
+    var opcion = select.options[select.selectedIndex];
+    return opcion && opcion.getAttribute('data-simbolo') || '₡';
+  }
+  function formatoMonto(monto) {
+    var valorMonto = Number(monto);
+    return simboloMoneda() + (Number.isFinite(valorMonto) ? valorMonto : 0)
+      .toLocaleString('es-CR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+  function simboloConfigurado(item) {
+    var simbolo = String(item.simbolo || '').trim();
+    if (/^\?+$/.test(simbolo) && Number(item.id) === 1) return '₡';
+    return simbolo;
+  }
+  function cargarOpcionesFactura(datos) {
+    opcionesFactura = datos;
+    var tipo = el('ne-fa-tipo');
+    var pago = el('ne-fa-pago');
+    var moneda = el('ne-fa-moneda');
+    tipo.replaceChildren();
+    pago.replaceChildren();
+    moneda.replaceChildren();
+    (datos.tipos_factura || []).forEach(function (item) {
+      var opcion = document.createElement('option');
+      opcion.value = item.id;
+      opcion.textContent = item.nombre;
+      tipo.appendChild(opcion);
+    });
+    (datos.formas_pago || []).forEach(function (item) {
+      var opcion = document.createElement('option');
+      opcion.value = item.id;
+      opcion.textContent = item.nombre;
+      pago.appendChild(opcion);
+    });
+    (datos.monedas || []).forEach(function (item) {
+      var opcion = document.createElement('option');
+      opcion.value = item.id;
+      var simbolo = simboloConfigurado(item);
+      opcion.textContent = item.nombre + (simbolo ? ' (' + simbolo + ')' : '');
+      opcion.setAttribute('data-divisa', item.divisa);
+      opcion.setAttribute('data-simbolo', simbolo);
+      moneda.appendChild(opcion);
+    });
+    if (!tipo.options.length || !pago.options.length || !moneda.options.length) {
+      opcionesFactura = null;
+      throw new Error('Faltan tipos de factura, formas de pago o monedas configuradas.');
+    }
+    tipo.value = Array.prototype.some.call(tipo.options, function (item) { return item.value === '1'; })
+      ? '1' : tipo.options[0].value;
+    pago.value = Array.prototype.some.call(pago.options, function (item) { return item.value === '1'; })
+      ? '1' : pago.options[0].value;
+    moneda.value = Array.prototype.some.call(moneda.options, function (item) { return item.value === '1'; })
+      ? '1' : moneda.options[0].value;
+    moneda.addEventListener('change', function () {
+      var opcion = moneda.options[moneda.selectedIndex];
+      el('ne-fa-divisa').value = Number(opcion.getAttribute('data-divisa') || 1).toFixed(2);
+      recalcularFactura();
+    });
+    el('ne-fa-divisa').value = Number(moneda.options[moneda.selectedIndex].getAttribute('data-divisa') || 1).toFixed(2);
+    el('ne-facturar-boton').disabled = false;
+    actualizarBotonPrepararFactura();
+  }
+  function cargarTasa(impuesto) {
+    return ({
+      1: {porcentaje: 0, etiqueta: 'Exento 0%'},
+      2: {porcentaje: 1, etiqueta: 'Reducido 1%'},
+      3: {porcentaje: 2, etiqueta: 'Reducido 2%'},
+      4: {porcentaje: 4, etiqueta: 'Reducido 4%'},
+      5: {porcentaje: 0, etiqueta: 'Transitorio 0%'},
+      6: {porcentaje: 4, etiqueta: 'Transitorio 4%'},
+      7: {porcentaje: 8, etiqueta: 'Transitorio 8%'},
+      8: {porcentaje: 13, etiqueta: 'General 13%'}
+    })[Number(impuesto)];
+  }
+  function actualizarLineaFactura(fila) {
+    var cantidad = Number(fila.dataset.cantidad || 0);
+    var precio = Number(fila.querySelector('.ne-fa-precio').value);
+    var descuento = Number(fila.querySelector('.ne-fa-descuento').value || 0);
+    var tasa = cargarTasa(fila.querySelector('.ne-fa-iva').value);
+    var valido = !!tasa && Number.isFinite(precio) && precio > 0 && Number.isFinite(descuento)
+      && descuento >= 0 && descuento <= precio * cantidad;
+    var baseBruta = valido ? precio * cantidad : 0;
+    var base = valido ? precio * cantidad - descuento : 0;
+    var impuesto = valido ? Math.round((base * tasa.porcentaje / 100 + Number.EPSILON) * 100000) / 100000 : 0;
+    var total = base + impuesto;
+    fila.facturaLinea = {
+      iddetallenota: Number(fila.dataset.idDetalle),
+      precio: precio,
+      descuento: descuento,
+      costo: 0,
+      imv: impuesto.toFixed(5),
+      exento: Number(fila.querySelector('.ne-fa-iva').value) === 1 ? baseBruta.toFixed(5) : '0',
+      exonerado: '0',
+      comision: '0',
+      idexoneracion: null,
+      comodin: null,
+      idimpuestos: !tasa || Number(fila.querySelector('.ne-fa-iva').value) === 1
+        ? null
+        : '1,' + tasa.porcentaje + ',' + impuesto.toFixed(5) + ',' + fila.querySelector('.ne-fa-iva').value,
+      iddescuentos: null
+    };
+    fila.querySelector('.ne-linea-total').textContent = valido ? formatoMonto(total) : 'Revise precio y descuento';
+    fila.classList.toggle('ne-error-linea', !valido);
+    return valido ? {
+      baseGravada: Number(fila.querySelector('.ne-fa-iva').value) === 1 ? 0 : baseBruta,
+      exento: Number(fila.querySelector('.ne-fa-iva').value) === 1 ? baseBruta : 0,
+      descuento: descuento,
+      impuesto: impuesto,
+      total: total
+    } : null;
+  }
+  function recalcularFactura() {
+    var subtotalGravado = 0;
+    var subtotalExento = 0;
+    var descuentoTotal = 0;
+    var impuestoTotal = 0;
+    Array.prototype.forEach.call(el('ne-facturar-lineas').querySelectorAll('.ne-fa-linea'), function (fila) {
+      var montos = actualizarLineaFactura(fila);
+      if (!montos) return;
+      subtotalGravado += montos.baseGravada;
+      subtotalExento += montos.exento;
+      descuentoTotal += montos.descuento;
+      impuestoTotal += montos.impuesto;
+    });
+    texto('ne-fa-subtotal', formatoMonto(subtotalGravado));
+    texto('ne-fa-exento', formatoMonto(subtotalExento));
+    texto('ne-fa-descuento', formatoMonto(descuentoTotal));
+    texto('ne-fa-impuesto', formatoMonto(impuestoTotal));
+    texto('ne-fa-total', formatoMonto(subtotalGravado - descuentoTotal + impuestoTotal + subtotalExento));
+  }
+  function renderizarLineasFactura() {
+    var cuerpo = el('ne-facturar-lineas');
+    cuerpo.replaceChildren();
+    lineasEnFactura = [];
+    notasEnFactura.forEach(function (nota) {
+      var grupo = document.createElement('tr');
+      grupo.className = 'ne-factura-fila-nota';
+      var titulo = agregarCelda(grupo, 'Nota #' + nota.id + ' · ' + nota.nombre_cliente);
+      titulo.colSpan = 7;
+      cuerpo.appendChild(grupo);
+      nota.lineas.forEach(function (linea) {
+        var cantidad = Math.max(0, Number(linea.cantidad_pendiente || 0));
+        if (cantidad <= 0) return;
+        var fila = document.createElement('tr');
+        fila.className = 'ne-fa-linea';
+        fila.dataset.idDetalle = linea.id;
+        fila.dataset.cantidad = String(cantidad);
+        agregarCelda(fila, '#' + nota.id);
+        agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+        agregarCelda(fila, cantidad.toFixed(2) + ' ' + (linea.unidad_nombre || ''));
+        var celdaPrecio = document.createElement('td');
+        var precio = document.createElement('input');
+        precio.type = 'number';
+        precio.className = 'ne-fa-precio';
+        precio.min = '0.00001';
+        precio.step = '0.00001';
+        precio.placeholder = 'Precio por unidad';
+        precio.setAttribute('aria-label', 'Precio unitario de ' + linea.producto_descripcion);
+        celdaPrecio.appendChild(precio);
+        fila.appendChild(celdaPrecio);
+        var celdaDescuento = document.createElement('td');
+        var descuento = document.createElement('input');
+        descuento.type = 'number';
+        descuento.className = 'ne-fa-descuento';
+        descuento.min = '0';
+        descuento.step = '0.00001';
+        descuento.value = '0';
+        descuento.setAttribute('aria-label', 'Descuento total de ' + linea.producto_descripcion);
+        celdaDescuento.appendChild(descuento);
+        fila.appendChild(celdaDescuento);
+        var celdaIva = document.createElement('td');
+        var iva = document.createElement('select');
+        iva.className = 'ne-fa-iva browser-default';
+        var opcionImpuesto = document.createElement('option');
+        opcionImpuesto.value = '';
+        opcionImpuesto.textContent = 'Seleccione IVA';
+        iva.appendChild(opcionImpuesto);
+        [1, 2, 3, 4, 5, 6, 7, 8].forEach(function (id) {
+          var opcion = document.createElement('option');
+          opcion.value = id;
+          opcion.textContent = cargarTasa(id).etiqueta;
+          iva.appendChild(opcion);
+        });
+        iva.value = '';
+        celdaIva.appendChild(iva);
+        fila.appendChild(celdaIva);
+        var celdaTotal = document.createElement('td');
+        celdaTotal.className = 'ne-linea-total';
+        celdaTotal.textContent = '—';
+        fila.appendChild(celdaTotal);
+        [precio, descuento, iva].forEach(function (entrada) {
+          entrada.addEventListener('input', recalcularFactura);
+          entrada.addEventListener('change', recalcularFactura);
+        });
+        cuerpo.appendChild(fila);
+        lineasEnFactura.push(fila);
+      });
+    });
+    recalcularFactura();
+  }
+  function prepararFacturacion() {
+    var ids = Object.keys(notasSeleccionadas).map(Number);
+    if (!ids.length) return aviso('Selecciona al menos una nota pendiente.', true, 'listado');
+    if (ids.length > 100) return aviso('Puedes preparar hasta 100 notas en una factura.', true, 'listado');
+    var boton = el('ne-preparar-factura');
+    boton.disabled = true;
+    aviso('Cargando notas seleccionadas…', false, 'listado');
+    Promise.all(ids.map(function (id) { return api('ver', {id: id}); }))
+      .then(function (respuestas) {
+        var clienteBase = null;
+        notasEnFactura = respuestas.map(function (respuesta) { return respuesta.nota; });
+        notasEnFactura.forEach(function (nota) {
+          if (Number(nota.idestado) !== 1 || nota.idfactura != null) {
+            throw new Error('La nota #' + nota.id + ' dejó de estar pendiente. Actualiza el listado.');
+          }
+          var clienteNota = nota.idcliente == null
+            ? 'contado:' + String(nota.nombre_cliente || '').trim()
+            : 'cliente:' + String(nota.idcliente);
+          if (clienteBase !== null && clienteBase !== clienteNota) {
+            throw new Error('Las notas seleccionadas deben pertenecer al mismo cliente.');
+          }
+          clienteBase = clienteNota;
+        });
+        lineasEnFactura = [];
+        el('ne-facturar-resumen').textContent = notasEnFactura.length + ' nota(s) · '
+          + notasEnFactura[0].nombre_cliente + ' · Sucursal ' + notasEnFactura[0].idsucursal;
+        renderizarLineasFactura();
+        aviso('', false, 'listado');
+        cambiarTab('facturar');
+      })
+      .catch(function (error) { aviso(error.message, true, 'listado'); })
+      .finally(actualizarBotonPrepararFactura);
+  }
+  function prepararDatosFactura() {
+    if (!notasEnFactura.length) throw new Error('Selecciona nuevamente las notas que vas a facturar.');
+    var lineas = [];
+    lineasEnFactura.forEach(function (fila, indice) {
+      if (!actualizarLineaFactura(fila)) {
+        throw new Error('Completa el precio, el descuento válido y el IVA de la línea ' + (indice + 1) + '.');
+      }
+      var precioTexto = fila.querySelector('.ne-fa-precio').value.trim();
+      var descuentoTexto = fila.querySelector('.ne-fa-descuento').value.trim() || '0';
+      if (!/^(0|[1-9][0-9]{0,17})(\.[0-9]{1,5})?$/.test(precioTexto)
+          || !/^(0|[1-9][0-9]{0,17})(\.[0-9]{1,5})?$/.test(descuentoTexto)) {
+        throw new Error('El precio y el descuento deben tener hasta cinco decimales.');
+      }
+      fila.facturaLinea.precio = precioTexto;
+      fila.facturaLinea.descuento = descuentoTexto;
+      lineas.push(fila.facturaLinea);
+    });
+    if (!lineas.length) throw new Error('Las notas seleccionadas no tienen cantidades pendientes.');
+    var tipoVenta = Number(el('ne-fa-documento').value);
+    var tipoFactura = Number(el('ne-fa-tipo').value);
+    var tipoPago = Number(el('ne-fa-pago').value);
+    var moneda = Number(el('ne-fa-moneda').value);
+    var cambio = el('ne-fa-divisa').value.trim();
+    var plazo = el('ne-fa-plazo').value.trim() || '0';
+    if ([1, 7, 8, 10].indexOf(tipoVenta) < 0) throw new Error('Selecciona un comprobante disponible.');
+    if (!tipoFactura || !tipoPago || !moneda) throw new Error('Completa los datos de la factura.');
+    if (!/^(0|[1-9][0-9]{0,7})(\.[0-9]{1,2})?$/.test(cambio) || Number(cambio) <= 0) {
+      throw new Error('El tipo de cambio debe ser mayor que cero y tener hasta dos decimales.');
+    }
+    if (!/^(0|[1-9][0-9]{0,3})$/.test(plazo)) throw new Error('El plazo debe ser un número entero.');
+    return {
+      idnotas: notasEnFactura.map(function (nota) { return Number(nota.id); }),
+      factura: {
+        idtipoventa: tipoVenta,
+        idtipo: tipoFactura,
+        idtipopago: tipoPago,
+        plazo: Number(plazo),
+        idmoneda: moneda,
+        divisa: cambio,
+        oc: el('ne-fa-oc').value.trim() || null,
+        comentario: el('ne-fa-comentario').value.trim() || null,
+        referencia: el('ne-fa-referencia').value.trim() || null,
+        extra: null,
+        terminal: 1,
+        actividadreceptor: null
+      },
+      lineas: lineas
+    };
+  }
+  function facturarNotas(evento) {
+    evento.preventDefault();
+    var datos;
+    try { datos = prepararDatosFactura(); } catch (error) { aviso(error.message, true, 'facturar'); return; }
+    var boton = el('ne-facturar-boton');
+    boton.disabled = true;
+    aviso('Creando la factura…', false, 'facturar');
+    api('facturar', null, {
+      method: 'POST',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
+      body: JSON.stringify(datos)
+    }).then(function (respuesta) {
+      var mensaje = 'Factura ' + respuesta.consecutivo + ' creada para '
+        + respuesta.notas_facturadas + ' nota(s).';
+      if (respuesta.repetida) mensaje = 'Se recuperó la factura ' + respuesta.consecutivo + ' tras el reintento.';
+      notasSeleccionadas = {};
+      notasEnFactura = [];
+      lineasEnFactura = [];
+      el('ne-facturar-form').reset();
+      var monedaSeleccionada = el('ne-fa-moneda').options[el('ne-fa-moneda').selectedIndex];
+      el('ne-fa-divisa').value = Number(monedaSeleccionada.getAttribute('data-divisa') || 1).toFixed(2);
+      cambiarTab('listado');
+      aviso(mensaje, false, 'listado');
+    }).catch(function (error) {
+      var mensaje = error.message;
+      if (error.name === 'TypeError') mensaje += ' Si el envío se interrumpió, vuelva a intentar sin cambiar los datos.';
+      aviso(mensaje, true, 'facturar');
+    }).finally(function () { boton.disabled = false; actualizarBotonPrepararFactura(); });
+  }
+  function cancelarPreparacionFactura() {
+    notasEnFactura = [];
+    lineasEnFactura = [];
+    avisos.facturar = null;
+    cambiarTab('listado');
   }
   function cargarDetalle(id) {
     aviso('', false, 'detalle');
@@ -358,7 +748,7 @@
       texto('ne-d-sucursal', nota.idsucursal);
       texto('ne-d-estado', estadoNombre(nota.idestado));
       texto('ne-d-referencia', nota.referencia);
-      texto('ne-d-factura', nota.idfactura);
+      renderizarEnlaceFactura(el('ne-d-factura'), nota.idfactura);
       texto('ne-d-observaciones', nota.observaciones);
       var tbody = el('ne-d-lineas');
       tbody.replaceChildren();
@@ -514,6 +904,9 @@
       texto('ne-f-cliente-elegido', 'Ningún cliente seleccionado');
     });
     el('ne-agregar-linea').addEventListener('click', nuevaLinea);
+    el('ne-preparar-factura').addEventListener('click', prepararFacturacion);
+    el('ne-facturar-form').addEventListener('submit', facturarNotas);
+    el('ne-cancelar-factura').addEventListener('click', cancelarPreparacionFactura);
     el('ne-form').addEventListener('submit', emitir);
     el('ne-devolucion-form').addEventListener('submit', registrarDevolucion);
     el('ne-filtros').addEventListener('submit', function (evento) {
@@ -543,8 +936,15 @@
       texto('ne-contexto', 'Sucursal ' + respuestas[0].idsucursal + ' · Usuario ' + respuestas[0].idusuario);
       nuevaLinea();
       el('ne-emitir-boton').disabled = false;
+      api('opciones-factura').then(cargarOpcionesFactura).catch(function (error) {
+        opcionesFactura = null;
+        actualizarBotonPrepararFactura();
+        aviso('No se pudo cargar la configuración de facturación: ' + error.message, true, 'listado');
+      });
     }).catch(function (error) { aviso(error.message, true); });
   }
   el('ne-emitir-boton').disabled = true;
+  el('ne-preparar-factura').disabled = true;
+  el('ne-facturar-boton').disabled = true;
   iniciar();
 }());

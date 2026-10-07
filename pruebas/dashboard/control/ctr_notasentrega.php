@@ -145,6 +145,21 @@ function ne_cantidad($valor)
     return $cantidad;
 }
 
+function ne_decimal_factura($valor, $nombre, $maximoDecimales, $permitirNegativo, $maximoEnteros)
+{
+    if (!is_string($valor) && !is_int($valor) && !is_float($valor)) {
+        ne_error('dato_invalido', $nombre . ' debe ser numérico.', 422);
+    }
+    $texto = trim((string) $valor);
+    $signo = $permitirNegativo ? '-?' : '';
+    $patron = '/^' . $signo . '(0|[1-9][0-9]{0,' . ($maximoEnteros - 1) . '})'
+        . '(\.[0-9]{1,' . $maximoDecimales . '})?$/D';
+    if (!preg_match($patron, $texto)) {
+        ne_error('dato_invalido', $nombre . ' tiene un formato o precisión inválidos.', 422);
+    }
+    return $texto;
+}
+
 function ne_fecha_filtro($valor, $nombre)
 {
     if ($valor === null || $valor === '') {
@@ -288,6 +303,118 @@ function ne_normalizar_devolucion(array $datos)
     );
 }
 
+function ne_normalizar_facturacion(array $datos)
+{
+    $idsNotas = isset($datos['idnotas']) ? $datos['idnotas'] : null;
+    if (!is_array($idsNotas) || count($idsNotas) < 1 || count($idsNotas) > 100
+        || array_keys($idsNotas) !== range(0, count($idsNotas) - 1)) {
+        ne_error('notas_invalidas', 'Selecciona entre 1 y 100 notas.', 422);
+    }
+    $notasNormalizadas = array();
+    foreach ($idsNotas as $indice => $idNota) {
+        $id = ne_entero($idNota, 'Nota ' . ($indice + 1), 1, 2147483647);
+        if (isset($notasNormalizadas[$id])) {
+            ne_error('notas_invalidas', 'No repitas una nota en la factura.', 422);
+        }
+        $notasNormalizadas[$id] = $id;
+    }
+    $notasNormalizadas = array_values($notasNormalizadas);
+
+    $cabecera = isset($datos['factura']) ? $datos['factura'] : null;
+    if (!is_array($cabecera)) {
+        ne_error('factura_invalida', 'Faltan los datos de facturación.', 422);
+    }
+    $tipoVenta = ne_entero(isset($cabecera['idtipoventa']) ? $cabecera['idtipoventa'] : null,
+        'Tipo de comprobante', 1, 10);
+    if (!in_array($tipoVenta, array(1, 7, 8, 10), true)) {
+        ne_error('factura_invalida', 'El tipo de comprobante no está disponible para notas.', 422);
+    }
+    $facturaNormalizada = array(
+        'idtipoventa' => $tipoVenta,
+        'idtipo' => ne_entero(isset($cabecera['idtipo']) ? $cabecera['idtipo'] : null,
+            'Tipo de factura', 1, 127),
+        'idtipopago' => ne_entero(isset($cabecera['idtipopago']) ? $cabecera['idtipopago'] : null,
+            'Forma de pago', 1, 127),
+        'plazo' => ne_entero(isset($cabecera['plazo']) ? $cabecera['plazo'] : 0,
+            'Plazo', 0, 9999),
+        'idmoneda' => ne_entero(isset($cabecera['idmoneda']) ? $cabecera['idmoneda'] : null,
+            'Moneda', 1, 127),
+        'divisa' => ne_decimal_factura(isset($cabecera['divisa']) ? $cabecera['divisa'] : null,
+            'Tipo de cambio', 2, false, 8),
+        'oc' => ne_texto(isset($cabecera['oc']) ? $cabecera['oc'] : null, 'Orden de compra', 45, false),
+        'comentario' => ne_texto(isset($cabecera['comentario']) ? $cabecera['comentario'] : null,
+            'Comentario', 512, false),
+        'referencia' => ne_texto(isset($cabecera['referencia']) ? $cabecera['referencia'] : null,
+            'Referencia', 55, false),
+        'extra' => ne_texto(isset($cabecera['extra']) ? $cabecera['extra'] : null, 'Datos de pago', 200, false),
+        'terminal' => ne_entero(isset($cabecera['terminal']) ? $cabecera['terminal'] : 1,
+            'Terminal', 1, 99999),
+        'actividadreceptor' => ne_texto(
+            isset($cabecera['actividadreceptor']) ? $cabecera['actividadreceptor'] : null,
+            'Actividad económica del cliente', 10, false
+        )
+    );
+    if ((float) $facturaNormalizada['divisa'] <= 0) {
+        ne_error('factura_invalida', 'El tipo de cambio debe ser mayor que cero.', 422);
+    }
+
+    $lineas = isset($datos['lineas']) ? $datos['lineas'] : null;
+    if (!is_array($lineas) || count($lineas) < 1 || count($lineas) > 1000
+        || array_keys($lineas) !== range(0, count($lineas) - 1)) {
+        ne_error('detalle_invalido', 'La factura requiere entre 1 y 1000 líneas.', 422);
+    }
+    $lineasNormalizadas = array();
+    $idsDetalle = array();
+    foreach ($lineas as $indice => $linea) {
+        if (!is_array($linea)) {
+            ne_error('detalle_invalido', 'La línea ' . ($indice + 1) . ' es inválida.', 422);
+        }
+        $idDetalle = ne_entero(
+            isset($linea['iddetallenota']) ? $linea['iddetallenota'] : null,
+            'Línea de nota ' . ($indice + 1), 1, 2147483647
+        );
+        if (isset($idsDetalle[$idDetalle])) {
+            ne_error('detalle_invalido', 'No repitas una línea en la factura.', 422);
+        }
+        $idsDetalle[$idDetalle] = true;
+        $precio = ne_decimal_factura(isset($linea['precio']) ? $linea['precio'] : null,
+            'Precio de línea ' . ($indice + 1), 5, false, 18);
+        if ((float) $precio <= 0) {
+            ne_error('detalle_invalido', 'El precio de cada línea debe ser mayor que cero.', 422);
+        }
+        $lineasNormalizadas[] = array(
+            'iddetallenota' => $idDetalle,
+            'precio' => $precio,
+            'descuento' => ne_decimal_factura(isset($linea['descuento']) ? $linea['descuento'] : '0',
+                'Descuento de línea ' . ($indice + 1), 5, false, 18),
+            'costo' => ne_decimal_factura(isset($linea['costo']) ? $linea['costo'] : '0',
+                'Costo de línea ' . ($indice + 1), 5, true, 18),
+            'imv' => ne_decimal_factura(isset($linea['imv']) ? $linea['imv'] : '0',
+                'Impuesto de línea ' . ($indice + 1), 5, false, 8),
+            'exento' => ne_decimal_factura(isset($linea['exento']) ? $linea['exento'] : '0',
+                'Monto exento de línea ' . ($indice + 1), 5, false, 18),
+            'exonerado' => ne_decimal_factura(isset($linea['exonerado']) ? $linea['exonerado'] : '0',
+                'Monto exonerado de línea ' . ($indice + 1), 5, false, 18),
+            'comision' => ne_decimal_factura(isset($linea['comision']) ? $linea['comision'] : '0',
+                'Comisión de línea ' . ($indice + 1), 2, false, 3),
+            'idexoneracion' => ne_texto(isset($linea['idexoneracion']) ? $linea['idexoneracion'] : null,
+                'Exoneración de línea ' . ($indice + 1), 512, false),
+            'comodin' => ne_texto(isset($linea['comodin']) ? $linea['comodin'] : null,
+                'Detalle adicional de línea ' . ($indice + 1), 512, false),
+            'idimpuestos' => ne_texto(isset($linea['idimpuestos']) ? $linea['idimpuestos'] : null,
+                'Impuestos de línea ' . ($indice + 1), 255, false),
+            'iddescuentos' => ne_texto(isset($linea['iddescuentos']) ? $linea['iddescuentos'] : null,
+                'Descuentos de línea ' . ($indice + 1), 255, false)
+        );
+    }
+
+    return array(
+        'idnotas' => $notasNormalizadas,
+        'factura' => $facturaNormalizada,
+        'lineas' => $lineasNormalizadas
+    );
+}
+
 try {
     list($idUsuario, $idSucursal) = ne_sesion();
     $modelo = new _notasentrega();
@@ -335,6 +462,10 @@ try {
         if ($accion === 'unidades') {
             ne_responder(200, array('succed' => true,
                 'data' => array('unidades' => $modelo->listarUnidades())));
+        }
+        if ($accion === 'opciones-factura') {
+            ne_responder(200, array('succed' => true,
+                'data' => $modelo->opcionesFacturacion()));
         }
         if ($accion === 'listar') {
             $limite = ne_entero(isset($_GET['limite']) ? $_GET['limite'] : 50, 'Límite', 1, 100);
@@ -391,7 +522,7 @@ try {
             'error' => array('codigo' => 'metodo_no_permitido', 'mensaje' => 'Usa GET o POST.')
         ));
     }
-    if (!in_array($accion, array('', 'emitir', 'devolver'), true)) {
+    if (!in_array($accion, array('', 'emitir', 'devolver', 'facturar'), true)) {
         ne_responder(404, array(
             'succed' => false,
             'error' => array('codigo' => 'accion_desconocida', 'mensaje' => 'Acción no disponible.')
@@ -401,13 +532,14 @@ try {
         || stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== 0) {
         ne_responder(415, array(
             'succed' => false,
-            'error' => array('codigo' => 'contenido_invalido', 'mensaje' => 'Envía la nota como JSON.')
+            'error' => array('codigo' => 'contenido_invalido', 'mensaje' => 'Envía la operación como JSON.')
         ));
     }
 
     ne_validar_token();
     $crudo = file_get_contents('php://input');
-    if ($crudo === false || strlen($crudo) > 131072) {
+    $maximoCuerpo = $accion === 'facturar' ? 2097152 : 131072;
+    if ($crudo === false || strlen($crudo) > $maximoCuerpo) {
         ne_error('contenido_invalido', 'La solicitud supera el tamaño permitido.', 413);
     }
     $datos = json_decode($crudo, true, 12);
@@ -425,6 +557,13 @@ try {
             'succed' => true,
             'data' => $resultado
         ));
+    }
+
+    if ($accion === 'facturar') {
+        $facturacion = ne_normalizar_facturacion($datos);
+        session_write_close();
+        $resultado = $modelo->facturar($idSucursal, $idUsuario, $facturacion);
+        ne_responder($resultado['repetida'] ? 200 : 201, array('succed' => true, 'data' => $resultado));
     }
 
     $nota = ne_normalizar_nota($datos);

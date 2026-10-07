@@ -209,6 +209,63 @@ class _notasentrega
     }
 
     /**
+     * Catálogos que utiliza la pantalla para emitir una factura desde notas.
+     * Las formas de pago provienen del mismo catálogo usado por ventas.
+     */
+    public function opcionesFacturacion()
+    {
+        $conexion = $this->conexion();
+        $formasPago = array();
+        $sentencia = null;
+        try {
+            $resultado = $conexion->query(
+                'SELECT id, nombre, valor + suma AS divisa, simbolo
+                 FROM monedas WHERE id > 0 ORDER BY principal DESC, nombre'
+            );
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudieron consultar las monedas.');
+            }
+            $monedas = $resultado->fetch_all(MYSQLI_ASSOC);
+
+            $resultado = $conexion->query(
+                'SELECT id, nombre FROM tipofacturas WHERE id > 0 ORDER BY id'
+            );
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudieron consultar los tipos de factura.');
+            }
+            $tiposFactura = $resultado->fetch_all(MYSQLI_ASSOC);
+
+            $sentencia = $conexion->prepare('CALL krattos(?, ?, ?)');
+            $columnas = 'id,nombre';
+            $tabla = 26;
+            $filtro = 'id > 0 and bancos <> 99 order by principal desc,nombre';
+            if (!$sentencia || !$sentencia->bind_param('sis', $columnas, $tabla, $filtro)
+                || !$sentencia->execute()) {
+                throw new RuntimeException('No se pudieron consultar las formas de pago.');
+            }
+            do {
+                $resultado = $sentencia->get_result();
+                if ($resultado instanceof mysqli_result) {
+                    $formasPago = $resultado->fetch_all(MYSQLI_ASSOC);
+                    $resultado->free();
+                    break;
+                }
+            } while ($sentencia->more_results() && $sentencia->next_result());
+
+            return array(
+                'monedas' => $monedas,
+                'tipos_factura' => $tiposFactura,
+                'formas_pago' => $formasPago
+            );
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    /**
      * El SP es dueño de la transacción: crea cabecera y líneas, descuenta
      * inventario 6 y registra los movimientos juntos. Reusar la misma clave
      * permite reconocer un reintento sin una segunda salida de material.
@@ -346,6 +403,99 @@ class _notasentrega
             );
         }
         throw new RuntimeException('Error técnico al registrar la devolución: ' . $mensaje);
+    }
+
+    /**
+     * Factura una o varias notas pendientes con cantidades netas. El SP bloquea
+     * notas y líneas, crea las líneas de factura sin tocar inventario y actualiza
+     * todos los vínculos dentro de la misma transacción.
+     */
+    public function facturar($idSucursal, $idUsuario, array $facturacion)
+    {
+        $notasJson = json_encode($facturacion['idnotas']);
+        $facturaJson = json_encode(
+            $facturacion['factura'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        );
+        $lineasJson = json_encode(
+            $facturacion['lineas'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        );
+        if ($notasJson === false || $facturaJson === false || $lineasJson === false) {
+            throw new NotaEntregaReglaException(
+                'factura_invalida', 'No se pudieron preparar los datos de la factura.', 422
+            );
+        }
+
+        $conexion = $this->conexion();
+        $sentencia = null;
+        try {
+            $sentencia = $conexion->prepare(
+                'CALL sp_facturar_notas_entrega(?, ?, ?, ?, ?)'
+            );
+            if (!$sentencia || !$sentencia->bind_param(
+                'iisss', $idSucursal, $idUsuario, $notasJson, $facturaJson, $lineasJson
+            )) {
+                throw new RuntimeException('No se pudo preparar la factura de notas.');
+            }
+            if (!$sentencia->execute()) {
+                $this->lanzarErrorFacturacion($sentencia->errno, $sentencia->error);
+            }
+
+            $filaFactura = null;
+            do {
+                $resultado = $sentencia->get_result();
+                if ($resultado instanceof mysqli_result) {
+                    while ($fila = $resultado->fetch_assoc()) {
+                        if (isset($fila['idfactura'])) {
+                            $filaFactura = $fila;
+                        }
+                    }
+                    $resultado->free();
+                }
+            } while ($sentencia->more_results() && $sentencia->next_result());
+
+            if (!is_array($filaFactura)) {
+                throw new RuntimeException('La facturación no devolvió el número de factura.');
+            }
+            return array(
+                'idfactura' => (int) $filaFactura['idfactura'],
+                'consecutivo' => (string) $filaFactura['consecutivo'],
+                'notas_facturadas' => (int) $filaFactura['notas_facturadas'],
+                'lineas_facturadas' => (int) $filaFactura['lineas_facturadas'],
+                'total' => (string) $filaFactura['total'],
+                'repetida' => !empty($filaFactura['repetida'])
+            );
+        } catch (mysqli_sql_exception $error) {
+            $this->lanzarErrorFacturacion($error->getCode(), $error->getMessage());
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    private function lanzarErrorFacturacion($numero, $mensaje)
+    {
+        if ((int) $numero === 1644) {
+            if (strpos($mensaje, 'Nota no encontrada') !== false) {
+                throw new NotaEntregaReglaException('nota_no_encontrada', $mensaje, 404);
+            }
+            $conflicto = strpos($mensaje, 'no pendiente') !== false
+                || strpos($mensaje, 'mismo cliente') !== false
+                || strpos($mensaje, 'mismo nombre') !== false
+                || strpos($mensaje, 'facturas distintas') !== false
+                || strpos($mensaje, 'notas facturadas') !== false
+                || strpos($mensaje, 'factura original') !== false
+                || strpos($mensaje, 'reintento no coincide') !== false
+                || strpos($mensaje, 'ya vinculada') !== false
+                || strpos($mensaje, 'cambio mientras') !== false;
+            throw new NotaEntregaReglaException(
+                $conflicto ? 'conflicto' : 'factura_invalida',
+                $mensaje,
+                $conflicto ? 409 : 422
+            );
+        }
+        throw new RuntimeException('Error técnico al facturar las notas: ' . $mensaje);
     }
 
     public function listar($idSucursal, $limite, $desplazamiento, $estado,

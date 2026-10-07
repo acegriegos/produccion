@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=3">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=7">
 </head>
 <body>
   {$NAV}
@@ -21,6 +21,7 @@
     <nav class="ne-tabs" aria-label="Secciones de notas de entrega">
       <button type="button" class="ne-tab active" data-ne-tab="emitir">Emitir nota</button>
       <button type="button" class="ne-tab" data-ne-tab="listado">Consultar notas</button>
+      <button type="button" class="ne-tab" data-ne-tab="facturar" id="ne-tab-facturar" hidden>Facturar notas</button>
       <button type="button" class="ne-tab" data-ne-tab="detalle" id="ne-tab-detalle" hidden>Detalle</button>
     </nav>
     <div class="ne-aviso" id="ne-aviso" role="status" aria-live="polite" hidden></div>
@@ -103,9 +104,13 @@
         </form>
       </div>
       <div class="ne-card">
+        <div class="ne-card-head ne-seleccion-factura">
+          <p>Selecciona notas pendientes del mismo cliente para preparar una factura.</p>
+          <button type="button" class="btn" id="ne-preparar-factura" disabled>Preparar factura (0)</button>
+        </div>
         <div class="ne-table-wrap">
           <table class="striped">
-            <thead><tr><th>Número</th><th>Fecha</th><th>Cliente</th><th>Responsable</th><th>Estado</th><th>Factura</th><th></th></tr></thead>
+            <thead><tr><th>Facturar</th><th>Número</th><th>Fecha</th><th>Cliente</th><th>Responsable</th><th>Estado</th><th>Factura</th><th></th></tr></thead>
             <tbody id="ne-lista"></tbody>
           </table>
         </div>
@@ -114,6 +119,67 @@
           <span id="ne-pagina"></span>
           <button type="button" class="btn ne-secondary" id="ne-siguiente">Siguiente</button>
         </div>
+      </div>
+    </section>
+
+    <section class="ne-panel" id="ne-facturar" hidden>
+      <div class="ne-card">
+        <h2>Preparar factura</h2>
+        <p id="ne-facturar-resumen"></p>
+        <p>Define el precio por unidad y el descuento total de cada línea; las cantidades consideran las devoluciones previas. La factura queda pendiente de registro fiscal y conserva el vínculo con las notas, sin descontar existencias otra vez.</p>
+        <form id="ne-facturar-form" autocomplete="off">
+          <div class="ne-grid ne-factura-cabecera">
+            <label>Comprobante
+              <select id="ne-fa-documento" class="browser-default" required>
+                <option value="1">Factura electrónica</option>
+                <option value="7">Tiquete electrónico</option>
+                <option value="8">Factura simplificada (S)</option>
+                <option value="10">Factura de exportación (E)</option>
+              </select>
+            </label>
+            <label>Tipo de factura
+              <select id="ne-fa-tipo" class="browser-default" required></select>
+            </label>
+            <label>Forma de pago
+              <select id="ne-fa-pago" class="browser-default" required></select>
+            </label>
+            <label>Moneda
+              <select id="ne-fa-moneda" class="browser-default" required></select>
+            </label>
+            <label>Tipo de cambio
+              <input id="ne-fa-divisa" type="number" min="0.01" step="0.01" required>
+            </label>
+            <label>Plazo (días)
+              <input id="ne-fa-plazo" type="number" min="0" max="9999" step="1" value="0">
+            </label>
+            <label>Orden de compra, opcional
+              <input id="ne-fa-oc" type="text" maxlength="45">
+            </label>
+            <label>Referencia, opcional
+              <input id="ne-fa-referencia" type="text" maxlength="55">
+            </label>
+            <label class="ne-factura-comentario">Comentario, opcional
+              <textarea id="ne-fa-comentario" maxlength="512" rows="2"></textarea>
+            </label>
+          </div>
+          <div class="ne-table-wrap">
+            <table class="striped ne-tabla-factura">
+              <thead><tr><th>Nota</th><th>Material</th><th>Cantidad neta</th><th>Precio unitario</th><th>Descuento (monto)</th><th>IVA</th><th>Total línea</th></tr></thead>
+              <tbody id="ne-facturar-lineas"></tbody>
+            </table>
+          </div>
+          <div class="ne-total-factura" aria-live="polite">
+            <span>Subtotal gravado <strong id="ne-fa-subtotal">₡0.00</strong></span>
+            <span>Exento <strong id="ne-fa-exento">₡0.00</strong></span>
+            <span>Descuento <strong id="ne-fa-descuento">₡0.00</strong></span>
+            <span>IVA <strong id="ne-fa-impuesto">₡0.00</strong></span>
+            <span>Total <strong id="ne-fa-total">₡0.00</strong></span>
+          </div>
+          <div class="ne-actions">
+            <button type="button" class="btn ne-secondary" id="ne-cancelar-factura">Volver a consultar</button>
+            <button type="submit" class="btn" id="ne-facturar-boton">Crear factura</button>
+          </div>
+        </form>
       </div>
     </section>
 
@@ -174,6 +240,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=4"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=7"></script>
 </body>
 </html>
