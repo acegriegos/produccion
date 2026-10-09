@@ -448,7 +448,7 @@ try {
         }
         if ($accion === 'buscar') {
             $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : '';
-            if (!in_array($tipo, array('clientes', 'productos', 'proveedores'), true)) {
+            if (!in_array($tipo, array('clientes', 'productos', 'proveedores', 'usuarios'), true)) {
                 ne_error('dato_invalido', 'Catálogo no disponible.', 422);
             }
             $termino = ne_texto(isset($_GET['q']) ? $_GET['q'] : null,

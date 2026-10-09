@@ -105,6 +105,15 @@ class _notasentrega
                 if (!$sentencia || !$sentencia->bind_param('ss', $patron, $patron)) {
                     throw new RuntimeException('No se pudo preparar la búsqueda de clientes.');
                 }
+            } elseif ($tipo === 'usuarios') {
+                $sentencia = $conexion->prepare(
+                    'SELECT id, nombre FROM usuarios
+                     WHERE id > 0 AND nombre LIKE ? ESCAPE \'=\'
+                     ORDER BY nombre LIMIT 25'
+                );
+                if (!$sentencia || !$sentencia->bind_param('s', $patron)) {
+                    throw new RuntimeException('No se pudo preparar la búsqueda de responsables.');
+                }
             } elseif ($tipo === 'productos') {
                 $sentencia = $conexion->prepare(
                     'SELECT p.id, p.codigo, p.nombre, p.idunidad

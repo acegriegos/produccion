@@ -9,6 +9,7 @@
   var unidades = [];
   var cliente = null;
   var clienteFiltro = null;
+  var usuarioFiltro = null;
   var offset = 0;
   var limite = 25;
   var clavePendiente = null;
@@ -342,12 +343,13 @@
   function filtros() {
     var tipo = valor('ne-f-tipo-cliente');
     if (tipo === 'registrado' && !clienteFiltro) throw new Error('Seleccione el cliente del filtro.');
+    if (valor('ne-f-usuario') && !usuarioFiltro) throw new Error('Seleccione el responsable en los resultados.');
     return {
       estado: valor('ne-f-estado'),
       idcliente: tipo === 'registrado' ? clienteFiltro.id : tipo,
       fecha_desde: valor('ne-f-desde'),
       fecha_hasta: valor('ne-f-hasta'),
-      idusuario: valor('ne-f-usuario') || '0',
+      idusuario: usuarioFiltro ? usuarioFiltro.id : '0',
       limite: limite,
       offset: offset
     };
@@ -896,6 +898,10 @@
       clienteFiltro = item;
       texto('ne-f-cliente-elegido', 'Cliente #' + item.id);
     }, function () { clienteFiltro = null; texto('ne-f-cliente-elegido', 'Ningún cliente seleccionado'); });
+    conectarBusqueda(el('ne-f-usuario'), el('ne-f-resultados-usuario'), 'usuarios', function (item) {
+      usuarioFiltro = item;
+      texto('ne-f-usuario-elegido', 'Responsable: ' + item.nombre);
+    }, function () { usuarioFiltro = null; texto('ne-f-usuario-elegido', 'Todos los responsables'); });
     el('ne-tipo-cliente').addEventListener('change', cambiarTipoCliente);
     el('ne-f-tipo-cliente').addEventListener('change', function () {
       el('ne-f-busqueda-cliente').hidden = this.value !== 'registrado';
@@ -914,6 +920,20 @@
       offset = 0;
       cargarLista();
     });
+    function sincronizarBotonQuitarFechas() {
+      el('ne-limpiar-fechas').disabled = !valor('ne-f-desde') && !valor('ne-f-hasta');
+    }
+    el('ne-f-desde').addEventListener('change', sincronizarBotonQuitarFechas);
+    el('ne-f-hasta').addEventListener('change', sincronizarBotonQuitarFechas);
+    el('ne-limpiar-fechas').addEventListener('click', function () {
+      el('ne-f-desde').value = '';
+      el('ne-f-hasta').value = '';
+      sincronizarBotonQuitarFechas();
+      offset = 0;
+      aviso('', false, 'listado');
+      cargarLista();
+    });
+    sincronizarBotonQuitarFechas();
     el('ne-anterior').addEventListener('click', function () {
       offset = Math.max(0, offset - limite);
       cargarLista();

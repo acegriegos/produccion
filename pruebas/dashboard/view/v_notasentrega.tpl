@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=7">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=8">
 </head>
 <body>
   {$NAV}
@@ -97,9 +97,17 @@
             <div class="ne-resultados" id="ne-f-resultados-cliente"></div>
             <p class="ne-seleccion" id="ne-f-cliente-elegido">Ningún cliente seleccionado</p>
           </div>
-          <label>Desde <input id="ne-f-desde" type="date"></label>
-          <label>Hasta <input id="ne-f-hasta" type="date"></label>
-          <label>ID de usuario responsable <input id="ne-f-usuario" type="number" min="1" step="1" placeholder="Todos"></label>
+          <div class="ne-f-fechas">
+            <label for="ne-f-desde">Desde <input id="ne-f-desde" type="date"></label>
+            <label for="ne-f-hasta">Hasta <input id="ne-f-hasta" type="date"></label>
+            <button type="button" class="btn ne-secondary" id="ne-limpiar-fechas">Quitar fechas</button>
+          </div>
+          <div class="ne-search">
+            <label for="ne-f-usuario">Responsable</label>
+            <input id="ne-f-usuario" type="search" placeholder="Buscar por nombre">
+            <div class="ne-resultados" id="ne-f-resultados-usuario"></div>
+            <p class="ne-seleccion" id="ne-f-usuario-elegido">Todos los responsables</p>
+          </div>
           <button type="submit" class="btn">Buscar</button>
         </form>
       </div>
@@ -240,6 +248,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=7"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=8"></script>
 </body>
 </html>
