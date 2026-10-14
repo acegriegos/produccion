@@ -134,7 +134,7 @@
       <div class="ne-card">
         <h2>Preparar factura</h2>
         <p id="ne-facturar-resumen"></p>
-        <p>Define el precio por unidad y el descuento total de cada línea; las cantidades consideran las devoluciones previas. La factura queda pendiente de registro fiscal y conserva el vínculo con las notas, sin descontar existencias otra vez.</p>
+        <p>Define el precio por unidad y el descuento total de cada línea, las cantidades consideran las devoluciones previas. La factura queda pendiente de registro fiscal y conserva el vínculo con las notas, sin descontar existencias otra vez.</p>
         <form id="ne-facturar-form" autocomplete="off">
           <div class="ne-grid ne-factura-cabecera">
             <label>Comprobante
@@ -248,6 +248,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=8"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=9"></script>
 </body>
 </html>

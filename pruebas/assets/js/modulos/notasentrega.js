@@ -250,7 +250,7 @@
     var p = fila.producto;
     var stock = fila.querySelector('.ne-stock');
     if (Number(p.saldos) !== 1) {
-      stock.textContent = 'No hay un saldo único en el inventario 6; no se puede emitir este artículo.';
+      stock.textContent = 'No hay un saldo único en el inventario 6, no se puede emitir este artículo.';
       return;
     }
     // El saldo visible es orientativo; la conversión y el bloqueo final son del SP.
