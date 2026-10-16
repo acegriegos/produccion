@@ -144,6 +144,151 @@ class _notasentrega
         }
     }
 
+    /**
+     * Crea un cliente registrado para seleccionarlo al emitir la nota.
+     * Los bloqueos por cédula y correo serializan altas simultáneas del módulo.
+     */
+    public function crearCliente($idUsuario, array $datos)
+    {
+        $nombre = $datos['nombre'];
+        $cedula = $datos['cedula'];
+        $tipoCliente = (int) $datos['idtipocliente'];
+        $correo = $datos['correo'];
+        $cedulaNormalizada = strtolower(preg_replace('/[\\s.\\-]+/u', '', $cedula));
+        $correoNormalizado = $correo === null ? null : strtolower(trim($correo));
+        $bloqueos = array(
+            'ne-cli-ced-' . substr(hash('sha256', $cedulaNormalizada), 0, 48)
+        );
+        if ($correoNormalizado !== null) {
+            $bloqueos[] = 'ne-cli-cor-' . substr(hash('sha256', $correoNormalizado), 0, 48);
+        }
+        sort($bloqueos, SORT_STRING);
+
+        $conexion = $this->conexion();
+        $bloqueosAdquiridos = array();
+        $enTransaccion = false;
+        try {
+            $obtenerBloqueo = $conexion->prepare('SELECT GET_LOCK(?, 5) AS obtenido');
+            if (!$obtenerBloqueo) {
+                throw new RuntimeException('No se pudo preparar la validación del cliente.');
+            }
+            foreach ($bloqueos as $nombreBloqueo) {
+                $obtenerBloqueo->bind_param('s', $nombreBloqueo);
+                if (!$obtenerBloqueo->execute()
+                    || ($resultadoBloqueo = $obtenerBloqueo->get_result()) === false
+                    || !($filaBloqueo = $resultadoBloqueo->fetch_assoc())
+                    || (int) $filaBloqueo['obtenido'] !== 1) {
+                    throw new NotaEntregaReglaException(
+                        'cliente_en_uso',
+                        'No se pudo validar el cliente por otra solicitud activa. Intenta de nuevo.',
+                        409
+                    );
+                }
+                $resultadoBloqueo->free();
+                $bloqueosAdquiridos[] = $nombreBloqueo;
+            }
+            $obtenerBloqueo->close();
+
+            if (!$conexion->begin_transaction()) {
+                throw new RuntimeException('No se pudo iniciar el registro del cliente.');
+            }
+            $enTransaccion = true;
+
+            $buscarCedula = $conexion->prepare(
+                "SELECT id FROM clientes
+                 WHERE id > 0
+                   AND LOWER(REPLACE(REPLACE(REPLACE(TRIM(cedula), '-', ''), ' ', ''), '.', '')) = ?
+                 LIMIT 1"
+            );
+            if (!$buscarCedula || !$buscarCedula->bind_param('s', $cedulaNormalizada)
+                || !$buscarCedula->execute()
+                || ($resultadoCedula = $buscarCedula->get_result()) === false) {
+                throw new RuntimeException('No se pudo validar la cédula del cliente.');
+            }
+            $cedulaExiste = $resultadoCedula->num_rows > 0;
+            $buscarCedula->close();
+            if ($cedulaExiste) {
+                throw new NotaEntregaReglaException(
+                    'cliente_duplicado', 'Ya existe un cliente con esa cédula.', 409
+                );
+            }
+
+            if ($correoNormalizado !== null) {
+                $buscarCorreo = $conexion->prepare(
+                    "SELECT c.id
+                     FROM correos r
+                     INNER JOIN clientes c ON c.id = r.idfila
+                     WHERE r.idtabla = 2 AND c.id > 0
+                       AND LOWER(TRIM(r.correo)) = ?
+                     LIMIT 1"
+                );
+                if (!$buscarCorreo || !$buscarCorreo->bind_param('s', $correoNormalizado)
+                    || !$buscarCorreo->execute()
+                    || ($resultadoCorreo = $buscarCorreo->get_result()) === false) {
+                    throw new RuntimeException('No se pudo validar el correo del cliente.');
+                }
+                $correoExiste = $resultadoCorreo->num_rows > 0;
+                $buscarCorreo->close();
+                if ($correoExiste) {
+                    throw new NotaEntregaReglaException(
+                        'cliente_duplicado', 'Ya existe un cliente con ese correo.', 409
+                    );
+                }
+            }
+
+            $insertar = $conexion->prepare(
+                "INSERT INTO clientes
+                    (nombre, cedula, idtipocliente, idestado, bisproveedor, idnivel,
+                     bisnacional, fecha_creacion, idusuario, idsucursal)
+                 VALUES (?, ?, ?, 1, 0, 0, 1, NOW(), ?, '0')"
+            );
+            if (!$insertar || !$insertar->bind_param('ssii', $nombre, $cedula, $tipoCliente, $idUsuario)
+                || !$insertar->execute()) {
+                throw new RuntimeException('No se pudo guardar el cliente.');
+            }
+            $idCliente = (int) $conexion->insert_id;
+            $insertar->close();
+
+            if ($correoNormalizado !== null) {
+                $insertarCorreo = $conexion->prepare(
+                    'INSERT INTO correos (idfila, idtabla, correo) VALUES (?, 2, ?)'
+                );
+                if (!$insertarCorreo
+                    || !$insertarCorreo->bind_param('is', $idCliente, $correoNormalizado)
+                    || !$insertarCorreo->execute()) {
+                    throw new RuntimeException('No se pudo guardar el correo del cliente.');
+                }
+                $insertarCorreo->close();
+            }
+
+            if (!$conexion->commit()) {
+                throw new RuntimeException('No se pudo confirmar el registro del cliente.');
+            }
+            $enTransaccion = false;
+
+            return array(
+                'id' => $idCliente,
+                'nombre' => $nombre,
+                'cedula' => $cedula
+            );
+        } catch (Throwable $error) {
+            if ($enTransaccion) {
+                $conexion->rollback();
+            }
+            throw $error;
+        } finally {
+            foreach ($bloqueosAdquiridos as $nombreBloqueo) {
+                $liberar = $conexion->prepare('SELECT RELEASE_LOCK(?)');
+                if ($liberar) {
+                    $liberar->bind_param('s', $nombreBloqueo);
+                    $liberar->execute();
+                    $liberar->close();
+                }
+            }
+            $conexion->close();
+        }
+    }
+
     private function completarProductos($conexion, array $productos, $termino)
     {
         if (!$productos) {

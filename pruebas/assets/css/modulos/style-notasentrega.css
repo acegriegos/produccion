@@ -21,7 +21,7 @@
 .ne-tab[hidden], .ne-panel[hidden], .ne-app [hidden] { display: none !important; }
 .ne-card, .ne-boleta { background: white; border: 1px solid #dce4e6; border-radius: 6px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 .ne-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; align-items: start; }
-.ne-grid label, .ne-linea label, .ne-search > label { display: block; font-weight: 600; font-size: .9rem; color: #37474f; }
+.ne-grid label, .ne-linea label, .ne-search > label, .ne-crear-cliente-grid label { display: block; font-weight: 600; font-size: .9rem; color: #37474f; }
 .ne-app input:not([type=checkbox]), .ne-app textarea, .ne-app select {
   box-sizing: border-box;
   display: block;
@@ -46,6 +46,10 @@
 .ne-aviso.error { background: #ffebee; color: #b71c1c; }
 .ne-seleccion, .ne-stock { font-size: .84rem; color: #546e7a; }
 .ne-search { position: relative; }
+.ne-crear-cliente { border-top: 1px solid #dce4e6; margin-top: 14px; padding-top: 14px; }
+.ne-crear-cliente h3 { font-size: 1.05rem; margin: 0 0 6px; }
+.ne-crear-cliente-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin-top: 10px; }
+.ne-acciones-cliente { margin: 12px 0 0; }
 .ne-resultados { position: absolute; z-index: 25; background: white; width: 100%; max-height: 240px; overflow: auto; border: 1px solid #cfd8dc; box-shadow: 0 5px 12px rgba(0,0,0,.12); }
 .ne-resultados:empty { display: none; }
 .ne-resultados button { display: block; width: 100%; border: 0; border-bottom: 1px solid #eceff1; padding: 9px 12px; text-align: left; background: white; color: #263238; cursor: pointer; }
@@ -101,6 +105,7 @@
   .ne-grid, .ne-filtros, .ne-factura-cabecera { grid-template-columns: 1fr; }
   .ne-f-fechas { grid-column: span 1; grid-template-columns: 1fr; }
   .ne-factura-comentario { grid-column: span 1; }
+  .ne-crear-cliente-grid { grid-template-columns: 1fr; }
   .ne-linea-grid { grid-template-columns: 1fr 1fr; }
   .ne-linea-notas { grid-column: span 2; }
 }

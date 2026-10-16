@@ -80,6 +80,36 @@ function ne_texto($valor, $nombre, $maximo, $obligatorio)
     return $texto;
 }
 
+function ne_normalizar_cliente(array $datos)
+{
+    $nombre = ne_texto(
+        isset($datos['nombre']) ? $datos['nombre'] : null,
+        'Nombre', 150, true
+    );
+    $cedula = ne_texto(
+        isset($datos['cedula']) ? $datos['cedula'] : null,
+        'Cédula', 45, true
+    );
+    $tipoCliente = ne_entero(
+        isset($datos['idtipocliente']) ? $datos['idtipocliente'] : 1,
+        'Tipo de identificación', 0, 4
+    );
+    $correo = ne_texto(
+        isset($datos['correo']) ? $datos['correo'] : null,
+        'Correo', 160, false
+    );
+    if ($correo !== null && filter_var($correo, FILTER_VALIDATE_EMAIL) === false) {
+        ne_error('correo_invalido', 'Escribe un correo válido.', 422);
+    }
+
+    return array(
+        'nombre' => $nombre,
+        'cedula' => $cedula,
+        'idtipocliente' => $tipoCliente,
+        'correo' => $correo
+    );
+}
+
 function ne_sesion()
 {
     if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -522,7 +552,7 @@ try {
             'error' => array('codigo' => 'metodo_no_permitido', 'mensaje' => 'Usa GET o POST.')
         ));
     }
-    if (!in_array($accion, array('', 'emitir', 'devolver', 'facturar'), true)) {
+    if (!in_array($accion, array('', 'emitir', 'devolver', 'facturar', 'crear-cliente'), true)) {
         ne_responder(404, array(
             'succed' => false,
             'error' => array('codigo' => 'accion_desconocida', 'mensaje' => 'Acción no disponible.')
@@ -545,6 +575,16 @@ try {
     $datos = json_decode($crudo, true, 12);
     if (json_last_error() !== JSON_ERROR_NONE || !is_array($datos)) {
         ne_error('contenido_invalido', 'El cuerpo debe ser un objeto JSON válido.', 400);
+    }
+
+    if ($accion === 'crear-cliente') {
+        $nuevoCliente = ne_normalizar_cliente($datos);
+        session_write_close();
+        $clienteCreado = $modelo->crearCliente($idUsuario, $nuevoCliente);
+        ne_responder(201, array(
+            'succed' => true,
+            'data' => array('cliente' => $clienteCreado)
+        ));
     }
 
     if ($accion === 'devolver') {

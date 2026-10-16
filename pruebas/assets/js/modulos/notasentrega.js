@@ -170,10 +170,50 @@
     el('ne-cliente-registrado').hidden = contado;
     el('ne-cliente-libre').hidden = !contado;
     el('ne-cedula-libre').hidden = !contado;
+    cerrarFormularioCrearCliente(true);
     cliente = null;
     el('ne-buscar-cliente').value = '';
     texto('ne-cliente-elegido', 'Ningún cliente seleccionado');
     el('ne-resultados-cliente').replaceChildren();
+  }
+  function cerrarFormularioCrearCliente(limpiar) {
+    el('ne-crear-cliente-panel').hidden = true;
+    if (limpiar) {
+      el('ne-nuevo-cliente-nombre').value = '';
+      el('ne-nuevo-cliente-cedula').value = '';
+      el('ne-nuevo-cliente-tipo').value = '1';
+      el('ne-nuevo-cliente-correo').value = '';
+    }
+  }
+  function crearCliente(evento) {
+    evento.preventDefault();
+    var nombre = el('ne-nuevo-cliente-nombre');
+    var cedula = el('ne-nuevo-cliente-cedula');
+    var correo = el('ne-nuevo-cliente-correo');
+    if (!nombre.reportValidity() || !cedula.reportValidity() || !correo.reportValidity()) return;
+    var boton = el('ne-guardar-cliente');
+    boton.disabled = true;
+    api('crear-cliente', {}, {
+      method: 'POST',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
+      body: JSON.stringify({
+        nombre: valor('ne-nuevo-cliente-nombre'),
+        cedula: valor('ne-nuevo-cliente-cedula'),
+        idtipocliente: el('ne-nuevo-cliente-tipo').value,
+        correo: valor('ne-nuevo-cliente-correo') || null
+      })
+    }).then(function (respuesta) {
+      cliente = respuesta.cliente;
+      el('ne-buscar-cliente').value = cliente.nombre + ' · ' + cliente.cedula;
+      el('ne-resultados-cliente').replaceChildren();
+      texto('ne-cliente-elegido', 'Cliente #' + cliente.id);
+      cerrarFormularioCrearCliente(true);
+      aviso('Cliente creado y seleccionado.', false, 'emitir');
+    }).catch(function (error) {
+      aviso(error.message, true, 'emitir');
+    }).finally(function () {
+      boton.disabled = false;
+    });
   }
   function unidadesPermitidas(producto) {
     var base = Number(producto.idunidad);
@@ -893,6 +933,7 @@
     conectarBusqueda(el('ne-buscar-cliente'), el('ne-resultados-cliente'), 'clientes', function (item) {
       cliente = item;
       texto('ne-cliente-elegido', 'Cliente #' + item.id);
+      cerrarFormularioCrearCliente(true);
     }, function () { cliente = null; texto('ne-cliente-elegido', 'Ningún cliente seleccionado'); });
     conectarBusqueda(el('ne-f-cliente-texto'), el('ne-f-resultados-cliente'), 'clientes', function (item) {
       clienteFiltro = item;
@@ -903,6 +944,15 @@
       texto('ne-f-usuario-elegido', 'Responsable: ' + item.nombre);
     }, function () { usuarioFiltro = null; texto('ne-f-usuario-elegido', 'Todos los responsables'); });
     el('ne-tipo-cliente').addEventListener('change', cambiarTipoCliente);
+    el('ne-abrir-crear-cliente').addEventListener('click', function () {
+      var panel = el('ne-crear-cliente-panel');
+      panel.hidden = !panel.hidden;
+      if (!panel.hidden) el('ne-nuevo-cliente-nombre').focus();
+    });
+    el('ne-cancelar-cliente').addEventListener('click', function () {
+      cerrarFormularioCrearCliente(true);
+    });
+    el('ne-guardar-cliente').addEventListener('click', crearCliente);
     el('ne-f-tipo-cliente').addEventListener('change', function () {
       el('ne-f-busqueda-cliente').hidden = this.value !== 'registrado';
       clienteFiltro = null;
@@ -956,6 +1006,7 @@
       texto('ne-contexto', 'Sucursal ' + respuestas[0].idsucursal + ' · Usuario ' + respuestas[0].idusuario);
       nuevaLinea();
       el('ne-emitir-boton').disabled = false;
+      el('ne-abrir-crear-cliente').disabled = false;
       api('opciones-factura').then(cargarOpcionesFactura).catch(function (error) {
         opcionesFactura = null;
         actualizarBotonPrepararFactura();

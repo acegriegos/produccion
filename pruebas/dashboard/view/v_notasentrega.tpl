@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=9">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=10">
 </head>
 <body>
   {$NAV}
@@ -42,6 +42,37 @@
               <input id="ne-buscar-cliente" type="search" placeholder="Escriba al menos 2 caracteres">
               <div class="ne-resultados" id="ne-resultados-cliente"></div>
               <p class="ne-seleccion" id="ne-cliente-elegido">Ningún cliente seleccionado</p>
+              <button type="button" class="btn ne-secondary" id="ne-abrir-crear-cliente" disabled>Crear cliente</button>
+              <div class="ne-crear-cliente" id="ne-crear-cliente-panel" hidden>
+                <h3 id="ne-crear-cliente-titulo">Nuevo cliente registrado</h3>
+                <p>Nombre y cédula son obligatorios. Los demás datos son opcionales.</p>
+                <div id="ne-crear-cliente-campos" role="group" aria-labelledby="ne-crear-cliente-titulo">
+                  <div class="ne-crear-cliente-grid">
+                    <label>Nombre *
+                      <input id="ne-nuevo-cliente-nombre" type="text" maxlength="150" required>
+                    </label>
+                    <label>Cédula *
+                      <input id="ne-nuevo-cliente-cedula" type="text" maxlength="45" required>
+                    </label>
+                    <label>Tipo de identificación
+                      <select id="ne-nuevo-cliente-tipo" class="browser-default">
+                        <option value="1" selected>Físico</option>
+                        <option value="2">Jurídico</option>
+                        <option value="3">NITE</option>
+                        <option value="4">DIMEX</option>
+                        <option value="0">Extranjero</option>
+                      </select>
+                    </label>
+                    <label>Correo, opcional
+                      <input id="ne-nuevo-cliente-correo" type="email" maxlength="160">
+                    </label>
+                  </div>
+                  <div class="ne-actions ne-acciones-cliente">
+                    <button type="button" class="btn" id="ne-guardar-cliente">Guardar y seleccionar</button>
+                    <button type="button" class="btn ne-secondary" id="ne-cancelar-cliente">Cancelar</button>
+                  </div>
+                </div>
+              </div>
             </div>
             <label id="ne-cliente-libre" hidden>Nombre del cliente contado
               <input id="ne-nombre-cliente" type="text" maxlength="64">
@@ -247,6 +278,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=10"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=11"></script>
 </body>
 </html>
