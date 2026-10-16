@@ -134,7 +134,7 @@
       <div class="ne-card">
         <h2>Preparar factura</h2>
         <p id="ne-facturar-resumen"></p>
-        <p>Define el precio por unidad y el descuento total de cada línea, las cantidades consideran las devoluciones previas. La factura queda pendiente de registro fiscal y conserva el vínculo con las notas, sin descontar existencias otra vez.</p>
+        <p>Define el precio por unidad y el descuento total de cada línea, las cantidades consideran las anulaciones previas. La factura queda pendiente de registro fiscal y conserva el vínculo con las notas, sin descontar existencias otra vez.</p>
         <form id="ne-facturar-form" autocomplete="off">
           <div class="ne-grid ne-factura-cabecera">
             <label>Comprobante
@@ -222,31 +222,31 @@
       </article>
 
       <section class="ne-card ne-no-print" id="ne-devolucion-panel" hidden>
-        <h2>Registrar devolución</h2>
-        <p>Indica las cantidades recibidas. La nota se anulará automáticamente cuando se devuelva todo el material.</p>
+        <h2>Registrar anulación</h2>
+        <p>Indica las cantidades recibidas. La nota se anulará automáticamente cuando se reciba todo el material.</p>
         <form id="ne-devolucion-form" autocomplete="off">
           <label>Motivo, opcional
             <textarea id="ne-devolucion-motivo" maxlength="255"></textarea>
           </label>
           <div class="ne-table-wrap">
             <table>
-              <thead><tr><th>Material</th><th>Entregada</th><th>Devuelta</th><th>Pendiente</th><th>Recibir ahora</th></tr></thead>
+              <thead><tr><th>Material</th><th>Entregada</th><th>Anulada</th><th>Pendiente</th><th>Anular ahora</th></tr></thead>
               <tbody id="ne-devolucion-lineas"></tbody>
             </table>
           </div>
           <div class="ne-actions">
-            <button type="submit" class="btn" id="ne-devolver-boton">Registrar devolución</button>
+            <button type="submit" class="btn" id="ne-devolver-boton">Registrar anulación</button>
           </div>
         </form>
       </section>
 
       <section class="ne-card ne-no-print" aria-labelledby="ne-historial-titulo">
-        <h2 id="ne-historial-titulo">Historial de devoluciones</h2>
+        <h2 id="ne-historial-titulo">Historial de anulaciones</h2>
         <div id="ne-d-historial"></div>
       </section>
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=9"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=10"></script>
 </body>
 </html>

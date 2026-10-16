@@ -351,14 +351,14 @@ class _notasentrega
     }
 
     /**
-     * Registra una devolución parcial. El procedimiento bloquea la nota,
+     * Registra una anulación parcial. El procedimiento bloquea la nota,
      * repone solo el material recibido y protege los reintentos por UUID.
      */
     public function devolver($idSucursal, $idUsuario, $idNota, array $devolucion)
     {
         $lineasJson = json_encode($devolucion['lineas'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         if ($lineasJson === false) {
-            throw new NotaEntregaReglaException('detalle_invalido', 'No se pudo codificar el detalle de la devolución.', 422);
+            throw new NotaEntregaReglaException('detalle_invalido', 'No se pudo codificar el detalle de la anulación.', 422);
         }
 
         $clave = $devolucion['clave_operacion'];
@@ -372,14 +372,14 @@ class _notasentrega
             if (!$sentencia || !$sentencia->bind_param(
                 'iiisss', $idSucursal, $idUsuario, $idNota, $clave, $motivo, $lineasJson
             )) {
-                throw new RuntimeException('No se pudo preparar la devolución de la nota.');
+                throw new RuntimeException('No se pudo preparar la anulación de la nota.');
             }
             if (!$sentencia->execute()) {
                 $this->lanzarErrorDevolucion($sentencia->errno, $sentencia->error);
             }
             $resultado = $sentencia->get_result();
             if ($resultado === false || !($fila = $resultado->fetch_assoc())) {
-                throw new RuntimeException('La devolución no devolvió su número de operación.');
+                throw new RuntimeException('La anulación no devolvió su número de operación.');
             }
             return array(
                 'iddevolucion' => (int) $fila['iddevolucion'],
@@ -397,6 +397,11 @@ class _notasentrega
 
     private function lanzarErrorDevolucion($numero, $mensaje)
     {
+        $mensaje = str_ireplace(
+            array('devoluciones', 'devolución', 'devolucion'),
+            array('anulaciones', 'anulación', 'anulación'),
+            $mensaje
+        );
         if ((int) $numero === 1644) {
             if (strpos($mensaje, 'Nota no encontrada') !== false) {
                 throw new NotaEntregaReglaException('nota_no_encontrada', $mensaje, 404);
@@ -411,7 +416,7 @@ class _notasentrega
                 $conflicto ? 409 : 422
             );
         }
-        throw new RuntimeException('Error técnico al registrar la devolución: ' . $mensaje);
+        throw new RuntimeException('Error técnico al registrar la anulación: ' . $mensaje);
     }
 
     /**
@@ -619,11 +624,11 @@ class _notasentrega
             );
             if (!$historial || !$historial->bind_param('i', $idNota)
                 || !$historial->execute()) {
-                throw new RuntimeException('No se pudo consultar el historial de devoluciones.');
+                throw new RuntimeException('No se pudo consultar el historial de anulaciones.');
             }
             $resultado = $historial->get_result();
             if ($resultado === false) {
-                throw new RuntimeException('No se pudo leer el historial de devoluciones.');
+                throw new RuntimeException('No se pudo leer el historial de anulaciones.');
             }
             $nota['devoluciones'] = $resultado->fetch_all(MYSQLI_ASSOC);
             $historial->close();

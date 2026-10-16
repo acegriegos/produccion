@@ -268,7 +268,7 @@ function ne_normalizar_devolucion(array $datos)
     $lineas = isset($datos['lineas']) ? $datos['lineas'] : null;
     if (!is_array($lineas) || count($lineas) < 1 || count($lineas) > 100
         || array_keys($lineas) !== range(0, count($lineas) - 1)) {
-        ne_error('detalle_invalido', 'La devolución requiere entre 1 y 100 líneas.', 422);
+        ne_error('detalle_invalido', 'La anulación requiere entre 1 y 100 líneas.', 422);
     }
 
     $normalizadas = array();
@@ -282,7 +282,7 @@ function ne_normalizar_devolucion(array $datos)
             'Línea de nota ' . ($indice + 1), 1, 2147483647
         );
         if (isset($idsDetalle[$idDetalle])) {
-            ne_error('detalle_invalido', 'No repitas una línea en la misma devolución.', 422);
+            ne_error('detalle_invalido', 'No repitas una línea en la misma anulación.', 422);
         }
         $idsDetalle[$idDetalle] = true;
         $normalizadas[] = array(

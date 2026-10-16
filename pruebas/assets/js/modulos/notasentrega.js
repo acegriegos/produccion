@@ -792,7 +792,7 @@
       entrada.step = '0.01';
       entrada.max = pendiente.toFixed(2);
       entrada.setAttribute('data-id-detalle', linea.id);
-      entrada.setAttribute('aria-label', 'Cantidad a devolver de ' + linea.producto_descripcion);
+      entrada.setAttribute('aria-label', 'Cantidad a anular de ' + linea.producto_descripcion);
       entrada.disabled = !sePuedeDevolver || pendiente <= 0;
       if (pendiente > 0) haySaldo = true;
       celdaCantidad.appendChild(entrada);
@@ -805,7 +805,7 @@
     historial.replaceChildren();
     if (!nota.devoluciones || !nota.devoluciones.length) {
       var vacio = document.createElement('p');
-      vacio.textContent = 'Todavía no se han registrado devoluciones.';
+      vacio.textContent = 'Todavía no se han registrado anulaciones.';
       historial.appendChild(vacio);
       return;
     }
@@ -813,7 +813,7 @@
       var bloque = document.createElement('article');
       bloque.className = 'ne-dev-evento';
       var titulo = document.createElement('h3');
-      titulo.textContent = 'Devolución #' + evento.id + ' · ' + evento.fecha;
+      titulo.textContent = 'Anulación #' + evento.id + ' · ' + evento.fecha;
       bloque.appendChild(titulo);
       var responsable = document.createElement('p');
       responsable.textContent = 'Responsable: ' + (evento.usuario_nombre || evento.idusuario);
@@ -836,7 +836,7 @@
   }
   function prepararDevolucion() {
     if (!notaVisible || Number(notaVisible.idestado) !== 1 || notaVisible.idfactura != null) {
-      throw new Error('Esta nota ya no admite devoluciones.');
+      throw new Error('Esta nota ya no admite anulaciones.');
     }
     var lineas = [];
     Array.prototype.forEach.call(el('ne-devolucion-lineas').querySelectorAll('input[data-id-detalle]'), function (entrada) {
@@ -853,7 +853,7 @@
       }
       lineas.push({iddetallenota: Number(entrada.getAttribute('data-id-detalle')), cantidad_devuelta: cantidad});
     });
-    if (!lineas.length) throw new Error('Indica al menos una cantidad para devolver.');
+    if (!lineas.length) throw new Error('Indica al menos una cantidad para anular.');
     return {
       motivo: el('ne-devolucion-motivo').value.trim() || null,
       lineas: lineas
@@ -872,7 +872,7 @@
     var idNota = Number(notaVisible.id);
     var boton = el('ne-devolver-boton');
     boton.disabled = true;
-    aviso('Registrando la devolución…', false, 'detalle');
+    aviso('Registrando la anulación…', false, 'detalle');
     api('devolver', {id: idNota}, {
       method: 'POST',
       headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
@@ -881,9 +881,9 @@
       claveDevolucionPendiente = huellaDevolucionPendiente = null;
       el('ne-devolucion-motivo').value = '';
       return cargarDetalle(idNota).then(function () {
-        aviso('Devolución #' + respuesta.iddevolucion + (respuesta.repetida ? ' recuperada tras el reintento.' : ' registrada.'), false, 'detalle');
+        aviso('Anulación #' + respuesta.iddevolucion + (respuesta.repetida ? ' recuperada tras el reintento.' : ' registrada.'), false, 'detalle');
       }).catch(function (error) {
-        aviso('La devolución #' + respuesta.iddevolucion + ' fue registrada, pero no se pudo recargar la nota: ' + error.message, true, 'detalle');
+        aviso('La anulación #' + respuesta.iddevolucion + ' fue registrada, pero no se pudo recargar la nota: ' + error.message, true, 'detalle');
       });
     }, function (error) {
       aviso(error.message, true, 'detalle');
