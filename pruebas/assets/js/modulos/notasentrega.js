@@ -178,6 +178,10 @@
   }
   function cerrarFormularioCrearCliente(limpiar) {
     el('ne-crear-cliente-panel').hidden = true;
+    Array.prototype.forEach.call(
+      el('ne-crear-cliente-campos').querySelectorAll('input, select, button'),
+      function (control) { control.disabled = true; }
+    );
     if (limpiar) {
       el('ne-nuevo-cliente-nombre').value = '';
       el('ne-nuevo-cliente-cedula').value = '';
@@ -212,7 +216,7 @@
     }).catch(function (error) {
       aviso(error.message, true, 'emitir');
     }).finally(function () {
-      boton.disabled = false;
+      boton.disabled = el('ne-crear-cliente-panel').hidden;
     });
   }
   function unidadesPermitidas(producto) {
@@ -946,8 +950,16 @@
     el('ne-tipo-cliente').addEventListener('change', cambiarTipoCliente);
     el('ne-abrir-crear-cliente').addEventListener('click', function () {
       var panel = el('ne-crear-cliente-panel');
-      panel.hidden = !panel.hidden;
-      if (!panel.hidden) el('ne-nuevo-cliente-nombre').focus();
+      if (panel.hidden) {
+        panel.hidden = false;
+        Array.prototype.forEach.call(
+          el('ne-crear-cliente-campos').querySelectorAll('input, select, button'),
+          function (control) { control.disabled = false; }
+        );
+        el('ne-nuevo-cliente-nombre').focus();
+      } else {
+        cerrarFormularioCrearCliente(true);
+      }
     });
     el('ne-cancelar-cliente').addEventListener('click', function () {
       cerrarFormularioCrearCliente(true);

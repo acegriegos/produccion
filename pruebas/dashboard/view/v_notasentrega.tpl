@@ -49,13 +49,13 @@
                 <div id="ne-crear-cliente-campos" role="group" aria-labelledby="ne-crear-cliente-titulo">
                   <div class="ne-crear-cliente-grid">
                     <label>Nombre *
-                      <input id="ne-nuevo-cliente-nombre" type="text" maxlength="150" required>
+                      <input id="ne-nuevo-cliente-nombre" type="text" maxlength="150" required disabled>
                     </label>
                     <label>Cédula *
-                      <input id="ne-nuevo-cliente-cedula" type="text" maxlength="45" required>
+                      <input id="ne-nuevo-cliente-cedula" type="text" maxlength="45" required disabled>
                     </label>
                     <label>Tipo de identificación
-                      <select id="ne-nuevo-cliente-tipo" class="browser-default">
+                      <select id="ne-nuevo-cliente-tipo" class="browser-default" disabled>
                         <option value="1" selected>Físico</option>
                         <option value="2">Jurídico</option>
                         <option value="3">NITE</option>
@@ -64,12 +64,12 @@
                       </select>
                     </label>
                     <label>Correo, opcional
-                      <input id="ne-nuevo-cliente-correo" type="email" maxlength="160">
+                      <input id="ne-nuevo-cliente-correo" type="email" maxlength="160" disabled>
                     </label>
                   </div>
                   <div class="ne-actions ne-acciones-cliente">
-                    <button type="button" class="btn" id="ne-guardar-cliente">Guardar y seleccionar</button>
-                    <button type="button" class="btn ne-secondary" id="ne-cancelar-cliente">Cancelar</button>
+                    <button type="button" class="btn" id="ne-guardar-cliente" disabled>Guardar y seleccionar</button>
+                    <button type="button" class="btn ne-secondary" id="ne-cancelar-cliente" disabled>Cancelar</button>
                   </div>
                 </div>
               </div>
@@ -278,6 +278,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=11"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=12"></script>
 </body>
 </html>
