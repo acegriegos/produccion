@@ -88,9 +88,8 @@
 .ne-boleta-numero { font-size: 1.25rem; font-weight: 700; white-space: nowrap; }
 .ne-boleta-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; margin: 14px 0; }
 .ne-boleta-notas { min-height: 26px; border-top: 1px solid #dce4e6; margin-top: 16px !important; padding-top: 8px; }
-.ne-firmas { display: flex; gap: 24px; margin-top: 55px; }
-.ne-firmas span { flex: 1; border-top: 1px solid #455a64; text-align: center; padding-top: 5px; }
-.ne-boleta-pie { margin-top: 20px !important; font-size: .75rem; text-align: center; }
+.ne-firmas { display: flex; justify-content: center; margin-top: 55px; }
+.ne-firmas span { flex: 0 1 48%; border-top: 1px solid #455a64; text-align: center; padding-top: 5px; }
 .ne-dev-evento { border-top: 1px solid #dce4e6; padding: 12px 0; }
 .ne-dev-evento:first-child { border-top: 0; padding-top: 0; }
 .ne-dev-evento h3 { font-size: 1rem; margin: 0 0 6px; }

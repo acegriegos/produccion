@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=8">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=9">
 </head>
 <body>
   {$NAV}
@@ -218,8 +218,7 @@
           </table>
         </div>
         <p class="ne-boleta-notas" id="ne-d-observaciones"></p>
-        <div class="ne-firmas"><span>Entregado por</span><span>Recibido por</span></div>
-        <p class="ne-boleta-pie">Comprobante de entrega física. Los precios e impuestos se definen al facturar.</p>
+        <div class="ne-firmas"><span>Recibido por</span></div>
       </article>
 
       <section class="ne-card ne-no-print" id="ne-devolucion-panel" hidden>
