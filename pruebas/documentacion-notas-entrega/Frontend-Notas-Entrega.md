@@ -1,6 +1,6 @@
 # Notas de Entrega — interfaz y comprobante
 
-> Estado al 2026-10-16: emisión, consultas, anulaciones, facturación e impresión forman parte del módulo. El cambio de destinatario por línea se probó desde la interfaz con una opción predefinida y con **Otro**. Para instalación o actualización de SQL, seguir [guiaDB.md](guiaDB.md).
+> Estado al 2026-10-16: emisión regular, consultas, anulaciones, facturación e impresión forman parte del módulo. Esta rama añade la selección de notas desde facturas. En `pruebas` el SQL incremental ya está instalado; para habilitarlo en otra base, seguir [guiaDB.md](guiaDB.md).
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Backend](Backend-Notas-Entrega.md)
 
@@ -18,11 +18,19 @@ El formulario crea una clave UUID por solicitud lógica. Si falla la red y la pe
 
 La boleta ofrece los formatos **Punto de venta** y **A4** mediante un selector junto al botón de impresión, siguiendo el control de `Ver facturas`. Punto de venta conserva el tamaño definido por la impresora y presenta cada material en un bloque compacto con su encabezado «# Código y material»; A4 imprime en orientación vertical con márgenes de 12 mm. Ambos formatos incluyen número, cliente, fecha, responsable, sucursal, estado, materiales, destinatario por línea, cantidades, observaciones y espacio para recibido por, sin precios ni impuestos. El historial y el formulario de anulaciones quedan fuera de la impresión.
 
+## Selector de origen y emisión desde factura
+
+El panel de emisión presenta tres opciones: **Nota regular**, **Desde factura** y **Desde orden de compra**. La tercera aparece deshabilitada y marcada como próxima etapa. Cambiar a factura muestra una búsqueda por consecutivo para ventas emitidas de la sucursal activa (`F-`, `T-`, `S-`, `E-` o `FC-` para contingencia).
+
+Al elegir una factura, la pantalla muestra su número, fecha y cliente y presenta únicamente líneas de producto con su descripción, unidad y cantidad facturada. No solicita ni muestra precios, descuentos, impuestos o totales. Si la factura se creó desde una nota, precarga el destinatario guardado en esa línea, incluido un nombre libre; en otros casos queda listo para seleccionarlo. Las líneas aparecen sin seleccionar; se pueden marcar individualmente o todas de una vez, y cada cantidad admite hasta el máximo de su línea. Cada artículo conserva su propio destinatario y una indicación opcional.
+
+La emisión desde factura no modifica el inventario, no calcula un saldo conjunto con notas previas y deja la nota en estado **Cerrada desde factura**. Esa nota no se puede anular ni seleccionar para facturar desde el módulo. En consulta e impresión se conserva el número de la factura fuente para reconocer el origen.
+
 ## Pantallas previstas
 
 | Pantalla | Datos y acciones principales |
 | --- | --- |
-| Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas y anuladas; acceso al detalle e impresión. |
+| Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas, anuladas y cerradas desde factura; acceso al detalle e impresión. |
 | Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir uno de los cuatro destinatarios predefinidos (`CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON`) o escribir otro, además de unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
 | Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. El botón de impresión permite elegir Punto de venta o A4. |
 | Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente anuladas y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
@@ -31,7 +39,7 @@ El destinatario se define por artículo y puede variar entre renglones. Las cuat
 
 ## Comportamiento de la interfaz
 
-- Mostrar la bandera guardada: **pendiente de factura**, **facturada** o **anulada**; una nota con devolución parcial continúa pendiente mientras conserve alguna cantidad entregada.
+- Mostrar la bandera guardada: **pendiente de factura**, **facturada**, **anulada** o **cerrada desde factura**; una nota con anulación parcial continúa pendiente mientras conserve alguna cantidad entregada.
 - Mostrar la existencia disponible del inventario de venta `6` y avisar si la cantidad no alcanza. El backend volverá a validarla al emitir.
 - Tras emitir, bloquear la edición de cliente, artículos, destinatarios, cantidades e inventarios. Permitir consultar y reimprimir.
 - Permitir varias anulaciones parciales sobre la misma nota y una opción de un clic para anular todo el material pendiente. Mostrar el saldo por línea, aceptar una cantidad igual a ese saldo y rechazar una mayor. Mostrar el historial y anular la nota cuando todo el material entregado haya sido recibido.

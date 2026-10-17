@@ -23,12 +23,18 @@
   var opcionesFactura = null;
   var notasEnFactura = [];
   var lineasEnFactura = [];
+  var modoEmision = 'regular';
+  var facturaOrigen = null;
+  var claveFacturaPendiente = null;
+  var huellaFacturaPendiente = null;
+  var temporizadorFactura = null;
+  var solicitudFactura = null;
 
   function el(id) { return document.getElementById(id); }
   function valor(id) { return el(id).value.trim(); }
   function texto(id, value) { el(id).textContent = value == null || value === '' ? '—' : String(value); }
   function estadoNombre(id) {
-    return ({1: 'Pendiente de factura', 2: 'Facturada', 3: 'Anulada'})[id] || 'Desconocido';
+    return ({1: 'Pendiente de factura', 2: 'Facturada', 3: 'Anulada', 4: 'Cerrada desde factura'})[id] || 'Desconocido';
   }
   function pintarAviso() {
     var caja = el('ne-aviso');
@@ -71,6 +77,18 @@
     if (nombre === 'facturar') el('ne-tab-facturar').hidden = false;
     else if (!notasEnFactura.length) el('ne-tab-facturar').hidden = true;
     if (nombre === 'detalle') el('ne-tab-detalle').hidden = false;
+  }
+  function cambiarModoEmision(modo) {
+    if (modo !== 'regular' && modo !== 'factura') return;
+    modoEmision = modo;
+    el('ne-form').hidden = modo !== 'regular';
+    el('ne-factura-formulario').hidden = modo !== 'factura';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ne-origen]'), function (boton) {
+      var activo = boton.getAttribute('data-ne-origen') === modo;
+      boton.classList.toggle('active', activo);
+      boton.setAttribute('aria-pressed', activo ? 'true' : 'false');
+    });
+    aviso('', false, 'emitir');
   }
   function agregarCelda(fila, value) {
     var celda = document.createElement('td');
@@ -388,6 +406,246 @@
       aviso(mensaje, true, 'emitir');
     }).finally(function () { boton.disabled = false; });
   }
+  function actualizarBotonEmitirFactura() {
+    var filas = Array.prototype.slice.call(
+      el('ne-factura-origen-lineas').querySelectorAll('.ne-linea-factura-origen')
+    );
+    var seleccionadas = filas.filter(function (fila) {
+      return fila.querySelector('.ne-incluir-factura').checked;
+    }).length;
+    var selectorTodas = el('ne-factura-seleccionar-todas');
+    selectorTodas.checked = filas.length > 0 && seleccionadas === filas.length;
+    selectorTodas.indeterminate = seleccionadas > 0 && seleccionadas < filas.length;
+    selectorTodas.disabled = filas.length === 0;
+    var haySeleccion = seleccionadas > 0;
+    el('ne-emitir-factura-boton').disabled = !facturaOrigen || !haySeleccion;
+  }
+  function crearOpcion(select, valorOpcion, etiqueta) {
+    var opcion = document.createElement('option');
+    opcion.value = valorOpcion;
+    opcion.textContent = etiqueta;
+    select.appendChild(opcion);
+  }
+  function renderizarLineasFacturaOrigen(lineas) {
+    var tbody = el('ne-factura-origen-lineas');
+    tbody.replaceChildren();
+    if (!lineas.length) {
+      var filaVacia = document.createElement('tr');
+      var celdaVacia = agregarCelda(filaVacia, 'La factura no contiene artículos disponibles para entregar.');
+      celdaVacia.colSpan = 6;
+      tbody.appendChild(filaVacia);
+      actualizarBotonEmitirFactura();
+      return;
+    }
+    lineas.forEach(function (linea, indice) {
+      var fila = document.createElement('tr');
+      fila.className = 'ne-linea-factura-origen';
+      fila.dataset.iddetallefactura = String(linea.iddetallefactura);
+      fila.dataset.cantidadFacturada = String(linea.cantidad_facturada);
+
+      var celdaIncluir = document.createElement('td');
+      var incluir = document.createElement('input');
+      incluir.type = 'checkbox';
+      incluir.className = 'ne-incluir-factura';
+      incluir.checked = false;
+      incluir.setAttribute('aria-label', 'Incluir artículo ' + (indice + 1));
+      celdaIncluir.appendChild(incluir);
+      fila.appendChild(celdaIncluir);
+
+      agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+      agregarCelda(fila, Number(linea.cantidad_facturada).toFixed(2) + ' ' + (linea.unidad_nombre || ''));
+
+      var celdaCantidad = document.createElement('td');
+      var cantidad = document.createElement('input');
+      cantidad.type = 'number';
+      cantidad.className = 'ne-cantidad-origen';
+      cantidad.min = '0.01';
+      cantidad.step = '0.01';
+      cantidad.max = Number(linea.cantidad_facturada).toFixed(2);
+      cantidad.value = Number(linea.cantidad_facturada).toFixed(2);
+      cantidad.setAttribute('aria-label', 'Cantidad para la nota del artículo ' + (indice + 1));
+      celdaCantidad.appendChild(cantidad);
+      fila.appendChild(celdaCantidad);
+
+      var celdaDestinatario = document.createElement('td');
+      var destinatario = document.createElement('select');
+      destinatario.className = 'browser-default ne-destinatario-origen';
+      crearOpcion(destinatario, '', 'Seleccione destinatario');
+      crearOpcion(destinatario, 'CURUBANDE', 'CURUBANDE');
+      crearOpcion(destinatario, 'ZAGRA', 'ZAGRA');
+      crearOpcion(destinatario, 'METALMECANICA GRECIA', 'METALMECANICA GRECIA');
+      crearOpcion(destinatario, 'NELSON', 'NELSON');
+      crearOpcion(destinatario, '__otro', 'Otro');
+      celdaDestinatario.appendChild(destinatario);
+      var otro = document.createElement('input');
+      otro.type = 'text';
+      otro.className = 'ne-destinatario-libre';
+      otro.maxLength = 150;
+      otro.placeholder = 'Nombre del destinatario';
+      otro.hidden = true;
+      celdaDestinatario.appendChild(otro);
+      var destinatarioGuardado = String(linea.destinatario || '').trim();
+      var opcionGuardada = Array.prototype.some.call(destinatario.options, function (opcion) {
+        return opcion.value === destinatarioGuardado && opcion.value !== '';
+      });
+      if (opcionGuardada) {
+        destinatario.value = destinatarioGuardado;
+      } else if (destinatarioGuardado) {
+        destinatario.value = '__otro';
+        otro.value = destinatarioGuardado;
+        otro.hidden = false;
+        otro.required = true;
+      }
+      destinatario.required = !destinatarioGuardado;
+      destinatario.addEventListener('change', function () {
+        otro.hidden = destinatario.value !== '__otro';
+        otro.required = destinatario.value === '__otro';
+        if (otro.hidden) otro.value = '';
+      });
+      fila.appendChild(celdaDestinatario);
+      var celdaIndicacion = document.createElement('td');
+      var indicacion = document.createElement('input');
+      indicacion.type = 'text';
+      indicacion.className = 'ne-observacion-origen';
+      indicacion.maxLength = 255;
+      indicacion.setAttribute('aria-label', 'Indicación para el artículo ' + (indice + 1));
+      celdaIndicacion.appendChild(indicacion);
+      fila.appendChild(celdaIndicacion);
+      incluir.addEventListener('change', actualizarBotonEmitirFactura);
+      tbody.appendChild(fila);
+    });
+    actualizarBotonEmitirFactura();
+  }
+  function elegirFacturaOrigen(item) {
+    facturaOrigen = null;
+    el('ne-resultados-factura-origen').replaceChildren();
+    el('ne-factura-lineas-card').hidden = true;
+    el('ne-factura-origen-elegida').hidden = true;
+    el('ne-emitir-factura-boton').disabled = true;
+    aviso('Cargando artículos de la factura…', false, 'emitir');
+    api('ver-factura-origen', {id: item.id}).then(function (datos) {
+      facturaOrigen = datos.factura;
+      texto('ne-factura-origen-numero', facturaOrigen.numero);
+      texto('ne-factura-origen-cliente', facturaOrigen.cliente_nombre);
+      texto('ne-factura-origen-fecha', facturaOrigen.fecha);
+      el('ne-factura-origen-elegida').hidden = false;
+      el('ne-factura-lineas-card').hidden = false;
+      renderizarLineasFacturaOrigen(facturaOrigen.lineas || []);
+      aviso('', false, 'emitir');
+    }).catch(function (error) {
+      facturaOrigen = null;
+      aviso(error.message, true, 'emitir');
+    });
+  }
+  function conectarBusquedaFacturaOrigen() {
+    var input = el('ne-buscar-factura-origen');
+    var contenedor = el('ne-resultados-factura-origen');
+    input.addEventListener('input', function () {
+      var q = input.value.trim();
+      facturaOrigen = null;
+      el('ne-factura-lineas-card').hidden = true;
+      el('ne-factura-origen-elegida').hidden = true;
+      el('ne-factura-origen-lineas').replaceChildren();
+      actualizarBotonEmitirFactura();
+      contenedor.replaceChildren();
+      if (temporizadorFactura) clearTimeout(temporizadorFactura);
+      if (solicitudFactura) solicitudFactura.abort();
+      if (q.length < 2) return;
+      temporizadorFactura = setTimeout(function () {
+        solicitudFactura = typeof AbortController === 'function' ? new AbortController() : null;
+        api('buscar-facturas', {q: q}, solicitudFactura ? {signal: solicitudFactura.signal} : {})
+          .then(function (datos) {
+            if (input.value.trim() !== q) return;
+            contenedor.replaceChildren();
+            if (!datos.resultados.length) {
+              var vacio = document.createElement('p');
+              vacio.className = 'ne-seleccion';
+              vacio.textContent = 'No se encontraron facturas de venta.';
+              contenedor.appendChild(vacio);
+              return;
+            }
+            datos.resultados.forEach(function (factura) {
+              var etiqueta = factura.numero + ' · ' + factura.cliente_nombre + ' · ' + factura.fecha;
+              contenedor.appendChild(botonResultado(etiqueta, factura, elegirFacturaOrigen));
+            });
+          }).catch(function (error) {
+            if (error.name !== 'AbortError') aviso(error.message, true, 'emitir');
+          });
+      }, 250);
+    });
+  }
+  function prepararNotaDesdeFactura() {
+    if (!facturaOrigen) throw new Error('Busca y selecciona una factura de venta.');
+    var lineas = [];
+    Array.prototype.forEach.call(
+      el('ne-factura-origen-lineas').querySelectorAll('.ne-linea-factura-origen'),
+      function (fila, indice) {
+        if (!fila.querySelector('.ne-incluir-factura').checked) return;
+        var cantidad = fila.querySelector('.ne-cantidad-origen').value.trim();
+        var limiteCantidad = Number(fila.dataset.cantidadFacturada);
+        if (!/^[0-9]{1,12}(\.[0-9]{1,2})?$/.test(cantidad) || Number(cantidad) <= 0
+            || Number(cantidad) > limiteCantidad) {
+          throw new Error('La cantidad de la línea ' + (indice + 1)
+            + ' debe ser positiva y no superar la cantidad de su factura.');
+        }
+        var selector = fila.querySelector('.ne-destinatario-origen');
+        var destinatario = selector.value === '__otro'
+          ? fila.querySelector('.ne-destinatario-libre').value.trim() : selector.value;
+        if (!destinatario) throw new Error('Selecciona el destinatario de la línea ' + (indice + 1) + '.');
+        lineas.push({
+          iddetallefactura: Number(fila.dataset.iddetallefactura),
+          cantidad: cantidad,
+          destinatario: destinatario,
+          observaciones: fila.querySelector('.ne-observacion-origen').value.trim() || null
+        });
+      }
+    );
+    if (!lineas.length) throw new Error('Selecciona al menos una línea de factura.');
+    return {
+      idfactura_origen: Number(facturaOrigen.id),
+      referencia: valor('ne-factura-referencia') || null,
+      observaciones: valor('ne-factura-observaciones') || null,
+      lineas: lineas
+    };
+  }
+  function emitirDesdeFactura() {
+    var nota;
+    try { nota = prepararNotaDesdeFactura(); } catch (error) { aviso(error.message, true, 'emitir'); return; }
+    var huella = JSON.stringify(nota);
+    if (huella !== huellaFacturaPendiente) {
+      claveFacturaPendiente = uuid();
+      huellaFacturaPendiente = huella;
+    }
+    nota.clave_operacion = claveFacturaPendiente;
+    var boton = el('ne-emitir-factura-boton');
+    boton.disabled = true;
+    aviso('Emitiendo la nota desde factura…', false, 'emitir');
+    api('emitir-desde-factura', null, {
+      method: 'POST',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
+      body: JSON.stringify(nota)
+    }).then(function (respuesta) {
+      claveFacturaPendiente = huellaFacturaPendiente = null;
+      facturaOrigen = null;
+      el('ne-buscar-factura-origen').value = '';
+      el('ne-factura-origen-elegida').hidden = true;
+      el('ne-factura-lineas-card').hidden = true;
+      el('ne-factura-origen-lineas').replaceChildren();
+      el('ne-factura-referencia').value = '';
+      el('ne-factura-observaciones').value = '';
+      cargarDetalle(respuesta.idnota).then(function () {
+        aviso('Nota #' + respuesta.idnota
+          + (respuesta.repetida ? ' recuperada tras el reintento.' : ' emitida desde factura y cerrada correctamente.'), false, 'detalle');
+      }).catch(function (error) {
+        aviso('La nota #' + respuesta.idnota + ' fue emitida, pero no se pudo abrir el detalle: '
+          + error.message, true, 'emitir');
+      });
+    }).catch(function (error) {
+      var mensaje = error.message;
+      if (error.name === 'TypeError') mensaje += ' Si el envío se interrumpió, vuelva a intentar sin modificar la nota.';
+      aviso(mensaje, true, 'emitir');
+    }).finally(function () { actualizarBotonEmitirFactura(); });
+  }
   function filtros() {
     var tipo = valor('ne-f-tipo-cliente');
     if (tipo === 'registrado' && !clienteFiltro) throw new Error('Seleccione el cliente del filtro.');
@@ -441,7 +699,11 @@
         agregarCelda(fila, nota.usuario_nombre || nota.idusuario);
         agregarCelda(fila, estadoNombre(nota.idestado));
         var celdaFactura = document.createElement('td');
-        renderizarEnlaceFactura(celdaFactura, nota.idfactura);
+        if (nota.idfactura_origen != null) {
+          celdaFactura.textContent = 'Origen: ' + (nota.factura_origen_numero || nota.idfactura_origen);
+        } else {
+          renderizarEnlaceFactura(celdaFactura, nota.idfactura);
+        }
         fila.appendChild(celdaFactura);
         var celda = document.createElement('td');
         var boton = document.createElement('button');
@@ -798,7 +1060,13 @@
       texto('ne-d-sucursal', nota.idsucursal);
       texto('ne-d-estado', estadoNombre(nota.idestado));
       texto('ne-d-referencia', nota.referencia);
-      renderizarEnlaceFactura(el('ne-d-factura'), nota.idfactura);
+      if (Number(nota.origen) === 2 && nota.idfactura_origen != null) {
+        texto('ne-d-factura-label', 'Factura de origen:');
+        texto('ne-d-factura', nota.factura_origen_numero || nota.idfactura_origen);
+      } else {
+        texto('ne-d-factura-label', 'Factura:');
+        renderizarEnlaceFactura(el('ne-d-factura'), nota.idfactura);
+      }
       texto('ne-d-observaciones', nota.observaciones);
       var tbody = el('ne-d-lineas');
       tbody.replaceChildren();
@@ -961,6 +1229,31 @@
     });
   }
   function iniciar() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ne-origen]'), function (boton) {
+      boton.addEventListener('click', function () {
+        cambiarModoEmision(boton.getAttribute('data-ne-origen'));
+      });
+    });
+    conectarBusquedaFacturaOrigen();
+    el('ne-cambiar-factura-origen').addEventListener('click', function () {
+      el('ne-buscar-factura-origen').value = '';
+      el('ne-resultados-factura-origen').replaceChildren();
+      el('ne-factura-origen-elegida').hidden = true;
+      el('ne-factura-lineas-card').hidden = true;
+      el('ne-factura-origen-lineas').replaceChildren();
+      facturaOrigen = null;
+      actualizarBotonEmitirFactura();
+      el('ne-buscar-factura-origen').focus();
+    });
+    el('ne-emitir-factura-boton').addEventListener('click', emitirDesdeFactura);
+    el('ne-factura-seleccionar-todas').addEventListener('change', function () {
+      var incluirTodas = this.checked;
+      Array.prototype.forEach.call(
+        el('ne-factura-origen-lineas').querySelectorAll('.ne-incluir-factura'),
+        function (incluir) { incluir.checked = incluirTodas; }
+      );
+      actualizarBotonEmitirFactura();
+    });
     conectarBusqueda(el('ne-buscar-cliente'), el('ne-resultados-cliente'), 'clientes', function (item) {
       cliente = item;
       texto('ne-cliente-elegido', 'Cliente #' + item.id);
@@ -1065,6 +1358,7 @@
     }).catch(function (error) { aviso(error.message, true); });
   }
   el('ne-emitir-boton').disabled = true;
+  el('ne-emitir-factura-boton').disabled = true;
   el('ne-preparar-factura').disabled = true;
   el('ne-facturar-boton').disabled = true;
   iniciar();

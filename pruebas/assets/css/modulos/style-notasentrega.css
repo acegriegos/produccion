@@ -18,6 +18,19 @@
 .ne-tabs { display: flex; gap: 4px; background: transparent; box-shadow: none; height: auto; margin-bottom: 18px; }
 .ne-tab { border: 0; border-bottom: 3px solid transparent; padding: 12px 18px; background: #eceff1; color: #29434e; cursor: pointer; font-weight: 600; }
 .ne-tab.active { border-color: #00897b; background: white; }
+.ne-origen-selector { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.ne-origen-opcion { min-height: 42px; padding: 9px 16px; border: 1px solid #b0bec5; border-radius: 4px; background: #eceff1; color: #29434e; font: inherit; cursor: pointer; }
+.ne-origen-opcion.active { border-color: #00796b; background: #00796b; color: white; }
+.ne-origen-opcion:disabled { color: #78909c; cursor: not-allowed; opacity: .72; }
+.ne-factura-busqueda { max-width: 680px; }
+.ne-factura-origen-elegida { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; padding: 12px; border: 1px solid #b2dfdb; border-radius: 4px; background: #f1f8f7; }
+.ne-factura-origen-elegida p { margin: 3px 0; }
+.ne-tabla-origen-factura { min-width: 980px; }
+.ne-seleccionar-todas-factura { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; font-weight: 600; }
+.ne-tabla-origen-factura input[type=checkbox] { position: static !important; display: inline-block; width: 18px; height: 18px; min-height: 0; margin: 0; opacity: 1 !important; visibility: visible !important; pointer-events: auto; appearance: auto; -webkit-appearance: checkbox; accent-color: #00796b; vertical-align: middle; }
+.ne-tabla-origen-factura .ne-cantidad-origen { min-width: 125px; }
+.ne-tabla-origen-factura .ne-destinatario-origen { min-width: 190px; }
+.ne-tabla-origen-factura .ne-destinatario-libre { min-width: 180px; }
 .ne-tab[hidden], .ne-panel[hidden], .ne-app [hidden] { display: none !important; }
 .ne-card, .ne-boleta { background: white; border: 1px solid #dce4e6; border-radius: 6px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 .ne-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; align-items: start; }
@@ -78,7 +91,7 @@
 .ne-f-fechas button { margin-bottom: 0; }
 .ne-seleccion-factura { align-items: center; margin-bottom: 12px; }
 .ne-seleccion-factura p { margin: 0; }
-.ne-app input[type=checkbox].ne-checkbox-nota { position: static !important; display: inline-block; width: 18px; height: 18px; min-height: 0; margin: 0; padding: 0; opacity: 1 !important; visibility: visible !important; pointer-events: auto; appearance: auto; -webkit-appearance: checkbox; accent-color: #00796b; vertical-align: middle; }
+.ne-app input[type=checkbox].ne-checkbox-nota, .ne-app input[type=checkbox].ne-incluir-factura { position: static !important; display: inline-block; width: 18px; height: 18px; min-height: 0; margin: 0; padding: 0; opacity: 1 !important; visibility: visible !important; pointer-events: auto; appearance: auto; -webkit-appearance: checkbox; accent-color: #00796b; vertical-align: middle; }
 .ne-factura-cabecera { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 18px; }
 .ne-factura-comentario { grid-column: span 3; }
 .ne-tabla-factura { min-width: 920px; }
@@ -121,6 +134,7 @@
   .ne-linea-grid, .ne-boleta-datos { grid-template-columns: 1fr; }
   .ne-linea-notas { grid-column: span 1; }
   .ne-tabs { overflow-x: auto; }
+  .ne-factura-origen-elegida { align-items: flex-start; flex-direction: column; }
   .ne-card { padding: 15px; }
 }
 @page ne-nota-a4 { size: A4 portrait; margin: 12mm; }

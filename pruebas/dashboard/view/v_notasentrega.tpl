@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=15">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=17">
 </head>
 <body>
   {$NAV}
@@ -27,6 +27,11 @@
     <div class="ne-aviso" id="ne-aviso" role="status" aria-live="polite" hidden></div>
 
     <section class="ne-panel" id="ne-emitir">
+      <div class="ne-origen-selector" role="group" aria-label="Origen de la nota de entrega">
+        <button type="button" class="ne-origen-opcion active" data-ne-origen="regular" aria-pressed="true">Nota regular</button>
+        <button type="button" class="ne-origen-opcion" data-ne-origen="factura" aria-pressed="false">Desde factura</button>
+        <button type="button" class="ne-origen-opcion" data-ne-origen="orden" disabled aria-disabled="true" title="Disponible en una siguiente etapa">Desde orden de compra · Próximamente</button>
+      </div>
       <form id="ne-form" autocomplete="off">
         <div class="ne-card">
           <h2>Cliente</h2>
@@ -101,6 +106,49 @@
           <span>Después de emitir, los datos de la nota ya no se editan.</span>
         </div>
       </form>
+      <div id="ne-factura-formulario" hidden>
+        <div class="ne-card">
+          <h2>Factura de origen</h2>
+          <p>Se copian el cliente y los artículos, sin precios. Esta nota no modifica inventario ni controla cantidades usadas en otras notas, y queda cerrada sin anulaciones.</p>
+          <div class="ne-search ne-factura-busqueda">
+            <label for="ne-buscar-factura-origen">Buscar factura de venta por número</label>
+            <input id="ne-buscar-factura-origen" type="search" placeholder="Escriba al menos 2 dígitos">
+            <div class="ne-resultados" id="ne-resultados-factura-origen"></div>
+          </div>
+          <div class="ne-factura-origen-elegida" id="ne-factura-origen-elegida" hidden>
+            <div>
+              <strong id="ne-factura-origen-numero"></strong>
+              <p>Cliente: <span id="ne-factura-origen-cliente"></span></p>
+              <p>Fecha: <span id="ne-factura-origen-fecha"></span></p>
+            </div>
+            <button type="button" class="btn ne-secondary" id="ne-cambiar-factura-origen">Cambiar factura</button>
+          </div>
+        </div>
+        <div class="ne-card" id="ne-factura-lineas-card" hidden>
+          <h2>Artículos de la factura</h2>
+          <p>Selecciona las líneas que deseas incluir y define la cantidad para esta nota. Cada línea admite hasta la cantidad de su factura.</p>
+          <div class="ne-table-wrap">
+            <table class="striped ne-tabla-origen-factura">
+              <thead><tr><th><label class="ne-seleccionar-todas-factura"><input type="checkbox" id="ne-factura-seleccionar-todas"> Seleccionar todas</label></th><th>Artículo</th><th>Facturada</th><th>Cantidad para nota</th><th>Destinatario</th><th>Indicación</th></tr></thead>
+              <tbody id="ne-factura-origen-lineas"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ne-card">
+          <div class="ne-grid">
+            <label>Referencia, opcional
+              <input id="ne-factura-referencia" type="text" maxlength="55">
+            </label>
+            <label>Observaciones generales, opcional
+              <textarea id="ne-factura-observaciones" maxlength="512" rows="2"></textarea>
+            </label>
+          </div>
+          <div class="ne-actions">
+            <button type="button" class="btn" id="ne-emitir-factura-boton" disabled>Emitir nota desde factura</button>
+            <span>El sistema conserva la referencia de origen para consulta e impresión.</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="ne-panel" id="ne-listado" hidden>
@@ -113,6 +161,7 @@
               <option value="0">Todos</option>
               <option value="2">Facturada</option>
               <option value="3">Anulada</option>
+              <option value="4">Cerrada desde factura</option>
             </select>
           </label>
           <label>Cliente
@@ -246,7 +295,7 @@
           <p><strong>Sucursal:</strong> <span id="ne-d-sucursal"></span></p>
           <p><strong>Estado:</strong> <span id="ne-d-estado"></span></p>
           <p><strong>Referencia:</strong> <span id="ne-d-referencia"></span></p>
-          <p><strong>Factura:</strong> <span id="ne-d-factura"></span></p>
+          <p><strong id="ne-d-factura-label">Factura:</strong> <span id="ne-d-factura"></span></p>
         </div>
         <p class="ne-boleta-material-titulo"># Código y material</p>
         <div class="ne-table-wrap">
@@ -286,6 +335,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=15"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=17"></script>
 </body>
 </html>

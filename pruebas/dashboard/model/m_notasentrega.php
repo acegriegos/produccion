@@ -143,6 +143,131 @@ class _notasentrega
         }
     }
 
+    /** Busca únicamente comprobantes de venta de la sucursal activa. */
+    public function buscarFacturasOrigen($idSucursal, $termino)
+    {
+        $conexion = $this->conexion();
+        $sentencia = null;
+        // La interfaz de facturas rellena el consecutivo a diez dígitos.
+        // La tabla guarda el número sin esos ceros iniciales.
+        $termino = ltrim($termino, '0');
+        if ($termino === '') {
+            $termino = '0';
+        }
+        $prefijo = $termino . '%';
+        try {
+            $sentencia = $conexion->prepare(
+                "SELECT f.id,
+                        CONCAT(CASE f.idtipoventa
+                            WHEN 1 THEN 'F-'
+                            WHEN 7 THEN 'T-'
+                            WHEN 8 THEN 'S-'
+                            WHEN 10 THEN 'E-'
+                            WHEN 106 THEN 'FC-'
+                        END, LPAD(f.consecutivo, 10, '0')) AS numero,
+                        DATE_FORMAT(f.fecha, '%Y-%m-%d %H:%i:%s') AS fecha,
+                        COALESCE(NULLIF(TRIM(c.nombre), ''),
+                                 NULLIF(TRIM(f.comodin), ''), 'Cliente contado') AS cliente_nombre
+                 FROM facturas f
+                 LEFT JOIN clientes c ON c.id = f.idcliente
+                 WHERE f.idsucursal = ? AND f.id > 0
+                   AND f.idtipoventa IN (1, 7, 8, 10, 106)
+                   AND f.consecutivo LIKE ?
+                 ORDER BY f.id DESC LIMIT 25"
+            );
+            if (!$sentencia || !$sentencia->bind_param('is', $idSucursal, $prefijo)
+                || !$sentencia->execute()) {
+                throw new RuntimeException('No se pudo preparar la búsqueda de facturas de venta.');
+            }
+            $resultado = $sentencia->get_result();
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudieron leer las facturas de venta.');
+            }
+            return $resultado->fetch_all(MYSQLI_ASSOC);
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    /** Devuelve datos de cliente y materiales de venta, sin consultar precios. */
+    public function verFacturaOrigen($idSucursal, $idFactura)
+    {
+        $conexion = $this->conexion();
+        $cabecera = null;
+        $detalle = null;
+        try {
+            $cabecera = $conexion->prepare(
+                "SELECT f.id, f.idtipoventa,
+                        CONCAT(CASE f.idtipoventa
+                            WHEN 1 THEN 'F-'
+                            WHEN 7 THEN 'T-'
+                            WHEN 8 THEN 'S-'
+                            WHEN 10 THEN 'E-'
+                            WHEN 106 THEN 'FC-'
+                        END, LPAD(f.consecutivo, 10, '0')) AS numero,
+                        DATE_FORMAT(f.fecha, '%Y-%m-%d %H:%i:%s') AS fecha,
+                        COALESCE(NULLIF(TRIM(c.nombre), ''),
+                                 NULLIF(TRIM(f.comodin), ''), 'Cliente contado') AS cliente_nombre,
+                        NULLIF(TRIM(c.cedula), '') AS cliente_cedula
+                 FROM facturas f
+                 LEFT JOIN clientes c ON c.id = f.idcliente
+                 WHERE f.id = ? AND f.idsucursal = ? AND f.id > 0
+                   AND f.idtipoventa IN (1, 7, 8, 10, 106)
+                 LIMIT 1"
+            );
+            if (!$cabecera || !$cabecera->bind_param('ii', $idFactura, $idSucursal)
+                || !$cabecera->execute()) {
+                throw new RuntimeException('No se pudo consultar la factura de origen.');
+            }
+            $resultado = $cabecera->get_result();
+            if ($resultado === false || !($factura = $resultado->fetch_assoc())) {
+                return null;
+            }
+            $cabecera->close();
+            $cabecera = null;
+
+            $detalle = $conexion->prepare(
+                "SELECT df.id AS iddetallefactura, df.idproducto,
+                        p.codigo AS producto_codigo,
+                        LEFT(COALESCE(NULLIF(TRIM(df.comodin), ''), p.nombre), 150)
+                            AS producto_descripcion,
+                        COALESCE(NULLIF(df.idunidad, 0), p.idunidad) AS idunidad,
+                        u.nombre AS unidad_nombre,
+                        dne.destinatario,
+                        TRUNCATE(CAST(df.cantidad AS DECIMAL(23,5)), 2) AS cantidad_facturada
+                 FROM detallefacturas df
+                 INNER JOIN productos p ON p.id = df.idproducto
+                 INNER JOIN unidades u
+                    ON u.id = COALESCE(NULLIF(df.idunidad, 0), p.idunidad)
+                 LEFT JOIN detallenotasentrega dne ON dne.iddetallefactura = df.id
+                 WHERE df.idfactura = ? AND df.idproducto > 0
+                   AND df.cantidad REGEXP '^[0-9]+(\\.[0-9]+)?$'
+                   AND CAST(df.cantidad AS DECIMAL(23,5)) > 0
+                 ORDER BY df.id"
+            );
+            if (!$detalle || !$detalle->bind_param('i', $idFactura) || !$detalle->execute()) {
+                throw new RuntimeException('No se pudieron consultar los materiales de la factura.');
+            }
+            $resultado = $detalle->get_result();
+            if ($resultado === false) {
+                throw new RuntimeException('No se pudieron leer los materiales de la factura.');
+            }
+            $factura['lineas'] = $resultado->fetch_all(MYSQLI_ASSOC);
+            return $factura;
+        } finally {
+            if ($cabecera instanceof mysqli_stmt) {
+                $cabecera->close();
+            }
+            if ($detalle instanceof mysqli_stmt) {
+                $detalle->close();
+            }
+            $conexion->close();
+        }
+    }
+
     /**
      * Crea un cliente registrado para seleccionarlo al emitir la nota.
      * Los bloqueos por cédula y correo serializan altas simultáneas del módulo.
@@ -479,6 +604,67 @@ class _notasentrega
         }
     }
 
+    /** Emite una nota cerrada desde factura sin afectar inventario. */
+    public function emitirDesdeFactura($idSucursal, $idUsuario, array $nota)
+    {
+        $lineasJson = json_encode($nota['lineas'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        if ($lineasJson === false) {
+            throw new NotaEntregaReglaException('detalle_invalido', 'No se pudo codificar el detalle.', 422);
+        }
+        $idFactura = $nota['idfactura_origen'];
+        $clave = $nota['clave_operacion'];
+        $referencia = $nota['referencia'];
+        $observaciones = $nota['observaciones'];
+        $conexion = $this->conexion();
+        $sentencia = null;
+        try {
+            $sentencia = $conexion->prepare(
+                'CALL sp_emitir_nota_desde_factura(?, ?, ?, ?, ?, ?, ?)'
+            );
+            if (!$sentencia || !$sentencia->bind_param(
+                'iiissss', $idSucursal, $idUsuario, $idFactura, $clave,
+                $referencia, $observaciones, $lineasJson
+            )) {
+                throw new RuntimeException('No se pudo preparar la emisión desde factura.');
+            }
+            if (!$sentencia->execute()) {
+                $this->lanzarErrorEmisionDesdeFactura($sentencia->errno, $sentencia->error);
+            }
+            $resultado = $sentencia->get_result();
+            if ($resultado === false || !($fila = $resultado->fetch_assoc())) {
+                throw new RuntimeException('La emisión desde factura no devolvió el número de nota.');
+            }
+            return array(
+                'idnota' => (int) $fila['idnota'],
+                'repetida' => (bool) $fila['repetida']
+            );
+        } catch (mysqli_sql_exception $error) {
+            $this->lanzarErrorEmisionDesdeFactura($error->getCode(), $error->getMessage());
+        } finally {
+            if ($sentencia instanceof mysqli_stmt) {
+                $sentencia->close();
+            }
+            $conexion->close();
+        }
+    }
+
+    private function lanzarErrorEmisionDesdeFactura($numero, $mensaje)
+    {
+        if ((int) $numero === 1644) {
+            $conflicto = strpos($mensaje, 'Clave usada') !== false;
+            if (strpos($mensaje, 'Factura no disponible') !== false) {
+                throw new NotaEntregaReglaException('factura_no_disponible',
+                    'La factura ya no está disponible en esta sucursal.', 404);
+            }
+            throw new NotaEntregaReglaException(
+                $conflicto ? 'conflicto' : 'regla_negocio',
+                $mensaje,
+                $conflicto ? 409 : 422
+            );
+        }
+        throw new RuntimeException('Error técnico al emitir la nota desde factura: ' . $mensaje);
+    }
+
     private function lanzarErrorEmision($numero, $mensaje)
     {
         if ((int) $numero === 1644) {
@@ -663,20 +849,30 @@ class _notasentrega
         $sentencia = null;
         try {
             $sentencia = $conexion->prepare(
-                'SELECT n.id, n.idsucursal, n.idcliente, n.nombre_cliente,
+                "SELECT n.id, n.idsucursal, n.idcliente, n.nombre_cliente,
                         n.fecha_emision, n.idestado, n.referencia, n.idfactura,
+                        n.origen, n.idfactura_origen,
+                        CASE fo.idtipoventa
+                            WHEN 1 THEN CONCAT('F-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 7 THEN CONCAT('T-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 8 THEN CONCAT('S-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 10 THEN CONCAT('E-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 106 THEN CONCAT('FC-', LPAD(fo.consecutivo, 10, '0'))
+                            ELSE NULL
+                        END AS factura_origen_numero,
                         n.idusuario, u.nombre AS usuario_nombre,
                         (SELECT COUNT(*) FROM detallenotasentrega d
                          WHERE d.idnota = n.id) AS total_lineas
                  FROM notasentrega n
                  LEFT JOIN usuarios u ON u.id = n.idusuario
+                 LEFT JOIN facturas fo ON fo.id = n.idfactura_origen
                  WHERE n.idsucursal = ? AND (? = 0 OR n.idestado = ?)
                    AND (? = -1 OR n.idcliente = ?
                         OR (? = 0 AND n.idcliente IS NULL))
                    AND (? IS NULL OR n.fecha_emision >= ?)
                    AND (? IS NULL OR n.fecha_emision < DATE_ADD(?, INTERVAL 1 DAY))
                    AND (? = 0 OR n.idusuario = ?)
-                 ORDER BY n.id DESC LIMIT ? OFFSET ?'
+                 ORDER BY n.id DESC LIMIT ? OFFSET ?"
             );
             if (!$sentencia || !$sentencia->bind_param(
                 'iiiiiissssiiii', $idSucursal, $estado, $estado,
@@ -706,14 +902,24 @@ class _notasentrega
         $detalle = null;
         try {
             $cabecera = $conexion->prepare(
-                'SELECT n.id, n.idsucursal, n.idcliente, n.nombre_cliente,
+                "SELECT n.id, n.idsucursal, n.idcliente, n.nombre_cliente,
                         n.cliente_cedula, n.idusuario, u.nombre AS usuario_nombre,
                         n.fecha_emision, n.idestado, n.referencia,
-                        n.observaciones, n.idfactura, n.fecha_anulacion,
+                        n.observaciones, n.idfactura, n.origen, n.idfactura_origen,
+                        CASE fo.idtipoventa
+                            WHEN 1 THEN CONCAT('F-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 7 THEN CONCAT('T-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 8 THEN CONCAT('S-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 10 THEN CONCAT('E-', LPAD(fo.consecutivo, 10, '0'))
+                            WHEN 106 THEN CONCAT('FC-', LPAD(fo.consecutivo, 10, '0'))
+                            ELSE NULL
+                        END AS factura_origen_numero,
+                        n.fecha_anulacion,
                         n.idusuario_anulador, n.motivo_anulacion
                  FROM notasentrega n
                  LEFT JOIN usuarios u ON u.id = n.idusuario
-                 WHERE n.id = ? AND n.idsucursal = ? LIMIT 1'
+                 LEFT JOIN facturas fo ON fo.id = n.idfactura_origen
+                 WHERE n.id = ? AND n.idsucursal = ? LIMIT 1"
             );
             if (!$cabecera || !$cabecera->bind_param('ii', $idNota, $idSucursal)
                 || !$cabecera->execute()) {
@@ -737,7 +943,7 @@ class _notasentrega
                         d.cantidad - COALESCE(dev.cantidad_devuelta, 0) AS cantidad_pendiente,
                         d.cantidad_inventario, d.producto_codigo,
                         d.producto_descripcion, d.observaciones,
-                        d.iddetallefactura
+                        d.iddetallefactura, d.iddetallefactura_origen
                  FROM detallenotasentrega d
                  LEFT JOIN unidades uni ON uni.id = d.idunidad
                  LEFT JOIN (

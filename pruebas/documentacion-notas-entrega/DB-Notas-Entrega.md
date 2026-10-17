@@ -1,6 +1,6 @@
 # Notas de Entrega — base de datos
 
-> Estado al 2026-10-16: en la copia local `pruebas`, la columna final `destinatario` y los procedimientos están instalados. Para seleccionar los SQL y seguir el orden correcto en cualquier entorno, usar la [guía operativa de base de datos](guiaDB.md). No se ejecutan automáticamente desde PHP.
+> Estado al 2026-10-16: en la copia local `pruebas` están instalados el esquema final de destinatarios, los procedimientos regulares y el SQL incremental de emisión desde facturas. En otras bases, seguir el orden de la [guía operativa de base de datos](guiaDB.md); PHP no ejecuta cambios de esquema automáticamente.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Backend](Backend-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -15,7 +15,7 @@ La conexión de esta copia está en `_config/mysqlDB.php` y apunta a la base loc
 | Artículo y unidad | `productos`, `unidades`, `dimensioproductos` | Se reutiliza el código, nombre, unidad y reglas de conversión existentes. `unidades.id` es `TINYINT`. |
 | Existencia física | `inventarios`, `detalleinventarios` | Según TI, las notas afectarán «Producto Venta», `inventarios.id = 6`. `detalleinventarios.cantidad` es `DECIMAL(12,4)`. |
 | Historial de existencias | `movimientos`, `tipomovimientos`, `tablas` | `movimientos` ya guarda cantidad, producto, fecha, usuario, sucursal, `idtabla` e `idfila`. Las salidas y reversiones de notas se identificarán allí, sin usar `boletas`. |
-| Factura | `facturas`, `detallefacturas` | Varias notas pueden apuntar al mismo `facturas.id`; cada línea de nota debe rastrearse hasta su línea de factura. |
+| Factura | `facturas`, `detallefacturas` | Una nota regular puede apuntar a la factura que se creó al facturarla. Una nota de origen factura conserva por separado la factura y la línea fuente, sin guardar precios. |
 | Consecutivos | `consecutivos` | Tiene contadores por sucursal, pero las Notas de Entrega usarán su propio `id` como número impreso. No se ampliará esta tabla para el módulo. |
 | Devoluciones | `devoluciones`, `detalledevoluciones` | TI indicó que el flujo previo a facturar tendrá estructuras nuevas para notas. Las tablas actuales se reservan para devoluciones relacionadas con facturas. |
 
@@ -25,7 +25,8 @@ En una migración normal, se copia a cada línea el nombre histórico relacionad
 
 - La nota se **registra y emite en una sola operación**: no habrá borradores. En ese momento se descuenta el inventario y queda pendiente de facturación.
 - El mismo usuario registra y emite la nota; se guarda un solo `idusuario` tomado de la sesión. Los permisos se integrarán con las clases y la secuencia de acceso existentes, y se validarán también en el servidor. No se añade `idvendedor` independiente.
-- Se guarda `idestado` como bandera con tres valores propuestos: `1` pendiente de factura, `2` facturada y `3` anulada. No existe estado borrador.
+- `idestado` representa `1` pendiente de factura, `2` facturada, `3` anulada y `4` cerrada desde una factura. No existe estado borrador. Las notas en estado `4` no se pueden facturar ni anular.
+- `origen` identifica `1` nota regular, `2` nota creada desde factura y `3` reservado para la futura emisión desde una orden de compra. La nota de factura queda vinculada a su documento original mediante `idfactura_origen`; `idfactura` mantiene su función de enlazar la factura que se cree al facturar notas regulares.
 - La cantidad capturada y la devuelta tendrán dos decimales. `cantidad_inventario` conserva la cantidad exacta descontada o repuesta en la unidad de stock. No habrá `fecha_entrega` separada: la fecha de emisión identifica el registro y la salida; cada devolución tendrá su propia fecha.
 - `idsucursal` sí se conserva. La sucursal activa está en la sesión PHP como `$_SESSION['IMPRESA']`; el servidor debe guardar ese valor en la nota al emitirla. No se confiará en una sucursal enviada libremente por el navegador.
 - Cada línea guarda su propio destinatario como texto. La lista de cuatro nombres es fija en la interfaz y permite ingresar otro nombre sin crear registros de catálogo.
@@ -39,6 +40,7 @@ En una migración normal, se copia a cada línea el nombre histórico relacionad
 - Una nota contiene una o varias líneas: `detallenotasentrega.idnota → notasentrega.id`.
 - Cada línea referencia el artículo mediante `idproducto → productos.id`; `destinatario` es una copia de texto independiente de los catálogos.
 - Una factura puede agrupar varias notas completas. `notasentrega.idfactura` empieza en `NULL` y varias notas podrán recibir el mismo valor después de crear la factura.
+- Una factura de venta puede originar varias notas informativas. `notasentrega.idfactura_origen` y `detallenotasentrega.iddetallefactura_origen` guardan el origen de cada una. No se calcula saldo acumulado contra notas anteriores, pero cada cantidad debe ser positiva y no superar la cantidad de su línea fuente.
 - `detallenotasentrega.iddetallefactura` conserva el vínculo entre la línea física y la línea facturada.
 - Las salidas usan movimiento tipo `10`, `idtabla = 521` (`detallenotasentrega`) e `idfila = detallenotasentrega.id`. Las devoluciones usan tipo `7`, `idtabla = 523` (`detalledevolucionesnotasentrega`) e `idfila = detalledevolucionesnotasentrega.id`; esa línea de devolución enlaza con la línea original. TI aprobó los IDs `520`–`523` para `tablas`.
 - Una nota puede tener muchas devoluciones; cada devolución contiene una o varias líneas. La factura toma la cantidad original menos todas las devoluciones anteriores a facturar. No se crea una nota sustituta.
@@ -55,10 +57,12 @@ En una migración normal, se copia a cada línea el nombre histórico relacionad
 | `idusuario` | `INT NOT NULL` | Usuario autenticado que registra y emite la nota en la misma operación; su rol determina si puede hacerlo. |
 | `clave_operacion` | `CHAR(36) NOT NULL UNIQUE` | Clave estable de la solicitud para reconocer un reintento de emisión y evitar una segunda salida. |
 | `fecha_emision` | `DATETIME NOT NULL` | Momento del registro, emisión y descuento de inventario. Sustituye `fecha_creacion` del modelo con borradores. |
-| `idestado` | `TINYINT NOT NULL DEFAULT 1` | Bandera propuesta: `1` pendiente, `2` facturada, `3` anulada. |
+| `idestado` | `TINYINT NOT NULL DEFAULT 1` | `1` pendiente, `2` facturada, `3` anulada y `4` cerrada desde factura. |
+| `origen` | `TINYINT UNSIGNED NOT NULL DEFAULT 1` | `1` nota regular, `2` factura y `3` reservado para órdenes de compra. |
 | `referencia` | `VARCHAR(55) NULL` | Pedido, orden u otra referencia externa; no equivale automáticamente al consecutivo. |
 | `observaciones` | `VARCHAR(512) NULL` | Indicaciones de la entrega. |
 | `idfactura` | `INT NULL` | Factura posterior; no es único porque una factura puede agrupar notas. |
+| `idfactura_origen` | `INT NULL` | Factura de venta de la cual se copió la información. No se reutiliza `idfactura`, que representa la facturación posterior de notas regulares. |
 | `fecha_anulacion`, `idusuario_anulador`, `motivo_anulacion` | `DATETIME NULL`, `INT NULL`, `VARCHAR(255) NULL` | Evidencia de una anulación previa a factura. La fecha de devolución se guarda en la devolución correspondiente. |
 
 La tabla `consecutivos` no necesita un contador nuevo para este módulo. El `id` es único en toda la tabla, aunque existan varias sucursales.
@@ -76,14 +80,15 @@ Una nota puede contener varias líneas. El destinatario se elige o escribe indep
 | `destinatario` | `VARCHAR(150) NOT NULL` | Nombre seleccionado o escrito para esta línea; no tiene clave foránea ni se guarda en un catálogo. |
 | `idunidad` | `TINYINT NOT NULL` | `unidades.id`. |
 | `cantidad` | `DECIMAL(23,2) NOT NULL` | Cantidad entregada en la unidad seleccionada; hasta dos decimales. |
-| `cantidad_inventario` | `DECIMAL(12,4) NOT NULL` | Cantidad convertida y realmente descontada del stock al emitir; se conserva para auditoría y reversión. |
+| `cantidad_inventario` | `DECIMAL(12,4) NOT NULL` | Cantidad convertida y realmente descontada del stock; queda en cero para una nota informativa desde factura. |
 | `producto_codigo`, `producto_descripcion` | `VARCHAR(45)`, `VARCHAR(150)` | Copia al emitir para que una reimpresión conserve lo entregado aunque cambie el catálogo. |
 | `observaciones` | `VARCHAR(255) NULL` | Medida, corte u otra indicación de la línea. |
 | `iddetallefactura` | `INT NULL` | Línea de `detallefacturas` creada al facturar. |
+| `iddetallefactura_origen` | `INT NULL` | Línea de la factura fuente. No es única, porque la misma línea puede aparecer en varias notas y no se lleva saldo global. |
 
 No se proponen IDs de movimiento en esta tabla. La salida se localiza mediante movimiento tipo `10`, `idtabla = 521` e `idfila = detallenotasentrega.id`. Cada devolución se localiza por su propia línea con tipo `7`, `idtabla = 523` e `idfila = detalledevolucionesnotasentrega.id`. La tabla existente `movimientos` no impone unicidad a estos campos; los SP deben bloquear la nota, comprobar el saldo y reconocer la `clave_operacion` antes de insertar. Deshabilitar el botón en JavaScript evita clics repetidos por accidente, pero no sustituye esas validaciones.
 
-Precios, descuentos e impuestos **no se fijan en la nota**; se definen al crear la factura.
+Precios, descuentos e impuestos **no se copian ni se devuelven a la interfaz de emisión desde factura**. Las notas regulares conservan el flujo existente, donde los precios se definen al facturarlas.
 
 ### Cantidad de factura frente a cantidad de inventario
 
@@ -120,6 +125,7 @@ El tipo `7` («Devolucion») ya existe; el SQL agrega el tipo `10` («Notas de E
 4. El procedimiento actual `sp_mantdetallefacturas` descuenta stock al crear una línea de venta. Las líneas procedentes de notas necesitan una ruta que conserve cálculos de facturación y vínculos, pero **sin repetir el descuento**. La venta normal mantiene su conducta actual.
 5. Cada devolución parcial aumenta el inventario únicamente por lo recibido y conserva la nota pendiente mientras exista saldo entregado. Al devolver todas las líneas, la nota pasa a `3` anulada. Después de facturar se usa el proceso fiscal existente.
 6. Una nota en estado `1` no tiene factura ni fecha de anulación; en estado `2` tiene factura y no está anulada; en estado `3` registra su anulación y no se puede facturar. Las transiciones deben mantener estos campos coherentes.
+7. Una nota de origen factura se guarda en estado `4`, conserva la factura y línea de origen, y deja `cantidad_inventario = 0` porque no realiza movimiento físico de inventario. No se puede incluir en el flujo de facturación de notas ni en el de anulaciones.
 
 ### Procedimientos y restricciones
 
@@ -128,6 +134,7 @@ Nosotros desarrollamos los SP del módulo y entregaremos su comportamiento a TI 
 - `sp_emitir_nota_entrega` (**implementado**): en una transacción valida usuario/sucursal, cliente o nombre libre, destinatario, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida. Para instalación, seguir el orden correspondiente de [guiaDB.md](guiaDB.md).
 - `sp_devolver_nota_entrega` (**instalado en `pruebas` y validado por el usuario**): bloquea nota y líneas, exige estado pendiente sin factura, verifica pertenencia y `0 < cantidad_a_devolver <= cantidad_entregada - suma_devuelta_previa`. Guarda un evento con `clave_operacion` y sus líneas; repone solo el saldo recibido, crea un movimiento tipo `7` por línea y pasa la nota a anulada únicamente si todas sus líneas quedan en cero. El detalle usa la unidad original de la línea y la última devolución repone el remanente de inventario exacto. El archivo separado reemplaza únicamente este procedimiento.
 - `sp_facturar_notas_entrega` (**implementado e instalado en `pruebas`**): bloquea las notas seleccionadas, valida cliente/sucursal y estado pendiente, resuelve cliente contado `0` y nombre `comodin`, deriva producto, unidad y cantidades netas desde las notas y anulaciones, crea encabezado y líneas, guarda `idfactura` e `iddetallefactura` y pasa cada nota a facturada. La operación completa hace `COMMIT` o `ROLLBACK`; no altera `detalleinventarios` ni inserta otro movimiento de salida. Se instala desde [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql).
+- `sp_emitir_nota_desde_factura` (**preparado, pendiente de instalación en `pruebas`**): valida que la factura sea una venta de la sucursal activa, deriva cliente y materiales en el servidor, limita cada cantidad a la cantidad de su línea fuente, guarda estado `4`, origen y referencias. No lee ni devuelve precios, no descuenta ni aumenta inventario, no registra movimientos y no controla saldo acumulado entre notas. Se instala desde [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql). Estas notas no admiten anulaciones.
 
 La ruta de facturación de notas replica **solo lo necesario para la línea y sus datos auxiliares** del flujo actual (por ejemplo, el peso en `msdetallefacturas` cuando aplique). Usa nombres explícitos de columnas y evita llamar a `sp_mantdetallefacturas`, porque esa rutina descuenta inventario y registra un movimiento tipo `4`. El procedimiento de ventas ordinarias permanece sin cambios.
 
