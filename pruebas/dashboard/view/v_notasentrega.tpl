@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=13">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=14">
 </head>
 <body>
   {$NAV}

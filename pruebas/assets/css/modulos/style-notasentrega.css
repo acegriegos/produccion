@@ -145,7 +145,7 @@
   #ne-app.ne-formato-pv .ne-boleta-numero { position: static; margin-top: 6px; text-align: center; }
   #ne-app.ne-formato-pv .ne-boleta-datos { grid-template-columns: 1fr; gap: 0; margin: 8px 0; }
   #ne-app.ne-formato-pv .ne-boleta-datos p { margin: 2px 0 !important; }
-  #ne-app.ne-formato-pv .ne-boleta-material-titulo { display: block; margin: 8px 0 2px !important; font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta-material-titulo { display: none; }
   #ne-app.ne-formato-pv .ne-table-wrap { overflow: visible; }
   #ne-app.ne-formato-pv .ne-boleta table { width: 100%; }
   #ne-app.ne-formato-pv .ne-boleta thead { display: none; }
@@ -153,6 +153,7 @@
   #ne-app.ne-formato-pv .ne-boleta tbody td { display: block; padding: 1px 0 !important; border: 0; font-size: 8pt; word-break: break-word; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:first-child { display: none; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(2) { font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(2)::before { content: '# Código y material'; display: block; margin-bottom: 2px; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(3)::before { content: 'Proveedor: '; font-weight: 700; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(4)::before { content: 'Unidad: '; font-weight: 700; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(5)::before { content: 'Cantidad: '; font-weight: 700; }
