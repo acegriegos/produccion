@@ -1,5 +1,5 @@
 -- Backend de emision de notas de entrega. MariaDB 10.3.
--- Instalar despues de SQL-Notas-Entrega-Migracion.sql en la base `pruebas`.
+-- Instalar despues de SQL-Notas-Entrega-Destinatarios.sql en la base `pruebas`.
 -- El procedimiento es atomico: cabecera, lineas, stock y movimientos se
 -- confirman juntos. Nunca usar sp_mantdetallefacturas para esta operacion.
 USE `pruebas`;
@@ -24,7 +24,7 @@ procedimiento: BEGIN
     DECLARE v_total INT;
     DECLARE v_i INT DEFAULT 0;
     DECLARE v_producto INT;
-    DECLARE v_proveedor INT;
+    DECLARE v_destinatario VARCHAR(150);
     DECLARE v_unidad INT;
     DECLARE v_cantidad DECIMAL(23,2);
     DECLARE v_cantidad_ajustada DECIMAL(12,3);
@@ -148,11 +148,17 @@ procedimiento: BEGIN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Producto invalido';
         END IF;
         SET v_producto = CAST(v_texto AS UNSIGNED);
-        SET v_texto = JSON_UNQUOTE(JSON_EXTRACT(p_lineas, CONCAT('$[', v_i, '].idproveedor')));
-        IF v_texto IS NULL OR v_texto NOT REGEXP '^[1-9][0-9]{0,9}$' THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Proveedor invalido';
+        IF COALESCE(JSON_TYPE(JSON_EXTRACT(
+            p_lineas, CONCAT('$[', v_i, '].destinatario')
+        )), '') <> 'STRING' THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Destinatario invalido';
         END IF;
-        SET v_proveedor = CAST(v_texto AS UNSIGNED);
+        SET v_destinatario = NULLIF(TRIM(JSON_UNQUOTE(JSON_EXTRACT(
+            p_lineas, CONCAT('$[', v_i, '].destinatario')
+        ))), '');
+        IF v_destinatario IS NULL OR CHAR_LENGTH(v_destinatario) > 150 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Destinatario invalido';
+        END IF;
         SET v_texto = JSON_UNQUOTE(JSON_EXTRACT(p_lineas, CONCAT('$[', v_i, '].idunidad')));
         IF v_texto IS NULL OR v_texto NOT REGEXP '^[1-9][0-9]{0,2}$' THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Unidad invalida';
@@ -182,7 +188,8 @@ procedimiento: BEGIN
             IF NOT EXISTS (
                 SELECT 1 FROM detallenotasentrega
                  WHERE idnota = v_id AND renglon = v_i + 1
-                   AND idproducto = v_producto AND idproveedor = v_proveedor
+                   AND idproducto = v_producto
+                   AND BINARY destinatario = BINARY v_destinatario
                    AND idunidad = v_unidad AND cantidad = v_cantidad
                    AND observaciones <=> v_linea_observaciones
             ) THEN
@@ -198,10 +205,6 @@ procedimiento: BEGIN
             IF v_producto_nombre IS NULL OR TRIM(v_producto_nombre) = ''
                OR v_unidad_base IS NULL OR COALESCE(v_heredado, 0) <> 0 THEN
                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Producto no apto para nota';
-            END IF;
-            IF NOT EXISTS (SELECT 1 FROM clientes
-                           WHERE id = v_proveedor AND bisproveedor = 1) THEN
-                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Proveedor no existe';
             END IF;
             IF NOT EXISTS (SELECT 1 FROM unidades WHERE id = v_unidad) THEN
                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Unidad no existe';
@@ -272,11 +275,11 @@ procedimiento: BEGIN
             SELECT cantidad INTO v_stock_final
               FROM detalleinventarios WHERE id = v_stock_id;
             INSERT INTO detallenotasentrega
-                (idnota, renglon, idproducto, idproveedor, idunidad, cantidad,
+                (idnota, renglon, idproducto, destinatario, idunidad, cantidad,
                  cantidad_inventario, producto_codigo, producto_descripcion,
                  observaciones)
             VALUES
-                (v_id, v_i + 1, v_producto, v_proveedor, v_unidad, v_cantidad,
+                (v_id, v_i + 1, v_producto, v_destinatario, v_unidad, v_cantidad,
                  v_cantidad_stock, v_producto_codigo, v_producto_nombre,
                  v_linea_observaciones);
             SET v_detalle_id = LAST_INSERT_ID();

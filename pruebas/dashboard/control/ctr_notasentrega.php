@@ -250,9 +250,9 @@ function ne_normalizar_nota(array $datos)
                 isset($linea['idproducto']) ? $linea['idproducto'] : null,
                 'Producto de línea ' . ($indice + 1), 1, 2147483647
             ),
-            'idproveedor' => ne_entero(
-                isset($linea['idproveedor']) ? $linea['idproveedor'] : null,
-                'Proveedor de línea ' . ($indice + 1), 1, 2147483647
+            'destinatario' => ne_texto(
+                isset($linea['destinatario']) ? $linea['destinatario'] : null,
+                'Destinatario de línea ' . ($indice + 1), 150, true
             ),
             'idunidad' => ne_entero(
                 isset($linea['idunidad']) ? $linea['idunidad'] : null,
@@ -478,7 +478,7 @@ try {
         }
         if ($accion === 'buscar') {
             $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : '';
-            if (!in_array($tipo, array('clientes', 'productos', 'proveedores', 'usuarios'), true)) {
+            if (!in_array($tipo, array('clientes', 'productos', 'usuarios'), true)) {
                 ne_error('dato_invalido', 'Catálogo no disponible.', 422);
             }
             $termino = ne_texto(isset($_GET['q']) ? $_GET['q'] : null,

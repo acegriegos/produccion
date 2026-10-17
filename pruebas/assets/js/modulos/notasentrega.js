@@ -239,17 +239,18 @@
       '<div class="ne-linea-head"><strong class="ne-renglon"></strong><button type="button" class="btn ne-secondary ne-quitar">Quitar</button></div>' +
       '<div class="ne-linea-grid">' +
       '<div class="ne-search"><label>Artículo<input class="ne-producto" type="search" placeholder="Código o descripción"></label><div class="ne-resultados ne-productos"></div><p class="ne-stock">Seleccione un artículo</p></div>' +
-      '<div class="ne-search"><label>Proveedor<input class="ne-proveedor" type="search" placeholder="Nombre o cédula"></label><div class="ne-resultados ne-proveedores"></div><p class="ne-seleccion ne-proveedor-elegido">Ningún proveedor seleccionado</p></div>' +
+      '<div class="ne-search"><label>Destinatario<select class="ne-destinatario browser-default" required><option value="">Seleccione destinatario</option><option value="CURUBANDE">CURUBANDE</option><option value="ZAGRA">ZAGRA</option><option value="METALMECANICA GRECIA">METALMECANICA GRECIA</option><option value="NELSON">NELSON</option><option value="__otro">Otro</option></select></label><label class="ne-destinatario-libre-contenedor" hidden>Nombre del destinatario<input class="ne-destinatario-libre" type="text" maxlength="150"></label></div>' +
       '<label>Unidad<select class="ne-unidad browser-default" required><option value="">Seleccione artículo</option></select></label>' +
       '<label>Cantidad<input class="ne-cantidad" type="number" min="0.01" step="0.01" required></label>' +
       '<label class="ne-linea-notas">Indicación, medida o corte (opcional)<input class="ne-linea-observaciones" type="text" maxlength="255"></label>' +
       '</div>';
     fila.producto = null;
-    fila.proveedor = null;
     lista.appendChild(fila);
     renumerar();
     var buscarProducto = fila.querySelector('.ne-producto');
-    var buscarProveedor = fila.querySelector('.ne-proveedor');
+    var selectorDestinatario = fila.querySelector('.ne-destinatario');
+    var destinatarioLibre = fila.querySelector('.ne-destinatario-libre');
+    var contenedorDestinatarioLibre = fila.querySelector('.ne-destinatario-libre-contenedor');
     conectarBusqueda(buscarProducto, fila.querySelector('.ne-productos'), 'productos', function (elegido) {
       fila.producto = elegido;
       var select = fila.querySelector('.ne-unidad');
@@ -269,12 +270,11 @@
       fila.querySelector('.ne-unidad').replaceChildren();
       fila.querySelector('.ne-stock').textContent = 'Seleccione un artículo';
     });
-    conectarBusqueda(buscarProveedor, fila.querySelector('.ne-proveedores'), 'proveedores', function (elegido) {
-      fila.proveedor = elegido;
-      fila.querySelector('.ne-proveedor-elegido').textContent = 'Proveedor #' + elegido.id;
-    }, function () {
-      fila.proveedor = null;
-      fila.querySelector('.ne-proveedor-elegido').textContent = 'Ningún proveedor seleccionado';
+    selectorDestinatario.addEventListener('change', function () {
+      var esLibre = selectorDestinatario.value === '__otro';
+      contenedorDestinatarioLibre.hidden = !esLibre;
+      destinatarioLibre.required = esLibre;
+      if (!esLibre) destinatarioLibre.value = '';
     });
     fila.querySelector('.ne-cantidad').addEventListener('input', function () { actualizarStock(fila); });
     fila.querySelector('.ne-unidad').addEventListener('change', function () { actualizarStock(fila); });
@@ -319,8 +319,12 @@
     if (!contado && !cliente) throw new Error('Seleccione un cliente de la búsqueda.');
     if (contado && !valor('ne-nombre-cliente')) throw new Error('Ingrese el nombre del cliente contado.');
     var lineas = Array.prototype.map.call(el('ne-lineas').children, function (fila, indice) {
-      if (!fila.producto || !fila.proveedor) {
-        throw new Error('Seleccione artículo y proveedor en la línea ' + (indice + 1) + '.');
+      var selectorDestinatario = fila.querySelector('.ne-destinatario');
+      var destinatario = selectorDestinatario.value === '__otro'
+        ? fila.querySelector('.ne-destinatario-libre').value.trim()
+        : selectorDestinatario.value;
+      if (!fila.producto || !destinatario) {
+        throw new Error('Seleccione artículo y destinatario en la línea ' + (indice + 1) + '.');
       }
       if (Number(fila.producto.saldos) !== 1) {
         throw new Error('El artículo de la línea ' + (indice + 1) + ' no tiene saldo único en inventario 6.');
@@ -333,7 +337,7 @@
       if (!idunidad) throw new Error('Seleccione la unidad de la línea ' + (indice + 1) + '.');
       return {
         idproducto: Number(fila.producto.id),
-        idproveedor: Number(fila.proveedor.id),
+        destinatario: destinatario,
         idunidad: idunidad,
         cantidad: cantidad,
         observaciones: fila.querySelector('.ne-linea-observaciones').value.trim() || null
@@ -802,7 +806,7 @@
         var fila = document.createElement('tr');
         agregarCelda(fila, linea.renglon);
         agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
-        agregarCelda(fila, linea.proveedor_nombre || linea.idproveedor);
+        agregarCelda(fila, linea.destinatario);
         agregarCelda(fila, linea.unidad_nombre || linea.idunidad);
         agregarCelda(fila, linea.cantidad);
         agregarCelda(fila, linea.observaciones);

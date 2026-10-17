@@ -84,7 +84,7 @@ class _notasentrega
 
     /**
      * Catálogos acotados para la pantalla. Ningún término de búsqueda entra
-     * como SQL; tampoco se confía en una relación producto-proveedor exclusiva.
+     * como SQL. Los destinatarios son opciones de la interfaz, no un catálogo.
      */
     public function buscarCatalogo($tipo, $termino)
     {
@@ -94,11 +94,10 @@ class _notasentrega
         $patron = '%' . str_replace(array('=', '%', '_'),
             array('==', '=%', '=_'), $termino) . '%';
         try {
-            if ($tipo === 'clientes' || $tipo === 'proveedores') {
-                $condicion = $tipo === 'proveedores' ? ' AND bisproveedor = 1' : '';
+            if ($tipo === 'clientes') {
                 $sentencia = $conexion->prepare(
                     'SELECT id, nombre, cedula FROM clientes
-                     WHERE id > 0' . $condicion . '
+                     WHERE id > 0
                        AND (nombre LIKE ? ESCAPE \'=\' OR cedula LIKE ? ESCAPE \'=\')
                      ORDER BY nombre LIMIT 25'
                 );
@@ -732,8 +731,7 @@ class _notasentrega
             }
 
             $detalle = $conexion->prepare(
-                'SELECT d.id, d.renglon, d.idproducto, d.idproveedor,
-                        p.nombre AS proveedor_nombre, d.idunidad,
+                'SELECT d.id, d.renglon, d.idproducto, d.destinatario, d.idunidad,
                         uni.nombre AS unidad_nombre, d.cantidad,
                         COALESCE(dev.cantidad_devuelta, 0) AS cantidad_devuelta,
                         d.cantidad - COALESCE(dev.cantidad_devuelta, 0) AS cantidad_pendiente,
@@ -741,7 +739,6 @@ class _notasentrega
                         d.producto_descripcion, d.observaciones,
                         d.iddetallefactura
                  FROM detallenotasentrega d
-                 LEFT JOIN clientes p ON p.id = d.idproveedor
                  LEFT JOIN unidades uni ON uni.id = d.idunidad
                  LEFT JOIN (
                     SELECT dd.iddetallenota, SUM(dd.cantidad_devuelta) AS cantidad_devuelta

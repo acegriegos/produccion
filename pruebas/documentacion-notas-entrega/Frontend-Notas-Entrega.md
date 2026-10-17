@@ -8,32 +8,32 @@
 
 La pantalla de ventas de la copia de pruebas en `http://127.0.0.1:8080/produccion/pruebas/dashboard/facturacion?tf=1` es la referencia visual y de uso indicada para seleccionar clientes y artículos. Su contenido se carga desde `dashboard/view/ajax/facturas/ajaxVentas.tpl` mediante `dashboard/control/ctr_facturacion.php`; intervienen `assets/js/modulos/facturacion.js` y `assets/js/modulos/ventas.js`.
 
-La nueva interfaz conserva navegación, estilos y permisos visibles del sistema. Agrega un selector de proveedor **en cada línea de artículo**, ausente en la venta revisada.
+La nueva interfaz conserva navegación, estilos y permisos visibles del sistema. Agrega un selector de destinatario **en cada línea de artículo** con cuatro opciones fijas y la posibilidad de escribir otro nombre.
 
 ## Implementación de esta etapa
 
-La opción **Notas de Entrega** aparece bajo Facturación para usuarios con la misma clase de permiso de Ventas (`per2`); el controlador vuelve a exigir permiso de escritura de facturación o administrador `id = 1`. La ruta `dashboard/notasentrega` sirve la vista, y `?accion=contexto`, `buscar`, `unidades`, `emitir`, `listar` y `ver` sirven JSON. Las búsquedas de cliente, producto y proveedor consultan la base mediante parámetros preparados y muestran hasta 25 resultados; se exige seleccionar una coincidencia, no basta escribir texto. El producto muestra el saldo del inventario `6` y unidades compatibles con su unidad base. El saldo visible es orientativo: el SP valida y bloquea el saldo al emitir.
+La opción **Notas de Entrega** aparece bajo Facturación para usuarios con la misma clase de permiso de Ventas (`per2`); el controlador vuelve a exigir permiso de escritura de facturación o administrador `id = 1`. La ruta `dashboard/notasentrega` sirve la vista, y `?accion=contexto`, `buscar`, `unidades`, `emitir`, `listar` y `ver` sirven JSON. Las búsquedas de cliente y producto consultan la base mediante parámetros preparados y muestran hasta 25 resultados; se exige seleccionar una coincidencia, no basta escribir texto. Los destinatarios son opciones locales de la interfaz, no se buscan en la base. El producto muestra el saldo del inventario `6` y unidades compatibles con su unidad base. El saldo visible es orientativo: el SP valida y bloquea el saldo al emitir.
 
 El formulario crea una clave UUID por solicitud lógica. Si falla la red y la persona reintenta sin cambiar los datos, usa la misma clave para evitar otra salida de material. El botón se deshabilita durante el envío. Después de una emisión confirmada se abre el detalle de la nota. El listado filtra estado, cliente registrado o contado, fechas y usuario, con páginas de 25 registros. El detalle conserva los valores guardados al emitir y la boleta se imprime sin precios ni impuestos.
 
-La boleta ofrece los formatos **Punto de venta** y **A4** mediante un selector junto al botón de impresión, siguiendo el control de `Ver facturas`. Punto de venta conserva el tamaño definido por la impresora y presenta cada material en un bloque compacto con su encabezado «# Código y material»; A4 imprime en orientación vertical con márgenes de 12 mm. Ambos formatos incluyen número, cliente, fecha, responsable, sucursal, estado, materiales, proveedor por línea, cantidades, observaciones y espacio para recibido por, sin precios ni impuestos. El historial y el formulario de anulaciones quedan fuera de la impresión.
+La boleta ofrece los formatos **Punto de venta** y **A4** mediante un selector junto al botón de impresión, siguiendo el control de `Ver facturas`. Punto de venta conserva el tamaño definido por la impresora y presenta cada material en un bloque compacto con su encabezado «# Código y material»; A4 imprime en orientación vertical con márgenes de 12 mm. Ambos formatos incluyen número, cliente, fecha, responsable, sucursal, estado, materiales, destinatario por línea, cantidades, observaciones y espacio para recibido por, sin precios ni impuestos. El historial y el formulario de anulaciones quedan fuera de la impresión.
 
 ## Pantallas previstas
 
 | Pantalla | Datos y acciones principales |
 | --- | --- |
 | Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas y anuladas; acceso al detalle e impresión. |
-| Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir proveedor por línea, unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
+| Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir uno de los cuatro destinatarios predefinidos (`CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON`) o escribir otro, además de unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
 | Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. El botón de impresión permite elegir Punto de venta o A4. |
 | Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente devueltas, y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
 
-El proveedor representa a quien suministró cada artículo; puede ser distinto entre renglones y se elige de la lista general, incluso si varios proveedores ofrecen el mismo producto. El precio definitivo no se captura ni se presenta como definitivo al emitir una nota.
+El destinatario se define por artículo y puede variar entre renglones. Las cuatro opciones acordadas aparecen directamente en la pantalla; la opción **Otro** permite capturar un nombre libre. Ese texto se guarda como parte de la línea de nota y no se registra en un catálogo. El precio definitivo no se captura ni se presenta como definitivo al emitir una nota.
 
 ## Comportamiento de la interfaz
 
 - Mostrar la bandera guardada: **pendiente de factura**, **facturada** o **anulada**; una nota con devolución parcial continúa pendiente mientras conserve alguna cantidad entregada.
 - Mostrar la existencia disponible del inventario de venta `6` y avisar si la cantidad no alcanza. El backend volverá a validarla al emitir.
-- Tras emitir, bloquear la edición de cliente, artículos, proveedores, cantidades e inventarios. Permitir consultar y reimprimir.
+- Tras emitir, bloquear la edición de cliente, artículos, destinatarios, cantidades e inventarios. Permitir consultar y reimprimir.
 - Permitir varias anulaciones parciales sobre la misma nota y una opción de un clic para anular todo el material pendiente. Mostrar el saldo por línea, aceptar una cantidad igual a ese saldo y rechazar una mayor. Mostrar el historial y anular la nota cuando todo el material entregado haya sido recibido.
 - Al agrupar pendientes, impedir mezclar clientes o sucursales; para contado comparar el nombre libre y requerir selección explícita. Mostrar si otro usuario ya facturó o devolvió la nota.
 - Deshabilitar temporalmente el botón al enviar emisión o devolución para reducir clics repetidos. La prevención definitiva de duplicados se valida en el servidor y los SP.
@@ -43,13 +43,13 @@ El proveedor representa a quien suministró cada artículo; puede ser distinto e
 
 ## Boleta imprimible
 
-El comprobante se diseñará para **media hoja**. Debe identificar como mínimo el ID de la nota como número impreso, nombre del cliente aunque no esté registrado, fecha de emisión, materiales, cantidades, usuario responsable y estado de facturación. El proveedor por artículo forma parte de los datos registrados y se validará si debe aparecer en el impreso. El contenido exacto, medidas de papel, firmas, copias y modo de impresión quedan por confirmar con los usuarios operativos antes de cerrar el diseño.
+El comprobante debe identificar como mínimo el ID de la nota como número impreso, nombre del cliente aunque no esté registrado, fecha de emisión, materiales, cantidades, usuario responsable y estado de facturación. El destinatario seleccionado para cada artículo forma parte de los datos guardados y aparece en el impreso.
 
 El impreso debe servir como respaldo de entrega física. La factura se generará después, con importes definidos entonces.
 
 ## Integración técnica prevista
 
-La vista usa PHP/Smarty y los scripts del proyecto. Los catálogos de clientes, artículos, proveedores y unidades se consultan a través de extensiones preparadas del backend; el inventario visible se consulta junto con el producto. La pantalla solo solicita operaciones autorizadas; las transiciones de estado y el inventario se controlan en el servidor, como se describe en [backend](Backend-Notas-Entrega.md).
+La vista usa PHP/Smarty y los scripts del proyecto. Los catálogos de clientes, artículos y unidades se consultan a través de extensiones preparadas del backend; los destinatarios no requieren catálogo. El inventario visible se consulta junto con el producto. La pantalla solo solicita operaciones autorizadas; las transiciones de estado y el inventario se controlan en el servidor, como se describe en [backend](Backend-Notas-Entrega.md).
 
 No se ha establecido ninguna dependencia de WebSocket para este módulo.
 
@@ -73,3 +73,4 @@ No se ha establecido ninguna dependencia de WebSocket para este módulo.
 | 2026-10-06 | El PR #4 integró devoluciones e historial en `master`; el usuario instaló el SP de devolución y confirmó el flujo. El backend de facturación se implementa en otra rama; la interfaz todavía está pendiente. |
 | 2026-10-06 | Se añadió la preparación de factura: selección múltiple de notas pendientes, datos de factura desde los catálogos actuales, cantidades netas, precio/descuento/IVA por línea, vínculo navegable desde la nota y total previo. La rutina SQL está instalada; falta revisar y probar el guardado completo. |
 | 2026-10-06 | Desde el listado y el detalle de notas facturadas se añadió acceso separado para ver o imprimir la factura, usando el mismo recibo de ventas y su parámetro de impresión. |
+| 2026-10-16 | Se reemplaza proveedor por destinatario por línea, con cuatro valores fijos y captura libre sin catálogo. La migración conserva en texto los nombres ya guardados. |

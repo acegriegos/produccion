@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=14">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=15">
 </head>
 <body>
   {$NAV}
@@ -91,7 +91,7 @@
 
         <div class="ne-card">
           <div class="ne-card-head">
-            <div><h2>Materiales</h2><p>El proveedor se selecciona para cada artículo. El saldo mostrado corresponde al inventario 6.</p></div>
+            <div><h2>Materiales</h2><p>El destinatario se selecciona para cada artículo. El saldo mostrado corresponde al inventario 6.</p></div>
             <button type="button" class="btn ne-secondary" id="ne-agregar-linea">Agregar artículo</button>
           </div>
           <div id="ne-lineas"></div>
@@ -251,7 +251,7 @@
         <p class="ne-boleta-material-titulo"># Código y material</p>
         <div class="ne-table-wrap">
           <table>
-            <thead><tr><th>#</th><th>Código y material</th><th>Proveedor</th><th>Unidad</th><th>Cantidad</th><th>Indicación</th></tr></thead>
+            <thead><tr><th>#</th><th>Código y material</th><th>Destinatario</th><th>Unidad</th><th>Cantidad</th><th>Indicación</th></tr></thead>
             <tbody id="ne-d-lineas"></tbody>
           </table>
         </div>
@@ -286,6 +286,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=14"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=15"></script>
 </body>
 </html>

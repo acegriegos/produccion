@@ -1,6 +1,6 @@
 # Notas de Entrega — base de datos
 
-> Estado al 2026-10-06: [migración local](SQL-Notas-Entrega-Migracion.sql) aplicada en `pruebas` por el usuario y verificada. Las cuatro tablas, sus IDs de catálogo y los tipos de movimiento `10` y `7` existen. Los procedimientos de emisión y devolución están instalados y el flujo de devolución fue probado por el usuario. `sp_facturar_notas_entrega` también se instaló en `pruebas`; todavía falta probar el guardado de una factura real.
+> Estado al 2026-10-16: la migración inicial está aplicada en `pruebas`. Este cambio requiere ejecutar una vez [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) y reinstalar [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql). No se ejecutan automáticamente desde PHP.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Backend](Backend-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -11,7 +11,7 @@ La conexión de esta copia está en `_config/mysqlDB.php` y apunta a la base loc
 | Necesidad | Estructura existente | Hallazgo para el módulo |
 | --- | --- | --- |
 | Cliente | `clientes`, `facturas.idcliente`, `facturas.comodin` | La nota admite `idcliente = NULL` con `nombre_cliente` obligatorio. Al facturar como cliente contado se usa `facturas.idcliente = 0` y `facturas.comodin = nombre_cliente`, siguiendo el patrón del módulo de ventas. `facturas.comodin` admite 64 caracteres; el nombre libre de la nota no puede exceder ese límite. |
-| Proveedor de cada artículo | `clientes`, `proveedorproductos` | Los proveedores están en `clientes` con `bisproveedor = 1`. Un artículo puede tener varios proveedores; la persona selecciona cualquiera de la lista. `proveedorproductos` puede aportar referencias, pero no debe limitar automáticamente la selección. |
+| Destinatario de cada artículo | Valor de la línea en `detallenotasentrega` | Se elige entre `CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON` o se escribe un nombre libre. No se consulta ni se crea una relación con `clientes` o `proveedorproductos`. |
 | Artículo y unidad | `productos`, `unidades`, `dimensioproductos` | Se reutiliza el código, nombre, unidad y reglas de conversión existentes. `unidades.id` es `TINYINT`. |
 | Existencia física | `inventarios`, `detalleinventarios` | Según TI, las notas afectarán «Producto Venta», `inventarios.id = 6`. `detalleinventarios.cantidad` es `DECIMAL(12,4)`. |
 | Historial de existencias | `movimientos`, `tipomovimientos`, `tablas` | `movimientos` ya guarda cantidad, producto, fecha, usuario, sucursal, `idtabla` e `idfila`. Las salidas y reversiones de notas se identificarán allí, sin usar `boletas`. |
@@ -19,7 +19,7 @@ La conexión de esta copia está en `_config/mysqlDB.php` y apunta a la base loc
 | Consecutivos | `consecutivos` | Tiene contadores por sucursal, pero las Notas de Entrega usarán su propio `id` como número impreso. No se ampliará esta tabla para el módulo. |
 | Devoluciones | `devoluciones`, `detalledevoluciones` | TI indicó que el flujo previo a facturar tendrá estructuras nuevas para notas. Las tablas actuales se reservan para devoluciones relacionadas con facturas. |
 
-En los datos locales se encontraron asociaciones en `proveedorproductos`, pero no había filas marcadas como proveedor en `clientes`. El 2026-10-01 se creó **solo en la base local `pruebas`** el cliente de ensayo `id = 500`, nombre `PROVEEDOR PRUEBA NOTAS ENTREGA`, activo y con `bisproveedor = 1`. Antes no existía, por eso el `UPDATE` propuesto por TI habría afectado cero filas. Este dato de prueba no forma parte de la migración para otras instalaciones.
+La base local contenía un cliente de ensayo usado por el flujo anterior de proveedores. La migración nueva conserva el nombre asociado a cada línea existente como texto y quita la relación con `clientes`; el dato de ensayo no se usa como catálogo de destinatarios.
 
 ## Acuerdos del diseño
 
@@ -28,7 +28,7 @@ En los datos locales se encontraron asociaciones en `proveedorproductos`, pero n
 - Se guarda `idestado` como bandera con tres valores propuestos: `1` pendiente de factura, `2` facturada y `3` anulada. No existe estado borrador.
 - La cantidad capturada y la devuelta tendrán dos decimales. `cantidad_inventario` conserva la cantidad exacta descontada o repuesta en la unidad de stock. No habrá `fecha_entrega` separada: la fecha de emisión identifica el registro y la salida; cada devolución tendrá su propia fecha.
 - `idsucursal` sí se conserva. La sucursal activa está en la sesión PHP como `$_SESSION['IMPRESA']`; el servidor debe guardar ese valor en la nota al emitirla. No se confiará en una sucursal enviada libremente por el navegador.
-- Cada línea tiene su propio proveedor, seleccionado de la lista general. No existe una relación exclusiva entre producto y proveedor.
+- Cada línea guarda su propio destinatario como texto. La lista de cuatro nombres es fija en la interfaz y permite ingresar otro nombre sin crear registros de catálogo.
 - El inventario de origen del módulo será el `id = 6`, según TI. No se propone `idinventario` por línea mientras este alcance sea fijo.
 - No se usarán `boletas` ni `sp_mantdetalleboletas` para emitir notas. Cada salida y reversión se registrará en `movimientos` con referencia a la línea de nota.
 - Antes de facturar se admiten **varias devoluciones parciales de la misma nota**, en tablas propias. La nota conserva su ID y estado pendiente mientras quede material entregado. Cada devolución repone solo lo recibido. Cuando la suma de devoluciones alcanza todas las líneas, la nota pasa a anulada. Después de facturar se usa el flujo de devoluciones de facturas.
@@ -37,7 +37,7 @@ En los datos locales se encontraron asociaciones en `proveedorproductos`, pero n
 ## Relaciones previstas
 
 - Una nota contiene una o varias líneas: `detallenotasentrega.idnota → notasentrega.id`.
-- Cada línea referencia artículo y proveedor: `idproducto → productos.id`; `idproveedor → clientes.id` con `bisproveedor = 1`.
+- Cada línea referencia el artículo mediante `idproducto → productos.id`; `destinatario` es una copia de texto independiente de los catálogos.
 - Una factura puede agrupar varias notas completas. `notasentrega.idfactura` empieza en `NULL` y varias notas podrán recibir el mismo valor después de crear la factura.
 - `detallenotasentrega.iddetallefactura` conserva el vínculo entre la línea física y la línea facturada.
 - Las salidas usan movimiento tipo `10`, `idtabla = 521` (`detallenotasentrega`) e `idfila = detallenotasentrega.id`. Las devoluciones usan tipo `7`, `idtabla = 523` (`detalledevolucionesnotasentrega`) e `idfila = detalledevolucionesnotasentrega.id`; esa línea de devolución enlaza con la línea original. TI aprobó los IDs `520`–`523` para `tablas`.
@@ -65,7 +65,7 @@ La tabla `consecutivos` no necesita un contador nuevo para este módulo. El `id`
 
 ## Tabla propuesta: `detallenotasentrega`
 
-Una nota puede contener varias líneas. El proveedor se elige independientemente para cada artículo.
+Una nota puede contener varias líneas. El destinatario se elige o escribe independientemente para cada artículo.
 
 | Campo | Tipo propuesto | Uso |
 | --- | --- | --- |
@@ -73,7 +73,7 @@ Una nota puede contener varias líneas. El proveedor se elige independientemente
 | `idnota` | `INT NOT NULL` | `notasentrega.id`. |
 | `renglon` | `INT NOT NULL` | Orden de impresión y facturación. |
 | `idproducto` | `INT NOT NULL` | `productos.id`; el código y nombre pueden cargarse al seleccionar el producto. |
-| `idproveedor` | `INT NOT NULL` | `clientes.id` de un proveedor elegido de la lista, aunque haya otros para el mismo producto. |
+| `destinatario` | `VARCHAR(150) NOT NULL` | Nombre seleccionado o escrito para esta línea; no tiene clave foránea ni se guarda en un catálogo. |
 | `idunidad` | `TINYINT NOT NULL` | `unidades.id`. |
 | `cantidad` | `DECIMAL(23,2) NOT NULL` | Cantidad entregada en la unidad seleccionada; hasta dos decimales. |
 | `cantidad_inventario` | `DECIMAL(12,4) NOT NULL` | Cantidad convertida y realmente descontada del stock al emitir; se conserva para auditoría y reversión. |
@@ -125,7 +125,7 @@ El tipo `7` («Devolucion») ya existe; el SQL agrega el tipo `10` («Notas de E
 
 Nosotros desarrollamos los SP del módulo y entregaremos su comportamiento a TI para revisión. No esperamos que TI entregue esos procedimientos:
 
-- `sp_emitir_nota_entrega` (**implementado**): en una transacción valida usuario/sucursal, cliente o nombre libre, proveedor, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida. Su instalación está en [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql); se ejecuta después de la migración, que **no se repite** en la base local.
+- `sp_emitir_nota_entrega` (**implementado**): en una transacción valida usuario/sucursal, cliente o nombre libre, destinatario, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida. En una base existente se aplica primero [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) y después se reinstala [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql).
 - `sp_devolver_nota_entrega` (**instalado en `pruebas` y validado por el usuario**): bloquea nota y líneas, exige estado pendiente sin factura, verifica pertenencia y `0 < cantidad_a_devolver <= cantidad_entregada - suma_devuelta_previa`. Guarda un evento con `clave_operacion` y sus líneas; repone solo el saldo recibido, crea un movimiento tipo `7` por línea y pasa la nota a anulada únicamente si todas sus líneas quedan en cero. El detalle usa la unidad original de la línea y la última devolución repone el remanente de inventario exacto. El archivo separado reemplaza únicamente este procedimiento.
 - `sp_facturar_notas_entrega` (**implementado e instalado en `pruebas`; guardado final aún sin probar**): bloquea las notas seleccionadas, valida cliente/sucursal y estado pendiente, resuelve cliente contado `0` y nombre `comodin`, deriva producto, unidad y cantidades netas desde las notas y devoluciones, crea encabezado y líneas, guarda `idfactura` e `iddetallefactura` y pasa cada nota a facturada. La operación completa hace `COMMIT` o `ROLLBACK`; no altera `detalleinventarios` ni inserta otro movimiento de salida. Se instala desde [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql).
 
