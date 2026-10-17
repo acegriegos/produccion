@@ -1,6 +1,6 @@
 # Notas de Entrega — backend e integración
 
-> Estado al 2026-10-16: `pruebas` aún tiene instalado el esquema y el procedimiento anteriores con proveedor. Para probar esta rama, primero se ejecuta una vez la migración incremental de destinatarios y luego se reinstala `sp_emitir_nota_entrega` con el contrato nuevo.
+> Estado al 2026-10-16: en la base local `pruebas`, `detallenotasentrega` ya guarda `destinatario` como texto obligatorio y no conserva `idproveedor`. El procedimiento de emisión está actualizado; el usuario confirmó dos emisiones desde la interfaz, una con una opción fija y otra con **Otro**. La guía operativa de instalación está en [guiaDB.md](guiaDB.md).
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -23,11 +23,11 @@ No se ha identificado un servicio Python necesario para este flujo. La descripci
 | Preparar factura | Agrupar notas pendientes del mismo cliente y sucursal; para contado exigir el mismo nombre libre y usar `facturas.idcliente = 0` con `comodin = nombre_cliente`. Definir precios, descuentos e impuestos sobre cantidades netas. Crear líneas sin otro descuento de inventario. |
 | Consultar vínculo | Mostrar desde la nota su factura y desde la factura las notas y líneas de origen. |
 
-La emisión, consulta e impresión base están integradas en `master`. Las devoluciones y su pantalla se integraron en el PR #4. Esta rama agrega el endpoint de facturación, los catálogos usados por el formulario, la selección de notas pendientes y la preparación de importes por cantidad neta.
+La emisión, consulta, impresión, anulaciones y facturación están integradas en `master`. La rama `feat/notas-entrega-destinatarios` actualiza el contrato de datos para guardar un destinatario por línea y retirar la relación con proveedores.
 
 ## Instalación y contrato de emisión
 
-La migración inicial [SQL-Notas-Entrega-Migracion.sql](SQL-Notas-Entrega-Migracion.sql) ya está aplicada en la base local `pruebas`, no debe repetirse allí. Para una base que aún conserva `idproveedor`, ejecutar completo y una sola vez [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql), que copia los nombres existentes y quita en una operación la FK, su índice y la columna anterior. Si la migración quedó parcialmente aplicada y la tabla ya no tiene `idproveedor` ni `destinatario`, usar [SQL-Notas-Entrega-Destinatarios-Reparacion.sql](SQL-Notas-Entrega-Destinatarios-Reparacion.sql); las líneas históricas quedarán como `No especificado (nota historica)` porque el dato anterior ya no está en la tabla. Después, instalar [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql), que reemplaza solo `sp_emitir_nota_entrega`. No ejecutar únicamente el último `DROP COLUMN`. No se modifica la base automáticamente desde la aplicación. Revisar el nombre de base en `USE` antes de aplicar estos archivos en otro entorno.
+La instalación de tablas y procedimientos se documenta en [guiaDB.md](guiaDB.md), que es la referencia operativa para elegir los SQL y su orden. En la migración normal, [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) copia los nombres históricos antes de retirar la FK, el índice y `idproveedor`; luego [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql) reemplaza el procedimiento. El archivo de reparación es una excepción para recuperar el esquema local cuando ambas columnas faltan, y no conserva nombres históricos. La aplicación no modifica el esquema automáticamente.
 
 El endpoint de esta etapa es `dashboard/notasentrega`, resuelto por `dashboard/index.php`. Usa la sesión existente: `USR` determina el usuario e `IMPRESA` la sucursal. Exige el permiso de escritura (`tipo = 1`) del módulo `facturacion` en `permisosusuarios`, salvo el administrador `id = 1`. Este permiso se reutiliza provisionalmente porque aún no existe un permiso propio del módulo; la opción de menú usa la misma clase visible que Ventas (`per2`). El controlador vuelve a comprobar el permiso en cada petición, pues la comprobación genérica de `dashboard/index.php` permite módulos sin fila de permiso.
 
@@ -68,11 +68,11 @@ La preparación de la factura, sus líneas, los vínculos `notasentrega.idfactur
 
 La emisión usa las existencias del inventario de venta `6` para todas las sucursales y registra la sucursal de sesión en la nota y el movimiento. La comprobación y el descuento ocurren bajo control transaccional para impedir consumo concurrente del mismo saldo. Una salida se vincula con `movimientos.idtabla = 521` e `idfila = detallenotasentrega.id`. Reintentar una emisión confirmada con la misma `clave_operacion` devuelve el resultado previo sin crear movimientos adicionales.
 
-TI confirmó tipo `10` para salida y `7` para devolución; el SQL propuesto agrega el `10`. Cada devolución se vincula con `movimientos.idtabla = 523` e `idfila = detalledevolucionesnotasentrega.id`. Nuestros SP guardan devolución, reposición y movimiento en una transacción; aceptan devolver una cantidad igual al saldo disponible, pero jamás mayor. Varias devoluciones pueden afectar la misma línea original. Cuando todas las líneas llegan a cero se registra un solo usuario anulador y la nota pasa a anulada. Las devoluciones posteriores a la factura usan el flujo fiscal existente.
+TI confirmó tipo `10` para salida y `7` para devolución; la migración inicial registra el tipo `10`. Cada devolución se vincula con `movimientos.idtabla = 523` e `idfila = detalledevolucionesnotasentrega.id`. Los SP guardan devolución, reposición y movimiento en una transacción; aceptan devolver una cantidad igual al saldo disponible, pero jamás mayor. Varias anulaciones pueden afectar la misma línea original. Cuando todas las líneas llegan a cero se registra un solo usuario anulador y la nota pasa a anulada. Las devoluciones posteriores a la factura usan el flujo fiscal existente.
 
-`sp_emitir_nota_entrega` y `sp_devolver_nota_entrega` están instalados en `pruebas` y el flujo de devoluciones fue probado por el usuario. Esta rama agrega `sp_facturar_notas_entrega`, el endpoint PHP y la pantalla para seleccionar notas y asignar precios/impuestos. El procedimiento de facturación está instalado, pero no se ha invocado con una nota ni se ha creado una factura de prueba; la factura queda pendiente de registro fiscal.
+En `pruebas` están instalados `sp_emitir_nota_entrega`, `sp_devolver_nota_entrega` y `sp_facturar_notas_entrega`, junto con sus rutas de aplicación. La factura preparada desde notas queda inicialmente sin registro fiscal (`isregistrada = 0`); su envío a Hacienda y el registro del pago siguen el flujo normal de facturación.
 
-Las tablas, tipos, índices y estados propuestos están en [la especificación de base de datos](DB-Notas-Entrega.md).
+Las tablas, tipos, índices y estados implementados están descritos en [la especificación de base de datos](DB-Notas-Entrega.md).
 
 ## Validaciones y acceso
 
@@ -82,11 +82,9 @@ Las tablas, tipos, índices y estados propuestos están en [la especificación d
 - Reutilizar el acceso por módulo, clases HTML y datos de sesión existentes; el mismo usuario registra y emite. Ocultar acciones no autorizadas en la pantalla y verificar la autorización también en PHP antes de llamar a los SP.
 - Guardar usuario y fecha de cada transición relevante para poder reconstruir la historia de la entrega.
 
-## Pendientes de implementación
+## Estado de instalación y pruebas
 
-1. Revisar la pantalla y la impresión con una sesión interactiva real. Ya se verificaron por SQL la conversión de 1,25 barras a 7,50 unidades, reintento, stock insuficiente, precisión inválida, unidad incompatible y rollback si falla la segunda línea. Además, una petición HTTP con sesión temporal emitió, reintentó y consultó una nota; la nota se retiró y se restauró el stock.
-2. El usuario confirmó el flujo de devoluciones y su SQL está instalado en `pruebas`.
-3. Revisar e instalar el SP de facturación y probar cantidades netas sin segundo descuento antes de integrar el cambio.
+En la base local `pruebas` están instalados los procedimientos de emisión, devoluciones y facturación. El usuario confirmó el flujo de devoluciones y, para el cambio de destinatarios, probó dos emisiones desde la interfaz: una con destinatario fijo y otra con **Otro**. La verificación técnica de la instalación y el tratamiento especial de las líneas históricas están descritos en [guiaDB.md](guiaDB.md). La experiencia de prueba de cada entorno puede diferir según sus datos y su versión de esquema.
 
 ## Registro de avance
 
@@ -103,3 +101,4 @@ Las tablas, tipos, índices y estados propuestos están en [la especificación d
 | 2026-10-06 | La rama `feat/notas-entrega-facturacion-backend` agrega el endpoint y el SQL transaccional para facturar cantidades netas. El procedimiento reutiliza la numeración y efectos de encabezado de ventas y omite el descuento de inventario; falta instalar su SQL y construir la pantalla de facturación en una etapa posterior. |
 | 2026-10-06 | Se añadió la pantalla de selección y preparación de importes; los catálogos de moneda, tipo de factura y forma de pago responden desde el modelo local. Falta instalar el procedimiento, probar el guardado y revisar el cambio antes del PR. |
 | 2026-10-16 | La emisión recibe `destinatario` como texto, sin relación con proveedores. Se agregó una migración incremental para conservar los nombres históricos y se actualizó el contrato del procedimiento. |
+| 2026-10-16 | La migración parcial local se recuperó con el SQL excepcional; las líneas históricas afectadas quedaron con marcador porque `idproveedor` ya no existía. La guía `guiaDB.md` centraliza el orden de instalación. El usuario confirmó emisiones correctas con destinatario fijo y libre. |

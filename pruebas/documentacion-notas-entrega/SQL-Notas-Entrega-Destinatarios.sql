@@ -1,5 +1,7 @@
--- Cambia el detalle de notas de proveedor de catálogo a destinatario libre.
--- Ejecutar el archivo completo en una base que ya tenga SQL-Notas-Entrega-Migracion.sql.
+-- MIGRACION NORMAL A DESTINATARIO LIBRE. MariaDB 10.3.
+-- Antes de ejecutar, consultar guiaDB.md y confirmar que idproveedor exista.
+-- Aplicar una sola vez en una base que ya tenga el esquema inicial y preserve idproveedor.
+-- No ejecutar si la tabla ya tiene destinatario y no tiene idproveedor.
 -- La retirada de la FK, su índice y la columna anterior se hace en el mismo ALTER.
 -- Conserva en cada línea el nombre del proveedor histórico antes de quitar la FK.
 USE `pruebas`;

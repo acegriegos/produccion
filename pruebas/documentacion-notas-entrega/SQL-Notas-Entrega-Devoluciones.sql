@@ -1,5 +1,5 @@
--- Procedimiento transaccional para devoluciones previas a facturar.
--- Instalar una vez que existan las tablas de SQL-Notas-Entrega-Migracion.sql.
+-- Procedimiento transaccional para devoluciones/anulaciones previas a facturar.
+-- Para orden de instalacion y precondiciones, consultar guiaDB.md.
 -- No ejecutar la migración nuevamente en la base local `pruebas`.
 USE `pruebas`;
 

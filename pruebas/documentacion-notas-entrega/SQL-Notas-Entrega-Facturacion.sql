@@ -1,5 +1,5 @@
 -- Facturacion atomica de notas de entrega. MariaDB 10.3.
--- Instalar despues de la migracion y de los SP de emision y devoluciones.
+-- Para orden de instalacion y precondiciones, consultar guiaDB.md.
 -- Crea el encabezado con la misma numeracion y efectos contables de ventas,
 -- pero inserta detallefacturas directamente para no descontar stock de nuevo.
 USE `pruebas`;

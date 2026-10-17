@@ -1,6 +1,6 @@
 # Notas de Entrega — base de datos
 
-> Estado al 2026-10-16: la migración inicial está aplicada en `pruebas`. Este cambio requiere ejecutar una vez [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) y reinstalar [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql). No se ejecutan automáticamente desde PHP.
+> Estado al 2026-10-16: en la copia local `pruebas`, la columna final `destinatario` y los procedimientos están instalados. Para seleccionar los SQL y seguir el orden correcto en cualquier entorno, usar la [guía operativa de base de datos](guiaDB.md). No se ejecutan automáticamente desde PHP.
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Backend](Backend-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -19,7 +19,7 @@ La conexión de esta copia está en `_config/mysqlDB.php` y apunta a la base loc
 | Consecutivos | `consecutivos` | Tiene contadores por sucursal, pero las Notas de Entrega usarán su propio `id` como número impreso. No se ampliará esta tabla para el módulo. |
 | Devoluciones | `devoluciones`, `detalledevoluciones` | TI indicó que el flujo previo a facturar tendrá estructuras nuevas para notas. Las tablas actuales se reservan para devoluciones relacionadas con facturas. |
 
-La base local contenía un cliente de ensayo usado por el flujo anterior de proveedores. La migración nueva conserva el nombre asociado a cada línea existente como texto y quita la relación con `clientes`; el dato de ensayo no se usa como catálogo de destinatarios.
+En una migración normal, se copia a cada línea el nombre histórico relacionado con `idproveedor` y después se elimina la relación con `clientes`; ese dato no se usa como catálogo de destinatarios. En la copia local `pruebas`, una ejecución parcial eliminó `idproveedor` antes de completar la migración: las líneas afectadas se recuperaron con `No especificado (nota historica)` porque el nombre ya no podía derivarse de la tabla de detalle. La migración normal y esa recuperación local son escenarios distintos, descritos en `guiaDB.md`.
 
 ## Acuerdos del diseño
 
@@ -125,26 +125,26 @@ El tipo `7` («Devolucion») ya existe; el SQL agrega el tipo `10` («Notas de E
 
 Nosotros desarrollamos los SP del módulo y entregaremos su comportamiento a TI para revisión. No esperamos que TI entregue esos procedimientos:
 
-- `sp_emitir_nota_entrega` (**implementado**): en una transacción valida usuario/sucursal, cliente o nombre libre, destinatario, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida. En una base existente se aplica primero [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) y después se reinstala [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql).
+- `sp_emitir_nota_entrega` (**implementado**): en una transacción valida usuario/sucursal, cliente o nombre libre, destinatario, producto, unidad y existencias; guarda cabecera y líneas con `clave_operacion`, convierte y descuenta stock del inventario `6`, y genera una salida tipo `10` por línea. Si llega de nuevo la misma clave, comprueba que sea la misma solicitud y devuelve el resultado previo sin otra salida. Para instalación, seguir el orden correspondiente de [guiaDB.md](guiaDB.md).
 - `sp_devolver_nota_entrega` (**instalado en `pruebas` y validado por el usuario**): bloquea nota y líneas, exige estado pendiente sin factura, verifica pertenencia y `0 < cantidad_a_devolver <= cantidad_entregada - suma_devuelta_previa`. Guarda un evento con `clave_operacion` y sus líneas; repone solo el saldo recibido, crea un movimiento tipo `7` por línea y pasa la nota a anulada únicamente si todas sus líneas quedan en cero. El detalle usa la unidad original de la línea y la última devolución repone el remanente de inventario exacto. El archivo separado reemplaza únicamente este procedimiento.
-- `sp_facturar_notas_entrega` (**implementado e instalado en `pruebas`; guardado final aún sin probar**): bloquea las notas seleccionadas, valida cliente/sucursal y estado pendiente, resuelve cliente contado `0` y nombre `comodin`, deriva producto, unidad y cantidades netas desde las notas y devoluciones, crea encabezado y líneas, guarda `idfactura` e `iddetallefactura` y pasa cada nota a facturada. La operación completa hace `COMMIT` o `ROLLBACK`; no altera `detalleinventarios` ni inserta otro movimiento de salida. Se instala desde [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql).
+- `sp_facturar_notas_entrega` (**implementado e instalado en `pruebas`**): bloquea las notas seleccionadas, valida cliente/sucursal y estado pendiente, resuelve cliente contado `0` y nombre `comodin`, deriva producto, unidad y cantidades netas desde las notas y anulaciones, crea encabezado y líneas, guarda `idfactura` e `iddetallefactura` y pasa cada nota a facturada. La operación completa hace `COMMIT` o `ROLLBACK`; no altera `detalleinventarios` ni inserta otro movimiento de salida. Se instala desde [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql).
 
-La ruta nueva de detalle de factura replicará **solo lo necesario para la línea y sus datos auxiliares** del flujo actual (por ejemplo, el peso en `msdetallefacturas` cuando aplique). Usará nombres explícitos de columnas y verificaciones de paridad con la facturación normal. No llamará a `sp_mantdetallefacturas` en su acción de venta, porque esa acción descuenta inventario y registra un movimiento tipo `4`. El procedimiento actual de ventas ordinarias permanece como está.
+La ruta de facturación de notas replica **solo lo necesario para la línea y sus datos auxiliares** del flujo actual (por ejemplo, el peso en `msdetallefacturas` cuando aplique). Usa nombres explícitos de columnas y evita llamar a `sp_mantdetallefacturas`, porque esa rutina descuenta inventario y registra un movimiento tipo `4`. El procedimiento de ventas ordinarias permanece sin cambios.
 
 Las claves foráneas y los `CHECK` del borrador son barreras adicionales. Las reglas que involucran varias filas (pertenencia de la línea, suma ya devuelta, estado, movimiento único y factura única) se validarán en los SP con bloqueo transaccional. Al probarlos se comprobará que los mantenimientos actuales no intenten borrar registros referenciados.
 
-## Decisiones cerradas y trabajo pendiente
+## Decisiones cerradas y estado de implementación
 
 | Tema | Decisión del 2026-10-05 | Trabajo de implementación |
 | --- | --- | --- |
-| Cliente contado | Nota con `idcliente = NULL` y `nombre_cliente`; factura con `idcliente = 0` y `comodin` igual al nombre. | Validar nombre no vacío y máximo 64 caracteres para contado; comparar nombres al agrupar. |
+| Cliente contado | Nota con `idcliente = NULL` y `nombre_cliente`; factura con `idcliente = 0` y `comodin` igual al nombre. | Validación de nombre y agrupación incluidas en el flujo. |
 | Devoluciones | Se admiten varias devoluciones parciales y se conserva la nota original. Anular solo cuando todo el material vuelve. | Implementado, instalado y probado en `pruebas`. |
-| Acceso | TI indica que ya existe secuencia de permisos por clases en HTML. | Reutilizarla para mostrar acciones y verificar permisos también en el servidor. |
-| Inventario | Todas las sucursales usan inventario `6`; la sucursal de la nota se registra en movimientos. | Confirmar en el SP el saldo del producto y la sucursal de sesión. |
-| Movimientos | Salida tipo `10` desde tabla `521`; devolución tipo `7` desde tabla `523`. | Validar referencias, reintentos y concurrencia en el SP. Los botones JS son ayuda visual. |
-| Catálogo `tablas` | TI aprobó IDs `520`–`523`. | Comprobar que sigan libres en el destino antes de ejecutar el SQL. |
-| Unidades | Cantidades visibles con dos decimales; `convercion` calcula y `f_units_mts` solo presenta texto. | Verificar el resultado convertido y la precisión/límites de la función existente, sobre todo con dimensiones especiales. |
-| Facturación | Nosotros creamos la ruta de líneas netas sin segundo descuento de inventario. | SP instalado y pantalla lista en la rama; falta prueba funcional del guardado y revisión antes del PR. |
-| Integridad | Nosotros definimos SP y reglas; TI revisa. | Probar claves foráneas, `CHECK`, bloqueos, devoluciones repetidas y facturación simultánea. |
+| Acceso | TI indicó que ya existe secuencia de permisos por clases en HTML. | La interfaz reutiliza los permisos existentes y el servidor los valida antes de operar. |
+| Inventario | Todas las sucursales usan inventario `6`; la sucursal de la nota se registra en movimientos. | Emisión y anulaciones validan existencias y usan la sucursal de la sesión. |
+| Movimientos | Salida tipo `10` desde tabla `521`; devolución tipo `7` desde tabla `523`. | Los SP registran los movimientos y manejan transacciones y reintentos; los botones JS son ayuda visual. |
+| Catálogo `tablas` | TI aprobó IDs `520`–`523`. | Incluidos en la migración inicial; verificar que no haya colisiones antes de instalar en otro entorno. |
+| Unidades | Cantidades visibles con dos decimales; `convercion` calcula y `f_units_mts` solo presenta texto. | La conversión y validaciones se realizan durante la emisión; la cantidad de inventario se conserva para anulaciones. |
+| Facturación | La ruta de notas crea líneas netas sin un segundo descuento de inventario. | Procedimiento y pantalla están implementados e instalados en `pruebas`; la factura sigue el registro fiscal normal después de su preparación. |
+| Integridad | Los SP y restricciones mantienen las relaciones y transiciones. | La lógica transaccional cubre claves de operación, estado de nota, cantidades devueltas y vínculo único de factura. |
 
-La [migración local](SQL-Notas-Entrega-Migracion.sql) instaló las cuatro tablas, sus IDs `520`–`523` en `tablas` y el tipo de movimiento `10` en `pruebas`. El 2026-10-06 se verificó cada registro en MariaDB 10.3.7. Ese archivo excluye datos de prueba y SP. Los procedimientos de emisión y devolución se instalaron y probaron. El SP de facturación se instaló desde su archivo separado después de verificar que aún no existía; no se ha invocado con una nota ni se ha creado una factura de prueba.
+La migración local instaló las cuatro tablas, sus IDs `520`–`523` en `tablas` y el tipo de movimiento `10` en `pruebas`; esos elementos se verificaron en MariaDB 10.3.7. El SQL inicial no incluye procedimientos ni datos de prueba. En la copia local se verificó la estructura final de destinatarios y están instalados los SP de emisión, devoluciones y facturación. El usuario confirmó dos emisiones satisfactorias con destinatario fijo y libre. La secuencia completa para otros entornos está en [guiaDB.md](guiaDB.md).

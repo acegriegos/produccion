@@ -116,10 +116,10 @@ También se trasladó la corrección de la recarga continua: las consultas inter
 
 ## Documentación del Módulo de Notas de Entrega
 
-Las decisiones funcionales de TI recibidas el 2026-10-05 ya están incorporadas: devoluciones parciales sobre la misma nota, cliente contado `0` al facturar, cantidades a dos decimales e IDs `520`–`523` para las tablas del módulo. La migración se aplicó en la base local `pruebas` y el 2026-10-06 se verificaron las cuatro tablas, sus IDs en `tablas` y el tipo de movimiento `10`. No instalan SP ni cambian existencias por sí solos. **No vuelvas a ejecutar la migración sobre esa misma base.** Las cifras de tablas y registros indicadas arriba son una fotografía del 2026-09-23, no conteos actuales.
+Para instalar o actualizar su base de datos, TI debe empezar por la [Guía de base de datos](documentacion-notas-entrega/guiaDB.md). Allí se indica qué archivos SQL ejecutar y en qué orden según el estado de la instalación. No ejecutes directamente la migración inicial en una base que ya tenga el módulo.
 
+- [Guía de base de datos para TI](documentacion-notas-entrega/guiaDB.md)
 - [Objetivo y flujo general](documentacion-notas-entrega/MODULO-NOTAS-DE-ENTREGA.md)
-- [Base de datos](documentacion-notas-entrega/DB-Notas-Entrega.md)
-- [Migración SQL aplicada en `pruebas`](documentacion-notas-entrega/SQL-Notas-Entrega-Migracion.sql)
+- [Diseño y estado de base de datos](documentacion-notas-entrega/DB-Notas-Entrega.md)
 - [Backend](documentacion-notas-entrega/Backend-Notas-Entrega.md)
 - [Frontend y boleta](documentacion-notas-entrega/Frontend-Notas-Entrega.md)

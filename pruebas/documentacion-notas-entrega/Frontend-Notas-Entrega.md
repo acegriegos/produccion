@@ -1,6 +1,6 @@
 # Notas de Entrega — interfaz y comprobante
 
-> Estado al 2026-10-06: emisión, devoluciones, listado, detalle, historial y boleta provisional se integraron en `master` por los PR #3 y #4. Esta rama añade la selección de notas pendientes, la preparación de importes por línea y el enlace desde la nota a su factura. `sp_facturar_notas_entrega` está instalado en `pruebas`, pero todavía no se ha probado guardar una factura; el documento se crea sin registro fiscal ni pago.
+> Estado al 2026-10-16: emisión, consultas, anulaciones, facturación e impresión forman parte del módulo. El cambio de destinatario por línea se probó desde la interfaz con una opción predefinida y con **Otro**. Para instalación o actualización de SQL, seguir [guiaDB.md](guiaDB.md).
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Backend](Backend-Notas-Entrega.md)
 
@@ -25,7 +25,7 @@ La boleta ofrece los formatos **Punto de venta** y **A4** mediante un selector j
 | Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas y anuladas; acceso al detalle e impresión. |
 | Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir uno de los cuatro destinatarios predefinidos (`CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON`) o escribir otro, además de unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
 | Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. El botón de impresión permite elegir Punto de venta o A4. |
-| Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente devueltas, y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
+| Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente anuladas y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
 
 El destinatario se define por artículo y puede variar entre renglones. Las cuatro opciones acordadas aparecen directamente en la pantalla; la opción **Otro** permite capturar un nombre libre. Ese texto se guarda como parte de la línea de nota y no se registra en un catálogo. El precio definitivo no se captura ni se presenta como definitivo al emitir una nota.
 
@@ -73,4 +73,4 @@ No se ha establecido ninguna dependencia de WebSocket para este módulo.
 | 2026-10-06 | El PR #4 integró devoluciones e historial en `master`; el usuario instaló el SP de devolución y confirmó el flujo. El backend de facturación se implementa en otra rama; la interfaz todavía está pendiente. |
 | 2026-10-06 | Se añadió la preparación de factura: selección múltiple de notas pendientes, datos de factura desde los catálogos actuales, cantidades netas, precio/descuento/IVA por línea, vínculo navegable desde la nota y total previo. La rutina SQL está instalada; falta revisar y probar el guardado completo. |
 | 2026-10-06 | Desde el listado y el detalle de notas facturadas se añadió acceso separado para ver o imprimir la factura, usando el mismo recibo de ventas y su parámetro de impresión. |
-| 2026-10-16 | Se reemplaza proveedor por destinatario por línea, con cuatro valores fijos y captura libre sin catálogo. La migración conserva en texto los nombres ya guardados. |
+| 2026-10-16 | Se reemplazó proveedor por destinatario por línea, con cuatro valores fijos y captura libre sin catálogo. La migración normal conserva los nombres anteriores; una reparación parcial de la copia local usó un marcador para las líneas cuyo proveedor ya no se podía recuperar. El usuario confirmó dos emisiones desde la interfaz. |

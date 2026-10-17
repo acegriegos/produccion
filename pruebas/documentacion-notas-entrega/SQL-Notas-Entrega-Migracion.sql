@@ -1,13 +1,16 @@
--- MIGRACION LOCAL DE NOTAS DE ENTREGA - 2026-10-06
--- Validada para la base `pruebas` con MariaDB 10.3.7. Ejecutar una sola vez.
+-- INSTALACION INICIAL DE NOTAS DE ENTREGA - MariaDB 10.3.
+-- Solo para una base nueva que aun no tiene las tablas del modulo. Ejecutar una vez.
+-- Para orden y precondiciones, consultar guiaDB.md antes de ejecutar.
+-- Crea primero el esquema intermedio con idproveedor; luego instalar
+-- SQL-Notas-Entrega-Destinatarios.sql y los procedimientos indicados en guiaDB.md.
 -- Crea cuatro tablas, sus IDs en `tablas` y el tipo de movimiento 10.
 -- No modifica inventario, facturacion, movimientos, consecutivos ni SP.
--- Los SP y el backend se desarrollaran despues de instalar este esquema.
+-- Los procedimientos se instalan por separado segun guiaDB.md.
 -- Para otra instalacion, revisar el nombre de la base, los IDs y el esquema.
 -- TI aprobo `tablas.id` 520-523; 516-517 estan ocupados en `pruebas`.
 -- El proveedor de ensayo `clientes.id` 500 se creo SOLO en la base local
 -- `pruebas`, con bisproveedor=1; no forma parte de esta migracion.
--- Tipo 10 = Notas de Entrega (aun no insertado); 7 = Devolucion (ya existe).
+-- Este archivo registra tipo 10 = Notas de Entrega; el tipo 7 de devolucion ya existe.
 -- Nota con idcliente NULL: al facturar se usa facturas.idcliente=0 y
 -- facturas.comodin=notasentrega.nombre_cliente, patron actual de contado.
 -- `facturas.comodin` admite 64 caracteres: el nombre libre debe caber ahi.
@@ -124,13 +127,13 @@ INSERT INTO `tablas` (`id`, `nombre`) VALUES
 
 INSERT INTO `tipomovimientos` (`id`, `nombre`) VALUES (10, 'Notas de Entrega');
 
--- CONTRATO DE MOVIMIENTOS PARA LOS SP POR DESARROLLAR:
+-- REFERENCIA DE MOVIMIENTOS PARA LOS PROCEDIMIENTOS DEL MODULO:
 -- Salida: tipo=10, idtabla=521, idfila=detallenotasentrega.id, cant negativa.
 -- Retorno: tipo=7, idtabla=523, idfila=detalledevolucionesnotasentrega.id,
 --          cant positiva; la linea de retorno enlaza a la linea original.
--- Reintentos y simultaneidad deben controlarse en el servidor/BD; deshabilitar
+-- Los procedimientos controlan reintentos y simultaneidad en la BD; deshabilitar
 -- botones en JavaScript es solo una ayuda visual.
--- Al facturar se usan cantidades netas; no se crea otro movimiento de stock.
+-- Al facturar se usan cantidades netas y no se crea otro movimiento de stock.
 
 -- Comprobacion de la instalacion: el resultado esperado es 4, 4 y 1.
 SELECT

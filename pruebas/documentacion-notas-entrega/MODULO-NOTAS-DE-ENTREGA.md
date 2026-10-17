@@ -43,34 +43,27 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 
 ## Estado del proyecto
 
-El sistema existente ya se ejecutó localmente y se pudo ingresar. Al 2026-10-06 el esquema de cuatro tablas, los IDs `520`–`523` y los tipos de movimiento `10` y `7` están verificados en la base local `pruebas`. Los SP de emisión, devolución y facturación están instalados; emisión, consulta e impresión se integraron por los PR #1 y #3, y el PR #4 integró anulaciones parciales e historial. La base local conserva el esquema anterior hasta ejecutar la migración incremental de destinatarios; esta migración no se ha ejecutado desde la aplicación.
+El esquema del módulo y sus procedimientos están instalados en la base local `pruebas`. La columna `destinatario` reemplazó la relación de proveedor en `detallenotasentrega`; la guía [guiaDB.md](guiaDB.md) registra el estado local y el procedimiento correcto para otros entornos. El usuario probó desde la interfaz dos emisiones: una con un destinatario predefinido y otra con **Otro**. Las líneas históricas afectadas por una migración parcial en esta base quedaron identificadas con `No especificado (nota historica)`.
 
 ## Próximas etapas
 
-No queda una decisión funcional indispensable pendiente de TI. Emisión, anulaciones e impresión ya fueron revisadas e integradas. La rama activa adapta la emisión y consulta para guardar un destinatario por material; después de revisarla, el trabajo continúa con notas emitidas desde facturas y órdenes de compra según el plan aprobado.
+Emisión, anulaciones e impresión ya fueron revisadas e integradas. El cambio de destinatarios está implementado y probado en la copia local. El siguiente trabajo del plan aprobado puede continuar con notas emitidas desde facturas y órdenes de compra, manteniendo el ciclo acordado: una rama por cambio, prueba del usuario y revisión antes del PR.
 
 ## Secuencia de ramas y revisiones
 
 Cada rama parte de `master` actualizado y termina en un PR hacia `master`, que es la rama principal de este repositorio. No se abrirá la siguiente rama sobre trabajo sin fusionar de la anterior.
 
-1. `feat/notas-entrega-emision-backend`: SP transaccional para emitir y descontar stock; modelo y controlador PHP para crear, listar y consultar notas. Revisaremos primero el contrato de datos, después el movimiento de inventario y al final la conexión PHP.
-2. `feat/notas-entrega-emision-frontend`: formulario, listado y boleta de media hoja que usan el backend ya revisado.
-3. `feat/notas-entrega-devoluciones`: devoluciones parciales, reposición de stock, historial y anulación por devolución total. Integrada en `master` por el PR #4.
-4. `feat/notas-entrega-facturacion-backend`: agrupación, cálculo de cantidad neta y líneas de factura sin otro descuento de inventario. El endpoint, el SQL y la pantalla están juntos en la rama de trabajo; el procedimiento está instalado localmente. Falta probar el guardado y dejar tiempo para la revisión del usuario antes del PR.
-5. `feat/notas-entrega-destinatarios`: reemplazar la búsqueda de proveedores por cuatro destinatarios fijos y captura de texto libre, por línea, sin catálogo.
+Las primeras etapas (emisión, interfaz, anulaciones y facturación) ya se desarrollaron y se integraron en `master` mediante sus PR. La rama `feat/notas-entrega-destinatarios` reemplaza el proveedor por destinatario por línea; el usuario verificó dos casos desde la interfaz. Las etapas nuevas se desarrollarán en ramas `feat/` independientes y se presentarán para revisión antes de crear cada PR.
 
 Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de la regla que se introduce. Los comentarios en PHP y SQL explicarán transacciones, conversión de unidades, permisos y decisiones que evitan duplicados; las operaciones evidentes se dejarán legibles mediante nombres claros.
 
 ## Documentación de la integración
 
+- [Guía de base de datos para TI](guiaDB.md): único punto de entrada para decidir qué SQL ejecutar, el orden y las verificaciones.
 - [Base de datos](DB-Notas-Entrega.md): estructuras existentes, tablas propuestas, relaciones y reglas de consistencia.
-- [Migración local aplicada](SQL-Notas-Entrega-Migracion.sql): cuatro tablas, registros en `tablas` y tipo de movimiento `10`, verificados en `pruebas`.
-- [Migración incremental de destinatarios](SQL-Notas-Entrega-Destinatarios.sql): conserva como texto los nombres de notas ya emitidas y elimina la relación con proveedores; debe ejecutarse una vez en cada base que ya aplicó la migración inicial.
-- [Procedimiento de emisión](SQL-Notas-Entrega-Emision.sql): emisión atómica, inventario `6`, movimientos tipo `10` y reintentos idempotentes; instalar después de la migración incremental de destinatarios.
-- [Procedimiento de devolución](SQL-Notas-Entrega-Devoluciones.sql): devoluciones parciales idempotentes, reposición exacta de existencias y anulación al devolver todo; integrado por el PR #4 e instalado en `pruebas`.
-- [Procedimiento de facturación](SQL-Notas-Entrega-Facturacion.sql): crea encabezado, líneas y vínculos en una transacción, sin volver a descontar inventario; requiere la migración y los procedimientos de emisión y devolución ya instalados.
+- [Archivos SQL](guiaDB.md#archivos-sql-de-esta-guia): la guía describe uso y secuencia; cada script también incluye una referencia a ella.
 - [Backend](Backend-Notas-Entrega.md): integración PHP/MariaDB, emisión, inventario, anulaciones y facturación sin doble descuento.
 - [Frontend](Frontend-Notas-Entrega.md): pantallas, referencia visual y boleta imprimible.
 - [README](../README.md): cómo arrancar y consultar el sistema local.
 
-Estos archivos se actualizarán conforme se implementen y verifiquen las partes del módulo. Cada documento distingue el diseño previsto del comportamiento que ya existe o está implementado.
+La documentación separa el estado local comprobado del procedimiento de instalación en otras bases. Para ejecutar SQL, seguir siempre `guiaDB.md`.

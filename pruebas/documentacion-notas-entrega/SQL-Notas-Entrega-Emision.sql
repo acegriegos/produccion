@@ -1,5 +1,5 @@
--- Backend de emision de notas de entrega. MariaDB 10.3.
--- Instalar despues de SQL-Notas-Entrega-Destinatarios.sql en la base `pruebas`.
+-- Backend de emision de notas de entrega con destinatario por linea. MariaDB 10.3.
+-- Instalar despues de la migracion de destinatarios segun guiaDB.md.
 -- El procedimiento es atomico: cabecera, lineas, stock y movimientos se
 -- confirman juntos. Nunca usar sp_mantdetallefacturas para esta operacion.
 USE `pruebas`;
