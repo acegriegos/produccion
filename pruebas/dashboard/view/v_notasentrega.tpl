@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=12">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=13">
 </head>
 <body>
   {$NAV}
@@ -248,6 +248,7 @@
           <p><strong>Referencia:</strong> <span id="ne-d-referencia"></span></p>
           <p><strong>Factura:</strong> <span id="ne-d-factura"></span></p>
         </div>
+        <p class="ne-boleta-material-titulo"># Código y material</p>
         <div class="ne-table-wrap">
           <table>
             <thead><tr><th>#</th><th>Código y material</th><th>Proveedor</th><th>Unidad</th><th>Cantidad</th><th>Indicación</th></tr></thead>

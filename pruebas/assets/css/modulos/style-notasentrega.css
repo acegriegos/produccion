@@ -98,6 +98,7 @@
 .ne-boleta-head span { display: block; }
 .ne-boleta-numero { font-size: 1.25rem; font-weight: 700; white-space: nowrap; }
 .ne-boleta-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; margin: 14px 0; }
+.ne-boleta-material-titulo { display: none; }
 .ne-boleta-notas { min-height: 26px; border-top: 1px solid #dce4e6; margin-top: 16px !important; padding-top: 8px; }
 .ne-firmas { display: flex; justify-content: center; margin-top: 55px; }
 .ne-firmas span { flex: 0 1 48%; border-top: 1px solid #455a64; text-align: center; padding-top: 5px; }
@@ -144,6 +145,7 @@
   #ne-app.ne-formato-pv .ne-boleta-numero { position: static; margin-top: 6px; text-align: center; }
   #ne-app.ne-formato-pv .ne-boleta-datos { grid-template-columns: 1fr; gap: 0; margin: 8px 0; }
   #ne-app.ne-formato-pv .ne-boleta-datos p { margin: 2px 0 !important; }
+  #ne-app.ne-formato-pv .ne-boleta-material-titulo { display: block; margin: 8px 0 2px !important; font-weight: 700; }
   #ne-app.ne-formato-pv .ne-table-wrap { overflow: visible; }
   #ne-app.ne-formato-pv .ne-boleta table { width: 100%; }
   #ne-app.ne-formato-pv .ne-boleta thead { display: none; }
