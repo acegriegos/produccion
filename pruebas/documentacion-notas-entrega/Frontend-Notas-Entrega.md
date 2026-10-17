@@ -16,7 +16,7 @@ La opción **Notas de Entrega** aparece bajo Facturación para usuarios con la m
 
 El formulario crea una clave UUID por solicitud lógica. Si falla la red y la persona reintenta sin cambiar los datos, usa la misma clave para evitar otra salida de material. El botón se deshabilita durante el envío. Después de una emisión confirmada se abre el detalle de la nota. El listado filtra estado, cliente registrado o contado, fechas y usuario, con páginas de 25 registros. El detalle conserva los valores guardados al emitir y la boleta se imprime sin precios ni impuestos.
 
-La boleta usa media hoja de 5,5 × 8,5 pulgadas como medida **provisional**; incluye número, cliente, fecha, responsable, sucursal, estado, materiales, proveedor por línea, cantidades, observaciones y espacios para firmas. Usuarios operativos deben confirmar medidas finales, copias y firmas antes de cerrar el diseño. El historial y el formulario de devoluciones se muestran fuera de la boleta y no aparecen al imprimirla.
+La boleta ofrece los formatos **Punto de venta** y **A4** mediante un selector junto al botón de impresión, siguiendo el control de `Ver facturas`. Punto de venta conserva el tamaño definido por la impresora y presenta cada material en un bloque compacto; A4 imprime en orientación vertical con márgenes de 12 mm. Ambos formatos incluyen número, cliente, fecha, responsable, sucursal, estado, materiales, proveedor por línea, cantidades, observaciones y espacio para recibido por, sin precios ni impuestos. El historial y el formulario de anulaciones quedan fuera de la impresión.
 
 ## Pantallas previstas
 
@@ -24,7 +24,7 @@ La boleta usa media hoja de 5,5 × 8,5 pulgadas como medida **provisional**; inc
 | --- | --- |
 | Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas y anuladas; acceso al detalle e impresión. |
 | Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir proveedor por línea, unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
-| Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. |
+| Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. El botón de impresión permite elegir Punto de venta o A4. |
 | Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente devueltas, y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
 
 El proveedor representa a quien suministró cada artículo; puede ser distinto entre renglones y se elige de la lista general, incluso si varios proveedores ofrecen el mismo producto. El precio definitivo no se captura ni se presenta como definitivo al emitir una nota.

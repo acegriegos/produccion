@@ -1029,8 +1029,18 @@
       cargarLista();
     });
     el('ne-volver').addEventListener('click', function () { cambiarTab('listado'); });
+    el('ne-formato-a4').addEventListener('change', function () {
+      this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    });
     el('ne-imprimir').addEventListener('click', function () {
-      if (notaVisible) window.print();
+      if (!notaVisible) return;
+      var formatoA4 = el('ne-formato-a4').checked;
+      el('ne-app').classList.toggle('ne-formato-a4', formatoA4);
+      el('ne-app').classList.toggle('ne-formato-pv', !formatoA4);
+      window.print();
+    });
+    window.addEventListener('afterprint', function () {
+      el('ne-app').classList.remove('ne-formato-a4', 'ne-formato-pv');
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-ne-tab]'), function (boton) {
       boton.addEventListener('click', function () { cambiarTab(boton.getAttribute('data-ne-tab')); });

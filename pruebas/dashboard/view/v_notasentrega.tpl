@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=11">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=12">
 </head>
 <body>
   {$NAV}
@@ -225,6 +225,12 @@
     <section class="ne-panel" id="ne-detalle" hidden>
       <div class="ne-actions ne-no-print">
         <button type="button" class="btn ne-secondary" id="ne-volver">Volver al listado</button>
+        <label class="ne-formato-impresion">
+          <span>Punto de venta</span>
+          <input type="checkbox" id="ne-formato-a4" role="switch" aria-label="Usar formato A4" aria-checked="false">
+          <span class="ne-formato-impresion-lever" aria-hidden="true"></span>
+          <span>A4</span>
+        </label>
         <button type="button" class="btn" id="ne-imprimir">Imprimir boleta</button>
       </div>
       <article class="ne-boleta" id="ne-boleta" aria-label="Boleta de entrega">
@@ -279,6 +285,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=13"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=14"></script>
 </body>
 </html>

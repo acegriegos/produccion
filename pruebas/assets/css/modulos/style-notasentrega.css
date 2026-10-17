@@ -60,6 +60,13 @@
 .ne-linea-grid { display: grid; grid-template-columns: minmax(210px, 2fr) minmax(210px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr); gap: 12px; }
 .ne-linea-notas { grid-column: span 2; }
 .ne-actions { justify-content: flex-start; flex-wrap: wrap; margin-bottom: 18px; }
+.ne-formato-impresion { display: inline-flex; align-items: center; gap: 9px; color: #29434e; cursor: pointer; font-weight: 500; }
+.ne-formato-impresion input[type=checkbox] { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.ne-formato-impresion-lever { position: relative; width: 38px; height: 16px; border-radius: 12px; background: #b0bec5; transition: background .15s ease; }
+.ne-formato-impresion-lever::after { position: absolute; top: -4px; left: 0; width: 24px; height: 24px; border-radius: 50%; background: #eceff1; box-shadow: 0 1px 4px rgba(0,0,0,.35); content: ''; transition: transform .15s ease, background .15s ease; }
+.ne-formato-impresion input:checked + .ne-formato-impresion-lever { background: #80cbc4; }
+.ne-formato-impresion input:checked + .ne-formato-impresion-lever::after { transform: translateX(14px); background: #00897b; }
+.ne-formato-impresion input:focus-visible + .ne-formato-impresion-lever { outline: 2px solid #00796b; outline-offset: 3px; }
 .ne-table-wrap { overflow-x: auto; }
 .ne-app table th, .ne-app table td { padding: 9px; vertical-align: top; }
 .ne-app table th { color: #37474f; }
@@ -115,8 +122,11 @@
   .ne-tabs { overflow-x: auto; }
   .ne-card { padding: 15px; }
 }
-@page { size: 5.5in 8.5in; margin: .35in; }
+@page ne-nota-a4 { size: A4 portrait; margin: 12mm; }
+@page ne-nota-pv { size: auto; margin-top: 0mm; margin-bottom: 0mm; }
 @media print {
+  #ne-app.ne-formato-a4 #ne-boleta { page: ne-nota-a4; }
+  #ne-app.ne-formato-pv #ne-boleta { page: ne-nota-pv; }
   body > *:not(#ne-app) { display: none !important; }
   .ne-app { display: block !important; width: auto; max-width: none; margin: 0; padding: 0; color: #000; }
   .ne-title, .ne-tabs, .ne-aviso, .ne-no-print, #ne-emitir, #ne-listado { display: none !important; }
@@ -129,4 +139,20 @@
   .ne-boleta-numero { font-size: 12pt; }
   .ne-boleta table th, .ne-boleta table td { padding: 4px 3px; font-size: 8pt; }
   .ne-firmas { margin-top: 35px; }
+  #ne-app.ne-formato-pv .ne-boleta-head { display: block !important; position: static; height: auto; text-align: center; }
+  #ne-app.ne-formato-pv .ne-boleta-head > div:first-child { position: static; white-space: normal; }
+  #ne-app.ne-formato-pv .ne-boleta-numero { position: static; margin-top: 6px; text-align: center; }
+  #ne-app.ne-formato-pv .ne-boleta-datos { grid-template-columns: 1fr; gap: 0; margin: 8px 0; }
+  #ne-app.ne-formato-pv .ne-boleta-datos p { margin: 2px 0 !important; }
+  #ne-app.ne-formato-pv .ne-table-wrap { overflow: visible; }
+  #ne-app.ne-formato-pv .ne-boleta table { width: 100%; }
+  #ne-app.ne-formato-pv .ne-boleta thead { display: none; }
+  #ne-app.ne-formato-pv .ne-boleta tbody tr { display: block; padding: 5px 0; border-bottom: 1px dashed #78909c; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td { display: block; padding: 1px 0 !important; border: 0; font-size: 8pt; word-break: break-word; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:first-child { display: none; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(2) { font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(3)::before { content: 'Proveedor: '; font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(4)::before { content: 'Unidad: '; font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(5)::before { content: 'Cantidad: '; font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(6)::before { content: 'Indicación: '; font-weight: 700; }
 }
