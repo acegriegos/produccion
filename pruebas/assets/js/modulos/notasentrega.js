@@ -817,6 +817,7 @@
     var panel = el('ne-devolucion-panel');
     var cuerpo = el('ne-devolucion-lineas');
     var boton = el('ne-devolver-boton');
+    var botonTotal = el('ne-anular-todo-boton');
     panel.hidden = !sePuedeDevolver;
     cuerpo.replaceChildren();
     var haySaldo = false;
@@ -844,6 +845,7 @@
       cuerpo.appendChild(fila);
     });
     boton.disabled = !sePuedeDevolver || !haySaldo;
+    botonTotal.disabled = !sePuedeDevolver || !haySaldo;
 
     var historial = el('ne-d-historial');
     historial.replaceChildren();
@@ -878,35 +880,48 @@
       historial.appendChild(bloque);
     });
   }
-  function prepararDevolucion() {
+  function prepararDevolucion(anulacionTotal) {
     if (!notaVisible || Number(notaVisible.idestado) !== 1 || notaVisible.idfactura != null) {
       throw new Error('Esta nota ya no admite anulaciones.');
     }
     var lineas = [];
-    Array.prototype.forEach.call(el('ne-devolucion-lineas').querySelectorAll('input[data-id-detalle]'), function (entrada) {
-      var cantidad = entrada.value.trim();
-      if (!cantidad) return;
-      var original = notaVisible.lineas.find(function (linea) {
-        return String(linea.id) === entrada.getAttribute('data-id-detalle');
+    if (anulacionTotal) {
+      notaVisible.lineas.forEach(function (linea) {
+        var pendiente = Number(linea.cantidad_pendiente || 0);
+        if (pendiente <= 0) return;
+        lineas.push({
+          iddetallenota: Number(linea.id),
+          cantidad_devuelta: pendiente.toFixed(2)
+        });
       });
-      if (!/^[0-9]{1,12}(\.[0-9]{1,2})?$/.test(cantidad) || Number(cantidad) <= 0) {
-        throw new Error('Ingresa una cantidad positiva con máximo dos decimales.');
-      }
-      if (!original || Number(cantidad) > Number(original.cantidad_pendiente)) {
-        throw new Error('La cantidad supera el saldo pendiente de una línea.');
-      }
-      lineas.push({iddetallenota: Number(entrada.getAttribute('data-id-detalle')), cantidad_devuelta: cantidad});
-    });
-    if (!lineas.length) throw new Error('Indica al menos una cantidad para anular.');
+    } else {
+      Array.prototype.forEach.call(el('ne-devolucion-lineas').querySelectorAll('input[data-id-detalle]'), function (entrada) {
+        var cantidad = entrada.value.trim();
+        if (!cantidad) return;
+        var original = notaVisible.lineas.find(function (linea) {
+          return String(linea.id) === entrada.getAttribute('data-id-detalle');
+        });
+        if (!/^[0-9]{1,12}(\.[0-9]{1,2})?$/.test(cantidad) || Number(cantidad) <= 0) {
+          throw new Error('Ingresa una cantidad positiva con máximo dos decimales.');
+        }
+        if (!original || Number(cantidad) > Number(original.cantidad_pendiente)) {
+          throw new Error('La cantidad supera el saldo pendiente de una línea.');
+        }
+        lineas.push({iddetallenota: Number(entrada.getAttribute('data-id-detalle')), cantidad_devuelta: cantidad});
+      });
+    }
+    if (!lineas.length) {
+      throw new Error(anulacionTotal ? 'No hay material pendiente para anular.' : 'Indica al menos una cantidad para anular.');
+    }
     return {
       motivo: el('ne-devolucion-motivo').value.trim() || null,
       lineas: lineas
     };
   }
-  function registrarDevolucion(evento) {
-    evento.preventDefault();
+  function registrarDevolucion(evento, anulacionTotal) {
+    if (evento) evento.preventDefault();
     var devolucion;
-    try { devolucion = prepararDevolucion(); } catch (error) { aviso(error.message, true, 'detalle'); return; }
+    try { devolucion = prepararDevolucion(anulacionTotal); } catch (error) { aviso(error.message, true, 'detalle'); return; }
     var huella = JSON.stringify({idnota: Number(notaVisible.id), devolucion: devolucion});
     if (huella !== huellaDevolucionPendiente) {
       claveDevolucionPendiente = uuid();
@@ -915,7 +930,9 @@
     devolucion.clave_operacion = claveDevolucionPendiente;
     var idNota = Number(notaVisible.id);
     var boton = el('ne-devolver-boton');
+    var botonTotal = el('ne-anular-todo-boton');
     boton.disabled = true;
+    botonTotal.disabled = true;
     aviso('Registrando la anulación…', false, 'detalle');
     api('devolver', {id: idNota}, {
       method: 'POST',
@@ -925,13 +942,19 @@
       claveDevolucionPendiente = huellaDevolucionPendiente = null;
       el('ne-devolucion-motivo').value = '';
       return cargarDetalle(idNota).then(function () {
-        aviso('Anulación #' + respuesta.iddevolucion + (respuesta.repetida ? ' recuperada tras el reintento.' : ' registrada.'), false, 'detalle');
+        aviso((anulacionTotal ? 'Anulación total #' : 'Anulación #') + respuesta.iddevolucion
+          + (respuesta.repetida ? ' recuperada tras el reintento.' : ' registrada.'), false, 'detalle');
       }).catch(function (error) {
         aviso('La anulación #' + respuesta.iddevolucion + ' fue registrada, pero no se pudo recargar la nota: ' + error.message, true, 'detalle');
       });
     }, function (error) {
       aviso(error.message, true, 'detalle');
-    }).finally(function () { boton.disabled = false; });
+    }).finally(function () {
+      var puedeAnular = notaVisible && Number(notaVisible.idestado) === 1 && notaVisible.idfactura == null
+        && notaVisible.lineas.some(function (linea) { return Number(linea.cantidad_pendiente || 0) > 0; });
+      boton.disabled = !puedeAnular;
+      botonTotal.disabled = !puedeAnular;
+    });
   }
   function iniciar() {
     conectarBusqueda(el('ne-buscar-cliente'), el('ne-resultados-cliente'), 'clientes', function (item) {
@@ -977,6 +1000,7 @@
     el('ne-cancelar-factura').addEventListener('click', cancelarPreparacionFactura);
     el('ne-form').addEventListener('submit', emitir);
     el('ne-devolucion-form').addEventListener('submit', registrarDevolucion);
+    el('ne-anular-todo-boton').addEventListener('click', function () { registrarDevolucion(null, true); });
     el('ne-filtros').addEventListener('submit', function (evento) {
       evento.preventDefault();
       offset = 0;

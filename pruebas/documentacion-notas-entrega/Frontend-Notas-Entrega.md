@@ -24,7 +24,7 @@ La boleta usa media hoja de 5,5 × 8,5 pulgadas como medida **provisional**; inc
 | --- | --- |
 | Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas y anuladas; acceso al detalle e impresión. |
 | Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir proveedor por línea, unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
-| Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades devueltas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar una devolución parcial indicando las líneas y el motivo opcional. |
+| Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. |
 | Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente devueltas, y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
 
 El proveedor representa a quien suministró cada artículo; puede ser distinto entre renglones y se elige de la lista general, incluso si varios proveedores ofrecen el mismo producto. El precio definitivo no se captura ni se presenta como definitivo al emitir una nota.
@@ -34,7 +34,7 @@ El proveedor representa a quien suministró cada artículo; puede ser distinto e
 - Mostrar la bandera guardada: **pendiente de factura**, **facturada** o **anulada**; una nota con devolución parcial continúa pendiente mientras conserve alguna cantidad entregada.
 - Mostrar la existencia disponible del inventario de venta `6` y avisar si la cantidad no alcanza. El backend volverá a validarla al emitir.
 - Tras emitir, bloquear la edición de cliente, artículos, proveedores, cantidades e inventarios. Permitir consultar y reimprimir.
-- Permitir varias devoluciones parciales sobre la misma nota. Mostrar el saldo por línea, aceptar una devolución igual a ese saldo y rechazar una mayor. Mostrar el historial de eventos y anular la nota solo al regresar todo lo entregado.
+- Permitir varias anulaciones parciales sobre la misma nota y una opción de un clic para anular todo el material pendiente. Mostrar el saldo por línea, aceptar una cantidad igual a ese saldo y rechazar una mayor. Mostrar el historial y anular la nota cuando todo el material entregado haya sido recibido.
 - Al agrupar pendientes, impedir mezclar clientes o sucursales; para contado comparar el nombre libre y requerir selección explícita. Mostrar si otro usuario ya facturó o devolvió la nota.
 - Deshabilitar temporalmente el botón al enviar emisión o devolución para reducir clics repetidos. La prevención definitiva de duplicados se valida en el servidor y los SP.
 - Desde una nota facturada, abrir la factura vinculada en la pantalla actual de facturas. La navegación inversa desde la factura a sus notas de origen queda pendiente de integrar con esa pantalla.

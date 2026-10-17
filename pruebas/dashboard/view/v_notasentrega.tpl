@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=10">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=11">
 </head>
 <body>
   {$NAV}
@@ -254,7 +254,7 @@
 
       <section class="ne-card ne-no-print" id="ne-devolucion-panel" hidden>
         <h2>Registrar anulación</h2>
-        <p>Indica las cantidades recibidas. La nota se anulará automáticamente cuando se reciba todo el material.</p>
+        <p>Indica las cantidades recibidas para una anulación parcial o anula de una vez todo el material pendiente.</p>
         <form id="ne-devolucion-form" autocomplete="off">
           <label>Motivo, opcional
             <textarea id="ne-devolucion-motivo" maxlength="255"></textarea>
@@ -267,6 +267,7 @@
           </div>
           <div class="ne-actions">
             <button type="submit" class="btn" id="ne-devolver-boton">Registrar anulación</button>
+            <button type="button" class="btn ne-secondary" id="ne-anular-todo-boton">Anular todo el material pendiente</button>
           </div>
         </form>
       </section>
@@ -278,6 +279,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=12"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=13"></script>
 </body>
 </html>

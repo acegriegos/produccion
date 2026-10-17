@@ -59,7 +59,7 @@
 .ne-linea-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .ne-linea-grid { display: grid; grid-template-columns: minmax(210px, 2fr) minmax(210px, 2fr) minmax(100px, 1fr) minmax(100px, 1fr); gap: 12px; }
 .ne-linea-notas { grid-column: span 2; }
-.ne-actions { justify-content: flex-start; margin-bottom: 18px; }
+.ne-actions { justify-content: flex-start; flex-wrap: wrap; margin-bottom: 18px; }
 .ne-table-wrap { overflow-x: auto; }
 .ne-app table th, .ne-app table td { padding: 9px; vertical-align: top; }
 .ne-app table th { color: #37474f; }
