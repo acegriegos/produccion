@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=17">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=19">
 </head>
 <body>
   {$NAV}
@@ -30,7 +30,57 @@
       <div class="ne-origen-selector" role="group" aria-label="Origen de la nota de entrega">
         <button type="button" class="ne-origen-opcion active" data-ne-origen="regular" aria-pressed="true">Nota regular</button>
         <button type="button" class="ne-origen-opcion" data-ne-origen="factura" aria-pressed="false">Desde factura</button>
-        <button type="button" class="ne-origen-opcion" data-ne-origen="orden" disabled aria-disabled="true" title="Disponible en una siguiente etapa">Desde orden de compra · Próximamente</button>
+        <button type="button" class="ne-origen-opcion" data-ne-origen="orden" aria-pressed="false">Desde orden de compra</button>
+      </div>
+      <div id="ne-orden-formulario" hidden>
+        <div class="ne-card">
+          <h2>Orden de compra de origen</h2>
+          <p>Las líneas de la orden usan su cantidad pendiente completa y no mueven inventario. El proveedor de la orden quedará como cliente de la nota.</p>
+          <div class="ne-search ne-orden-busqueda">
+            <label for="ne-buscar-orden-origen">Buscar orden de compra por número</label>
+            <input id="ne-buscar-orden-origen" type="search" placeholder="Escriba al menos 2 dígitos">
+            <div class="ne-resultados" id="ne-resultados-orden-origen"></div>
+          </div>
+          <div class="ne-factura-origen-elegida" id="ne-orden-origen-elegida" hidden>
+            <div>
+              <strong id="ne-orden-origen-numero"></strong>
+              <p>Proveedor / cliente de la nota: <span id="ne-orden-origen-cliente"></span></p>
+              <p>Fecha: <span id="ne-orden-origen-fecha"></span></p>
+            </div>
+            <button type="button" class="btn ne-secondary" id="ne-cambiar-orden-origen">Cambiar orden</button>
+          </div>
+        </div>
+        <div class="ne-card" id="ne-orden-lineas-card" hidden>
+          <h2>Materiales de la orden</h2>
+          <p>Selecciona las líneas que deseas incluir. Se usa la cantidad pendiente completa de cada línea.</p>
+          <div class="ne-table-wrap">
+            <table class="striped ne-tabla-origen-factura ne-tabla-origen-orden">
+              <thead><tr><th><label class="ne-seleccionar-todas-factura"><input type="checkbox" id="ne-orden-seleccionar-todas"> Seleccionar todas</label></th><th>Artículo</th><th>Pendiente</th><th>Destinatario</th></tr></thead>
+              <tbody id="ne-orden-origen-lineas"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ne-card" id="ne-orden-extras-card" hidden>
+          <div class="ne-card-head">
+            <div><h2>Artículos adicionales del inventario</h2><p>Estos artículos sí se descuentan del inventario al emitir la nota.</p></div>
+            <button type="button" class="btn ne-secondary" id="ne-orden-agregar-extra">Agregar artículo</button>
+          </div>
+          <div id="ne-orden-extras"></div>
+        </div>
+        <div class="ne-card">
+          <div class="ne-grid">
+            <label>Referencia, opcional
+              <input id="ne-orden-referencia" type="text" maxlength="55">
+            </label>
+            <label>Observaciones generales, opcional
+              <textarea id="ne-orden-observaciones" maxlength="512" rows="2"></textarea>
+            </label>
+          </div>
+          <div class="ne-actions">
+            <button type="button" class="btn" id="ne-emitir-orden-boton" disabled>Emitir nota desde orden</button>
+            <span>Las líneas de la orden no admiten anulaciones. Los artículos adicionales sí.</span>
+          </div>
+        </div>
       </div>
       <form id="ne-form" autocomplete="off">
         <div class="ne-card">
@@ -198,7 +248,7 @@
         </div>
         <div class="ne-table-wrap">
           <table class="striped">
-            <thead><tr><th>Facturar</th><th>Número</th><th>Fecha</th><th>Cliente</th><th>Responsable</th><th>Estado</th><th>Factura</th><th></th></tr></thead>
+            <thead><tr><th>Facturar</th><th>Número</th><th>Fecha</th><th>Cliente</th><th>Responsable</th><th>Estado</th><th>Factura / origen</th><th></th></tr></thead>
             <tbody id="ne-lista"></tbody>
           </table>
         </div>
@@ -335,6 +385,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=17"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=19"></script>
 </body>
 </html>

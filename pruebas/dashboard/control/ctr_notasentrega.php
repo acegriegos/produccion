@@ -349,6 +349,79 @@ function ne_normalizar_nota_desde_factura(array $datos)
     );
 }
 
+function ne_normalizar_nota_desde_orden(array $datos)
+{
+    $clave = isset($datos['clave_operacion']) ? $datos['clave_operacion'] : null;
+    if (!is_string($clave) || !preg_match(
+        '/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/D',
+        $clave
+    )) {
+        ne_error('clave_invalida', 'La clave de operación debe ser un UUID.', 422);
+    }
+
+    $lineas = isset($datos['lineas']) ? $datos['lineas'] : null;
+    if (!is_array($lineas) || count($lineas) < 1 || count($lineas) > 100
+        || array_keys($lineas) !== range(0, count($lineas) - 1)) {
+        ne_error('detalle_invalido', 'La nota requiere entre 1 y 100 líneas.', 422);
+    }
+
+    $normalizadas = array();
+    $idsDetalle = array();
+    foreach ($lineas as $indice => $linea) {
+        if (!is_array($linea)) {
+            ne_error('detalle_invalido', 'La línea ' . ($indice + 1) . ' es inválida.', 422);
+        }
+        $idDetalle = null;
+        if (isset($linea['iddetalleorden']) && $linea['iddetalleorden'] !== '') {
+            $idDetalle = ne_entero($linea['iddetalleorden'],
+                'Línea de orden ' . ($indice + 1), 1, 2147483647);
+            if (isset($idsDetalle[$idDetalle])) {
+                ne_error('detalle_invalido', 'No repitas una línea de la orden.', 422);
+            }
+            $idsDetalle[$idDetalle] = true;
+        }
+        $normalizadas[] = array(
+            'iddetallefactura_origen' => $idDetalle,
+            'idproducto' => ne_entero(
+                isset($linea['idproducto']) ? $linea['idproducto'] : null,
+                'Producto de línea ' . ($indice + 1), 1, 2147483647
+            ),
+            'idunidad' => ne_entero(
+                isset($linea['idunidad']) ? $linea['idunidad'] : null,
+                'Unidad de línea ' . ($indice + 1), 1, 127
+            ),
+            'cantidad' => ne_cantidad(
+                isset($linea['cantidad']) ? $linea['cantidad'] : null
+            ),
+            'destinatario' => ne_texto(
+                isset($linea['destinatario']) ? $linea['destinatario'] : null,
+                'Destinatario de línea ' . ($indice + 1), 150, true
+            ),
+            'observaciones' => ne_texto(
+                isset($linea['observaciones']) ? $linea['observaciones'] : null,
+                'Observaciones de línea ' . ($indice + 1), 255, false
+            )
+        );
+    }
+
+    return array(
+        'idordencompra_origen' => ne_entero(
+            isset($datos['idordencompra_origen']) ? $datos['idordencompra_origen'] : null,
+            'Orden de compra', 1, 2147483647
+        ),
+        'clave_operacion' => strtolower($clave),
+        'referencia' => ne_texto(
+            isset($datos['referencia']) ? $datos['referencia'] : null,
+            'Referencia', 55, false
+        ),
+        'observaciones' => ne_texto(
+            isset($datos['observaciones']) ? $datos['observaciones'] : null,
+            'Observaciones', 512, false
+        ),
+        'lineas' => $normalizadas
+    );
+}
+
 function ne_normalizar_devolucion(array $datos)
 {
     $clave = isset($datos['clave_operacion']) ? $datos['clave_operacion'] : null;
@@ -576,6 +649,29 @@ try {
             }
             ne_responder(200, array('succed' => true, 'data' => array('factura' => $factura)));
         }
+        if ($accion === 'buscar-ordenes') {
+            $termino = ne_texto(isset($_GET['q']) ? $_GET['q'] : null,
+                'Número de orden', 80, true);
+            $termino = preg_replace('/^(?:OC|ORDEN)\s*[-#]?\s*/i', '', $termino);
+            if (!preg_match('/^[0-9]{2,11}$/D', $termino)) {
+                ne_error('dato_invalido', 'Escribe al menos dos dígitos del número de orden.', 422);
+            }
+            ne_responder(200, array('succed' => true, 'data' => array(
+                'resultados' => $modelo->buscarOrdenesOrigen($idSucursal, $termino)
+            )));
+        }
+        if ($accion === 'ver-orden-origen') {
+            $idOrden = ne_entero(isset($_GET['id']) ? $_GET['id'] : null,
+                'Orden de compra', 1, 2147483647);
+            $orden = $modelo->verOrdenOrigen($idSucursal, $idOrden);
+            if ($orden === null) {
+                ne_responder(404, array('succed' => false, 'error' => array(
+                    'codigo' => 'orden_no_encontrada',
+                    'mensaje' => 'No se encontró una orden de compra disponible en la sucursal activa.'
+                )));
+            }
+            ne_responder(200, array('succed' => true, 'data' => array('orden' => $orden)));
+        }
         if ($accion === 'unidades') {
             ne_responder(200, array('succed' => true,
                 'data' => array('unidades' => $modelo->listarUnidades())));
@@ -639,7 +735,7 @@ try {
             'error' => array('codigo' => 'metodo_no_permitido', 'mensaje' => 'Usa GET o POST.')
         ));
     }
-    if (!in_array($accion, array('', 'emitir', 'emitir-desde-factura', 'devolver', 'facturar', 'crear-cliente'), true)) {
+    if (!in_array($accion, array('', 'emitir', 'emitir-desde-factura', 'emitir-desde-orden', 'devolver', 'facturar', 'crear-cliente'), true)) {
         ne_responder(404, array(
             'succed' => false,
             'error' => array('codigo' => 'accion_desconocida', 'mensaje' => 'Acción no disponible.')
@@ -690,6 +786,16 @@ try {
         $notaFactura = ne_normalizar_nota_desde_factura($datos);
         session_write_close();
         $resultado = $modelo->emitirDesdeFactura($idSucursal, $idUsuario, $notaFactura);
+        ne_responder($resultado['repetida'] ? 200 : 201, array(
+            'succed' => true,
+            'data' => $resultado
+        ));
+    }
+
+    if ($accion === 'emitir-desde-orden') {
+        $notaOrden = ne_normalizar_nota_desde_orden($datos);
+        session_write_close();
+        $resultado = $modelo->emitirDesdeOrden($idSucursal, $idUsuario, $notaOrden);
         ne_responder($resultado['repetida'] ? 200 : 201, array(
             'succed' => true,
             'data' => $resultado

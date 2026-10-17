@@ -22,7 +22,7 @@
 .ne-origen-opcion { min-height: 42px; padding: 9px 16px; border: 1px solid #b0bec5; border-radius: 4px; background: #eceff1; color: #29434e; font: inherit; cursor: pointer; }
 .ne-origen-opcion.active { border-color: #00796b; background: #00796b; color: white; }
 .ne-origen-opcion:disabled { color: #78909c; cursor: not-allowed; opacity: .72; }
-.ne-factura-busqueda { max-width: 680px; }
+.ne-factura-busqueda, .ne-orden-busqueda { max-width: 680px; }
 .ne-factura-origen-elegida { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; padding: 12px; border: 1px solid #b2dfdb; border-radius: 4px; background: #f1f8f7; }
 .ne-factura-origen-elegida p { margin: 3px 0; }
 .ne-tabla-origen-factura { min-width: 980px; }
@@ -31,6 +31,10 @@
 .ne-tabla-origen-factura .ne-cantidad-origen { min-width: 125px; }
 .ne-tabla-origen-factura .ne-destinatario-origen { min-width: 190px; }
 .ne-tabla-origen-factura .ne-destinatario-libre { min-width: 180px; }
+.ne-tabla-origen-orden { min-width: 680px; }
+.ne-tabla-origen-orden .ne-destinatario-orden { min-width: 190px; }
+.ne-tabla-origen-orden .ne-destinatario-libre { min-width: 180px; }
+.ne-origen-material { color: #607d8b; font-size: .82em; }
 .ne-tab[hidden], .ne-panel[hidden], .ne-app [hidden] { display: none !important; }
 .ne-card, .ne-boleta { background: white; border: 1px solid #dce4e6; border-radius: 6px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 .ne-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; align-items: start; }

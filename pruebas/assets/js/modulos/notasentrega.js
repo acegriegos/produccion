@@ -25,10 +25,15 @@
   var lineasEnFactura = [];
   var modoEmision = 'regular';
   var facturaOrigen = null;
+  var ordenOrigen = null;
   var claveFacturaPendiente = null;
   var huellaFacturaPendiente = null;
+  var claveOrdenPendiente = null;
+  var huellaOrdenPendiente = null;
   var temporizadorFactura = null;
   var solicitudFactura = null;
+  var temporizadorOrden = null;
+  var solicitudOrden = null;
 
   function el(id) { return document.getElementById(id); }
   function valor(id) { return el(id).value.trim(); }
@@ -79,10 +84,11 @@
     if (nombre === 'detalle') el('ne-tab-detalle').hidden = false;
   }
   function cambiarModoEmision(modo) {
-    if (modo !== 'regular' && modo !== 'factura') return;
+    if (modo !== 'regular' && modo !== 'factura' && modo !== 'orden') return;
     modoEmision = modo;
     el('ne-form').hidden = modo !== 'regular';
     el('ne-factura-formulario').hidden = modo !== 'factura';
+    el('ne-orden-formulario').hidden = modo !== 'orden';
     Array.prototype.forEach.call(document.querySelectorAll('[data-ne-origen]'), function (boton) {
       var activo = boton.getAttribute('data-ne-origen') === modo;
       boton.classList.toggle('active', activo);
@@ -245,8 +251,10 @@
     if (base === 2) return [2, 3, 4];
     return [base];
   }
-  function nuevaLinea() {
-    var lista = el('ne-lineas');
+  function nuevaLinea(idLista) {
+    idLista = idLista || 'ne-lineas';
+    var mostrarIndicacion = idLista !== 'ne-orden-extras';
+    var lista = el(idLista);
     if (lista.children.length >= maxLineas) {
       aviso('La nota admite como máximo ' + maxLineas + ' artículos.', true);
       return;
@@ -260,11 +268,11 @@
       '<div class="ne-search"><label>Destinatario<select class="ne-destinatario browser-default" required><option value="">Seleccione destinatario</option><option value="CURUBANDE">CURUBANDE</option><option value="ZAGRA">ZAGRA</option><option value="METALMECANICA GRECIA">METALMECANICA GRECIA</option><option value="NELSON">NELSON</option><option value="__otro">Otro</option></select></label><label class="ne-destinatario-libre-contenedor" hidden>Nombre del destinatario<input class="ne-destinatario-libre" type="text" maxlength="150"></label></div>' +
       '<label>Unidad<select class="ne-unidad browser-default" required><option value="">Seleccione artículo</option></select></label>' +
       '<label>Cantidad<input class="ne-cantidad" type="number" min="0.01" step="0.01" required></label>' +
-      '<label class="ne-linea-notas">Indicación, medida o corte (opcional)<input class="ne-linea-observaciones" type="text" maxlength="255"></label>' +
+      (mostrarIndicacion ? '<label class="ne-linea-notas">Indicación, medida o corte (opcional)<input class="ne-linea-observaciones" type="text" maxlength="255"></label>' : '') +
       '</div>';
     fila.producto = null;
     lista.appendChild(fila);
-    renumerar();
+    renumerar(idLista);
     var buscarProducto = fila.querySelector('.ne-producto');
     var selectorDestinatario = fila.querySelector('.ne-destinatario');
     var destinatarioLibre = fila.querySelector('.ne-destinatario-libre');
@@ -297,13 +305,13 @@
     fila.querySelector('.ne-cantidad').addEventListener('input', function () { actualizarStock(fila); });
     fila.querySelector('.ne-unidad').addEventListener('change', function () { actualizarStock(fila); });
     fila.querySelector('.ne-quitar').addEventListener('click', function () {
-      if (lista.children.length === 1) return aviso('La nota necesita al menos un artículo.', true);
+      if (lista.children.length === 1 && idLista === 'ne-lineas') return aviso('La nota necesita al menos un artículo.', true);
       fila.remove();
-      renumerar();
+      renumerar(idLista);
     });
   }
-  function renumerar() {
-    Array.prototype.forEach.call(el('ne-lineas').children, function (fila, indice) {
+  function renumerar(idLista) {
+    Array.prototype.forEach.call(el(idLista || 'ne-lineas').children, function (fila, indice) {
       fila.querySelector('.ne-renglon').textContent = 'Artículo ' + (indice + 1);
     });
   }
@@ -646,6 +654,231 @@
       aviso(mensaje, true, 'emitir');
     }).finally(function () { actualizarBotonEmitirFactura(); });
   }
+  function actualizarBotonEmitirOrden() {
+    var filas = Array.prototype.slice.call(
+      el('ne-orden-origen-lineas').querySelectorAll('.ne-linea-orden-origen')
+    );
+    var seleccionadas = filas.filter(function (fila) {
+      return fila.querySelector('.ne-incluir-orden').checked;
+    }).length;
+    var selectorTodas = el('ne-orden-seleccionar-todas');
+    selectorTodas.checked = filas.length > 0 && seleccionadas === filas.length;
+    selectorTodas.indeterminate = seleccionadas > 0 && seleccionadas < filas.length;
+    selectorTodas.disabled = filas.length === 0;
+    el('ne-emitir-orden-boton').disabled = !ordenOrigen || seleccionadas === 0;
+  }
+  function renderizarLineasOrdenOrigen(lineas) {
+    var tbody = el('ne-orden-origen-lineas');
+    tbody.replaceChildren();
+    if (!lineas.length) {
+      var vacia = document.createElement('tr');
+      var celda = agregarCelda(vacia, 'La orden no tiene cantidades pendientes.');
+      celda.colSpan = 4;
+      tbody.appendChild(vacia);
+      actualizarBotonEmitirOrden();
+      return;
+    }
+    lineas.forEach(function (linea, indice) {
+      var fila = document.createElement('tr');
+      fila.className = 'ne-linea-orden-origen';
+      fila.dataset.iddetalleorden = String(linea.iddetalleorden);
+      fila.dataset.idproducto = String(linea.idproducto);
+      fila.dataset.idunidad = String(linea.idunidad);
+      fila.dataset.cantidadPendiente = String(linea.cantidad_pendiente);
+
+      var celdaIncluir = document.createElement('td');
+      var incluir = document.createElement('input');
+      incluir.type = 'checkbox';
+      incluir.className = 'ne-incluir-orden';
+      incluir.setAttribute('aria-label', 'Incluir artículo de orden ' + (indice + 1));
+      celdaIncluir.appendChild(incluir);
+      fila.appendChild(celdaIncluir);
+      agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+      agregarCelda(fila, Number(linea.cantidad_pendiente).toFixed(2) + ' ' + (linea.unidad_nombre || ''));
+
+      var celdaDestinatario = document.createElement('td');
+      var destinatario = document.createElement('select');
+      destinatario.className = 'browser-default ne-destinatario-orden';
+      destinatario.required = true;
+      crearOpcion(destinatario, '', 'Seleccione destinatario');
+      crearOpcion(destinatario, 'CURUBANDE', 'CURUBANDE');
+      crearOpcion(destinatario, 'ZAGRA', 'ZAGRA');
+      crearOpcion(destinatario, 'METALMECANICA GRECIA', 'METALMECANICA GRECIA');
+      crearOpcion(destinatario, 'NELSON', 'NELSON');
+      crearOpcion(destinatario, '__otro', 'Otro');
+      var otro = document.createElement('input');
+      otro.type = 'text';
+      otro.className = 'ne-destinatario-libre';
+      otro.maxLength = 150;
+      otro.placeholder = 'Nombre del destinatario';
+      otro.hidden = true;
+      destinatario.addEventListener('change', function () {
+        otro.hidden = destinatario.value !== '__otro';
+        otro.required = destinatario.value === '__otro';
+        if (otro.hidden) otro.value = '';
+      });
+      celdaDestinatario.appendChild(destinatario);
+      celdaDestinatario.appendChild(otro);
+      fila.appendChild(celdaDestinatario);
+
+      incluir.addEventListener('change', actualizarBotonEmitirOrden);
+      tbody.appendChild(fila);
+    });
+    actualizarBotonEmitirOrden();
+  }
+  function elegirOrdenOrigen(item) {
+    ordenOrigen = null;
+    el('ne-resultados-orden-origen').replaceChildren();
+    el('ne-orden-lineas-card').hidden = true;
+    el('ne-orden-extras-card').hidden = true;
+    el('ne-orden-origen-elegida').hidden = true;
+    el('ne-emitir-orden-boton').disabled = true;
+    aviso('Cargando materiales de la orden…', false, 'emitir');
+    api('ver-orden-origen', {id: item.id}).then(function (datos) {
+      ordenOrigen = datos.orden;
+      texto('ne-orden-origen-numero', ordenOrigen.numero);
+      texto('ne-orden-origen-cliente', ordenOrigen.cliente_nombre);
+      texto('ne-orden-origen-fecha', ordenOrigen.fecha);
+      el('ne-orden-origen-elegida').hidden = false;
+      el('ne-orden-lineas-card').hidden = false;
+      el('ne-orden-extras-card').hidden = false;
+      renderizarLineasOrdenOrigen(ordenOrigen.lineas || []);
+      aviso('', false, 'emitir');
+    }).catch(function (error) {
+      ordenOrigen = null;
+      aviso(error.message, true, 'emitir');
+    });
+  }
+  function conectarBusquedaOrdenOrigen() {
+    var input = el('ne-buscar-orden-origen');
+    var contenedor = el('ne-resultados-orden-origen');
+    input.addEventListener('input', function () {
+      var q = input.value.trim();
+      ordenOrigen = null;
+      el('ne-orden-lineas-card').hidden = true;
+      el('ne-orden-extras-card').hidden = true;
+      el('ne-orden-origen-elegida').hidden = true;
+      el('ne-orden-origen-lineas').replaceChildren();
+      el('ne-orden-extras').replaceChildren();
+      actualizarBotonEmitirOrden();
+      contenedor.replaceChildren();
+      if (temporizadorOrden) clearTimeout(temporizadorOrden);
+      if (solicitudOrden) solicitudOrden.abort();
+      if (q.length < 2) return;
+      temporizadorOrden = setTimeout(function () {
+        solicitudOrden = typeof AbortController === 'function' ? new AbortController() : null;
+        api('buscar-ordenes', {q: q}, solicitudOrden ? {signal: solicitudOrden.signal} : {})
+          .then(function (datos) {
+            if (input.value.trim() !== q) return;
+            contenedor.replaceChildren();
+            if (!datos.resultados.length) {
+              var vacio = document.createElement('p');
+              vacio.className = 'ne-seleccion';
+              vacio.textContent = 'No se encontraron órdenes de compra disponibles.';
+              contenedor.appendChild(vacio);
+              return;
+            }
+            datos.resultados.forEach(function (orden) {
+              var etiqueta = orden.numero + ' · ' + orden.cliente_nombre + ' · ' + orden.fecha;
+              contenedor.appendChild(botonResultado(etiqueta, orden, elegirOrdenOrigen));
+            });
+          }).catch(function (error) {
+            if (error.name !== 'AbortError') aviso(error.message, true, 'emitir');
+          });
+      }, 250);
+    });
+  }
+  function prepararNotaDesdeOrden() {
+    if (!ordenOrigen) throw new Error('Busca y selecciona una orden de compra.');
+    var lineas = [];
+    Array.prototype.forEach.call(
+      el('ne-orden-origen-lineas').querySelectorAll('.ne-linea-orden-origen'),
+      function (fila, indice) {
+        if (!fila.querySelector('.ne-incluir-orden').checked) return;
+        var selector = fila.querySelector('.ne-destinatario-orden');
+        var destinatario = selector.value === '__otro'
+          ? fila.querySelector('.ne-destinatario-libre').value.trim() : selector.value;
+        if (!destinatario) throw new Error('Selecciona el destinatario de la línea ' + (indice + 1) + '.');
+        lineas.push({
+          iddetalleorden: Number(fila.dataset.iddetalleorden),
+          idproducto: Number(fila.dataset.idproducto),
+          idunidad: Number(fila.dataset.idunidad),
+          cantidad: Number(fila.dataset.cantidadPendiente).toFixed(2),
+          destinatario: destinatario,
+          observaciones: null
+        });
+      }
+    );
+    Array.prototype.forEach.call(el('ne-orden-extras').children, function (fila, indice) {
+      var selectorDestinatario = fila.querySelector('.ne-destinatario');
+      var destinatario = selectorDestinatario.value === '__otro'
+        ? fila.querySelector('.ne-destinatario-libre').value.trim() : selectorDestinatario.value;
+      var cantidad = fila.querySelector('.ne-cantidad').value.trim();
+      if (!fila.producto) throw new Error('Selecciona un artículo adicional ' + (indice + 1) + '.');
+      if (!destinatario) throw new Error('Selecciona el destinatario del artículo adicional ' + (indice + 1) + '.');
+      if (!/^[0-9]{1,12}(\.[0-9]{1,2})?$/.test(cantidad) || Number(cantidad) <= 0) {
+        throw new Error('Ingresa una cantidad válida para el artículo adicional ' + (indice + 1) + '.');
+      }
+      lineas.push({
+        iddetalleorden: null,
+        idproducto: Number(fila.producto.id),
+        idunidad: Number(fila.querySelector('.ne-unidad').value),
+        cantidad: cantidad,
+        destinatario: destinatario,
+        observaciones: null
+      });
+    });
+    if (!lineas.some(function (linea) { return linea.iddetalleorden !== null; })) {
+      throw new Error('Selecciona al menos una línea pendiente de la orden.');
+    }
+    if (lineas.length > maxLineas) throw new Error('La nota admite como máximo ' + maxLineas + ' líneas.');
+    return {
+      idordencompra_origen: Number(ordenOrigen.id),
+      referencia: valor('ne-orden-referencia') || null,
+      observaciones: valor('ne-orden-observaciones') || null,
+      lineas: lineas
+    };
+  }
+  function emitirDesdeOrden() {
+    var nota;
+    try { nota = prepararNotaDesdeOrden(); } catch (error) { aviso(error.message, true, 'emitir'); return; }
+    var huella = JSON.stringify(nota);
+    if (huella !== huellaOrdenPendiente) {
+      claveOrdenPendiente = uuid();
+      huellaOrdenPendiente = huella;
+    }
+    nota.clave_operacion = claveOrdenPendiente;
+    var boton = el('ne-emitir-orden-boton');
+    boton.disabled = true;
+    aviso('Emitiendo la nota desde orden de compra…', false, 'emitir');
+    api('emitir-desde-orden', null, {
+      method: 'POST',
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken},
+      body: JSON.stringify(nota)
+    }).then(function (respuesta) {
+      claveOrdenPendiente = huellaOrdenPendiente = null;
+      ordenOrigen = null;
+      el('ne-buscar-orden-origen').value = '';
+      el('ne-orden-origen-elegida').hidden = true;
+      el('ne-orden-lineas-card').hidden = true;
+      el('ne-orden-extras-card').hidden = true;
+      el('ne-orden-origen-lineas').replaceChildren();
+      el('ne-orden-extras').replaceChildren();
+      el('ne-orden-referencia').value = '';
+      el('ne-orden-observaciones').value = '';
+      cargarDetalle(respuesta.idnota).then(function () {
+        aviso('Nota #' + respuesta.idnota
+          + (respuesta.repetida ? ' recuperada tras el reintento.' : ' emitida desde orden de compra.'), false, 'detalle');
+      }).catch(function (error) {
+        aviso('La nota #' + respuesta.idnota + ' fue emitida, pero no se pudo abrir el detalle: '
+          + error.message, true, 'emitir');
+      });
+    }).catch(function (error) {
+      var mensaje = error.message;
+      if (error.name === 'TypeError') mensaje += ' Si el envío se interrumpió, vuelva a intentar sin modificar la nota.';
+      aviso(mensaje, true, 'emitir');
+    }).finally(function () { actualizarBotonEmitirOrden(); });
+  }
   function filtros() {
     var tipo = valor('ne-f-tipo-cliente');
     if (tipo === 'registrado' && !clienteFiltro) throw new Error('Seleccione el cliente del filtro.');
@@ -699,7 +932,16 @@
         agregarCelda(fila, nota.usuario_nombre || nota.idusuario);
         agregarCelda(fila, estadoNombre(nota.idestado));
         var celdaFactura = document.createElement('td');
-        if (nota.idfactura_origen != null) {
+        if (nota.idordencompra_origen != null) {
+          var ordenTexto = document.createElement('div');
+          ordenTexto.textContent = 'Orden: ' + (nota.orden_origen_numero || nota.idordencompra_origen);
+          celdaFactura.appendChild(ordenTexto);
+          if (nota.idfactura != null) {
+            var enlaceFacturaOrden = document.createElement('div');
+            renderizarEnlaceFactura(enlaceFacturaOrden, nota.idfactura);
+            celdaFactura.appendChild(enlaceFacturaOrden);
+          }
+        } else if (nota.idfactura_origen != null) {
           celdaFactura.textContent = 'Origen: ' + (nota.factura_origen_numero || nota.idfactura_origen);
         } else {
           renderizarEnlaceFactura(celdaFactura, nota.idfactura);
@@ -1060,7 +1302,23 @@
       texto('ne-d-sucursal', nota.idsucursal);
       texto('ne-d-estado', estadoNombre(nota.idestado));
       texto('ne-d-referencia', nota.referencia);
-      if (Number(nota.origen) === 2 && nota.idfactura_origen != null) {
+      if (Number(nota.origen) === 3 && nota.idordencompra_origen != null) {
+        texto('ne-d-factura-label', 'Origen:');
+        var celdaOrigen = el('ne-d-factura');
+        celdaOrigen.replaceChildren();
+        var ordenOrigenTexto = document.createElement('div');
+        ordenOrigenTexto.textContent = 'Orden de compra: '
+          + (nota.orden_origen_numero || nota.idordencompra_origen);
+        celdaOrigen.appendChild(ordenOrigenTexto);
+        if (nota.idfactura != null) {
+          var facturaCreada = document.createElement('div');
+          facturaCreada.textContent = 'Factura: ';
+          var enlaceFacturaCreada = document.createElement('div');
+          renderizarEnlaceFactura(enlaceFacturaCreada, nota.idfactura);
+          facturaCreada.appendChild(enlaceFacturaCreada);
+          celdaOrigen.appendChild(facturaCreada);
+        }
+      } else if (Number(nota.origen) === 2 && nota.idfactura_origen != null) {
         texto('ne-d-factura-label', 'Factura de origen:');
         texto('ne-d-factura', nota.factura_origen_numero || nota.idfactura_origen);
       } else {
@@ -1073,7 +1331,16 @@
       nota.lineas.forEach(function (linea) {
         var fila = document.createElement('tr');
         agregarCelda(fila, linea.renglon);
-        agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+        var celdaMaterial = agregarCelda(fila,
+          (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+        if (Number(nota.origen) === 3) {
+          var origenMaterial = document.createElement('small');
+          origenMaterial.className = 'ne-origen-material';
+          origenMaterial.textContent = linea.iddetallefactura_origen != null
+            ? 'Orden de compra' : 'Inventario local';
+          celdaMaterial.appendChild(document.createElement('br'));
+          celdaMaterial.appendChild(origenMaterial);
+        }
         agregarCelda(fila, linea.destinatario);
         agregarCelda(fila, linea.unidad_nombre || linea.idunidad);
         agregarCelda(fila, linea.cantidad);
@@ -1085,7 +1352,11 @@
     });
   }
   function renderizarDevoluciones(nota) {
-    var sePuedeDevolver = Number(nota.idestado) === 1 && nota.idfactura == null;
+    var lineasAnulables = nota.lineas.filter(function (linea) {
+      return linea.iddetallefactura_origen == null;
+    });
+    var sePuedeDevolver = Number(nota.idestado) === 1 && nota.idfactura == null
+      && lineasAnulables.some(function (linea) { return Number(linea.cantidad_pendiente || 0) > 0; });
     var panel = el('ne-devolucion-panel');
     var cuerpo = el('ne-devolucion-lineas');
     var boton = el('ne-devolver-boton');
@@ -1093,7 +1364,7 @@
     panel.hidden = !sePuedeDevolver;
     cuerpo.replaceChildren();
     var haySaldo = false;
-    nota.lineas.forEach(function (linea) {
+    lineasAnulables.forEach(function (linea) {
       var pendiente = Math.max(0, Number(linea.cantidad_pendiente || 0));
       var fila = document.createElement('tr');
       agregarCelda(fila, (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
@@ -1159,6 +1430,7 @@
     var lineas = [];
     if (anulacionTotal) {
       notaVisible.lineas.forEach(function (linea) {
+        if (linea.iddetallefactura_origen != null) return;
         var pendiente = Number(linea.cantidad_pendiente || 0);
         if (pendiente <= 0) return;
         lineas.push({
@@ -1223,7 +1495,9 @@
       aviso(error.message, true, 'detalle');
     }).finally(function () {
       var puedeAnular = notaVisible && Number(notaVisible.idestado) === 1 && notaVisible.idfactura == null
-        && notaVisible.lineas.some(function (linea) { return Number(linea.cantidad_pendiente || 0) > 0; });
+        && notaVisible.lineas.some(function (linea) {
+          return linea.iddetallefactura_origen == null && Number(linea.cantidad_pendiente || 0) > 0;
+        });
       boton.disabled = !puedeAnular;
       botonTotal.disabled = !puedeAnular;
     });
@@ -1235,6 +1509,36 @@
       });
     });
     conectarBusquedaFacturaOrigen();
+    conectarBusquedaOrdenOrigen();
+    el('ne-cambiar-orden-origen').addEventListener('click', function () {
+      el('ne-buscar-orden-origen').value = '';
+      el('ne-resultados-orden-origen').replaceChildren();
+      el('ne-orden-origen-elegida').hidden = true;
+      el('ne-orden-lineas-card').hidden = true;
+      el('ne-orden-extras-card').hidden = true;
+      el('ne-orden-origen-lineas').replaceChildren();
+      el('ne-orden-extras').replaceChildren();
+      ordenOrigen = null;
+      actualizarBotonEmitirOrden();
+      el('ne-buscar-orden-origen').focus();
+    });
+    el('ne-orden-seleccionar-todas').addEventListener('change', function () {
+      var incluirTodas = this.checked;
+      Array.prototype.forEach.call(
+        el('ne-orden-origen-lineas').querySelectorAll('.ne-incluir-orden'),
+        function (incluir) { incluir.checked = incluirTodas; }
+      );
+      actualizarBotonEmitirOrden();
+    });
+    el('ne-emitir-orden-boton').addEventListener('click', emitirDesdeOrden);
+    el('ne-orden-agregar-extra').addEventListener('click', function () {
+      if (el('ne-orden-origen-lineas').querySelectorAll('.ne-incluir-orden:checked').length
+          + el('ne-orden-extras').children.length >= maxLineas) {
+        aviso('La nota admite como máximo ' + maxLineas + ' líneas.', true, 'emitir');
+        return;
+      }
+      nuevaLinea('ne-orden-extras');
+    });
     el('ne-cambiar-factura-origen').addEventListener('click', function () {
       el('ne-buscar-factura-origen').value = '';
       el('ne-resultados-factura-origen').replaceChildren();
@@ -1291,7 +1595,7 @@
       el('ne-f-cliente-texto').value = '';
       texto('ne-f-cliente-elegido', 'Ningún cliente seleccionado');
     });
-    el('ne-agregar-linea').addEventListener('click', nuevaLinea);
+    el('ne-agregar-linea').addEventListener('click', function () { nuevaLinea(); });
     el('ne-preparar-factura').addEventListener('click', prepararFacturacion);
     el('ne-facturar-form').addEventListener('submit', facturarNotas);
     el('ne-cancelar-factura').addEventListener('click', cancelarPreparacionFactura);

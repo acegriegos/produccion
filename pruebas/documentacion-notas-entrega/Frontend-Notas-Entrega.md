@@ -1,6 +1,6 @@
 # Notas de Entrega — interfaz y comprobante
 
-> Estado al 2026-10-16: emisión regular, consultas, anulaciones, facturación e impresión forman parte del módulo. Esta rama añade la selección de notas desde facturas. En `pruebas` el SQL incremental ya está instalado; para habilitarlo en otra base, seguir [guiaDB.md](guiaDB.md).
+> Estado al 2026-10-16: emisión regular, consultas, anulaciones, facturación e impresión forman parte del módulo. Esta rama agrega emisión desde órdenes de compra y su migración ya está instalada en `pruebas`; hay diez órdenes locales de ensayo (`9374`–`9383`). Falta la revisión funcional del usuario desde la interfaz antes del PR. Para instalar en otra base, seguir [guiaDB.md](guiaDB.md).
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Backend](Backend-Notas-Entrega.md)
 
@@ -12,7 +12,7 @@ La nueva interfaz conserva navegación, estilos y permisos visibles del sistema.
 
 ## Implementación de esta etapa
 
-La opción **Notas de Entrega** aparece bajo Facturación para usuarios con la misma clase de permiso de Ventas (`per2`); el controlador vuelve a exigir permiso de escritura de facturación o administrador `id = 1`. La ruta `dashboard/notasentrega` sirve la vista, y `?accion=contexto`, `buscar`, `unidades`, `emitir`, `listar` y `ver` sirven JSON. Las búsquedas de cliente y producto consultan la base mediante parámetros preparados y muestran hasta 25 resultados; se exige seleccionar una coincidencia, no basta escribir texto. Los destinatarios son opciones locales de la interfaz, no se buscan en la base. El producto muestra el saldo del inventario `6` y unidades compatibles con su unidad base. El saldo visible es orientativo: el SP valida y bloquea el saldo al emitir.
+La opción **Notas de Entrega** aparece bajo Facturación para usuarios con la misma clase de permiso de Ventas (`per2`); el controlador vuelve a exigir permiso de escritura de facturación o administrador `id = 1`. La ruta `dashboard/notasentrega` sirve la vista, y `?accion=contexto`, `buscar`, `buscar-facturas`, `buscar-ordenes`, `ver-factura-origen`, `ver-orden-origen`, `unidades`, `emitir`, `emitir-desde-factura`, `emitir-desde-orden`, `listar` y `ver` sirven JSON. Las búsquedas de cliente y producto consultan la base mediante parámetros preparados y muestran hasta 25 resultados; se exige seleccionar una coincidencia, no basta escribir texto. Los destinatarios son opciones locales de la interfaz, no se buscan en la base. El producto muestra el saldo del inventario `6` y unidades compatibles con su unidad base. El saldo visible es orientativo: el SP valida y bloquea el saldo al emitir.
 
 El formulario crea una clave UUID por solicitud lógica. Si falla la red y la persona reintenta sin cambiar los datos, usa la misma clave para evitar otra salida de material. El botón se deshabilita durante el envío. Después de una emisión confirmada se abre el detalle de la nota. El listado filtra estado, cliente registrado o contado, fechas y usuario, con páginas de 25 registros. El detalle conserva los valores guardados al emitir y la boleta se imprime sin precios ni impuestos.
 
@@ -20,18 +20,24 @@ La boleta ofrece los formatos **Punto de venta** y **A4** mediante un selector j
 
 ## Selector de origen y emisión desde factura
 
-El panel de emisión presenta tres opciones: **Nota regular**, **Desde factura** y **Desde orden de compra**. La tercera aparece deshabilitada y marcada como próxima etapa. Cambiar a factura muestra una búsqueda por consecutivo para ventas emitidas de la sucursal activa (`F-`, `T-`, `S-`, `E-` o `FC-` para contingencia).
+El panel de emisión presenta tres opciones: **Nota regular**, **Desde factura** y **Desde orden de compra**. Cambiar a factura muestra una búsqueda por consecutivo para ventas emitidas de la sucursal activa (`F-`, `T-`, `S-`, `E-` o `FC-` para contingencia).
 
 Al elegir una factura, la pantalla muestra su número, fecha y cliente y presenta únicamente líneas de producto con su descripción, unidad y cantidad facturada. No solicita ni muestra precios, descuentos, impuestos o totales. Si la factura se creó desde una nota, precarga el destinatario guardado en esa línea, incluido un nombre libre; en otros casos queda listo para seleccionarlo. Las líneas aparecen sin seleccionar; se pueden marcar individualmente o todas de una vez, y cada cantidad admite hasta el máximo de su línea. Cada artículo conserva su propio destinatario y una indicación opcional.
 
 La emisión desde factura no modifica el inventario, no calcula un saldo conjunto con notas previas y deja la nota en estado **Cerrada desde factura**. Esa nota no se puede anular ni seleccionar para facturar desde el módulo. En consulta e impresión se conserva el número de la factura fuente para reconocer el origen.
 
-## Pantallas previstas
+## Emisión desde órdenes de compra
+
+La búsqueda acepta órdenes existentes de tipo `3`, estados `1` o `2`, y solo de la sucursal activa. Al elegir una orden se muestra su proveedor, que se copia como cliente de la nota, junto con sus líneas con saldo pendiente. El usuario puede seleccionar una o varias líneas; cada una se incluye por su cantidad pendiente completa. Las cantidades ya usadas por notas anteriores se restan en consulta y se vuelven a validar con bloqueo dentro del procedimiento para impedir duplicados concurrentes.
+
+Cada línea de orden requiere su destinatario; esta modalidad no presenta campo de indicación, medida o corte. También se pueden agregar artículos del inventario actual; estos artículos adicionales sí descuentan inventario y admiten anulaciones parciales o totales. Las líneas que vienen de la orden no alteran existencias y no admiten anulaciones. La referencia de orden se conserva en la consulta e impresión. La modalidad desde factura no se combina con órdenes ni con artículos locales.
+
+## Pantallas disponibles
 
 | Pantalla | Datos y acciones principales |
 | --- | --- |
 | Listado de notas | Número, cliente, fecha, sucursal, responsable y estado; filtros para pendientes, facturadas, anuladas y cerradas desde factura; acceso al detalle e impresión. |
-| Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir uno de los cuatro destinatarios predefinidos (`CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON`) o escribir otro, además de unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. |
+| Registrar y emitir | Seleccionar cliente o introducir `nombre_cliente` libre; cargar artículo y elegir uno de los cuatro destinatarios predefinidos (`CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON`) o escribir otro, además de unidad y cantidad de hasta dos decimales. Para cliente contado limitar el nombre a 64 caracteres, capacidad de `facturas.comodin`. La sucursal proviene de la sesión y el inventario es el `6`. Al confirmar se emite, descuenta stock y habilita la boleta. En modalidad de orden, el proveedor queda como cliente, las líneas de origen usan cantidades pendientes completas y solo los artículos adicionales descuentan stock. |
 | Detalle de nota | Muestra los datos originales, líneas, estado, número de factura cuando exista, cantidades anuladas y pendientes, y el historial de eventos. Si permanece pendiente, permite registrar anulaciones parciales por línea o anular con un botón todo el material pendiente. El botón de impresión permite elegir Punto de venta o A4. |
 | Preparar factura | Desde el listado, seleccionar hasta 100 notas pendientes del mismo cliente. Cargar las cantidades netas por línea, omitir las totalmente anuladas y definir precio unitario, descuento total, categoría de IVA, tipo de comprobante, tipo de factura, forma de pago y moneda. El encabezado y líneas se envían al backend; para contado se usa `idcliente = 0` y `comodin = nombre_cliente`. |
 
@@ -61,11 +67,12 @@ La vista usa PHP/Smarty y los scripts del proyecto. Los catálogos de clientes, 
 
 No se ha establecido ninguna dependencia de WebSocket para este módulo.
 
-## Pendientes de diseño y pruebas
+## Revisión pendiente de esta rama
 
-1. Revisar visualmente emisión, devoluciones e impresión con una sesión real en Apache; confirmar el formato físico con usuarios operativos.
-2. La devolución ya fue revisada e integrada en el PR #4; su procedimiento está instalado en `pruebas`. No volver a ejecutar la migración de tablas.
-3. Revisar visualmente la preparación de factura y probar un caso completo antes del PR. El envío fiscal y la navegación desde la factura hacia sus notas quedan para integrar con el flujo normal de facturas.
+1. Buscar una orden de compra y confirmar que el proveedor aparece como cliente de la nota.
+2. Seleccionar líneas de orden y verificar que se copien completas, con destinatario por material y sin campo de indicación.
+3. Agregar un artículo local a esa misma nota y confirmar que solo ese artículo descuenta inventario y puede anularse.
+4. Emitir una segunda nota desde la misma orden y comprobar que solo aparezcan las líneas con saldo. Una línea de orden no debe admitir anulación parcial ni total.
 
 ## Registro de avance
 
@@ -82,3 +89,4 @@ No se ha establecido ninguna dependencia de WebSocket para este módulo.
 | 2026-10-06 | Se añadió la preparación de factura: selección múltiple de notas pendientes, datos de factura desde los catálogos actuales, cantidades netas, precio/descuento/IVA por línea, vínculo navegable desde la nota y total previo. La rutina SQL está instalada; falta revisar y probar el guardado completo. |
 | 2026-10-06 | Desde el listado y el detalle de notas facturadas se añadió acceso separado para ver o imprimir la factura, usando el mismo recibo de ventas y su parámetro de impresión. |
 | 2026-10-16 | Se reemplazó proveedor por destinatario por línea, con cuatro valores fijos y captura libre sin catálogo. La migración normal conserva los nombres anteriores; una reparación parcial de la copia local usó un marcador para las líneas cuyo proveedor ya no se podía recuperar. El usuario confirmó dos emisiones desde la interfaz. |
+| 2026-10-16 | Se agregó la emisión desde órdenes de compra, combinable con artículos locales. Se instaló su migración en `pruebas`, se crearon diez órdenes locales de ensayo y se quitó el campo de indicación de todas las líneas de esta modalidad. |

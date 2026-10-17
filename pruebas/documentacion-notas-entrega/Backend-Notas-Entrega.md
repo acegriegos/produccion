@@ -1,6 +1,6 @@
 # Notas de Entrega — backend e integración
 
-> Estado al 2026-10-16: en la base local `pruebas`, `detallenotasentrega` ya guarda `destinatario` como texto obligatorio y no conserva `idproveedor`. El procedimiento de emisión está actualizado; el usuario confirmó dos emisiones desde la interfaz, una con una opción fija y otra con **Otro**. La guía operativa de instalación está en [guiaDB.md](guiaDB.md).
+> Estado al 2026-10-16: en la base local `pruebas` están instalados el esquema de destinatarios, el origen desde facturas y la migración de órdenes de compra. Se verificaron la columna y clave foránea del origen de orden, los procedimientos reemplazados y los diez parámetros de `sp_emitir_nota_entrega`. Hay diez órdenes locales de ensayo (`9374`–`9383`); no forman parte de los SQL de despliegue. Esta rama queda pendiente de revisión funcional desde la interfaz. La guía operativa está en [guiaDB.md](guiaDB.md).
 >
 > [Objetivo y flujo general](MODULO-NOTAS-DE-ENTREGA.md) · [Base de datos](DB-Notas-Entrega.md) · [Frontend](Frontend-Notas-Entrega.md)
 
@@ -23,11 +23,11 @@ No se ha identificado un servicio Python necesario para este flujo. La descripci
 | Preparar factura | Agrupar notas pendientes del mismo cliente y sucursal; para contado exigir el mismo nombre libre y usar `facturas.idcliente = 0` con `comodin = nombre_cliente`. Definir precios, descuentos e impuestos sobre cantidades netas. Crear líneas sin otro descuento de inventario. |
 | Consultar vínculo | Mostrar desde la nota su factura y desde la factura las notas y líneas de origen. |
 
-La emisión regular, consulta, impresión, anulaciones y facturación están integradas en `master`. Esta rama agrega un flujo separado de emisión desde factura. La interfaz permite seleccionar nota regular o factura y deja visible, deshabilitada, la opción de orden de compra para una etapa posterior.
+La interfaz ofrece tres orígenes: nota regular, factura de venta y orden de compra. La modalidad de factura produce un comprobante informativo cerrado, sin precios ni movimientos de inventario. La modalidad de orden usa al proveedor como cliente, copia líneas seleccionadas por su cantidad pendiente completa sin mover existencias y permite agregar artículos locales, que sí descuentan inventario y admiten anulaciones.
 
 ## Instalación y contrato de emisión
 
-La instalación de tablas y procedimientos se documenta en [guiaDB.md](guiaDB.md), que es la referencia operativa para elegir los SQL y su orden. La función nueva requiere ejecutar [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) una sola vez sobre el módulo ya instalado. El SQL agrega las referencias de origen, el estado `4` y `sp_emitir_nota_desde_factura`. La aplicación no modifica el esquema automáticamente.
+La instalación de tablas y procedimientos se documenta en [guiaDB.md](guiaDB.md), que es la referencia operativa para elegir los SQL y su orden. En una base que ya tiene destinatarios, el origen desde factura se instala con [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) y después el origen desde orden con [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql), cada uno una sola vez. El primero agrega la referencia de factura, el estado `4` y `sp_emitir_nota_desde_factura`; el segundo agrega la referencia de orden y reemplaza los procedimientos de emisión y anulaciones. La aplicación no modifica el esquema automáticamente.
 
 El endpoint de esta etapa es `dashboard/notasentrega`, resuelto por `dashboard/index.php`. Usa la sesión existente: `USR` determina el usuario e `IMPRESA` la sucursal. Exige el permiso de escritura (`tipo = 1`) del módulo `facturacion` en `permisosusuarios`, salvo el administrador `id = 1`. Este permiso se reutiliza provisionalmente porque aún no existe un permiso propio del módulo; la opción de menú usa la misma clase visible que Ventas (`per2`). El controlador vuelve a comprobar el permiso en cada petición, pues la comprobación genérica de `dashboard/index.php` permite módulos sin fila de permiso.
 
@@ -38,10 +38,13 @@ El endpoint de esta etapa es `dashboard/notasentrega`, resuelto por `dashboard/i
 | `GET ?accion=buscar` | `tipo=clientes|productos|usuarios`, `q` de 2 a 80 caracteres | `data.resultados` con hasta 25 coincidencias; productos incluyen unidad base y saldo visible del inventario `6` |
 | `GET ?accion=buscar-facturas` | `q` de al menos dos dígitos, opcionalmente precedidos por `F-`, `T-`, `S-`, `E-` o `FC-` | Hasta 25 facturas de venta de la sucursal activa, sin totales ni montos |
 | `GET ?accion=ver-factura-origen&id=N` | ID interno de una factura de venta en la sucursal activa | Cliente y líneas de producto con cantidad, descripción y destinatario si se puede recuperar desde una nota vinculada; no selecciona campos de precio, descuento, impuesto ni total |
+| `GET ?accion=buscar-ordenes` | `q` de al menos dos dígitos del consecutivo de una orden | Hasta 25 órdenes de compra tipo `3` en estado `1` o `2`, de la sucursal activa, con líneas pendientes |
+| `GET ?accion=ver-orden-origen&id=N` | ID interno de una orden de compra | Proveedor usado como cliente y líneas de producto con cantidades pendientes, sin datos financieros |
 | `GET ?accion=unidades` | Sesión activa | `data.unidades` para el selector por línea |
 | `GET ?accion=opciones-factura` | Sesión activa | Monedas, tipos de factura y formas de pago configurados |
 | `POST ?accion=emitir` | JSON y encabezado `X-CSRF-Token` obtenido de `contexto` | `201` con `data.idnota` y `data.repetida=false`; un reintento idéntico devuelve `200` y `repetida=true` |
 | `POST ?accion=emitir-desde-factura` | `idfactura_origen`, `clave_operacion`, referencia/observaciones opcionales y líneas `{iddetallefactura, cantidad, destinatario, observaciones}` | `201` con `data.idnota`. La cantidad no puede superar la línea de factura y cada solicitud es idempotente. No se modifican existencias ni se registra un movimiento. |
+| `POST ?accion=emitir-desde-orden` | `idordencompra_origen`, `clave_operacion`, referencia/observaciones y líneas de orden `{iddetalleorden, idproducto, idunidad, cantidad, destinatario}` mezcladas opcionalmente con artículos locales, que llevan `iddetalleorden=null`. El servidor admite `observaciones` nulas por compatibilidad de la estructura, pero la interfaz de esta modalidad no muestra campo de indicación. | `201` con `data.idnota`. Cada línea de orden debe usar su saldo pendiente completo y no mueve inventario; los artículos locales sí descuentan stock. La transacción protege saldo, reintentos y movimientos. |
 | `GET ?accion=listar` | Filtros y paginación descritos abajo | `data.notas`, `limite`, `offset` y filtros aplicados |
 | `GET ?accion=ver&id=N` | ID de nota | `data.nota` con cabecera, líneas, cantidades devueltas y pendientes, y eventos de devolución; `404` si no pertenece a la sucursal activa |
 | `POST ?accion=devolver&id=N` | JSON con clave UUID, motivo opcional y líneas `{iddetallenota, cantidad_devuelta}`; encabezado `X-CSRF-Token` | `201` con `data.iddevolucion`; un reintento idéntico devuelve `200` con `repetida=true` |
@@ -59,7 +62,7 @@ El procedimiento de emisión comprueba la identidad de cada línea, incluido el 
 
 El SP de devolución bloquea la nota y cada línea, valida el saldo todavía entregado y registra evento, detalle, reposición y movimiento tipo `7` dentro de una transacción. En la devolución final de una línea repone el remanente exacto de inventario que salió originalmente. La clave UUID reconoce un reintento idéntico; una clave usada con otros datos responde `409`. La nota permanece pendiente mientras conserve material entregado y se anula únicamente al devolverlo todo.
 
-El archivo [SQL-Notas-Entrega-Devoluciones.sql](SQL-Notas-Entrega-Devoluciones.sql) instala o reemplaza solo `sp_devolver_nota_entrega`. Se aplica después de la migración ya instalada; no se vuelve a ejecutar la migración.
+El archivo [SQL-Notas-Entrega-Devoluciones.sql](SQL-Notas-Entrega-Devoluciones.sql) instala o reemplaza `sp_devolver_nota_entrega` para el flujo regular. La migración [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql) agrega la clave foránea del origen de orden y reemplaza emisión y anulaciones para aplicar las reglas de ese origen. Se ejecuta una sola vez después de Desde Facturas; no se vuelve a ejecutar una migración ya aplicada.
 
 ## Punto crítico: facturación sin doble descuento
 
@@ -71,11 +74,11 @@ La preparación de la factura, sus líneas, los vínculos `notasentrega.idfactur
 
 ## Inventario y anulaciones
 
-La emisión usa las existencias del inventario de venta `6` para todas las sucursales y registra la sucursal de sesión en la nota y el movimiento. La comprobación y el descuento ocurren bajo control transaccional para impedir consumo concurrente del mismo saldo. Una salida se vincula con `movimientos.idtabla = 521` e `idfila = detallenotasentrega.id`. Reintentar una emisión confirmada con la misma `clave_operacion` devuelve el resultado previo sin crear movimientos adicionales.
+La emisión regular usa las existencias del inventario de venta `6` y registra la sucursal de sesión en la nota y el movimiento. Una nota desde orden combina líneas de origen (sin movimientos) con artículos locales (con salida tipo `10`); el procedimiento bloquea la orden para calcular el saldo de forma serial. Una salida se vincula con `movimientos.idtabla = 521` e `idfila = detallenotasentrega.id`. Reintentar una emisión confirmada con la misma `clave_operacion` devuelve el resultado previo sin crear movimientos adicionales.
 
 TI confirmó tipo `10` para salida y `7` para devolución; la migración inicial registra el tipo `10`. Cada devolución se vincula con `movimientos.idtabla = 523` e `idfila = detalledevolucionesnotasentrega.id`. Los SP guardan devolución, reposición y movimiento en una transacción; aceptan devolver una cantidad igual al saldo disponible, pero jamás mayor. Varias anulaciones pueden afectar la misma línea original. Cuando todas las líneas llegan a cero se registra un solo usuario anulador y la nota pasa a anulada. Las devoluciones posteriores a la factura usan el flujo fiscal existente.
 
-En `pruebas` están instalados `sp_emitir_nota_entrega`, `sp_devolver_nota_entrega`, `sp_facturar_notas_entrega` y `sp_emitir_nota_desde_factura`. Las columnas de origen también están instaladas mediante el SQL incremental de esta rama. La factura preparada desde notas queda inicialmente sin registro fiscal (`isregistrada = 0`); su envío a Hacienda y el registro del pago siguen el flujo normal de facturación.
+En `pruebas` están instalados los cuatro procedimientos del módulo, incluido `sp_emitir_nota_desde_factura`. La migración de órdenes ya reemplazó `sp_emitir_nota_entrega` por su versión de diez parámetros, agregó `idordencompra_origen` y actualizó la protección de anulaciones. Hay diez órdenes de ensayo locales; el usuario debe revisar desde la interfaz el origen de orden y la combinación con artículos locales. La factura preparada desde notas queda inicialmente sin registro fiscal (`isregistrada = 0`); su envío a Hacienda y el registro del pago siguen el flujo normal de facturación.
 
 Las tablas, tipos, índices y estados implementados están descritos en [la especificación de base de datos](DB-Notas-Entrega.md).
 
@@ -105,5 +108,6 @@ En la base local `pruebas` están instalados los procedimientos de emisión, dev
 | 2026-10-06 | El PR #3 integró la emisión y su interfaz en `master`. La rama de devoluciones añadió el SP, el endpoint transaccional, el saldo por línea y el historial/pantalla; el usuario instaló el SP y confirmó el flujo. El PR #4 quedó integrado en `master`. |
 | 2026-10-06 | La rama `feat/notas-entrega-facturacion-backend` agrega el endpoint y el SQL transaccional para facturar cantidades netas. El procedimiento reutiliza la numeración y efectos de encabezado de ventas y omite el descuento de inventario; falta instalar su SQL y construir la pantalla de facturación en una etapa posterior. |
 | 2026-10-06 | Se añadió la pantalla de selección y preparación de importes; los catálogos de moneda, tipo de factura y forma de pago responden desde el modelo local. Falta instalar el procedimiento, probar el guardado y revisar el cambio antes del PR. |
+| 2026-10-16 | Se instaló en `pruebas` el SQL de origen desde órdenes de compra. La migración agregó su clave foránea y reemplazó emisión/anulaciones; se verificó la firma de diez parámetros y se prepararon diez órdenes locales para la revisión del usuario. |
 | 2026-10-16 | La emisión recibe `destinatario` como texto, sin relación con proveedores. Se agregó una migración incremental para conservar los nombres históricos y se actualizó el contrato del procedimiento. |
 | 2026-10-16 | La migración parcial local se recuperó con el SQL excepcional; las líneas históricas afectadas quedaron con marcador porque `idproveedor` ya no existía. La guía `guiaDB.md` centraliza el orden de instalación. El usuario confirmó emisiones correctas con destinatario fijo y libre. |

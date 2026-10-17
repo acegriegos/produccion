@@ -20,7 +20,11 @@ El objetivo es registrar cada entrega, generar una boleta de media hoja, descont
 4. En el período correspondiente, se reúnen una o varias notas del mismo cliente y sucursal en una factura. Se facturan sus cantidades netas luego de devoluciones; los precios, descuentos e impuestos se definen en ese momento. Para cliente contado se usa `facturas.idcliente = 0` y el nombre libre en `facturas.comodin`.
 5. La factura conserva el vínculo con todas las notas y sus líneas; el inventario ya descontado no se vuelve a afectar.
 
-Como flujo separado, una factura de venta emitida puede originar una nota informativa con algunas de sus líneas y cantidades. Se conserva el cliente y los materiales sin precios, la nota queda cerrada y no genera movimientos de inventario ni anulaciones. Este flujo no calcula saldo contra notas anteriores. Las órdenes de compra quedan para una etapa posterior.
+Como flujo separado, una factura de venta emitida puede originar una nota informativa con algunas de sus líneas y cantidades. Se conserva el cliente y los materiales sin precios, la nota queda cerrada y no genera movimientos de inventario ni anulaciones. Este flujo no calcula saldo contra notas anteriores.
+
+Una orden de compra existente también puede originar una nota. El proveedor guardado en la orden se utiliza como cliente de la nota; cada línea seleccionada se copia con su cantidad pendiente completa y sin mover inventario. Se pueden agregar artículos del inventario actual, que sí generan salida y admiten anulaciones. Una misma orden puede alimentar varias notas mientras queden cantidades pendientes; las líneas provenientes de la orden no admiten anulación.
+
+En el origen de orden, cada artículo solo requiere destinatario. No se solicita indicación, medida ni corte en estas líneas; la modalidad sigue el formato simple de la nota regular.
 
 Antes de facturar, una nota puede registrar varias devoluciones parciales en estructuras propias del módulo, con movimientos tipo `7`. La nota original conserva su número y queda pendiente mientras aún haya material entregado; se anula al devolverlo todo. Una devolución posterior a la factura sigue el proceso de devoluciones de facturas.
 
@@ -42,15 +46,16 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 | Devolución parcial previa a factura | Admitir varias devoluciones y mantener la nota original; anular solo al devolver todas sus líneas. |
 | Devolución de notas | Registrar en estructuras nuevas, separadas de las devoluciones de facturas. |
 | Nota desde factura | Copiar líneas y cantidades elegidas sin precios; no modificar inventario, saldo o anulaciones. |
+| Nota desde orden de compra | Copiar cantidades pendientes completas; no mover inventario en las líneas de la orden. Los artículos locales agregados sí descuentan stock y admiten anulaciones. No solicitar indicación por línea en esta modalidad. |
 | Comprobante | Imprimible en formato de media hoja. |
 
 ## Estado del proyecto
 
-El esquema del módulo, sus procedimientos regulares y el procedimiento desde facturas están instalados en la base local `pruebas`. La columna `destinatario` reemplazó la relación de proveedor en `detallenotasentrega`; la guía [guiaDB.md](guiaDB.md) registra el estado local y el procedimiento correcto para otros entornos. El usuario probó desde la interfaz dos emisiones: una con un destinatario predefinido y otra con **Otro**. Las líneas históricas afectadas por una migración parcial en esta base quedaron identificadas con `No especificado (nota historica)`. La modalidad desde facturas está en la rama `feat/notas-entrega-desde-facturas`.
+El esquema del módulo, los orígenes desde facturas y órdenes y sus cuatro procedimientos están instalados en la base local `pruebas`. La migración de órdenes agregó `notasentrega.idordencompra_origen`, reemplazó los procedimientos de emisión y anulaciones y se verificó con diez órdenes de ensayo (`9374`–`9383`), que solo existen como datos locales de prueba. La columna `destinatario` reemplazó la relación de proveedor en `detallenotasentrega`; la guía [guiaDB.md](guiaDB.md) registra el estado local y el procedimiento correcto para otros entornos. El usuario probó desde la interfaz dos emisiones regulares, una con un destinatario predefinido y otra con **Otro**. Las líneas históricas afectadas por una migración parcial en esta base quedaron identificadas con `No especificado (nota historica)`. Esta rama agrega el origen de orden y queda pendiente la revisión funcional desde la interfaz.
 
 ## Próximas etapas
 
-Emisión, anulaciones e impresión ya fueron revisadas e integradas. El cambio de destinatarios está implementado y probado en la copia local. En la rama actual se trabaja la emisión desde facturas; después de su revisión se continuará con órdenes de compra, manteniendo el ciclo acordado: una rama por cambio, prueba del usuario y revisión antes del PR.
+Emisión, anulaciones e impresión ya fueron revisadas e integradas. Los destinatarios y la modalidad desde facturas están implementados y probados. Esta rama agrega emisión desde órdenes de compra; su SQL ya se aplicó en `pruebas`. El usuario puede revisar desde la interfaz usando las órdenes de ensayo antes de dar el visto bueno para crear el PR. Se mantiene una rama `feat/` por cambio y revisión antes de cada PR.
 
 ## Secuencia de ramas y revisiones
 
