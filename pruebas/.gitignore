@@ -33,6 +33,7 @@ style=expanded
 assets/img/logo.png
 assets/img/logos/*
 !assets/img/logos/.gitkeep
+!assets/img/logos/aceros-griegos.jpeg
 assets/respaldo/*
 !assets/respaldo/.gitkeep
 pruebas/*

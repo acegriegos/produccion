@@ -141,6 +141,22 @@
     });
     contenedor.appendChild(acciones);
   }
+  function agregarEnlaceOrigen(contenedor, idDocumento, numero, tipo) {
+    var id = Number(idDocumento);
+    var etiqueta = numero || idDocumento;
+    if (!Number.isInteger(id) || id < 1) {
+      contenedor.appendChild(document.createTextNode(String(etiqueta)));
+      return;
+    }
+    var enlace = document.createElement('a');
+    enlace.className = 'ne-link-factura';
+    enlace.href = 'facturacion?accion=6&id=' + encodeURIComponent(id) + '&tp=false';
+    enlace.target = '_blank';
+    enlace.rel = 'noopener';
+    enlace.title = 'Ver ' + tipo + ' ' + etiqueta;
+    enlace.textContent = etiqueta;
+    contenedor.appendChild(enlace);
+  }
   function botonResultado(etiqueta, objeto, seleccionar) {
     var boton = document.createElement('button');
     boton.type = 'button';
@@ -934,7 +950,9 @@
         var celdaFactura = document.createElement('td');
         if (nota.idordencompra_origen != null) {
           var ordenTexto = document.createElement('div');
-          ordenTexto.textContent = 'Orden: ' + (nota.orden_origen_numero || nota.idordencompra_origen);
+          ordenTexto.appendChild(document.createTextNode('Orden: '));
+          agregarEnlaceOrigen(ordenTexto, nota.idordencompra_origen,
+            nota.orden_origen_numero, 'orden de compra');
           celdaFactura.appendChild(ordenTexto);
           if (nota.idfactura != null) {
             var enlaceFacturaOrden = document.createElement('div');
@@ -942,7 +960,9 @@
             celdaFactura.appendChild(enlaceFacturaOrden);
           }
         } else if (nota.idfactura_origen != null) {
-          celdaFactura.textContent = 'Origen: ' + (nota.factura_origen_numero || nota.idfactura_origen);
+          celdaFactura.appendChild(document.createTextNode('Origen: '));
+          agregarEnlaceOrigen(celdaFactura, nota.idfactura_origen,
+            nota.factura_origen_numero, 'factura de origen');
         } else {
           renderizarEnlaceFactura(celdaFactura, nota.idfactura);
         }
@@ -1307,8 +1327,9 @@
         var celdaOrigen = el('ne-d-factura');
         celdaOrigen.replaceChildren();
         var ordenOrigenTexto = document.createElement('div');
-        ordenOrigenTexto.textContent = 'Orden de compra: '
-          + (nota.orden_origen_numero || nota.idordencompra_origen);
+        ordenOrigenTexto.appendChild(document.createTextNode('Orden de compra: '));
+        agregarEnlaceOrigen(ordenOrigenTexto, nota.idordencompra_origen,
+          nota.orden_origen_numero, 'orden de compra');
         celdaOrigen.appendChild(ordenOrigenTexto);
         if (nota.idfactura != null) {
           var facturaCreada = document.createElement('div');
@@ -1320,7 +1341,10 @@
         }
       } else if (Number(nota.origen) === 2 && nota.idfactura_origen != null) {
         texto('ne-d-factura-label', 'Factura de origen:');
-        texto('ne-d-factura', nota.factura_origen_numero || nota.idfactura_origen);
+        var facturaOrigenDetalle = el('ne-d-factura');
+        facturaOrigenDetalle.replaceChildren();
+        agregarEnlaceOrigen(facturaOrigenDetalle, nota.idfactura_origen,
+          nota.factura_origen_numero, 'factura de origen');
       } else {
         texto('ne-d-factura-label', 'Factura:');
         renderizarEnlaceFactura(el('ne-d-factura'), nota.idfactura);

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=19">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=20">
 </head>
 <body>
   {$NAV}
@@ -334,7 +334,10 @@
       </div>
       <article class="ne-boleta" id="ne-boleta" aria-label="Boleta de entrega">
         <div class="ne-boleta-head">
-          <div><strong>ACEROS GRIEGOS</strong><span>Nota de Entrega</span></div>
+          <div class="ne-boleta-identidad">
+            <img class="ne-boleta-logo" src="../assets/img/logos/aceros-griegos.jpeg" alt="Logo de Aceros Griegos" width="220" height="63">
+            <div><strong>ACEROS GRIEGOS</strong><span>Nota de Entrega</span></div>
+          </div>
           <div class="ne-boleta-numero" id="ne-d-numero"></div>
         </div>
         <div class="ne-boleta-datos">
@@ -385,6 +388,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=19"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=20"></script>
 </body>
 </html>
