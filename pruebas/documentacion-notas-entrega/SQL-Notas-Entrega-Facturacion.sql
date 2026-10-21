@@ -1,5 +1,7 @@
 -- Facturacion atomica de notas de entrega. MariaDB 10.3.
--- Para orden de instalacion y precondiciones, consultar guiaDB.md.
+-- Requiere el esquema de origen de facturas y ordenes instalado.
+-- Las lineas copiadas de una orden se facturan sin requerir existencia local.
+-- Para el orden de instalacion y precondiciones, consultar guiaDB.md.
 -- Crea el encabezado con la misma numeracion y efectos contables de ventas,
 -- pero inserta detallefacturas directamente para no descontar stock de nuevo.
 USE `pruebas`;
@@ -42,6 +44,8 @@ procedimiento: BEGIN
     DECLARE v_unidad INT DEFAULT 0;
     DECLARE v_cantidad DECIMAL(23,2) DEFAULT 0;
     DECLARE v_stock DECIMAL(12,4) DEFAULT 0;
+    DECLARE v_origen_nota TINYINT DEFAULT 1;
+    DECLARE v_iddetalle_origen INT DEFAULT NULL;
     DECLARE v_devuelta DECIMAL(23,2) DEFAULT 0;
     DECLARE v_stock_devuelto DECIMAL(12,4) DEFAULT 0;
     DECLARE v_texto VARCHAR(600) DEFAULT NULL;
@@ -483,6 +487,7 @@ procedimiento: BEGIN
         END IF;
         SELECT d.idnota, d.idproducto, d.idunidad, d.cantidad,
                d.cantidad_inventario, d.iddetallefactura,
+               d.iddetallefactura_origen, n.origen,
                COALESCE((SELECT SUM(dd.cantidad_devuelta)
                            FROM detalledevolucionesnotasentrega dd
                            INNER JOIN devolucionesnotasentrega dv ON dv.id = dd.iddevolucion
@@ -492,15 +497,20 @@ procedimiento: BEGIN
                            INNER JOIN devolucionesnotasentrega dv ON dv.id = dd.iddevolucion
                           WHERE dv.idnota = d.idnota AND dd.iddetallenota = d.id), 0)
           INTO v_detalle_nota, v_producto, v_unidad, v_cantidad, v_stock,
-               v_factura_actual, v_devuelta, v_stock_devuelto
+               v_factura_actual, v_iddetalle_origen, v_origen_nota,
+               v_devuelta, v_stock_devuelto
           FROM detallenotasentrega d
+          INNER JOIN notasentrega n ON n.id = d.idnota
          WHERE d.id = v_detalle FOR UPDATE;
         IF v_factura_actual IS NOT NULL THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La linea ya esta vinculada a una factura';
         END IF;
         SET v_cantidad = v_cantidad - v_devuelta;
         SET v_stock = v_stock - v_stock_devuelto;
-        IF v_cantidad <= 0 OR v_stock <= 0 THEN
+        IF v_cantidad <= 0 OR v_stock < 0
+           OR (v_stock = 0 AND NOT (
+               v_origen_nota = 3 AND v_iddetalle_origen IS NOT NULL
+           )) THEN
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La linea seleccionada no tiene material pendiente';
         END IF;
         IF v_descuento > (v_precio * v_cantidad) THEN

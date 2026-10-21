@@ -26,9 +26,9 @@ Revisa cualquier resultado con TI antes de seguir. Cuando no haya conflictos y e
 2. [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) — migra ese campo intermedio a `destinatario`.
 3. [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql) — instala `sp_emitir_nota_entrega`.
 4. [SQL-Notas-Entrega-Devoluciones.sql](SQL-Notas-Entrega-Devoluciones.sql) — instala `sp_devolver_nota_entrega`.
-5. [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql) — instala `sp_facturar_notas_entrega`.
-6. [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) — agrega el origen factura y el estado cerrado, permite inventario cero en sus líneas e instala `sp_emitir_nota_desde_factura`.
-7. [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql) — agrega la referencia a la orden de compra, actualiza la emisión regular para aceptar líneas de orden y artículos locales, y bloquea la anulación de las líneas que vienen de la orden.
+5. [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) — agrega el origen factura y el estado cerrado, permite inventario cero en sus líneas e instala `sp_emitir_nota_desde_factura`.
+6. [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql) — agrega la referencia a la orden de compra, actualiza emisión para aceptar líneas de orden y artículos locales, y bloquea la anulación de las líneas que vienen de la orden.
+7. [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql) — instala `sp_facturar_notas_entrega` con soporte para facturar las líneas de origen orden aunque no descuenten inventario.
 
 No uses esta secuencia si las tablas del módulo ya existen. La migración inicial no está diseñada para repetirse ni para reanudarse desde la mitad si falla. Los `ALTER TABLE` incrementales tampoco son repetibles: si un archivo termina con error después de agregar columnas, revisa el estado antes de volver a ejecutarlo para evitar duplicar columnas o índices.
 
@@ -51,8 +51,9 @@ Para una base que ya tiene las tablas de Notas de Entrega y todavía conserva `d
 2. Ejecuta completo [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql). Reemplaza `sp_emitir_nota_entrega` para guardar el destinatario de cada línea.
 3. Revisa si las columnas de origen factura ya existen. Si faltan, ejecuta [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) para agregarlas e instalar su procedimiento.
 4. Si `idordencompra_origen` aún no existe, ejecuta [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql). Requiere el origen factura, reemplaza `sp_emitir_nota_entrega` y `sp_devolver_nota_entrega`, y se aplica una sola vez.
+5. Después de instalar los orígenes, ejecuta completo [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql) para instalar o actualizar el procedimiento de facturación. Este archivo solo reemplaza el procedimiento y puede volver a ejecutarse cuando se requiera actualizar su lógica.
 
-La migración de destinatarios debe terminar correctamente antes de instalar los procedimientos. Los scripts de devoluciones y facturación no forman parte de esta actualización; ejecútalos solo si sus procedimientos aún no están instalados o necesitas actualizarlos.
+La migración de destinatarios debe terminar correctamente antes de instalar los procedimientos. Ejecuta el SQL de anulaciones solo si ese procedimiento falta o requiere actualización. El procedimiento de facturación sí debe instalarse o actualizarse después de los SQL de origen, porque usa el campo `origen` para permitir facturar líneas de orden sin existencia local.
 
 ## Si la base ya tiene `destinatario`
 
@@ -64,7 +65,7 @@ SHOW COLUMNS FROM detallenotasentrega LIKE 'idproveedor';
 SHOW COLUMNS FROM detallenotasentrega LIKE 'destinatario';
 ```
 
-Si `destinatario` existe y `idproveedor` no existe, la migración de destinatarios ya está aplicada. No repitas esa migración. Revisa las columnas de origen con las consultas anteriores. Ejecuta `SQL-Notas-Entrega-Desde-Facturas.sql` solo si todavía faltan `origen`, `idfactura_origen` o `iddetallefactura_origen`. Después, ejecuta `SQL-Notas-Entrega-Desde-Ordenes-Compra.sql` solo si falta `idordencompra_origen`. Ejecuta `SQL-Notas-Entrega-Emision.sql` solo si necesitas actualizar la emisión regular antes de la migración de órdenes.
+Si `destinatario` existe y `idproveedor` no existe, la migración de destinatarios ya está aplicada. No repitas esa migración. Revisa las columnas de origen con las consultas anteriores. Ejecuta `SQL-Notas-Entrega-Desde-Facturas.sql` solo si todavía faltan `origen`, `idfactura_origen` o `iddetallefactura_origen`. Después, ejecuta `SQL-Notas-Entrega-Desde-Ordenes-Compra.sql` solo si falta `idordencompra_origen`. Finalmente, ejecuta completo `SQL-Notas-Entrega-Facturacion.sql` para instalar la versión que admite líneas de orden sin stock local. Ejecuta `SQL-Notas-Entrega-Emision.sql` solo si necesitas actualizar la emisión regular antes de la migración de órdenes.
 
 Si ambos campos existen, detente y revisa el estado de la migración antes de continuar. Si ninguno existe, no ejecutes la migración normal a ciegas: primero revisa un respaldo para recuperar los nombres históricos. El archivo [SQL-Notas-Entrega-Destinatarios-Reparacion.sql](SQL-Notas-Entrega-Destinatarios-Reparacion.sql) es una recuperación excepcional de la base local `pruebas`; asigna `No especificado (nota historica)` a líneas antiguas y **no es el procedimiento normal para producción**.
 
@@ -125,9 +126,9 @@ Para el esquema final, `destinatario` debe existir como `VARCHAR(150) NOT NULL` 
 
 En la base local `pruebas`, la migración de destinatarios quedó reparada y verificada: `destinatario` existe como campo obligatorio y `idproveedor` ya no está. Las líneas históricas afectadas por la ejecución parcial quedaron con el texto `No especificado (nota historica)`, porque el identificador anterior ya se había eliminado. Los cuatro procedimientos están instalados. El usuario confirmó dos emisiones desde la interfaz, una con un destinatario fijo y otra con **Otro**.
 
-El SQL de emisión desde factura está instalado en `pruebas`; se verificaron las columnas de origen y `sp_emitir_nota_desde_factura` en MariaDB. La migración de órdenes también fue aplicada en `pruebas`: existe `notasentrega.idordencompra_origen`, el procedimiento de emisión tiene diez parámetros y se reemplazaron los procedimientos de emisión y anulaciones. Se agregaron diez órdenes locales de ensayo, consecutivos `9374` a `9383`, para probar el flujo; esos registros son datos de desarrollo y no se incluyen en los SQL de despliegue.
+El SQL de emisión desde factura está instalado en `pruebas`; se verificaron las columnas de origen y `sp_emitir_nota_desde_factura` en MariaDB. La migración de órdenes también fue aplicada en `pruebas`: existe `notasentrega.idordencompra_origen`, el procedimiento de emisión tiene diez parámetros y se reemplazaron los procedimientos de emisión y anulaciones. Se agregó soporte para facturar líneas copiadas de una orden con `cantidad_inventario = 0`; la versión actualizada de `sp_facturar_notas_entrega` ya está instalada en la base local para que el usuario pruebe el flujo. Se agregaron diez órdenes locales de ensayo, consecutivos `9374` a `9383`; esos registros son datos de desarrollo y no se incluyen en los SQL de despliegue.
 
-En otra base, ejecuta Desde Facturas después de la migración de destinatarios y de instalar los procedimientos regulares; luego ejecuta Desde Órdenes de Compra una sola vez. La nota de origen factura queda en estado `4` (cerrada), no mueve inventario y no admite anulaciones. Se pueden emitir varias notas desde la misma factura sin saldo acumulado entre ellas; cada cantidad queda limitada a la cantidad de su línea de factura.
+En otra base, ejecuta Desde Facturas después de la migración de destinatarios y de instalar los procedimientos regulares; luego ejecuta Desde Órdenes de Compra una sola vez y reinstala Facturación al final. El procedimiento de facturación requiere que las columnas de origen ya existan. Las notas de origen factura quedan en estado `4` (cerradas), no mueven inventario y no admiten anulaciones. Se pueden emitir varias notas desde la misma factura sin saldo acumulado entre ellas; cada cantidad queda limitada a la cantidad de su línea de factura.
 
 La ruta normal para una base que conserva `idproveedor` sigue siendo la migración de destinatarios del primer apartado; no se debe copiar a otras bases el marcador histórico de la reparación local.
 
@@ -140,7 +141,7 @@ La ruta normal para una base que conserva `idproveedor` sigue siendo la migraci�
 | `SQL-Notas-Entrega-Destinatarios-Reparacion.sql` | Recuperación excepcional local cuando ambas columnas faltan; reemplaza nombres históricos por un marcador. |
 | `SQL-Notas-Entrega-Emision.sql` | Instala o reemplaza el procedimiento de emisión compatible con destinatarios. |
 | `SQL-Notas-Entrega-Devoluciones.sql` | Instala o reemplaza el procedimiento de anulaciones/devoluciones parciales. |
-| `SQL-Notas-Entrega-Facturacion.sql` | Instala o reemplaza el procedimiento de facturación de notas. |
+| `SQL-Notas-Entrega-Facturacion.sql` | Instala o reemplaza el procedimiento de facturación de notas. En el esquema final, ejecútalo después de las migraciones de origen factura y orden. |
 | `SQL-Notas-Entrega-Desde-Facturas.sql` | Migración incremental de origen factura e instalación de la emisión cerrada desde una venta. Requiere el módulo con destinatarios ya instalado y se ejecuta una sola vez por base. |
 | `SQL-Notas-Entrega-Desde-Ordenes-Compra.sql` | Migración incremental de origen orden de compra. Requiere el SQL de origen factura; agrega la columna y clave foránea, reemplaza los procedimientos de emisión y anulaciones, y se ejecuta una sola vez por base. |
 
