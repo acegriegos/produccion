@@ -22,7 +22,7 @@ El objetivo es registrar cada entrega, generar una boleta de media hoja, descont
 
 Como flujo separado, una factura de venta emitida puede originar una nota informativa con algunas de sus líneas y cantidades. Se conserva el cliente y los materiales sin precios, la nota queda cerrada y no genera movimientos de inventario ni anulaciones. Este flujo no calcula saldo contra notas anteriores.
 
-Una orden de compra existente también puede originar una nota. El proveedor guardado en la orden se utiliza como cliente de la nota; cada línea seleccionada se copia con su cantidad pendiente completa y sin mover inventario. Se pueden agregar artículos del inventario actual, que sí generan salida y admiten anulaciones. Una misma orden puede alimentar varias notas mientras queden cantidades pendientes; las líneas provenientes de la orden no admiten anulación.
+Una orden de compra existente también puede originar una nota. El proveedor guardado en la orden se utiliza como cliente de la nota; cada línea seleccionada se copia con su cantidad pendiente completa y sin mover inventario. Se pueden agregar artículos del inventario actual, que sí generan salida y admiten anulaciones. Una misma orden puede alimentar varias notas mientras queden cantidades pendientes; las líneas provenientes de la orden no admiten anulación. La nota queda pendiente de factura: al facturarla se conserva la cantidad de la línea de orden, pero no se requiere ni se modifica inventario local.
 
 En el origen de orden, cada artículo solo requiere destinatario. No se solicita indicación, medida ni corte en estas líneas; la modalidad sigue el formato simple de la nota regular.
 

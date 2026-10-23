@@ -75,6 +75,7 @@ No se ha establecido ninguna dependencia de WebSocket para este módulo.
 4. Emitir una segunda nota desde la misma orden y comprobar que solo aparezcan las líneas con saldo. Una línea de orden no debe admitir anulación parcial ni total.
 5. Imprimir una nota desde orden y confirmar que no muestre la sucursal, use `Referencia: C-<número>` y marque con `C` los materiales de la orden y con `I` los materiales locales. Imprimir una nota desde factura y confirmar `Referencia: F-<número>` y la marca `F` en sus materiales.
 6. En una línea regular, una línea de factura y una línea de orden, seleccionar `CLIENTE RETIRO` y confirmar que se guarde y aparezca en el comprobante.
+7. Preparar una factura con una nota de orden que contenga material de la orden y artículos locales; todas las líneas deben facturarse y la operación no debe volver a modificar inventario.
 
 ## Registro de avance
 

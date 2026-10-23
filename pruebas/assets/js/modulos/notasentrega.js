@@ -152,6 +152,22 @@
     var consecutivo = String(numero || '').replace(/\D/g, '');
     return prefijo + '-' + (consecutivo || String(idDocumento || ''));
   }
+  function agregarEnlaceReferenciaOrigen(contenedor, prefijo, numero, idDocumento, tipo) {
+    var id = Number(idDocumento);
+    var etiqueta = codigoReferenciaOrigen(prefijo, numero, idDocumento);
+    if (!Number.isInteger(id) || id < 1) {
+      contenedor.appendChild(document.createTextNode(etiqueta));
+      return;
+    }
+    var enlace = document.createElement('a');
+    enlace.className = 'ne-link-factura';
+    enlace.href = 'facturacion?accion=6&id=' + encodeURIComponent(id) + '&tp=false';
+    enlace.target = '_blank';
+    enlace.rel = 'noopener';
+    enlace.title = 'Ver ' + tipo + ' ' + etiqueta;
+    enlace.textContent = etiqueta;
+    contenedor.appendChild(enlace);
+  }
   function conectarBusqueda(input, contenedor, tipo, seleccionar, limpiar) {
     var seccion = input.closest('.ne-panel').id.slice(3);
     var secuencia = 0;
@@ -939,18 +955,20 @@
         agregarCelda(fila, estadoNombre(nota.idestado));
         var celdaFactura = document.createElement('td');
         if (nota.idordencompra_origen != null) {
-          celdaFactura.textContent = 'Referencia: ' + codigoReferenciaOrigen(
-            'C', nota.orden_origen_numero, nota.idordencompra_origen
-          );
+          var ordenTexto = document.createElement('div');
+          ordenTexto.appendChild(document.createTextNode('Referencia: '));
+          agregarEnlaceReferenciaOrigen(ordenTexto, 'C', nota.orden_origen_numero,
+            nota.idordencompra_origen, 'orden de compra');
+          celdaFactura.appendChild(ordenTexto);
           if (nota.idfactura != null) {
             var enlaceFacturaOrden = document.createElement('div');
             renderizarEnlaceFactura(enlaceFacturaOrden, nota.idfactura);
             celdaFactura.appendChild(enlaceFacturaOrden);
           }
         } else if (nota.idfactura_origen != null) {
-          celdaFactura.textContent = 'Referencia: ' + codigoReferenciaOrigen(
-            'F', nota.factura_origen_numero, nota.idfactura_origen
-          );
+          celdaFactura.appendChild(document.createTextNode('Referencia: '));
+          agregarEnlaceReferenciaOrigen(celdaFactura, 'F', nota.factura_origen_numero,
+            nota.idfactura_origen, 'factura de origen');
         } else {
           renderizarEnlaceFactura(celdaFactura, nota.idfactura);
         }
@@ -1319,18 +1337,20 @@
       el('ne-d-factura-creada').replaceChildren();
       if (Number(nota.origen) === 3 && nota.idordencompra_origen != null) {
         texto('ne-d-factura-label', 'Referencia:');
-        texto('ne-d-factura', codigoReferenciaOrigen(
-          'C', nota.orden_origen_numero, nota.idordencompra_origen
-        ));
+        var celdaOrigen = el('ne-d-factura');
+        celdaOrigen.replaceChildren();
+        agregarEnlaceReferenciaOrigen(celdaOrigen, 'C', nota.orden_origen_numero,
+          nota.idordencompra_origen, 'orden de compra');
         if (nota.idfactura != null) {
           el('ne-d-factura-creada-row').hidden = false;
           renderizarEnlaceFactura(el('ne-d-factura-creada'), nota.idfactura);
         }
       } else if (Number(nota.origen) === 2 && nota.idfactura_origen != null) {
         texto('ne-d-factura-label', 'Referencia:');
-        texto('ne-d-factura', codigoReferenciaOrigen(
-          'F', nota.factura_origen_numero, nota.idfactura_origen
-        ));
+        var facturaOrigenDetalle = el('ne-d-factura');
+        facturaOrigenDetalle.replaceChildren();
+        agregarEnlaceReferenciaOrigen(facturaOrigenDetalle, 'F', nota.factura_origen_numero,
+          nota.idfactura_origen, 'factura de origen');
       } else {
         texto('ne-d-factura-label', 'Factura:');
         renderizarEnlaceFactura(el('ne-d-factura'), nota.idfactura);
