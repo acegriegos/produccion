@@ -38,7 +38,7 @@ Antes de facturar, una nota puede registrar varias devoluciones parciales en est
 | Estado | Guardar una bandera con pendiente, facturada, anulada o cerrada desde factura. |
 | Fechas | Guardar fecha de emisión; las devoluciones guardan su propia fecha. No hay `fecha_entrega` en la nota. |
 | Cantidades | Capturar y devolver hasta dos decimales; conservar la cantidad entregada, devuelta y sus equivalentes que afectaron inventario. |
-| Destinatario | Elegir por artículo entre CURUBANDE, ZAGRA, METALMECANICA GRECIA o NELSON, o escribir otro nombre. Se guarda en la línea sin catálogo ni relación con clientes. |
+| Destinatario | Elegir por artículo entre CURUBANDE, ZAGRA, METALMECANICA GRECIA, NELSON o CLIENTE RETIRO, o escribir otro nombre. Se guarda en la línea sin catálogo ni relación con clientes. |
 | Cliente contado | Guardar `idcliente = NULL` y `nombre_cliente` obligatorio en la nota. La factura usa `idcliente = 0` y copia ese nombre a `comodin`; para contado el nombre no excede 64 caracteres. |
 | Facturación | Una nota se factura una vez en una sola factura por la cantidad neta todavía entregada; una factura puede agrupar varias notas. |
 | Importes | Definir precios, descuentos e impuestos al facturar. |

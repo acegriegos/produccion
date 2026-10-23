@@ -148,6 +148,10 @@
     boton.addEventListener('click', function () { seleccionar(objeto); });
     return boton;
   }
+  function codigoReferenciaOrigen(prefijo, numero, idDocumento) {
+    var consecutivo = String(numero || '').replace(/\D/g, '');
+    return prefijo + '-' + (consecutivo || String(idDocumento || ''));
+  }
   function conectarBusqueda(input, contenedor, tipo, seleccionar, limpiar) {
     var seccion = input.closest('.ne-panel').id.slice(3);
     var secuencia = 0;
@@ -265,7 +269,7 @@
       '<div class="ne-linea-head"><strong class="ne-renglon"></strong><button type="button" class="btn ne-secondary ne-quitar">Quitar</button></div>' +
       '<div class="ne-linea-grid">' +
       '<div class="ne-search"><label>Artículo<input class="ne-producto" type="search" placeholder="Código o descripción"></label><div class="ne-resultados ne-productos"></div><p class="ne-stock">Seleccione un artículo</p></div>' +
-      '<div class="ne-search"><label>Destinatario<select class="ne-destinatario browser-default" required><option value="">Seleccione destinatario</option><option value="CURUBANDE">CURUBANDE</option><option value="ZAGRA">ZAGRA</option><option value="METALMECANICA GRECIA">METALMECANICA GRECIA</option><option value="NELSON">NELSON</option><option value="__otro">Otro</option></select></label><label class="ne-destinatario-libre-contenedor" hidden>Nombre del destinatario<input class="ne-destinatario-libre" type="text" maxlength="150"></label></div>' +
+      '<div class="ne-search"><label>Destinatario<select class="ne-destinatario browser-default" required><option value="">Seleccione destinatario</option><option value="CURUBANDE">CURUBANDE</option><option value="ZAGRA">ZAGRA</option><option value="METALMECANICA GRECIA">METALMECANICA GRECIA</option><option value="NELSON">NELSON</option><option value="CLIENTE RETIRO">CLIENTE RETIRO</option><option value="__otro">Otro</option></select></label><label class="ne-destinatario-libre-contenedor" hidden>Nombre del destinatario<input class="ne-destinatario-libre" type="text" maxlength="150"></label></div>' +
       '<label>Unidad<select class="ne-unidad browser-default" required><option value="">Seleccione artículo</option></select></label>' +
       '<label>Cantidad<input class="ne-cantidad" type="number" min="0.01" step="0.01" required></label>' +
       (mostrarIndicacion ? '<label class="ne-linea-notas">Indicación, medida o corte (opcional)<input class="ne-linea-observaciones" type="text" maxlength="255"></label>' : '') +
@@ -483,6 +487,7 @@
       crearOpcion(destinatario, 'ZAGRA', 'ZAGRA');
       crearOpcion(destinatario, 'METALMECANICA GRECIA', 'METALMECANICA GRECIA');
       crearOpcion(destinatario, 'NELSON', 'NELSON');
+      crearOpcion(destinatario, 'CLIENTE RETIRO', 'CLIENTE RETIRO');
       crearOpcion(destinatario, '__otro', 'Otro');
       celdaDestinatario.appendChild(destinatario);
       var otro = document.createElement('input');
@@ -705,6 +710,7 @@
       crearOpcion(destinatario, 'ZAGRA', 'ZAGRA');
       crearOpcion(destinatario, 'METALMECANICA GRECIA', 'METALMECANICA GRECIA');
       crearOpcion(destinatario, 'NELSON', 'NELSON');
+      crearOpcion(destinatario, 'CLIENTE RETIRO', 'CLIENTE RETIRO');
       crearOpcion(destinatario, '__otro', 'Otro');
       var otro = document.createElement('input');
       otro.type = 'text';
@@ -933,16 +939,18 @@
         agregarCelda(fila, estadoNombre(nota.idestado));
         var celdaFactura = document.createElement('td');
         if (nota.idordencompra_origen != null) {
-          var ordenTexto = document.createElement('div');
-          ordenTexto.textContent = 'Orden: ' + (nota.orden_origen_numero || nota.idordencompra_origen);
-          celdaFactura.appendChild(ordenTexto);
+          celdaFactura.textContent = 'Referencia: ' + codigoReferenciaOrigen(
+            'C', nota.orden_origen_numero, nota.idordencompra_origen
+          );
           if (nota.idfactura != null) {
             var enlaceFacturaOrden = document.createElement('div');
             renderizarEnlaceFactura(enlaceFacturaOrden, nota.idfactura);
             celdaFactura.appendChild(enlaceFacturaOrden);
           }
         } else if (nota.idfactura_origen != null) {
-          celdaFactura.textContent = 'Origen: ' + (nota.factura_origen_numero || nota.idfactura_origen);
+          celdaFactura.textContent = 'Referencia: ' + codigoReferenciaOrigen(
+            'F', nota.factura_origen_numero, nota.idfactura_origen
+          );
         } else {
           renderizarEnlaceFactura(celdaFactura, nota.idfactura);
         }
@@ -1197,7 +1205,7 @@
         });
         lineasEnFactura = [];
         el('ne-facturar-resumen').textContent = notasEnFactura.length + ' nota(s) · '
-          + notasEnFactura[0].nombre_cliente + ' · Sucursal ' + notasEnFactura[0].idsucursal;
+          + notasEnFactura[0].nombre_cliente;
         renderizarLineasFactura();
         aviso('', false, 'listado');
         cambiarTab('facturar');
@@ -1299,28 +1307,30 @@
       texto('ne-d-cedula', nota.cliente_cedula);
       texto('ne-d-fecha', nota.fecha_emision);
       texto('ne-d-usuario', nota.usuario_nombre || nota.idusuario);
-      texto('ne-d-sucursal', nota.idsucursal);
       texto('ne-d-estado', estadoNombre(nota.idestado));
       texto('ne-d-referencia', nota.referencia);
+      var origenTieneReferencia = (Number(nota.origen) === 3 && nota.idordencompra_origen != null)
+        || (Number(nota.origen) === 2 && nota.idfactura_origen != null);
+      var referenciaManual = String(nota.referencia || '').trim();
+      el('ne-d-referencia').parentElement.hidden = origenTieneReferencia && !referenciaManual;
+      texto('ne-d-referencia-label', origenTieneReferencia && referenciaManual
+        ? 'Referencia adicional:' : 'Referencia:');
+      el('ne-d-factura-creada-row').hidden = true;
+      el('ne-d-factura-creada').replaceChildren();
       if (Number(nota.origen) === 3 && nota.idordencompra_origen != null) {
-        texto('ne-d-factura-label', 'Origen:');
-        var celdaOrigen = el('ne-d-factura');
-        celdaOrigen.replaceChildren();
-        var ordenOrigenTexto = document.createElement('div');
-        ordenOrigenTexto.textContent = 'Orden de compra: '
-          + (nota.orden_origen_numero || nota.idordencompra_origen);
-        celdaOrigen.appendChild(ordenOrigenTexto);
+        texto('ne-d-factura-label', 'Referencia:');
+        texto('ne-d-factura', codigoReferenciaOrigen(
+          'C', nota.orden_origen_numero, nota.idordencompra_origen
+        ));
         if (nota.idfactura != null) {
-          var facturaCreada = document.createElement('div');
-          facturaCreada.textContent = 'Factura: ';
-          var enlaceFacturaCreada = document.createElement('div');
-          renderizarEnlaceFactura(enlaceFacturaCreada, nota.idfactura);
-          facturaCreada.appendChild(enlaceFacturaCreada);
-          celdaOrigen.appendChild(facturaCreada);
+          el('ne-d-factura-creada-row').hidden = false;
+          renderizarEnlaceFactura(el('ne-d-factura-creada'), nota.idfactura);
         }
       } else if (Number(nota.origen) === 2 && nota.idfactura_origen != null) {
-        texto('ne-d-factura-label', 'Factura de origen:');
-        texto('ne-d-factura', nota.factura_origen_numero || nota.idfactura_origen);
+        texto('ne-d-factura-label', 'Referencia:');
+        texto('ne-d-factura', codigoReferenciaOrigen(
+          'F', nota.factura_origen_numero, nota.idfactura_origen
+        ));
       } else {
         texto('ne-d-factura-label', 'Factura:');
         renderizarEnlaceFactura(el('ne-d-factura'), nota.idfactura);
@@ -1333,11 +1343,18 @@
         agregarCelda(fila, linea.renglon);
         var celdaMaterial = agregarCelda(fila,
           (linea.producto_codigo || '') + ' · ' + linea.producto_descripcion);
+        var codigoOrigenMaterial = null;
         if (Number(nota.origen) === 3) {
+          codigoOrigenMaterial = linea.iddetallefactura_origen != null ? 'C' : 'I';
+        } else if (Number(nota.origen) === 2) {
+          codigoOrigenMaterial = 'F';
+        } else {
+          codigoOrigenMaterial = 'I';
+        }
+        if (codigoOrigenMaterial) {
           var origenMaterial = document.createElement('small');
           origenMaterial.className = 'ne-origen-material';
-          origenMaterial.textContent = linea.iddetallefactura_origen != null
-            ? 'Orden de compra' : 'Inventario local';
+          origenMaterial.textContent = codigoOrigenMaterial;
           celdaMaterial.appendChild(document.createElement('br'));
           celdaMaterial.appendChild(origenMaterial);
         }

@@ -84,7 +84,7 @@ Las tablas, tipos, índices y estados implementados están descritos en [la espe
 
 ## Validaciones y acceso
 
-- Confirmar artículo, destinatario, unidad y sucursal. La nota puede comenzar sin cliente de catálogo con nombre obligatorio; al facturar ese caso se usa cliente contado `0` y se copia el nombre a `facturas.comodin` (máximo 64 caracteres). El destinatario se selecciona **por línea** entre cuatro opciones fijas o se escribe libremente; no se consulta ni guarda en el catálogo de clientes.
+- Confirmar artículo, destinatario, unidad y sucursal. La nota puede comenzar sin cliente de catálogo con nombre obligatorio; al facturar ese caso se usa cliente contado `0` y se copia el nombre a `facturas.comodin` (máximo 64 caracteres). El destinatario se selecciona **por línea** entre cinco opciones fijas —`CURUBANDE`, `ZAGRA`, `METALMECANICA GRECIA`, `NELSON` y `CLIENTE RETIRO`— o se escribe libremente; no se consulta ni guarda en el catálogo de clientes.
 - Exigir cantidades positivas y suficientes existencias al emitir; no confiar únicamente en la validación de la pantalla.
 - Impedir editar los datos materiales de una nota emitida, facturar una anulada, anular una facturada o vincular una nota dos veces.
 - Reutilizar el acceso por módulo, clases HTML y datos de sesión existentes; el mismo usuario registra y emite. Ocultar acciones no autorizadas en la pantalla y verificar la autorización también en PHP antes de llamar a los SP.

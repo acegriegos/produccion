@@ -342,10 +342,10 @@
           <p><strong>Identificación:</strong> <span id="ne-d-cedula"></span></p>
           <p><strong>Emisión:</strong> <span id="ne-d-fecha"></span></p>
           <p><strong>Responsable:</strong> <span id="ne-d-usuario"></span></p>
-          <p><strong>Sucursal:</strong> <span id="ne-d-sucursal"></span></p>
           <p><strong>Estado:</strong> <span id="ne-d-estado"></span></p>
-          <p><strong>Referencia:</strong> <span id="ne-d-referencia"></span></p>
+          <p><strong id="ne-d-referencia-label">Referencia:</strong> <span id="ne-d-referencia"></span></p>
           <p><strong id="ne-d-factura-label">Factura:</strong> <span id="ne-d-factura"></span></p>
+          <p id="ne-d-factura-creada-row" hidden><strong>Factura:</strong> <span id="ne-d-factura-creada"></span></p>
         </div>
         <p class="ne-boleta-material-titulo"># Código y material</p>
         <div class="ne-table-wrap">
@@ -385,6 +385,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=19"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=21"></script>
 </body>
 </html>
