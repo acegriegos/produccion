@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Notas de Entrega</title>
   {$STY}
-  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=20">
+  <link rel="stylesheet" href="../assets/css/modulos/style-notasentrega.css?v=21">
 </head>
 <body>
   {$NAV}
@@ -353,7 +353,7 @@
         <p class="ne-boleta-material-titulo"># Código y material</p>
         <div class="ne-table-wrap">
           <table>
-            <thead><tr><th>#</th><th>Código y material</th><th>Destinatario</th><th>Unidad</th><th>Cantidad</th><th>Indicación</th></tr></thead>
+            <thead><tr><th>#</th><th>Código y material</th><th>Destinatario</th><th>Cantidad</th><th>Unidad</th><th>Indicación</th></tr></thead>
             <tbody id="ne-d-lineas"></tbody>
           </table>
         </div>
@@ -388,6 +388,6 @@
     </section>
   </main>
   {$SCR}
-  <script src="../assets/js/modulos/notasentrega.js?v=22"></script>
+  <script src="../assets/js/modulos/notasentrega.js?v=23"></script>
 </body>
 </html>

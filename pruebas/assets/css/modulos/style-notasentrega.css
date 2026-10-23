@@ -177,7 +177,10 @@
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(2) { font-weight: 700; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(2)::before { content: '# Código y material'; display: block; margin-bottom: 2px; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(3)::before { content: 'Destinatario: '; font-weight: 700; }
-  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(4)::before { content: 'Unidad: '; font-weight: 700; }
-  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(5)::before { content: 'Cantidad: '; font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(4) { display: inline-block !important; width: auto; white-space: nowrap; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(4)::before { content: 'Cantidad: '; font-weight: 700; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(4)::after { content: ' — '; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(5) { display: inline-block !important; width: auto; white-space: nowrap; }
+  #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(5)::before { content: 'Unidad: '; font-weight: 700; }
   #ne-app.ne-formato-pv .ne-boleta tbody td:nth-child(6)::before { content: 'Indicación: '; font-weight: 700; }
 }

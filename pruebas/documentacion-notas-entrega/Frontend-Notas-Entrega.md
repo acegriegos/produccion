@@ -73,7 +73,7 @@ No se ha establecido ninguna dependencia de WebSocket para este módulo.
 2. Seleccionar líneas de orden y verificar que se copien completas, con destinatario por material y sin campo de indicación.
 3. Agregar un artículo local a esa misma nota y confirmar que solo ese artículo descuenta inventario y puede anularse.
 4. Emitir una segunda nota desde la misma orden y comprobar que solo aparezcan las líneas con saldo. Una línea de orden no debe admitir anulación parcial ni total.
-5. Imprimir una nota desde orden y confirmar que no muestre la sucursal, use `Referencia: C-<número>` y marque con `C` los materiales de la orden y con `I` los materiales locales. Imprimir una nota desde factura y confirmar `Referencia: F-<número>` y la marca `F` en sus materiales.
+5. Imprimir una nota desde orden y confirmar que no muestre la sucursal, use `Referencia: C-<número>`, marque con `C` los materiales de la orden y con `I` los materiales locales, y muestre cantidad y unidad juntas en una línea en formato punto de venta. Imprimir una nota desde factura y confirmar `Referencia: F-<número>` y la marca `F` en sus materiales.
 6. En una línea regular, una línea de factura y una línea de orden, seleccionar `CLIENTE RETIRO` y confirmar que se guarde y aparezca en el comprobante.
 7. Preparar una factura con una nota de orden que contenga material de la orden y artículos locales; todas las líneas deben facturarse y la operación no debe volver a modificar inventario.
 

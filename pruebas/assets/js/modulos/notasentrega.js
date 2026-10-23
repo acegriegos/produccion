@@ -1379,8 +1379,8 @@
           celdaMaterial.appendChild(origenMaterial);
         }
         agregarCelda(fila, linea.destinatario);
-        agregarCelda(fila, linea.unidad_nombre || linea.idunidad);
         agregarCelda(fila, linea.cantidad);
+        agregarCelda(fila, linea.unidad_nombre || linea.idunidad);
         agregarCelda(fila, linea.observaciones);
         tbody.appendChild(fila);
       });
