@@ -1,6 +1,7 @@
--- Procedimiento transaccional para devoluciones/anulaciones previas a facturar.
--- Para orden de instalacion y precondiciones, consultar guiaDB.md.
--- No ejecutar la migración nuevamente en la base local `pruebas`.
+-- Procedimiento base para anulaciones parciales de notas regulares. MariaDB 10.3.
+-- Instalar antes de SQL-Notas-Entrega-Desde-Ordenes-Compra.sql.
+-- La migración de órdenes reemplaza este procedimiento por la versión que protege sus líneas.
+-- No ejecutar esta versión después de SQL-Notas-Entrega-Desde-Ordenes-Compra.sql.
 USE `pruebas`;
 
 DROP PROCEDURE IF EXISTS `sp_devolver_nota_entrega`;

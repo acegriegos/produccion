@@ -1,8 +1,7 @@
--- Permite emitir notas informativas a partir de facturas de venta.
--- Instalar en un modulo existente con destinatario ya migrado.
--- Para el orden y las precondiciones, consultar guiaDB.md.
+-- Migración de una sola ejecución para emitir notas informativas desde facturas de venta.
+-- Requiere el esquema del módulo con destinatario y sus procedimientos regulares instalados.
+-- No modifica existencias ni registra movimientos. Consultar guiaDB.md antes de ejecutar.
 -- MariaDB 10.3. Ejecutar el archivo completo como SQL Script en DBeaver.
--- Esta operacion no modifica existencias ni registra movimientos.
 USE `pruebas`;
 
 ALTER TABLE `notasentrega`

@@ -1,9 +1,8 @@
--- Facturacion atomica de notas de entrega. MariaDB 10.3.
--- Requiere el esquema de origen de facturas y ordenes instalado.
--- Las lineas copiadas de una orden se facturan sin requerir existencia local.
--- Para el orden de instalacion y precondiciones, consultar guiaDB.md.
--- Crea el encabezado con la misma numeracion y efectos contables de ventas,
--- pero inserta detallefacturas directamente para no descontar stock de nuevo.
+-- Procedimiento final de facturación atómica de notas de entrega. MariaDB 10.3.
+-- Requiere las migraciones de origen factura y orden instaladas.
+-- Puede ejecutarse de nuevo para reemplazar este procedimiento; no altera el esquema.
+-- Las líneas de orden se facturan sin volver a descontar existencias.
+-- Consultar guiaDB.md para el orden de instalación.
 USE `pruebas`;
 
 DROP PROCEDURE IF EXISTS `sp_facturar_notas_entrega`;

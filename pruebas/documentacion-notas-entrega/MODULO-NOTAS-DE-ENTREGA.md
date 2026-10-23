@@ -1,77 +1,47 @@
 # Módulo de Notas de Entrega
 
-## Naturaleza de la integración
+## Propósito y arquitectura
 
-Este módulo se desarrolla dentro de la copia de pruebas del sistema existente de Aceros Griegos, en `C:\logintech\apache\htdocs\produccion\pruebas`. Permite entregar acero cuando la factura debe esperar al siguiente período de facturación. La Nota de Entrega respalda la salida física, actualiza las existencias al emitirse y permanece identificada hasta su facturación posterior.
+El módulo permite registrar e imprimir comprobantes de entrega y relacionar cada nota con su origen y su eventual factura. Se integra en la aplicación PHP existente y reutiliza su autenticación, permisos, clientes, productos, unidades, inventario y facturación.
 
-El módulo aprovecha los catálogos, la gestión de inventario, la facturación y los usuarios actuales. Añade únicamente lo necesario para registrar, emitir, consultar, imprimir, anular y facturar entregas sin perder su relación con los movimientos de stock.
+La estructura sigue las capas del proyecto:
 
-## Problema y objetivo
+1. **Vista:** dashboard/view/v_notasentrega.tpl renderiza la pantalla con Smarty.
+2. **Interacción:** assets/js/modulos/notasentrega.js controla pestañas, búsquedas, validación, emisión, consulta, impresión y preparación de facturas.
+3. **Controlador:** dashboard/control/ctr_notasentrega.php procesa la ruta, valida sesión, permiso, CSRF y datos de entrada.
+4. **Modelo:** dashboard/model/m_notasentrega.php consulta catálogos y llama los procedimientos almacenados.
+5. **Base de datos:** las tablas y procedimientos guardan las notas, sus líneas, movimientos, anulaciones y vínculos de facturación.
 
-Algunos clientes cierran su ciclo de facturación antes de que termine el mes, aunque todavía necesitan recibir material. Sin un registro específico, la entrega física, el comprobante, el inventario y la factura posterior pueden quedar separados o depender de controles manuales.
+No se incorpora otro framework ni un servicio separado. El detalle de instalación de SQL está en [guiaDB.md](guiaDB.md).
 
-El objetivo es registrar cada entrega, generar una boleta de media hoja, descontar el inventario al emitirla y mantener la nota pendiente hasta facturar todo el material que continúa entregado. Las devoluciones previas reducen esa cantidad; la factura no vuelve a descontar inventario.
+## Modalidades de emisión
 
-## Flujo general
+La pantalla permite elegir un origen antes de emitir:
 
-1. Un usuario registra y emite la nota en una sola operación, con el nombre del cliente, uno o varios artículos, cantidades de hasta dos decimales y el destinatario correspondiente a cada artículo. Si el cliente es de contado, la nota guarda `idcliente = NULL` y su nombre libre.
-2. Al guardar la nota, el sistema descuenta las existencias y permite imprimir la boleta. Su ID único es el número del comprobante; no hay borradores.
-3. La nota queda pendiente de facturación y puede consultarse junto con el responsable y sus movimientos.
-4. En el período correspondiente, se reúnen una o varias notas del mismo cliente y sucursal en una factura. Se facturan sus cantidades netas luego de devoluciones; los precios, descuentos e impuestos se definen en ese momento. Para cliente contado se usa `facturas.idcliente = 0` y el nombre libre en `facturas.comodin`.
-5. La factura conserva el vínculo con todas las notas y sus líneas; el inventario ya descontado no se vuelve a afectar.
+- **Nota regular:** se selecciona un cliente registrado o se escribe un cliente contado. Cada línea incluye artículo, destinatario, unidad, cantidad y una indicación opcional. El procedimiento descuenta inventario 6 al emitir.
+- **Desde factura:** se busca una factura de venta y se seleccionan algunas o todas sus líneas, con cantidades parciales o completas. El comprobante no expone precios ni impuestos, no mueve inventario ni calcula saldo contra otras notas, y queda cerrado sin opción de anulación.
+- **Desde orden de compra:** se busca una orden existente y se copian líneas elegidas por su cantidad pendiente completa. El proveedor de la orden se usa como cliente. También se pueden añadir artículos del inventario actual en la misma nota: las líneas de la orden no cambian inventario y no admiten anulación; las líneas locales sí generan salida y pueden anularse. Esta modalidad no solicita indicación por línea.
 
-Como flujo separado, una factura de venta emitida puede originar una nota informativa con algunas de sus líneas y cantidades. Se conserva el cliente y los materiales sin precios, la nota queda cerrada y no genera movimientos de inventario ni anulaciones. Este flujo no calcula saldo contra notas anteriores.
+Cada línea guarda un destinatario en texto: CURUBANDE, ZAGRA, METALMECANICA GRECIA, NELSON, CLIENTE RETIRO o un nombre libre. No existe un catálogo de destinatarios.
 
-Una orden de compra existente también puede originar una nota. El proveedor guardado en la orden se utiliza como cliente de la nota; cada línea seleccionada se copia con su cantidad pendiente completa y sin mover inventario. Se pueden agregar artículos del inventario actual, que sí generan salida y admiten anulaciones. Una misma orden puede alimentar varias notas mientras queden cantidades pendientes; las líneas provenientes de la orden no admiten anulación. La nota queda pendiente de factura: al facturarla se conserva la cantidad de la línea de orden, pero no se requiere ni se modifica inventario local.
+## Consulta, anulaciones y facturación
 
-En el origen de orden, cada artículo solo requiere destinatario. No se solicita indicación, medida ni corte en estas líneas; la modalidad sigue el formato simple de la nota regular.
+La consulta permite filtrar por estado, cliente, rango de fechas y responsable. Una nota regular pendiente puede recibir varias anulaciones parciales o una anulación de todo el material pendiente. Cada anulación repone únicamente lo recibido de las líneas de inventario; no afecta materiales de orden ni notas cerradas desde factura. La nota regular pasa a anulada cuando todo el material entregado se devuelve.
 
-Antes de facturar, una nota puede registrar varias devoluciones parciales en estructuras propias del módulo, con movimientos tipo `7`. La nota original conserva su número y queda pendiente mientras aún haya material entregado; se anula al devolverlo todo. Una devolución posterior a la factura sigue el proceso de devoluciones de facturas.
+Las notas regulares pendientes pueden agruparse para facturar si pertenecen al mismo cliente y sucursal. La factura incluye cantidades netas después de anulaciones, conserva el vínculo con nota y línea, y no vuelve a descontar inventario. Las notas creadas desde órdenes conservan también la cantidad de origen, aunque esas líneas no tuvieran stock local. Las notas creadas desde facturas no entran en este flujo.
 
-## Decisiones confirmadas
+El número de la nota es su ID. En el comprobante se puede elegir formato **Punto de venta** o **A4**. La referencia de una orden se presenta como C más su número y la referencia de una factura como F más su número; cada artículo lleva C, F o I según su origen. La impresión no muestra precios ni la sucursal, e imprime cantidad y unidad juntas en la misma línea.
 
-| Tema | Decisión |
-| --- | --- |
-| Inventario | Descontar al emitir la nota; no descontar de nuevo al facturarla. |
-| Emisión | Registrar, emitir y habilitar la impresión en una sola operación, sin borradores. |
-| Responsable | Guardar el usuario que registra y emite; reutilizar los permisos existentes en pantalla y servidor. No se guarda un vendedor independiente. |
-| Estado | Guardar una bandera con pendiente, facturada, anulada o cerrada desde factura. |
-| Fechas | Guardar fecha de emisión; las devoluciones guardan su propia fecha. No hay `fecha_entrega` en la nota. |
-| Cantidades | Capturar y devolver hasta dos decimales; conservar la cantidad entregada, devuelta y sus equivalentes que afectaron inventario. |
-| Destinatario | Elegir por artículo entre CURUBANDE, ZAGRA, METALMECANICA GRECIA, NELSON o CLIENTE RETIRO, o escribir otro nombre. Se guarda en la línea sin catálogo ni relación con clientes. |
-| Cliente contado | Guardar `idcliente = NULL` y `nombre_cliente` obligatorio en la nota. La factura usa `idcliente = 0` y copia ese nombre a `comodin`; para contado el nombre no excede 64 caracteres. |
-| Facturación | Una nota se factura una vez en una sola factura por la cantidad neta todavía entregada; una factura puede agrupar varias notas. |
-| Importes | Definir precios, descuentos e impuestos al facturar. |
-| Numeración | Usar el ID único de la nota como número de boleta. |
-| Devolución parcial previa a factura | Admitir varias devoluciones y mantener la nota original; anular solo al devolver todas sus líneas. |
-| Devolución de notas | Registrar en estructuras nuevas, separadas de las devoluciones de facturas. |
-| Nota desde factura | Copiar líneas y cantidades elegidas sin precios; no modificar inventario, saldo o anulaciones. |
-| Nota desde orden de compra | Copiar cantidades pendientes completas; no mover inventario en las líneas de la orden. Los artículos locales agregados sí descuentan stock y admiten anulaciones. No solicitar indicación por línea en esta modalidad. |
-| Comprobante | Imprimible en formato de media hoja. |
+## Acceso y dependencias
 
-## Estado del proyecto
+El módulo usa la sesión y el permiso existente de Facturación. El controlador vuelve a verificar permisos antes de aceptar operaciones. El registro de clientes nuevos requiere nombre y cédula; correo y otros datos permitidos son opcionales, y se rechaza una cédula o correo duplicado.
 
-El esquema del módulo, los orígenes desde facturas y órdenes y sus cuatro procedimientos están instalados en la base local `pruebas`. La migración de órdenes agregó `notasentrega.idordencompra_origen`, reemplazó los procedimientos de emisión y anulaciones y se verificó con diez órdenes de ensayo (`9374`–`9383`), que solo existen como datos locales de prueba. La columna `destinatario` reemplazó la relación de proveedor en `detallenotasentrega`; la guía [guiaDB.md](guiaDB.md) registra el estado local y el procedimiento correcto para otros entornos. El usuario probó desde la interfaz dos emisiones regulares, una con un destinatario predefinido y otra con **Otro**. Las líneas históricas afectadas por una migración parcial en esta base quedaron identificadas con `No especificado (nota historica)`. Esta rama agrega el origen de orden y queda pendiente la revisión funcional desde la interfaz.
+Los datos de usuarios, permisos, clientes, destinatarios fijos, productos y órdenes dependen de la aplicación base. Los scripts del módulo no crean un usuario administrador ni cargan datos de prueba. No hay envío de correo o almacenamiento externo nuevo para emitir e imprimir notas.
 
-## Próximas etapas
+## Documentación
 
-Emisión, anulaciones e impresión ya fueron revisadas e integradas. Los destinatarios y la modalidad desde facturas están implementados y probados. Esta rama agrega emisión desde órdenes de compra; su SQL ya se aplicó en `pruebas`. El usuario puede revisar desde la interfaz usando las órdenes de ensayo antes de dar el visto bueno para crear el PR. Se mantiene una rama `feat/` por cambio y revisión antes de cada PR.
-
-## Secuencia de ramas y revisiones
-
-Cada rama parte de `master` actualizado y termina en un PR hacia `master`, que es la rama principal de este repositorio. No se abrirá la siguiente rama sobre trabajo sin fusionar de la anterior.
-
-Las primeras etapas (emisión, interfaz, anulaciones y facturación) ya se desarrollaron y se integraron en `master` mediante sus PR. La rama `feat/notas-entrega-destinatarios` reemplaza el proveedor por destinatario por línea; el usuario verificó dos casos desde la interfaz. Las etapas nuevas se desarrollarán en ramas `feat/` independientes y se presentarán para revisión antes de crear cada PR.
-
-Dentro de cada rama habrá varios commits con cambios relacionados y pruebas de la regla que se introduce. Los comentarios en PHP y SQL explicarán transacciones, conversión de unidades, permisos y decisiones que evitan duplicados; las operaciones evidentes se dejarán legibles mediante nombres claros.
-
-## Documentación de la integración
-
-- [Guía de base de datos para TI](guiaDB.md): único punto de entrada para decidir qué SQL ejecutar, el orden y las verificaciones.
-- [Base de datos](DB-Notas-Entrega.md): estructuras existentes, tablas propuestas, relaciones y reglas de consistencia.
-- [Archivos SQL](guiaDB.md#archivos-sql-de-esta-guia): la guía describe uso y secuencia; cada script también incluye una referencia a ella.
-- [Backend](Backend-Notas-Entrega.md): integración PHP/MariaDB, emisión, inventario, anulaciones y facturación sin doble descuento.
-- [Frontend](Frontend-Notas-Entrega.md): pantallas, referencia visual y boleta imprimible.
-- [README](../README.md): cómo arrancar y consultar el sistema local.
-
-La documentación separa el estado local comprobado del procedimiento de instalación en otras bases. Para ejecutar SQL, seguir siempre `guiaDB.md`.
+- [Guía de base de datos para TI](guiaDB.md): precondiciones, instalación limpia, actualización con respaldo, orden SQL y validación final.
+- [Esquema de base de datos](DB-Notas-Entrega.md): columnas, tipos, valores por defecto, índices, claves, restricciones y catálogos iniciales.
+- [Backend](Backend-Notas-Entrega.md): endpoints, validación, permisos, procedimientos e inventario.
+- [Frontend y comprobante](Frontend-Notas-Entrega.md): pantallas, búsqueda, origen y formatos de impresión.
+- [README de la copia de pruebas](../README.md): arranque local de esta aplicación.

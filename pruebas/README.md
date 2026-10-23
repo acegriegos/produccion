@@ -116,10 +116,10 @@ También se trasladó la corrección de la recarga continua: las consultas inter
 
 ## Documentación del Módulo de Notas de Entrega
 
-Para instalar o actualizar su base de datos, TI debe empezar por la [Guía de base de datos](documentacion-notas-entrega/guiaDB.md). Allí se indica qué archivos SQL ejecutar y en qué orden según el estado de la instalación. No ejecutes directamente la migración inicial en una base que ya tenga el módulo.
+Empieza por la [Guía de base de datos para TI](documentacion-notas-entrega/guiaDB.md). Contiene los requisitos, el orden exacto de los SQL para una instalación limpia del módulo y la ruta de actualización de una base existente con respaldo y validaciones. Los SQL no crean la base completa de la aplicación y PHP no los ejecuta automáticamente.
 
-- [Guía de base de datos para TI](documentacion-notas-entrega/guiaDB.md)
-- [Objetivo y flujo general](documentacion-notas-entrega/MODULO-NOTAS-DE-ENTREGA.md)
-- [Diseño y estado de base de datos](documentacion-notas-entrega/DB-Notas-Entrega.md)
-- [Backend](documentacion-notas-entrega/Backend-Notas-Entrega.md)
-- [Frontend y boleta](documentacion-notas-entrega/Frontend-Notas-Entrega.md)
+- [Guía de base de datos: instalación y actualización](documentacion-notas-entrega/guiaDB.md)
+- [Resumen del módulo y sus capas](documentacion-notas-entrega/MODULO-NOTAS-DE-ENTREGA.md)
+- [Esquema final de base de datos](documentacion-notas-entrega/DB-Notas-Entrega.md)
+- [Backend, endpoints y reglas](documentacion-notas-entrega/Backend-Notas-Entrega.md)
+- [Interfaz, flujos e impresión](documentacion-notas-entrega/Frontend-Notas-Entrega.md)

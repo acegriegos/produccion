@@ -1,7 +1,7 @@
--- Backend de emision de notas de entrega con destinatario por linea. MariaDB 10.3.
--- Instalar despues de la migracion de destinatarios segun guiaDB.md.
--- El procedimiento es atomico: cabecera, lineas, stock y movimientos se
--- confirman juntos. Nunca usar sp_mantdetallefacturas para esta operacion.
+-- Procedimiento base para emitir notas regulares con destinatario por línea. MariaDB 10.3.
+-- Instalar después de SQL-Notas-Entrega-Destinatarios.sql y antes de Desde-Ordenes-Compra.sql.
+-- La migración de órdenes reemplaza este procedimiento por la versión final de diez parámetros.
+-- No ejecutar esta versión después de SQL-Notas-Entrega-Desde-Ordenes-Compra.sql.
 USE `pruebas`;
 
 DROP PROCEDURE IF EXISTS `sp_emitir_nota_entrega`;

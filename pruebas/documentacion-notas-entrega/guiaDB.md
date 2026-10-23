@@ -1,147 +1,221 @@
-# Guía de instalación de base de datos — Notas de Entrega
+# Guía de base de datos — Notas de Entrega
 
-Guía operativa para instalar o actualizar el soporte de base de datos del módulo en MariaDB 10.3. El código PHP no ejecuta estos cambios automáticamente.
+Esta es la guía operativa para instalar o actualizar el módulo en una copia de la aplicación. Ejecuta los SQL en el orden indicado y en la base que usa la aplicación.
 
-> **Antes de empezar:** confirma la base seleccionada y haz un respaldo. Los scripts incluidos usan `USE pruebas`; si el destino tiene otro nombre, cambia esa instrucción en cada archivo que vayas a ejecutar. No ejecutes la migración inicial sobre una base donde ya existe el módulo. Las migraciones incrementales de destinatarios, facturas y órdenes se ejecutan una sola vez por base.
+> Los archivos SQL de esta carpeta instalan únicamente el módulo. No crean la base completa de Aceros Griegos. Una base realmente vacía necesita primero el esquema y los datos base de la aplicación, que no están versionados en este repositorio.
 
-## Caso más probable: la base aún no tiene instalado el módulo
+## Requisitos y alcance
 
-Usa este flujo si la base ya tiene el sistema de la empresa, pero todavía no tiene las tablas ni los procedimientos de Notas de Entrega. Primero confirma que los IDs aprobados estén disponibles. La migración inicial hace `INSERT` directos y se detendrá si encuentra colisiones:
+- MariaDB 10.3 o compatible con los procedimientos, transacciones, claves foráneas, restricciones CHECK y funciones JSON usados por los scripts.
+- PHP con mysqli y el esquema completo de la aplicación existente.
+- La cuenta que ejecute los scripts necesita permisos para crear y alterar tablas, índices y claves, actualizar datos de la migración y crear/reemplazar procedimientos. La cuenta de la aplicación necesita los permisos de lectura/escritura y ejecución de procedimientos que ya usa el resto del sistema. No se incluyen GRANT con usuarios específicos.
+- La base debe tener los catálogos y estructuras que consume el sistema: clientes, usuarios, sucursales, permisos, permisosusuarios, productos, unidades, dimensiones, inventarios, detalle de inventarios, movimientos, facturas, detalle de facturas, consecutivos, monedas, tipos de factura, ajustes y tablas de soporte de facturación.
+- También deben existir la función convercion y el procedimiento krattos, provistos por la aplicación base. Los SQL de Notas de Entrega no los crean.
+- En esta copia los scripts apuntan explícitamente a la base pruebas. Antes de ejecutar, confirma SELECT DATABASE(); y que la aplicación esté configurada para usar esa misma base. No ejecutes los scripts contra una base productiva por accidente.
+- El módulo no instala extensiones, funciones ni triggers propios. Sus procedimientos usan funciones JSON que vienen con MariaDB.
 
-```sql
-SELECT id, nombre
-FROM tablas
-WHERE id IN (520, 521, 522, 523)
-   OR nombre IN ('notasentrega', 'detallenotasentrega',
-                 'devolucionesnotasentrega', 'detalledevolucionesnotasentrega');
+No hay una herramienta automática de migraciones en esta copia y PHP no aplica SQL al iniciar. Los archivos SQL son migraciones manuales, algunas de una sola ejecución. No ejecutes el instalador inicial y el procedimiento de actualización sobre la misma instalación.
 
-SELECT id, nombre
-FROM tipomovimientos
-WHERE id = 10 OR nombre = 'Notas de Entrega';
-```
+## Instalación limpia del módulo
 
-Revisa cualquier resultado con TI antes de seguir. Cuando no haya conflictos y el esquema base de la aplicación ya exista, ejecuta los archivos completos en este orden:
+Usa este procedimiento cuando la base existente de la aplicación todavía no tenga ninguna de las cuatro tablas del módulo. No aplica a una instancia MariaDB sin esquema de la aplicación.
 
-1. [SQL-Notas-Entrega-Migracion.sql](SQL-Notas-Entrega-Migracion.sql) — crea las cuatro tablas, sus entradas en `tablas` y el tipo de movimiento `10`. Esta versión inicial crea el campo intermedio `idproveedor`.
-2. [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) — migra ese campo intermedio a `destinatario`.
-3. [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql) — instala `sp_emitir_nota_entrega`.
-4. [SQL-Notas-Entrega-Devoluciones.sql](SQL-Notas-Entrega-Devoluciones.sql) — instala `sp_devolver_nota_entrega`.
-5. [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) — agrega el origen factura y el estado cerrado, permite inventario cero en sus líneas e instala `sp_emitir_nota_desde_factura`.
-6. [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql) — agrega la referencia a la orden de compra, actualiza emisión para aceptar líneas de orden y artículos locales, y bloquea la anulación de las líneas que vienen de la orden.
-7. [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql) — instala `sp_facturar_notas_entrega` con soporte para facturar las líneas de origen orden aunque no descuenten inventario.
+### 1. Comprobar la base y sus dependencias
 
-No uses esta secuencia si las tablas del módulo ya existen. La migración inicial no está diseñada para repetirse ni para reanudarse desde la mitad si falla. Los `ALTER TABLE` incrementales tampoco son repetibles: si un archivo termina con error después de agregar columnas, revisa el estado antes de volver a ejecutarlo para evitar duplicar columnas o índices.
+Conéctate a la base de pruebas de la aplicación y ejecuta:
 
-Antes de ejecutar las etapas incrementales sobre una base existente, revisa qué origen ya está instalado:
+    SELECT DATABASE() AS base_seleccionada, VERSION() AS version_mariadb;
 
-```sql
-SHOW COLUMNS FROM notasentrega LIKE 'origen';
-SHOW COLUMNS FROM notasentrega LIKE 'idfactura_origen';
-SHOW COLUMNS FROM notasentrega LIKE 'idordencompra_origen';
-SHOW COLUMNS FROM detallenotasentrega LIKE 'iddetallefactura_origen';
-```
+    SELECT TABLE_NAME
+    FROM information_schema.TABLES
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME IN (
+        'clientes', 'usuarios', 'sucursales', 'permisos', 'permisosusuarios',
+        'productos', 'unidades', 'dimensioproductos', 'inventarios',
+        'detalleinventarios', 'movimientos', 'tablas', 'tipomovimientos',
+        'facturas', 'detallefacturas', 'consecutivos', 'ajustes',
+        'monedas', 'tipofacturas', 'correos', 'estadoscuentas', 'log',
+        'msdetallefacturas'
+      )
+    ORDER BY TABLE_NAME;
 
-Si aparecen `origen`, `idfactura_origen` e `iddetallefactura_origen`, omite el SQL de Desde Facturas y ejecuta solo el SQL de órdenes si aún falta `idordencompra_origen`. Si `idordencompra_origen` ya existe, no repitas esa migración: comprueba también que `sp_emitir_nota_entrega` tenga diez parámetros y que existan los procedimientos reemplazados. Las migraciones incrementales no se repiten porque sus `ALTER TABLE` no son idempotentes.
+    SELECT ROUTINE_NAME, ROUTINE_TYPE
+    FROM information_schema.ROUTINES
+    WHERE ROUTINE_SCHEMA = DATABASE()
+      AND ((ROUTINE_TYPE = 'FUNCTION' AND ROUTINE_NAME = 'convercion')
+        OR (ROUTINE_TYPE = 'PROCEDURE' AND ROUTINE_NAME = 'krattos'));
 
-## Si el módulo ya existe y conserva `idproveedor`
+El nombre de la base debe ser pruebas. La consulta de tablas debe devolver todos los objetos listados y la consulta de rutinas debe mostrar convercion como FUNCTION y krattos como PROCEDURE. Si falta una dependencia, instala o repara primero la aplicación base.
 
-Para una base que ya tiene las tablas de Notas de Entrega y todavía conserva `detallenotasentrega.idproveedor`:
+Comprueba que el módulo no esté instalado parcialmente y que los identificadores reservados estén disponibles:
 
-1. Ejecuta completo [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql). Copia los nombres históricos desde `clientes.nombre`, crea `destinatario` y elimina la FK, el índice y la columna anterior. Es una migración de una sola vez.
-2. Ejecuta completo [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql). Reemplaza `sp_emitir_nota_entrega` para guardar el destinatario de cada línea.
-3. Revisa si las columnas de origen factura ya existen. Si faltan, ejecuta [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) para agregarlas e instalar su procedimiento.
-4. Si `idordencompra_origen` aún no existe, ejecuta [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql). Requiere el origen factura, reemplaza `sp_emitir_nota_entrega` y `sp_devolver_nota_entrega`, y se aplica una sola vez.
-5. Después de instalar los orígenes, ejecuta completo [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql) para instalar o actualizar el procedimiento de facturación. Este archivo solo reemplaza el procedimiento y puede volver a ejecutarse cuando se requiera actualizar su lógica.
+    SELECT TABLE_NAME
+    FROM information_schema.TABLES
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME IN (
+        'notasentrega', 'detallenotasentrega',
+        'devolucionesnotasentrega', 'detalledevolucionesnotasentrega'
+      );
 
-La migración de destinatarios debe terminar correctamente antes de instalar los procedimientos. Ejecuta el SQL de anulaciones solo si ese procedimiento falta o requiere actualización. El procedimiento de facturación sí debe instalarse o actualizarse después de los SQL de origen, porque usa el campo `origen` para permitir facturar líneas de orden sin existencia local.
+    SELECT id, nombre
+    FROM tablas
+    WHERE id BETWEEN 520 AND 523
+       OR nombre IN (
+         'notasentrega', 'detallenotasentrega',
+         'devolucionesnotasentrega', 'detalledevolucionesnotasentrega'
+       );
 
-## Si la base ya tiene `destinatario`
+    SELECT id, nombre
+    FROM tipomovimientos
+    WHERE id = 10 OR nombre = 'Notas de Entrega';
 
-Antes de ejecutar una migración, revisa el estado de la tabla:
+Para esta instalación limpia, las consultas de tablas y catálogos deben devolver cero filas. Si aparece una tabla o un registro, no continúes con el instalador inicial: identifica si la instalación está completa o quedó a medias. Los IDs 520–523 y el tipo de movimiento 10 son parte del contrato del módulo; si chocan con otros registros, detente y coordina la corrección con TI. No los borres ni los reasignes a ciegas.
 
-```sql
-SELECT DATABASE();
-SHOW COLUMNS FROM detallenotasentrega LIKE 'idproveedor';
-SHOW COLUMNS FROM detallenotasentrega LIKE 'destinatario';
-```
+### 2. Ejecutar los archivos
 
-Si `destinatario` existe y `idproveedor` no existe, la migración de destinatarios ya está aplicada. No repitas esa migración. Revisa las columnas de origen con las consultas anteriores. Ejecuta `SQL-Notas-Entrega-Desde-Facturas.sql` solo si todavía faltan `origen`, `idfactura_origen` o `iddetallefactura_origen`. Después, ejecuta `SQL-Notas-Entrega-Desde-Ordenes-Compra.sql` solo si falta `idordencompra_origen`. Finalmente, ejecuta completo `SQL-Notas-Entrega-Facturacion.sql` para instalar la versión que admite líneas de orden sin stock local. Ejecuta `SQL-Notas-Entrega-Emision.sql` solo si necesitas actualizar la emisión regular antes de la migración de órdenes.
+Abre cada archivo completo en DBeaver, selecciona la conexión a pruebas y usa **Execute SQL Script** (Alt+X). Ejecuta en este orden y espera a que cada archivo termine sin errores antes de continuar:
 
-Si ambos campos existen, detente y revisa el estado de la migración antes de continuar. Si ninguno existe, no ejecutes la migración normal a ciegas: primero revisa un respaldo para recuperar los nombres históricos. El archivo [SQL-Notas-Entrega-Destinatarios-Reparacion.sql](SQL-Notas-Entrega-Destinatarios-Reparacion.sql) es una recuperación excepcional de la base local `pruebas`; asigna `No especificado (nota historica)` a líneas antiguas y **no es el procedimiento normal para producción**.
+1. [SQL-Notas-Entrega-Migracion.sql](SQL-Notas-Entrega-Migracion.sql) — crea las cuatro tablas iniciales, registra sus IDs en tablas y agrega tipomovimientos.id = 10.
+2. [SQL-Notas-Entrega-Destinatarios.sql](SQL-Notas-Entrega-Destinatarios.sql) — copia el nombre histórico de proveedor a cada línea y migra la columna a texto destinatario.
+3. [SQL-Notas-Entrega-Emision.sql](SQL-Notas-Entrega-Emision.sql) — instala el procedimiento regular de emisión.
+4. [SQL-Notas-Entrega-Devoluciones.sql](SQL-Notas-Entrega-Devoluciones.sql) — instala el procedimiento base de anulaciones parciales.
+5. [SQL-Notas-Entrega-Desde-Facturas.sql](SQL-Notas-Entrega-Desde-Facturas.sql) — agrega el origen factura, permite líneas informativas con inventario cero e instala su procedimiento.
+6. [SQL-Notas-Entrega-Desde-Ordenes-Compra.sql](SQL-Notas-Entrega-Desde-Ordenes-Compra.sql) — agrega el origen orden y reemplaza emisión/anulaciones por las versiones compatibles con líneas de orden y materiales locales.
+7. [SQL-Notas-Entrega-Facturacion.sql](SQL-Notas-Entrega-Facturacion.sql) — instala el procedimiento final de facturación. Debe ser el último archivo de procedimientos, pues contempla las líneas de órdenes sin movimiento de inventario.
 
-Si una migración de órdenes agregó `idordencompra_origen` pero falló al crear uno de los procedimientos, no vuelvas a ejecutar el archivo completo. La columna y el índice ya existirían y el `ALTER TABLE` volvería a fallar. Confirma el estado con la sección siguiente y solicita la corrección puntual del procedimiento que faltó.
+No ejecutes [SQL-Notas-Entrega-Destinatarios-Reparacion.sql](SQL-Notas-Entrega-Destinatarios-Reparacion.sql): es una recuperación excepcional de la base local cuando una ejecución parcial eliminó idproveedor antes de crear destinatario. Puede reemplazar el dato histórico por un texto genérico y no forma parte de una instalación nueva.
 
-## Cómo ejecutar los archivos en DBeaver
+Los archivos de estructura Migracion, Destinatarios, Desde-Facturas y Desde-Ordenes-Compra no son repetibles. Los últimos tres contienen cambios de esquema que fallan si ya fueron aplicados. Los archivos de procedimientos eliminan el procedimiento anterior antes de crearlo; si la creación falla, verifica el estado antes de repetir el archivo.
 
-Los SQL de procedimientos incluyen `DELIMITER $$`. En DBeaver:
+### 3. Configuración del delimitador en DBeaver
 
-1. Abre las preferencias del editor SQL y entra a **SQL Processing**.
-2. Desmarca **Blank line is statement delimiter**. Mantén desmarcada **Ignore native delimiter** para que se respete `DELIMITER`.
-3. Guarda los cambios, abre el archivo completo y ejecútalo como script con **Execute SQL Script** (Alt+X). No ejecutes únicamente la línea seleccionada ni el `END$$` por separado.
-4. Revisa el resultado completo. Si ocurrió un error al crear un procedimiento, verifica si quedó instalado: cada archivo primero ejecuta `DROP PROCEDURE IF EXISTS`.
+Los archivos con procedimientos utilizan DELIMITER $$. En **Preferences → Editors → SQL Editor → SQL Processing**:
 
-La configuración de delimitadores aplica sobre todo a Emisión, Devoluciones y Facturación. Para los SQL de migración, también ejecuta el archivo completo.
+1. Desmarca **Blank line is statement delimiter**.
+2. Mantén desmarcada **Ignore native delimiter**.
+3. Guarda la preferencia y ejecuta el archivo completo con **Execute SQL Script** (Alt+X), no solo una selección ni una línea END$$.
 
-## Comprobación al terminar
+### 4. Verificar el estado final
 
-Ejecuta estas consultas en la misma conexión y base donde aplicaste los scripts:
+Ejecuta las consultas siguientes en la misma conexión:
 
-```sql
-SELECT DATABASE();
-SHOW COLUMNS FROM detallenotasentrega LIKE 'destinatario';
-SHOW COLUMNS FROM detallenotasentrega LIKE 'idproveedor';
-SHOW COLUMNS FROM notasentrega LIKE 'origen';
-SHOW COLUMNS FROM notasentrega LIKE 'idfactura_origen';
-SHOW COLUMNS FROM notasentrega LIKE 'idordencompra_origen';
-SHOW COLUMNS FROM detallenotasentrega LIKE 'iddetallefactura_origen';
+    SELECT DATABASE();
 
-SELECT CONSTRAINT_NAME, COLUMN_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
-FROM information_schema.KEY_COLUMN_USAGE
-WHERE TABLE_SCHEMA = DATABASE()
-  AND TABLE_NAME = 'notasentrega'
-  AND COLUMN_NAME = 'idordencompra_origen';
+    SHOW COLUMNS FROM notasentrega
+    WHERE Field IN ('origen', 'idfactura_origen', 'idordencompra_origen');
 
-SELECT ROUTINE_NAME
-FROM information_schema.ROUTINES
-WHERE ROUTINE_SCHEMA = DATABASE()
-  AND ROUTINE_TYPE = 'PROCEDURE'
-  AND ROUTINE_NAME IN (
-    'sp_emitir_nota_entrega',
-    'sp_devolver_nota_entrega',
-    'sp_facturar_notas_entrega',
-    'sp_emitir_nota_desde_factura'
-  )
-ORDER BY ROUTINE_NAME;
+    SHOW COLUMNS FROM detallenotasentrega
+    WHERE Field IN ('destinatario', 'idproveedor', 'iddetallefactura_origen');
 
-SELECT SPECIFIC_NAME, COUNT(*) AS parametros
-FROM information_schema.PARAMETERS
-WHERE SPECIFIC_SCHEMA = DATABASE()
-  AND SPECIFIC_NAME = 'sp_emitir_nota_entrega'
-GROUP BY SPECIFIC_NAME;
-```
+    SELECT TABLE_NAME
+    FROM information_schema.TABLES
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME IN (
+        'notasentrega', 'detallenotasentrega',
+        'devolucionesnotasentrega', 'detalledevolucionesnotasentrega'
+      )
+    ORDER BY TABLE_NAME;
 
-Para el esquema final, `destinatario` debe existir como `VARCHAR(150) NOT NULL` e `idproveedor` debe devolver cero filas. En el esquema con origen de órdenes, `idordencompra_origen` debe tener una clave foránea hacia `facturas.id` y `sp_emitir_nota_entrega` debe mostrar diez parámetros. Deben aparecer los cuatro procedimientos cuando instalaste el paquete completo. Si solo aplicaste una actualización parcial, confirma los procedimientos que corresponden a los archivos ejecutados y verifica que los anteriores sigan instalados.
+    SELECT ROUTINE_NAME, ROUTINE_TYPE
+    FROM information_schema.ROUTINES
+    WHERE ROUTINE_SCHEMA = DATABASE()
+      AND ROUTINE_TYPE = 'PROCEDURE'
+      AND ROUTINE_NAME IN (
+        'sp_emitir_nota_entrega', 'sp_devolver_nota_entrega',
+        'sp_emitir_nota_desde_factura', 'sp_facturar_notas_entrega'
+      )
+    ORDER BY ROUTINE_NAME;
 
-## Estado de la copia local de desarrollo
+    SELECT SPECIFIC_NAME, COUNT(*) AS parametros
+    FROM information_schema.PARAMETERS
+    WHERE SPECIFIC_SCHEMA = DATABASE()
+      AND SPECIFIC_NAME = 'sp_emitir_nota_entrega'
+    GROUP BY SPECIFIC_NAME;
 
-En la base local `pruebas`, la migración de destinatarios quedó reparada y verificada: `destinatario` existe como campo obligatorio y `idproveedor` ya no está. Las líneas históricas afectadas por la ejecución parcial quedaron con el texto `No especificado (nota historica)`, porque el identificador anterior ya se había eliminado. Los cuatro procedimientos están instalados. El usuario confirmó dos emisiones desde la interfaz, una con un destinatario fijo y otra con **Otro**.
+Resultado esperado: existen las cuatro tablas y los cuatro procedimientos; destinatario es VARCHAR(150) NOT NULL; idproveedor no aparece; las columnas de origen factura y orden aparecen en sus tablas; sp_emitir_nota_entrega tiene diez parámetros.
 
-El SQL de emisión desde factura está instalado en `pruebas`; se verificaron las columnas de origen y `sp_emitir_nota_desde_factura` en MariaDB. La migración de órdenes también fue aplicada en `pruebas`: existe `notasentrega.idordencompra_origen`, el procedimiento de emisión tiene diez parámetros y se reemplazaron los procedimientos de emisión y anulaciones. Se agregó soporte para facturar líneas copiadas de una orden con `cantidad_inventario = 0`; la versión actualizada de `sp_facturar_notas_entrega` ya está instalada en la base local para que el usuario pruebe el flujo. Se agregaron diez órdenes locales de ensayo, consecutivos `9374` a `9383`; esos registros son datos de desarrollo y no se incluyen en los SQL de despliegue.
+La consulta de triggers debe devolver cero filas para estas cuatro tablas, pues el módulo no instala triggers. Para comprobar índices y claves foráneas:
 
-En otra base, ejecuta Desde Facturas después de la migración de destinatarios y de instalar los procedimientos regulares; luego ejecuta Desde Órdenes de Compra una sola vez y reinstala Facturación al final. El procedimiento de facturación requiere que las columnas de origen ya existan. Las notas de origen factura quedan en estado `4` (cerradas), no mueven inventario y no admiten anulaciones. Se pueden emitir varias notas desde la misma factura sin saldo acumulado entre ellas; cada cantidad queda limitada a la cantidad de su línea de factura.
+    SHOW INDEX FROM notasentrega;
+    SHOW INDEX FROM detallenotasentrega;
+    SHOW CREATE TABLE notasentrega;
+    SHOW CREATE TABLE detallenotasentrega;
+    SHOW CREATE TABLE devolucionesnotasentrega;
+    SHOW CREATE TABLE detalledevolucionesnotasentrega;
 
-La ruta normal para una base que conserva `idproveedor` sigue siendo la migración de destinatarios del primer apartado; no se debe copiar a otras bases el marcador histórico de la reparación local.
+    SELECT TRIGGER_NAME, EVENT_OBJECT_TABLE, ACTION_TIMING, EVENT_MANIPULATION
+    FROM information_schema.TRIGGERS
+    WHERE TRIGGER_SCHEMA = DATABASE()
+      AND EVENT_OBJECT_TABLE IN (
+        'notasentrega', 'detallenotasentrega',
+        'devolucionesnotasentrega', 'detalledevolucionesnotasentrega'
+      );
 
-## Archivos SQL de esta guía
+El contrato final de columnas, índices y restricciones está documentado en [DB-Notas-Entrega.md](DB-Notas-Entrega.md).
 
-| Archivo | Uso |
-| --- | --- |
-| `SQL-Notas-Entrega-Migracion.sql` | Instalación inicial de las tablas del módulo, solo para base nueva. |
-| `SQL-Notas-Entrega-Destinatarios.sql` | Migración normal, una sola vez, desde `idproveedor` a texto `destinatario`. |
-| `SQL-Notas-Entrega-Destinatarios-Reparacion.sql` | Recuperación excepcional local cuando ambas columnas faltan; reemplaza nombres históricos por un marcador. |
-| `SQL-Notas-Entrega-Emision.sql` | Instala o reemplaza el procedimiento de emisión compatible con destinatarios. |
-| `SQL-Notas-Entrega-Devoluciones.sql` | Instala o reemplaza el procedimiento de anulaciones/devoluciones parciales. |
-| `SQL-Notas-Entrega-Facturacion.sql` | Instala o reemplaza el procedimiento de facturación de notas. En el esquema final, ejecútalo después de las migraciones de origen factura y orden. |
-| `SQL-Notas-Entrega-Desde-Facturas.sql` | Migración incremental de origen factura e instalación de la emisión cerrada desde una venta. Requiere el módulo con destinatarios ya instalado y se ejecuta una sola vez por base. |
-| `SQL-Notas-Entrega-Desde-Ordenes-Compra.sql` | Migración incremental de origen orden de compra. Requiere el SQL de origen factura; agrega la columna y clave foránea, reemplaza los procedimientos de emisión y anulaciones, y se ejecuta una sola vez por base. |
+## Actualización de una base existente sin perder datos
 
+Usa este procedimiento para una base que ya tiene el módulo regular. La ruta más común antes de esta versión tiene destinatario por línea y todavía no tiene origen factura ni orden. Se conservan las notas y demás datos existentes; las migraciones de estructura se ejecutan solo si faltan sus columnas.
+
+### 1. Respaldo e identificación
+
+Antes de cambiar esquema, crea un respaldo completo que incluya rutinas y triggers. En PowerShell, desde el directorio del proyecto, sustituye el marcador por el usuario de la base y ejecuta:
+
+    $backupDir = Join-Path $PWD 'backups'
+    New-Item -ItemType Directory -Force -Path $backupDir | Out-Null
+    $backupFile = Join-Path $backupDir 'pruebas_antes_notas_entrega.sql'
+    $dbUser = '<USUARIO_DB>'
+    & 'C:\logintech\mariadb\bin\mysqldump.exe' --host=127.0.0.1 --port=3306 "--user=$dbUser" --password --single-transaction --routines --triggers --events pruebas "--result-file=$backupFile"
+
+El argumento --password solicita la clave de forma interactiva; no la escribas en el comando ni la guardes en el repositorio. Confirma que el archivo de respaldo tenga contenido y sea legible antes de seguir.
+
+Luego ejecuta:
+
+    SELECT DATABASE() AS base_seleccionada, VERSION() AS version_mariadb;
+    SHOW COLUMNS FROM detallenotasentrega LIKE 'idproveedor';
+    SHOW COLUMNS FROM detallenotasentrega LIKE 'destinatario';
+    SHOW COLUMNS FROM notasentrega LIKE 'origen';
+    SHOW COLUMNS FROM notasentrega LIKE 'idfactura_origen';
+    SHOW COLUMNS FROM notasentrega LIKE 'idordencompra_origen';
+    SHOW COLUMNS FROM detallenotasentrega LIKE 'iddetallefactura_origen';
+
+Confirma que DATABASE() sea pruebas y usa las columnas para seleccionar los pasos que aún faltan:
+
+- El esquema de destinatarios está en uno de dos estados válidos: idproveedor presente y destinatario ausente (requiere migración), o destinatario presente e idproveedor ausente (migración ya aplicada). Si ambos campos están presentes o ambos faltan, detente y revisa el estado.
+- Para la migración desde factura, las columnas origen e idfactura_origen de notasentrega y iddetallefactura_origen de detallenotasentrega deben estar todas ausentes o todas presentes. Si están ausentes, aplica Desde-Facturas; si están presentes, omítelo. Si solo aparece parte del grupo, detente y revisa la migración parcial.
+- Si idordencompra_origen está ausente y el grupo de origen factura ya está completo, aplica Desde-Ordenes-Compra una sola vez. Si idordencompra_origen ya existe, omite el archivo. Si el campo está presente pero la FK o procedimientos no están completos, detente y revisa antes de continuar. Si las columnas de origen factura existen pero falta su procedimiento, también detente: el SQL incremental no debe repetirse para recrearlo.
+- Si existen ambas columnas de origen y sus relaciones, la estructura está actualizada. No vuelvas a ejecutar ningún SQL de estructura.
+
+### 2. Instalar o reemplazar procedimientos en el orden correcto
+
+Si todavía no se instaló el origen de órdenes y la base no está en un estado parcial, usa esta secuencia:
+
+1. Si el paso de identificación mostró idproveedor presente y destinatario ausente, ejecuta SQL-Notas-Entrega-Destinatarios.sql una vez. Si destinatario ya existe, omítelo.
+2. Ejecuta SQL-Notas-Entrega-Emision.sql.
+3. Ejecuta SQL-Notas-Entrega-Devoluciones.sql.
+4. Si faltan todas las columnas de origen factura, ejecuta SQL-Notas-Entrega-Desde-Facturas.sql. Si ya están instaladas, omítelo.
+5. Si falta idordencompra_origen, ejecuta SQL-Notas-Entrega-Desde-Ordenes-Compra.sql.
+6. Ejecuta SQL-Notas-Entrega-Facturacion.sql después de las migraciones de origen.
+
+Los archivos Emision y Devoluciones reemplazan procedimientos base y deben ejecutarse antes de Desde-Ordenes-Compra.sql, que instala las versiones finales que protegen las líneas de orden. No los vuelvas a ejecutar después de la migración de órdenes. Facturacion reemplaza solo su procedimiento y va al final.
+
+Si la base ya tiene idordencompra_origen, no uses la secuencia anterior. Verifica el estado final y no ejecutes archivos de estructura ni versiones base de emisión/anulación. Si el esquema está a medias o no coincide con ninguno de estos estados, conserva el respaldo y solicita revisión antes de ejecutar más DDL. No repitas un SQL solo porque la ejecución anterior mostró un error: algunos ALTER TABLE pueden haberse confirmado antes del fallo.
+
+## Datos iniciales, administrador y configuración adicional
+
+Los únicos registros obligatorios que agrega la instalación limpia son:
+
+- tablas: IDs 520–523 para las cuatro tablas del módulo.
+- tipomovimientos: ID 10, “Notas de Entrega”. El tipo 7 para el movimiento de anulación ya pertenece a la aplicación.
+
+Los destinatarios fijos (CURUBANDE, ZAGRA, METALMECANICA GRECIA, NELSON y CLIENTE RETIRO) están definidos en la interfaz y no se insertan en catálogo. Clientes, correos, artículos, unidades, órdenes y usuarios son datos de la aplicación; no se generan datos de prueba con estos SQL.
+
+El módulo no crea un administrador, usuarios ni contraseñas. Debe existir un usuario válido de la aplicación con acceso de escritura al permiso existente de Facturación; el administrador actual sigue el mecanismo oficial de alta y asignación de permisos de la empresa. No agregues una contraseña fija a un SQL versionado.
+
+La nota se imprime desde el navegador y no requiere servicio de correo ni almacenamiento externo propio. La facturación y su registro fiscal dependen de los servicios y configuración ya usados por la aplicación; este módulo no sustituye esa configuración.
+
+## Coordinación y archivos de migración
+
+Los SQL son la herramienta de instalación para esta copia y no se ejecutan automáticamente junto con PHP. No se debe importar un esquema completo que ya traiga las tablas del módulo y luego ejecutar también SQL-Notas-Entrega-Migracion.sql. Para una actualización se ejecuta solo el tramo pendiente según el esquema comprobado; no se recrean tablas ni se reinsertan datos iniciales.
+
+La guía refleja el orden en que se construyó el esquema final. La base local pudo haber recibido pasos anteriores manualmente; el estado de una base concreta se determina con las consultas de inspección, no por asumir que todos los SQL nunca se ejecutaron.
